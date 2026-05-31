@@ -9,6 +9,7 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
         DataContext = new ShellState("Initial title", "Refresh");
         DetailsFrame.Navigate(typeof(DetailPage), new DetailPageContext("Details ready"));
         BindingOperations.RefreshTree(this);

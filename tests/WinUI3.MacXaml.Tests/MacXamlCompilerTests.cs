@@ -51,6 +51,44 @@ public sealed class MacXamlCompilerTests
     }
 
     [TestMethod]
+    public void CompileTextGeneratesAutomationPropertyRegistrations()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Button x:Name="PrimaryButton" AutomationProperties.Name="Primary action" AutomationProperties.HelpText="Runs it" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Automation.AutomationProperties.SetName");
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Automation.AutomationProperties.SetHelpText");
+    }
+
+    [TestMethod]
+    public void CompileTextGeneratesResourceFailureAwareLookups()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <TextBlock Text="{StaticResource MissingTitle}" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.ResourceOperations.ResolveString");
+        StringAssert.Contains(result.GeneratedSource, "\"MissingTitle\"");
+    }
+
+    [TestMethod]
     public void CompileTextReportsLineDiagnosticsForUnsupportedElements()
     {
         const string xaml = """

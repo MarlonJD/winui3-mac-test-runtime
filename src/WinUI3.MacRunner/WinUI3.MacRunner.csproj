@@ -13,6 +13,8 @@
     <Nullable>enable</Nullable>
     <PackageId>MarlonJD.WinUI3.MacRunner</PackageId>
     <Description>CLI runner for Wine-free WinUI3 macOS test runtime artifacts.</Description>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>winui3-mac-runner</ToolCommandName>
   </PropertyGroup>
 
 </Project>

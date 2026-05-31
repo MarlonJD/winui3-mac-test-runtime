@@ -1,6 +1,9 @@
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Media;
+using WinUI3.MacCompat.Diagnostics;
 using WinUI3.MacRuntime;
 
 namespace WinUI3.MacRuntime.Tests;
@@ -81,6 +84,36 @@ public sealed class MacRuntimeTests
         Assert.HasCount(1, report.Steps);
         Assert.AreEqual("passed", report.Steps[0].Status);
         Assert.AreEqual("After", title.Text);
+    }
+
+    [TestMethod]
+    public void AccessibilityTreeUsesAutomationNamesAndFocusState()
+    {
+        var button = new Button { Name = "PrimaryButton", Content = "Continue" };
+        AutomationProperties.SetName(button, "Primary action");
+        AutomationProperties.SetHelpText(button, "Runs the primary action");
+        button.Focus(FocusState.Programmatic);
+
+        var window = new Window { Content = button };
+        var accessibility = AccessibilityTreeBuilder.Build(UiTreeBuilder.Build(window));
+
+        var node = accessibility.Root.Children[0];
+        Assert.AreEqual("button", node.Role);
+        Assert.AreEqual("Primary action", node.Label);
+        Assert.AreEqual("Runs the primary action", node.HelpText);
+        Assert.IsTrue(node.IsFocused);
+    }
+
+    [TestMethod]
+    public void UnsupportedApiRegistryReportsUnsupportedFacadeUse()
+    {
+        UnsupportedApiRegistry.Clear();
+
+        _ = new MicaBackdrop();
+
+        Assert.HasCount(1, UnsupportedApiRegistry.Current);
+        Assert.AreEqual("Microsoft.UI.Xaml.Media.MicaBackdrop", UnsupportedApiRegistry.Current[0].Api);
+        Assert.AreEqual("unsupported", UnsupportedApiRegistry.Current[0].Status);
     }
 
     private sealed record MutableState(string Title);

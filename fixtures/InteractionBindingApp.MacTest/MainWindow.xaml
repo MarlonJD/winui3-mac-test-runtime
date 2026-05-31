@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Interaction Binding App">
   <StackPanel x:Name="RootStack" Spacing="8">
-    <TextBlock x:Name="TitleText" Text="{Binding Title}" />
-    <Button x:Name="RefreshButton" Content="{Binding ButtonLabel}" Click="OnRefreshClicked" />
+    <TextBlock x:Name="TitleText" Text="{Binding Title}" AutomationProperties.Name="Current title" />
+    <Button x:Name="RefreshButton" Content="{Binding ButtonLabel}" AutomationProperties.Name="Refresh data" AutomationProperties.HelpText="Updates the bound title" Click="OnRefreshClicked" />
     <Frame x:Name="DetailsFrame" />
   </StackPanel>
 </Window>

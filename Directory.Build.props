@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <Authors>marlonjd</Authors>
+    <Company>MarlonJD</Company>
+    <RepositoryUrl>https://github.com/MarlonJD/winui3-mac-test-runtime</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/MarlonJD/winui3-mac-test-runtime</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageVersion>0.1.0-alpha.1</PackageVersion>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsPackable)' != 'false'">
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
+</Project>

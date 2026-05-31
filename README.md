@@ -43,6 +43,10 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
 - `tree.json`: logical UI tree exported from the facade-backed app.
 - `accessibility.json`: role/name/label tree derived from the logical UI tree.
 - `binding-failures.json`: binding failures observed while refreshing the tree.
+- `resource-failures.json`: static or theme resource lookup misses.
+- `unsupported-apis.json`: placeholder facade APIs touched by the app.
+- `diagnostics.sarif`: warning diagnostics for bindings, resources, and
+  unsupported APIs.
 - `interactions.json`: optional scripted interaction results.
 - `snapshot.json` and `screenshots/snapshot.svg`: deterministic nonblank
   snapshot output for smoke and regression tests.
@@ -57,3 +61,17 @@ WinUI-style subset for automated macOS testing and intentionally does not claim
 binary compatibility, arbitrary `.exe` execution, or full WinUI 3 behavior.
 
 See `docs/compatibility/matrix.md` for the current supported subset.
+
+## Package Smoke
+
+```sh
+dotnet pack src/WinUI3.MacTest.Sdk/WinUI3.MacTest.Sdk.csproj --configuration Release --output ./artifacts/packages
+dotnet pack src/WinUI3.MacCompat/WinUI3.MacCompat.csproj --configuration Release --output ./artifacts/packages
+dotnet pack src/WinUI3.MacRuntime/WinUI3.MacRuntime.csproj --configuration Release --output ./artifacts/packages
+dotnet pack src/WinUI3.MacXaml/WinUI3.MacXaml.csproj --configuration Release --output ./artifacts/packages
+dotnet pack src/WinUI3.MacRunner/WinUI3.MacRunner.csproj --configuration Release --output ./artifacts/packages
+```
+
+`MarlonJD.WinUI3.MacRunner` is packaged as a .NET tool with the
+`winui3-mac-runner` command. `winui3-mac-doctor` remains available as a source
+checkout wrapper and as `winui3-mac-runner doctor`.
