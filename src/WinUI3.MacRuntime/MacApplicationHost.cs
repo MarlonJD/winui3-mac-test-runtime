@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text.Json;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
+using WinUI3.MacCompat.Diagnostics;
 
 namespace WinUI3.MacRuntime;
 
@@ -21,6 +22,9 @@ public sealed record MacRunResult(
     string TreeJsonPath,
     string AccessibilityJsonPath,
     string BindingFailuresJsonPath,
+    string ResourceFailuresJsonPath,
+    string UnsupportedApisJsonPath,
+    string DiagnosticsSarifPath,
     string? InteractionJsonPath,
     string SnapshotJsonPath);
 
@@ -55,6 +59,9 @@ public sealed class MacApplicationHost
             throw new FileNotFoundException("App assembly was not found.", assemblyPath);
         }
 
+        ResourceOperations.ClearFailures();
+        UnsupportedApiRegistry.Clear();
+
         var assembly = Assembly.LoadFrom(assemblyPath);
         var app = CreateApplication(assembly);
         app.Launch();
@@ -87,14 +94,24 @@ public sealed class MacApplicationHost
         var treeJsonPath = Path.Combine(outputDirectory, "tree.json");
         var accessibilityJsonPath = Path.Combine(outputDirectory, "accessibility.json");
         var bindingFailuresJsonPath = Path.Combine(outputDirectory, "binding-failures.json");
+        var resourceFailuresJsonPath = Path.Combine(outputDirectory, "resource-failures.json");
+        var unsupportedApisJsonPath = Path.Combine(outputDirectory, "unsupported-apis.json");
+        var diagnosticsSarifPath = Path.Combine(outputDirectory, "diagnostics.sarif");
         var interactionJsonPath = interactionReport is null ? null : Path.Combine(outputDirectory, "interactions.json");
         var snapshotJsonPath = Path.Combine(outputDirectory, "snapshot.json");
+        var bindingFailures = BindingOperations.CurrentFailures;
+        var resourceFailures = ResourceOperations.CurrentFailures;
+        var unsupportedApis = UnsupportedApiRegistry.Current;
+        var diagnostics = BuildDiagnostics(bindingFailures, resourceFailures, unsupportedApis);
         var artifacts = new Dictionary<string, string>
         {
             ["run"] = runJsonPath,
             ["tree"] = treeJsonPath,
             ["accessibility"] = accessibilityJsonPath,
             ["bindingFailures"] = bindingFailuresJsonPath,
+            ["resourceFailures"] = resourceFailuresJsonPath,
+            ["unsupportedApis"] = unsupportedApisJsonPath,
+            ["diagnostics"] = diagnosticsSarifPath,
             ["snapshot"] = snapshotJsonPath,
             ["screenshot"] = snapshot.FilePath
         };
@@ -116,13 +133,16 @@ public sealed class MacApplicationHost
             OutputDirectory: outputDirectory,
             Wine: MacDoctor.Check().Wine,
             Artifacts: artifacts,
-            Diagnostics: Array.Empty<string>());
+            Diagnostics: diagnostics);
 
         Directory.CreateDirectory(outputDirectory);
         await File.WriteAllTextAsync(runJsonPath, JsonSerializer.Serialize(report, JsonDefaults.Options), cancellationToken);
         await File.WriteAllTextAsync(treeJsonPath, JsonSerializer.Serialize(tree, JsonDefaults.Options), cancellationToken);
         await File.WriteAllTextAsync(accessibilityJsonPath, JsonSerializer.Serialize(accessibility, JsonDefaults.Options), cancellationToken);
-        await File.WriteAllTextAsync(bindingFailuresJsonPath, JsonSerializer.Serialize(BindingOperations.CurrentFailures, JsonDefaults.Options), cancellationToken);
+        await File.WriteAllTextAsync(bindingFailuresJsonPath, JsonSerializer.Serialize(bindingFailures, JsonDefaults.Options), cancellationToken);
+        await File.WriteAllTextAsync(resourceFailuresJsonPath, JsonSerializer.Serialize(resourceFailures, JsonDefaults.Options), cancellationToken);
+        await File.WriteAllTextAsync(unsupportedApisJsonPath, JsonSerializer.Serialize(unsupportedApis, JsonDefaults.Options), cancellationToken);
+        await File.WriteAllTextAsync(diagnosticsSarifPath, JsonSerializer.Serialize(BuildSarif(diagnostics), JsonDefaults.Options), cancellationToken);
         if (interactionReport is not null && interactionJsonPath is not null)
         {
             await File.WriteAllTextAsync(interactionJsonPath, JsonSerializer.Serialize(interactionReport, JsonDefaults.Options), cancellationToken);
@@ -139,8 +159,52 @@ public sealed class MacApplicationHost
             treeJsonPath,
             accessibilityJsonPath,
             bindingFailuresJsonPath,
+            resourceFailuresJsonPath,
+            unsupportedApisJsonPath,
+            diagnosticsSarifPath,
             interactionJsonPath,
             snapshotJsonPath);
+    }
+
+    private static IReadOnlyList<string> BuildDiagnostics(
+        IReadOnlyList<BindingFailure> bindingFailures,
+        IReadOnlyList<ResourceLookupFailure> resourceFailures,
+        IReadOnlyList<UnsupportedApiEntry> unsupportedApis)
+    {
+        return bindingFailures
+            .Select(failure => $"binding:{failure.ElementName ?? failure.ElementType}.{failure.PropertyName}:{failure.Message}")
+            .Concat(resourceFailures.Select(failure => $"resource:{failure.Key}:{failure.Status}"))
+            .Concat(unsupportedApis.Select(entry => $"unsupported-api:{entry.Api}:{entry.Status}"))
+            .ToArray();
+    }
+
+    private static object BuildSarif(IReadOnlyList<string> diagnostics)
+    {
+        return new
+        {
+            Version = "2.1.0",
+            Runs = new[]
+            {
+                new
+                {
+                    Tool = new
+                    {
+                        Driver = new
+                        {
+                            Name = "WinUI3.MacTestRuntime"
+                        }
+                    },
+                    Results = diagnostics.Select(diagnostic => new
+                    {
+                        Level = "warning",
+                        Message = new
+                        {
+                            Text = diagnostic
+                        }
+                    }).ToArray()
+                }
+            }
+        };
     }
 
     private static Application CreateApplication(Assembly assembly)

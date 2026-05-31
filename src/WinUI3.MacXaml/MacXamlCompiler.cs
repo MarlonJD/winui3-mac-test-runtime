@@ -258,6 +258,12 @@ public sealed class MacXamlCompiler
                 }
 
                 var localName = attribute.Name.LocalName;
+                if (localName is "AutomationProperties.Name" or "AutomationProperties.HelpText")
+                {
+                    properties[localName] = attribute.Value;
+                    continue;
+                }
+
                 if (localName == "Name" || localName.Contains('.', StringComparison.Ordinal))
                 {
                     continue;
@@ -468,6 +474,18 @@ public sealed class MacXamlCompiler
 
             foreach (var property in model.Properties)
             {
+                if (property.Key == "AutomationProperties.Name")
+                {
+                    source.AppendLine($"        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName({model.VariableName}, {Literal(property.Value)});");
+                    continue;
+                }
+
+                if (property.Key == "AutomationProperties.HelpText")
+                {
+                    source.AppendLine($"        Microsoft.UI.Xaml.Automation.AutomationProperties.SetHelpText({model.VariableName}, {Literal(property.Value)});");
+                    continue;
+                }
+
                 if (TryReadBindingPath(property.Value, out var bindingPath))
                 {
                     source.AppendLine($"        Microsoft.UI.Xaml.Data.BindingOperations.SetBinding({model.VariableName}, {Literal(property.Key)}, new Microsoft.UI.Xaml.Data.Binding({Literal(bindingPath)}));");
@@ -564,10 +582,10 @@ public sealed class MacXamlCompiler
                 var key = value[markerLength..^1].Trim();
                 if (IsStringProperty(propertyName))
                 {
-                    return $"(__resources.ContainsKey({Literal(key)}) ? __resources[{Literal(key)}]?.ToString() : {Literal(key)})";
+                    return $"Microsoft.UI.Xaml.ResourceOperations.ResolveString(__resources, {Literal(key)}, {Literal(propertyName)})";
                 }
 
-                return $"(__resources.ContainsKey({Literal(key)}) ? __resources[{Literal(key)}] : {Literal(key)})";
+                return $"Microsoft.UI.Xaml.ResourceOperations.Resolve(__resources, {Literal(key)}, {Literal(propertyName)})";
             }
 
             if (propertyName == "Visibility" &&

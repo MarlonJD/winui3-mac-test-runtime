@@ -85,6 +85,8 @@ public class Window
 
     public ResourceDictionary Resources { get; set; } = new();
 
+    public object? SystemBackdrop { get; set; }
+
     public bool IsActive { get; private set; }
 
     public void Activate()

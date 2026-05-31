@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 
 namespace WinUI3.MacRuntime;
@@ -37,6 +38,18 @@ public static class UiTreeBuilder
             name = frameworkElement.Name;
             properties["visibility"] = frameworkElement.Visibility.ToString();
             properties["isFocused"] = frameworkElement.IsFocused;
+            var automationName = AutomationProperties.GetName(frameworkElement);
+            if (!string.IsNullOrWhiteSpace(automationName))
+            {
+                properties["automationName"] = automationName;
+            }
+
+            var automationHelpText = AutomationProperties.GetHelpText(frameworkElement);
+            if (!string.IsNullOrWhiteSpace(automationHelpText))
+            {
+                properties["automationHelpText"] = automationHelpText;
+            }
+
             if (frameworkElement.Tag is not null)
             {
                 properties["tag"] = frameworkElement.Tag.ToString();

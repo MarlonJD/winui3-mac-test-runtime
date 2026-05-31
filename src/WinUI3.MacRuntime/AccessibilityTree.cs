@@ -9,6 +9,8 @@ public sealed record AccessibilityNode(
     string Role,
     string? Name,
     string? Label,
+    string? HelpText,
+    bool IsFocused,
     IReadOnlyList<AccessibilityNode> Children);
 
 public static class AccessibilityTreeBuilder
@@ -23,13 +25,16 @@ public static class AccessibilityTreeBuilder
 
     private static AccessibilityNode BuildNode(UiNode node)
     {
-        var label = ReadString(node.Properties, "text") ??
+        var label = ReadString(node.Properties, "automationName") ??
+            ReadString(node.Properties, "text") ??
             ReadString(node.Properties, "content") ??
             node.Name;
         return new AccessibilityNode(
             Role: MapRole(node.Type),
             Name: node.Name,
             Label: label,
+            HelpText: ReadString(node.Properties, "automationHelpText"),
+            IsFocused: ReadBool(node.Properties, "isFocused"),
             Children: node.Children.Select(BuildNode).ToArray());
     }
 
@@ -76,5 +81,10 @@ public static class AccessibilityTreeBuilder
     private static string? ReadString(IReadOnlyDictionary<string, object?> properties, string key)
     {
         return properties.TryGetValue(key, out var value) ? value?.ToString() : null;
+    }
+
+    private static bool ReadBool(IReadOnlyDictionary<string, object?> properties, string key)
+    {
+        return properties.TryGetValue(key, out var value) && value is bool boolean && boolean;
     }
 }

@@ -11,6 +11,10 @@ second.
   state, visibility, focus state, and important content properties.
 - `accessibility.json`: role/name/label tree derived from the logical tree.
 - `binding-failures.json`: binding paths that could not be resolved or applied.
+- `resource-failures.json`: static or theme resources that could not be resolved.
+- `unsupported-apis.json`: facade APIs that were touched but are not implemented.
+- `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
+  and unsupported API reports.
 - `interactions.json`: emitted when `--script` is provided; records every
   scripted action and its result.
 - `snapshot.json`: renderer metadata for the deterministic snapshot.
@@ -21,3 +25,5 @@ second.
 
 Artifacts describe the compatibility runtime's supported subset. They are not a
 claim of full WinUI 3 compatibility or Windows binary compatibility.
+Unsupported APIs are reported structurally so callers can decide whether to fail
+a smoke run or track the gap as compatibility debt.

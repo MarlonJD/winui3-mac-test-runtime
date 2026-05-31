@@ -13,8 +13,11 @@ Status values:
 | Wine-free managed host | supported | Runs facade-backed .NET assemblies on macOS. |
 | Windows executable loading | not supported | Binary `.exe` compatibility is out of scope. |
 | `run.json` and `tree.json` | supported | Emitted for every runner invocation. |
-| `accessibility.json` | supported | Role/name/label approximation from the logical tree. |
+| `accessibility.json` | supported | Role/name/label/help/focus approximation from the logical tree. |
 | `binding-failures.json` | supported | Captures unresolved paths and non-writable targets. |
+| `resource-failures.json` | supported | Captures unresolved static and theme resources. |
+| `unsupported-apis.json` | supported | Captures clean-room placeholder facade APIs that were touched. |
+| `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unsupported API reports. |
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
 | Snapshot output | partial | Deterministic SVG snapshot is available; Skia-backed raster output is planned. |
@@ -27,8 +30,10 @@ Status values:
 | `x:Name` / `Name` | supported | Generates strongly typed fields. |
 | Text content | supported | Covered for `TextBlock` and `Button`. |
 | Event hookup | supported | Covered for routed click and navigation selection events. |
-| `{StaticResource ...}` | partial | Simple dictionary lookup. |
-| `{ThemeResource ...}` | partial | Simple dictionary lookup with key fallback. |
+| `{StaticResource ...}` | partial | Simple dictionary lookup with missing-resource reporting. |
+| `{ThemeResource ...}` | partial | Simple dictionary lookup with missing-resource reporting. |
+| `AutomationProperties.Name` | supported | Exported into `tree.json` and `accessibility.json`. |
+| `AutomationProperties.HelpText` | supported | Exported into `tree.json` and `accessibility.json`. |
 | `{Binding Path}` | partial | One-way refresh through `BindingOperations.RefreshTree`. |
 | Styles and templates | planned | Style values are stored but not applied visually. |
 
@@ -43,3 +48,10 @@ Status values:
 | `Image`, `ListView` | partial | Logical model only. |
 | `NavigationView`, `NavigationViewItem` | partial | Menu items, selection, and pane footer. |
 | `FontIcon` | partial | Glyph and font size metadata only. |
+
+## Unsupported Facade Placeholders
+
+| Type | Status | Notes |
+| --- | --- | --- |
+| `Microsoft.UI.Xaml.Media.MicaBackdrop` | reported | Placeholder records `unsupported-apis.json`; no visual material behavior. |
+| `Microsoft.UI.Xaml.Media.AcrylicBrush` | reported | Placeholder records `unsupported-apis.json`; no visual material behavior. |

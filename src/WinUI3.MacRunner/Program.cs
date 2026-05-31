@@ -72,6 +72,7 @@ internal static class Cli
             Console.WriteLine($"run.json: {result.RunJsonPath}");
             Console.WriteLine($"tree.json: {result.TreeJsonPath}");
             Console.WriteLine($"accessibility.json: {result.AccessibilityJsonPath}");
+            Console.WriteLine($"unsupported-apis.json: {result.UnsupportedApisJsonPath}");
             Console.WriteLine($"snapshot.json: {result.SnapshotJsonPath}");
             return 0;
         }
