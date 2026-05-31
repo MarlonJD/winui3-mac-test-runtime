@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\WinUI3.MacRuntime\WinUI3.MacRuntime.csproj" />
+    <ProjectReference Include="..\WinUI3.MacCompat\WinUI3.MacCompat.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>MarlonJD.WinUI3.MacRunner</PackageId>
+    <Description>CLI runner for Wine-free WinUI3 macOS test runtime artifacts.</Description>
+  </PropertyGroup>
+
+</Project>

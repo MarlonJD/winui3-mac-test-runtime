@@ -1,0 +1,10 @@
+bin/
+obj/
+.packages/
+.vs/
+.vscode/
+artifacts/
+TestResults/
+*.user
+*.suo
+.DS_Store
