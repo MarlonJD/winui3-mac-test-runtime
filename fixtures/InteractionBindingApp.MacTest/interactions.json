@@ -1,0 +1,12 @@
+{
+  "actions": [
+    {
+      "type": "click",
+      "target": "RefreshButton"
+    },
+    {
+      "type": "focus",
+      "target": "TitleText"
+    }
+  ]
+}

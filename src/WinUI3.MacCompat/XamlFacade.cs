@@ -81,6 +81,8 @@ public class Window
 
     public object? Content { get; set; }
 
+    public object? DataContext { get; set; }
+
     public ResourceDictionary Resources { get; set; } = new();
 
     public bool IsActive { get; private set; }

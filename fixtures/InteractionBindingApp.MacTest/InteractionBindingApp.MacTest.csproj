@@ -13,7 +13,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>SampleAdminShell.MacTest</AssemblyName>
+    <AssemblyName>InteractionBindingApp.MacTest</AssemblyName>
   </PropertyGroup>
 
   <Target Name="WinUI3MacGenerateXaml" BeforeTargets="CoreCompile">
