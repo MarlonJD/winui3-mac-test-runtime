@@ -1,0 +1,100 @@
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+
+namespace WinUI3.MacRuntime;
+
+public sealed record UiTreeDocument(
+    string SchemaVersion,
+    DateTimeOffset GeneratedAt,
+    UiNode Root);
+
+public sealed record UiNode(
+    string Type,
+    string? Name,
+    IReadOnlyDictionary<string, object?> Properties,
+    IReadOnlyList<UiNode> Children);
+
+public static class UiTreeBuilder
+{
+    public static UiTreeDocument Build(Window window)
+    {
+        ArgumentNullException.ThrowIfNull(window);
+
+        return new UiTreeDocument(
+            SchemaVersion: "0.1",
+            GeneratedAt: DateTimeOffset.UtcNow,
+            Root: BuildNode(window));
+    }
+
+    private static UiNode BuildNode(object element)
+    {
+        var properties = new Dictionary<string, object?>();
+        var children = new List<UiNode>();
+        string? name = null;
+
+        if (element is FrameworkElement frameworkElement)
+        {
+            name = frameworkElement.Name;
+        }
+
+        switch (element)
+        {
+            case Window window:
+                properties["title"] = window.Title;
+                properties["isActive"] = window.IsActive;
+                AddChild(window.Content, children);
+                break;
+            case Page page:
+                AddChild(page.Content, children);
+                break;
+            case StackPanel stackPanel:
+                properties["orientation"] = stackPanel.Orientation.ToString();
+                properties["childCount"] = stackPanel.Children.Count;
+                foreach (var child in stackPanel.Children)
+                {
+                    AddChild(child, children);
+                }
+
+                break;
+            case TextBlock textBlock:
+                properties["text"] = textBlock.Text;
+                break;
+            case Button button:
+                properties["content"] = button.Content is UIElement ? null : button.Content?.ToString();
+                if (button.Content is UIElement buttonContent)
+                {
+                    AddChild(buttonContent, children);
+                }
+
+                break;
+        }
+
+        return new UiNode(GetStableTypeName(element), name, properties, children);
+    }
+
+    private static void AddChild(object? child, ICollection<UiNode> children)
+    {
+        if (child is null)
+        {
+            return;
+        }
+
+        if (child is string text)
+        {
+            children.Add(new UiNode(
+                Type: "System.String",
+                Name: null,
+                Properties: new Dictionary<string, object?> { ["text"] = text },
+                Children: Array.Empty<UiNode>()));
+            return;
+        }
+
+        children.Add(BuildNode(child));
+    }
+
+    private static string GetStableTypeName(object element)
+    {
+        var type = element.GetType();
+        return type.FullName ?? type.Name;
+    }
+}

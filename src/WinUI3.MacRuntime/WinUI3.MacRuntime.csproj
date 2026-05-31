@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\WinUI3.MacCompat\WinUI3.MacCompat.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>MarlonJD.WinUI3.MacRuntime</PackageId>
+    <Description>Managed macOS host and artifact model for the Wine-free WinUI3 test runtime.</Description>
+  </PropertyGroup>
+
+</Project>

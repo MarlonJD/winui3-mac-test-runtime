@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <WinUI3MacTestRuntimeEnabled>true</WinUI3MacTestRuntimeEnabled>
+  </PropertyGroup>
+</Project>
