@@ -32,6 +32,25 @@ public sealed class MacXamlCompilerTests
     }
 
     [TestMethod]
+    public void CompileTextGeneratesBindingRegistrations()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <TextBlock x:Name="TitleText" Text="{Binding Title}" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Data.BindingOperations.SetBinding");
+        StringAssert.Contains(result.GeneratedSource, "new Microsoft.UI.Xaml.Data.Binding(\"Title\")");
+    }
+
+    [TestMethod]
     public void CompileTextReportsLineDiagnosticsForUnsupportedElements()
     {
         const string xaml = """

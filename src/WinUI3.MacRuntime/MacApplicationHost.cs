@@ -2,19 +2,27 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Text.Json;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Data;
 
 namespace WinUI3.MacRuntime;
 
 public sealed record MacRunOptions(
     string AssemblyPath,
     string? ProjectPath,
-    string OutputDirectory);
+    string OutputDirectory,
+    string? ScriptPath = null);
 
 public sealed record MacRunResult(
     RunReport Run,
     UiTreeDocument Tree,
+    AccessibilityDocument Accessibility,
+    SnapshotResult Snapshot,
     string RunJsonPath,
-    string TreeJsonPath);
+    string TreeJsonPath,
+    string AccessibilityJsonPath,
+    string BindingFailuresJsonPath,
+    string? InteractionJsonPath,
+    string SnapshotJsonPath);
 
 public sealed record RunReport(
     string SchemaVersion,
@@ -28,6 +36,7 @@ public sealed record RunReport(
     string AssemblyPath,
     string OutputDirectory,
     WineDependency Wine,
+    IReadOnlyDictionary<string, string> Artifacts,
     IReadOnlyList<string> Diagnostics);
 
 public sealed class MacApplicationHost
@@ -46,7 +55,8 @@ public sealed class MacApplicationHost
             throw new FileNotFoundException("App assembly was not found.", assemblyPath);
         }
 
-        var app = CreateApplication(assemblyPath);
+        var assembly = Assembly.LoadFrom(assemblyPath);
+        var app = CreateApplication(assembly);
         app.Launch();
 
         if (app.MainWindow is null)
@@ -55,10 +65,44 @@ public sealed class MacApplicationHost
         }
 
         app.MainWindow.Activate();
+        BindingOperations.RefreshTree(app.MainWindow);
+        InteractionReport? interactionReport = null;
+        if (!string.IsNullOrWhiteSpace(options.ScriptPath))
+        {
+            var scriptRunner = new InteractionScriptRunner(new TypeResolver(assembly.GetTypes()));
+            interactionReport = await scriptRunner.RunFileAsync(app.MainWindow, options.ScriptPath, cancellationToken);
+        }
+
+        BindingOperations.RefreshTree(app.MainWindow);
         var tree = UiTreeBuilder.Build(app.MainWindow);
+        var accessibility = AccessibilityTreeBuilder.Build(tree);
+        var snapshot = await new SnapshotRenderer().RenderAsync(
+            tree,
+            Path.Combine(outputDirectory, "screenshots"),
+            cancellationToken);
         stopwatch.Stop();
 
         var endedAt = DateTimeOffset.UtcNow;
+        var runJsonPath = Path.Combine(outputDirectory, "run.json");
+        var treeJsonPath = Path.Combine(outputDirectory, "tree.json");
+        var accessibilityJsonPath = Path.Combine(outputDirectory, "accessibility.json");
+        var bindingFailuresJsonPath = Path.Combine(outputDirectory, "binding-failures.json");
+        var interactionJsonPath = interactionReport is null ? null : Path.Combine(outputDirectory, "interactions.json");
+        var snapshotJsonPath = Path.Combine(outputDirectory, "snapshot.json");
+        var artifacts = new Dictionary<string, string>
+        {
+            ["run"] = runJsonPath,
+            ["tree"] = treeJsonPath,
+            ["accessibility"] = accessibilityJsonPath,
+            ["bindingFailures"] = bindingFailuresJsonPath,
+            ["snapshot"] = snapshotJsonPath,
+            ["screenshot"] = snapshot.FilePath
+        };
+        if (interactionJsonPath is not null)
+        {
+            artifacts["interactions"] = interactionJsonPath;
+        }
+
         var report = new RunReport(
             SchemaVersion: "0.1",
             Status: "passed",
@@ -71,20 +115,36 @@ public sealed class MacApplicationHost
             AssemblyPath: assemblyPath,
             OutputDirectory: outputDirectory,
             Wine: MacDoctor.Check().Wine,
+            Artifacts: artifacts,
             Diagnostics: Array.Empty<string>());
 
         Directory.CreateDirectory(outputDirectory);
-        var runJsonPath = Path.Combine(outputDirectory, "run.json");
-        var treeJsonPath = Path.Combine(outputDirectory, "tree.json");
         await File.WriteAllTextAsync(runJsonPath, JsonSerializer.Serialize(report, JsonDefaults.Options), cancellationToken);
         await File.WriteAllTextAsync(treeJsonPath, JsonSerializer.Serialize(tree, JsonDefaults.Options), cancellationToken);
+        await File.WriteAllTextAsync(accessibilityJsonPath, JsonSerializer.Serialize(accessibility, JsonDefaults.Options), cancellationToken);
+        await File.WriteAllTextAsync(bindingFailuresJsonPath, JsonSerializer.Serialize(BindingOperations.CurrentFailures, JsonDefaults.Options), cancellationToken);
+        if (interactionReport is not null && interactionJsonPath is not null)
+        {
+            await File.WriteAllTextAsync(interactionJsonPath, JsonSerializer.Serialize(interactionReport, JsonDefaults.Options), cancellationToken);
+        }
 
-        return new MacRunResult(report, tree, runJsonPath, treeJsonPath);
+        await File.WriteAllTextAsync(snapshotJsonPath, JsonSerializer.Serialize(snapshot, JsonDefaults.Options), cancellationToken);
+
+        return new MacRunResult(
+            report,
+            tree,
+            accessibility,
+            snapshot,
+            runJsonPath,
+            treeJsonPath,
+            accessibilityJsonPath,
+            bindingFailuresJsonPath,
+            interactionJsonPath,
+            snapshotJsonPath);
     }
 
-    private static Application CreateApplication(string assemblyPath)
+    private static Application CreateApplication(Assembly assembly)
     {
-        var assembly = Assembly.LoadFrom(assemblyPath);
         var appType = assembly
             .GetTypes()
             .FirstOrDefault(type =>

@@ -11,6 +11,15 @@ public enum Orientation
 public class Page : FrameworkElement
 {
     public object? Content { get; set; }
+
+    internal void RaiseNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs args)
+    {
+        OnNavigatedTo(args);
+    }
+
+    protected virtual void OnNavigatedTo(Microsoft.UI.Xaml.Navigation.NavigationEventArgs args)
+    {
+    }
 }
 
 public class UserControl : Control
@@ -34,10 +43,20 @@ public class Frame : Control
 
     public bool Navigate(Type sourcePageType)
     {
+        return Navigate(sourcePageType, parameter: null);
+    }
+
+    public bool Navigate(Type sourcePageType, object? parameter)
+    {
         ArgumentNullException.ThrowIfNull(sourcePageType);
 
         SourcePageType = sourcePageType;
         Content = Activator.CreateInstance(sourcePageType);
+        if (Content is Page page)
+        {
+            page.RaiseNavigatedTo(new Microsoft.UI.Xaml.Navigation.NavigationEventArgs(sourcePageType, parameter));
+        }
+
         return Content is not null;
     }
 }

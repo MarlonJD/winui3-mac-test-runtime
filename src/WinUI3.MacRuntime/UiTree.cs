@@ -36,6 +36,11 @@ public static class UiTreeBuilder
         {
             name = frameworkElement.Name;
             properties["visibility"] = frameworkElement.Visibility.ToString();
+            properties["isFocused"] = frameworkElement.IsFocused;
+            if (frameworkElement.Tag is not null)
+            {
+                properties["tag"] = frameworkElement.Tag.ToString();
+            }
         }
 
         switch (element)
@@ -79,6 +84,7 @@ public static class UiTreeBuilder
             case NavigationView navigationView:
                 properties["menuItemCount"] = navigationView.MenuItems.Count;
                 properties["paneDisplayMode"] = navigationView.PaneDisplayMode;
+                properties["selectedItem"] = (navigationView.SelectedItem as FrameworkElement)?.Name;
                 foreach (var item in navigationView.MenuItems)
                 {
                     AddChild(item, children);

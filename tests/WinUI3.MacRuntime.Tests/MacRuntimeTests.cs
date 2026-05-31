@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
 using WinUI3.MacRuntime;
 
 namespace WinUI3.MacRuntime.Tests;
@@ -39,4 +40,48 @@ public sealed class MacRuntimeTests
         Assert.AreEqual("PrimaryButton", stack.Children[1].Name);
         Assert.AreEqual("Continue", stack.Children[1].Properties["content"]);
     }
+
+    [TestMethod]
+    public void BindingOperationsRefreshesTreeAndReportsFailures()
+    {
+        var textBlock = new TextBlock { Name = "TitleText" };
+        BindingOperations.SetBinding(textBlock, nameof(TextBlock.Text), new Binding("Title"));
+
+        var root = new StackPanel { DataContext = new { Title = "Bound title" } };
+        root.Children.Add(textBlock);
+
+        BindingOperations.RefreshTree(root);
+
+        Assert.AreEqual("Bound title", textBlock.Text);
+        Assert.HasCount(0, BindingOperations.CurrentFailures);
+
+        BindingOperations.SetBinding(textBlock, nameof(TextBlock.Text), new Binding("Missing"));
+        BindingOperations.RefreshTree(root);
+
+        Assert.HasCount(1, BindingOperations.CurrentFailures);
+        Assert.AreEqual("TitleText", BindingOperations.CurrentFailures[0].ElementName);
+    }
+
+    [TestMethod]
+    public void InteractionScriptClicksButtonsAndRefreshesBindings()
+    {
+        var window = new Window();
+        var button = new Button { Name = "RefreshButton" };
+        var title = new TextBlock { Name = "TitleText" };
+        var root = new StackPanel { DataContext = new MutableState("Before") };
+        root.Children.Add(title);
+        root.Children.Add(button);
+        window.Content = root;
+        BindingOperations.SetBinding(title, nameof(TextBlock.Text), new Binding("Title"));
+        button.Click += (_, _) => root.DataContext = new MutableState("After");
+
+        var report = new InteractionScriptRunner(new TypeResolver(Array.Empty<Type>()))
+            .Run(window, new InteractionScript(new[] { new InteractionAction("click", "RefreshButton", null, null, null, null) }));
+
+        Assert.HasCount(1, report.Steps);
+        Assert.AreEqual("passed", report.Steps[0].Status);
+        Assert.AreEqual("After", title.Text);
+    }
+
+    private sealed record MutableState(string Title);
 }

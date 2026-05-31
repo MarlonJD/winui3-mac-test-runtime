@@ -468,6 +468,12 @@ public sealed class MacXamlCompiler
 
             foreach (var property in model.Properties)
             {
+                if (TryReadBindingPath(property.Value, out var bindingPath))
+                {
+                    source.AppendLine($"        Microsoft.UI.Xaml.Data.BindingOperations.SetBinding({model.VariableName}, {Literal(property.Key)}, new Microsoft.UI.Xaml.Data.Binding({Literal(bindingPath)}));");
+                    continue;
+                }
+
                 source.AppendLine($"        {model.VariableName}.{property.Key} = {RenderValue(property.Key, property.Value)};");
             }
         }
@@ -607,6 +613,18 @@ public sealed class MacXamlCompiler
             }
 
             return Literal(value);
+        }
+
+        private static bool TryReadBindingPath(string value, out string path)
+        {
+            if (value.StartsWith("{Binding ", StringComparison.Ordinal) && value.EndsWith('}'))
+            {
+                path = value["{Binding ".Length..^1].Trim();
+                return !string.IsNullOrWhiteSpace(path);
+            }
+
+            path = string.Empty;
+            return false;
         }
 
         private static bool IsDoubleProperty(string propertyName)

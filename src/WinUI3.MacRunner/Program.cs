@@ -62,14 +62,17 @@ internal static class Cli
         var configuration = ReadOption(args, "--configuration") ?? "Debug";
         var outputDirectory = ReadOption(args, "--output")
             ?? Path.Combine(Environment.CurrentDirectory, "artifacts", "winui3-mac");
+        var scriptPath = ReadOption(args, "--script");
 
         try
         {
             var runner = new MacProjectRunner();
-            var result = await runner.RunProjectAsync(projectPath, outputDirectory, configuration);
+            var result = await runner.RunProjectAsync(projectPath, outputDirectory, configuration, scriptPath);
             Console.WriteLine($"Status: {result.Run.Status}");
             Console.WriteLine($"run.json: {result.RunJsonPath}");
             Console.WriteLine($"tree.json: {result.TreeJsonPath}");
+            Console.WriteLine($"accessibility.json: {result.AccessibilityJsonPath}");
+            Console.WriteLine($"snapshot.json: {result.SnapshotJsonPath}");
             return 0;
         }
         catch (Exception ex)
@@ -174,7 +177,7 @@ internal static class Cli
         Console.WriteLine();
         Console.WriteLine("Commands:");
         Console.WriteLine("  doctor [--json]");
-        Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>]");
+        Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");
     }
 }
