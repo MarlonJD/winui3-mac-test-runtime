@@ -45,6 +45,18 @@ public sealed record RunReport(
 
 public sealed class MacApplicationHost
 {
+    private readonly ISnapshotRenderer snapshotRenderer;
+
+    public MacApplicationHost()
+        : this(new SnapshotRenderer())
+    {
+    }
+
+    public MacApplicationHost(ISnapshotRenderer snapshotRenderer)
+    {
+        this.snapshotRenderer = snapshotRenderer;
+    }
+
     public async Task<MacRunResult> RunAsync(MacRunOptions options, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(options);
@@ -83,7 +95,7 @@ public sealed class MacApplicationHost
         BindingOperations.RefreshTree(app.MainWindow);
         var tree = UiTreeBuilder.Build(app.MainWindow);
         var accessibility = AccessibilityTreeBuilder.Build(tree);
-        var snapshot = await new SnapshotRenderer().RenderAsync(
+        var snapshot = await snapshotRenderer.RenderAsync(
             tree,
             Path.Combine(outputDirectory, "screenshots"),
             cancellationToken);

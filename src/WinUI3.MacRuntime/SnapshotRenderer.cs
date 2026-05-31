@@ -11,7 +11,15 @@ public sealed record SnapshotResult(
     int Height,
     bool IsNonBlank);
 
-public sealed class SnapshotRenderer
+public interface ISnapshotRenderer
+{
+    Task<SnapshotResult> RenderAsync(
+        UiTreeDocument tree,
+        string screenshotsDirectory,
+        CancellationToken cancellationToken = default);
+}
+
+public sealed class SnapshotRenderer : ISnapshotRenderer
 {
     public async Task<SnapshotResult> RenderAsync(UiTreeDocument tree, string screenshotsDirectory, CancellationToken cancellationToken = default)
     {

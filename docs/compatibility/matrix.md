@@ -20,7 +20,7 @@ Status values:
 | `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unsupported API reports. |
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
-| Snapshot output | partial | Deterministic SVG snapshot is available; Skia-backed raster output is planned. |
+| Snapshot output | partial | Deterministic SVG fallback and Skia-backed PNG output are available for the supported tree subset. |
 
 ## XAML
 

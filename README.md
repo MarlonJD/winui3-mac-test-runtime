@@ -15,6 +15,7 @@ dotnet build
 dotnet test
 PATH="$PWD/tools:$PATH" winui3-mac-doctor
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj --renderer skia
 ```
 
 ## Current Fixtures
@@ -49,7 +50,8 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
   unsupported APIs.
 - `interactions.json`: optional scripted interaction results.
 - `snapshot.json` and `screenshots/snapshot.svg`: deterministic nonblank
-  snapshot output for smoke and regression tests.
+  snapshot output for smoke and regression tests. Passing `--renderer skia`
+  writes `screenshots/snapshot.png` with the Skia renderer.
 
 Wine is optional diagnostic context only. The primary runtime path is a managed
 macOS .NET process.
@@ -69,6 +71,7 @@ dotnet pack src/WinUI3.MacTest.Sdk/WinUI3.MacTest.Sdk.csproj --configuration Rel
 dotnet pack src/WinUI3.MacCompat/WinUI3.MacCompat.csproj --configuration Release --output ./artifacts/packages
 dotnet pack src/WinUI3.MacRuntime/WinUI3.MacRuntime.csproj --configuration Release --output ./artifacts/packages
 dotnet pack src/WinUI3.MacXaml/WinUI3.MacXaml.csproj --configuration Release --output ./artifacts/packages
+dotnet pack src/WinUI3.MacRenderer.Skia/WinUI3.MacRenderer.Skia.csproj --configuration Release --output ./artifacts/packages
 dotnet pack src/WinUI3.MacRunner/WinUI3.MacRunner.csproj --configuration Release --output ./artifacts/packages
 ```
 
