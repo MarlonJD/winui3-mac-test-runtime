@@ -98,6 +98,9 @@ public static class UiTreeBuilder
                 properties["menuItemCount"] = navigationView.MenuItems.Count;
                 properties["paneDisplayMode"] = navigationView.PaneDisplayMode;
                 properties["selectedItem"] = (navigationView.SelectedItem as FrameworkElement)?.Name;
+                properties["compactPaneLength"] = navigationView.CompactPaneLength;
+                properties["openPaneLength"] = navigationView.OpenPaneLength;
+                properties["isSettingsVisible"] = navigationView.IsSettingsVisible;
                 foreach (var item in navigationView.MenuItems)
                 {
                     AddChild(item, children);
