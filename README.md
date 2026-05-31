@@ -4,11 +4,11 @@ Wine-free feasibility harness for running a constrained subset of WinUI-style
 C# application code on macOS for automated tests.
 
 This repository does not run arbitrary Windows binaries and does not claim full
-WinUI 3 compatibility. Phase 0 runs managed .NET assemblies against clean-room
-`Microsoft.UI.Xaml` facade types, hosts the app in a macOS .NET process, and
-emits structured artifacts for test inspection.
+WinUI 3 compatibility. The current runtime runs managed .NET assemblies against
+clean-room `Microsoft.UI.Xaml` facade types, hosts the app in a macOS .NET
+process, and emits structured artifacts for test inspection.
 
-## Phase 0 Commands
+## Smoke Commands
 
 ```sh
 dotnet build
