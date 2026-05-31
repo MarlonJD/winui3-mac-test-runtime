@@ -3,7 +3,7 @@
     <Authors>marlonjd</Authors>
     <Company>MarlonJD</Company>
     <RepositoryUrl>https://github.com/MarlonJD/winui3-mac-test-runtime</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/MarlonJD/winui3-mac-test-runtime</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageVersion>0.1.0-alpha.1</PackageVersion>

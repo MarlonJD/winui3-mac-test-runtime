@@ -98,3 +98,9 @@ dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj -- \
 
 This workflow is separate from the macOS compatibility renderer. It is the path
 for true Windows-hosted screenshot artifacts.
+
+## License
+
+This project is licensed under `LGPL-3.0-or-later`. See `LICENSE` for the GNU
+Lesser General Public License text and `COPYING` for the GNU General Public
+License text that LGPLv3 extends.
