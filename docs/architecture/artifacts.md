@@ -19,7 +19,9 @@ second.
   scripted action and its result.
 - `snapshot.json`: renderer metadata for the deterministic snapshot.
 - `screenshots/snapshot.svg`: nonblank deterministic visual representation of
-  the logical tree.
+  the logical tree from the default SVG renderer.
+- `screenshots/snapshot.png`: nonblank deterministic PNG from the optional Skia
+  renderer when `--renderer skia` is passed.
 
 ## Compatibility Position
 
@@ -27,3 +29,5 @@ Artifacts describe the compatibility runtime's supported subset. They are not a
 claim of full WinUI 3 compatibility or Windows binary compatibility.
 Unsupported APIs are reported structurally so callers can decide whether to fail
 a smoke run or track the gap as compatibility debt.
+Snapshot output is deterministic smoke evidence for a supported control subset,
+not a full Fluent renderer.

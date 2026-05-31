@@ -4,6 +4,7 @@
     <ProjectReference Include="..\WinUI3.MacRuntime\WinUI3.MacRuntime.csproj" />
     <ProjectReference Include="..\WinUI3.MacCompat\WinUI3.MacCompat.csproj" />
     <ProjectReference Include="..\WinUI3.MacXaml\WinUI3.MacXaml.csproj" />
+    <ProjectReference Include="..\WinUI3.MacRenderer.Skia\WinUI3.MacRenderer.Skia.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

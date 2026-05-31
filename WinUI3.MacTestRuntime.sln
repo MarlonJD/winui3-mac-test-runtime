@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAdminShell.MacTest", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractionBindingApp.MacTest", "fixtures\InteractionBindingApp.MacTest\InteractionBindingApp.MacTest.csproj", "{9785733F-07D4-4DFF-91D6-C56D85756EBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinUI3.MacRenderer.Skia", "src\WinUI3.MacRenderer.Skia\WinUI3.MacRenderer.Skia.csproj", "{D01B1DE5-6051-483C-BA11-B72FF07807BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,18 @@ Global
 		{9785733F-07D4-4DFF-91D6-C56D85756EBF}.Release|x64.Build.0 = Release|Any CPU
 		{9785733F-07D4-4DFF-91D6-C56D85756EBF}.Release|x86.ActiveCfg = Release|Any CPU
 		{9785733F-07D4-4DFF-91D6-C56D85756EBF}.Release|x86.Build.0 = Release|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Release|x64.Build.0 = Release|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,5 +203,6 @@ Global
 		{3DD7567A-1782-4039-8CCD-BBEE46B9E773} = {7A31CED4-1678-4AF3-8F73-6A118B9DA039}
 		{EA078C74-424B-4F76-8444-2DD01C82AD7C} = {7A31CED4-1678-4AF3-8F73-6A118B9DA039}
 		{9785733F-07D4-4DFF-91D6-C56D85756EBF} = {7A31CED4-1678-4AF3-8F73-6A118B9DA039}
+		{D01B1DE5-6051-483C-BA11-B72FF07807BD} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 EndGlobal

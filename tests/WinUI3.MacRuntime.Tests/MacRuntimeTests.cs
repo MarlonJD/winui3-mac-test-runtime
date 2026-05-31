@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using WinUI3.MacCompat.Diagnostics;
+using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRuntime;
 
 namespace WinUI3.MacRuntime.Tests;
@@ -114,6 +115,28 @@ public sealed class MacRuntimeTests
         Assert.HasCount(1, UnsupportedApiRegistry.Current);
         Assert.AreEqual("Microsoft.UI.Xaml.Media.MicaBackdrop", UnsupportedApiRegistry.Current[0].Api);
         Assert.AreEqual("unsupported", UnsupportedApiRegistry.Current[0].Status);
+    }
+
+    [TestMethod]
+    public async Task SkiaSnapshotRendererWritesPng()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-snapshot-tests", Guid.NewGuid().ToString("N"));
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new TextBlock
+            {
+                Name = "GreetingText",
+                Text = "Hello"
+            }
+        });
+
+        var snapshot = await new SkiaSnapshotRenderer().RenderAsync(tree, outputDirectory);
+
+        Assert.AreEqual("skia-png", snapshot.Renderer);
+        Assert.IsTrue(snapshot.IsNonBlank);
+        Assert.IsTrue(File.Exists(snapshot.FilePath));
+        var header = await File.ReadAllBytesAsync(snapshot.FilePath);
+        CollectionAssert.AreEqual(new byte[] { 0x89, 0x50, 0x4e, 0x47 }, header[..4]);
     }
 
     private sealed record MutableState(string Title);

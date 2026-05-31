@@ -29,3 +29,6 @@ jobs:
 
       - name: Tiny fixture
         run: PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj
+
+      - name: Tiny fixture Skia snapshot
+        run: PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj --renderer skia

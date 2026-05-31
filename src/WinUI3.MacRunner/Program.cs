@@ -1,4 +1,5 @@
 using System.Text.Json;
+using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRuntime;
 using WinUI3.MacXaml;
 
@@ -63,10 +64,11 @@ internal static class Cli
         var outputDirectory = ReadOption(args, "--output")
             ?? Path.Combine(Environment.CurrentDirectory, "artifacts", "winui3-mac");
         var scriptPath = ReadOption(args, "--script");
+        var rendererName = ReadOption(args, "--renderer") ?? "svg";
 
         try
         {
-            var runner = new MacProjectRunner();
+            var runner = new MacProjectRunner(CreateSnapshotRenderer(rendererName));
             var result = await runner.RunProjectAsync(projectPath, outputDirectory, configuration, scriptPath);
             Console.WriteLine($"Status: {result.Run.Status}");
             Console.WriteLine($"run.json: {result.RunJsonPath}");
@@ -81,6 +83,16 @@ internal static class Cli
             Console.Error.WriteLine(ex.Message);
             return 1;
         }
+    }
+
+    private static ISnapshotRenderer CreateSnapshotRenderer(string rendererName)
+    {
+        return rendererName.ToLowerInvariant() switch
+        {
+            "svg" => new SnapshotRenderer(),
+            "skia" => new SkiaSnapshotRenderer(),
+            _ => throw new ArgumentException($"Unknown renderer '{rendererName}'. Expected 'svg' or 'skia'.")
+        };
     }
 
     private static int RunXaml(string[] args)
@@ -178,7 +190,7 @@ internal static class Cli
         Console.WriteLine();
         Console.WriteLine("Commands:");
         Console.WriteLine("  doctor [--json]");
-        Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>]");
+        Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>] [--renderer svg|skia]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");
     }
 }

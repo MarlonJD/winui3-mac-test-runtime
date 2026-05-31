@@ -10,6 +10,11 @@ public sealed class MacProjectRunner
     {
     }
 
+    public MacProjectRunner(ISnapshotRenderer snapshotRenderer)
+        : this(new ProjectBuildService(), new MacApplicationHost(snapshotRenderer))
+    {
+    }
+
     public MacProjectRunner(ProjectBuildService buildService, MacApplicationHost host)
     {
         this.buildService = buildService;

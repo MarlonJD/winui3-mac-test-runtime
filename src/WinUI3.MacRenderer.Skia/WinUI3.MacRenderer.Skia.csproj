@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\WinUI3.MacRuntime\WinUI3.MacRuntime.csproj" />
+    <PackageReference Include="SkiaSharp" Version="3.119.2" />
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.2" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PackageId>MarlonJD.WinUI3.MacRenderer.Skia</PackageId>
+    <Description>Skia-backed snapshot renderer for the Wine-free WinUI3 macOS test runtime.</Description>
+  </PropertyGroup>
+
+</Project>
