@@ -35,6 +35,7 @@ public static class UiTreeBuilder
         if (element is FrameworkElement frameworkElement)
         {
             name = frameworkElement.Name;
+            properties["visibility"] = frameworkElement.Visibility.ToString();
         }
 
         switch (element)
@@ -56,14 +57,62 @@ public static class UiTreeBuilder
                 }
 
                 break;
+            case Grid grid:
+                properties["childCount"] = grid.Children.Count;
+                foreach (var child in grid.Children)
+                {
+                    AddChild(child, children);
+                }
+
+                break;
+            case Border border:
+                AddChild(border.Child, children);
+                break;
+            case FontIcon fontIcon:
+                properties["glyph"] = fontIcon.Glyph;
+                properties["fontSize"] = fontIcon.FontSize;
+                break;
+            case Frame frame:
+                properties["sourcePageType"] = frame.SourcePageType?.FullName;
+                AddChild(frame.Content, children);
+                break;
+            case NavigationView navigationView:
+                properties["menuItemCount"] = navigationView.MenuItems.Count;
+                properties["paneDisplayMode"] = navigationView.PaneDisplayMode;
+                foreach (var item in navigationView.MenuItems)
+                {
+                    AddChild(item, children);
+                }
+
+                AddChild(navigationView.PaneFooter, children);
+                AddChild(navigationView.Content, children);
+                break;
+            case NavigationViewItem navigationViewItem:
+                properties["content"] = navigationViewItem.Content is UIElement ? null : navigationViewItem.Content?.ToString();
+                AddChild(navigationViewItem.Content, children);
+                break;
             case TextBlock textBlock:
                 properties["text"] = textBlock.Text;
+                break;
+            case TextBox textBox:
+                properties["text"] = textBox.Text;
                 break;
             case Button button:
                 properties["content"] = button.Content is UIElement ? null : button.Content?.ToString();
                 if (button.Content is UIElement buttonContent)
                 {
                     AddChild(buttonContent, children);
+                }
+
+                break;
+            case Image image:
+                properties["source"] = image.Source?.ToString();
+                break;
+            case ListView listView:
+                properties["itemCount"] = listView.Items.Count;
+                foreach (var item in listView.Items)
+                {
+                    AddChild(item, children);
                 }
 
                 break;

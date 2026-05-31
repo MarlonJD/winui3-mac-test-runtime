@@ -1,5 +1,6 @@
 using System.Text.Json;
 using WinUI3.MacRuntime;
+using WinUI3.MacXaml;
 
 return await Cli.RunAsync(args);
 
@@ -23,6 +24,7 @@ internal static class Cli
         {
             "doctor" => RunDoctor(args[1..]),
             "run" => await RunProjectAsync(args[1..]),
+            "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
         };
     }
@@ -77,6 +79,57 @@ internal static class Cli
         }
     }
 
+    private static int RunXaml(string[] args)
+    {
+        if (args.Length == 0 || args[0] != "compile")
+        {
+            Console.Error.WriteLine("Expected xaml compile.");
+            return 2;
+        }
+
+        var outputPath = ReadOption(args, "--output");
+        if (outputPath is null)
+        {
+            Console.Error.WriteLine("Missing required option: --output <path>");
+            return 2;
+        }
+
+        var inputFiles = ReadPositionalInputs(args[1..]);
+        if (inputFiles.Count == 0)
+        {
+            Console.Error.WriteLine("At least one XAML input file is required.");
+            return 2;
+        }
+
+        var compiler = new MacXamlCompiler();
+        var generatedSources = new List<string>();
+        var diagnostics = new List<XamlDiagnostic>();
+
+        foreach (var inputFile in inputFiles)
+        {
+            var result = compiler.CompileFile(inputFile);
+            diagnostics.AddRange(result.Diagnostics);
+            if (!string.IsNullOrWhiteSpace(result.GeneratedSource))
+            {
+                generatedSources.Add(result.GeneratedSource);
+            }
+        }
+
+        var diagnosticsPath = Path.ChangeExtension(outputPath, ".diagnostics.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outputPath))!);
+        File.WriteAllText(diagnosticsPath, JsonSerializer.Serialize(diagnostics, JsonDefaults.Options));
+
+        if (diagnostics.Any(diagnostic => diagnostic.Severity == "Error"))
+        {
+            Console.Error.WriteLine($"XAML compilation failed. Diagnostics: {diagnosticsPath}");
+            return 1;
+        }
+
+        File.WriteAllText(outputPath, string.Join(Environment.NewLine, generatedSources));
+        Console.WriteLine($"Generated XAML source: {outputPath}");
+        return 0;
+    }
+
     private static string? ReadOption(string[] args, string name)
     {
         for (var index = 0; index < args.Length - 1; index++)
@@ -88,6 +141,24 @@ internal static class Cli
         }
 
         return null;
+    }
+
+    private static IReadOnlyList<string> ReadPositionalInputs(string[] args)
+    {
+        var values = new List<string>();
+        for (var index = 0; index < args.Length; index++)
+        {
+            var value = args[index];
+            if (value.StartsWith("--", StringComparison.Ordinal))
+            {
+                index++;
+                continue;
+            }
+
+            values.Add(value);
+        }
+
+        return values;
     }
 
     private static int UnknownCommand(string command)
@@ -104,5 +175,6 @@ internal static class Cli
         Console.WriteLine("Commands:");
         Console.WriteLine("  doctor [--json]");
         Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>]");
+        Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");
     }
 }
