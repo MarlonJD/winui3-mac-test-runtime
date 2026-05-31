@@ -8,6 +8,7 @@
     <Compile Remove="XamlTinyWinUIApp.MacTest\**\*.cs" />
     <Compile Remove="SampleAdminShell.MacTest\**\*.cs" />
     <Compile Remove="InteractionBindingApp.MacTest\**\*.cs" />
+    <Compile Remove="WindowsNativeProbe\**\*.cs" />
   </ItemGroup>
 
   <PropertyGroup>

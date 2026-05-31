@@ -78,3 +78,23 @@ dotnet pack src/WinUI3.MacRunner/WinUI3.MacRunner.csproj --configuration Release
 `MarlonJD.WinUI3.MacRunner` is packaged as a .NET tool with the
 `winui3-mac-runner` command. `winui3-mac-doctor` remains available as a source
 checkout wrapper and as `winui3-mac-runner doctor`.
+
+## Windows Native Screenshot Harness
+
+The `windows-native-screenshot` workflow runs on GitHub's `windows-latest`
+runner and uploads a PNG screenshot artifact from a real Windows desktop window.
+It uses a generic public probe app and the reusable
+`tools/WindowsWindowCapture` launcher/capture tool.
+
+The capture tool can be pointed at any Windows desktop app by changing the
+window title and command:
+
+```sh
+dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj -- \
+  --title "WinUI3 Mac Test Runtime Native Probe" \
+  --output artifacts/windows-native-screenshot/native-probe.png \
+  -- dotnet run --project fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj
+```
+
+This workflow is separate from the macOS compatibility renderer. It is the path
+for true Windows-hosted screenshot artifacts.

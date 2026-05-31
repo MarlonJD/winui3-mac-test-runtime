@@ -1,0 +1,48 @@
+name: windows-native-screenshot
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/windows-native-screenshot.yml"
+      - "tools/WindowsWindowCapture/**"
+      - "fixtures/WindowsNativeProbe/**"
+
+jobs:
+  screenshot:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build capture tool
+        run: dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release
+
+      - name: Build native probe
+        run: dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release
+
+      - name: Capture native window
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force artifacts/windows-native-screenshot | Out-Null
+          dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release -- `
+            --title "WinUI3 Mac Test Runtime Native Probe" `
+            --output "artifacts/windows-native-screenshot/native-probe.png" `
+            --timeout-seconds 30 `
+            -- dotnet run --project fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release --no-build
+          if (!(Test-Path "artifacts/windows-native-screenshot/native-probe.png")) {
+            throw "Native screenshot was not created."
+          }
+
+      - name: Upload screenshot artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-native-screenshot
+          path: artifacts/windows-native-screenshot/native-probe.png
