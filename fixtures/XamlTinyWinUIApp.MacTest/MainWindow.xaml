@@ -1,0 +1,15 @@
+<Window
+    x:Class="XamlTinyWinUIApp.MacTest.MainWindow"
+    xmlns="using:Microsoft.UI.Xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="XAML Tiny WinUI App">
+  <Window.Resources>
+    <ResourceDictionary>
+      <x:String x:Key="Greeting">Hello from XAML</x:String>
+    </ResourceDictionary>
+  </Window.Resources>
+  <StackPanel x:Name="RootStack" Orientation="Vertical">
+    <TextBlock x:Name="GreetingText" Text="{StaticResource Greeting}" />
+    <Button x:Name="PrimaryButton" Content="Continue" Click="OnPrimaryClick" />
+  </StackPanel>
+</Window>

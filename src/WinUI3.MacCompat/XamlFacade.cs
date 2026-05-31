@@ -15,6 +15,28 @@ public sealed class LaunchActivatedEventArgs : EventArgs
     public string? Arguments { get; init; }
 }
 
+public enum Visibility
+{
+    Visible,
+    Collapsed
+}
+
+public enum HorizontalAlignment
+{
+    Left,
+    Center,
+    Right,
+    Stretch
+}
+
+public enum VerticalAlignment
+{
+    Top,
+    Center,
+    Bottom,
+    Stretch
+}
+
 public abstract class DependencyObject
 {
 }
@@ -30,6 +52,27 @@ public class FrameworkElement : UIElement
     public object? DataContext { get; set; }
 
     public object? Tag { get; set; }
+
+    public ResourceDictionary Resources { get; set; } = new();
+
+    public Visibility Visibility { get; set; } = Visibility.Visible;
+
+    public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Stretch;
+
+    public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Stretch;
+
+    public object? Background { get; set; }
+
+    public object? Foreground { get; set; }
+
+    public object? Style { get; set; }
+
+    public bool IsFocused { get; private set; }
+
+    public void Focus(FocusState focusState)
+    {
+        IsFocused = true;
+    }
 }
 
 public class Window
@@ -37,6 +80,8 @@ public class Window
     public string? Title { get; set; }
 
     public object? Content { get; set; }
+
+    public ResourceDictionary Resources { get; set; } = new();
 
     public bool IsActive { get; private set; }
 
@@ -57,6 +102,8 @@ public abstract class Application
 
     public Window? MainWindow { get; protected set; }
 
+    public ResourceDictionary Resources { get; } = new();
+
     public static void Start(Func<ApplicationInitializationCallbackParams, Application> callback)
     {
         ArgumentNullException.ThrowIfNull(callback);
@@ -73,4 +120,13 @@ public abstract class Application
     protected virtual void OnLaunched(LaunchActivatedEventArgs args)
     {
     }
+}
+
+public class ResourceDictionary : Dictionary<string, object?>
+{
+}
+
+public enum FocusState
+{
+    Programmatic
 }

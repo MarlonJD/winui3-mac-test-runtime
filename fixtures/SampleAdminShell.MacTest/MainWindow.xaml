@@ -1,0 +1,89 @@
+<Window
+    x:Class="SampleAdminShell.MacTest.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Sample Admin Shell">
+    <Grid Background="{ThemeResource AppBackgroundBrush}">
+        <Frame x:Name="SignedOutFrame" />
+
+        <NavigationView
+            x:Name="RootNavigation"
+            x:Uid="RootNavigation"
+            Background="{ThemeResource AppBackgroundBrush}"
+            CompactPaneLength="56"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            OpenPaneLength="248"
+            PaneDisplayMode="Left"
+            SelectionChanged="OnNavigationSelectionChanged"
+            Visibility="Collapsed">
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="HomeNavigationItem" x:Uid="HomeNav" Tag="home">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE80F;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="ChannelsNavigationItem" x:Uid="ChannelsNav" Tag="channels">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE716;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="EventsNavigationItem" x:Uid="EventsNav" Tag="events">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE787;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="MessagesNavigationItem" x:Uid="MessagesNav" Tag="messages">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE715;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="NotificationsNavigationItem" x:Uid="NotificationsNav" Tag="notifications">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE7F4;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="SettingsNavigationItem" x:Uid="SettingsNav" Tag="settings">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE713;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Name="AdminNavigationItem" x:Uid="AdminNav" Tag="admin" Visibility="Collapsed">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8D7;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.PaneFooter>
+                <StackPanel Padding="12,8,12,12" Spacing="8">
+                    <Border x:Name="AccountFooter">
+                        <Grid ColumnDefinitions="32,*" ColumnSpacing="10">
+                            <Border>
+                                <FontIcon
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="15"
+                                    Foreground="{ThemeResource AccentBrush}"
+                                    Glyph="&#xE77B;" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="1">
+                                <TextBlock x:Name="AccountDisplayNameTextBlock" Text="Admin User" />
+                                <TextBlock x:Name="AccountUsernameTextBlock" Text="@admin" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <Button
+                        x:Name="LogoutButton"
+                        x:Uid="LogoutButton"
+                        HorizontalAlignment="Stretch"
+                        Click="OnLogoutClicked"
+                        Content="Log out" />
+                </StackPanel>
+            </NavigationView.PaneFooter>
+
+            <Frame x:Name="ContentFrame" />
+        </NavigationView>
+    </Grid>
+</Window>
