@@ -33,32 +33,51 @@ jobs:
         run: dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release
 
       - name: Build native WinUI fixtures
+        shell: pwsh
         run: |
-          dotnet build fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --configuration Release
-          dotnet build fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --configuration Release
+          $diagnosticRoot = "artifacts/windows-native-build-diagnostics"
+          New-Item -ItemType Directory -Force $diagnosticRoot | Out-Null
+
+          $status = 0
+          dotnet build fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --configuration Release -bl:"$diagnosticRoot/PublicAdminWorkbench.WinUI.binlog"
+          if ($LASTEXITCODE -ne 0) {
+            $status = $LASTEXITCODE
+          }
+
+          dotnet build fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --configuration Release -bl:"$diagnosticRoot/ComponentParityLab.WinUI.binlog"
+          if ($LASTEXITCODE -ne 0 -and $status -eq 0) {
+            $status = $LASTEXITCODE
+          }
+
+          exit $status
 
       - name: Dump native WinUI build diagnostics
         if: failure()
         shell: pwsh
         run: |
-          $diagnosticRoot = "artifacts/windows-native-build-diagnostics"
+          $diagnosticRoot = (Resolve-Path "artifacts/windows-native-build-diagnostics").Path
           New-Item -ItemType Directory -Force $diagnosticRoot | Out-Null
-          Get-ChildItem fixtures -Recurse -Include input.json,output.json |
+          Get-ChildItem fixtures -Recurse -File -Include input.json,output.json |
             Where-Object { $_.FullName -match "obj\\Release\\net.*windows" } |
             ForEach-Object {
               $relative = Resolve-Path -Relative $_.FullName
-              $safeName = $relative -replace "[\\/:]", "_"
-              Copy-Item $_.FullName (Join-Path $diagnosticRoot $safeName)
+              $safeName = ($relative -replace "^[.][\\/]", "") -replace "[\\/:]", "_"
+              Copy-Item $_.FullName (Join-Path $diagnosticRoot $safeName) -ErrorAction Continue
               Write-Host "===== $relative ====="
               Get-Content $_.FullName -Raw
             }
+          Write-Host "===== Collected native WinUI build diagnostics ====="
+          Get-ChildItem $diagnosticRoot -Recurse | ForEach-Object { Write-Host $_.FullName }
 
       - name: Upload native WinUI build diagnostics
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: windows-native-build-diagnostics
-          path: artifacts/windows-native-build-diagnostics
+          path: |
+            artifacts/windows-native-build-diagnostics
+            fixtures/**/obj/Release/**/input.json
+            fixtures/**/obj/Release/**/output.json
 
       - name: Capture native WinUI reference scenarios
         shell: pwsh
