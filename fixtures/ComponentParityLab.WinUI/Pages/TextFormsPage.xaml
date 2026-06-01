@@ -8,12 +8,18 @@
         <TextBox x:Name="SearchTextBox" Text="Public query" AutomationProperties.Name="Search public records" />
         <Button x:Name="ApplyTextButton" Content="Apply text" Click="OnApplyTextClicked" />
         <TextBlock x:Name="TextFormsStateText" Text="Text form is ready" />
-        <TextBlock x:Name="DiagnosticRichTextBlock" Text="RichTextBlock: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticRichEditBox" Text="RichEditBox: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticPasswordBox" Text="PasswordBox: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticNumberBox" Text="NumberBox: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticAutoSuggestBox" Text="AutoSuggestBox: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticAutoSuggestBoxQueryIcon" Text="AutoSuggestBox.QueryIcon: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticFormsPattern" Text="Labels and forms pattern: partial diagnostic" />
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticRichTextBlock" />
+            <ContentControl x:Name="DiagnosticRichEditBox" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticPasswordBox" />
+            <ContentControl x:Name="DiagnosticNumberBox" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticAutoSuggestBox" />
+            <ContentControl x:Name="DiagnosticAutoSuggestBoxQueryIcon" />
+        </StackPanel>
+        <ContentControl x:Name="DiagnosticFormsPattern" />
     </StackPanel>
 </Page>

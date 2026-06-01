@@ -8,6 +8,12 @@ public sealed partial class CommandsMenusPage : Page
     public CommandsMenusPage()
     {
         InitializeComponent();
+        NativeControlSamples.PopulateCommandsAndMenus(
+            DiagnosticCommandBarContent,
+            DiagnosticCommandBarFlyout,
+            DiagnosticMenuFlyout,
+            DiagnosticMenuBar,
+            DiagnosticContextMenuPattern);
     }
 
     public void ApplyScenarioState(string scenarioName)

@@ -12,6 +12,15 @@ public sealed partial class BasicInputPage : Page
         StatusComboBox.Items.Add("In review");
         StatusComboBox.Items.Add("Closed");
         StatusComboBox.SelectedIndex = 1;
+        NativeControlSamples.PopulateBasicInput(
+            DiagnosticRepeatButton,
+            DiagnosticHyperlinkButton,
+            DiagnosticDropDownButton,
+            DiagnosticSplitButton,
+            DiagnosticToggleSplitButton,
+            DiagnosticSlider,
+            DiagnosticToggleSwitch,
+            DiagnosticRatingControl);
     }
 
     public void ApplyScenarioState(string scenarioName)

@@ -8,12 +8,18 @@
         <ProgressBar x:Name="CompletionProgressBar" Minimum="0" Maximum="100" Value="62" />
         <ProgressRing x:Name="LoadingProgressRing" IsActive="True" />
         <Button x:Name="CompleteStatusButton" Content="Complete" Click="OnCompleteClicked" />
-        <TextBlock x:Name="DiagnosticInfoBadge" Text="InfoBadge: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticPersonPicture" Text="PersonPicture: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticColorPicker" Text="ColorPicker: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticCalendarDatePicker" Text="CalendarDatePicker: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticCalendarView" Text="CalendarView: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticDatePicker" Text="DatePicker: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticTimePicker" Text="TimePicker: planned diagnostic" />
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticInfoBadge" />
+            <ContentControl x:Name="DiagnosticPersonPicture" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticColorPicker" />
+            <ContentControl x:Name="DiagnosticCalendarDatePicker" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticCalendarView" />
+            <ContentControl x:Name="DiagnosticDatePicker" />
+        </StackPanel>
+        <ContentControl x:Name="DiagnosticTimePicker" />
     </StackPanel>
 </Page>

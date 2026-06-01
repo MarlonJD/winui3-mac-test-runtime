@@ -4,10 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel x:Name="DialogsFlyoutsRoot" Padding="24,20,24,24" Spacing="10">
         <TextBlock x:Name="DialogsFlyoutsTitle" Text="Page 4: Dialogs and flyouts" />
-        <TextBlock x:Name="DiagnosticContentDialog" Text="ContentDialog: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticFlyout" Text="Flyout: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticTeachingTip" Text="TeachingTip: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticToolTip" Text="ToolTip: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticToolTipServiceSetToolTip" Text="ToolTipService.SetToolTip: planned diagnostic" />
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticContentDialog" />
+            <ContentControl x:Name="DiagnosticFlyout" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticTeachingTip" />
+            <ContentControl x:Name="DiagnosticToolTip" />
+        </StackPanel>
+        <ContentControl x:Name="DiagnosticToolTipServiceSetToolTip" />
     </StackPanel>
 </Page>

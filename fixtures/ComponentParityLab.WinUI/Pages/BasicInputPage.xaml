@@ -10,13 +10,21 @@
         <RadioButton x:Name="HighPriorityRadioButton" Content="High priority" GroupName="Priority" IsChecked="True" />
         <ComboBox x:Name="StatusComboBox" PlaceholderText="Status" SelectedIndex="0" />
         <TextBlock x:Name="BasicInputStateText" Text="Ready" />
-        <TextBlock x:Name="DiagnosticRepeatButton" Text="RepeatButton: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticHyperlinkButton" Text="HyperlinkButton: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticDropDownButton" Text="DropDownButton: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticSplitButton" Text="SplitButton: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticToggleSplitButton" Text="ToggleSplitButton: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticSlider" Text="Slider: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticToggleSwitch" Text="ToggleSwitch: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticRatingControl" Text="RatingControl: planned diagnostic" />
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticRepeatButton" />
+            <ContentControl x:Name="DiagnosticHyperlinkButton" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticDropDownButton" />
+            <ContentControl x:Name="DiagnosticSplitButton" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticToggleSplitButton" />
+            <ContentControl x:Name="DiagnosticSlider" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticToggleSwitch" />
+            <ContentControl x:Name="DiagnosticRatingControl" />
+        </StackPanel>
     </StackPanel>
 </Page>

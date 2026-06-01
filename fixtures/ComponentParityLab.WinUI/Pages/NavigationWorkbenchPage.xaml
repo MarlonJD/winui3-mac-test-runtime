@@ -37,9 +37,13 @@
                 </Frame.Content>
             </Frame>
         </NavigationView>
-        <TextBlock x:Name="DiagnosticBreadcrumbBar" Text="BreadcrumbBar: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticPivot" Text="Pivot: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticSelectorBar" Text="SelectorBar: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticTabView" Text="TabView: planned diagnostic" />
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticBreadcrumbBar" />
+            <ContentControl x:Name="DiagnosticPivot" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticSelectorBar" />
+            <ContentControl x:Name="DiagnosticTabView" />
+        </StackPanel>
     </StackPanel>
 </Page>

@@ -8,6 +8,14 @@ public sealed partial class StatusPickersPage : Page
     public StatusPickersPage()
     {
         InitializeComponent();
+        NativeControlSamples.PopulateStatusAndPickers(
+            DiagnosticInfoBadge,
+            DiagnosticPersonPicture,
+            DiagnosticColorPicker,
+            DiagnosticCalendarDatePicker,
+            DiagnosticCalendarView,
+            DiagnosticDatePicker,
+            DiagnosticTimePicker);
     }
 
     public void ApplyScenarioState(string scenarioName)
