@@ -37,12 +37,31 @@ internal static class Program
             {
                 File.WriteAllText(options.MetadataOutputPath, JsonSerializer.Serialize(new
                 {
-                    schemaVersion = "0.1",
-                    title = options.Title,
+                    schemaVersion = "0.2",
+                    referenceSource = options.ReferenceSource,
+                    fixtureProjectPath = options.FixtureProjectPath,
+                    scenarioPath = options.ScenarioPath,
+                    scenarioName = options.ScenarioName,
+                    commitSha = options.CommitSha ?? Environment.GetEnvironmentVariable("GITHUB_SHA"),
+                    workflowRunId = options.WorkflowRunId ?? Environment.GetEnvironmentVariable("GITHUB_RUN_ID"),
+                    runnerImage = options.RunnerImage ?? ReadRunnerImage(),
+                    viewport = options.Viewport is null
+                        ? null
+                        : new
+                        {
+                            width = options.Viewport.Width,
+                            height = options.Viewport.Height
+                        },
+                    scale = options.Scale,
+                    theme = options.Theme,
+                    windowTitle = options.Title,
                     outputPath = Path.GetFullPath(options.OutputPath),
                     captureMode = options.ClientArea ? "client-area" : "window-frame",
-                    width = captureRect.Right - captureRect.Left,
-                    height = captureRect.Bottom - captureRect.Top,
+                    dimensions = new
+                    {
+                        width = captureRect.Right - captureRect.Left,
+                        height = captureRect.Bottom - captureRect.Top
+                    },
                     capturedAt = DateTimeOffset.UtcNow
                 }, new JsonSerializerOptions { WriteIndented = true }));
             }
@@ -239,12 +258,38 @@ internal static class Program
         return 1;
     }
 
+    private static string? ReadRunnerImage()
+    {
+        var imageOs = Environment.GetEnvironmentVariable("ImageOS");
+        var imageVersion = Environment.GetEnvironmentVariable("ImageVersion");
+        if (!string.IsNullOrWhiteSpace(imageOs) || !string.IsNullOrWhiteSpace(imageVersion))
+        {
+            return string.Join(
+                " ",
+                new[] { imageOs, imageVersion }.Where(value => !string.IsNullOrWhiteSpace(value)));
+        }
+
+        return Environment.GetEnvironmentVariable("RUNNER_OS") ??
+            Environment.GetEnvironmentVariable("OS") ??
+            Environment.OSVersion.VersionString;
+    }
+
     private sealed record CaptureOptions(
         string Title,
         string OutputPath,
         string? MetadataOutputPath,
         TimeSpan Timeout,
         bool ClientArea,
+        string ReferenceSource,
+        string? FixtureProjectPath,
+        string? ScenarioPath,
+        string? ScenarioName,
+        string? CommitSha,
+        string? WorkflowRunId,
+        string? RunnerImage,
+        CaptureViewport? Viewport,
+        double? Scale,
+        string? Theme,
         IReadOnlyList<string> Command)
     {
         public static CaptureOptions Parse(string[] args)
@@ -260,6 +305,16 @@ internal static class Program
             string? metadataOutputPath = null;
             var timeout = TimeSpan.FromSeconds(30);
             var clientArea = false;
+            var referenceSource = "synthetic-probe";
+            string? fixtureProjectPath = null;
+            string? scenarioPath = null;
+            string? scenarioName = null;
+            string? commitSha = null;
+            string? workflowRunId = null;
+            string? runnerImage = null;
+            CaptureViewport? viewport = null;
+            double? scale = null;
+            string? theme = null;
 
             for (var index = 0; index < separator; index++)
             {
@@ -279,6 +334,36 @@ internal static class Program
                         break;
                     case "--client-area":
                         clientArea = true;
+                        break;
+                    case "--reference-source":
+                        referenceSource = ReadReferenceSource(args, ++index);
+                        break;
+                    case "--fixture-project":
+                        fixtureProjectPath = ReadValue(args, ++index, "--fixture-project");
+                        break;
+                    case "--scenario":
+                        scenarioPath = ReadValue(args, ++index, "--scenario");
+                        break;
+                    case "--scenario-name":
+                        scenarioName = ReadValue(args, ++index, "--scenario-name");
+                        break;
+                    case "--commit-sha":
+                        commitSha = ReadValue(args, ++index, "--commit-sha");
+                        break;
+                    case "--workflow-run-id":
+                        workflowRunId = ReadValue(args, ++index, "--workflow-run-id");
+                        break;
+                    case "--runner-image":
+                        runnerImage = ReadValue(args, ++index, "--runner-image");
+                        break;
+                    case "--viewport":
+                        viewport = CaptureViewport.Parse(ReadValue(args, ++index, "--viewport"));
+                        break;
+                    case "--scale":
+                        scale = ReadPositiveDouble(ReadValue(args, ++index, "--scale"), "--scale");
+                        break;
+                    case "--theme":
+                        theme = ReadValue(args, ++index, "--theme");
                         break;
                     default:
                         throw new ArgumentException($"Unknown option '{args[index]}'.");
@@ -301,7 +386,39 @@ internal static class Program
                 metadataOutputPath,
                 timeout,
                 clientArea,
+                referenceSource,
+                fixtureProjectPath,
+                scenarioPath,
+                scenarioName,
+                commitSha,
+                workflowRunId,
+                runnerImage,
+                viewport,
+                scale,
+                theme,
                 args[(separator + 1)..]);
+        }
+
+        private static string ReadReferenceSource(string[] args, int index)
+        {
+            var value = ReadValue(args, index, "--reference-source");
+            if (value is not ("native-winui" or "synthetic-probe"))
+            {
+                throw new ArgumentException("--reference-source must be native-winui or synthetic-probe.");
+            }
+
+            return value;
+        }
+
+        private static double ReadPositiveDouble(string value, string option)
+        {
+            if (!double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var number) ||
+                number <= 0)
+            {
+                throw new ArgumentException($"{option} must be a positive number.");
+            }
+
+            return number;
         }
 
         private static string ReadValue(string[] args, int index, string option)
@@ -312,6 +429,24 @@ internal static class Program
             }
 
             return args[index];
+        }
+    }
+
+    private sealed record CaptureViewport(int Width, int Height)
+    {
+        public static CaptureViewport Parse(string value)
+        {
+            var parts = value.Split('x', 'X');
+            if (parts.Length != 2 ||
+                !int.TryParse(parts[0], NumberStyles.None, CultureInfo.InvariantCulture, out var width) ||
+                !int.TryParse(parts[1], NumberStyles.None, CultureInfo.InvariantCulture, out var height) ||
+                width <= 0 ||
+                height <= 0)
+            {
+                throw new ArgumentException("--viewport must use <width>x<height>, for example 1044x720.");
+            }
+
+            return new CaptureViewport(width, height);
         }
     }
 

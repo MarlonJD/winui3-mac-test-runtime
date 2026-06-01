@@ -14,6 +14,15 @@ public sealed partial class BasicInputPage : Page
         StatusComboBox.SelectedIndex = 1;
     }
 
+    public void ApplyScenarioState(string scenarioName)
+    {
+        if (scenarioName.Contains("basic-input", StringComparison.OrdinalIgnoreCase))
+        {
+            StatusComboBox.SelectedIndex = 2;
+            BasicInputStateText.Text = "Primary action ran";
+        }
+    }
+
     private void OnPrimaryActionClicked(object sender, RoutedEventArgs args)
     {
         BasicInputStateText.Text = "Primary action ran";

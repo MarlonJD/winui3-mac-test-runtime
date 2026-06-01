@@ -14,6 +14,15 @@ public sealed partial class NavigationWorkbenchPage : Page
         WorkbenchQueueList.SelectedIndex = 0;
     }
 
+    public void ApplyScenarioState(string scenarioName)
+    {
+        if (scenarioName.Contains("navigation-workbench", StringComparison.OrdinalIgnoreCase))
+        {
+            InnerNavigationView.SelectedItem = WorkbenchOverviewNavigationItem;
+            WorkbenchFrameTitle.Text = "Overview";
+        }
+    }
+
     private void OnInnerNavigationSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         WorkbenchFrameTitle.Text = args.SelectedItemContainer?.Tag?.ToString() == "overview" ? "Overview" : "Queue";

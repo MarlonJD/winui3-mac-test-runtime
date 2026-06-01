@@ -14,4 +14,12 @@ public sealed partial class CollectionsPage : Page
         CollectionListView.Items.Add("Publish summary");
         CollectionListView.SelectedIndex = 0;
     }
+
+    public void ApplyScenarioState(string scenarioName)
+    {
+        if (scenarioName.Contains("collections", StringComparison.OrdinalIgnoreCase))
+        {
+            CollectionListView.SelectedIndex = 1;
+        }
+    }
 }
