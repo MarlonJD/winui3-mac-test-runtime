@@ -51,6 +51,24 @@ public sealed class MacXamlCompilerTests
     }
 
     [TestMethod]
+    public void CompileTextGeneratesPathBindingRegistrations()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <TextBlock x:Name="TitleText" Text="{Binding Path=Title, Mode=OneWay}" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        StringAssert.Contains(result.GeneratedSource, "new Microsoft.UI.Xaml.Data.Binding(\"Title\")");
+    }
+
+    [TestMethod]
     public void CompileTextGeneratesAutomationPropertyRegistrations()
     {
         const string xaml = """
@@ -67,6 +85,28 @@ public sealed class MacXamlCompilerTests
         Assert.IsTrue(result.Succeeded);
         StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Automation.AutomationProperties.SetName");
         StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Automation.AutomationProperties.SetHelpText");
+    }
+
+    [TestMethod]
+    public void CompileTextGeneratesUidAndGridColumnRegistrations()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Grid>
+                <StackPanel x:Name="DetailPanel" x:Uid="DetailPanel" Grid.Column="1" />
+              </Grid>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, ".Uid = \"DetailPanel\"");
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Controls.Grid.SetColumn(__element2, 1)");
     }
 
     [TestMethod]
@@ -106,6 +146,49 @@ public sealed class MacXamlCompilerTests
         Assert.HasCount(1, result.Diagnostics);
         Assert.AreEqual("XAML1001", result.Diagnostics[0].Code);
         Assert.AreEqual("MainWindow.xaml", result.Diagnostics[0].FilePath);
+        Assert.IsNotNull(result.Diagnostics[0].Line);
+    }
+
+    [TestMethod]
+    public void CompileTextReportsUnsupportedProperties()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Button Flyout="Unsupported" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML1002", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "Flyout");
+        Assert.IsNotNull(result.Diagnostics[0].Line);
+    }
+
+    [TestMethod]
+    public void CompileTextReportsUnsupportedPropertyElements()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <StackPanel>
+                <StackPanel.ChildrenTransitions>
+                  <Button />
+                </StackPanel.ChildrenTransitions>
+              </StackPanel>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML1003", result.Diagnostics[0].Code);
         Assert.IsNotNull(result.Diagnostics[0].Line);
     }
 }

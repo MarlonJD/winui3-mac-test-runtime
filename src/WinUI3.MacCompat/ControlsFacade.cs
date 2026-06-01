@@ -106,11 +106,27 @@ public class StackPanel : FrameworkElement
 
 public class Grid : FrameworkElement
 {
+    private static readonly Dictionary<UIElement, int> Columns = new();
+
     public string? ColumnDefinitions { get; set; }
 
     public double ColumnSpacing { get; set; }
 
     public IList<UIElement> Children { get; } = new List<UIElement>();
+
+    public static void SetColumn(UIElement element, int value)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        Columns[element] = Math.Max(0, value);
+    }
+
+    public static int GetColumn(UIElement element)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        return Columns.TryGetValue(element, out var value) ? value : 0;
+    }
 }
 
 public class Border : FrameworkElement

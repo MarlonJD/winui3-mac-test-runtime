@@ -13,7 +13,7 @@ Status values:
 | Level | Status | Current public contract |
 | --- | --- | --- |
 | Level 0: Harness Reliability | supported | Managed macOS runner, doctor, SVG, current Skia, `skia-v2`, versioned artifacts, strict visual failures, and public CI workflow wiring. |
-| Level 1: Core App And XAML Compatibility | partial | `Application`, `Window`, `Page`, `Frame`, resource dictionaries, startup activation, navigation, and the documented XAML subset. |
+| Level 1: Core App And XAML Compatibility | supported | `Application`, `Window`, `Page`, `Frame`, resource dictionaries, startup activation, navigation, strict unsupported XAML diagnostics, and the documented public XAML subset. |
 | Level 2: Layout And Controls Foundation | partial | Public fixture subset for `Grid`, `StackPanel`, `Border`, `TextBlock`, `TextBox`, `Button`, `Image`, `ListView`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. |
 | Level 3: Styling, Resources, And Theme Fidelity | planned | Resource lookup is partial; full style/template/material fidelity is not supported. |
 | Level 4: Data Binding, Commands, And State | partial | One-way binding refresh, button click simulation, navigation state, and keyboard accelerator invocation for public fixtures. |
@@ -48,13 +48,16 @@ Status values:
 | --- | --- | --- |
 | `x:Class` | supported | Generates a partial class. |
 | `x:Name` / `Name` | supported | Generates strongly typed fields. |
+| `x:Uid` | supported | Preserved as `FrameworkElement.Uid` for public fixture localization metadata. |
 | Text content | supported | Covered for `TextBlock` and `Button`. |
 | Event hookup | supported | Covered for routed click and navigation selection events. |
 | `{StaticResource ...}` | partial | Simple dictionary lookup with missing-resource reporting. |
 | `{ThemeResource ...}` | partial | Simple dictionary lookup with missing-resource reporting. |
 | `AutomationProperties.Name` | supported | Exported into `tree.json` and `accessibility.json`. |
 | `AutomationProperties.HelpText` | supported | Exported into `tree.json` and `accessibility.json`. |
-| `{Binding Path}` | partial | One-way refresh through `BindingOperations.RefreshTree`. |
+| `Grid.Column` | supported | Supported attached property for public fixture layout metadata. |
+| `{Binding Path}` | partial | One-way refresh through `BindingOperations.RefreshTree`; both `{Binding Title}` and `{Binding Path=Title}` forms are accepted. |
+| Unsupported elements and properties | supported | Unsupported elements, properties, property elements, directives, attached properties, and events fail compilation with stable diagnostics. |
 | Styles and templates | planned | Style values are stored but not applied visually. |
 
 ## Facade Controls
