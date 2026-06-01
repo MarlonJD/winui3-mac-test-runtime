@@ -5,9 +5,9 @@
     <Page.Resources>
         <ResourceDictionary>
             <Color x:Key="LabAccentColor">#2562D9</Color>
-            <SolidColorBrush x:Key="LabAccentBrush">#2562D9</SolidColorBrush>
+            <SolidColorBrush x:Key="LabAccentBrush" Color="#2562D9" />
             <CornerRadius x:Key="LabCornerRadius">8</CornerRadius>
-            <String x:Key="LabStaticText">Static resource resolved</String>
+            <x:String x:Key="LabStaticText">Static resource resolved</x:String>
             <Style x:Key="LabTextStyle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{ThemeResource LabAccentBrush}" />
             </Style>
