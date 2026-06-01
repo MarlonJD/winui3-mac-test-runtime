@@ -159,7 +159,8 @@ parity references for the fixture projects. Component lab runs also publish
 `component-evidence.json`; treat that file as the component-level truth for
 `good`, `usable`, `weak`, `poor`, or `not-rendered` grades. A whole screenshot
 that passes thresholds is necessary smoke evidence, but it is not enough to call
-every visible control visually good.
+every visible control visually good. Controls that only emit text or disappear
+in macOS screenshots remain `not-rendered`.
 
 The current `public-admin-workbench-light` synthetic probe evidence comes from
 public workflow run
@@ -188,16 +189,16 @@ The component parity lab examples below come from public GitHub Actions run
 Each row shows the synthetic Windows probe reference first, then the current
 macOS runtime rendering from this library, then the pixel diff. These are
 harness examples, not native WinUI parity claims:
-`component-evidence.json` remains the source of truth for each component's
-catalog status, presence, interaction status, visual grade, and known gaps, and
-component grades must not be promoted until native WinUI Windows reference
-artifacts exist.
+current scenario JSON and freshly generated `component-evidence.json` artifacts
+remain the source of truth for each component's catalog status, presence,
+interaction status, visual grade, and known gaps, and component grades must not
+be promoted until native WinUI Windows reference artifacts exist.
 
 | Scenario | Synthetic Windows probe reference | macOS runtime | Pixel diff | Evidence summary |
 | --- | --- | --- | --- | --- |
-| `component-basic-input-light` | ![Synthetic Windows basic input probe reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | 13 components: 5 `usable`, 8 `not-rendered`; changed pixels `8.07%`, MAE `7.46`, RMS `39.75`. |
-| `component-commands-menus-light` | ![Synthetic Windows commands and menus probe reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | 8 components: 3 `weak`, 5 `not-rendered`; weak items are `CommandBar`, `AppBarButton`, and `AppBarButton.Icon`. |
-| `component-layout-media-light` | ![Synthetic Windows layout and media probe reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | 28 components/features: 6 `usable`, 4 `weak`, 18 `not-rendered`; weak items include `Grid`, `Border`, `FontIcon`, and `Image`. |
+| `component-basic-input-light` | ![Synthetic Windows basic input probe reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | Current scenario policy after local macOS screenshot inspection: 13 components, all 13 `not-rendered` because the controls emit text-only output. Historical synthetic diff metrics: changed pixels `8.07%`, MAE `7.46`, RMS `39.75`. |
+| `component-commands-menus-light` | ![Synthetic Windows commands and menus probe reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | Current scenario policy after local macOS screenshot inspection: 8 components, all 8 `not-rendered`; `CommandBar`, `AppBarButton`, and `AppBarButton.Icon` do not render native chrome. |
+| `component-layout-media-light` | ![Synthetic Windows layout and media probe reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | Current scenario policy after local macOS screenshot inspection: 28 components/features: 4 resource smoke rows `usable`, 24 controls/features `not-rendered`; `Grid`, `Border`, `FontIcon`, `Image`, `ScrollViewer`, and `StackPanel` are text-only or absent. |
 
 See `docs/visual-parity/README.md` for the current evidence table and
 interpretation notes.
@@ -282,8 +283,9 @@ Windows reference capture tier completed; local visual comparison must still
 pass before claiming the documented alpha fixture/control subset stayed within
 scenario thresholds. Passing either tier is not a claim of arbitrary WinUI 3
 pixel compatibility, and visibly weak components must remain labeled `weak` or
-`poor` in component evidence until native WinUI public reference artifacts
-justify a stronger grade.
+`poor`; text-only or absent components must remain labeled `not-rendered` in
+component evidence until native WinUI public reference artifacts justify a
+stronger grade.
 
 ## License
 

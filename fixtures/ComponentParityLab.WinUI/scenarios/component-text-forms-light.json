@@ -54,20 +54,20 @@
       "component": "TextBox",
       "target": "SearchTextBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "text", "focus", "automationName" ],
-      "knownGaps": [ "Caret, selection, IME, and validation states are not rendered." ]
+      "knownGaps": [ "The macOS runtime currently emits only the text value; native WinUI TextBox border, caret, selection, focus, and validation chrome are not rendered." ]
     },
     {
       "component": "Labels/forms pattern",
       "kind": "pattern",
       "target": "SearchLabel",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "automationName" ],
-      "knownGaps": [ "The lab validates label presence, not complete form layout semantics." ]
+      "knownGaps": [ "The macOS runtime currently shows only standalone text; complete native WinUI label/form layout semantics are not rendered." ]
     },
     {
       "component": "RichTextBlock",

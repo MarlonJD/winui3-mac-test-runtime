@@ -36,28 +36,28 @@
       "component": "InfoBar",
       "target": "StatusInfoBar",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "title", "message", "severity", "isOpen" ],
-      "knownGaps": [ "InfoBar layout, close button, action area, and exact severity styling are weak approximations." ]
+      "knownGaps": [ "The macOS runtime currently does not render the InfoBar body or native WinUI severity chrome in the screenshot." ]
     },
     {
       "component": "ProgressBar",
       "target": "CompletionProgressBar",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "minimum", "maximum", "value" ],
-      "knownGaps": [ "Animation and exact Fluent geometry are approximated." ]
+      "knownGaps": [ "The macOS runtime currently does not render the native WinUI ProgressBar track or indicator in the screenshot." ]
     },
     {
       "component": "ProgressRing",
       "target": "LoadingProgressRing",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "isActive" ],
-      "knownGaps": [ "Native animation and reduced-motion behavior are not modeled." ]
+      "knownGaps": [ "The macOS runtime currently does not render the native WinUI ProgressRing in the screenshot." ]
     },
     {
       "component": "InfoBadge",

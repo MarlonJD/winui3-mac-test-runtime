@@ -37,46 +37,46 @@
       "component": "Button",
       "target": "PrimaryActionButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "content", "click" ],
-      "knownGaps": [ "Exact Fluent pointer, pressed, and focus states are not rendered." ]
+      "knownGaps": [ "The macOS runtime currently emits only the button text; native WinUI button chrome is not rendered, so no component visual parity is claimed." ]
     },
     {
       "component": "ToggleButton",
       "target": "PinnedToggleButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "content", "isChecked" ],
-      "knownGaps": [ "Checked visuals are approximated." ]
+      "knownGaps": [ "The macOS runtime currently emits only the toggle text; checked native WinUI chrome is not rendered, so no component visual parity is claimed." ]
     },
     {
       "component": "CheckBox",
       "target": "EnabledCheckBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "content", "isChecked" ],
-      "knownGaps": [ "Indeterminate and full state styling remain limited." ]
+      "knownGaps": [ "The macOS runtime currently emits only the checkbox text; native WinUI checkbox glyph and state chrome are not rendered." ]
     },
     {
       "component": "RadioButton",
       "target": "HighPriorityRadioButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "content", "groupName", "isChecked" ],
-      "knownGaps": [ "Full group behavior and native styling remain partial." ]
+      "knownGaps": [ "The macOS runtime currently emits only the radio button text; native WinUI radio glyph and state chrome are not rendered." ]
     },
     {
       "component": "ComboBox",
       "target": "StatusComboBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "items", "selectedIndex" ],
-      "knownGaps": [ "Popup behavior and item templates are not rendered." ]
+      "knownGaps": [ "The macOS runtime currently emits combo box items as text; native WinUI combo box field, chevron, popup, and item chrome are not rendered." ]
     },
     {
       "component": "RepeatButton",

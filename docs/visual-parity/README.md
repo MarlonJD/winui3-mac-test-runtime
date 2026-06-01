@@ -35,9 +35,11 @@ Passing strict comparison means the scenario stayed inside its documented
 thresholds. It is not a claim of arbitrary WinUI 3 pixel-perfect compatibility.
 It also is not a component-quality claim by itself: a whole screenshot can pass
 while an individual `CommandBar`, `InfoBar`, `ListView`, icon, or resource
-feature remains visibly weak. Component lab scenarios must publish
+feature remains visibly weak or absent. Component lab scenarios must publish
 `component-evidence.json` and keep visibly weak controls labeled `weak` or
-`poor` until native WinUI public reference artifacts justify a stronger grade.
+`poor`; controls that only emit text or disappear in macOS screenshots must be
+labeled `not-rendered` until native WinUI public reference artifacts and
+reviewed macOS output justify a stronger grade.
 
 Component visual grades:
 
@@ -47,7 +49,7 @@ Component visual grades:
 | `usable` | Recognizable and functionally correct, but native chrome differs. |
 | `weak` | Structure exists, but important visual details are missing or simplified. |
 | `poor` | Visibly wrong, collapsed, misplaced, or misleading. |
-| `not-rendered` | Diagnostic-only, planned, Windows-only, or unsupported. |
+| `not-rendered` | No meaningful macOS component visual is present yet; this includes diagnostic-only, planned, Windows-only, unsupported, empty, or text-only output. |
 
 ## Current Public Evidence
 
@@ -89,10 +91,11 @@ cataloged implementation work before stronger parity claims can be made.
 
 These examples show synthetic Windows probe output beside the current macOS
 runtime rendering from this library. The visual tables are meant to make the
-state of the component lab easy to inspect in the repository;
-`component-evidence.json` inside each example folder remains the component-level
-source of truth. Component grades must not be promoted until native WinUI
-Windows reference artifacts exist.
+state of the component lab easy to inspect in the repository. The checked-in
+synthetic example artifacts are historical smoke evidence; current scenario
+JSON and freshly generated `component-evidence.json` artifacts are the
+component-level source of truth. Component grades must not be promoted until
+native WinUI Windows reference artifacts exist.
 
 ### Basic Input
 
@@ -100,8 +103,10 @@ Windows reference artifacts exist.
 | --- | --- | --- |
 | ![Synthetic Windows basic input probe reference](examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](examples/component-basic-input-light/pixel-diff.png) |
 
-`component-basic-input-light` currently records 13 component requirements: 5
-are `usable` and 8 are `not-rendered` planned diagnostics.
+After local macOS screenshot inspection, `component-basic-input-light` records
+13 component requirements and all 13 are `not-rendered`. The screenshot emits
+only text for the basic input controls, so no macOS component visual parity is
+claimed before the next native Windows comparison.
 
 ### Commands And Menus
 
@@ -109,9 +114,10 @@ are `usable` and 8 are `not-rendered` planned diagnostics.
 | --- | --- | --- |
 | ![Synthetic Windows commands and menus probe reference](examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](examples/component-commands-menus-light/pixel-diff.png) |
 
-`component-commands-menus-light` currently records 8 component requirements: 3
-are `weak` and 5 are `not-rendered`. The weak items are `CommandBar`,
-`AppBarButton`, and `AppBarButton.Icon`.
+After local macOS screenshot inspection, `component-commands-menus-light`
+records 8 component requirements and all 8 are `not-rendered`. The screenshot
+shows command result text without native `CommandBar`, `AppBarButton`, or icon
+chrome.
 
 ### Layout, Media, And Resources
 
@@ -119,10 +125,11 @@ are `weak` and 5 are `not-rendered`. The weak items are `CommandBar`,
 | --- | --- | --- |
 | ![Synthetic Windows layout and media probe reference](examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](examples/component-layout-media-light/pixel-diff.png) |
 
-`component-layout-media-light` currently records 28 component or source-feature
-requirements: 6 are `usable`, 4 are `weak`, and 18 are `not-rendered`. The weak
-items include `Grid`, `Border`, `FontIcon`, and `Image`; planned source
-features such as `Window.SystemBackdrop / MicaBackdrop` remain diagnostic-only.
+After local macOS screenshot inspection, `component-layout-media-light` records
+28 component or source-feature requirements: 4 resource smoke rows are
+`usable`, and 24 controls/features are `not-rendered`. `ScrollViewer`, `Grid`,
+`StackPanel`, `Border`, `FontIcon`, and `Image` are text-only or absent in the
+macOS screenshot, so they are not parity claims.
 
 ## Updating Evidence
 

@@ -162,14 +162,34 @@ Checked-in synthetic probe visual example categories:
 ### Component Quality Gaps
 
 The component lab intentionally records weak and not-rendered components. A
-whole screenshot can pass while individual components remain weak.
+whole screenshot can pass while individual components remain weak, text-only,
+or absent.
 
-Known weak examples from checked-in evidence:
+Current local macOS screenshot inspection marks these previously over-optimistic
+component examples as `not-rendered` because they are text-only or absent:
 
+- `Button`
+- `ToggleButton`
+- `CheckBox`
+- `RadioButton`
+- `ComboBox`
+- `TextBox`
+- `ItemsControl`
+- `ListView`
 - `CommandBar`
 - `AppBarButton`
 - `AppBarButton.Icon`
+- `NavigationView`
+- `NavigationViewItem`
+- `NavigationView.MenuItems`
+- `NavigationView.PaneFooter`
+- `List/details pattern`
+- `InfoBar`
+- `ProgressBar`
+- `ProgressRing`
+- `ScrollViewer`
 - `Grid`
+- `StackPanel`
 - `Border`
 - `FontIcon`
 - `Image`
@@ -217,7 +237,7 @@ support, and native WinUI Windows reference evidence.
 | PB-000 | Blocking | Native Windows reference source of truth is missing. | Current visual references are synthetic `WindowsNativeProbe` drawings, not real WinUI fixture renders, so visual parity evidence starts from the wrong baseline. | `windows-native-screenshot.yml` builds, launches, drives, and captures the actual public WinUI fixture projects on Windows, records reference provenance, and labels any remaining synthetic probe output as non-parity smoke evidence only. |
 | PB-001 | Blocking | Broad WinUI API coverage is incomplete. | Production users will hit uncataloged or planned APIs in normal apps. | Expand the API catalog and diagnostics until common public WinUI apps produce no unknown API usage; unsupported APIs must have explicit status and docs. |
 | PB-002 | Blocking | Many controls are `not-rendered` or diagnostic-only. | The Microsoft Learn controls inventory is not yet represented by usable runtime behavior. | Component lab inventory has fixture coverage for the target production subset, with no unexpected `not-rendered` entries for claimed supported controls. |
-| PB-003 | Blocking | Weak supported component visuals remain. | `CommandBar`, `AppBarButton`, layout/media primitives, icons, and images are visibly simplified. | Claimed supported components reach at least `usable`, with native WinUI public Windows reference artifacts and reviewed `component-evidence.json`. |
+| PB-003 | Blocking | Supported component visuals are text-only, absent, or weak. | Local macOS evidence currently marks basic input controls, text input, collection controls, command controls, status controls, and layout/media primitives as `not-rendered`; whole-image passes would hide this without component evidence. | Claimed supported components reach at least `usable`, with native WinUI public Windows reference artifacts and reviewed `component-evidence.json`. |
 | PB-004 | Blocking | Templates, visual states, and theme dictionaries are incomplete. | Real WinUI apps rely on templates, state groups, and Fluent resources. | Implement and test the production subset of `ControlTemplate`, `DataTemplate`, `VisualStateManager`, `ThemeResource`, and theme dictionaries. |
 | PB-005 | Blocking | Fluent materials and composition are not rendered. | Mica, Acrylic, system backdrops, shadows, transforms, and motion are core modern WinUI surfaces. | Add deterministic material/composition modeling or clearly define a production support tier that excludes them. |
 | PB-006 | Blocking | Input and accessibility behavior is partial. | Production testing needs reliable keyboard, pointer, focus, automation, and text behavior. | Add broader keyboard routing, pointer state, focus visuals, text editing, and accessibility automation coverage with tests. |
@@ -278,8 +298,9 @@ Detailed execution plan: `docs/plans/2026-06-01-production-readiness-roadmap-pla
 
 1. Replace synthetic `WindowsNativeProbe` visual references with native WinUI
    Windows captures of the actual public WinUI fixture projects.
-2. Move weak checked-in component examples to `usable` after native reference
-   evidence exists.
+2. Move checked-in `not-rendered` or weak component examples to `usable` only
+   after native reference capture and macOS inspection prove the grade is
+   honest.
 3. Add crop-level or component-region diff metrics so whole-screen thresholds do
    not mask localized regressions.
 4. Expand component lab coverage for currently diagnostic controls that are

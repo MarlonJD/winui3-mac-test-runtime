@@ -26,54 +26,54 @@
       "component": "ScrollViewer",
       "target": "LayoutScrollViewer",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "content", "verticalScrollBarVisibility" ],
-      "knownGaps": [ "Real scrolling, inertia, and native scrollbars are limited." ]
+      "knownGaps": [ "The macOS runtime currently emits only child text; native WinUI scrollbars, clipping, and scrolling chrome are not rendered in the screenshot." ]
     },
     {
       "component": "Grid",
       "target": "LayoutResourceGrid",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "columnDefinitions", "columnSpacing" ],
-      "knownGaps": [ "Full row and column sizing, spanning, alignment, and invalidation remain partial." ]
+      "knownGaps": [ "The macOS runtime currently emits only child text; native WinUI Grid layout shape and column separation are not visibly rendered." ]
     },
     {
       "component": "StackPanel",
       "target": "LayoutNestedStack",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "spacing" ],
-      "knownGaps": [ "Measure and arrange behavior is deterministic but not fully WinUI-compatible." ]
+      "knownGaps": [ "The macOS runtime currently emits only child text; native WinUI StackPanel spacing/layout shape is not sufficient visual evidence." ]
     },
     {
       "component": "Border",
       "target": "LayoutBorder",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
-      "knownGaps": [ "CornerRadius, border thickness variants, brushes, shadows, and backgrounds are limited." ]
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "knownGaps": [ "The macOS runtime currently does not render the Border surface, corner radius, border thickness, brush, or background in the screenshot." ]
     },
     {
       "component": "FontIcon",
       "target": "LayoutFontIcon",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "glyph", "fontSize" ],
-      "knownGaps": [ "Font fallback, sizing, and exact Segoe Fluent icon rendering are approximated." ]
+      "knownGaps": [ "The macOS runtime currently does not render the FontIcon glyph in the screenshot." ]
     },
     {
       "component": "Image",
       "target": "PublicImagePlaceholder",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "source" ],
-      "knownGaps": [ "The renderer uses a placeholder; image decoding and scaling modes are not complete." ]
+      "knownGaps": [ "The macOS runtime currently does not render the Image source or a visible image placeholder in the screenshot." ]
     },
     {
       "component": "SymbolIcon",

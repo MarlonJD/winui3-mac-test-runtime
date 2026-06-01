@@ -36,19 +36,19 @@
       "component": "CommandBar",
       "target": "PrimaryCommandBar",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "primaryCommands" ],
-      "knownGaps": [ "Command surface chrome, overflow behavior, focus, and pointer states are visibly simplified." ]
+      "knownGaps": [ "The macOS runtime currently emits only command result text; native WinUI CommandBar surface, overflow, focus, and pointer chrome are not rendered." ]
     },
     {
       "component": "AppBarButton",
       "target": "SaveCommandButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "label", "icon", "click" ],
-      "knownGaps": [ "Icon rendering and AppBarButton chrome are weak approximations." ]
+      "knownGaps": [ "The macOS runtime currently emits only command result text; native WinUI AppBarButton label/icon chrome is not rendered." ]
     },
     {
       "component": "CommandBar.Content",
@@ -63,10 +63,10 @@
       "kind": "xaml-property-slot",
       "target": "SaveCommandIcon",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "glyph" ],
-      "knownGaps": [ "FontIcon metadata is present, but exact Segoe Fluent symbol rendering is approximate." ]
+      "knownGaps": [ "The macOS runtime currently does not render the AppBarButton icon slot in the screenshot." ]
     },
     {
       "component": "CommandBarFlyout",

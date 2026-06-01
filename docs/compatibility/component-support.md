@@ -33,7 +33,7 @@ grades are recorded in `component-evidence.json` and must stay honest:
 | `usable` | Recognizable and functionally correct, but native chrome differs. |
 | `weak` | Structure exists, but important visual details are missing or visibly simplified. |
 | `poor` | Visibly wrong, collapsed, misplaced, or misleading. |
-| `not-rendered` | Diagnostic-only, planned, Windows-only, or unsupported. |
+| `not-rendered` | No meaningful macOS component visual is present yet; this includes diagnostic-only, planned, Windows-only, unsupported, empty, or text-only output. |
 
 ## Component Parity Lab
 
@@ -42,14 +42,14 @@ clean-room pages:
 
 | Page | Coverage |
 | --- | --- |
-| Page 1: Basic input | `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls. |
-| Page 2: Text and forms | `TextBlock`, `TextBox`, form labels, and diagnostic rows for rich text, password, number, and autosuggest controls. |
-| Page 3: Collections | `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics. |
+| Page 1: Basic input | Native Windows fixture controls for `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls; current macOS screenshot evidence is text-only and graded `not-rendered`. |
+| Page 2: Text and forms | `TextBlock`, native Windows fixture controls for `TextBox` and form labels, and diagnostic rows for rich text, password, number, and autosuggest controls; current macOS TextBox/form output is text-only and graded `not-rendered`. |
+| Page 3: Collections | Native Windows fixture controls for `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics; current macOS collection output is text-only and graded `not-rendered`. |
 | Page 4: Dialogs and flyouts | Diagnostic rows for dialog, flyout, teaching tip, tooltip, and tooltip service coverage. |
-| Page 5: Commands and menus | `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics. |
-| Page 6: Navigation and workbench | `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure. |
-| Page 7: Status and pickers | `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics. |
-| Page 8: Layout, media, visuals | `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics. |
+| Page 5: Commands and menus | Native Windows fixture controls for `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics; current macOS command output is text-only and graded `not-rendered`. |
+| Page 6: Navigation and workbench | Native Windows fixture controls for `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure; current macOS inner navigation/list-detail visuals are text-only and graded `not-rendered` except `Frame` and `Page` host coverage. |
+| Page 7: Status and pickers | Native Windows fixture controls for `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics; current macOS status controls are absent from the screenshot and graded `not-rendered`. |
+| Page 8: Layout, media, visuals | Native Windows fixture controls for `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics; current macOS layout/media component visuals are text-only or absent and graded `not-rendered`, while resource smoke rows remain `usable`. |
 
 The foundation also tracks downstream source-audit gaps explicitly:
 `SymbolIcon`, `XamlControlsResources`,
@@ -69,29 +69,29 @@ The foundation also tracks downstream source-audit gaps explicitly:
 | `Page` | supported | Page root and activation through `Frame.Navigate`. | Full navigation stack behavior is limited. |
 | `UserControl` | supported | Content root subset. | Templates and broader resource behavior remain limited. |
 | `Frame` | supported | `Navigate(Type, object?)`, page activation, and XAML `Frame.Content`. | Back stack, transition animations, and complex navigation state are not implemented. |
-| `NavigationView` | partial | Menu items, selected item, pane footer, shell layout, and `SelectionChanged`. | Adaptive pane modes, settings item behavior, full keyboarding, focus visuals, and exact Fluent styling remain partial. |
-| `NavigationViewItem` | partial | Content, tag metadata, selected state, and shell renderer coverage. | Full icon/text state styling and nested menu behavior remain partial. |
-| `CommandBar` | supported | `PrimaryCommands` and public `skia-v2` command rendering. | Overflow, secondary commands, keyboard accelerators, and exact command surface chrome are not complete. |
-| `AppBarButton` | supported | Label, icon slot, click event hookup, and command-bar fixture coverage. | Overflow behavior, full pressed/hover/focus states, and exact native visuals are planned. |
-| `Button` | supported | Content, command, click simulation, accessibility export, and visual painter coverage. | Flyouts, templates, advanced states, and exact native chrome are not complete. |
-| `ToggleButton` | supported | Checked state and click behavior. | Full Fluent state styling and templating are planned. |
-| `CheckBox` | supported | Checked state, tree export, accessibility role, layout, and painter coverage. | Indeterminate styling and full Fluent state visuals remain limited. |
-| `RadioButton` | supported | Checked state, group metadata, tree export, and painter coverage. | Full group behavior and exact styling remain limited. |
+| `NavigationView` | partial | Source ingestion, tree export, and navigation selection are present. | Current macOS evidence for the inner fixture NavigationView is text-only, so component visual evidence is `not-rendered` until native pane and selection chrome render. |
+| `NavigationViewItem` | partial | Content, tag metadata, selected state, and tree export are present. | Current macOS evidence emits item content as text only; native item chrome and selected state visuals are not rendered. |
+| `CommandBar` | supported | `PrimaryCommands`, command click simulation, and public fixture ingestion are present. | Current macOS evidence emits only command result text; command surface chrome, overflow, focus, and pointer visuals are not rendered. |
+| `AppBarButton` | supported | Label, icon slot metadata, click event hookup, and command-bar fixture coverage are present. | Current macOS evidence emits only command result text; AppBarButton label/icon chrome is not rendered. |
+| `Button` | supported | Content, command, click simulation, and accessibility export are present. | Current macOS evidence emits only button text; native button chrome, focus, pressed, hover, and template visuals are not rendered. |
+| `ToggleButton` | supported | Checked state and click behavior are present in the logical model. | Current macOS evidence emits only toggle text; checked native WinUI chrome is not rendered. |
+| `CheckBox` | supported | Checked state, tree export, and accessibility role are present. | Current macOS evidence emits only checkbox text; checkbox glyph and state chrome are not rendered. |
+| `RadioButton` | supported | Checked state, group metadata, and tree export are present. | Current macOS evidence emits only radio button text; radio glyph and state chrome are not rendered. |
 | `TextBlock` | supported | Text content, binding, accessibility, and visual painter coverage. | Text wrapping, trimming, typography, and font metrics are approximated. |
-| `TextBox` | supported | Text, focus, two-way binding, typed input, and renderer coverage. | Selection, caret rendering, IME, validation states, and exact text metrics are not complete. |
-| `Border` | partial | Single-child facade and deterministic layout subset. | Corner radius, border thickness variants, brushes, shadows, and complex backgrounds are limited. |
-| `Grid` | partial | Child containment, column metadata, column spacing, and deterministic layout subset. | Full row/column sizing, spanning, alignment, and layout invalidation remain partial. |
-| `StackPanel` | partial | Orientation, spacing, child containment, and deterministic layout subset. | Full measure/arrange parity and edge-case alignment are partial. |
-| `ScrollViewer` | supported | Single content slot and vertical scroll bar metadata. | Real scrolling, scrollbars, inertia, and viewport clipping are limited. |
+| `TextBox` | supported | Text, focus, typed input, and automation metadata are present. | Current macOS evidence emits only the text value; TextBox border, caret, selection, focus, validation, and native input chrome are not rendered. |
+| `Border` | partial | Single-child facade and deterministic layout metadata are present. | Current macOS evidence does not render the border surface, corner radius, thickness, brush, or background. |
+| `Grid` | partial | Child containment, column metadata, and column spacing are present. | Current macOS evidence emits only child text; visible grid structure and native layout shape are not rendered. |
+| `StackPanel` | partial | Orientation, spacing metadata, and child containment are present. | Current macOS evidence emits only child text; spacing/layout behavior is not enough for component visual parity. |
+| `ScrollViewer` | supported | Single content slot and vertical scroll bar metadata are present. | Current macOS evidence emits only child text; scrollbars, clipping, inertia, and scrolling chrome are not rendered. |
 | `ContentControl` | supported | Single content-slot facade. | Templates and complex content transitions are planned. |
-| `ItemsControl` | supported | Item collection binding and export. | Virtualization, item containers, templates, and selection are not general-purpose. |
-| `ListView` | partial | Item collection, `SelectedIndex`, export, and placeholder/list painter coverage. | Virtualization, item templates, multi-select, keyboarding, and exact selected styling are partial. |
-| `ComboBox` | supported | Items and selected index subset. | Popup behavior, editable mode, item templates, and full keyboarding are not complete. |
-| `ProgressBar` | supported | Determinate and indeterminate metadata plus public renderer coverage. | Native animation and exact Fluent visuals are approximated. |
-| `ProgressRing` | supported | Active state and public renderer coverage. | Native animation and reduced-motion behavior are planned. |
-| `InfoBar` | supported | Title, message, severity, open state, and public fixture renderer coverage. | Close button behavior, action buttons, layout variants, and exact Fluent styling are partial. |
-| `Image` | partial | Source metadata, tree export, and placeholder/list renderer coverage. | Real image decoding, scaling modes, nine-grid, and async loading are not complete. |
-| `FontIcon` | partial | Glyph metadata and simple renderer support. | Font fallback, sizing, line metrics, and exact Segoe Fluent icon rendering are approximated. |
+| `ItemsControl` | supported | Item collection binding and export are present. | Current macOS evidence emits only item text; item containers, templates, virtualization, and native list spacing are not rendered. |
+| `ListView` | partial | Item collection, `SelectedIndex`, selected item metadata, and export are present. | Current macOS evidence emits only list item text; rows, selection chrome, templates, multi-select, and keyboarding visuals are not rendered. |
+| `ComboBox` | supported | Items and selected index subset are present. | Current macOS evidence emits combo box items as text; field, chevron, popup, item chrome, editable mode, and full keyboarding are not rendered. |
+| `ProgressBar` | supported | Minimum, maximum, and value metadata are present. | Current macOS evidence does not render the ProgressBar track or indicator. |
+| `ProgressRing` | supported | Active-state metadata is present. | Current macOS evidence does not render the ProgressRing. |
+| `InfoBar` | supported | Title, message, severity, and open-state metadata are present. | Current macOS evidence does not render the InfoBar body, close button, action area, or severity chrome. |
+| `Image` | partial | Source metadata and tree export are present. | Current macOS evidence does not render the image source or a visible placeholder in the inspected component fixture. |
+| `FontIcon` | partial | Glyph metadata is present. | Current macOS evidence does not render the FontIcon glyph in the inspected component fixture. |
 | `MediaPlayerElement` | not supported | Explicitly outside the current macOS-managed runtime contract. | Media playback is not implemented. |
 | `WebView2` | not supported | Explicitly outside the current clean-room runtime. | Embedded browser hosting is not implemented. |
 

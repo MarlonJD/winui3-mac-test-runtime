@@ -114,7 +114,8 @@ Passing the local macOS comparison means those documented public scenarios
 stayed within threshold against the current reference source; neither result is
 a claim of full WinUI 3 pixel parity. A scenario-level pass does not override
 component-level evidence: visibly weak components must remain graded `weak` or
-`poor`.
+`poor`, and text-only or absent component output must remain graded
+`not-rendered`.
 
 ## Styling And Theme Contract
 
