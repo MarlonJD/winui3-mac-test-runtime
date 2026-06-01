@@ -23,7 +23,7 @@ internal static class Program
 
             using var process = StartProcess(options);
             var window = WaitForWindow(options.Title, process, options.Timeout);
-            if (window == IntPtr.Zero)
+            if (window is null)
             {
                 return Fail(
                     $"Could not find a visible window containing title '{options.Title}'. " +
@@ -31,11 +31,18 @@ internal static class Program
                     $"Visible windows: {DescribeVisibleWindows()}");
             }
 
-            ShowWindow(window, SwRestore);
-            SetForegroundWindow(window);
+            if (options.RequireTitleMatch && !window.MatchedExpectedTitle)
+            {
+                return Fail(
+                    $"Captured window title '{window.Title}' did not match expected title '{options.Title}'. " +
+                    "Refusing to create a native reference from a fallback window.");
+            }
+
+            ShowWindow(window.Handle, SwRestore);
+            SetForegroundWindow(window.Handle);
             Thread.Sleep(750);
 
-            var captureRect = Capture(window, options.OutputPath, options.ClientArea);
+            var captureRect = Capture(window.Handle, options.OutputPath, options.ClientArea);
             if (!string.IsNullOrWhiteSpace(options.MetadataOutputPath))
             {
                 File.WriteAllText(options.MetadataOutputPath, JsonSerializer.Serialize(new
@@ -58,6 +65,8 @@ internal static class Program
                     scale = options.Scale,
                     theme = options.Theme,
                     windowTitle = options.Title,
+                    actualWindowTitle = window.Title,
+                    titleMatched = window.MatchedExpectedTitle,
                     outputPath = Path.GetFullPath(options.OutputPath),
                     captureMode = options.ClientArea ? "client-area" : "window-frame",
                     dimensions = new
@@ -115,14 +124,14 @@ internal static class Program
         return process;
     }
 
-    private static IntPtr WaitForWindow(string title, Process process, TimeSpan timeout)
+    private static WindowMatch? WaitForWindow(string title, Process process, TimeSpan timeout)
     {
         var stopAt = DateTimeOffset.UtcNow + timeout;
         var allowProcessFallbackAt = DateTimeOffset.UtcNow + TimeSpan.FromSeconds(Math.Min(5, timeout.TotalSeconds));
         while (DateTimeOffset.UtcNow < stopAt)
         {
             var window = FindWindowByTitle(title);
-            if (window != IntPtr.Zero)
+            if (window is not null)
             {
                 return window;
             }
@@ -130,10 +139,10 @@ internal static class Program
             if (DateTimeOffset.UtcNow >= allowProcessFallbackAt)
             {
                 var processWindow = TryGetProcessMainWindow(process);
-                if (processWindow != IntPtr.Zero)
+                if (processWindow is not null)
                 {
                     Console.WriteLine(
-                        $"Using target process main window '{ReadWindowText(processWindow)}' while waiting for title '{title}'.");
+                        $"Using target process main window '{processWindow.Title}' while waiting for title '{title}'.");
                     return processWindow;
                 }
             }
@@ -141,29 +150,32 @@ internal static class Program
             Thread.Sleep(250);
         }
 
-        return IntPtr.Zero;
+        return null;
     }
 
-    private static IntPtr TryGetProcessMainWindow(Process process)
+    private static WindowMatch? TryGetProcessMainWindow(Process process)
     {
         try
         {
             process.Refresh();
-            return !process.HasExited &&
-                process.MainWindowHandle != IntPtr.Zero &&
-                IsWindowVisible(process.MainWindowHandle)
-                    ? process.MainWindowHandle
-                    : IntPtr.Zero;
+            if (process.HasExited ||
+                process.MainWindowHandle == IntPtr.Zero ||
+                !IsWindowVisible(process.MainWindowHandle))
+            {
+                return null;
+            }
+
+            return new WindowMatch(process.MainWindowHandle, ReadWindowText(process.MainWindowHandle), false);
         }
         catch (InvalidOperationException)
         {
-            return IntPtr.Zero;
+            return null;
         }
     }
 
-    private static IntPtr FindWindowByTitle(string title)
+    private static WindowMatch? FindWindowByTitle(string title)
     {
-        var result = IntPtr.Zero;
+        WindowMatch? result = null;
         EnumWindows((window, _) =>
         {
             if (!IsWindowVisible(window))
@@ -174,7 +186,7 @@ internal static class Program
             var text = ReadWindowText(window);
             if (text.Contains(title, StringComparison.OrdinalIgnoreCase))
             {
-                result = window;
+                result = new WindowMatch(window, text, true);
                 return false;
             }
 
@@ -355,12 +367,15 @@ internal static class Program
             Environment.OSVersion.VersionString;
     }
 
+    private sealed record WindowMatch(IntPtr Handle, string Title, bool MatchedExpectedTitle);
+
     private sealed record CaptureOptions(
         string Title,
         string OutputPath,
         string? MetadataOutputPath,
         TimeSpan Timeout,
         bool ClientArea,
+        bool RequireTitleMatch,
         string ReferenceSource,
         string? FixtureProjectPath,
         string? ScenarioPath,
@@ -378,7 +393,7 @@ internal static class Program
             var separator = Array.IndexOf(args, "--");
             if (separator < 0 || separator == args.Length - 1)
             {
-                throw new ArgumentException("Usage: WindowsWindowCapture --title <title> --output <png> [--metadata-output <json>] [--client-area] [--timeout-seconds 30] -- <command> [args...]");
+                throw new ArgumentException("Usage: WindowsWindowCapture --title <title> --output <png> [--metadata-output <json>] [--client-area] [--require-title-match] [--timeout-seconds 30] -- <command> [args...]");
             }
 
             string? title = null;
@@ -386,6 +401,7 @@ internal static class Program
             string? metadataOutputPath = null;
             var timeout = TimeSpan.FromSeconds(30);
             var clientArea = false;
+            var requireTitleMatch = false;
             var referenceSource = "synthetic-probe";
             string? fixtureProjectPath = null;
             string? scenarioPath = null;
@@ -415,6 +431,9 @@ internal static class Program
                         break;
                     case "--client-area":
                         clientArea = true;
+                        break;
+                    case "--require-title-match":
+                        requireTitleMatch = true;
                         break;
                     case "--reference-source":
                         referenceSource = ReadReferenceSource(args, ++index);
@@ -467,6 +486,7 @@ internal static class Program
                 metadataOutputPath,
                 timeout,
                 clientArea,
+                requireTitleMatch,
                 referenceSource,
                 fixtureProjectPath,
                 scenarioPath,
