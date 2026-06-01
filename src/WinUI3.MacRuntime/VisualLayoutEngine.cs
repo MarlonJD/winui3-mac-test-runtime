@@ -56,7 +56,7 @@ public static class VisualLayoutEngine
 
         return tree with
         {
-            SchemaVersion = "0.2",
+            SchemaVersion = ArtifactSchemas.VisualUiTree,
             GeneratedAt = DateTimeOffset.UnixEpoch,
             Root = root
         };

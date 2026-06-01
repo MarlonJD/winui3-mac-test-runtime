@@ -7,7 +7,10 @@ using Windows.System;
 
 namespace WinUI3.MacRuntime;
 
-public sealed record InteractionScript(IReadOnlyList<InteractionAction> Actions);
+public sealed record InteractionScript(IReadOnlyList<InteractionAction> Actions)
+{
+    public string SchemaVersion { get; init; } = ArtifactSchemas.InteractionScript;
+}
 
 public sealed record InteractionAction(
     string Type,
@@ -55,7 +58,7 @@ public sealed class InteractionScriptRunner
             BindingOperations.RefreshTree(window);
         }
 
-        return new InteractionReport("0.1", results);
+        return new InteractionReport(ArtifactSchemas.InteractionReport, results);
     }
 
     private InteractionStepResult RunAction(Window window, InteractionAction action, int index)

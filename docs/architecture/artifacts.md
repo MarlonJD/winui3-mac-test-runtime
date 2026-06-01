@@ -4,15 +4,37 @@ The macOS runner writes stable JSON artifacts under the requested output
 directory. The files are intended for automation first and human inspection
 second.
 
+Every runner-owned JSON artifact includes a `schemaVersion`. Schema versions
+are additive contracts for public automation; incompatible shape changes require
+a new schema version and documentation update.
+
+## Schema Versions
+
+| Artifact | Schema version |
+| --- | --- |
+| `run.json` | `0.1` |
+| `tree.json` | `0.1`; `0.2` when `skia-v2` layout metadata is exported |
+| `accessibility.json` | `0.1` |
+| `binding-failures.json` | `0.1` |
+| `resource-failures.json` | `0.1` |
+| `unsupported-apis.json` | `0.1` |
+| `interactions.json` | `0.1` |
+| `snapshot.json` | `0.1`; `0.2` for `skia-v2` PNG snapshots |
+| `visual/visual-run.json` | `0.1` |
+| `visual/pixel-diff.json` | `0.1` |
+
 ## Files
 
 - `run.json`: run metadata, host details, Wine optionality, and artifact paths.
 - `tree.json`: logical UI tree with stable type names, element names, selected
   state, visibility, focus state, and important content properties.
 - `accessibility.json`: role/name/label tree derived from the logical tree.
-- `binding-failures.json`: binding paths that could not be resolved or applied.
-- `resource-failures.json`: static or theme resources that could not be resolved.
-- `unsupported-apis.json`: facade APIs that were touched but are not implemented.
+- `binding-failures.json`: binding paths that could not be resolved or applied,
+  written as `{ "schemaVersion": "0.1", "failures": [...] }`.
+- `resource-failures.json`: static or theme resources that could not be
+  resolved, written as `{ "schemaVersion": "0.1", "failures": [...] }`.
+- `unsupported-apis.json`: facade APIs that were touched but are not
+  implemented, written as `{ "schemaVersion": "0.1", "apis": [...] }`.
 - `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
   and unsupported API reports.
 - `interactions.json`: emitted when `--script` is provided; records every
@@ -55,6 +77,15 @@ unsupported facade APIs, unsupported visual painters, failed interactions, or
 pixel metrics exceed the scenario thresholds. Without `--reference`, pixel diff
 status is recorded as skipped so local strict fixture smoke runs can still
 validate the supported subset and renderer output.
+
+## Diagnostics
+
+`diagnostics.sarif` emits stable rule IDs so CI and consumers can distinguish
+unsupported behavior from fixture or environment drift:
+
+- `WINUI3MAC001`: binding path or target property failure.
+- `WINUI3MAC002`: static or theme resource lookup failure.
+- `WINUI3MAC003`: unsupported facade API or visual compatibility API.
 
 ## Compatibility Position
 

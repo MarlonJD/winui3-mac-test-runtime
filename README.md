@@ -17,6 +17,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-doctor
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj --renderer skia
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json --strict-visual
 ```
 
 ## Current Fixtures
@@ -62,11 +63,14 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
 - `run.json`: runtime, Wine dependency, project, assembly, and status metadata.
 - `tree.json`: logical UI tree exported from the facade-backed app.
 - `accessibility.json`: role/name/label tree derived from the logical UI tree.
-- `binding-failures.json`: binding failures observed while refreshing the tree.
-- `resource-failures.json`: static or theme resource lookup misses.
-- `unsupported-apis.json`: placeholder facade APIs touched by the app.
+- `binding-failures.json`: versioned binding failure envelope observed while
+  refreshing the tree.
+- `resource-failures.json`: versioned static or theme resource lookup miss
+  envelope.
+- `unsupported-apis.json`: versioned envelope for placeholder facade APIs
+  touched by the app.
 - `diagnostics.sarif`: warning diagnostics for bindings, resources, and
-  unsupported APIs.
+  unsupported APIs with stable rule IDs.
 - `interactions.json`: optional scripted interaction results.
 - `snapshot.json` and `screenshots/snapshot.svg`: deterministic nonblank
   snapshot output for smoke and regression tests. Passing `--renderer skia`
@@ -88,7 +92,10 @@ This is still a constrained test runtime. It supports a small source-level
 WinUI-style subset for automated macOS testing and intentionally does not claim
 binary compatibility, arbitrary `.exe` execution, or full WinUI 3 behavior.
 
-See `docs/compatibility/matrix.md` for the current supported subset.
+The published compatibility claim is **Level 0: Harness Reliability**, with
+fixture-backed slices of higher levels documented as `supported` or `partial`.
+See `docs/compatibility/contracts.md` for the public compatibility contract and
+`docs/compatibility/matrix.md` for the current supported subset.
 
 ## Package Smoke
 

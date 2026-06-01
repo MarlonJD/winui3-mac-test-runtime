@@ -37,7 +37,7 @@ public sealed class SnapshotRenderer : ISnapshotRenderer
         var svg = BuildSvg(nodes, width, height, rowHeight);
         await File.WriteAllTextAsync(path, svg, cancellationToken);
 
-        return new SnapshotResult("0.1", "managed-svg-snapshot", path, width, height, IsNonBlank: nodes.Length > 0);
+        return new SnapshotResult(ArtifactSchemas.Snapshot, "managed-svg-snapshot", path, width, height, IsNonBlank: nodes.Length > 0);
     }
 
     private static string BuildSvg(IReadOnlyList<(UiNode Node, int Depth)> nodes, int width, int height, int rowHeight)

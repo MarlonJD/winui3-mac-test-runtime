@@ -5,7 +5,7 @@ namespace WinUI3.MacRuntime;
 
 public sealed class VisualScenario
 {
-    public string SchemaVersion { get; init; } = "0.1";
+    public string SchemaVersion { get; init; } = ArtifactSchemas.Scenario;
 
     public string FixtureName { get; init; } = "fixture";
 
