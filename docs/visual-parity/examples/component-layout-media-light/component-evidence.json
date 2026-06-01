@@ -1,0 +1,540 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "scenarioName": "component-layout-media-light",
+  "components": [
+    {
+      "component": "ScrollViewer",
+      "kind": "control",
+      "target": "LayoutScrollViewer",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Real scrolling, inertia, and native scrollbars are limited."
+      ]
+    },
+    {
+      "component": "Grid",
+      "kind": "control",
+      "target": "LayoutResourceGrid",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "weak",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Full row and column sizing, spanning, alignment, and invalidation remain partial."
+      ]
+    },
+    {
+      "component": "StackPanel",
+      "kind": "control",
+      "target": "LayoutNestedStack",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Measure and arrange behavior is deterministic but not fully WinUI-compatible."
+      ]
+    },
+    {
+      "component": "Border",
+      "kind": "control",
+      "target": "LayoutBorder",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "weak",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "CornerRadius, border thickness variants, brushes, shadows, and backgrounds are limited."
+      ]
+    },
+    {
+      "component": "FontIcon",
+      "kind": "control",
+      "target": "LayoutFontIcon",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "weak",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Font fallback, sizing, and exact Segoe Fluent icon rendering are approximated."
+      ]
+    },
+    {
+      "component": "Image",
+      "kind": "control",
+      "target": "PublicImagePlaceholder",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "weak",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "The renderer uses a placeholder; image decoding and scaling modes are not complete."
+      ]
+    },
+    {
+      "component": "SymbolIcon",
+      "kind": "control",
+      "target": "DiagnosticSymbolIcon",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "XamlControlsResources",
+      "kind": "resource",
+      "target": "DiagnosticXamlControlsResources",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "ResourceDictionary.ThemeDictionaries",
+      "kind": "resource",
+      "target": "DiagnosticThemeDictionaries",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "ThemeResource",
+      "kind": "resource",
+      "target": "ThemeResourceText",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "ThemeResource lookup is simple and does not model full dynamic theme dictionaries."
+      ]
+    },
+    {
+      "component": "StaticResource",
+      "kind": "resource",
+      "target": "StaticResourceText",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "StaticResource lookup supports simple local dictionaries only."
+      ]
+    },
+    {
+      "component": "Style",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Only supported setter properties are applied."
+      ]
+    },
+    {
+      "component": "Setter",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Setter support is limited to simple values on supported facade properties."
+      ]
+    },
+    {
+      "component": "Color",
+      "kind": "resource",
+      "target": "DiagnosticColor",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "SolidColorBrush",
+      "kind": "resource",
+      "target": "DiagnosticSolidColorBrush",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "CornerRadius",
+      "kind": "resource",
+      "target": "DiagnosticCornerRadius",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "Expander",
+      "kind": "control",
+      "target": "DiagnosticExpander",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "Annotated scrollbar",
+      "kind": "pattern",
+      "target": "DiagnosticAnnotatedScrollbar",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "SemanticZoom",
+      "kind": "control",
+      "target": "DiagnosticSemanticZoom",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "SplitView",
+      "kind": "control",
+      "target": "DiagnosticSplitView",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "TwoPaneView",
+      "kind": "control",
+      "target": "DiagnosticTwoPaneView",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "AnimatedIcon",
+      "kind": "control",
+      "target": "DiagnosticAnimatedIcon",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "Shapes",
+      "kind": "control",
+      "target": "DiagnosticShapes",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "MediaPlayerElement",
+      "kind": "control",
+      "target": "DiagnosticMediaPlayerElement",
+      "catalogStatus": "not supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "WebView2",
+      "kind": "control",
+      "target": "DiagnosticWebView2",
+      "catalogStatus": "not supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "InkCanvas / InkToolbar",
+      "kind": "control",
+      "target": "DiagnosticInkControls",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "Title bar customization",
+      "kind": "platform-api",
+      "target": "DiagnosticTitleBarCustomization",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "Window.SystemBackdrop / MicaBackdrop",
+      "kind": "material",
+      "target": "DiagnosticSystemBackdrop",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.892241,
+      "meanAbsoluteError": 8.988409,
+      "rootMeanSquaredError": 42.883642,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "SymbolIcon",
+      "kind": "icon",
+      "target": "DiagnosticSymbolIcon",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "knownGaps": [
+        "SymbolIcon is tracked as diagnostic-only before facade and painter support are added."
+      ]
+    },
+    {
+      "feature": "XamlControlsResources",
+      "kind": "resource",
+      "target": "DiagnosticXamlControlsResources",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "knownGaps": [
+        "The fixture includes a bootstrap marker, but Fluent resource dictionaries are not modeled yet."
+      ]
+    },
+    {
+      "feature": "ResourceDictionary.ThemeDictionaries",
+      "kind": "resource",
+      "target": "DiagnosticThemeDictionaries",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "knownGaps": [
+        "Theme dictionaries are detected as source coverage, not fully resolved by theme."
+      ]
+    },
+    {
+      "feature": "ThemeResource",
+      "kind": "resource",
+      "target": "ThemeResourceText",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "knownGaps": [
+        "ThemeResource currently resolves through a simple dictionary lookup."
+      ]
+    },
+    {
+      "feature": "StaticResource",
+      "kind": "resource",
+      "target": "StaticResourceText",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "knownGaps": [
+        "StaticResource currently resolves through a simple dictionary lookup."
+      ]
+    },
+    {
+      "feature": "Style",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "knownGaps": [
+        "Style support is limited to simple setter application."
+      ]
+    },
+    {
+      "feature": "Setter",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "knownGaps": [
+        "Setter support is limited to supported facade properties."
+      ]
+    },
+    {
+      "feature": "Color",
+      "kind": "resource",
+      "target": "DiagnosticColor",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "knownGaps": [
+        "Color resources are represented in the fixture but not converted to typed colors."
+      ]
+    },
+    {
+      "feature": "SolidColorBrush",
+      "kind": "resource",
+      "target": "DiagnosticSolidColorBrush",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "knownGaps": [
+        "SolidColorBrush resources are represented in the fixture but not converted to typed brushes."
+      ]
+    },
+    {
+      "feature": "CornerRadius",
+      "kind": "resource",
+      "target": "DiagnosticCornerRadius",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "knownGaps": [
+        "CornerRadius resources are represented in the fixture but not applied to control geometry."
+      ]
+    },
+    {
+      "feature": "Window.SystemBackdrop / MicaBackdrop",
+      "kind": "material",
+      "target": "DiagnosticSystemBackdrop",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "knownGaps": [
+        "System backdrop and Mica are explicit planned diagnostics with no material rendering claim."
+      ]
+    }
+  ],
+  "status": "passed"
+}

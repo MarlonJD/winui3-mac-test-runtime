@@ -6,9 +6,13 @@ client-area reference PNG, renders the same public scenario through the macOS
 runtime, writes a pixel diff, and fails strict runs when metrics exceed the
 scenario thresholds.
 
-The checked-in example artifacts come from public GitHub Actions run
+The checked-in public admin workbench example artifacts come from public GitHub
+Actions run
 [`26752174485`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26752174485)
-on commit `b6604c1`.
+on commit `b6604c1`. The checked-in component parity lab examples come from
+public GitHub Actions run
+[`26757799015`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26757799015)
+on commit `72c3148`.
 
 ## How To Read The Metrics
 
@@ -72,6 +76,43 @@ evidence. The diff makes the remaining work visible: exact Fluent control
 rendering, text metrics, command surfaces, InfoBar layout, shadows, materials,
 focus visuals, pointer states, and richer list/detail painters still need
 cataloged implementation work before stronger parity claims can be made.
+
+## Component Parity Lab Examples
+
+These examples show Windows reference output beside the current macOS runtime
+rendering from this library. The visual tables are meant to make the state of
+the component lab easy to inspect in the repository; `component-evidence.json`
+inside each example folder remains the component-level source of truth.
+
+### Basic Input
+
+| Windows reference | macOS runtime | Pixel diff |
+| --- | --- | --- |
+| ![Windows basic input component reference](examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](examples/component-basic-input-light/pixel-diff.png) |
+
+`component-basic-input-light` currently records 13 component requirements: 5
+are `usable` and 8 are `not-rendered` planned diagnostics.
+
+### Commands And Menus
+
+| Windows reference | macOS runtime | Pixel diff |
+| --- | --- | --- |
+| ![Windows commands and menus component reference](examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](examples/component-commands-menus-light/pixel-diff.png) |
+
+`component-commands-menus-light` currently records 8 component requirements: 3
+are `weak` and 5 are `not-rendered`. The weak items are `CommandBar`,
+`AppBarButton`, and `AppBarButton.Icon`.
+
+### Layout, Media, And Resources
+
+| Windows reference | macOS runtime | Pixel diff |
+| --- | --- | --- |
+| ![Windows layout and media component reference](examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](examples/component-layout-media-light/pixel-diff.png) |
+
+`component-layout-media-light` currently records 28 component or source-feature
+requirements: 6 are `usable`, 4 are `weak`, and 18 are `not-rendered`. The weak
+items include `Grid`, `Border`, `FontIcon`, and `Image`; planned source
+features such as `Window.SystemBackdrop / MicaBackdrop` remain diagnostic-only.
 
 ## Updating Evidence
 

@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "scenarioName": "component-basic-input-light",
+  "components": [
+    {
+      "component": "Button",
+      "kind": "control",
+      "target": "PrimaryActionButton",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "passed",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Exact Fluent pointer, pressed, and focus states are not rendered."
+      ]
+    },
+    {
+      "component": "ToggleButton",
+      "kind": "control",
+      "target": "PinnedToggleButton",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Checked visuals are approximated."
+      ]
+    },
+    {
+      "component": "CheckBox",
+      "kind": "control",
+      "target": "EnabledCheckBox",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Indeterminate and full state styling remain limited."
+      ]
+    },
+    {
+      "component": "RadioButton",
+      "kind": "control",
+      "target": "HighPriorityRadioButton",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Full group behavior and native styling remain partial."
+      ]
+    },
+    {
+      "component": "ComboBox",
+      "kind": "control",
+      "target": "StatusComboBox",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "passed",
+      "visualGrade": "usable",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Popup behavior and item templates are not rendered."
+      ]
+    },
+    {
+      "component": "RepeatButton",
+      "kind": "control",
+      "target": "DiagnosticRepeatButton",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "HyperlinkButton",
+      "kind": "control",
+      "target": "DiagnosticHyperlinkButton",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "DropDownButton",
+      "kind": "control",
+      "target": "DiagnosticDropDownButton",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "SplitButton",
+      "kind": "control",
+      "target": "DiagnosticSplitButton",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "ToggleSplitButton",
+      "kind": "control",
+      "target": "DiagnosticToggleSplitButton",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "Slider",
+      "kind": "control",
+      "target": "DiagnosticSlider",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "ToggleSwitch",
+      "kind": "control",
+      "target": "DiagnosticToggleSwitch",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "RatingControl",
+      "kind": "control",
+      "target": "DiagnosticRatingControl",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 8.069923,
+      "meanAbsoluteError": 7.461811,
+      "rootMeanSquaredError": 39.750729,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    }
+  ],
+  "sourceFeatures": [],
+  "status": "passed"
+}

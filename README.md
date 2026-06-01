@@ -177,6 +177,22 @@ assertion. The visible gaps are still important: exact Fluent control chrome,
 command surfaces, InfoBar/list/detail painters, text metrics, focus visuals,
 shadows, Mica/Acrylic, and native interaction states are not yet pixel-perfect.
 
+### Component Parity Examples
+
+The component parity lab examples below come from public GitHub Actions run
+[`26757799015`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26757799015).
+Each row shows the Windows reference first, then the current macOS runtime
+rendering from this library, then the pixel diff. These are examples, not broad
+parity claims: `component-evidence.json` remains the source of truth for each
+component's catalog status, presence, interaction status, visual grade, and
+known gaps.
+
+| Scenario | Windows reference | macOS runtime | Pixel diff | Evidence summary |
+| --- | --- | --- | --- | --- |
+| `component-basic-input-light` | ![Windows basic input component reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | 13 components: 5 `usable`, 8 `not-rendered`; changed pixels `8.07%`, MAE `7.46`, RMS `39.75`. |
+| `component-commands-menus-light` | ![Windows commands and menus component reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | 8 components: 3 `weak`, 5 `not-rendered`; weak items are `CommandBar`, `AppBarButton`, and `AppBarButton.Icon`. |
+| `component-layout-media-light` | ![Windows layout and media component reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | 28 components/features: 6 `usable`, 4 `weak`, 18 `not-rendered`; weak items include `Grid`, `Border`, `FontIcon`, and `Image`. |
+
 See `docs/visual-parity/README.md` for the current evidence table and
 interpretation notes.
 

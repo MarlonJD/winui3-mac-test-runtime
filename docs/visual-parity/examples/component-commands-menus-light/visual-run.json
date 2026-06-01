@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "scenarioName": "component-commands-menus-light",
+  "runnerOs": "Unix",
+  "osImage": "macos15",
+  "renderer": "skia-v2",
+  "rendererVersion": "0.2",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1,
+  "theme": "light",
+  "referenceImagePath": "/Users/runner/work/winui3-mac-test-runtime/winui3-mac-test-runtime/artifacts/windows-native-screenshot/component-commands-menus-light/windows-reference.png",
+  "runtimeImagePath": "/Users/runner/work/winui3-mac-test-runtime/winui3-mac-test-runtime/artifacts/windows-native-screenshot/component-commands-menus-light/mac-runtime.png",
+  "diffImagePath": "/Users/runner/work/winui3-mac-test-runtime/winui3-mac-test-runtime/artifacts/windows-native-screenshot/component-commands-menus-light/pixel-diff.png",
+  "componentEvidencePath": "/Users/runner/work/winui3-mac-test-runtime/winui3-mac-test-runtime/artifacts/windows-native-screenshot/component-commands-menus-light/component-evidence.json",
+  "thresholds": {
+    "changedPixelPercentage": 24,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16,
+    "rootMeanSquaredError": 48
+  },
+  "comparison": {
+    "schemaVersion": "0.1",
+    "width": 1044,
+    "height": 720,
+    "changedPixelCount": 68661,
+    "changedPixelPercentage": 9.134339,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 8.435513,
+    "rootMeanSquaredError": 41.819155,
+    "boundingBox": {
+      "x": 0,
+      "y": 0,
+      "width": 1044,
+      "height": 720
+    },
+    "thresholds": {
+      "changedPixelPercentage": 24,
+      "maxChannelDelta": 255,
+      "meanAbsoluteError": 16,
+      "rootMeanSquaredError": 48
+    },
+    "status": "passed"
+  },
+  "unsupportedVisualFeatures": [],
+  "status": "passed"
+}

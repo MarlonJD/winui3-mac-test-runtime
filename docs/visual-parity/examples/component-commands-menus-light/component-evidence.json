@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "scenarioName": "component-commands-menus-light",
+  "components": [
+    {
+      "component": "CommandBar",
+      "kind": "control",
+      "target": "PrimaryCommandBar",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "weak",
+      "changedPixelPercentage": 9.134339,
+      "meanAbsoluteError": 8.435513,
+      "rootMeanSquaredError": 41.819155,
+      "knownGaps": [
+        "Command surface chrome, overflow behavior, focus, and pointer states are visibly simplified."
+      ]
+    },
+    {
+      "component": "AppBarButton",
+      "kind": "control",
+      "target": "SaveCommandButton",
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "passed",
+      "visualGrade": "weak",
+      "changedPixelPercentage": 9.134339,
+      "meanAbsoluteError": 8.435513,
+      "rootMeanSquaredError": 41.819155,
+      "knownGaps": [
+        "Icon rendering and AppBarButton chrome are weak approximations."
+      ]
+    },
+    {
+      "component": "CommandBar.Content",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticCommandBarContent",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.134339,
+      "meanAbsoluteError": 8.435513,
+      "rootMeanSquaredError": 41.819155,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "AppBarButton.Icon",
+      "kind": "xaml-property-slot",
+      "target": "SaveCommandIcon",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "weak",
+      "changedPixelPercentage": 9.134339,
+      "meanAbsoluteError": 8.435513,
+      "rootMeanSquaredError": 41.819155,
+      "knownGaps": [
+        "FontIcon metadata is present, but exact Segoe Fluent symbol rendering is approximate."
+      ]
+    },
+    {
+      "component": "CommandBarFlyout",
+      "kind": "control",
+      "target": "DiagnosticCommandBarFlyout",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.134339,
+      "meanAbsoluteError": 8.435513,
+      "rootMeanSquaredError": 41.819155,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "MenuFlyout",
+      "kind": "control",
+      "target": "DiagnosticMenuFlyout",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.134339,
+      "meanAbsoluteError": 8.435513,
+      "rootMeanSquaredError": 41.819155,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "MenuBar",
+      "kind": "control",
+      "target": "DiagnosticMenuBar",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.134339,
+      "meanAbsoluteError": 8.435513,
+      "rootMeanSquaredError": 41.819155,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "Context menu pattern",
+      "kind": "pattern",
+      "target": "DiagnosticContextMenuPattern",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 9.134339,
+      "meanAbsoluteError": 8.435513,
+      "rootMeanSquaredError": 41.819155,
+      "knownGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ]
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "CommandBar.Content",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticCommandBarContent",
+      "catalogStatus": "planned",
+      "presence": "present",
+      "knownGaps": [
+        "Content slot support is tracked before compiler and renderer support are added."
+      ]
+    },
+    {
+      "feature": "AppBarButton.Icon",
+      "kind": "xaml-property-slot",
+      "target": "SaveCommandIcon",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "knownGaps": [
+        "The icon slot compiles for FontIcon, but visual fidelity is still weak."
+      ]
+    }
+  ],
+  "status": "passed"
+}
