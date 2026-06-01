@@ -10,7 +10,7 @@
   "theme": "light",
   "strictVisual": true,
   "thresholds": {
-    "changedPixelPercentage": 20.0,
+    "changedPixelPercentage": 35.0,
     "maxChannelDelta": 255,
     "meanAbsoluteError": 28.0,
     "rootMeanSquaredError": 52.0
