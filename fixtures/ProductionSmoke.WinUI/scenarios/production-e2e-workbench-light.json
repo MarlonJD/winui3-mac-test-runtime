@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "production-smoke",
+  "name": "production-e2e-workbench-light",
+  "viewport": {
+    "width": 1100,
+    "height": 760
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 24.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "OperationsNavigationItem"
+    },
+    {
+      "type": "typeText",
+      "target": "OwnerTextBox",
+      "parameter": "Public reviewer"
+    },
+    {
+      "type": "selectItem",
+      "target": "PriorityComboBox",
+      "parameter": "High"
+    },
+    {
+      "type": "selectItem",
+      "target": "OperationsList",
+      "parameter": "Review generated artifact"
+    },
+    {
+      "type": "click",
+      "target": "ApproveCommand"
+    },
+    {
+      "type": "openPopup",
+      "target": "DecisionDialogButton"
+    },
+    {
+      "type": "dismissPopup",
+      "target": "DecisionDialogButton"
+    },
+    {
+      "type": "assertProperty",
+      "target": "SmokeStatus",
+      "key": "Title",
+      "parameter": "Approved"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "NavigationView",
+      "target": "RootNavigation",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "TextBox",
+      "target": "OwnerTextBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "ComboBox",
+      "target": "PriorityComboBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "AppBarButton",
+      "target": "ApproveCommand",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "InfoBar",
+      "target": "SmokeStatus",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "ListView",
+      "target": "OperationsList",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "ContentDialog",
+      "target": "DecisionDialogButton",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "The production smoke E2E asserts the managed popup state through Button.Flyout; native modal focus trapping remains covered by component-level follow-up."
+      ]
+    }
+  ]
+}

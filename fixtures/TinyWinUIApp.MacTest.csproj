@@ -11,6 +11,7 @@
     <Compile Remove="ControlGallery.MacTest\**\*.cs" />
     <Compile Remove="PublicAdminWorkbench.WinUI\**\*.cs" />
     <Compile Remove="ComponentParityLab.WinUI\**\*.cs" />
+    <Compile Remove="ProductionSmoke.WinUI\**\*.cs" />
     <Compile Remove="WindowsNativeProbe\**\*.cs" />
   </ItemGroup>
 
