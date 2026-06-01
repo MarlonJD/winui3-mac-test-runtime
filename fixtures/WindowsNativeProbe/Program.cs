@@ -37,7 +37,11 @@ internal sealed class ProbeForm : Form
         e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
         e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-        if (options.ScenarioName.Contains("interaction", StringComparison.OrdinalIgnoreCase))
+        if (options.ScenarioName.Contains("control-gallery", StringComparison.OrdinalIgnoreCase))
+        {
+            DrawControlGalleryScenario(e.Graphics, ClientSize.Width, ClientSize.Height);
+        }
+        else if (options.ScenarioName.Contains("interaction", StringComparison.OrdinalIgnoreCase))
         {
             DrawInteractionScenario(e.Graphics, ClientSize.Width, ClientSize.Height);
         }
@@ -115,7 +119,7 @@ internal sealed class ProbeForm : Form
         y += 36;
         RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width - 48, 36), 4);
         StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width - 48, 36), 4);
-        DrawText(graphics, bodyFont, Palette.TextPrimary, "Open tasks", x + 10, y + 9);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Closed tasks", x + 10, y + 9);
         y += 44;
         RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width - 48, 40), 6);
         StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width - 48, 40), 6);
@@ -123,12 +127,76 @@ internal sealed class ProbeForm : Form
         y += 48;
         RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width - 48, 120), 8);
         StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width - 48, 120), 8);
-        foreach (var item in new[] { "Review intake queue", "Confirm reviewer assignment", "Publish daily summary" })
+        foreach (var item in new[] { "Review intake queue", "Confirm reviewer assignment", "Publish daily summary", "Archive completed task" })
         {
             DrawText(graphics, bodyFont, Palette.TextPrimary, item, x + 24, y + 16);
             Line(graphics, Palette.Stroke, x + 12, y + 42, width - 36, y + 42);
             y += 34;
         }
+    }
+
+    private static void DrawControlGalleryScenario(Graphics graphics, int width, int height)
+    {
+        using var bodyFont = new Font("Segoe UI", 10.5f, FontStyle.Regular, GraphicsUnit.Point);
+        using var titleFont = new Font("Segoe UI", 16f, FontStyle.Bold, GraphicsUnit.Point);
+        Fill(graphics, Palette.AppBackground, new RectangleF(0, 0, width, height));
+        Fill(graphics, Palette.Surface, new RectangleF(0, 0, width, 48));
+        Line(graphics, Palette.Stroke, 0, 48, width, 48);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Public Control Gallery", 24, 14);
+
+        var x = 24;
+        var y = 76;
+        DrawText(graphics, titleFont, Palette.TextPrimary, "Control gallery", x, y);
+        y += 36;
+        RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width - 48, 74), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width - 48, 74), 8);
+        Fill(graphics, Palette.Accent, new RectangleF(x, y, 5, 74));
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Saved", x + 18, y + 18);
+        DrawText(graphics, bodyFont, Palette.TextSecondary, "The public control gallery command ran.", x + 18, y + 42);
+        y += 86;
+
+        DrawField(graphics, bodyFont, "Operations", x, y, width - 48);
+        y += 48;
+        DrawField(graphics, bodyFont, "In review", x, y, width - 48);
+        y += 52;
+        DrawCheckRow(graphics, bodyFont, "Enabled", x, y, check: true, radio: false);
+        y += 40;
+        DrawCheckRow(graphics, bodyFont, "High priority", x, y, check: true, radio: true);
+        y += 40;
+        DrawField(graphics, bodyFont, "Pinned", x, y, width - 48);
+        y += 52;
+
+        RoundRect(graphics, Palette.Stroke, new RectangleF(x, y + 9, width - 48, 10), 4);
+        RoundRect(graphics, Palette.Accent, new RectangleF(x, y + 9, (width - 48) * 0.65f, 10), 4);
+        y += 40;
+        StrokeRoundRect(graphics, Palette.Accent, new RectangleF(x, y, 32, 32), 16);
+        y += 44;
+        RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width - 48, 48), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width - 48, 48), 8);
+        DrawText(graphics, bodyFont, Palette.Accent, "Save", x + 30, y + 14);
+    }
+
+    private static void DrawField(Graphics graphics, Font font, string text, float x, float y, float width)
+    {
+        RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width, 38), 5);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width, 38), 5);
+        DrawText(graphics, font, Palette.TextPrimary, text, x + 10, y + 10);
+    }
+
+    private static void DrawCheckRow(Graphics graphics, Font font, string text, float x, float y, bool check, bool radio)
+    {
+        if (radio)
+        {
+            StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x + 2, y + 9, 20, 20), 10);
+            FillEllipse(graphics, check ? Palette.Accent : Palette.Surface, x + 8, y + 15, 8, 8);
+        }
+        else
+        {
+            RoundRect(graphics, check ? Palette.Accent : Palette.Surface, new RectangleF(x + 2, y + 9, 20, 20), 3);
+            StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x + 2, y + 9, 20, 20), 3);
+        }
+
+        DrawText(graphics, font, Palette.TextPrimary, text, x + 34, y + 8);
     }
 
     private static void Fill(Graphics graphics, Color color, RectangleF rectangle)

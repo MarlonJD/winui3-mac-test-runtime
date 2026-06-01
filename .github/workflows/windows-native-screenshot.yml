@@ -41,6 +41,10 @@ jobs:
             @{
               Name = "interactions-light"
               Path = "fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json"
+            },
+            @{
+              Name = "control-gallery-light"
+              Path = "fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json"
             }
           )
 
@@ -105,6 +109,14 @@ jobs:
             --strict-visual \
             --reference ./artifacts/windows-reference-screenshots/interactions-light/windows-reference.png \
             --diff-output ./artifacts/windows-native-screenshot/interactions-light
+
+          PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+            --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj \
+            --renderer skia-v2 \
+            --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json \
+            --strict-visual \
+            --reference ./artifacts/windows-reference-screenshots/control-gallery-light/windows-reference.png \
+            --diff-output ./artifacts/windows-native-screenshot/control-gallery-light
 
       - name: Upload reviewable visual artifacts
         uses: actions/upload-artifact@v4

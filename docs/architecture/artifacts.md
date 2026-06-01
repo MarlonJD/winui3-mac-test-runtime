@@ -80,6 +80,12 @@ pixel metrics exceed the scenario thresholds. Without `--reference`, pixel diff
 status is recorded as skipped so local strict fixture smoke runs can still
 validate the supported subset and renderer output.
 
+The public Windows reference workflow currently captures and compares one light
+scenario from each strict fixture category: shell, interaction/binding, and
+control gallery. Each category uploads reviewable `windows-reference.png`,
+`mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, and `visual-run.json`
+artifacts.
+
 ## Diagnostics
 
 `diagnostics.sarif` emits stable rule IDs so CI and consumers can distinguish
