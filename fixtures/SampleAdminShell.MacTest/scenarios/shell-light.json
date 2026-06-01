@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "sample-admin-shell",
+  "name": "shell-light",
+  "viewport": {
+    "width": 1280,
+    "height": 800
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "startupRoute": "home",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 24.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": []
+}

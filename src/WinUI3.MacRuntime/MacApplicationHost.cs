@@ -11,7 +11,8 @@ public sealed record MacRunOptions(
     string AssemblyPath,
     string? ProjectPath,
     string OutputDirectory,
-    string? ScriptPath = null);
+    string? ScriptPath = null,
+    VisualRunSettings? VisualSettings = null);
 
 public sealed record MacRunResult(
     RunReport Run,
@@ -26,7 +27,8 @@ public sealed record MacRunResult(
     string UnsupportedApisJsonPath,
     string DiagnosticsSarifPath,
     string? InteractionJsonPath,
-    string SnapshotJsonPath);
+    string SnapshotJsonPath,
+    IReadOnlyList<UnsupportedVisualFeature> UnsupportedVisualFeatures);
 
 public sealed record RunReport(
     string SchemaVersion,
@@ -93,11 +95,31 @@ public sealed class MacApplicationHost
         }
 
         BindingOperations.RefreshTree(app.MainWindow);
+        var scenarioInteractionReport = RunScenarioInteractions(app.MainWindow, assembly, options.VisualSettings);
+        interactionReport = MergeInteractions(interactionReport, scenarioInteractionReport);
+
+        BindingOperations.RefreshTree(app.MainWindow);
         var tree = UiTreeBuilder.Build(app.MainWindow);
+        IReadOnlyList<UnsupportedVisualFeature> unsupportedVisualFeatures = Array.Empty<UnsupportedVisualFeature>();
+        if (options.VisualSettings is not null)
+        {
+            tree = VisualLayoutEngine.Arrange(tree, options.VisualSettings, out unsupportedVisualFeatures);
+        }
+
         var accessibility = AccessibilityTreeBuilder.Build(tree);
         var snapshot = await snapshotRenderer.RenderAsync(
             tree,
             Path.Combine(outputDirectory, "screenshots"),
+            options.VisualSettings is null
+                ? null
+                : new SnapshotRenderOptions(
+                    Renderer: options.VisualSettings.Renderer,
+                    ScenarioName: options.VisualSettings.ScenarioName,
+                    Viewport: options.VisualSettings.Viewport,
+                    Scale: options.VisualSettings.Scale,
+                    Theme: options.VisualSettings.Theme,
+                    StrictVisual: options.VisualSettings.StrictVisual,
+                    PreferredFileName: options.VisualSettings.Renderer == "skia-v2" ? "mac-runtime.png" : null),
             cancellationToken);
         stopwatch.Stop();
 
@@ -115,6 +137,7 @@ public sealed class MacApplicationHost
         var resourceFailures = ResourceOperations.CurrentFailures;
         var unsupportedApis = UnsupportedApiRegistry.Current;
         var diagnostics = BuildDiagnostics(bindingFailures, resourceFailures, unsupportedApis);
+        var status = BuildStatus(options.VisualSettings, bindingFailures, resourceFailures, unsupportedApis, interactionReport);
         var artifacts = new Dictionary<string, string>
         {
             ["run"] = runJsonPath,
@@ -134,7 +157,7 @@ public sealed class MacApplicationHost
 
         var report = new RunReport(
             SchemaVersion: "0.1",
-            Status: "passed",
+            Status: status,
             Host: "managed-macos-dotnet",
             PrimaryPathRequiresWine: false,
             StartedAt: startedAt,
@@ -175,7 +198,63 @@ public sealed class MacApplicationHost
             unsupportedApisJsonPath,
             diagnosticsSarifPath,
             interactionJsonPath,
-            snapshotJsonPath);
+            snapshotJsonPath,
+            unsupportedVisualFeatures);
+    }
+
+    private static InteractionReport? RunScenarioInteractions(
+        Window window,
+        Assembly assembly,
+        VisualRunSettings? visualSettings)
+    {
+        if (visualSettings?.Scenario is null || visualSettings.Scenario.Interactions.Count == 0)
+        {
+            return null;
+        }
+
+        var scriptRunner = new InteractionScriptRunner(new TypeResolver(assembly.GetTypes()));
+        return scriptRunner.Run(window, new InteractionScript(visualSettings.Scenario.Interactions));
+    }
+
+    private static InteractionReport? MergeInteractions(InteractionReport? first, InteractionReport? second)
+    {
+        if (first is null)
+        {
+            return second;
+        }
+
+        if (second is null)
+        {
+            return first;
+        }
+
+        var steps = first.Steps
+            .Concat(second.Steps.Select((step, index) => step with { Index = first.Steps.Count + index }))
+            .ToArray();
+        return new InteractionReport("0.1", steps);
+    }
+
+    private static string BuildStatus(
+        VisualRunSettings? visualSettings,
+        IReadOnlyList<BindingFailure> bindingFailures,
+        IReadOnlyList<ResourceLookupFailure> resourceFailures,
+        IReadOnlyList<UnsupportedApiEntry> unsupportedApis,
+        InteractionReport? interactionReport)
+    {
+        if (visualSettings?.StrictVisual != true)
+        {
+            return "passed";
+        }
+
+        if (bindingFailures.Count > 0 ||
+            resourceFailures.Count > 0 ||
+            unsupportedApis.Count > 0 ||
+            interactionReport?.Steps.Any(step => step.Status != "passed") == true)
+        {
+            return "failed";
+        }
+
+        return "passed";
     }
 
     private static IReadOnlyList<string> BuildDiagnostics(

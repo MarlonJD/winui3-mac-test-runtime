@@ -5,7 +5,10 @@
     Title="Interaction Binding App">
   <StackPanel x:Name="RootStack" Spacing="8">
     <TextBlock x:Name="TitleText" Text="{Binding Title}" AutomationProperties.Name="Current title" />
+    <TextBox x:Name="SearchBox" Text="Open tasks" AutomationProperties.Name="Task filter" />
     <Button x:Name="RefreshButton" Content="{Binding ButtonLabel}" AutomationProperties.Name="Refresh data" AutomationProperties.HelpText="Updates the bound title" Click="OnRefreshClicked" />
+    <ListView x:Name="TaskList" />
+    <Image x:Name="PreviewImage" Source="placeholder://operations-chart" />
     <Frame x:Name="DetailsFrame" />
   </StackPanel>
 </Window>

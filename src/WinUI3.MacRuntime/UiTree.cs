@@ -9,11 +9,31 @@ public sealed record UiTreeDocument(
     DateTimeOffset GeneratedAt,
     UiNode Root);
 
+public sealed record UiThickness(
+    double Left,
+    double Top,
+    double Right,
+    double Bottom);
+
+public sealed record UiLayoutBox(
+    double X,
+    double Y,
+    double Width,
+    double Height,
+    double DesiredWidth,
+    double DesiredHeight,
+    UiThickness Margin,
+    UiThickness Padding,
+    string HorizontalAlignment,
+    string VerticalAlignment,
+    string Visibility);
+
 public sealed record UiNode(
     string Type,
     string? Name,
     IReadOnlyDictionary<string, object?> Properties,
-    IReadOnlyList<UiNode> Children);
+    IReadOnlyList<UiNode> Children,
+    UiLayoutBox? Layout = null);
 
 public static class UiTreeBuilder
 {
@@ -37,7 +57,12 @@ public static class UiTreeBuilder
         {
             name = frameworkElement.Name;
             properties["visibility"] = frameworkElement.Visibility.ToString();
+            properties["horizontalAlignment"] = frameworkElement.HorizontalAlignment.ToString();
+            properties["verticalAlignment"] = frameworkElement.VerticalAlignment.ToString();
             properties["isFocused"] = frameworkElement.IsFocused;
+            AddObjectProperty(properties, "background", frameworkElement.Background);
+            AddObjectProperty(properties, "foreground", frameworkElement.Foreground);
+            AddObjectProperty(properties, "style", frameworkElement.Style);
             var automationName = AutomationProperties.GetName(frameworkElement);
             if (!string.IsNullOrWhiteSpace(automationName))
             {
@@ -56,6 +81,11 @@ public static class UiTreeBuilder
             }
         }
 
+        if (element is Control control)
+        {
+            properties["isEnabled"] = control.IsEnabled;
+        }
+
         switch (element)
         {
             case Window window:
@@ -69,6 +99,8 @@ public static class UiTreeBuilder
             case StackPanel stackPanel:
                 properties["orientation"] = stackPanel.Orientation.ToString();
                 properties["childCount"] = stackPanel.Children.Count;
+                properties["padding"] = stackPanel.Padding;
+                properties["spacing"] = stackPanel.Spacing;
                 foreach (var child in stackPanel.Children)
                 {
                     AddChild(child, children);
@@ -77,6 +109,8 @@ public static class UiTreeBuilder
                 break;
             case Grid grid:
                 properties["childCount"] = grid.Children.Count;
+                properties["columnDefinitions"] = grid.ColumnDefinitions;
+                properties["columnSpacing"] = grid.ColumnSpacing;
                 foreach (var child in grid.Children)
                 {
                     AddChild(child, children);
@@ -143,6 +177,14 @@ public static class UiTreeBuilder
         return new UiNode(GetStableTypeName(element), name, properties, children);
     }
 
+    private static void AddObjectProperty(Dictionary<string, object?> properties, string key, object? value)
+    {
+        if (value is not null)
+        {
+            properties[key] = value.ToString();
+        }
+    }
+
     private static void AddChild(object? child, ICollection<UiNode> children)
     {
         if (child is null)
@@ -165,6 +207,16 @@ public static class UiTreeBuilder
 
     private static string GetStableTypeName(object element)
     {
+        if (element is Window)
+        {
+            return "Microsoft.UI.Xaml.Window";
+        }
+
+        if (element is Page)
+        {
+            return "Microsoft.UI.Xaml.Controls.Page";
+        }
+
         var type = element.GetType();
         return type.FullName ?? type.Name;
     }

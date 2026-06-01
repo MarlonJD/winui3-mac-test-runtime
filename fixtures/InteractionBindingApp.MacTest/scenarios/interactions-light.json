@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "interaction-binding-app",
+  "name": "interactions-light",
+  "viewport": {
+    "width": 960,
+    "height": 640
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 20.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 28.0,
+    "rootMeanSquaredError": 52.0
+  },
+  "interactions": [
+    {
+      "type": "focus",
+      "target": "SearchBox"
+    },
+    {
+      "type": "click",
+      "target": "RefreshButton"
+    }
+  ]
+}

@@ -17,6 +17,7 @@ public sealed class SkiaSnapshotRenderer : ISnapshotRenderer
     public async Task<SnapshotResult> RenderAsync(
         UiTreeDocument tree,
         string screenshotsDirectory,
+        SnapshotRenderOptions? options = null,
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(tree);

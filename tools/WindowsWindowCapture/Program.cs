@@ -1,8 +1,10 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
 
 namespace WindowsWindowCapture;
 
@@ -30,7 +32,21 @@ internal static class Program
             SetForegroundWindow(window);
             Thread.Sleep(750);
 
-            Capture(window, options.OutputPath);
+            var captureRect = Capture(window, options.OutputPath, options.ClientArea);
+            if (!string.IsNullOrWhiteSpace(options.MetadataOutputPath))
+            {
+                File.WriteAllText(options.MetadataOutputPath, JsonSerializer.Serialize(new
+                {
+                    schemaVersion = "0.1",
+                    title = options.Title,
+                    outputPath = Path.GetFullPath(options.OutputPath),
+                    captureMode = options.ClientArea ? "client-area" : "window-frame",
+                    width = captureRect.Right - captureRect.Left,
+                    height = captureRect.Bottom - captureRect.Top,
+                    capturedAt = DateTimeOffset.UtcNow
+                }, new JsonSerializerOptions { WriteIndented = true }));
+            }
+
             StopProcess(process);
             Console.WriteLine($"Captured window screenshot: {Path.GetFullPath(options.OutputPath)}");
             return 0;
@@ -117,9 +133,9 @@ internal static class Program
         return builder.ToString();
     }
 
-    private static void Capture(IntPtr window, string outputPath)
+    private static Rect Capture(IntPtr window, string outputPath, bool clientArea)
     {
-        var rect = GetCaptureRect(window);
+        var rect = clientArea ? GetClientCaptureRect(window) : GetCaptureRect(window);
         var width = Math.Max(1, rect.Right - rect.Left);
         var height = Math.Max(1, rect.Bottom - rect.Top);
 
@@ -128,7 +144,7 @@ internal static class Program
         var hdc = graphics.GetHdc();
         try
         {
-            if (!PrintWindow(window, hdc, PwRenderFullContent))
+            if (clientArea || !PrintWindow(window, hdc, PwRenderFullContent))
             {
                 graphics.ReleaseHdc(hdc);
                 hdc = IntPtr.Zero;
@@ -144,6 +160,7 @@ internal static class Program
         }
 
         bitmap.Save(outputPath, ImageFormat.Png);
+        return rect;
     }
 
     private static Rect GetCaptureRect(IntPtr window)
@@ -165,6 +182,26 @@ internal static class Program
         }
 
         throw new InvalidOperationException("Could not read the target window bounds.");
+    }
+
+    private static Rect GetClientCaptureRect(IntPtr window)
+    {
+        if (!GetClientRect(window, out var clientRect))
+        {
+            throw new InvalidOperationException("Could not read the target client bounds.");
+        }
+
+        var point = new Point(0, 0);
+        if (!ClientToScreen(window, ref point))
+        {
+            throw new InvalidOperationException("Could not map the target client bounds to screen coordinates.");
+        }
+
+        return new Rect(
+            point.X,
+            point.Y,
+            point.X + Math.Max(1, clientRect.Right - clientRect.Left),
+            point.Y + Math.Max(1, clientRect.Bottom - clientRect.Top));
     }
 
     private static void StopProcess(Process process)
@@ -205,7 +242,9 @@ internal static class Program
     private sealed record CaptureOptions(
         string Title,
         string OutputPath,
+        string? MetadataOutputPath,
         TimeSpan Timeout,
+        bool ClientArea,
         IReadOnlyList<string> Command)
     {
         public static CaptureOptions Parse(string[] args)
@@ -213,12 +252,14 @@ internal static class Program
             var separator = Array.IndexOf(args, "--");
             if (separator < 0 || separator == args.Length - 1)
             {
-                throw new ArgumentException("Usage: WindowsWindowCapture --title <title> --output <png> [--timeout-seconds 30] -- <command> [args...]");
+                throw new ArgumentException("Usage: WindowsWindowCapture --title <title> --output <png> [--metadata-output <json>] [--client-area] [--timeout-seconds 30] -- <command> [args...]");
             }
 
             string? title = null;
             string? outputPath = null;
+            string? metadataOutputPath = null;
             var timeout = TimeSpan.FromSeconds(30);
+            var clientArea = false;
 
             for (var index = 0; index < separator; index++)
             {
@@ -230,8 +271,14 @@ internal static class Program
                     case "--output":
                         outputPath = ReadValue(args, ++index, "--output");
                         break;
+                    case "--metadata-output":
+                        metadataOutputPath = ReadValue(args, ++index, "--metadata-output");
+                        break;
                     case "--timeout-seconds":
-                        timeout = TimeSpan.FromSeconds(double.Parse(ReadValue(args, ++index, "--timeout-seconds")));
+                        timeout = TimeSpan.FromSeconds(double.Parse(ReadValue(args, ++index, "--timeout-seconds"), CultureInfo.InvariantCulture));
+                        break;
+                    case "--client-area":
+                        clientArea = true;
                         break;
                     default:
                         throw new ArgumentException($"Unknown option '{args[index]}'.");
@@ -251,7 +298,9 @@ internal static class Program
             return new CaptureOptions(
                 title,
                 outputPath,
+                metadataOutputPath,
                 timeout,
+                clientArea,
                 args[(separator + 1)..]);
         }
 
@@ -284,6 +333,12 @@ internal static class Program
     private static extern bool GetWindowRect(IntPtr window, out Rect rect);
 
     [DllImport("user32.dll")]
+    private static extern bool GetClientRect(IntPtr window, out Rect rect);
+
+    [DllImport("user32.dll")]
+    private static extern bool ClientToScreen(IntPtr window, ref Point point);
+
+    [DllImport("user32.dll")]
     private static extern bool ShowWindow(IntPtr window, int command);
 
     [DllImport("user32.dll")]
@@ -298,9 +353,30 @@ internal static class Program
     [StructLayout(LayoutKind.Sequential)]
     private readonly struct Rect
     {
+        public Rect(int left, int top, int right, int bottom)
+        {
+            Left = left;
+            Top = top;
+            Right = right;
+            Bottom = bottom;
+        }
+
         public readonly int Left;
         public readonly int Top;
         public readonly int Right;
         public readonly int Bottom;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct Point
+    {
+        public Point(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public int X;
+        public int Y;
     }
 }

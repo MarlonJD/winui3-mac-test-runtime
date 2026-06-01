@@ -60,7 +60,11 @@ public sealed class ProjectBuildService
         startInfo.ArgumentList.Add(projectPath);
         startInfo.ArgumentList.Add("--configuration");
         startInfo.ArgumentList.Add(configuration);
+        startInfo.ArgumentList.Add("--no-restore");
+        startInfo.ArgumentList.Add("--disable-build-servers");
         startInfo.ArgumentList.Add("--nologo");
+        startInfo.ArgumentList.Add("/m:1");
+        startInfo.ArgumentList.Add("/p:UseSharedCompilation=false");
 
         using var process = Process.Start(startInfo)
             ?? throw new InvalidOperationException("Could not start dotnet build.");
