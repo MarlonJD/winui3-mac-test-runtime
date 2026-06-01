@@ -12,6 +12,11 @@ public sealed partial class NavigationWorkbenchPage : Page
         WorkbenchQueueList.Items.Add("Queue item one");
         WorkbenchQueueList.Items.Add("Queue item two");
         WorkbenchQueueList.SelectedIndex = 0;
+        NativeControlSamples.PopulateNavigation(
+            DiagnosticBreadcrumbBar,
+            DiagnosticPivot,
+            DiagnosticSelectorBar,
+            DiagnosticTabView);
     }
 
     public void ApplyScenarioState(string scenarioName)

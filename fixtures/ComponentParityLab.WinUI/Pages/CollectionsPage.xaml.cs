@@ -13,6 +13,18 @@ public sealed partial class CollectionsPage : Page
         CollectionListView.Items.Add("Confirm owner");
         CollectionListView.Items.Add("Publish summary");
         CollectionListView.SelectedIndex = 0;
+        NativeControlSamples.PopulateCollections(
+            DiagnosticDataTemplate,
+            DiagnosticListViewItemTemplate,
+            DiagnosticItemsControlItemTemplate,
+            DiagnosticItemsView,
+            DiagnosticGridView,
+            DiagnosticFlipView,
+            DiagnosticPipsPager,
+            DiagnosticTreeView,
+            DiagnosticItemsRepeater,
+            DiagnosticSwipePattern,
+            DiagnosticPullToRefreshPattern);
     }
 
     public void ApplyScenarioState(string scenarioName)

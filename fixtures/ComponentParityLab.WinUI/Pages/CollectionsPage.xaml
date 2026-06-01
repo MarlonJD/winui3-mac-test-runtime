@@ -7,16 +7,26 @@
         <ItemsControl x:Name="SummaryItemsControl" />
         <ListView x:Name="CollectionListView" SelectedIndex="0" />
         <TextBlock x:Name="CollectionStateText" Text="First item selected" />
-        <TextBlock x:Name="DiagnosticDataTemplate" Text="DataTemplate: partial diagnostic" />
-        <TextBlock x:Name="DiagnosticListViewItemTemplate" Text="ListView.ItemTemplate: partial diagnostic" />
-        <TextBlock x:Name="DiagnosticItemsControlItemTemplate" Text="ItemsControl.ItemTemplate: partial diagnostic" />
-        <TextBlock x:Name="DiagnosticItemsView" Text="ItemsView: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticGridView" Text="GridView: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticFlipView" Text="FlipView: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticPipsPager" Text="PipsPager: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticTreeView" Text="TreeView: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticItemsRepeater" Text="ItemsRepeater: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticSwipePattern" Text="Swipe pattern: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticPullToRefreshPattern" Text="Pull-to-refresh pattern: planned diagnostic" />
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticDataTemplate" />
+            <ContentControl x:Name="DiagnosticListViewItemTemplate" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticItemsControlItemTemplate" />
+            <ContentControl x:Name="DiagnosticItemsView" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticGridView" />
+            <ContentControl x:Name="DiagnosticFlipView" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticPipsPager" />
+            <ContentControl x:Name="DiagnosticTreeView" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticItemsRepeater" />
+            <ContentControl x:Name="DiagnosticSwipePattern" />
+        </StackPanel>
+        <ContentControl x:Name="DiagnosticPullToRefreshPattern" />
     </StackPanel>
 </Page>

@@ -26,24 +26,42 @@
                 </Border>
                 <Image x:Name="PublicImagePlaceholder" Grid.Column="1" Source="public-placeholder.png" />
             </Grid>
-            <TextBlock x:Name="DiagnosticSymbolIcon" Text="SymbolIcon: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticXamlControlsResources" Text="XamlControlsResources: fixture bootstrap diagnostic" />
-            <TextBlock x:Name="DiagnosticThemeDictionaries" Text="ResourceDictionary.ThemeDictionaries: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticColor" Text="Color: resource diagnostic" />
-            <TextBlock x:Name="DiagnosticSolidColorBrush" Text="SolidColorBrush: resource diagnostic" />
-            <TextBlock x:Name="DiagnosticCornerRadius" Text="CornerRadius: resource diagnostic" />
-            <TextBlock x:Name="DiagnosticExpander" Text="Expander: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticAnnotatedScrollbar" Text="Annotated scrollbar: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticSemanticZoom" Text="SemanticZoom: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticSplitView" Text="SplitView: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticTwoPaneView" Text="TwoPaneView: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticAnimatedIcon" Text="AnimatedIcon: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticShapes" Text="Shapes: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticMediaPlayerElement" Text="MediaPlayerElement: not supported diagnostic" />
-            <TextBlock x:Name="DiagnosticWebView2" Text="WebView2: not supported diagnostic" />
-            <TextBlock x:Name="DiagnosticInkControls" Text="InkCanvas and InkToolbar: experimental diagnostic" />
-            <TextBlock x:Name="DiagnosticTitleBarCustomization" Text="Title bar customization: planned diagnostic" />
-            <TextBlock x:Name="DiagnosticSystemBackdrop" Text="Window.SystemBackdrop and MicaBackdrop: planned diagnostic" />
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticSymbolIcon" />
+                <ContentControl x:Name="DiagnosticXamlControlsResources" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticThemeDictionaries" />
+                <ContentControl x:Name="DiagnosticColor" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticSolidColorBrush" />
+                <ContentControl x:Name="DiagnosticCornerRadius" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticExpander" />
+                <ContentControl x:Name="DiagnosticAnnotatedScrollbar" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticSemanticZoom" />
+                <ContentControl x:Name="DiagnosticSplitView" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticTwoPaneView" />
+                <ContentControl x:Name="DiagnosticAnimatedIcon" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticShapes" />
+                <ContentControl x:Name="DiagnosticMediaPlayerElement" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticWebView2" />
+                <ContentControl x:Name="DiagnosticInkControls" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticTitleBarCustomization" />
+                <ContentControl x:Name="DiagnosticSystemBackdrop" />
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </Page>

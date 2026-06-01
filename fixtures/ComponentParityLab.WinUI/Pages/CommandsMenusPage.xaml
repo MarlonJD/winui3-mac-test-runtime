@@ -19,10 +19,14 @@
             </CommandBar.PrimaryCommands>
         </CommandBar>
         <TextBlock x:Name="CommandStateText" Text="Commands ready" />
-        <TextBlock x:Name="DiagnosticCommandBarContent" Text="CommandBar.Content: partial diagnostic" />
-        <TextBlock x:Name="DiagnosticCommandBarFlyout" Text="CommandBarFlyout: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticMenuFlyout" Text="MenuFlyout: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticMenuBar" Text="MenuBar: planned diagnostic" />
-        <TextBlock x:Name="DiagnosticContextMenuPattern" Text="Context menu pattern: planned diagnostic" />
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticCommandBarContent" />
+            <ContentControl x:Name="DiagnosticCommandBarFlyout" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="14">
+            <ContentControl x:Name="DiagnosticMenuFlyout" />
+            <ContentControl x:Name="DiagnosticMenuBar" />
+        </StackPanel>
+        <ContentControl x:Name="DiagnosticContextMenuPattern" />
     </StackPanel>
 </Page>

@@ -8,6 +8,14 @@ public sealed partial class TextFormsPage : Page
     public TextFormsPage()
     {
         InitializeComponent();
+        NativeControlSamples.PopulateTextForms(
+            DiagnosticRichTextBlock,
+            DiagnosticRichEditBox,
+            DiagnosticPasswordBox,
+            DiagnosticNumberBox,
+            DiagnosticAutoSuggestBox,
+            DiagnosticAutoSuggestBoxQueryIcon,
+            DiagnosticFormsPattern);
     }
 
     public void ApplyScenarioState(string scenarioName)
