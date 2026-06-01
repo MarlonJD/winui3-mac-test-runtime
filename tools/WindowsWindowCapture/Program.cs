@@ -22,10 +22,13 @@ internal static class Program
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(options.OutputPath))!);
 
             using var process = StartProcess(options);
-            var window = WaitForWindow(options.Title, options.Timeout);
+            var window = WaitForWindow(options.Title, process, options.Timeout);
             if (window == IntPtr.Zero)
             {
-                return Fail($"Could not find a visible window containing title '{options.Title}'.");
+                return Fail(
+                    $"Could not find a visible window containing title '{options.Title}'. " +
+                    $"Target process: {DescribeProcess(process)}. " +
+                    $"Visible windows: {DescribeVisibleWindows()}");
             }
 
             ShowWindow(window, SwRestore);
@@ -112,9 +115,10 @@ internal static class Program
         return process;
     }
 
-    private static IntPtr WaitForWindow(string title, TimeSpan timeout)
+    private static IntPtr WaitForWindow(string title, Process process, TimeSpan timeout)
     {
         var stopAt = DateTimeOffset.UtcNow + timeout;
+        var allowProcessFallbackAt = DateTimeOffset.UtcNow + TimeSpan.FromSeconds(Math.Min(5, timeout.TotalSeconds));
         while (DateTimeOffset.UtcNow < stopAt)
         {
             var window = FindWindowByTitle(title);
@@ -123,10 +127,38 @@ internal static class Program
                 return window;
             }
 
+            if (DateTimeOffset.UtcNow >= allowProcessFallbackAt)
+            {
+                var processWindow = TryGetProcessMainWindow(process);
+                if (processWindow != IntPtr.Zero)
+                {
+                    Console.WriteLine(
+                        $"Using target process main window '{ReadWindowText(processWindow)}' while waiting for title '{title}'.");
+                    return processWindow;
+                }
+            }
+
             Thread.Sleep(250);
         }
 
         return IntPtr.Zero;
+    }
+
+    private static IntPtr TryGetProcessMainWindow(Process process)
+    {
+        try
+        {
+            process.Refresh();
+            return !process.HasExited &&
+                process.MainWindowHandle != IntPtr.Zero &&
+                IsWindowVisible(process.MainWindowHandle)
+                    ? process.MainWindowHandle
+                    : IntPtr.Zero;
+        }
+        catch (InvalidOperationException)
+        {
+            return IntPtr.Zero;
+        }
     }
 
     private static IntPtr FindWindowByTitle(string title)
@@ -162,6 +194,43 @@ internal static class Program
         var builder = new StringBuilder(length + 1);
         _ = GetWindowText(window, builder, builder.Capacity);
         return builder.ToString();
+    }
+
+    private static string DescribeProcess(Process process)
+    {
+        try
+        {
+            process.Refresh();
+            return process.HasExited
+                ? $"exited={process.ExitCode}"
+                : $"running pid={process.Id}, mainWindowHandle=0x{process.MainWindowHandle.ToInt64():X}, mainWindowTitle='{process.MainWindowTitle}'";
+        }
+        catch (InvalidOperationException)
+        {
+            return "not available";
+        }
+    }
+
+    private static string DescribeVisibleWindows()
+    {
+        var titles = new List<string>();
+        EnumWindows((window, _) =>
+        {
+            if (!IsWindowVisible(window))
+            {
+                return true;
+            }
+
+            var text = ReadWindowText(window);
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                titles.Add(text);
+            }
+
+            return titles.Count < 12;
+        }, IntPtr.Zero);
+
+        return titles.Count == 0 ? "none with titles" : string.Join(" | ", titles);
     }
 
     private static Rect Capture(IntPtr window, string outputPath, bool clientArea)
