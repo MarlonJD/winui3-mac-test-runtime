@@ -16,5 +16,6 @@ public sealed partial class App : Application
         MainWindow = window;
 #endif
         window.Activate();
+        window.ApplyLaunchBounds();
     }
 }
