@@ -104,6 +104,9 @@ The project is production-ready only when all of these are true:
 
 Blockers addressed: `PB-000`, `PB-003`, `PB-008`
 
+Focused execution plan:
+`docs/plans/2026-06-01-native-winui-reference-capture-plan.md`.
+
 Tasks:
 
 - Redesign `windows-native-screenshot.yml` so the Windows reference job builds,
