@@ -51,6 +51,12 @@ as the local source of truth.
   but it does not cover the full Microsoft Learn inventory.
 - Unsupported and uncataloged controls need deliberate diagnostics. They should
   not disappear silently from screenshots.
+- A downstream Windows WinUI 3 source audit found additional real-app coverage
+  needs beyond visible control names: `SymbolIcon`, `XamlControlsResources`,
+  theme dictionaries, style setters, item templates, property-slot XAML,
+  `ToolTipService`, and `Window.SystemBackdrop` / `MicaBackdrop`. Treat these
+  as lab requirements because real apps depend on them even when the visible
+  control is already cataloged.
 
 ### Non-Goals
 
@@ -110,6 +116,7 @@ The initial inventory should be checked into
 | `PasswordBox` | unknown/planned | Page 2 diagnostic row |
 | `NumberBox` | unknown/planned | Page 2 diagnostic row |
 | `AutoSuggestBox` | unknown/planned | Page 2 diagnostic row |
+| `AutoSuggestBox.QueryIcon` | unknown/planned | Page 2 diagnostic row |
 | Labels/forms pattern | partial/planned | Page 2 |
 
 ### Collections
@@ -119,6 +126,9 @@ The initial inventory should be checked into
 | `ItemsControl` | supported | Page 3 |
 | `ItemsView` | unknown/planned | Page 3 diagnostic row |
 | `ListView` | partial | Page 3 |
+| `DataTemplate` / item templates | partial/planned | Page 3 |
+| `ListView.ItemTemplate` | partial/planned | Page 3 |
+| `ItemsControl.ItemTemplate` | partial/planned | Page 3 |
 | `GridView` | unknown/planned | Page 3 diagnostic row |
 | `FlipView` | unknown/planned | Page 3 diagnostic row |
 | `PipsPager` | unknown/planned | Page 3 diagnostic row |
@@ -135,6 +145,7 @@ The initial inventory should be checked into
 | `Flyout` | unknown/planned | Page 4 diagnostic row |
 | `TeachingTip` | unknown/planned | Page 4 diagnostic row |
 | `ToolTip` | unknown/planned | Page 4 diagnostic row |
+| `ToolTipService.SetToolTip` | unknown/planned | Page 4 diagnostic row |
 
 ### Menus And Commanding
 
@@ -142,6 +153,8 @@ The initial inventory should be checked into
 | --- | --- | --- |
 | `CommandBar` | supported but visually weak | Page 5 |
 | `AppBarButton` | supported but visually weak | Page 5 |
+| `CommandBar.Content` | partial/planned | Page 5 |
+| `AppBarButton.Icon` | partial/planned | Page 5 |
 | `CommandBarFlyout` | unknown/planned | Page 5 diagnostic row |
 | `MenuFlyout` | unknown/planned | Page 5 diagnostic row |
 | `MenuBar` | unknown/planned | Page 5 diagnostic row |
@@ -153,6 +166,8 @@ The initial inventory should be checked into
 | --- | --- | --- |
 | `NavigationView` | partial | Page 6 |
 | `NavigationViewItem` | partial | Page 6 |
+| `NavigationView.MenuItems` | partial | Page 6 |
+| `NavigationView.PaneFooter` | partial | Page 6 |
 | `Frame` / `Page` | supported | Page 6 |
 | `BreadcrumbBar` | unknown/planned | Page 6 diagnostic row |
 | List/details pattern | partial | Page 6 |
@@ -181,13 +196,34 @@ The initial inventory should be checked into
 | `SplitView` | unknown/planned | Page 8 diagnostic row |
 | `TwoPaneView` | unknown/planned | Page 8 diagnostic row |
 | Icons / `FontIcon` | partial | Page 8 |
+| `SymbolIcon` | unknown/planned | Page 8 diagnostic row |
 | `AnimatedIcon` | unknown/planned | Page 8 diagnostic row |
 | `Image` / image brushes | partial | Page 8 |
 | `MediaPlayerElement` | not supported | Page 8 diagnostic row |
 | Shapes | unknown/planned | Page 8 diagnostic row |
 | `InkCanvas` / `InkToolbar` | experimental/not stable | Page 8 diagnostic row |
 | Title bar customization | planned | Page 8 diagnostic row |
+| `Window.SystemBackdrop` / `MicaBackdrop` | planned | Page 8 diagnostic row |
 | `WebView2` | not supported | Page 8 diagnostic row |
+
+### Resources, Templates, Slots, And Materials
+
+These are not all standalone controls, but they must be represented in the
+inventory because real WinUI apps depend on them for source ingestion, theming,
+and visual parity.
+
+| Feature or family | Initial local status | Lab placement |
+| --- | --- | --- |
+| `XamlControlsResources` | unknown/planned | `App.xaml` bootstrap plus Page 8 diagnostic row |
+| `ResourceDictionary.ThemeDictionaries` | partial/planned | Page 8 and high-contrast scenario |
+| `ThemeResource` / `StaticResource` | partial | Every supported page; explicit Page 8 resource checks |
+| `Style` / `Setter` | supported subset | Every supported page; explicit Page 8 style checks |
+| `Color` / `SolidColorBrush` | partial/planned | Page 8 resource checks |
+| `CornerRadius` resources | partial/planned | Page 8 layout/material checks |
+| Property-slot XAML | partial/planned | Owning pages: `CommandBar.Content`, `AppBarButton.Icon`, `AutoSuggestBox.QueryIcon`, `NavigationView.MenuItems`, `NavigationView.PaneFooter` |
+| Item templates | partial/planned | Page 3: `DataTemplate`, `ListView.ItemTemplate`, `ItemsControl.ItemTemplate` |
+| Tooltip service pattern | unknown/planned | Page 4: `ToolTipService.SetToolTip` |
+| System backdrop material | planned | Page 8: `Window.SystemBackdrop`, `MicaBackdrop`, and high-contrast fallback |
 
 ## Demo Fixture Plan
 
@@ -202,6 +238,8 @@ It should be a Windows-targeted WinUI source fixture, not a mac-only fixture:
 - `WindowsPackageType=None`
 - `Microsoft.WindowsAppSDK` package reference
 - `App.xaml`, `MainWindow.xaml`, and page XAML files
+- `XamlControlsResources` in `App.xaml`
+- light, dark, and high-contrast theme dictionaries
 - Generic public content only
 
 The fixture should use `NavigationView` to switch between demo pages. Each page
@@ -234,6 +272,7 @@ Controls:
 
 - `TextBlock`
 - `TextBox`
+- `AutoSuggestBox.QueryIcon`
 - form labels
 - diagnostic placeholders for `AutoSuggestBox`, `NumberBox`, `PasswordBox`,
   `RichTextBlock`, and `RichEditBox`
@@ -251,6 +290,9 @@ Controls:
 
 - `ItemsControl`
 - `ListView`
+- `DataTemplate`
+- `ListView.ItemTemplate`
+- `ItemsControl.ItemTemplate`
 - diagnostic placeholders for `GridView`, `ItemsView`, `ItemsRepeater`,
   `TreeView`, `FlipView`, `PipsPager`, swipe, and pull-to-refresh
 
@@ -266,6 +308,7 @@ Controls:
 
 - diagnostic placeholders for `ContentDialog`, `Flyout`, `TeachingTip`, and
   `ToolTip`
+- diagnostic coverage for `ToolTipService.SetToolTip`
 
 Checks:
 
@@ -278,6 +321,8 @@ Controls:
 
 - `CommandBar`
 - `AppBarButton`
+- `CommandBar.Content`
+- `AppBarButton.Icon`
 - diagnostic placeholders for `CommandBarFlyout`, `MenuFlyout`, `MenuBar`, and
   context menus
 
@@ -293,6 +338,8 @@ Controls:
 
 - `NavigationView`
 - `NavigationViewItem`
+- `NavigationView.MenuItems`
+- `NavigationView.PaneFooter`
 - `Frame`
 - `Page`
 - list/details pattern
@@ -330,14 +377,28 @@ Controls:
 - `StackPanel`
 - `Border`
 - `FontIcon`
+- `SymbolIcon`
 - `Image`
+- `XamlControlsResources`
+- `ResourceDictionary.ThemeDictionaries`
+- `ThemeResource`
+- `StaticResource`
+- `Style`
+- `Setter`
+- `Color`
+- `SolidColorBrush`
+- `CornerRadius`
 - diagnostic placeholders for `Expander`, annotated scrollbar,
   `SemanticZoom`, `SplitView`, `TwoPaneView`, `AnimatedIcon`, shapes,
-  `MediaPlayerElement`, `WebView2`, title bar customization, and ink controls
+  `MediaPlayerElement`, `WebView2`, title bar customization, system backdrop
+  material, and ink controls
 
 Checks:
 
 - compare nested layout geometry
+- verify light, dark, and high-contrast resource resolution
+- verify `Window.SystemBackdrop` and `MicaBackdrop` are explicit planned
+  diagnostics, with high contrast falling back to a non-material surface
 - assert no unsupported visual features are hidden
 - ensure `MediaPlayerElement` and `WebView2` are explicit non-supported rows
 
@@ -363,6 +424,8 @@ Each scenario should include:
 - strict visual thresholds
 - interaction steps
 - required components
+- required source features, including resource dictionaries, property slots,
+  item templates, and material diagnostics
 - expected component statuses
 
 Example requirement shape:
@@ -394,6 +457,7 @@ Suggested shape:
   "components": [
     {
       "component": "Button",
+      "kind": "control",
       "target": "PrimaryButton",
       "catalogStatus": "supported",
       "presence": "present",
@@ -403,6 +467,15 @@ Suggested shape:
       "meanAbsoluteError": 3.1,
       "rootMeanSquaredError": 14.8,
       "knownGaps": ["Exact Fluent pointer and focus states are not rendered."]
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "NavigationView.PaneFooter",
+      "kind": "xaml-property-slot",
+      "catalogStatus": "partial",
+      "presence": "present",
+      "knownGaps": ["Exact native footer layout and focus visuals remain partial."]
     }
   ]
 }
@@ -433,6 +506,9 @@ Update `.github/workflows/windows-native-screenshot.yml` to:
 4. Fail when a supported component falls below its minimum visual grade.
 5. Do not fail when a planned/unsupported component is rendered as a diagnostic
    placeholder, as long as the placeholder and catalog status are explicit.
+6. Include theme/resource and property-slot evidence so a page cannot pass while
+   `XamlControlsResources`, theme dictionaries, item templates, or common slot
+   elements were skipped.
 
 ## Documentation Plan
 
@@ -458,14 +534,23 @@ its structured controls closer to Windows.
 - Add `winui-component-inventory.json`.
 - Add `ComponentParityLab.WinUI` with 8 pages.
 - Add scenario files with requirement metadata.
+- Add inventory rows for the downstream source-audit gaps: `SymbolIcon`,
+  `XamlControlsResources`, `ResourceDictionary.ThemeDictionaries`,
+  `DataTemplate`, `ListView.ItemTemplate`, `ItemsControl.ItemTemplate`,
+  property-slot XAML, `ToolTipService.SetToolTip`, and
+  `Window.SystemBackdrop` / `MicaBackdrop`.
 - Add tests that ensure inventory entries map to catalog statuses.
+- Add tests that every source feature discovered in the public fixture maps to
+  either a supported catalog entry or an explicit diagnostic entry.
 - Do not promote any control status yet.
 
 ### Phase 2: Component Evidence Artifact
 
 - Extend scenario parsing to read component requirements.
+- Extend scenario parsing to read source-feature requirements.
 - Generate `component-evidence.json`.
 - Add unit tests for evidence grading and missing component detection.
+- Add unit tests for missing source-feature evidence.
 - Add CLI output paths for component evidence.
 
 ### Phase 3: Windows Reference Expansion
@@ -483,6 +568,8 @@ Only after Phase 1-3 identify concrete failures:
 - Improve `ListView` selected item visuals.
 - Improve `CommandBar` and `AppBarButton` chrome.
 - Improve `InfoBar` layout and severity visuals.
+- Add minimal `SymbolIcon`, template, property-slot, and resource-dictionary
+  support only when the lab evidence proves the source feature is needed.
 - Add only the smallest facade/compiler support needed for controls selected in
   the current page.
 
@@ -545,7 +632,15 @@ fixture with 8 demo pages covering the Microsoft Learn WinUI controls
 inventory, add component inventory metadata, add scenario requirements, and
 generate `component-evidence.json` so each component has catalog status,
 presence, interaction status, visual grade, known gaps, and optional crop/diff
-metrics. Update README and compatibility docs so visual evidence is honest:
+metrics. Include the downstream source-audit gaps in the foundation:
+`SymbolIcon`, `XamlControlsResources`, `ResourceDictionary.ThemeDictionaries`,
+`ThemeResource`, `StaticResource`, `Style`, `Setter`, `Color`,
+`SolidColorBrush`, `CornerRadius`, `DataTemplate`, `ListView.ItemTemplate`,
+`ItemsControl.ItemTemplate`, `CommandBar.Content`, `AppBarButton.Icon`,
+`AutoSuggestBox.QueryIcon`, `NavigationView.MenuItems`,
+`NavigationView.PaneFooter`, `ToolTipService.SetToolTip`, and
+`Window.SystemBackdrop` / `MicaBackdrop`. Update README and compatibility docs
+so visual evidence is honest:
 whole-screenshot pass is not enough, and visibly weak components must be labeled
 as weak or poor. Preserve existing `winui3-mac-doctor`, `winui3-mac-runner`,
 SVG, current Skia, `skia-v2`, existing fixtures, and public admin/workbench
