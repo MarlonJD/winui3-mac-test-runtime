@@ -37,6 +37,29 @@ jobs:
           dotnet build fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --configuration Release
           dotnet build fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --configuration Release
 
+      - name: Dump native WinUI build diagnostics
+        if: failure()
+        shell: pwsh
+        run: |
+          $diagnosticRoot = "artifacts/windows-native-build-diagnostics"
+          New-Item -ItemType Directory -Force $diagnosticRoot | Out-Null
+          Get-ChildItem fixtures -Recurse -Include input.json,output.json |
+            Where-Object { $_.FullName -match "obj\\Release\\net.*windows" } |
+            ForEach-Object {
+              $relative = Resolve-Path -Relative $_.FullName
+              $safeName = $relative -replace "[\\/:]", "_"
+              Copy-Item $_.FullName (Join-Path $diagnosticRoot $safeName)
+              Write-Host "===== $relative ====="
+              Get-Content $_.FullName -Raw
+            }
+
+      - name: Upload native WinUI build diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-native-build-diagnostics
+          path: artifacts/windows-native-build-diagnostics
+
       - name: Capture native WinUI reference scenarios
         shell: pwsh
         run: |
