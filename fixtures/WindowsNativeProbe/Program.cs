@@ -24,7 +24,9 @@ internal sealed class ProbeForm : Form
     {
         this.options = options;
         Text = "WinUI3 Mac Test Runtime - " + options.ScenarioName;
-        StartPosition = FormStartPosition.CenterScreen;
+        FormBorderStyle = FormBorderStyle.None;
+        StartPosition = FormStartPosition.Manual;
+        Location = Point.Empty;
         ClientSize = new Size(options.ViewportWidth, options.ViewportHeight);
         MinimumSize = new Size(Math.Min(960, options.ViewportWidth), Math.Min(640, options.ViewportHeight));
         BackColor = Palette.AppBackground;
