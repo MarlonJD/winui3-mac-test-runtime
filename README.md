@@ -49,7 +49,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run \
   --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj \
   --renderer skia-v2 \
   --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json \
-  --viewport 1280x800 \
+  --viewport 960x640 \
   --scale 1 \
   --theme light \
   --strict-visual \
