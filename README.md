@@ -225,7 +225,9 @@ See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/component-support.md` for the readable component-by-component
 support matrix, and `docs/compatibility/winui-component-inventory.json` for the
 component parity lab inventory. See `docs/compatibility/material-composition.md`
-for the material compatibility contract.
+for the material compatibility contract. See
+`docs/release/production-readiness.md` for the current production readiness
+assessment, known gaps, and production blockers.
 
 ## Package Smoke
 

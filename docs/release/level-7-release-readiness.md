@@ -8,6 +8,9 @@ for the supported public alpha levels.
 Level 0 through Level 7 are the first alpha milestone toward full source-level
 WinUI 3 development on macOS. They are not the final product scope.
 
+For the broader production readiness assessment, including completed work,
+known gaps, and production blockers, see `docs/release/production-readiness.md`.
+
 ## Published Package Set
 
 Version: `0.1.0-alpha.1`
