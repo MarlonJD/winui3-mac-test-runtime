@@ -64,11 +64,15 @@ materials are outside the supported styling contract.
 
 Interaction scripts are versioned JSON documents with deterministic action
 results. Supported actions are listed in the matrix and exported as
-`interactions.json` when a script or scenario interactions are supplied.
+`interactions.json` when a script or scenario interactions are supplied. The
+public action subset includes click, focus, text entry, item selection, property
+assertions, navigation selection, frame navigation, and keyboard accelerator
+invocation.
 
 Accessibility export is a deterministic approximation derived from the logical
-tree. It covers role, element name, label, help text, focus state, and child
-relationships for the documented control subset.
+tree. It covers role, element name, label, help text, focus state, enabled
+state, checked state, selection state, value, and child relationships for the
+documented control subset.
 
 ## Binding And State Contract
 

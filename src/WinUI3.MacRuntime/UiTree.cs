@@ -232,6 +232,16 @@ public static class UiTreeBuilder
             case Image image:
                 properties["source"] = image.Source?.ToString();
                 break;
+            case ListView listView:
+                properties["itemCount"] = listView.Items.Count;
+                properties["selectedIndex"] = listView.SelectedIndex;
+                properties["selectedItem"] = listView.SelectedItem?.ToString();
+                foreach (var item in listView.Items)
+                {
+                    AddChild(item, children);
+                }
+
+                break;
             case ProgressRing progressRing:
                 properties["isActive"] = progressRing.IsActive;
                 break;

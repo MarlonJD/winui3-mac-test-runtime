@@ -131,6 +131,19 @@ public class Image : Control
 
 public class ListView : ItemsControl
 {
+    private int selectedIndex = -1;
+
+    public int SelectedIndex
+    {
+        get => selectedIndex;
+        set
+        {
+            selectedIndex = value;
+            SelectedItem = value >= 0 && value < Items.Count ? Items[value] : null;
+        }
+    }
+
+    public object? SelectedItem { get; set; }
 }
 
 public class ComboBox : ItemsControl

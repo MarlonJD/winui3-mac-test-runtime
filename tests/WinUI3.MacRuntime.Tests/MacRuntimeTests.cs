@@ -145,6 +145,34 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void InteractionScriptTypesSelectsAndAssertsProperties()
+    {
+        var state = new MutableObservableState("Initial");
+        var searchBox = new TextBox { Name = "SearchBox" };
+        BindingOperations.SetBinding(searchBox, nameof(TextBox.Text), new Binding(nameof(MutableObservableState.Title), BindingMode.TwoWay));
+        var listView = new ListView { Name = "TaskList" };
+        listView.Items.Add("Review queue");
+        listView.Items.Add("Archive completed task");
+        var root = new StackPanel { DataContext = state };
+        root.Children.Add(searchBox);
+        root.Children.Add(listView);
+        var window = new Window { Content = root };
+        BindingOperations.RefreshTree(window);
+
+        var report = new InteractionScriptRunner(new TypeResolver(Array.Empty<Type>()))
+            .Run(window, new InteractionScript(new[]
+            {
+                new InteractionAction("typeText", "SearchBox", null, null, null, "Closed tasks"),
+                new InteractionAction("selectItem", "TaskList", null, null, null, "Archive completed task"),
+                new InteractionAction("assertProperty", "SearchBox", "Text", null, null, "Closed tasks")
+            }));
+
+        Assert.IsTrue(report.Steps.All(step => step.Status == "passed"));
+        Assert.AreEqual("Closed tasks", state.Title);
+        Assert.AreEqual("Archive completed task", listView.SelectedItem);
+    }
+
+    [TestMethod]
     public void AccessibilityTreeUsesAutomationNamesAndFocusState()
     {
         var button = new Button { Name = "PrimaryButton", Content = "Continue" };
