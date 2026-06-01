@@ -7,8 +7,10 @@ Owner subtree: root `docs/plans`, `src/WinUI3.MacRuntime`, `src/WinUI3.MacRender
 ## Goal
 
 Make the project produce pixel-meaningful visual test artifacts by treating
-real Windows screenshots from public `windows-latest` GitHub Actions runs as
-the reference output for supported fixture screens.
+native WinUI Windows screenshots from public `windows-latest` GitHub Actions
+runs as the reference output for supported fixture screens. Synthetic
+`WindowsNativeProbe` screenshots may validate the capture harness, but they do
+not satisfy the native visual reference goal.
 
 The macOS-managed runtime remains Wine-free, but it must no longer be only a
 structural preview path. For every supported fixture, the runtime should emit a
@@ -17,13 +19,13 @@ with explicit pass/fail thresholds and reviewable diff artifacts.
 
 The project should still avoid blanket marketing claims that it is a complete
 WinUI 3 implementation. The stronger product claim is narrower and testable:
-for the documented supported fixture/control subset, the tool produces real
-Windows reference screenshots, macOS-runtime screenshots, pixel diff artifacts,
-and fail-fast diagnostics for unsupported visual behavior.
+for the documented supported fixture/control subset, the tool produces native
+WinUI Windows reference screenshots, macOS-runtime screenshots, pixel diff
+artifacts, and fail-fast diagnostics for unsupported visual behavior.
 
 ## Success Criteria
 
-- A public GitHub Actions workflow captures real Windows screenshots for
+- A public GitHub Actions workflow captures native WinUI Windows screenshots for
   generic fixture apps on `windows-latest`.
 - The same fixture state can be rendered through the macOS-managed runtime into
   a deterministic PNG with the same viewport, theme, scale, and scenario name.
@@ -73,7 +75,8 @@ and fail-fast diagnostics for unsupported visual behavior.
 
 1. Build a public fixture app on `windows-latest`.
 2. Launch the fixture with a named scenario, viewport, theme, and scale.
-3. Capture the real Windows desktop window through `tools/WindowsWindowCapture`.
+3. Capture the native WinUI Windows desktop window through
+   `tools/WindowsWindowCapture`.
 4. Upload `windows-reference.png` and `windows-reference.json`.
 5. Render the same scenario through `winui3-mac-runner` with the same options.
 6. Compare the two PNGs with the pixel comparison tool.
@@ -98,6 +101,8 @@ and fail-fast diagnostics for unsupported visual behavior.
 - comparison metrics;
 - unsupported visual features;
 - pass/fail status.
+- reference provenance, including whether the reference came from a native WinUI
+  fixture app or a synthetic probe.
 
 `pixel-diff.json` should include:
 
@@ -195,7 +200,9 @@ Verification:
 
 - Extend `.github/workflows/windows-native-screenshot.yml` or add a focused
   visual workflow that runs on `windows-latest`.
-- Build and capture each generic public scenario.
+- Build and capture each generic public scenario from the actual native WinUI
+  fixture app.
+- Keep `WindowsNativeProbe` only as a labeled synthetic harness smoke fallback.
 - Generate matching macOS-runtime screenshots where the runner can execute on
   the workflow host, or split the reference and macOS comparison into separate
   jobs with downloaded artifacts.
@@ -214,7 +221,8 @@ Verification:
 
 - Update `README.md`, `docs/architecture/artifacts.md`, and
   `docs/compatibility/matrix.md`.
-- Document the Windows-reference source-of-truth model.
+- Document the native WinUI Windows-reference source-of-truth model and label
+  any synthetic probe output as non-parity smoke evidence.
 - Document how to add a new public scenario and baseline.
 - Document what a passing pixel diff means and what it does not mean.
 - Keep public docs explicit that unsupported behavior must be reported, not
@@ -292,10 +300,10 @@ Inspect downloaded PNG artifacts before final handoff.
 
 ## Execution Prompt
 
-Use `$google-eng-practices` and implement the plan in `docs/plans/2026-06-01-windows-reference-pixel-fidelity-plan.md` in the public `MarlonJD/winui3-mac-test-runtime` repository. The product goal is reliable pixel-level visual testing for the documented supported fixture/control subset, with real Windows screenshots from public `windows-latest` GitHub Actions runs as the reference source of truth. Keep the macOS-managed runtime Wine-free. Do not use private repositories, private screenshots, private product names, secrets, or proprietary fixture content. Keep identifiers, comments, and canonical docs in English.
+Use `$google-eng-practices` and implement the plan in `docs/plans/2026-06-01-windows-reference-pixel-fidelity-plan.md` in the public `MarlonJD/winui3-mac-test-runtime` repository. The product goal is reliable pixel-level visual testing for the documented supported fixture/control subset, with native WinUI Windows screenshots from public `windows-latest` GitHub Actions runs as the reference source of truth. Synthetic `WindowsNativeProbe` screenshots may remain only as labeled harness smoke evidence. Keep the macOS-managed runtime Wine-free. Do not use private repositories, private screenshots, private product names, secrets, or proprietary fixture content. Keep identifiers, comments, and canonical docs in English.
 
-Implement scenario-driven visual testing: scenario JSON files, CLI options for `--scenario`, `--renderer skia-v2`, `--viewport`, `--scale`, `--theme`, `--strict-visual`, `--reference`, and `--diff-output`; deterministic visual tree/layout export; `skia-v2` painters for the supported public fixture subset; strict unsupported-feature diagnostics; pixel comparison artifacts (`windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, and `visual-run.json`); realistic generic public fixtures; and a public `windows-latest` workflow that captures Windows reference screenshots and uploads reviewable artifacts. Preserve existing `winui3-mac-doctor`, `winui3-mac-runner`, SVG, and current Skia behavior while adding the stricter path.
+Implement scenario-driven visual testing: scenario JSON files, CLI options for `--scenario`, `--renderer skia-v2`, `--viewport`, `--scale`, `--theme`, `--strict-visual`, `--reference`, and `--diff-output`; deterministic visual tree/layout export; `skia-v2` painters for the supported public fixture subset; strict unsupported-feature diagnostics; pixel comparison artifacts (`windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, and `visual-run.json`); reference provenance metadata; realistic generic public fixtures; and a public `windows-latest` workflow that captures native WinUI Windows reference screenshots and uploads reviewable artifacts. Preserve existing `winui3-mac-doctor`, `winui3-mac-runner`, SVG, and current Skia behavior while adding the stricter path.
 
-Run `dotnet build`, `dotnet test`, `PATH="$PWD/tools:$PATH" winui3-mac-doctor`, `PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json --strict-visual`, `PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json --strict-visual`, `dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release`, `dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release`, and `rg -n "<private-name-denylist-regex>" .` with the operator-provided private-name denylist. Trigger the public `windows-native-screenshot` workflow on GitHub Actions, wait for it to finish, download the screenshot artifacts, and inspect at least one Windows reference PNG, macOS-runtime PNG, and pixel diff PNG before final handoff.
+Run `dotnet build`, `dotnet test`, `PATH="$PWD/tools:$PATH" winui3-mac-doctor`, `PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json --strict-visual`, `PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json --strict-visual`, `dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release`, `dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release`, and `rg -n "<private-name-denylist-regex>" .` with the operator-provided private-name denylist. Trigger the public `windows-native-screenshot` workflow on GitHub Actions, wait for it to finish, download the screenshot artifacts, and inspect at least one Windows reference PNG, macOS-runtime PNG, pixel diff PNG, and reference provenance record before final handoff.
 
 Commit only relevant files with author `marlonjd <burak.karahan@mail.ru>` using a Conventional Commit message and push immediately.

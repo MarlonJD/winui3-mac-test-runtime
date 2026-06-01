@@ -49,15 +49,20 @@ Version: `0.1.0-alpha.1`
 - `dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj
   --configuration Release` passes.
 - `dotnet pack` passes for every published package.
-- Public `windows-native-screenshot` workflow passes.
+- Public `windows-native-screenshot` synthetic-probe workflow passes for the
+  current alpha harness scope.
 - Review at least one `windows-reference.png`, `mac-runtime.png`, and
-  `pixel-diff.png` for every changed fixture category.
+  `pixel-diff.png` for every changed fixture category, including reference
+  provenance when present.
+- Treat current `windows-reference.png` files as synthetic `WindowsNativeProbe`
+  harness references unless provenance identifies them as native WinUI fixture
+  captures.
 - Compatibility catalog status counts and diagnostics match the released docs.
 - Run the operator-provided private-name denylist scan before publishing.
 
 ## Verification Evidence
 
-Latest public Windows visual workflow inspected during Level 7 readiness:
+Latest public Windows synthetic-probe visual workflow inspected during Level 7 readiness:
 `windows-native-screenshot` run `26731192942`.
 
 Local package smoke:
@@ -91,6 +96,8 @@ Inspected categories:
   SARIF diagnostics with catalog statuses.
 - Scenario thresholds are reviewed compatibility contracts, not hidden global
   tolerances.
-- Hosted runner image changes can alter Windows reference screenshots; use
-  workflow metadata and uploaded PNGs to review drift before changing
-  thresholds.
+- Hosted runner image changes can alter synthetic or native WinUI Windows
+  reference screenshots; use workflow metadata and uploaded PNGs to review drift
+  before changing thresholds.
+- Native WinUI fixture capture is not yet implemented for the visual workflow;
+  current `WindowsNativeProbe` references are harness smoke evidence only.

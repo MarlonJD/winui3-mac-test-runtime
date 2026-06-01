@@ -217,11 +217,11 @@ Run tests in four tiers.
 | Fast app tests | macOS or Windows | Normal app logic, view models, services. | App repository `dotnet test` or platform test command. |
 | macOS compat smoke | macOS | Prove the public fixture builds and launches through the compatibility runtime. | `winui3-mac-runner doctor` and `winui3-mac-runner run --project ...`. |
 | strict macOS visual | macOS | Prove supported controls, interactions, bindings, accessibility export, and renderer diagnostics are stable. | `winui3-mac-runner run --renderer skia-v2 --scenario ... --strict-visual`. |
-| Windows reference parity | Windows plus macOS | Capture real Windows reference, render macOS runtime, compare PNGs, and upload reviewable artifacts. | Windows screenshot capture job plus macOS diff job. |
+| Windows reference parity | Windows plus macOS | Capture a native WinUI Windows reference from the actual app, render macOS runtime, compare PNGs, and upload reviewable artifacts. | Windows screenshot capture job plus macOS diff job. |
 
-The Windows reference tier should be the source of truth for visual claims. The
-macOS tier catches regressions quickly, but it cannot prove native Windows
-behavior by itself.
+The Windows reference tier should be the source of truth for visual claims only
+when it captures the actual native WinUI app under test. The macOS tier catches
+regressions quickly, but it cannot prove native Windows behavior by itself.
 
 ## Pull Request Gate For A Downstream App
 
@@ -245,7 +245,7 @@ Release or visual-change gate:
 2. Run the Windows reference workflow.
 3. Download and inspect `windows-reference.png`, `mac-runtime.png`,
    `pixel-diff.png`, `visual-run.json`, and, when available,
-   `component-evidence.json`.
+   `component-evidence.json` and reference provenance.
 4. Record visible gaps as `good`, `usable`, `weak`, `poor`, or `not-rendered`.
 5. Do not claim visual parity for weak or poor components.
 
@@ -259,7 +259,8 @@ The CI shape is:
 
 1. macOS job installs `MarlonJD.WinUI3.MacRunner`.
 2. macOS job runs doctor, smoke, and strict visual scenarios.
-3. Windows job captures real Windows references for public-safe fixtures.
+3. Windows job captures native WinUI Windows references for public-safe
+   fixtures.
 4. macOS job downloads Windows references and runs strict pixel comparison.
 5. CI uploads runtime artifacts for review.
 
@@ -277,7 +278,8 @@ Windows reference tier.
 - Accessibility export regressions.
 - Interaction script failures.
 - Renderer regressions for supported public controls.
-- Visual drift against real Windows screenshots when references are provided.
+- Visual drift against native WinUI Windows screenshots when references are
+  provided.
 
 ## What Still Requires Windows
 
