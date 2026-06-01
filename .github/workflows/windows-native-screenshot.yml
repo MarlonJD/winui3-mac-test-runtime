@@ -13,6 +13,7 @@ on:
       - "fixtures/**/*.MacTest/**"
       - "fixtures/PublicAdminWorkbench.WinUI/**"
       - "fixtures/ComponentParityLab.WinUI/**"
+      - "fixtures/ProductionSmoke.WinUI/**"
       - "docs/compatibility/winui-component-inventory.json"
 
 jobs:
@@ -68,6 +69,11 @@ jobs:
           }
 
           msbuild fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj /restore /p:Configuration=Release /bl:"$diagnosticRoot/ComponentParityLab.WinUI.binlog"
+          if ($LASTEXITCODE -ne 0 -and $status -eq 0) {
+            $status = $LASTEXITCODE
+          }
+
+          msbuild fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj /restore /p:Configuration=Release /bl:"$diagnosticRoot/ProductionSmoke.WinUI.binlog"
           if ($LASTEXITCODE -ne 0 -and $status -eq 0) {
             $status = $LASTEXITCODE
           }
@@ -243,6 +249,18 @@ jobs:
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
               FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "production-smoke-light"
+              Path = "fixtures/ProductionSmoke.WinUI/scenarios/production-smoke-light.json"
+              FixtureProject = "fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj"
+              FixtureExecutable = "fixtures/ProductionSmoke.WinUI/bin/Release/net8.0-windows10.0.19041.0/ProductionSmoke.WinUI.exe"
+            },
+            @{
+              Name = "production-e2e-workbench-light"
+              Path = "fixtures/ProductionSmoke.WinUI/scenarios/production-e2e-workbench-light.json"
+              FixtureProject = "fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj"
+              FixtureExecutable = "fixtures/ProductionSmoke.WinUI/bin/Release/net8.0-windows10.0.19041.0/ProductionSmoke.WinUI.exe"
             }
           )
 
@@ -328,6 +346,11 @@ jobs:
             Select-Object FullName, Length |
             Format-Table -AutoSize |
             Tee-Object (Join-Path $diagnosticRoot "component-lab-output-files.txt")
+
+          Get-ChildItem fixtures/ProductionSmoke.WinUI/bin/Release -Recurse -File -ErrorAction SilentlyContinue |
+            Select-Object FullName, Length |
+            Format-Table -AutoSize |
+            Tee-Object (Join-Path $diagnosticRoot "production-smoke-output-files.txt")
 
       - name: Upload native WinUI launch diagnostics
         if: failure()
