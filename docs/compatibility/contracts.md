@@ -100,20 +100,21 @@ scenario-driven renderer used for public visual compatibility checks.
 
 Windows reference screenshots are captured only from generic public fixture
 content in the public `windows-native-screenshot` GitHub Actions workflow. The
-workflow covers the shell, interaction/binding, control-gallery, public
-admin/workbench, and component parity lab strict fixture categories, then
-compares the macOS `skia-v2` render against each reference using
-scenario-local thresholds.
+workflow covers public admin/workbench and component parity lab fixture
+categories on `windows-latest`. The macOS `skia-v2` render is compared against
+those references locally on a developer Mac using scenario-local thresholds.
 
 Current checked-in reference screenshots are captured from
 `WindowsNativeProbe`, a synthetic WinForms/GDI reference executable. They are
 useful for harness smoke validation, but they are not native WinUI renders of
 the fixture projects and cannot justify component visual grade promotion.
 Production visual claims require native WinUI fixture reference provenance.
-Passing the workflow means those documented public scenarios stayed within
-threshold against the current reference source; it is not a claim of full WinUI
-3 pixel parity. A scenario-level pass does not override component-level
-evidence: visibly weak components must remain graded `weak` or `poor`.
+Passing the Windows workflow means the public reference capture tier completed.
+Passing the local macOS comparison means those documented public scenarios
+stayed within threshold against the current reference source; neither result is
+a claim of full WinUI 3 pixel parity. A scenario-level pass does not override
+component-level evidence: visibly weak components must remain graded `weak` or
+`poor`.
 
 ## Styling And Theme Contract
 

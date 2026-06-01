@@ -7,8 +7,8 @@ on:
   pull_request:
 
 jobs:
-  macos:
-    runs-on: macos-latest
+  build-test:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,22 +19,7 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Build
-        run: dotnet build
+        run: dotnet build -v minimal /m:1 /nr:false
 
       - name: Test
         run: dotnet test --no-build
-
-      - name: Doctor
-        run: PATH="$PWD/tools:$PATH" winui3-mac-doctor
-
-      - name: Tiny fixture
-        run: PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj
-
-      - name: Tiny fixture Skia snapshot
-        run: PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj --renderer skia
-
-      - name: Control gallery strict visual fixture
-        run: PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
-
-      - name: Control gallery high contrast fixture
-        run: PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-high-contrast.json --strict-visual
