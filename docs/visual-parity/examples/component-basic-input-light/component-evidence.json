@@ -10,12 +10,12 @@
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "passed",
-      "visualGrade": "usable",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
-        "Exact Fluent pointer, pressed, and focus states are not rendered."
+        "The macOS runtime currently emits only the button text; native WinUI button chrome is not rendered, so no component visual parity is claimed."
       ]
     },
     {
@@ -25,12 +25,12 @@
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "usable",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
-        "Checked visuals are approximated."
+        "The macOS runtime currently emits only the toggle text; checked native WinUI chrome is not rendered, so no component visual parity is claimed."
       ]
     },
     {
@@ -40,12 +40,12 @@
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "usable",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
-        "Indeterminate and full state styling remain limited."
+        "The macOS runtime currently emits only the checkbox text; native WinUI checkbox glyph and state chrome are not rendered."
       ]
     },
     {
@@ -55,12 +55,12 @@
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "usable",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
-        "Full group behavior and native styling remain partial."
+        "The macOS runtime currently emits only the radio button text; native WinUI radio glyph and state chrome are not rendered."
       ]
     },
     {
@@ -70,12 +70,12 @@
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "passed",
-      "visualGrade": "usable",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
-        "Popup behavior and item templates are not rendered."
+        "The macOS runtime currently emits combo box items as text; native WinUI combo box field, chevron, popup, and item chrome are not rendered."
       ]
     },
     {
@@ -86,9 +86,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -101,9 +101,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -116,9 +116,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -131,9 +131,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -146,9 +146,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -161,9 +161,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -176,9 +176,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -191,9 +191,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 8.069923,
-      "meanAbsoluteError": 7.461811,
-      "rootMeanSquaredError": 39.750729,
+      "changedPixelPercentage": 42.070093,
+      "meanAbsoluteError": 9.917593,
+      "rootMeanSquaredError": 38.839894,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]

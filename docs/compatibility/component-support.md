@@ -12,6 +12,14 @@ the Microsoft Learn controls inventory and local source-audit gaps to a public
 fixture page, expected catalog status, interaction coverage, visual evidence
 grade, and known gaps.
 
+The latest checked-in visual evidence uses native WinUI Windows references from
+public workflow run
+[`26777029415`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26777029415)
+on commit `95e8d7d`. The Windows references prove the public fixture pages show
+the intended native controls on Windows. The macOS comparisons currently fail
+for the inspected component scenarios, so text-only or absent macOS output stays
+`not-rendered`.
+
 ## Status Model
 
 | Status | Meaning |
@@ -59,6 +67,14 @@ The foundation also tracks downstream source-audit gaps explicitly:
 `CommandBar.Content`, `AppBarButton.Icon`, `AutoSuggestBox.QueryIcon`,
 `NavigationView.MenuItems`, `NavigationView.PaneFooter`,
 `ToolTipService.SetToolTip`, and `Window.SystemBackdrop / MicaBackdrop`.
+
+Latest inspected native comparison counts:
+
+| Scenario | Native comparison | Component evidence |
+| --- | --- | --- |
+| `component-basic-input-light` | Failed: `42.07%` changed pixels over the `18%` threshold. | 13 `not-rendered`. |
+| `component-commands-menus-light` | Failed: `40.68%` changed pixels over the `24%` threshold. | 8 `not-rendered`. |
+| `component-layout-media-light` | Failed: `45.83%` changed pixels over the `24%` threshold. | 4 `usable`, 24 `not-rendered`. |
 
 ## Cataloged Controls
 

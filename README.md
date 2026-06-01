@@ -151,54 +151,52 @@ macOS .NET process.
 ## Visual Parity Evidence
 
 Public visual evidence lives in `docs/visual-parity/`. The current checked-in
-examples are Windows-hosted synthetic probe references from
-`WindowsNativeProbe`, macOS runtime screenshots, pixel-diff images, and
-`visual-run.json` metrics from public GitHub Actions runs. They validate the
-capture, artifact, and comparison harness, but they are not native WinUI visual
-parity references for the fixture projects. Component lab runs also publish
-`component-evidence.json`; treat that file as the component-level truth for
-`good`, `usable`, `weak`, `poor`, or `not-rendered` grades. A whole screenshot
-that passes thresholds is necessary smoke evidence, but it is not enough to call
-every visible control visually good. Controls that only emit text or disappear
-in macOS screenshots remain `not-rendered`.
+public admin and component parity examples are native WinUI Windows fixture
+captures from public GitHub Actions run
+[`26777029415`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26777029415)
+on commit `95e8d7d`, plus local macOS runtime screenshots, pixel-diff images,
+`visual-run.json`, provenance JSON, and component evidence. Synthetic
+`WindowsNativeProbe` output remains only as smoke evidence for the harness.
+Component lab runs also publish `component-evidence.json`; treat that file as
+the component-level truth for `good`, `usable`, `weak`, `poor`, or
+`not-rendered` grades. A whole screenshot that passes thresholds is necessary
+smoke evidence, but it is not enough to call every visible control visually
+good. Controls that only emit text or disappear in macOS screenshots remain
+`not-rendered`.
 
-The current `public-admin-workbench-light` synthetic probe evidence comes from
-public workflow run
-[`26752174485`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26752174485)
-and passed strict comparison:
+The current `public-admin-workbench-light` native comparison fails honestly
+against the native WinUI reference:
 
-| Synthetic Windows probe reference | macOS runtime | Pixel diff |
+| Native WinUI Windows reference | macOS runtime | Pixel diff |
 | --- | --- | --- |
-| ![Synthetic Windows probe reference](docs/visual-parity/examples/public-admin-workbench-light/windows-reference.png) | ![macOS runtime](docs/visual-parity/examples/public-admin-workbench-light/mac-runtime.png) | ![Pixel diff](docs/visual-parity/examples/public-admin-workbench-light/pixel-diff.png) |
+| ![Native WinUI Windows reference](docs/visual-parity/examples/public-admin-workbench-light/windows-reference.png) | ![macOS runtime](docs/visual-parity/examples/public-admin-workbench-light/mac-runtime.png) | ![Pixel diff](docs/visual-parity/examples/public-admin-workbench-light/pixel-diff.png) |
 
-For this scenario, `16.01%` of pixels changed, `83.99%` were byte-identical,
-mean absolute error was `8.50`, and RMS error was `41.09`, all inside the
-scenario thresholds. This should be read as **weak visual parity / source
-ingestion smoke evidence**, not as native WinUI visual parity evidence or as a
-broad component-quality claim. The
-matching parts are the Windows-targeted project ingestion path, navigation
-shell, selected state, list/detail workbench shape, and command-click
-assertion. The visible gaps are still important: exact Fluent control chrome,
-command surfaces, InfoBar/list/detail painters, text metrics, focus visuals,
-shadows, Mica/Acrylic, and native interaction states are not yet pixel-perfect.
+For this scenario, `100.00%` of pixels changed, `0.00%` were byte-identical,
+mean absolute error was `9.72`, and RMS error was `35.87`; changed pixels exceed
+the `45%` threshold. This should be read as **native WinUI reference source of
+truth fixed, macOS visual parity failed**, not as a renderer success. The
+matching parts are the Windows-targeted project ingestion path, selected page,
+text content, and command-click assertion. The visible gaps are still important:
+exact Fluent control chrome, command surfaces, filter box, InfoBar/list/detail
+painters, text metrics, focus visuals, shadows, Mica/Acrylic, and native
+interaction states are not yet pixel-perfect.
 
 ### Component Parity Examples
 
-The component parity lab examples below come from public GitHub Actions run
-[`26757799015`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26757799015).
-Each row shows the synthetic Windows probe reference first, then the current
-macOS runtime rendering from this library, then the pixel diff. These are
-harness examples, not native WinUI parity claims:
-current scenario JSON and freshly generated `component-evidence.json` artifacts
-remain the source of truth for each component's catalog status, presence,
-interaction status, visual grade, and known gaps, and component grades must not
-be promoted until native WinUI Windows reference artifacts exist.
+The component parity lab examples below come from the same native WinUI public
+workflow run. Each row shows the native WinUI Windows reference first, then the
+current macOS runtime rendering from this library, then the pixel diff. Current
+scenario JSON and freshly generated `component-evidence.json` artifacts remain
+the source of truth for each component's catalog status, presence, interaction
+status, visual grade, and known gaps, and component grades must not be promoted
+until native WinUI Windows reference artifacts and reviewed macOS output justify
+the claim.
 
-| Scenario | Synthetic Windows probe reference | macOS runtime | Pixel diff | Evidence summary |
+| Scenario | Native WinUI Windows reference | macOS runtime | Pixel diff | Evidence summary |
 | --- | --- | --- | --- | --- |
-| `component-basic-input-light` | ![Synthetic Windows basic input probe reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | Current scenario policy after local macOS screenshot inspection: 13 components, all 13 `not-rendered` because the controls emit text-only output. Historical synthetic diff metrics: changed pixels `8.07%`, MAE `7.46`, RMS `39.75`. |
-| `component-commands-menus-light` | ![Synthetic Windows commands and menus probe reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | Current scenario policy after local macOS screenshot inspection: 8 components, all 8 `not-rendered`; `CommandBar`, `AppBarButton`, and `AppBarButton.Icon` do not render native chrome. |
-| `component-layout-media-light` | ![Synthetic Windows layout and media probe reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | Current scenario policy after local macOS screenshot inspection: 28 components/features: 4 resource smoke rows `usable`, 24 controls/features `not-rendered`; `Grid`, `Border`, `FontIcon`, `Image`, `ScrollViewer`, and `StackPanel` are text-only or absent. |
+| `component-basic-input-light` | ![Native WinUI basic input reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | Failed native comparison: `42.07%` changed pixels over the `18%` threshold, MAE `9.92`, RMS `38.84`; 13 components, all 13 `not-rendered` because macOS emits text-only output. |
+| `component-commands-menus-light` | ![Native WinUI commands and menus reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | Failed native comparison: `40.68%` changed pixels over the `24%` threshold, MAE `8.45`, RMS `35.23`; 8 components, all 8 `not-rendered`. |
+| `component-layout-media-light` | ![Native WinUI layout and media reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | Failed native comparison: `45.83%` changed pixels over the `24%` threshold, MAE `10.48`, RMS `39.27`; 4 resource smoke rows `usable`, 24 controls/features `not-rendered`. |
 
 See `docs/visual-parity/README.md` for the current evidence table and
 interpretation notes.
@@ -261,8 +259,9 @@ runner and captures client-area PNG reference screenshots from Windows desktop
 windows. The current workflow launches public native WinUI fixture projects and
 the `WindowsNativeProbe` smoke fixture; local macOS runtime comparison is run
 from a developer Mac with `winui3-mac-runner --reference` when visual parity
-needs review. Treat current synthetic references as harness smoke evidence until
-native WinUI fixture capture fully replaces the probe.
+needs review. Treat `WindowsNativeProbe` references as harness smoke evidence;
+public admin and component parity examples must use native WinUI fixture
+reference provenance.
 
 The capture tool can be pointed at any Windows desktop app by changing the
 window title and command:

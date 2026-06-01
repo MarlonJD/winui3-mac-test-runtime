@@ -2,23 +2,21 @@
 
 This directory keeps public, reviewable visual harness evidence from the
 `windows-native-screenshot.yml` workflow and local macOS strict visual runs.
-The current GitHub workflow captures Windows-hosted reference PNGs from public
-fixtures. The matching macOS runtime render, pixel diff, and threshold failure
-checks are produced locally on a developer Mac with `winui3-mac-runner` when a
-visual scenario needs review.
+The current GitHub workflow captures Windows-hosted reference PNGs from the
+public WinUI fixture projects. The matching macOS runtime render, pixel diff,
+and threshold failure checks are produced locally on a developer Mac with
+`winui3-mac-runner` when a visual scenario needs review.
 
-Important: the checked-in `windows-reference.png` examples are not native WinUI
-renders of the fixture projects yet. They are useful for validating the public
-capture/comparison harness, but they must not be used as native WinUI visual
-parity proof or to promote component grades.
-
-The checked-in public admin workbench synthetic probe example artifacts come
-from public GitHub Actions run
-[`26752174485`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26752174485)
-on commit `b6604c1`. The checked-in component parity lab synthetic probe
-examples come from public GitHub Actions run
-[`26757799015`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26757799015)
-on commit `72c3148`.
+The checked-in public admin workbench and component parity lab examples come
+from native WinUI public fixture references captured by public GitHub Actions
+run
+[`26777029415`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26777029415)
+on commit `95e8d7d`. Each example includes `windows-reference.json` provenance
+with `referenceSource: native-winui`, the public fixture project path, scenario
+path/name, commit SHA, workflow run ID, runner image, viewport, scale, theme,
+window title, capture mode, and dimensions. The synthetic probe examples for
+`shell-light`, `interactions-light`, and `control-gallery-light` remain
+smoke-only harness evidence.
 
 ## How To Read The Metrics
 
@@ -58,7 +56,7 @@ Component visual grades:
 | `shell-light` | synthetic probe / passed | 4.00% | 96.00% | 1.57 | 14.20 | Navigation shell geometry, pane selection, text hierarchy, card surfaces. | Reference is synthetic probe output; text rasterization and edge anti-aliasing differ from Windows. |
 | `interactions-light` | synthetic probe / passed | 31.69% | 68.31% | 4.06 | 17.77 | Interaction result state, list/text/image layout, binding-driven updates. | Reference is synthetic probe output; many pixels change because text and small control edges render differently on the two platforms. |
 | `control-gallery-light` | synthetic probe / passed | 6.49% | 93.51% | 1.67 | 12.69 | Supported public controls, high-level spacing, checked/progress/info states. | Reference is synthetic probe output; native control chrome, exact typography, and Fluent focus/hover details are approximated. |
-| `public-admin-workbench-light` | synthetic probe smoke / weak visual parity | 16.01% | 83.99% | 8.50 | 41.09 | Windows-targeted source ingestion, navigation, selected state, workbench list/detail shape, command click assertion. | The reference is synthetic probe output, not native WinUI. The macOS renderer still simplifies parts of the command bar, InfoBar, list/detail cards, exact text metrics, Fluent depth, and native control chrome. |
+| `public-admin-workbench-light` | native WinUI reference / failed | 100.00% | 0.00% | 9.72 | 35.87 | Windows-targeted source ingestion, selected page, text content, and interaction state. | Native WinUI shows command surfaces, filter box, InfoBar, selected list row, and button chrome that the macOS renderer does not yet render; changed pixels exceed the `45%` threshold. |
 
 Component lab scenario artifacts are produced for:
 `component-basic-input-light`, `component-text-forms-light`,
@@ -66,70 +64,77 @@ Component lab scenario artifacts are produced for:
 `component-commands-menus-light`, `component-navigation-workbench-light`,
 `component-status-pickers-light`, and `component-layout-media-light`.
 Each artifact folder includes `component-evidence.json` alongside
-`visual-run.json` when produced by the public workflow.
+`visual-run.json` when the native reference is compared locally against the
+macOS runtime.
 
 ## Public Admin Workbench Example
 
-These files are copied from the public workflow artifact for
-`public-admin-workbench-light`. The `windows-reference.png` file is a
-Windows-hosted synthetic probe reference, not a native WinUI fixture capture.
+These files are copied from the public native WinUI workflow artifact for
+`public-admin-workbench-light`. The `windows-reference.png` file is a native
+WinUI Windows capture of
+`fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj`, and
+`windows-reference.json` records `referenceSource: native-winui`.
 
-| Synthetic Windows probe reference | macOS runtime | Pixel diff |
+| Native WinUI Windows reference | macOS runtime | Pixel diff |
 | --- | --- | --- |
-| ![Synthetic Windows probe reference](examples/public-admin-workbench-light/windows-reference.png) | ![macOS runtime](examples/public-admin-workbench-light/mac-runtime.png) | ![Pixel diff](examples/public-admin-workbench-light/pixel-diff.png) |
+| ![Native WinUI Windows reference](examples/public-admin-workbench-light/windows-reference.png) | ![macOS runtime](examples/public-admin-workbench-light/mac-runtime.png) | ![Pixel diff](examples/public-admin-workbench-light/pixel-diff.png) |
 
-The example is useful for the current alpha milestone because it passes the
-scenario thresholds and keeps the core shell/workbench structure recognizable.
-It should still be read as synthetic probe smoke and source-ingestion smoke
-evidence, not native WinUI visual parity evidence. The diff makes the remaining
-work visible: exact Fluent control rendering, text metrics, command surfaces,
-InfoBar layout, shadows, materials, focus visuals, pointer states, and richer
-list/detail painters still need
-cataloged implementation work before stronger parity claims can be made.
+The native comparison currently fails: `100.00%` changed pixels against the
+`45%` threshold, MAE `9.72`, and RMS `35.87`. This is an honest failure against
+the corrected source of truth. The macOS render preserves the broad page and
+text content, but native command surfaces, filter box, InfoBar, selected list
+row, button chrome, focus states, shadows, and richer list/detail painters still
+need cataloged implementation work before stronger parity claims can be made.
 
 ## Component Parity Lab Examples
 
-These examples show synthetic Windows probe output beside the current macOS
-runtime rendering from this library. The visual tables are meant to make the
-state of the component lab easy to inspect in the repository. The checked-in
-synthetic example artifacts are historical smoke evidence; current scenario
-JSON and freshly generated `component-evidence.json` artifacts are the
+These examples show native WinUI Windows fixture captures beside the current
+macOS runtime rendering from this library. The visual tables are meant to make
+the state of the component lab easy to inspect in the repository. Current
+scenario JSON and freshly generated `component-evidence.json` artifacts are the
 component-level source of truth. Component grades must not be promoted until
-native WinUI Windows reference artifacts exist.
+native WinUI Windows reference artifacts and reviewed macOS output justify the
+claim.
 
 ### Basic Input
 
-| Synthetic Windows probe reference | macOS runtime | Pixel diff |
+| Native WinUI Windows reference | macOS runtime | Pixel diff |
 | --- | --- | --- |
-| ![Synthetic Windows basic input probe reference](examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](examples/component-basic-input-light/pixel-diff.png) |
+| ![Native WinUI basic input reference](examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](examples/component-basic-input-light/pixel-diff.png) |
 
-After local macOS screenshot inspection, `component-basic-input-light` records
-13 component requirements and all 13 are `not-rendered`. The screenshot emits
-only text for the basic input controls, so no macOS component visual parity is
-claimed before the next native Windows comparison.
+`component-basic-input-light` records 13 component requirements and all 13 are
+`not-rendered`. Native WinUI shows the button, toggle button, checkbox, radio
+button, combo box, repeat/hyperlink/dropdown/split/toggle-split controls,
+slider, toggle switch, and rating control; the macOS screenshot emits text-only
+output for the controls. The native comparison fails with `42.07%` changed
+pixels against the `18%` threshold, MAE `9.92`, and RMS `38.84`.
 
 ### Commands And Menus
 
-| Synthetic Windows probe reference | macOS runtime | Pixel diff |
+| Native WinUI Windows reference | macOS runtime | Pixel diff |
 | --- | --- | --- |
-| ![Synthetic Windows commands and menus probe reference](examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](examples/component-commands-menus-light/pixel-diff.png) |
+| ![Native WinUI commands and menus reference](examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](examples/component-commands-menus-light/pixel-diff.png) |
 
-After local macOS screenshot inspection, `component-commands-menus-light`
-records 8 component requirements and all 8 are `not-rendered`. The screenshot
-shows command result text without native `CommandBar`, `AppBarButton`, or icon
-chrome.
+`component-commands-menus-light` records 8 component requirements and all 8 are
+`not-rendered`. Native WinUI shows the command bar, AppBarButton icons, command
+content, flyout/menu/menu bar/context menu rows, and buttons; the macOS
+screenshot shows command result text without native command chrome. The native
+comparison fails with `40.68%` changed pixels against the `24%` threshold, MAE
+`8.45`, and RMS `35.23`.
 
 ### Layout, Media, And Resources
 
-| Synthetic Windows probe reference | macOS runtime | Pixel diff |
+| Native WinUI Windows reference | macOS runtime | Pixel diff |
 | --- | --- | --- |
-| ![Synthetic Windows layout and media probe reference](examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](examples/component-layout-media-light/pixel-diff.png) |
+| ![Native WinUI layout and media reference](examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](examples/component-layout-media-light/pixel-diff.png) |
 
-After local macOS screenshot inspection, `component-layout-media-light` records
-28 component or source-feature requirements: 4 resource smoke rows are
-`usable`, and 24 controls/features are `not-rendered`. `ScrollViewer`, `Grid`,
-`StackPanel`, `Border`, `FontIcon`, and `Image` are text-only or absent in the
-macOS screenshot, so they are not parity claims.
+`component-layout-media-light` records 28 component or source-feature
+requirements: 4 resource smoke rows are `usable`, and 24 controls/features are
+`not-rendered`. Native WinUI shows layout/resource rows, icon glyphs, colors,
+brushes, corner radius, expander, annotated scroll bar, split view, shapes, and
+other diagnostics; the macOS screenshot is text-only or absent for those
+component visuals. The native comparison fails with `45.83%` changed pixels
+against the `24%` threshold, MAE `10.48`, and RMS `39.27`.
 
 ## Updating Evidence
 
