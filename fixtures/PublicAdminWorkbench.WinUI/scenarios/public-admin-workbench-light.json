@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "public-admin-workbench",
+  "name": "public-admin-workbench-light",
+  "viewport": {
+    "width": 1120,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "startupRoute": "queue",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 45.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 34.0,
+    "rootMeanSquaredError": 64.0
+  },
+  "interactions": [
+    {
+      "type": "click",
+      "target": "ApproveCommand"
+    },
+    {
+      "type": "assertProperty",
+      "target": "WorkbenchStatus",
+      "key": "Title",
+      "parameter": "Approved"
+    }
+  ]
+}

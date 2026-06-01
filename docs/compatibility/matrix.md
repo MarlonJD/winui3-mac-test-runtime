@@ -23,7 +23,7 @@ that is not present in the catalog yet.
 | Level 3: Styling, Resources, And Theme Fidelity | supported | Resource lookup, style setter application for supported properties, light/dark/high-contrast renderer themes, and strict resource diagnostics for the public subset. |
 | Level 4: Data Binding, Commands, And State | supported | One-way and two-way binding for supported properties, `INotifyPropertyChanged`, observable item collections, command execution state, button command invocation, and navigation state for public fixtures. |
 | Level 5: Input, Accessibility, And Automation | supported | Scripted click, focus, text entry, item selection, property assertions, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility state export. |
-| Level 6: Windows Reference Visual Compatibility | supported | Public `windows-latest` reference workflow and scenario-local pixel thresholds for shell, interaction/binding, and control-gallery strict fixture categories. |
+| Level 6: Windows Reference Visual Compatibility | supported | Public `windows-latest` reference workflow and scenario-local pixel thresholds for shell, interaction/binding, control-gallery, and public admin/workbench strict fixture categories. |
 | Level 7: Release And Consumption Readiness | supported | Package metadata, pack smoke, consumer quick start, sample consumer CI, release checklist, verification evidence, troubleshooting, and known-gap documentation. |
 
 Levels 0 through 7 are the current alpha milestone. They are not the final
@@ -32,15 +32,15 @@ WinUI 3 macOS development scope.
 ## API Compatibility Catalog
 
 `docs/compatibility/winui-api-compatibility.catalog.json` is the deterministic
-catalog seed used by docs, XAML diagnostics, and placeholder facade runtime
-diagnostics. The current `0.1` catalog contains 106 entries:
+catalog seed used by docs, XAML diagnostics, project ingestion, and placeholder
+facade runtime diagnostics. The current `0.1` catalog contains 113 entries:
 
 | Status | Count |
 | --- | ---: |
-| `supported` | 48 |
-| `partial` | 27 |
-| `planned` | 27 |
-| `windows-only` | 2 |
+| `supported` | 52 |
+| `partial` | 28 |
+| `planned` | 28 |
+| `windows-only` | 3 |
 | `not supported` | 2 |
 
 The catalog includes public WinUI 3 / Windows App SDK APIs, XAML constructs,
@@ -61,6 +61,7 @@ when app code touches unavailable behavior.
 | `binding-failures.json` | supported | Versioned envelope captures unresolved paths and non-writable targets. |
 | `resource-failures.json` | supported | Versioned envelope captures unresolved static and theme resources. |
 | `unsupported-apis.json` | supported | Versioned envelope captures clean-room placeholder facade APIs that were touched, with catalog statuses such as `planned`, `windows-only`, `not supported`, or `unknown`. |
+| `project-ingestion.json` | supported | Versioned envelope for Windows-targeted WinUI compat shadow builds, including source files, excluded Windows-only items, catalog statuses, unsupported project features, and XAML diagnostics. |
 | `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unavailable API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
 | Scripted text entry, item selection, and assertions | supported | `typeText`, `selectItem`, and `assertProperty` actions emit deterministic pass/fail results. |
@@ -71,12 +72,14 @@ when app code touches unavailable behavior.
 | Deterministic layout export | partial | `skia-v2` scenarios add arranged rectangles, desired sizes, padding, alignment, and visibility to `tree.json`. |
 | Pixel diff artifacts | supported | `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, and `visual-run.json` are emitted for reference-backed runs. |
 | Windows reference source of truth | supported | Public `windows-latest` workflow captures generic reference screenshots and macOS comparison artifacts. |
+| Compat shadow build discovery | supported | Public Windows-targeted WinUI projects are redirected to generated macOS compatibility projects without mutating the original project or executing Windows App SDK build targets. |
 
 ## XAML
 
 | Construct | Status | Notes |
 | --- | --- | --- |
 | `x:Class` | supported | Generates a partial class. |
+| `Application` XAML root | supported | Generates a partial `Microsoft.UI.Xaml.Application` class for Windows-targeted source fixtures. |
 | `x:Name` / `Name` | supported | Generates strongly typed fields. |
 | `x:Uid` | supported | Preserved as `FrameworkElement.Uid` for public fixture localization metadata. |
 | Text content | supported | Covered for `TextBlock` and `Button`. |
@@ -96,7 +99,7 @@ when app code touches unavailable behavior.
 | Type | Status | Notes |
 | --- | --- | --- |
 | `Application`, `Window`, `Page` | supported | Basic lifecycle and page activation. |
-| `Frame` | supported | Supports `Navigate(Type, object?)`. |
+| `Frame` | supported | Supports `Navigate(Type, object?)` and XAML `Frame.Content` for public shadow-build fixtures. |
 | `StackPanel`, `Grid`, `Border` | partial | Logical child containment and deterministic `skia-v2` layout for public scenarios. |
 | `TextBlock`, `TextBox`, `Button` | supported | Basic content/text and button click. |
 | `ToggleButton`, `CheckBox`, `RadioButton` | supported | Checked state, content, tree export, accessibility roles, layout, and `skia-v2` painters for public fixtures. |

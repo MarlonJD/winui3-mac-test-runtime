@@ -18,6 +18,7 @@ a new schema version and documentation update.
 | `binding-failures.json` | `0.1` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
+| `project-ingestion.json` | `0.1` |
 | `interactions.json` | `0.1` |
 | `snapshot.json` | `0.1`; `0.2` for `skia-v2` PNG snapshots |
 | `visual/visual-run.json` | `0.1` |
@@ -38,6 +39,11 @@ a new schema version and documentation update.
   Each entry status comes from the compatibility catalog when known
   (`planned`, `windows-only`, or `not supported`) or `unknown` when the API is
   not cataloged yet.
+- `project-ingestion.json`: emitted for Windows-targeted WinUI source projects
+  that use compat shadow build discovery. It records the original project, the
+  generated shadow project, included C# and XAML files, excluded Windows-only
+  items such as `Microsoft.WindowsAppSDK`, catalog statuses for project
+  features, unsupported project features, and blocking XAML diagnostics.
 - `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
   and unsupported API reports.
 - `interactions.json`: emitted when `--script` is provided; records every
@@ -76,6 +82,13 @@ layout rectangles into `tree.json`, writes `mac-runtime.png`, records
 unsupported visual features in `unsupported-apis.json`, and writes
 `visual-run.json`. When `--reference` is supplied, it also copies the reference
 to `windows-reference.png` and writes pixel diff artifacts.
+
+When `--project` points at a Windows-targeted WinUI source project, the runner
+does not mutate or build the original Windows project. It writes a compat shadow
+project under the output directory, retargets it to the managed macOS facade,
+compiles supported XAML with the local compiler, and writes
+`project-ingestion.json` before launch. Unsupported project or XAML features
+fail before shadow build with catalog-backed diagnostics.
 
 `--strict-visual` fails the process when binding failures, resource failures,
 unsupported facade APIs, unsupported visual painters, failed interactions, or

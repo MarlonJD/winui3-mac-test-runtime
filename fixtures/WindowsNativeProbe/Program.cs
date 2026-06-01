@@ -39,7 +39,11 @@ internal sealed class ProbeForm : Form
         e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
         e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-        if (options.ScenarioName.Contains("control-gallery", StringComparison.OrdinalIgnoreCase))
+        if (options.ScenarioName.Contains("public-admin-workbench", StringComparison.OrdinalIgnoreCase))
+        {
+            DrawPublicAdminWorkbenchScenario(e.Graphics, ClientSize.Width, ClientSize.Height);
+        }
+        else if (options.ScenarioName.Contains("control-gallery", StringComparison.OrdinalIgnoreCase))
         {
             DrawControlGalleryScenario(e.Graphics, ClientSize.Width, ClientSize.Height);
         }
@@ -187,6 +191,98 @@ internal sealed class ProbeForm : Form
 
         DrawEmptyPanel(graphics, x, 598, width - 48, 64);
         DrawEmptyPanel(graphics, x, 674, width - 48, 64);
+    }
+
+    private static void DrawPublicAdminWorkbenchScenario(Graphics graphics, int width, int height)
+    {
+        using var bodyFont = new Font("Segoe UI", 10.5f, FontStyle.Regular, GraphicsUnit.Point);
+        using var smallFont = new Font("Segoe UI", 9f, FontStyle.Regular, GraphicsUnit.Point);
+        using var titleFont = new Font("Segoe UI", 16f, FontStyle.Bold, GraphicsUnit.Point);
+        Fill(graphics, Palette.AppBackground, new RectangleF(0, 0, width, height));
+        Fill(graphics, Palette.Surface, new RectangleF(0, 0, width, 48));
+        Line(graphics, Palette.Stroke, 0, 48, width, 48);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Public Admin Workbench", 24, 14);
+
+        const int paneWidth = 248;
+        Fill(graphics, Palette.PaneBackground, new RectangleF(0, 48, paneWidth, height - 48));
+        Line(graphics, Palette.Stroke, paneWidth, 48, paneWidth, height);
+        DrawText(graphics, bodyFont, Palette.TextSecondary, "Navigation", 20, 70);
+
+        var items = new[] { "Overview", "Review queue", "Reports" };
+        var y = 106;
+        foreach (var item in items)
+        {
+            var selected = item == "Review queue";
+            var row = new RectangleF(12, y, paneWidth - 24, 40);
+            if (selected)
+            {
+                RoundRect(graphics, Palette.AccentSoft, row, 8);
+                RoundRect(graphics, Palette.Accent, new RectangleF(row.Left, row.Top + 7, 4, row.Height - 14), 2);
+            }
+
+            FillEllipse(graphics, selected ? Palette.Accent : Palette.TextSecondary, row.Left + 9, row.Top + 15, 10, 10);
+            DrawText(graphics, bodyFont, selected ? Palette.Accent : Palette.TextPrimary, item, row.Left + 30, row.Top + 10);
+            y += 44;
+        }
+
+        var footerTop = height - 154;
+        Line(graphics, Palette.Stroke, 14, footerTop - 16, paneWidth - 14, footerTop - 16);
+        RoundRect(graphics, Palette.Surface, new RectangleF(14, footerTop, paneWidth - 28, 74), 10);
+        RoundRect(graphics, Palette.AccentSoft, new RectangleF(26, footerTop + 17, 36, 36), 18);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Public Admin", 76, footerTop + 18);
+        DrawText(graphics, smallFont, Palette.TextSecondary, "public.fixture", 76, footerTop + 40);
+        RoundRect(graphics, Palette.Surface, new RectangleF(14, footerTop + 90, paneWidth - 28, 40), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(14, footerTop + 90, paneWidth - 28, 40), 8);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Refresh", 28, footerTop + 101);
+
+        var contentX = paneWidth + 32;
+        var contentY = 76;
+        DrawText(graphics, titleFont, Palette.TextPrimary, "Review queue", contentX, contentY);
+        RoundRect(graphics, Palette.Surface, new RectangleF(contentX, contentY + 42, width - contentX - 32, 36), 4);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(contentX, contentY + 42, width - contentX - 32, 36), 4);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Filter by status or owner", contentX + 10, contentY + 51);
+
+        var commandY = contentY + 92;
+        RoundRect(graphics, Palette.Surface, new RectangleF(contentX, commandY, width - contentX - 32, 48), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(contentX, commandY, width - contentX - 32, 48), 8);
+        RoundRect(graphics, Palette.Surface, new RectangleF(contentX + 8, commandY + 6, 104, 36), 6);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(contentX + 8, commandY + 6, 104, 36), 6);
+        DrawText(graphics, bodyFont, Palette.Accent, "*", contentX + 20, commandY + 13);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Approve", contentX + 38, commandY + 13);
+        RoundRect(graphics, Palette.Surface, new RectangleF(contentX + 120, commandY + 6, 104, 36), 6);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(contentX + 120, commandY + 6, 104, 36), 6);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Defer", contentX + 150, commandY + 13);
+
+        var infoY = commandY + 62;
+        RoundRect(graphics, Palette.Surface, new RectangleF(contentX, infoY, width - contentX - 32, 74), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(contentX, infoY, width - contentX - 32, 74), 8);
+        Fill(graphics, Palette.SuccessAccent, new RectangleF(contentX, infoY, 5, 74));
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Approved", contentX + 18, infoY + 18);
+        DrawText(graphics, smallFont, Palette.TextSecondary, "The selected public fixture request is approved.", contentX + 18, infoY + 44);
+
+        var listY = infoY + 92;
+        var listWidth = 320;
+        RoundRect(graphics, Palette.Surface, new RectangleF(contentX, listY, listWidth, height - listY - 32), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(contentX, listY, listWidth, height - listY - 32), 8);
+        var rows = new[] { "Access request from regional team", "Policy exception awaiting review", "Publishing approval for public notice" };
+        y = listY + 18;
+        foreach (var row in rows)
+        {
+            DrawText(graphics, bodyFont, Palette.TextPrimary, row, contentX + 18, y);
+            Line(graphics, Palette.Stroke, contentX + 12, y + 28, contentX + listWidth - 12, y + 28);
+            y += 44;
+        }
+
+        var detailX = contentX + listWidth + 24;
+        RoundRect(graphics, Palette.Surface, new RectangleF(detailX, listY, width - detailX - 32, height - listY - 32), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(detailX, listY, width - detailX - 32, height - listY - 32), 8);
+        DrawText(graphics, titleFont, Palette.TextPrimary, "Decision detail", detailX + 24, listY + 24);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Requester: Public Fixture User", detailX + 24, listY + 62);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Risk: Low", detailX + 24, listY + 94);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "State: Ready for review", detailX + 24, listY + 126);
+        RoundRect(graphics, Palette.Surface, new RectangleF(detailX + 24, listY + 166, width - detailX - 80, 40), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(detailX + 24, listY + 166, width - detailX - 80, 40), 8);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Complete review", detailX + 38, listY + 177);
     }
 
     private static void DrawField(Graphics graphics, Font font, string text, float x, float y, float width)

@@ -516,6 +516,69 @@
       "notes": "Selected item metadata exists; full selected styling remains planned."
     },
     {
+      "id": "project-item:ApplicationDefinition",
+      "kind": "project-item",
+      "status": "supported",
+      "area": "project-ingestion",
+      "api": "ApplicationDefinition",
+      "parityStage": "semantic-compatible",
+      "notes": "Application XAML is compiled by the macOS shadow build compiler."
+    },
+    {
+      "id": "project-item:Microsoft.WindowsAppSDK",
+      "kind": "project-item",
+      "status": "windows-only",
+      "area": "project-ingestion",
+      "api": "Microsoft.WindowsAppSDK",
+      "parityStage": "windows-only",
+      "notes": "Windows App SDK build targets are detected and excluded from macOS shadow builds."
+    },
+    {
+      "id": "project-item:Page",
+      "kind": "project-item",
+      "status": "supported",
+      "area": "project-ingestion",
+      "api": "Page",
+      "parityStage": "semantic-compatible",
+      "notes": "Page and Window XAML items are compiled by the macOS shadow build compiler."
+    },
+    {
+      "id": "project-property:TargetFramework.windows",
+      "kind": "project-property",
+      "status": "supported",
+      "area": "project-ingestion",
+      "api": "TargetFramework.windows",
+      "parityStage": "semantic-compatible",
+      "notes": "Windows-targeted TFMs are detected and redirected to a net10.0 compatibility shadow project."
+    },
+    {
+      "id": "project-property:UseWinUI",
+      "kind": "project-property",
+      "status": "supported",
+      "area": "project-ingestion",
+      "api": "UseWinUI",
+      "parityStage": "semantic-compatible",
+      "notes": "UseWinUI projects are eligible for compat shadow build discovery."
+    },
+    {
+      "id": "project-property:WindowsAppSDKSelfContained",
+      "kind": "project-property",
+      "status": "planned",
+      "area": "project-ingestion",
+      "api": "WindowsAppSDKSelfContained",
+      "parityStage": "planned",
+      "notes": "Self-contained Windows App SDK deployment is a Windows packaging feature and is diagnosed before shadow build."
+    },
+    {
+      "id": "project-property:WindowsPackageType",
+      "kind": "project-property",
+      "status": "partial",
+      "area": "project-ingestion",
+      "api": "WindowsPackageType",
+      "parityStage": "semantic-compatible",
+      "notes": "Unpackaged WindowsPackageType=None projects are accepted; packaged outputs remain Windows-only."
+    },
+    {
       "id": "xaml-attached-property:AutomationProperties.HelpText",
       "kind": "xaml-attached-property",
       "status": "supported",
