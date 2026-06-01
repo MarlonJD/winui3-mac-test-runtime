@@ -1,0 +1,19 @@
+<Page
+    x:Class="ComponentParityLab.WinUI.StatusPickersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel x:Name="StatusPickersRoot" Padding="24,20,24,24" Spacing="10">
+        <TextBlock x:Name="StatusPickersTitle" Text="Page 7: Status, progress, pickers, people" />
+        <InfoBar x:Name="StatusInfoBar" IsOpen="True" Message="Public lab status is ready." Severity="Informational" Title="Ready" />
+        <ProgressBar x:Name="CompletionProgressBar" Minimum="0" Maximum="100" Value="62" />
+        <ProgressRing x:Name="LoadingProgressRing" IsActive="True" />
+        <Button x:Name="CompleteStatusButton" Content="Complete" Click="OnCompleteClicked" />
+        <TextBlock x:Name="DiagnosticInfoBadge" Text="InfoBadge: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticPersonPicture" Text="PersonPicture: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticColorPicker" Text="ColorPicker: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticCalendarDatePicker" Text="CalendarDatePicker: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticCalendarView" Text="CalendarView: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticDatePicker" Text="DatePicker: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticTimePicker" Text="TimePicker: planned diagnostic" />
+    </StackPanel>
+</Page>

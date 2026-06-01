@@ -28,6 +28,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBi
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-high-contrast.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json --strict-visual
 ```
 
 ## Consumer Quick Start
@@ -56,6 +57,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminSh
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --script ./fixtures/InteractionBindingApp.MacTest/interactions.json
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json --strict-visual
 ```
 
 `XamlTinyWinUIApp.MacTest` exercises the Phase 1 XAML compiler path:
@@ -85,6 +87,15 @@ macOS runner ingests it through a generated compat shadow build. The original
 project is not mutated and the runner writes `project-ingestion.json` with
 included files, excluded Windows-only items, catalog statuses, unsupported
 project features, and XAML diagnostics.
+
+`ComponentParityLab.WinUI` is a public Windows-targeted component parity lab
+fixture with eight clean-room pages: basic input, text/forms, collections,
+dialogs/flyouts, commands/menus, navigation/workbench, status/pickers, and
+layout/media/resources. Its scenario files declare component requirements,
+source-feature requirements, expected catalog status, interaction coverage,
+minimum visual grade, and known gaps. The runner writes
+`visual/component-evidence.json` so a whole screenshot pass cannot hide weak or
+diagnostic-only components.
 
 Scenario JSON files under each fixture's `scenarios/` directory describe the
 strict visual contract for the supported public subset. A scenario can set the
@@ -127,6 +138,9 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
   for scenario-driven visual comparison.
 - `visual/visual-run.json`: scenario metadata, strict visual status,
   unsupported visual features, and pixel comparison summary.
+- `visual/component-evidence.json`: component-level catalog status, presence,
+  interaction status, visual grade, known gaps, and optional diff metrics when a
+  reference-backed comparison supplies them.
 - `visual/windows-reference.png`, `visual/mac-runtime.png`,
   `visual/pixel-diff.png`, and `visual/pixel-diff.json`: comparison artifacts
   when a Windows reference PNG is provided.
@@ -138,7 +152,11 @@ macOS .NET process.
 
 Public visual evidence lives in `docs/visual-parity/`. It includes real Windows
 reference screenshots, macOS runtime screenshots, pixel-diff images, and
-`visual-run.json` metrics from public GitHub Actions runs.
+`visual-run.json` metrics from public GitHub Actions runs. Component lab runs
+also publish `component-evidence.json`; treat that file as the component-level
+truth for `good`, `usable`, `weak`, `poor`, or `not-rendered` grades. A whole
+screenshot that passes thresholds is necessary smoke evidence, but it is not
+enough to call every visible control visually good.
 
 The current `public-admin-workbench-light` evidence comes from public workflow
 run
@@ -151,12 +169,13 @@ and passed strict comparison:
 
 For this scenario, `16.01%` of pixels changed, `83.99%` were byte-identical,
 mean absolute error was `8.50`, and RMS error was `41.09`, all inside the
-scenario thresholds. The matching parts are the Windows-targeted project
-ingestion path, navigation shell, selected state, list/detail workbench shape,
-and command-click assertion. The visible gaps are still important: exact Fluent
-control chrome, command surfaces, InfoBar/list/detail painters, text metrics,
-focus visuals, shadows, Mica/Acrylic, and native interaction states are not yet
-pixel-perfect.
+scenario thresholds. This should be read as **weak visual parity / source
+ingestion smoke evidence**, not as a broad component-quality claim. The
+matching parts are the Windows-targeted project ingestion path, navigation
+shell, selected state, list/detail workbench shape, and command-click
+assertion. The visible gaps are still important: exact Fluent control chrome,
+command surfaces, InfoBar/list/detail painters, text metrics, focus visuals,
+shadows, Mica/Acrylic, and native interaction states are not yet pixel-perfect.
 
 See `docs/visual-parity/README.md` for the current evidence table and
 interpretation notes.
@@ -188,8 +207,9 @@ See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/matrix.md` for the current supported subset. See
 `docs/compatibility/api-catalog.md` and
 `docs/compatibility/component-support.md` for the readable component-by-component
-support matrix. See `docs/compatibility/material-composition.md` for the
-material compatibility contract.
+support matrix, and `docs/compatibility/winui-component-inventory.json` for the
+component parity lab inventory. See `docs/compatibility/material-composition.md`
+for the material compatibility contract.
 
 ## Package Smoke
 
@@ -215,8 +235,9 @@ The `windows-native-screenshot` workflow runs on GitHub's `windows-latest`
 runner and captures client-area PNG reference screenshots from real Windows
 desktop windows. A follow-up `macos-latest` job renders the matching public
 scenario through `skia-v2`, compares the two PNGs, and uploads reviewable
-reference/runtime/diff artifacts for the shell, interaction/binding, and
-control-gallery fixture categories.
+reference/runtime/diff artifacts for the shell, interaction/binding,
+control-gallery, public admin/workbench, and component parity lab fixture
+categories.
 
 The capture tool can be pointed at any Windows desktop app by changing the
 window title and command:
@@ -237,7 +258,9 @@ fixture/control subset stayed within the scenario thresholds. The workflow also
 includes `public-admin-workbench-light`, which captures a real Windows
 reference for the public Windows-targeted admin/workbench source fixture and
 compares it with the macOS shadow-build runtime output. Passing the workflow is
-not a claim of arbitrary WinUI 3 pixel compatibility.
+not a claim of arbitrary WinUI 3 pixel compatibility, and visibly weak
+components must remain labeled `weak` or `poor` in component evidence until
+public reference artifacts justify a stronger grade.
 
 ## License
 

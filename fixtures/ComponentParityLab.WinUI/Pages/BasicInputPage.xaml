@@ -1,0 +1,22 @@
+<Page
+    x:Class="ComponentParityLab.WinUI.BasicInputPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel x:Name="BasicInputRoot" Padding="24,20,24,24" Spacing="10">
+        <TextBlock x:Name="BasicInputTitle" Text="Page 1: Basic input" />
+        <Button x:Name="PrimaryActionButton" Content="Run primary action" Click="OnPrimaryActionClicked" />
+        <ToggleButton x:Name="PinnedToggleButton" Content="Pinned" IsChecked="True" Click="OnPinnedClicked" />
+        <CheckBox x:Name="EnabledCheckBox" Content="Enabled" IsChecked="True" />
+        <RadioButton x:Name="HighPriorityRadioButton" Content="High priority" GroupName="Priority" IsChecked="True" />
+        <ComboBox x:Name="StatusComboBox" PlaceholderText="Status" SelectedIndex="0" />
+        <TextBlock x:Name="BasicInputStateText" Text="Ready" />
+        <TextBlock x:Name="DiagnosticRepeatButton" Text="RepeatButton: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticHyperlinkButton" Text="HyperlinkButton: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticDropDownButton" Text="DropDownButton: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticSplitButton" Text="SplitButton: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticToggleSplitButton" Text="ToggleSplitButton: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticSlider" Text="Slider: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticToggleSwitch" Text="ToggleSwitch: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticRatingControl" Text="RatingControl: planned diagnostic" />
+    </StackPanel>
+</Page>

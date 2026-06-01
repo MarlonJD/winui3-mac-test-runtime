@@ -17,6 +17,7 @@ internal sealed record VisualRunReport(
     string? ReferenceImagePath,
     string RuntimeImagePath,
     string? DiffImagePath,
+    string? ComponentEvidencePath,
     VisualThresholds Thresholds,
     object? Comparison,
     IReadOnlyList<UnsupportedApiEntry> UnsupportedVisualFeatures,
@@ -50,6 +51,7 @@ internal static class VisualArtifacts
         string? copiedReferencePath = null;
         string? diffPath = null;
         object? comparison;
+        ComponentDiffMetrics? componentMetrics = null;
         if (!string.IsNullOrWhiteSpace(referencePath))
         {
             if (!File.Exists(referencePath))
@@ -62,6 +64,10 @@ internal static class VisualArtifacts
             diffPath = Path.Combine(outputDirectory, "pixel-diff.png");
             var diff = PixelDiff.Compare(copiedReferencePath, runtimePath, diffPath, settings.Thresholds);
             comparison = diff;
+            componentMetrics = new ComponentDiffMetrics(
+                diff.ChangedPixelPercentage,
+                diff.MeanAbsoluteError,
+                diff.RootMeanSquaredError);
             await File.WriteAllTextAsync(
                 Path.Combine(outputDirectory, "pixel-diff.json"),
                 JsonSerializer.Serialize(diff, JsonDefaults.Options),
@@ -86,8 +92,25 @@ internal static class VisualArtifacts
             .Select(diagnostic => ParseUnsupportedApiDiagnostic(diagnostic, settings.Renderer))
             .ToArray();
 
+        ComponentEvidenceDocument? componentEvidence = null;
+        if (settings.Scenario is not null &&
+            (settings.Scenario.Requirements.Count > 0 || settings.Scenario.SourceFeatures.Count > 0))
+        {
+            componentEvidence = ComponentEvidenceBuilder.Build(
+                settings.Scenario,
+                result.Tree,
+                await ReadInteractionReportAsync(result.InteractionJsonPath, cancellationToken),
+                componentMetrics);
+            var componentEvidencePath = Path.Combine(outputDirectory, "component-evidence.json");
+            await File.WriteAllTextAsync(
+                componentEvidencePath,
+                JsonSerializer.Serialize(componentEvidence, JsonDefaults.Options),
+                cancellationToken);
+        }
+
         var diffFailed = comparison is PixelDiffResult { Status: "failed" };
-        var status = settings.StrictVisual && (result.Run.Status != "passed" || diffFailed)
+        var evidenceFailed = componentEvidence?.Status == "failed";
+        var status = settings.StrictVisual && (result.Run.Status != "passed" || diffFailed || evidenceFailed)
             ? "failed"
             : "passed";
 
@@ -107,6 +130,7 @@ internal static class VisualArtifacts
             ReferenceImagePath: copiedReferencePath,
             RuntimeImagePath: runtimePath,
             DiffImagePath: diffPath,
+            ComponentEvidencePath: componentEvidence is null ? null : Path.Combine(outputDirectory, "component-evidence.json"),
             Thresholds: settings.Thresholds,
             Comparison: comparison,
             UnsupportedVisualFeatures: unsupportedVisualFeatures,
@@ -118,6 +142,19 @@ internal static class VisualArtifacts
             cancellationToken);
 
         return status == "passed";
+    }
+
+    private static async Task<InteractionReport?> ReadInteractionReportAsync(
+        string? interactionJsonPath,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(interactionJsonPath) || !File.Exists(interactionJsonPath))
+        {
+            return null;
+        }
+
+        await using var stream = File.OpenRead(interactionJsonPath);
+        return await JsonSerializer.DeserializeAsync<InteractionReport>(stream, JsonDefaults.Options, cancellationToken);
     }
 
     private static UnsupportedApiEntry ParseUnsupportedApiDiagnostic(string diagnostic, string renderer)

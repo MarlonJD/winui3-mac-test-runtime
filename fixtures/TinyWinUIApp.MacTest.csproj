@@ -10,6 +10,7 @@
     <Compile Remove="InteractionBindingApp.MacTest\**\*.cs" />
     <Compile Remove="ControlGallery.MacTest\**\*.cs" />
     <Compile Remove="PublicAdminWorkbench.WinUI\**\*.cs" />
+    <Compile Remove="ComponentParityLab.WinUI\**\*.cs" />
     <Compile Remove="WindowsNativeProbe\**\*.cs" />
   </ItemGroup>
 

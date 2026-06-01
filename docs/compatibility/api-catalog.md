@@ -15,7 +15,10 @@ The catalog is intentionally deterministic:
   touches a WinUI API or XAML construct that is not yet cataloged.
 
 For a readable control-by-control view, see
-`docs/compatibility/component-support.md`.
+`docs/compatibility/component-support.md`. For the component parity lab
+inventory that maps Microsoft Learn controls to fixture pages, source-feature
+requirements, visual grades, and known gaps, see
+`docs/compatibility/winui-component-inventory.json`.
 
 ## Seed Coverage
 

@@ -642,6 +642,28 @@ public sealed class MacXamlCompiler
             var resources = new List<ResourceEntry>();
             foreach (var resource in dictionary.Elements())
             {
+                if (resource.Name.LocalName == "ResourceDictionary.MergedDictionaries")
+                {
+                    if (resource.Elements().Any(element => element.Name.LocalName == "XamlControlsResources"))
+                    {
+                        resources.Add(new ResourceEntry("XamlControlsResources", "present", null));
+                    }
+
+                    continue;
+                }
+
+                if (resource.Name.LocalName == "ResourceDictionary.ThemeDictionaries")
+                {
+                    resources.Add(new ResourceEntry("ResourceDictionary.ThemeDictionaries", "present", null));
+                    continue;
+                }
+
+                if (resource.Name.LocalName == "XamlControlsResources")
+                {
+                    resources.Add(new ResourceEntry("XamlControlsResources", "present", null));
+                    continue;
+                }
+
                 var key = ReadXamlAttribute(resource, "Key");
                 if (string.IsNullOrWhiteSpace(key))
                 {

@@ -16,6 +16,7 @@ a new schema version and documentation update.
 | `tree.json` | `0.1`; `0.2` when `skia-v2` layout metadata is exported |
 | `accessibility.json` | `0.2` |
 | `binding-failures.json` | `0.1` |
+| `visual/component-evidence.json` | `0.1` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
 | `project-ingestion.json` | `0.1` |
@@ -60,6 +61,10 @@ a new schema version and documentation update.
 - `visual/visual-run.json`: scenario name, fixture name, runner OS, renderer,
   viewport, scale, theme, threshold configuration, unsupported visual features,
   reference/runtime/diff paths, comparison metrics, and pass/fail status.
+- `visual/component-evidence.json`: component parity lab evidence with
+  component/source-feature catalog status, presence, interaction status, visual
+  grade, known gaps, and optional diff metrics when a reference-backed
+  comparison supplies them.
 - `visual/windows-reference.png`: copy of the real Windows reference screenshot
   captured by the public `windows-latest` workflow or supplied with
   `--reference`.
@@ -98,9 +103,10 @@ validate the supported subset and renderer output.
 
 The public Windows reference workflow currently captures and compares one light
 scenario from each strict fixture category: shell, interaction/binding, and
-control gallery. Each category uploads reviewable `windows-reference.png`,
-`mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, and `visual-run.json`
-artifacts.
+control gallery, plus the public admin/workbench fixture and component parity
+lab pages. Each category uploads reviewable `windows-reference.png`,
+`mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, `visual-run.json`, and
+component lab `component-evidence.json` artifacts where applicable.
 
 ## Diagnostics
 

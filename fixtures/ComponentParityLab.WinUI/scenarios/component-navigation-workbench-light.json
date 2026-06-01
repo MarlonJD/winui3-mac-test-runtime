@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-navigation-workbench-light",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 28.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 18.0,
+    "rootMeanSquaredError": 42.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "NavigationWorkbenchNavigationItem"
+    },
+    {
+      "type": "selectNavigation",
+      "target": "WorkbenchOverviewNavigationItem"
+    },
+    {
+      "type": "assertProperty",
+      "target": "WorkbenchFrameTitle",
+      "key": "Text",
+      "parameter": "Overview"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "NavigationView",
+      "target": "InnerNavigationView",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "menuItems", "paneFooter", "selectedItem" ],
+      "knownGaps": [ "Adaptive pane modes, settings behavior, full keyboarding, and focus visuals remain partial." ]
+    },
+    {
+      "component": "NavigationViewItem",
+      "target": "WorkbenchQueueNavigationItem",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "content", "tag" ],
+      "knownGaps": [ "Nested menu behavior and exact selection styling remain partial." ]
+    },
+    {
+      "component": "NavigationView.MenuItems",
+      "kind": "xaml-property-slot",
+      "target": "WorkbenchQueueNavigationItem",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak"
+    },
+    {
+      "component": "NavigationView.PaneFooter",
+      "kind": "xaml-property-slot",
+      "target": "InnerPaneFooter",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak"
+    },
+    {
+      "component": "Frame",
+      "target": "WorkbenchFrame",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "content" ],
+      "knownGaps": [ "Back stack and transition behavior are not modeled." ]
+    },
+    {
+      "component": "Page",
+      "target": "NavigationWorkbenchRoot",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "List/details pattern",
+      "kind": "pattern",
+      "target": "WorkbenchListDetailGrid",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "knownGaps": [ "The pattern is structural only; adaptive desktop density and list/detail chrome are not matched yet." ]
+    },
+    {
+      "component": "BreadcrumbBar",
+      "target": "DiagnosticBreadcrumbBar",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Pivot",
+      "target": "DiagnosticPivot",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "SelectorBar",
+      "target": "DiagnosticSelectorBar",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "TabView",
+      "target": "DiagnosticTabView",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "NavigationView.MenuItems",
+      "kind": "xaml-property-slot",
+      "target": "WorkbenchQueueNavigationItem",
+      "expectedStatus": "partial",
+      "knownGaps": [ "Menu item source support exists for the current subset, but nested and adaptive behavior remains partial." ]
+    },
+    {
+      "feature": "NavigationView.PaneFooter",
+      "kind": "xaml-property-slot",
+      "target": "InnerPaneFooter",
+      "expectedStatus": "partial",
+      "knownGaps": [ "Pane footer source support exists for the current subset, but exact footer layout and focus behavior are partial." ]
+    }
+  ]
+}

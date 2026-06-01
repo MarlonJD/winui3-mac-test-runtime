@@ -1,0 +1,138 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-basic-input-light",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 12.0,
+    "rootMeanSquaredError": 32.0
+  },
+  "interactions": [
+    {
+      "type": "click",
+      "target": "PrimaryActionButton"
+    },
+    {
+      "type": "selectItem",
+      "target": "StatusComboBox",
+      "parameter": "Closed"
+    },
+    {
+      "type": "assertProperty",
+      "target": "BasicInputStateText",
+      "key": "Text",
+      "parameter": "Primary action ran"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "content", "click" ],
+      "knownGaps": [ "Exact Fluent pointer, pressed, and focus states are not rendered." ]
+    },
+    {
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "content", "isChecked" ],
+      "knownGaps": [ "Checked visuals are approximated." ]
+    },
+    {
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "content", "isChecked" ],
+      "knownGaps": [ "Indeterminate and full state styling remain limited." ]
+    },
+    {
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "content", "groupName", "isChecked" ],
+      "knownGaps": [ "Full group behavior and native styling remain partial." ]
+    },
+    {
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "items", "selectedIndex" ],
+      "knownGaps": [ "Popup behavior and item templates are not rendered." ]
+    },
+    {
+      "component": "RepeatButton",
+      "target": "DiagnosticRepeatButton",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "HyperlinkButton",
+      "target": "DiagnosticHyperlinkButton",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "DropDownButton",
+      "target": "DiagnosticDropDownButton",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "SplitButton",
+      "target": "DiagnosticSplitButton",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ToggleSplitButton",
+      "target": "DiagnosticToggleSplitButton",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Slider",
+      "target": "DiagnosticSlider",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ToggleSwitch",
+      "target": "DiagnosticToggleSwitch",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "RatingControl",
+      "target": "DiagnosticRatingControl",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-text-forms-light",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 12.0,
+    "rootMeanSquaredError": 32.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "TextFormsNavigationItem"
+    },
+    {
+      "type": "focus",
+      "target": "SearchTextBox"
+    },
+    {
+      "type": "typeText",
+      "target": "SearchTextBox",
+      "parameter": "Updated public query"
+    },
+    {
+      "type": "click",
+      "target": "ApplyTextButton"
+    },
+    {
+      "type": "assertProperty",
+      "target": "TextFormsStateText",
+      "key": "Text",
+      "parameter": "Updated public query"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "TextBlock",
+      "target": "TextFormsTitle",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "text" ],
+      "knownGaps": [ "Text metrics are approximated." ]
+    },
+    {
+      "component": "TextBox",
+      "target": "SearchTextBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "text", "focus", "automationName" ],
+      "knownGaps": [ "Caret, selection, IME, and validation states are not rendered." ]
+    },
+    {
+      "component": "Labels/forms pattern",
+      "kind": "pattern",
+      "target": "SearchLabel",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "automationName" ],
+      "knownGaps": [ "The lab validates label presence, not complete form layout semantics." ]
+    },
+    {
+      "component": "RichTextBlock",
+      "target": "DiagnosticRichTextBlock",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "RichEditBox",
+      "target": "DiagnosticRichEditBox",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "PasswordBox",
+      "target": "DiagnosticPasswordBox",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "NumberBox",
+      "target": "DiagnosticNumberBox",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "AutoSuggestBox",
+      "target": "DiagnosticAutoSuggestBox",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "AutoSuggestBox.QueryIcon",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticAutoSuggestBoxQueryIcon",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "AutoSuggestBox.QueryIcon",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticAutoSuggestBoxQueryIcon",
+      "expectedStatus": "planned",
+      "knownGaps": [ "The query icon slot is tracked but not compiled or rendered in this foundation pass." ]
+    }
+  ]
+}

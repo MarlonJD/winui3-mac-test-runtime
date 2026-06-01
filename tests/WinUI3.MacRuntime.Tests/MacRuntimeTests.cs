@@ -448,6 +448,25 @@ public sealed class MacRuntimeTests
               "interactions": [
                 { "type": "click", "target": "PrimaryButton" }
               ],
+              "requirements": [
+                {
+                  "component": "Button",
+                  "target": "PrimaryButton",
+                  "expectedStatus": "supported",
+                  "minimumVisualGrade": "usable",
+                  "visualGrade": "usable",
+                  "requiredProperties": [ "content", "click" ],
+                  "knownGaps": [ "Exact native chrome is approximated." ]
+                }
+              ],
+              "sourceFeatures": [
+                {
+                  "feature": "ThemeResource",
+                  "kind": "resource",
+                  "target": "PrimaryButton",
+                  "expectedStatus": "partial"
+                }
+              ],
               "thresholds": {
                 "changedPixelPercentage": 0.5,
                 "maxChannelDelta": 16,
@@ -464,7 +483,160 @@ public sealed class MacRuntimeTests
         Assert.AreEqual(1.5, scenario.Scale);
         Assert.IsTrue(scenario.StrictVisual);
         Assert.HasCount(1, scenario.Interactions);
+        Assert.HasCount(1, scenario.Requirements);
+        Assert.AreEqual("Button", scenario.Requirements[0].Component);
+        Assert.HasCount(1, scenario.SourceFeatures);
+        Assert.AreEqual("ThemeResource", scenario.SourceFeatures[0].Feature);
         Assert.AreEqual(0.5, scenario.Thresholds.ChangedPixelPercentage);
+    }
+
+    [TestMethod]
+    public void ComponentEvidenceBuilderReportsScenarioRequirements()
+    {
+        var scenario = new VisualScenario
+        {
+            FixtureName = "component-parity-lab",
+            Name = "component-basic-input-light",
+            Requirements = new[]
+            {
+                new VisualRequirement
+                {
+                    Component = "Button",
+                    Target = "PrimaryButton",
+                    ExpectedStatus = CompatibilityStatuses.Supported,
+                    MinimumVisualGrade = "usable",
+                    VisualGrade = "usable",
+                    KnownGaps = new[] { "Native chrome is approximated." }
+                },
+                new VisualRequirement
+                {
+                    Component = "RepeatButton",
+                    Target = "DiagnosticRepeatButton",
+                    ExpectedStatus = CompatibilityStatuses.Planned,
+                    MinimumVisualGrade = "not-rendered",
+                    VisualGrade = "not-rendered"
+                }
+            },
+            SourceFeatures = new[]
+            {
+                new SourceFeatureRequirement
+                {
+                    Feature = "ThemeResource",
+                    Target = "ThemeText",
+                    ExpectedStatus = CompatibilityStatuses.Partial
+                }
+            }
+        };
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new StackPanel
+            {
+                Children =
+                {
+                    new Button { Name = "PrimaryButton", Content = "Run" },
+                    new TextBlock { Name = "DiagnosticRepeatButton", Text = "RepeatButton diagnostic" },
+                    new TextBlock { Name = "ThemeText", Text = "Theme row" }
+                }
+            }
+        });
+        var interactions = new InteractionReport(
+            ArtifactSchemas.InteractionReport,
+            new[] { new InteractionStepResult(0, "click", "passed", "PrimaryButton", null) });
+
+        var evidence = ComponentEvidenceBuilder.Build(scenario, tree, interactions, metrics: null);
+
+        Assert.AreEqual(ArtifactSchemas.ComponentEvidence, evidence.SchemaVersion);
+        Assert.AreEqual("passed", evidence.Status);
+        Assert.HasCount(2, evidence.Components);
+        Assert.AreEqual("present", evidence.Components[0].Presence);
+        Assert.AreEqual("passed", evidence.Components[0].InteractionStatus);
+        Assert.AreEqual("not-rendered", evidence.Components[1].VisualGrade);
+        Assert.HasCount(1, evidence.SourceFeatures);
+        Assert.AreEqual("present", evidence.SourceFeatures[0].Presence);
+    }
+
+    [TestMethod]
+    public async Task ComponentInventoryCoversComponentLabScenarioRequirements()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var inventoryPath = Path.Combine(repositoryRoot, "docs", "compatibility", "winui-component-inventory.json");
+        var scenarioDirectory = Path.Combine(repositoryRoot, "fixtures", "ComponentParityLab.WinUI", "scenarios");
+        using var inventory = JsonDocument.Parse(await File.ReadAllTextAsync(inventoryPath));
+        var inventoryComponents = inventory.RootElement
+            .GetProperty("entries")
+            .EnumerateArray()
+            .Select(entry => entry.GetProperty("component").GetString())
+            .ToHashSet(StringComparer.Ordinal);
+        var knownStatuses = new[]
+        {
+            CompatibilityStatuses.Supported,
+            CompatibilityStatuses.Partial,
+            CompatibilityStatuses.Planned,
+            CompatibilityStatuses.WindowsOnly,
+            CompatibilityStatuses.NotSupported,
+            CompatibilityStatuses.Unknown
+        };
+
+        foreach (var entry in inventory.RootElement.GetProperty("entries").EnumerateArray())
+        {
+            Assert.IsTrue(knownStatuses.Contains(entry.GetProperty("catalogStatus").GetString()));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(entry.GetProperty("demoPage").GetString()));
+        }
+
+        foreach (var scenarioPath in Directory.EnumerateFiles(scenarioDirectory, "*.json"))
+        {
+            var scenario = await VisualScenario.LoadAsync(scenarioPath);
+            foreach (var requirement in scenario.Requirements)
+            {
+                Assert.IsTrue(
+                    inventoryComponents.Contains(requirement.Component),
+                    $"Inventory is missing scenario requirement '{requirement.Component}' from {Path.GetFileName(scenarioPath)}.");
+            }
+        }
+    }
+
+    [TestMethod]
+    public async Task ComponentLabScenariosCoverDownstreamSourceAuditGaps()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var scenarioDirectory = Path.Combine(repositoryRoot, "fixtures", "ComponentParityLab.WinUI", "scenarios");
+        var requiredGaps = new[]
+        {
+            "SymbolIcon",
+            "XamlControlsResources",
+            "ResourceDictionary.ThemeDictionaries",
+            "ThemeResource",
+            "StaticResource",
+            "Style",
+            "Setter",
+            "Color",
+            "SolidColorBrush",
+            "CornerRadius",
+            "DataTemplate",
+            "ListView.ItemTemplate",
+            "ItemsControl.ItemTemplate",
+            "CommandBar.Content",
+            "AppBarButton.Icon",
+            "AutoSuggestBox.QueryIcon",
+            "NavigationView.MenuItems",
+            "NavigationView.PaneFooter",
+            "ToolTipService.SetToolTip",
+            "Window.SystemBackdrop / MicaBackdrop"
+        };
+        var covered = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var scenarioPath in Directory.EnumerateFiles(scenarioDirectory, "*.json"))
+        {
+            var scenario = await VisualScenario.LoadAsync(scenarioPath);
+            foreach (var sourceFeature in scenario.SourceFeatures)
+            {
+                covered.Add(sourceFeature.Feature);
+            }
+        }
+
+        foreach (var gap in requiredGaps)
+        {
+            Assert.IsTrue(covered.Contains(gap), $"Source-audit gap '{gap}' is not covered by component lab source features.");
+        }
     }
 
     [TestMethod]
@@ -573,6 +745,22 @@ public sealed class MacRuntimeTests
     {
         await using var stream = File.OpenRead(path);
         return await SHA256.HashDataAsync(stream);
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        var directory = new DirectoryInfo(Environment.CurrentDirectory);
+        while (directory is not null)
+        {
+            if (File.Exists(Path.Combine(directory.FullName, "WinUI3.MacTestRuntime.sln")))
+            {
+                return directory.FullName;
+            }
+
+            directory = directory.Parent;
+        }
+
+        throw new InvalidOperationException("Repository root was not found.");
     }
 
     private static void WriteSolidPng(string path, SKColor color)

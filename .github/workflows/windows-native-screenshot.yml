@@ -12,6 +12,8 @@ on:
       - "fixtures/WindowsNativeProbe/**"
       - "fixtures/**/*.MacTest/**"
       - "fixtures/PublicAdminWorkbench.WinUI/**"
+      - "fixtures/ComponentParityLab.WinUI/**"
+      - "docs/compatibility/winui-component-inventory.json"
 
 jobs:
   windows-reference:
@@ -50,6 +52,38 @@ jobs:
             @{
               Name = "public-admin-workbench-light"
               Path = "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json"
+            },
+            @{
+              Name = "component-basic-input-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json"
+            },
+            @{
+              Name = "component-text-forms-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-light.json"
+            },
+            @{
+              Name = "component-collections-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-light.json"
+            },
+            @{
+              Name = "component-dialogs-flyouts-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-light.json"
+            },
+            @{
+              Name = "component-commands-menus-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json"
+            },
+            @{
+              Name = "component-navigation-workbench-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-navigation-workbench-light.json"
+            },
+            @{
+              Name = "component-status-pickers-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-light.json"
+            },
+            @{
+              Name = "component-layout-media-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json"
             }
           )
 
@@ -99,39 +133,34 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          PATH="$PWD/tools:$PATH" winui3-mac-runner run \
-            --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj \
-            --renderer skia-v2 \
-            --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json \
-            --strict-visual \
-            --reference ./artifacts/windows-reference-screenshots/shell-light/windows-reference.png \
-            --diff-output ./artifacts/windows-native-screenshot/shell-light
+          scenarios=(
+            "shell-light|./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj|./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json"
+            "interactions-light|./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj|./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json"
+            "control-gallery-light|./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj|./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json"
+            "public-admin-workbench-light|./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj|./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json"
+            "component-basic-input-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json"
+            "component-text-forms-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-light.json"
+            "component-collections-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-collections-light.json"
+            "component-dialogs-flyouts-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-light.json"
+            "component-commands-menus-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json"
+            "component-navigation-workbench-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-navigation-workbench-light.json"
+            "component-status-pickers-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-light.json"
+            "component-layout-media-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json"
+          )
 
-          PATH="$PWD/tools:$PATH" winui3-mac-runner run \
-            --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj \
-            --renderer skia-v2 \
-            --scenario ./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json \
-            --strict-visual \
-            --reference ./artifacts/windows-reference-screenshots/interactions-light/windows-reference.png \
-            --diff-output ./artifacts/windows-native-screenshot/interactions-light
-
-          PATH="$PWD/tools:$PATH" winui3-mac-runner run \
-            --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj \
-            --renderer skia-v2 \
-            --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json \
-            --strict-visual \
-            --reference ./artifacts/windows-reference-screenshots/control-gallery-light/windows-reference.png \
-            --diff-output ./artifacts/windows-native-screenshot/control-gallery-light
-
-          PATH="$PWD/tools:$PATH" winui3-mac-runner run \
-            --project ./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj \
-            --renderer skia-v2 \
-            --scenario ./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json \
-            --strict-visual \
-            --reference ./artifacts/windows-reference-screenshots/public-admin-workbench-light/windows-reference.png \
-            --diff-output ./artifacts/windows-native-screenshot/public-admin-workbench-light
+          for entry in "${scenarios[@]}"; do
+            IFS='|' read -r name project scenario <<< "$entry"
+            PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+              --project "$project" \
+              --renderer skia-v2 \
+              --scenario "$scenario" \
+              --strict-visual \
+              --reference "./artifacts/windows-reference-screenshots/$name/windows-reference.png" \
+              --diff-output "./artifacts/windows-native-screenshot/$name"
+          done
 
       - name: Upload reviewable visual artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: windows-native-screenshot

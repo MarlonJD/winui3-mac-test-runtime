@@ -84,6 +84,13 @@ admin/workbench content, is compiled on macOS through the shadow project, and
 has a public `public-admin-workbench-light` strict scenario in the Windows
 reference workflow.
 
+`ComponentParityLab.WinUI` is the public Windows-targeted fixture for component
+inventory evidence. It does not promote control support by existing; each lab
+scenario writes `component-evidence.json` with catalog status, presence,
+interaction status, visual grade, and known gaps. Planned, unsupported, and
+Windows-only controls must appear as explicit diagnostic rows instead of
+silently passing.
+
 SVG and the current Skia renderer remain smoke renderers. `skia-v2` is the
 scenario-driven renderer used for public visual compatibility checks.
 
@@ -91,11 +98,13 @@ scenario-driven renderer used for public visual compatibility checks.
 
 Windows reference screenshots are captured only from generic public fixture
 content in the public `windows-native-screenshot` GitHub Actions workflow. The
-workflow covers the shell, interaction/binding, and control-gallery strict
-fixture categories, then compares the macOS `skia-v2` render against each
-reference using scenario-local thresholds. Passing the workflow means those
-documented public scenarios stayed within threshold; it is not a claim of full
-WinUI 3 pixel parity.
+workflow covers the shell, interaction/binding, control-gallery, public
+admin/workbench, and component parity lab strict fixture categories, then
+compares the macOS `skia-v2` render against each reference using
+scenario-local thresholds. Passing the workflow means those documented public
+scenarios stayed within threshold; it is not a claim of full WinUI 3 pixel
+parity. A scenario-level pass does not override component-level evidence:
+visibly weak components must remain graded `weak` or `poor`.
 
 ## Styling And Theme Contract
 
@@ -147,6 +156,8 @@ use versioned envelopes:
 - `binding-failures.json`: `{ "schemaVersion": "0.1", "failures": [...] }`
 - `resource-failures.json`: `{ "schemaVersion": "0.1", "failures": [...] }`
 - `unsupported-apis.json`: `{ "schemaVersion": "0.1", "apis": [...] }`
+- `component-evidence.json`: `{ "schemaVersion": "0.1", "components": [...],
+  "sourceFeatures": [...] }`
 - `project-ingestion.json`: `{ "schemaVersion": "0.1", "includedFiles": [...],
   "excludedWindowsOnlyItems": [...], "catalogStatuses": [...],
   "unsupportedFeatures": [...], "xamlDiagnostics": [...] }`

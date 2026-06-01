@@ -39,7 +39,11 @@ internal sealed class ProbeForm : Form
         e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
         e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
-        if (options.ScenarioName.Contains("public-admin-workbench", StringComparison.OrdinalIgnoreCase))
+        if (options.ScenarioName.Contains("component-", StringComparison.OrdinalIgnoreCase))
+        {
+            DrawComponentLabScenario(e.Graphics, ClientSize.Width, ClientSize.Height, options.ScenarioName);
+        }
+        else if (options.ScenarioName.Contains("public-admin-workbench", StringComparison.OrdinalIgnoreCase))
         {
             DrawPublicAdminWorkbenchScenario(e.Graphics, ClientSize.Width, ClientSize.Height);
         }
@@ -283,6 +287,265 @@ internal sealed class ProbeForm : Form
         RoundRect(graphics, Palette.Surface, new RectangleF(detailX + 24, listY + 166, width - detailX - 80, 40), 8);
         StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(detailX + 24, listY + 166, width - detailX - 80, 40), 8);
         DrawText(graphics, bodyFont, Palette.TextPrimary, "Complete review", detailX + 38, listY + 177);
+    }
+
+    private static void DrawComponentLabScenario(Graphics graphics, int width, int height, string scenarioName)
+    {
+        using var bodyFont = new Font("Segoe UI", 10.5f, FontStyle.Regular, GraphicsUnit.Point);
+        using var smallFont = new Font("Segoe UI", 9f, FontStyle.Regular, GraphicsUnit.Point);
+        using var titleFont = new Font("Segoe UI", 16f, FontStyle.Bold, GraphicsUnit.Point);
+        Fill(graphics, Palette.AppBackground, new RectangleF(0, 0, width, height));
+        Fill(graphics, Palette.Surface, new RectangleF(0, 0, width, 48));
+        Line(graphics, Palette.Stroke, 0, 48, width, 48);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Component Parity Lab", 24, 14);
+
+        const int paneWidth = 256;
+        Fill(graphics, Palette.PaneBackground, new RectangleF(0, 48, paneWidth, height - 48));
+        Line(graphics, Palette.Stroke, paneWidth, 48, paneWidth, height);
+        DrawText(graphics, bodyFont, Palette.TextSecondary, "Navigation", 20, 70);
+
+        var selectedTitle = ComponentLabTitle(scenarioName);
+        var items = new[]
+        {
+            "Basic input",
+            "Text and forms",
+            "Collections",
+            "Dialogs and flyouts",
+            "Commands and menus",
+            "Navigation",
+            "Status and pickers",
+            "Layout and media"
+        };
+        var y = 106;
+        foreach (var item in items)
+        {
+            var selected = string.Equals(item, ComponentLabNavigationLabel(scenarioName), StringComparison.Ordinal);
+            var row = new RectangleF(12, y, paneWidth - 24, 40);
+            if (selected)
+            {
+                RoundRect(graphics, Palette.AccentSoft, row, 8);
+                RoundRect(graphics, Palette.Accent, new RectangleF(row.Left, row.Top + 7, 4, row.Height - 14), 2);
+            }
+
+            FillEllipse(graphics, selected ? Palette.Accent : Palette.TextSecondary, row.Left + 9, row.Top + 15, 10, 10);
+            DrawText(graphics, bodyFont, selected ? Palette.Accent : Palette.TextPrimary, item, row.Left + 30, row.Top + 10);
+            y += 44;
+        }
+
+        var footerTop = height - 154;
+        Line(graphics, Palette.Stroke, 14, footerTop - 16, paneWidth - 14, footerTop - 16);
+        RoundRect(graphics, Palette.Surface, new RectangleF(14, footerTop, paneWidth - 28, 74), 10);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Public fixture", 28, footerTop + 18);
+        RoundRect(graphics, Palette.Surface, new RectangleF(14, footerTop + 90, paneWidth - 28, 40), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(14, footerTop + 90, paneWidth - 28, 40), 8);
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Reset page", 28, footerTop + 101);
+
+        var contentX = paneWidth + 32;
+        var contentY = 84;
+        DrawText(graphics, titleFont, Palette.TextPrimary, selectedTitle, contentX, contentY - 18);
+        DrawText(graphics, bodyFont, Palette.TextSecondary, "Reference visual scenario", contentX, contentY + 9);
+        var card = new RectangleF(contentX, contentY + 54, width - contentX - 32, height - contentY - 86);
+        RoundRect(graphics, Palette.Surface, card, 10);
+        StrokeRoundRect(graphics, Palette.Stroke, card, 10);
+
+        y = (int)card.Top + 42;
+        foreach (var line in ComponentLabRows(scenarioName).Take(8))
+        {
+            DrawText(graphics, bodyFont, Palette.TextPrimary, line, card.Left + 30, y);
+            y += 28;
+        }
+
+        DrawText(graphics, smallFont, Palette.TextSecondary, "Component-level grades are recorded in component-evidence.json.", card.Left + 30, card.Bottom - 34);
+    }
+
+    private static string ComponentLabNavigationLabel(string scenarioName)
+    {
+        if (scenarioName.Contains("text-forms", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Text and forms";
+        }
+
+        if (scenarioName.Contains("collections", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Collections";
+        }
+
+        if (scenarioName.Contains("dialogs-flyouts", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Dialogs and flyouts";
+        }
+
+        if (scenarioName.Contains("commands-menus", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Commands and menus";
+        }
+
+        if (scenarioName.Contains("navigation-workbench", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Navigation";
+        }
+
+        if (scenarioName.Contains("status-pickers", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Status and pickers";
+        }
+
+        return scenarioName.Contains("layout-media", StringComparison.OrdinalIgnoreCase)
+            ? "Layout and media"
+            : "Basic input";
+    }
+
+    private static string ComponentLabTitle(string scenarioName)
+    {
+        if (scenarioName.Contains("text-forms", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Page 2: Text and forms";
+        }
+
+        if (scenarioName.Contains("collections", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Page 3: Collections";
+        }
+
+        if (scenarioName.Contains("dialogs-flyouts", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Page 4: Dialogs and flyouts";
+        }
+
+        if (scenarioName.Contains("commands-menus", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Page 5: Commands and menus";
+        }
+
+        if (scenarioName.Contains("navigation-workbench", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Page 6: Navigation and workbench";
+        }
+
+        if (scenarioName.Contains("status-pickers", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Page 7: Status, progress, pickers, people";
+        }
+
+        return scenarioName.Contains("layout-media", StringComparison.OrdinalIgnoreCase)
+            ? "Page 8: Layout, media, visuals"
+            : "Page 1: Basic input";
+    }
+
+    private static IEnumerable<string> ComponentLabRows(string scenarioName)
+    {
+        if (scenarioName.Contains("text-forms", StringComparison.OrdinalIgnoreCase))
+        {
+            return new[]
+            {
+                "Search label",
+                "Updated public query",
+                "RichTextBlock: planned diagnostic",
+                "RichEditBox: planned diagnostic",
+                "PasswordBox: planned diagnostic",
+                "NumberBox: planned diagnostic",
+                "AutoSuggestBox: planned diagnostic",
+                "AutoSuggestBox.QueryIcon: planned diagnostic"
+            };
+        }
+
+        if (scenarioName.Contains("collections", StringComparison.OrdinalIgnoreCase))
+        {
+            return new[]
+            {
+                "Summary item one",
+                "Summary item two",
+                "Review intake",
+                "Confirm owner",
+                "DataTemplate: partial diagnostic",
+                "ListView.ItemTemplate: partial diagnostic",
+                "ItemsControl.ItemTemplate: partial diagnostic",
+                "TreeView: planned diagnostic"
+            };
+        }
+
+        if (scenarioName.Contains("dialogs-flyouts", StringComparison.OrdinalIgnoreCase))
+        {
+            return new[]
+            {
+                "ContentDialog: planned diagnostic",
+                "Flyout: planned diagnostic",
+                "TeachingTip: planned diagnostic",
+                "ToolTip: planned diagnostic",
+                "ToolTipService.SetToolTip: planned diagnostic"
+            };
+        }
+
+        if (scenarioName.Contains("commands-menus", StringComparison.OrdinalIgnoreCase))
+        {
+            return new[]
+            {
+                "Commands and menus",
+                "Saved",
+                "CommandBar.Content: partial diagnostic",
+                "CommandBarFlyout: planned diagnostic",
+                "MenuFlyout: planned diagnostic",
+                "MenuBar: planned diagnostic",
+                "Context menu pattern: planned diagnostic"
+            };
+        }
+
+        if (scenarioName.Contains("navigation-workbench", StringComparison.OrdinalIgnoreCase))
+        {
+            return new[]
+            {
+                "Overview",
+                "Pane footer",
+                "Queue item one",
+                "Detail panel",
+                "BreadcrumbBar: planned diagnostic",
+                "Pivot: planned diagnostic",
+                "SelectorBar: planned diagnostic",
+                "TabView: planned diagnostic"
+            };
+        }
+
+        if (scenarioName.Contains("status-pickers", StringComparison.OrdinalIgnoreCase))
+        {
+            return new[]
+            {
+                "Complete",
+                "The public lab status completed.",
+                "InfoBadge: planned diagnostic",
+                "PersonPicture: planned diagnostic",
+                "ColorPicker: planned diagnostic",
+                "CalendarDatePicker: planned diagnostic",
+                "DatePicker: planned diagnostic",
+                "TimePicker: planned diagnostic"
+            };
+        }
+
+        if (scenarioName.Contains("layout-media", StringComparison.OrdinalIgnoreCase))
+        {
+            return new[]
+            {
+                "Static resource resolved",
+                "ThemeResource row",
+                "SymbolIcon: planned diagnostic",
+                "XamlControlsResources: fixture bootstrap diagnostic",
+                "ResourceDictionary.ThemeDictionaries: planned diagnostic",
+                "Color: resource diagnostic",
+                "SolidColorBrush: resource diagnostic",
+                "Window.SystemBackdrop and MicaBackdrop: planned diagnostic"
+            };
+        }
+
+        return new[]
+        {
+            "Primary action ran",
+            "Pinned",
+            "Enabled",
+            "High priority",
+            "RepeatButton: planned diagnostic",
+            "DropDownButton: planned diagnostic",
+            "Slider: planned diagnostic",
+            "RatingControl: planned diagnostic"
+        };
     }
 
     private static void DrawField(Graphics graphics, Font font, string text, float x, float y, float width)

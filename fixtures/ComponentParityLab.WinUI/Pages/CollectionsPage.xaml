@@ -1,0 +1,22 @@
+<Page
+    x:Class="ComponentParityLab.WinUI.CollectionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel x:Name="CollectionsRoot" Padding="24,20,24,24" Spacing="10">
+        <TextBlock x:Name="CollectionsTitle" Text="Page 3: Collections" />
+        <ItemsControl x:Name="SummaryItemsControl" />
+        <ListView x:Name="CollectionListView" SelectedIndex="0" />
+        <TextBlock x:Name="CollectionStateText" Text="First item selected" />
+        <TextBlock x:Name="DiagnosticDataTemplate" Text="DataTemplate: partial diagnostic" />
+        <TextBlock x:Name="DiagnosticListViewItemTemplate" Text="ListView.ItemTemplate: partial diagnostic" />
+        <TextBlock x:Name="DiagnosticItemsControlItemTemplate" Text="ItemsControl.ItemTemplate: partial diagnostic" />
+        <TextBlock x:Name="DiagnosticItemsView" Text="ItemsView: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticGridView" Text="GridView: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticFlipView" Text="FlipView: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticPipsPager" Text="PipsPager: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticTreeView" Text="TreeView: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticItemsRepeater" Text="ItemsRepeater: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticSwipePattern" Text="Swipe pattern: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticPullToRefreshPattern" Text="Pull-to-refresh pattern: planned diagnostic" />
+    </StackPanel>
+</Page>

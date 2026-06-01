@@ -1,0 +1,49 @@
+<Page
+    x:Class="ComponentParityLab.WinUI.LayoutMediaPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Page.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LabAccentColor">#2562D9</Color>
+            <SolidColorBrush x:Key="LabAccentBrush">#2562D9</SolidColorBrush>
+            <CornerRadius x:Key="LabCornerRadius">8</CornerRadius>
+            <String x:Key="LabStaticText">Static resource resolved</String>
+            <Style x:Key="LabTextStyle" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{ThemeResource LabAccentBrush}" />
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+    <ScrollViewer x:Name="LayoutScrollViewer" VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="LayoutMediaRoot" Padding="24,20,24,24" Spacing="10">
+            <TextBlock x:Name="LayoutMediaTitle" Text="Page 8: Layout, media, visuals" Style="{StaticResource LabTextStyle}" />
+            <Grid x:Name="LayoutResourceGrid" ColumnDefinitions="160,*" ColumnSpacing="16">
+                <Border x:Name="LayoutBorder">
+                    <StackPanel x:Name="LayoutNestedStack" Spacing="6">
+                        <TextBlock x:Name="StaticResourceText" Text="{StaticResource LabStaticText}" />
+                        <TextBlock x:Name="ThemeResourceText" Text="ThemeResource row" Foreground="{ThemeResource LabAccentBrush}" />
+                        <FontIcon x:Name="LayoutFontIcon" Glyph="&#xE8A7;" FontSize="18" />
+                    </StackPanel>
+                </Border>
+                <Image x:Name="PublicImagePlaceholder" Grid.Column="1" Source="public-placeholder.png" />
+            </Grid>
+            <TextBlock x:Name="DiagnosticSymbolIcon" Text="SymbolIcon: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticXamlControlsResources" Text="XamlControlsResources: fixture bootstrap diagnostic" />
+            <TextBlock x:Name="DiagnosticThemeDictionaries" Text="ResourceDictionary.ThemeDictionaries: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticColor" Text="Color: resource diagnostic" />
+            <TextBlock x:Name="DiagnosticSolidColorBrush" Text="SolidColorBrush: resource diagnostic" />
+            <TextBlock x:Name="DiagnosticCornerRadius" Text="CornerRadius: resource diagnostic" />
+            <TextBlock x:Name="DiagnosticExpander" Text="Expander: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticAnnotatedScrollbar" Text="Annotated scrollbar: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticSemanticZoom" Text="SemanticZoom: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticSplitView" Text="SplitView: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticTwoPaneView" Text="TwoPaneView: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticAnimatedIcon" Text="AnimatedIcon: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticShapes" Text="Shapes: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticMediaPlayerElement" Text="MediaPlayerElement: not supported diagnostic" />
+            <TextBlock x:Name="DiagnosticWebView2" Text="WebView2: not supported diagnostic" />
+            <TextBlock x:Name="DiagnosticInkControls" Text="InkCanvas and InkToolbar: experimental diagnostic" />
+            <TextBlock x:Name="DiagnosticTitleBarCustomization" Text="Title bar customization: planned diagnostic" />
+            <TextBlock x:Name="DiagnosticSystemBackdrop" Text="Window.SystemBackdrop and MicaBackdrop: planned diagnostic" />
+        </StackPanel>
+    </ScrollViewer>
+</Page>

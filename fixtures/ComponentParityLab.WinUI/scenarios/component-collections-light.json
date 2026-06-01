@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-collections-light",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 22.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 14.0,
+    "rootMeanSquaredError": 34.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "CollectionsNavigationItem"
+    },
+    {
+      "type": "selectItem",
+      "target": "CollectionListView",
+      "parameter": "Confirm owner"
+    },
+    {
+      "type": "assertProperty",
+      "target": "CollectionListView",
+      "key": "SelectedItem",
+      "parameter": "Confirm owner"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "ItemsControl",
+      "target": "SummaryItemsControl",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "items" ],
+      "knownGaps": [ "Virtualization and item containers are not general-purpose." ]
+    },
+    {
+      "component": "ListView",
+      "target": "CollectionListView",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "items", "selectedIndex", "selectedItem" ],
+      "knownGaps": [ "Selected item visuals, templates, keyboarding, and virtualization remain partial." ]
+    },
+    {
+      "component": "DataTemplate",
+      "kind": "template",
+      "target": "DiagnosticDataTemplate",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ListView.ItemTemplate",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticListViewItemTemplate",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ItemsControl.ItemTemplate",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticItemsControlItemTemplate",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ItemsView",
+      "target": "DiagnosticItemsView",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "GridView",
+      "target": "DiagnosticGridView",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "FlipView",
+      "target": "DiagnosticFlipView",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "PipsPager",
+      "target": "DiagnosticPipsPager",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "TreeView",
+      "target": "DiagnosticTreeView",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ItemsRepeater",
+      "target": "DiagnosticItemsRepeater",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Swipe pattern",
+      "kind": "pattern",
+      "target": "DiagnosticSwipePattern",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Pull-to-refresh pattern",
+      "kind": "pattern",
+      "target": "DiagnosticPullToRefreshPattern",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "DataTemplate",
+      "kind": "template",
+      "target": "DiagnosticDataTemplate",
+      "expectedStatus": "planned",
+      "knownGaps": [ "Data templates are represented as required diagnostics before compiler support is added." ]
+    },
+    {
+      "feature": "ListView.ItemTemplate",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticListViewItemTemplate",
+      "expectedStatus": "planned",
+      "knownGaps": [ "ListView item templates are not compiled in this foundation pass." ]
+    },
+    {
+      "feature": "ItemsControl.ItemTemplate",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticItemsControlItemTemplate",
+      "expectedStatus": "planned",
+      "knownGaps": [ "ItemsControl item templates are not compiled in this foundation pass." ]
+    }
+  ]
+}

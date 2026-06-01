@@ -27,6 +27,8 @@ public sealed class VisualScenario
 
     public IReadOnlyList<VisualRequirement> Requirements { get; init; } = Array.Empty<VisualRequirement>();
 
+    public IReadOnlyList<SourceFeatureRequirement> SourceFeatures { get; init; } = Array.Empty<SourceFeatureRequirement>();
+
     public static async Task<VisualScenario> LoadAsync(string path, CancellationToken cancellationToken = default)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
@@ -68,6 +70,22 @@ public sealed class VisualScenario
         {
             throw new InvalidOperationException($"Scenario '{path}' uses unsupported theme '{Theme}'. Expected light, dark, or high-contrast.");
         }
+
+        foreach (var requirement in Requirements)
+        {
+            if (string.IsNullOrWhiteSpace(requirement.Component))
+            {
+                throw new InvalidOperationException($"Scenario '{path}' contains a component requirement without component.");
+            }
+        }
+
+        foreach (var sourceFeature in SourceFeatures)
+        {
+            if (string.IsNullOrWhiteSpace(sourceFeature.Feature))
+            {
+                throw new InvalidOperationException($"Scenario '{path}' contains a source feature requirement without feature.");
+            }
+        }
     }
 }
 
@@ -107,9 +125,41 @@ public sealed class VisualThresholds
     public double RootMeanSquaredError { get; init; } = 16.0;
 }
 
-public sealed record VisualRequirement(
-    string Control,
-    IReadOnlyList<string> Properties);
+public sealed class VisualRequirement
+{
+    public string Component { get; init; } = string.Empty;
+
+    public string Kind { get; init; } = "control";
+
+    public string? Target { get; init; }
+
+    public string ExpectedStatus { get; init; } = "unknown";
+
+    public string MinimumVisualGrade { get; init; } = "not-rendered";
+
+    public string? VisualGrade { get; init; }
+
+    public IReadOnlyList<string> RequiredProperties { get; init; } = Array.Empty<string>();
+
+    public IReadOnlyList<string> KnownGaps { get; init; } = Array.Empty<string>();
+}
+
+public sealed class SourceFeatureRequirement
+{
+    public string Feature { get; init; } = string.Empty;
+
+    public string Kind { get; init; } = "source-feature";
+
+    public string? Target { get; init; }
+
+    public string ExpectedStatus { get; init; } = "unknown";
+
+    public string Presence { get; init; } = "required";
+
+    public IReadOnlyList<string> RequiredProperties { get; init; } = Array.Empty<string>();
+
+    public IReadOnlyList<string> KnownGaps { get; init; } = Array.Empty<string>();
+}
 
 public sealed record VisualRunSettings(
     VisualScenario? Scenario,
