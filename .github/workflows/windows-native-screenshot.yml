@@ -29,37 +29,25 @@ jobs:
             8.0.x
             10.0.x
 
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
       - name: Build capture tool
         run: dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release
 
       - name: Build native WinUI fixtures
         shell: pwsh
         run: |
-          $fixtureSdk = dotnet --list-sdks |
-            Where-Object { $_ -match "^8[.]" } |
-            ForEach-Object { ($_ -split " ")[0] } |
-            Select-Object -Last 1
-          if ([string]::IsNullOrWhiteSpace($fixtureSdk)) {
-            throw "A .NET 8 SDK is required to build the native WinUI fixture projects."
-          }
-          @{
-            sdk = @{
-              version = $fixtureSdk
-              rollForward = "latestPatch"
-            }
-          } | ConvertTo-Json -Depth 3 | Set-Content global.json -Encoding utf8
-          Write-Host "Pinned native WinUI fixture SDK to $(dotnet --version)."
-
           $diagnosticRoot = "artifacts/windows-native-build-diagnostics"
           New-Item -ItemType Directory -Force $diagnosticRoot | Out-Null
 
           $status = 0
-          dotnet build fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --configuration Release -bl:"$diagnosticRoot/PublicAdminWorkbench.WinUI.binlog"
+          msbuild fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj /restore /p:Configuration=Release /bl:"$diagnosticRoot/PublicAdminWorkbench.WinUI.binlog"
           if ($LASTEXITCODE -ne 0) {
             $status = $LASTEXITCODE
           }
 
-          dotnet build fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --configuration Release -bl:"$diagnosticRoot/ComponentParityLab.WinUI.binlog"
+          msbuild fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj /restore /p:Configuration=Release /bl:"$diagnosticRoot/ComponentParityLab.WinUI.binlog"
           if ($LASTEXITCODE -ne 0 -and $status -eq 0) {
             $status = $LASTEXITCODE
           }
@@ -102,46 +90,55 @@ jobs:
               Name = "public-admin-workbench-light"
               Path = "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json"
               FixtureProject = "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj"
+              FixtureExecutable = "fixtures/PublicAdminWorkbench.WinUI/bin/Release/net8.0-windows10.0.19041.0/PublicAdminWorkbench.WinUI.exe"
             },
             @{
               Name = "component-basic-input-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
               Name = "component-text-forms-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
               Name = "component-collections-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
               Name = "component-dialogs-flyouts-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
               Name = "component-commands-menus-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
               Name = "component-navigation-workbench-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-navigation-workbench-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
               Name = "component-status-pickers-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
               Name = "component-layout-media-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             }
           )
 
@@ -171,7 +168,7 @@ jobs:
               --viewport $viewport `
               --scale "$($scenarioJson.scale)" `
               --theme $scenarioJson.theme `
-              -- dotnet run --project $scenario.FixtureProject --configuration Release --no-build -- --scenario $scenario.Path
+              -- $scenario.FixtureExecutable --scenario $scenario.Path
             if (!(Test-Path "$outDir/windows-reference.png")) {
               throw "Windows reference screenshot was not created for $($scenario.Name)."
             }
