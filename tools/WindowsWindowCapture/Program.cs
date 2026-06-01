@@ -11,6 +11,8 @@ namespace WindowsWindowCapture;
 internal static class Program
 {
     private const int SwRestore = 9;
+    private const uint SwpNoZOrder = 0x0004;
+    private const uint SwpNoActivate = 0x0010;
     private const int DwmwaExtendedFrameBounds = 9;
     private const uint PwRenderFullContent = 2;
 
@@ -41,6 +43,10 @@ internal static class Program
             ShowWindow(window.Handle, SwRestore);
             SetForegroundWindow(window.Handle);
             Thread.Sleep(750);
+            if (options.ClientArea && options.Viewport is not null)
+            {
+                ResizeClientArea(window.Handle, options.Viewport);
+            }
 
             var captureRect = Capture(window.Handle, options.OutputPath, options.ClientArea);
             if (!string.IsNullOrWhiteSpace(options.MetadataOutputPath))
@@ -316,6 +322,48 @@ internal static class Program
             point.Y + Math.Max(1, clientRect.Bottom - clientRect.Top));
     }
 
+    private static void ResizeClientArea(IntPtr window, CaptureViewport viewport)
+    {
+        for (var attempt = 0; attempt < 10; attempt++)
+        {
+            if (!GetClientRect(window, out var clientRect) ||
+                !GetWindowRect(window, out var windowRect))
+            {
+                throw new InvalidOperationException("Could not read the target window bounds before resizing.");
+            }
+
+            if (clientRect.Width == viewport.Width && clientRect.Height == viewport.Height)
+            {
+                return;
+            }
+
+            var nonClientWidth = Math.Max(0, windowRect.Width - clientRect.Width);
+            var nonClientHeight = Math.Max(0, windowRect.Height - clientRect.Height);
+            if (!SetWindowPos(
+                    window,
+                    IntPtr.Zero,
+                    windowRect.Left,
+                    windowRect.Top,
+                    Math.Max(1, viewport.Width + nonClientWidth),
+                    Math.Max(1, viewport.Height + nonClientHeight),
+                    SwpNoZOrder | SwpNoActivate))
+            {
+                throw new InvalidOperationException("Could not resize the target window client area.");
+            }
+
+            Thread.Sleep(150);
+        }
+
+        if (!GetClientRect(window, out var finalClientRect))
+        {
+            throw new InvalidOperationException("Could not read the target client bounds after resizing.");
+        }
+
+        throw new InvalidOperationException(
+            "Target client area did not match requested viewport after resizing. " +
+            $"Expected {viewport.Width}x{viewport.Height}; actual {finalClientRect.Width}x{finalClientRect.Height}.");
+    }
+
     private static void StopProcess(Process process)
     {
         if (process.HasExited)
@@ -581,6 +629,16 @@ internal static class Program
     private static extern bool SetForegroundWindow(IntPtr window);
 
     [DllImport("user32.dll")]
+    private static extern bool SetWindowPos(
+        IntPtr window,
+        IntPtr insertAfter,
+        int x,
+        int y,
+        int width,
+        int height,
+        uint flags);
+
+    [DllImport("user32.dll")]
     private static extern bool PrintWindow(IntPtr window, IntPtr deviceContext, uint flags);
 
     [DllImport("dwmapi.dll")]
@@ -601,6 +659,10 @@ internal static class Program
         public readonly int Top;
         public readonly int Right;
         public readonly int Bottom;
+
+        public int Width => Right - Left;
+
+        public int Height => Bottom - Top;
     }
 
     [StructLayout(LayoutKind.Sequential)]
