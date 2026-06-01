@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WinUI3.MacRuntime\WinUI3.MacRuntime.csproj" />
     <PackageReference Include="SkiaSharp" Version="3.119.2" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.2" />
     <PackageReference Include="SkiaSharp.NativeAssets.macOS" Version="3.119.2" />
     <PackageReference Include="SkiaSharp.NativeAssets.Win32" Version="3.119.2" />
   </ItemGroup>
