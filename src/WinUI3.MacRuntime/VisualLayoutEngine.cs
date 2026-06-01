@@ -22,13 +22,25 @@ public static class VisualLayoutEngine
         "Grid",
         "StackPanel",
         "Border",
+        "ScrollViewer",
+        "ContentControl",
+        "ItemsControl",
         "TextBlock",
         "Button",
+        "AppBarButton",
+        "ToggleButton",
+        "CheckBox",
+        "RadioButton",
         "TextBox",
+        "ComboBox",
         "Frame",
         "NavigationView",
         "NavigationViewItem",
         "ListView",
+        "ProgressRing",
+        "ProgressBar",
+        "InfoBar",
+        "CommandBar",
         "FontIcon",
         "Image",
         "String"
@@ -89,8 +101,9 @@ public static class VisualLayoutEngine
         {
             "NavigationView" => ArrangeNavigationView(node, rect, unsupported),
             "StackPanel" => ArrangeStackPanel(node, rect, unsupported),
-            "ListView" => ArrangeListView(node, rect, unsupported),
-            "Border" => ArrangeSingleSlot(node, Inset(rect, 0), unsupported, PaddingFor(node), visibility),
+            "ListView" or "ItemsControl" => ArrangeListView(node, rect, unsupported),
+            "CommandBar" => ArrangeCommandBar(node, rect, unsupported),
+            "Border" or "ScrollViewer" or "ContentControl" => ArrangeSingleSlot(node, Inset(rect, 0), unsupported, PaddingFor(node), visibility),
             "Grid" or "Window" or "Page" or "Frame" => ArrangeOverlay(node, rect, unsupported, visibility),
             _ => WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, node.Children)
         };
@@ -224,6 +237,22 @@ public static class VisualLayoutEngine
         return WithLayout(node, rect, EmptyThickness, EmptyThickness, ReadString(node, "visibility") ?? "Visible", arranged);
     }
 
+    private static UiNode ArrangeCommandBar(
+        UiNode node,
+        LayoutRect rect,
+        ICollection<UnsupportedVisualFeature> unsupported)
+    {
+        var x = rect.X + 8;
+        var arranged = new List<UiNode>(node.Children.Count);
+        foreach (var child in node.Children)
+        {
+            arranged.Add(ArrangeNode(child, new LayoutRect(x, rect.Y + 6, 104, Math.Max(1, rect.Height - 12)), unsupported));
+            x += 112;
+        }
+
+        return WithLayout(node, rect, EmptyThickness, EmptyThickness, ReadString(node, "visibility") ?? "Visible", arranged);
+    }
+
     private static UiNode WithLayout(
         UiNode node,
         LayoutRect rect,
@@ -253,12 +282,17 @@ public static class VisualLayoutEngine
         return SimpleType(node) switch
         {
             "TextBlock" or "String" => 28,
-            "Button" => 40,
+            "Button" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 40,
             "TextBox" => 36,
             "FontIcon" => 24,
             "Image" => 96,
+            "ProgressBar" => 28,
+            "ProgressRing" => 32,
+            "InfoBar" => 74,
+            "CommandBar" => 48,
             "Border" => Math.Min(86, fallback),
-            "ListView" => Math.Max(64, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
+            "ListView" or "ItemsControl" => Math.Max(64, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
+            "ScrollViewer" or "ContentControl" => Math.Min(Math.Max(64, fallback), fallback),
             "Frame" => Math.Min(Math.Max(64, fallback), fallback),
             _ => Math.Min(Math.Max(40, fallback), fallback)
         };

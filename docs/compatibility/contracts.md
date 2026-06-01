@@ -42,9 +42,11 @@ supported only to the extent documented in the matrix and public fixtures.
 ## Control And Renderer Contract
 
 Facade controls and `skia-v2` painters are production claims only for the
-documented public subset. When strict visual mode sees a logical tree node
-without a supported painter, it records an unsupported visual feature and fails
-the run.
+documented public subset. The Level 2 public subset is fixture-backed by
+`ControlGallery.MacTest`, `SampleAdminShell.MacTest`, and
+`InteractionBindingApp.MacTest`. When strict visual mode sees a logical tree
+node without a supported painter, it records an unsupported visual feature and
+fails the run.
 
 SVG and the current Skia renderer remain smoke renderers. `skia-v2` is the
 scenario-driven renderer used for public visual compatibility checks.

@@ -14,7 +14,7 @@ Status values:
 | --- | --- | --- |
 | Level 0: Harness Reliability | supported | Managed macOS runner, doctor, SVG, current Skia, `skia-v2`, versioned artifacts, strict visual failures, and public CI workflow wiring. |
 | Level 1: Core App And XAML Compatibility | supported | `Application`, `Window`, `Page`, `Frame`, resource dictionaries, startup activation, navigation, strict unsupported XAML diagnostics, and the documented public XAML subset. |
-| Level 2: Layout And Controls Foundation | partial | Public fixture subset for `Grid`, `StackPanel`, `Border`, `TextBlock`, `TextBox`, `Button`, `Image`, `ListView`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. |
+| Level 2: Layout And Controls Foundation | supported | Public fixture subset for `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `TextBox`, `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `Image`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `AppBarButton`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. |
 | Level 3: Styling, Resources, And Theme Fidelity | planned | Resource lookup is partial; full style/template/material fidelity is not supported. |
 | Level 4: Data Binding, Commands, And State | partial | One-way binding refresh, button click simulation, navigation state, and keyboard accelerator invocation for public fixtures. |
 | Level 5: Input, Accessibility, And Automation | partial | Scripted click, focus, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility export. |
@@ -68,6 +68,11 @@ Status values:
 | `Frame` | supported | Supports `Navigate(Type, object?)`. |
 | `StackPanel`, `Grid`, `Border` | partial | Logical child containment and deterministic `skia-v2` layout for public scenarios. |
 | `TextBlock`, `TextBox`, `Button` | supported | Basic content/text and button click. |
+| `ToggleButton`, `CheckBox`, `RadioButton` | supported | Checked state, content, tree export, accessibility roles, layout, and `skia-v2` painters for public fixtures. |
+| `ComboBox` | supported | Items, selected item/index, placeholder, tree export, layout, and `skia-v2` painter for public fixtures. |
+| `ProgressRing`, `ProgressBar`, `InfoBar` | supported | State/value/severity metadata, tree export, layout, and `skia-v2` painters for public fixtures. |
+| `CommandBar`, `AppBarButton` | supported | Primary commands, labels, click simulation, tree export, layout, and `skia-v2` painters for public fixtures. |
+| `ScrollViewer`, `ContentControl`, `ItemsControl` | supported | Single-slot or item collection containment, tree export, layout, and `skia-v2` support for public fixtures. |
 | `Image`, `ListView` | partial | Logical model plus `skia-v2` placeholder/list painters for public scenarios. |
 | `NavigationView`, `NavigationViewItem` | partial | Menu items, selection, pane footer, and `skia-v2` shell painter. |
 | `FontIcon` | partial | Glyph and font size metadata with simple `skia-v2` glyph/dot rendering. |
@@ -75,11 +80,13 @@ Status values:
 ## Visual Renderer Subset
 
 `skia-v2` is intentionally narrower than WinUI 3. It currently paints the public
-fixture subset: `Window`, `Page`, `Grid`, `StackPanel`, `Border`, `TextBlock`,
-`Button`, `TextBox`, `Frame`, `NavigationView`, `NavigationViewItem`,
-`ListView`, `FontIcon`, `Image`, and string content. A strict scenario records
-any unsupported control or missing renderer feature in `unsupported-apis.json`
-and exits non-zero.
+fixture subset: `Window`, `Page`, `Grid`, `StackPanel`, `Border`,
+`ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `Button`,
+`AppBarButton`, `ToggleButton`, `CheckBox`, `RadioButton`, `TextBox`,
+`ComboBox`, `Frame`, `NavigationView`, `NavigationViewItem`, `ListView`,
+`ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `FontIcon`, `Image`,
+and string content. A strict scenario records any unsupported control or missing
+renderer feature in `unsupported-apis.json` and exits non-zero.
 
 ## Unsupported Facade Placeholders
 

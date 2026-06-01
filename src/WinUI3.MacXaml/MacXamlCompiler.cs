@@ -34,11 +34,23 @@ public sealed class MacXamlCompiler
         ["StackPanel"] = new(StringComparer.Ordinal) { "Orientation", "Padding", "Spacing" },
         ["Grid"] = new(StringComparer.Ordinal) { "ColumnDefinitions", "ColumnSpacing" },
         ["Border"] = new(StringComparer.Ordinal) { "Child" },
+        ["ScrollViewer"] = new(StringComparer.Ordinal) { "Content", "VerticalScrollBarVisibility" },
+        ["ContentControl"] = new(StringComparer.Ordinal) { "Content" },
+        ["ItemsControl"] = new(StringComparer.Ordinal) { "Items" },
         ["TextBlock"] = new(StringComparer.Ordinal) { "Text" },
         ["TextBox"] = new(StringComparer.Ordinal) { "Text" },
         ["Button"] = new(StringComparer.Ordinal) { "Content" },
+        ["AppBarButton"] = new(StringComparer.Ordinal) { "Content", "Icon", "Label" },
+        ["ToggleButton"] = new(StringComparer.Ordinal) { "Content", "IsChecked" },
+        ["CheckBox"] = new(StringComparer.Ordinal) { "Content", "IsChecked" },
+        ["RadioButton"] = new(StringComparer.Ordinal) { "Content", "GroupName", "IsChecked" },
+        ["ComboBox"] = new(StringComparer.Ordinal) { "Items", "PlaceholderText", "SelectedIndex" },
         ["Image"] = new(StringComparer.Ordinal) { "Source" },
         ["ListView"] = new(StringComparer.Ordinal),
+        ["ProgressRing"] = new(StringComparer.Ordinal) { "IsActive" },
+        ["ProgressBar"] = new(StringComparer.Ordinal) { "IsIndeterminate", "Maximum", "Minimum", "Value" },
+        ["InfoBar"] = new(StringComparer.Ordinal) { "IsOpen", "Message", "Severity", "Title" },
+        ["CommandBar"] = new(StringComparer.Ordinal) { "PrimaryCommands" },
         ["FontIcon"] = new(StringComparer.Ordinal) { "FontSize", "Glyph" },
         ["Frame"] = new(StringComparer.Ordinal),
         ["NavigationView"] = new(StringComparer.Ordinal)
@@ -59,6 +71,10 @@ public sealed class MacXamlCompiler
     private static readonly Dictionary<string, HashSet<string>> ElementEvents = new(StringComparer.Ordinal)
     {
         ["Button"] = new(StringComparer.Ordinal) { "Click" },
+        ["AppBarButton"] = new(StringComparer.Ordinal) { "Click" },
+        ["ToggleButton"] = new(StringComparer.Ordinal) { "Click" },
+        ["CheckBox"] = new(StringComparer.Ordinal) { "Click" },
+        ["RadioButton"] = new(StringComparer.Ordinal) { "Click" },
         ["NavigationView"] = new(StringComparer.Ordinal) { "SelectionChanged" }
     };
 
@@ -70,7 +86,16 @@ public sealed class MacXamlCompiler
         ["NavigationView"] = new(StringComparer.Ordinal) { "MenuItems", "PaneFooter", "Content" },
         ["NavigationViewItem"] = new(StringComparer.Ordinal) { "Icon", "Content" },
         ["Border"] = new(StringComparer.Ordinal) { "Child" },
-        ["Button"] = new(StringComparer.Ordinal) { "Content" }
+        ["ScrollViewer"] = new(StringComparer.Ordinal) { "Content" },
+        ["ContentControl"] = new(StringComparer.Ordinal) { "Content" },
+        ["ItemsControl"] = new(StringComparer.Ordinal) { "Items" },
+        ["ComboBox"] = new(StringComparer.Ordinal) { "Items" },
+        ["CommandBar"] = new(StringComparer.Ordinal) { "PrimaryCommands" },
+        ["Button"] = new(StringComparer.Ordinal) { "Content" },
+        ["AppBarButton"] = new(StringComparer.Ordinal) { "Content", "Icon" },
+        ["ToggleButton"] = new(StringComparer.Ordinal) { "Content" },
+        ["CheckBox"] = new(StringComparer.Ordinal) { "Content" },
+        ["RadioButton"] = new(StringComparer.Ordinal) { "Content" }
     };
 
     private static readonly HashSet<string> SupportedAttachedProperties = new(StringComparer.Ordinal)
@@ -169,11 +194,23 @@ public sealed class MacXamlCompiler
             "Page" => "Microsoft.UI.Xaml.Controls.Page",
             "UserControl" => "Microsoft.UI.Xaml.Controls.UserControl",
             "StackPanel" => "Microsoft.UI.Xaml.Controls.StackPanel",
+            "ScrollViewer" => "Microsoft.UI.Xaml.Controls.ScrollViewer",
+            "ContentControl" => "Microsoft.UI.Xaml.Controls.ContentControl",
+            "ItemsControl" => "Microsoft.UI.Xaml.Controls.ItemsControl",
             "TextBlock" => "Microsoft.UI.Xaml.Controls.TextBlock",
             "TextBox" => "Microsoft.UI.Xaml.Controls.TextBox",
             "Button" => "Microsoft.UI.Xaml.Controls.Button",
+            "AppBarButton" => "Microsoft.UI.Xaml.Controls.AppBarButton",
+            "ToggleButton" => "Microsoft.UI.Xaml.Controls.ToggleButton",
+            "CheckBox" => "Microsoft.UI.Xaml.Controls.CheckBox",
+            "RadioButton" => "Microsoft.UI.Xaml.Controls.RadioButton",
+            "ComboBox" => "Microsoft.UI.Xaml.Controls.ComboBox",
             "Image" => "Microsoft.UI.Xaml.Controls.Image",
             "ListView" => "Microsoft.UI.Xaml.Controls.ListView",
+            "ProgressRing" => "Microsoft.UI.Xaml.Controls.ProgressRing",
+            "ProgressBar" => "Microsoft.UI.Xaml.Controls.ProgressBar",
+            "InfoBar" => "Microsoft.UI.Xaml.Controls.InfoBar",
+            "CommandBar" => "Microsoft.UI.Xaml.Controls.CommandBar",
             "Grid" => "Microsoft.UI.Xaml.Controls.Grid",
             "Border" => "Microsoft.UI.Xaml.Controls.Border",
             "FontIcon" => "Microsoft.UI.Xaml.Controls.FontIcon",
@@ -508,9 +545,20 @@ public sealed class MacXamlCompiler
         {
             return elementName is
                 "Button" or
+                "AppBarButton" or
+                "ToggleButton" or
+                "CheckBox" or
+                "RadioButton" or
                 "TextBox" or
                 "Image" or
+                "ItemsControl" or
                 "ListView" or
+                "ComboBox" or
+                "ScrollViewer" or
+                "ProgressRing" or
+                "ProgressBar" or
+                "InfoBar" or
+                "CommandBar" or
                 "FontIcon" or
                 "Frame" or
                 "NavigationView" or
@@ -715,6 +763,12 @@ public sealed class MacXamlCompiler
                 return;
             }
 
+            if (parent.Element.Name.LocalName is "ScrollViewer" or "ContentControl")
+            {
+                source.AppendLine($"        {parent.VariableName}.Content = {child.VariableName};");
+                return;
+            }
+
             if (parent.Element.Name.LocalName == "StackPanel")
             {
                 source.AppendLine($"        {parent.VariableName}.Children.Add({child.VariableName});");
@@ -739,7 +793,19 @@ public sealed class MacXamlCompiler
                 return;
             }
 
-            if (parent.Element.Name.LocalName == "Button")
+            if (parent.Element.Name.LocalName is "ItemsControl" or "ListView" or "ComboBox")
+            {
+                source.AppendLine($"        {parent.VariableName}.Items.Add({child.VariableName});");
+                return;
+            }
+
+            if (parent.Element.Name.LocalName == "CommandBar")
+            {
+                source.AppendLine($"        {parent.VariableName}.PrimaryCommands.Add({child.VariableName});");
+                return;
+            }
+
+            if (parent.Element.Name.LocalName is "Button" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton")
             {
                 source.AppendLine($"        {parent.VariableName}.Content = {child.VariableName};");
             }
@@ -763,6 +829,12 @@ public sealed class MacXamlCompiler
                     break;
                 case "Child":
                     source.AppendLine($"        {parent.VariableName}.Child = {child.VariableName};");
+                    break;
+                case "Items":
+                    source.AppendLine($"        {parent.VariableName}.Items.Add({child.VariableName});");
+                    break;
+                case "PrimaryCommands":
+                    source.AppendLine($"        {parent.VariableName}.PrimaryCommands.Add({child.VariableName});");
                     break;
             }
         }
@@ -817,6 +889,24 @@ public sealed class MacXamlCompiler
                 return $"Microsoft.UI.Xaml.Controls.Orientation.{value}";
             }
 
+            if (propertyName == "VerticalScrollBarVisibility" &&
+                (string.Equals(value, "Disabled", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Auto", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Hidden", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Visible", StringComparison.OrdinalIgnoreCase)))
+            {
+                return $"Microsoft.UI.Xaml.Controls.ScrollBarVisibility.{value}";
+            }
+
+            if (propertyName == "Severity" &&
+                (string.Equals(value, "Informational", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Success", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Warning", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Error", StringComparison.OrdinalIgnoreCase)))
+            {
+                return $"Microsoft.UI.Xaml.Controls.InfoBarSeverity.{value}";
+            }
+
             if (bool.TryParse(value, out var boolean))
             {
                 return boolean ? "true" : "false";
@@ -866,12 +956,15 @@ public sealed class MacXamlCompiler
                 "OpenPaneLength" or
                 "Spacing" or
                 "ColumnSpacing" or
-                "FontSize";
+                "FontSize" or
+                "Minimum" or
+                "Maximum" or
+                "Value";
         }
 
         private static bool IsIntProperty(string propertyName)
         {
-            return propertyName is "Grid.Column";
+            return propertyName is "Grid.Column" or "SelectedIndex";
         }
 
         private static bool IsStringProperty(string propertyName)

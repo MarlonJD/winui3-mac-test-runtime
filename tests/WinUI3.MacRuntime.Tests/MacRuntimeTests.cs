@@ -110,6 +110,45 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void TreeBuilderExportsLevel2ControlProperties()
+    {
+        var comboBox = new ComboBox { Name = "StatusComboBox", PlaceholderText = "Status", SelectedIndex = 1 };
+        comboBox.Items.Add("Open");
+        comboBox.Items.Add("Closed");
+        comboBox.SelectedIndex = 1;
+
+        var root = new StackPanel
+        {
+            Children =
+            {
+                new CheckBox { Name = "EnabledCheckBox", Content = "Enabled", IsChecked = true },
+                new RadioButton { Name = "PriorityRadioButton", Content = "High", GroupName = "Priority", IsChecked = true },
+                comboBox,
+                new ProgressBar { Name = "Progress", Minimum = 0, Maximum = 100, Value = 65 },
+                new InfoBar { Name = "StatusInfo", Title = "Ready", Message = "Public fixture state", Severity = InfoBarSeverity.Success },
+                new CommandBar
+                {
+                    Name = "CommandSurface",
+                    PrimaryCommands =
+                    {
+                        new AppBarButton { Name = "SaveCommand", Label = "Save" }
+                    }
+                }
+            }
+        };
+
+        var tree = UiTreeBuilder.Build(new Window { Content = root });
+        var nodes = Flatten(tree.Root).ToArray();
+
+        Assert.IsTrue(nodes.Any(node => node.Type.EndsWith(".CheckBox", StringComparison.Ordinal) && Equals(node.Properties["isChecked"], true)));
+        Assert.IsTrue(nodes.Any(node => node.Type.EndsWith(".RadioButton", StringComparison.Ordinal) && Equals(node.Properties["groupName"], "Priority")));
+        Assert.IsTrue(nodes.Any(node => node.Type.EndsWith(".ComboBox", StringComparison.Ordinal) && Equals(node.Properties["selectedItem"], "Closed")));
+        Assert.IsTrue(nodes.Any(node => node.Type.EndsWith(".ProgressBar", StringComparison.Ordinal) && Equals(node.Properties["value"], 65d)));
+        Assert.IsTrue(nodes.Any(node => node.Type.EndsWith(".InfoBar", StringComparison.Ordinal) && Equals(node.Properties["severity"], "Success")));
+        Assert.IsTrue(nodes.Any(node => node.Type.EndsWith(".CommandBar", StringComparison.Ordinal) && Equals(node.Properties["primaryCommandCount"], 1)));
+    }
+
+    [TestMethod]
     public void UnsupportedApiRegistryReportsUnsupportedFacadeUse()
     {
         UnsupportedApiRegistry.Clear();
@@ -322,6 +361,18 @@ public sealed class MacRuntimeTests
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
         using var stream = File.Create(path);
         data.SaveTo(stream);
+    }
+
+    private static IEnumerable<UiNode> Flatten(UiNode node)
+    {
+        yield return node;
+        foreach (var child in node.Children)
+        {
+            foreach (var nested in Flatten(child))
+            {
+                yield return nested;
+            }
+        }
     }
 
     private static void AssertJsonDocument(string path, string schemaVersion, string itemsProperty, int minimumItemCount)

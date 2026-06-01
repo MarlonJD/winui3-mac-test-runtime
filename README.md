@@ -18,6 +18,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj --renderer skia
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
 ```
 
 ## Current Fixtures
@@ -26,6 +27,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBi
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/XamlTinyWinUIApp.MacTest/XamlTinyWinUIApp.MacTest.csproj
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --script ./fixtures/InteractionBindingApp.MacTest/interactions.json
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
 ```
 
 `XamlTinyWinUIApp.MacTest` exercises the Phase 1 XAML compiler path:
@@ -39,6 +41,11 @@ and exports admin navigation visibility in `tree.json`.
 `InteractionBindingApp.MacTest` exercises page navigation, binding refresh,
 button click simulation, focus, accessibility export, binding failure export,
 list/text/image facade export, and a deterministic snapshot artifact.
+
+`ControlGallery.MacTest` exercises the Level 2 public control subset:
+`ScrollViewer`, `ContentControl`, `ItemsControl`, `CheckBox`, `RadioButton`,
+`ToggleButton`, `ComboBox`, `ProgressBar`, `ProgressRing`, `InfoBar`,
+`CommandBar`, and `AppBarButton`.
 
 Scenario JSON files under each fixture's `scenarios/` directory describe the
 strict visual contract for the supported public subset. A scenario can set the
@@ -92,9 +99,10 @@ This is still a constrained test runtime. It supports a small source-level
 WinUI-style subset for automated macOS testing and intentionally does not claim
 binary compatibility, arbitrary `.exe` execution, or full WinUI 3 behavior.
 
-The published compatibility claim includes **Level 0: Harness Reliability** and
-the documented **Level 1: Core App And XAML Compatibility** subset, with
-fixture-backed slices of higher levels documented as `supported` or `partial`.
+The published compatibility claim includes **Level 0: Harness Reliability**,
+the documented **Level 1: Core App And XAML Compatibility** subset, and the
+public-fixture-backed **Level 2: Layout And Controls Foundation** subset, with
+higher levels documented as `supported`, `partial`, or `planned`.
 See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/matrix.md` for the current supported subset.
 
