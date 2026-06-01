@@ -258,6 +258,8 @@ Required evidence:
 
 ## Recommended Next Milestones
 
+Detailed execution plan: `docs/plans/2026-06-01-production-readiness-roadmap-plan.md`.
+
 1. Move weak checked-in component examples to `usable`.
 2. Add crop-level or component-region diff metrics so whole-screen thresholds do
    not mask localized regressions.
