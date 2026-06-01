@@ -23,6 +23,7 @@ a new schema version and documentation update.
 | `interactions.json` | `0.1` |
 | `snapshot.json` | `0.1`; `0.2` for `skia-v2` PNG snapshots |
 | `visual/visual-run.json` | `0.1` |
+| `visual/windows-reference.json` | `0.2` |
 | `visual/pixel-diff.json` | `0.1` |
 
 ## Files
@@ -60,7 +61,8 @@ a new schema version and documentation update.
   scenario-driven `skia-v2` renderer.
 - `visual/visual-run.json`: scenario name, fixture name, runner OS, renderer,
   viewport, scale, theme, threshold configuration, unsupported visual features,
-  reference/runtime/diff paths, comparison metrics, and pass/fail status.
+  reference/runtime/diff paths, copied reference provenance, comparison metrics,
+  and pass/fail status.
 - `visual/component-evidence.json`: component parity lab evidence with
   component/source-feature catalog status, presence, interaction status, visual
   grade, known gaps, and optional diff metrics when a reference-backed
@@ -70,6 +72,11 @@ a new schema version and documentation update.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not
   native WinUI fixture captures; production visual claims require provenance
   that identifies the reference as native WinUI.
+- `visual/windows-reference.json`: reference provenance copied from the Windows
+  capture artifact when available. It records `referenceSource`
+  (`native-winui` or `synthetic-probe`), fixture project path, scenario path and
+  name, commit SHA, workflow run, runner image, viewport, scale, theme, window
+  title, capture mode, and captured dimensions.
 - `visual/mac-runtime.png`: copy of the `skia-v2` runtime screenshot used for
   comparison.
 - `visual/pixel-diff.png`: red-highlight PNG showing changed pixels.

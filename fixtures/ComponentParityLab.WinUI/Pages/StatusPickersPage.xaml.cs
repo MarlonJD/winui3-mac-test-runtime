@@ -10,6 +10,17 @@ public sealed partial class StatusPickersPage : Page
         InitializeComponent();
     }
 
+    public void ApplyScenarioState(string scenarioName)
+    {
+        if (scenarioName.Contains("status-pickers", StringComparison.OrdinalIgnoreCase))
+        {
+            StatusInfoBar.Title = "Complete";
+            StatusInfoBar.Message = "The public lab status completed.";
+            StatusInfoBar.Severity = InfoBarSeverity.Success;
+            CompletionProgressBar.Value = 100;
+        }
+    }
+
     private void OnCompleteClicked(object sender, RoutedEventArgs args)
     {
         StatusInfoBar.Title = "Complete";

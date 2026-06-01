@@ -10,6 +10,14 @@ public sealed partial class CommandsMenusPage : Page
         InitializeComponent();
     }
 
+    public void ApplyScenarioState(string scenarioName)
+    {
+        if (scenarioName.Contains("commands-menus", StringComparison.OrdinalIgnoreCase))
+        {
+            CommandStateText.Text = "Saved";
+        }
+    }
+
     private void OnSaveClicked(object sender, RoutedEventArgs args)
     {
         CommandStateText.Text = "Saved";

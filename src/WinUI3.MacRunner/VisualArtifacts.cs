@@ -15,6 +15,9 @@ internal sealed record VisualRunReport(
     double Scale,
     string Theme,
     string? ReferenceImagePath,
+    string? ReferenceMetadataPath,
+    string? ReferenceSource,
+    JsonElement? ReferenceProvenance,
     string RuntimeImagePath,
     string? DiffImagePath,
     string? ComponentEvidencePath,
@@ -49,6 +52,9 @@ internal static class VisualArtifacts
         File.Copy(result.Snapshot.FilePath, runtimePath, overwrite: true);
 
         string? copiedReferencePath = null;
+        string? copiedReferenceMetadataPath = null;
+        JsonElement? referenceProvenance = null;
+        string? referenceSource = null;
         string? diffPath = null;
         object? comparison;
         ComponentDiffMetrics? componentMetrics = null;
@@ -61,6 +67,17 @@ internal static class VisualArtifacts
 
             copiedReferencePath = Path.Combine(outputDirectory, "windows-reference.png");
             File.Copy(referencePath, copiedReferencePath, overwrite: true);
+            var sourceReferenceMetadataPath = Path.Combine(
+                Path.GetDirectoryName(Path.GetFullPath(referencePath))!,
+                "windows-reference.json");
+            if (File.Exists(sourceReferenceMetadataPath))
+            {
+                copiedReferenceMetadataPath = Path.Combine(outputDirectory, "windows-reference.json");
+                File.Copy(sourceReferenceMetadataPath, copiedReferenceMetadataPath, overwrite: true);
+                referenceProvenance = await ReadReferenceProvenanceAsync(sourceReferenceMetadataPath, cancellationToken);
+                referenceSource = ReadReferenceSource(referenceProvenance);
+            }
+
             diffPath = Path.Combine(outputDirectory, "pixel-diff.png");
             var diff = PixelDiff.Compare(copiedReferencePath, runtimePath, diffPath, settings.Thresholds);
             comparison = diff;
@@ -128,6 +145,9 @@ internal static class VisualArtifacts
             Scale: settings.Scale,
             Theme: settings.Theme,
             ReferenceImagePath: copiedReferencePath,
+            ReferenceMetadataPath: copiedReferenceMetadataPath,
+            ReferenceSource: referenceSource,
+            ReferenceProvenance: referenceProvenance,
             RuntimeImagePath: runtimePath,
             DiffImagePath: diffPath,
             ComponentEvidencePath: componentEvidence is null ? null : Path.Combine(outputDirectory, "component-evidence.json"),
@@ -142,6 +162,28 @@ internal static class VisualArtifacts
             cancellationToken);
 
         return status == "passed";
+    }
+
+    private static async Task<JsonElement?> ReadReferenceProvenanceAsync(
+        string metadataPath,
+        CancellationToken cancellationToken)
+    {
+        await using var stream = File.OpenRead(metadataPath);
+        using var document = await JsonDocument.ParseAsync(stream, cancellationToken: cancellationToken);
+        return document.RootElement.Clone();
+    }
+
+    private static string? ReadReferenceSource(JsonElement? provenance)
+    {
+        if (provenance is { } value &&
+            value.ValueKind == JsonValueKind.Object &&
+            value.TryGetProperty("referenceSource", out var referenceSource) &&
+            referenceSource.ValueKind == JsonValueKind.String)
+        {
+            return referenceSource.GetString();
+        }
+
+        return null;
     }
 
     private static async Task<InteractionReport?> ReadInteractionReportAsync(
