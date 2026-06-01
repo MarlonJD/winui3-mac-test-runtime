@@ -83,12 +83,7 @@ internal static class VisualArtifacts
         var unsupportedVisualFeatures = result.Run.Diagnostics
             .Where(diagnostic => diagnostic.StartsWith("unsupported-api:", StringComparison.Ordinal))
             .Select(diagnostic => diagnostic["unsupported-api:".Length..])
-            .Where(diagnostic => diagnostic.Contains(":unsupported", StringComparison.Ordinal))
-            .Select(diagnostic => new UnsupportedApiEntry(
-                Api: diagnostic[..diagnostic.LastIndexOf(":unsupported", StringComparison.Ordinal)],
-                Kind: "visual-or-compat-api",
-                Status: "unsupported",
-                FirstSeenIn: settings.Renderer))
+            .Select(diagnostic => ParseUnsupportedApiDiagnostic(diagnostic, settings.Renderer))
             .ToArray();
 
         var diffFailed = comparison is PixelDiffResult { Status: "failed" };
@@ -123,5 +118,24 @@ internal static class VisualArtifacts
             cancellationToken);
 
         return status == "passed";
+    }
+
+    private static UnsupportedApiEntry ParseUnsupportedApiDiagnostic(string diagnostic, string renderer)
+    {
+        var statusSeparator = diagnostic.LastIndexOf(':');
+        if (statusSeparator <= 0)
+        {
+            return new UnsupportedApiEntry(
+                Api: diagnostic,
+                Kind: "visual-or-compat-api",
+                Status: "unknown",
+                FirstSeenIn: renderer);
+        }
+
+        return new UnsupportedApiEntry(
+            Api: diagnostic[..statusSeparator],
+            Kind: "visual-or-compat-api",
+            Status: diagnostic[(statusSeparator + 1)..],
+            FirstSeenIn: renderer);
     }
 }

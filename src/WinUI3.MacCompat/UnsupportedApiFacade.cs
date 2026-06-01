@@ -1,5 +1,7 @@
 namespace WinUI3.MacCompat.Diagnostics
 {
+    using WinUI3.MacCompatibility;
+
     public sealed record UnsupportedApiEntry(
         string Api,
         string Kind,
@@ -30,22 +32,25 @@ namespace WinUI3.MacCompat.Diagnostics
             }
         }
 
-        public static void Report(string api, string kind, string? firstSeenIn = null)
+        public static void Report(string api, string kind, string? firstSeenIn = null, string? status = null)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(api);
             ArgumentException.ThrowIfNullOrWhiteSpace(kind);
+
+            var resolvedStatus = status ?? CompatibilityCatalog.Current.StatusForApi(api);
 
             lock (Gate)
             {
                 if (Entries.Any(entry =>
                         entry.Api == api &&
                         entry.Kind == kind &&
+                        entry.Status == resolvedStatus &&
                         entry.FirstSeenIn == firstSeenIn))
                 {
                     return;
                 }
 
-                Entries.Add(new UnsupportedApiEntry(api, kind, "unsupported", firstSeenIn));
+                Entries.Add(new UnsupportedApiEntry(api, kind, resolvedStatus, firstSeenIn));
             }
         }
     }

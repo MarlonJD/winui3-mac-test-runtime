@@ -1,0 +1,1012 @@
+{
+  "schemaVersion": "0.1",
+  "generatedFrom": "manual seed from public WinUI 3 and Windows App SDK compatibility contracts",
+  "entries": [
+    {
+      "id": "api:Microsoft.UI.Composition.CompositionEffectBrush",
+      "kind": "api",
+      "status": "planned",
+      "area": "composition",
+      "api": "Microsoft.UI.Composition.CompositionEffectBrush",
+      "parityStage": "planned",
+      "notes": "Tracked as a clean-room effect graph compatibility target."
+    },
+    {
+      "id": "api:Microsoft.UI.Composition.Compositor",
+      "kind": "api",
+      "status": "planned",
+      "area": "composition",
+      "api": "Microsoft.UI.Composition.Compositor",
+      "parityStage": "planned",
+      "notes": "Tracked for source compatibility and future visual-layer modeling."
+    },
+    {
+      "id": "api:Microsoft.UI.Composition.DropShadow",
+      "kind": "api",
+      "status": "planned",
+      "area": "composition",
+      "api": "Microsoft.UI.Composition.DropShadow",
+      "parityStage": "planned",
+      "notes": "Tracked as the public shadow compatibility target."
+    },
+    {
+      "id": "api:Microsoft.UI.Composition.ScalarKeyFrameAnimation",
+      "kind": "api",
+      "status": "planned",
+      "area": "motion",
+      "api": "Microsoft.UI.Composition.ScalarKeyFrameAnimation",
+      "parityStage": "planned",
+      "notes": "Tracked for deterministic animation-clock compatibility."
+    },
+    {
+      "id": "api:Microsoft.UI.Composition.SpriteVisual",
+      "kind": "api",
+      "status": "planned",
+      "area": "composition",
+      "api": "Microsoft.UI.Composition.SpriteVisual",
+      "parityStage": "planned",
+      "notes": "Tracked for compositor-style visual tree compatibility."
+    },
+    {
+      "id": "api:Microsoft.UI.Composition.Vector3KeyFrameAnimation",
+      "kind": "api",
+      "status": "planned",
+      "area": "motion",
+      "api": "Microsoft.UI.Composition.Vector3KeyFrameAnimation",
+      "parityStage": "planned",
+      "notes": "Tracked for transform and motion parity."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Application",
+      "kind": "api",
+      "status": "supported",
+      "area": "runtime",
+      "api": "Microsoft.UI.Xaml.Application",
+      "parityStage": "semantic-compatible",
+      "notes": "Clean-room app launch facade used by public fixtures."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.AppBarButton",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.AppBarButton",
+      "parityStage": "visually-approximated",
+      "notes": "Supported in command bar public fixtures and skia-v2."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.Border",
+      "kind": "api",
+      "status": "partial",
+      "area": "layout",
+      "api": "Microsoft.UI.Xaml.Controls.Border",
+      "parityStage": "visually-approximated",
+      "notes": "Single-child facade and deterministic layout subset."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.Button",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.Button",
+      "parityStage": "visually-approximated",
+      "notes": "Content, command, click, accessibility, and skia-v2 painter covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.CheckBox",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.CheckBox",
+      "parityStage": "visually-approximated",
+      "notes": "Checked state and public renderer path covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.ComboBox",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ComboBox",
+      "parityStage": "visually-approximated",
+      "notes": "Item and selected-state fixture coverage."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.CommandBar",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.CommandBar",
+      "parityStage": "visually-approximated",
+      "notes": "Primary commands and public renderer path covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.ContentControl",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "parityStage": "semantic-compatible",
+      "notes": "Single content-slot facade supported."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.Frame",
+      "kind": "api",
+      "status": "supported",
+      "area": "navigation",
+      "api": "Microsoft.UI.Xaml.Controls.Frame",
+      "parityStage": "semantic-compatible",
+      "notes": "Navigate(Type, object?) and page activation fixture coverage."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.Grid",
+      "kind": "api",
+      "status": "partial",
+      "area": "layout",
+      "api": "Microsoft.UI.Xaml.Controls.Grid",
+      "parityStage": "visually-approximated",
+      "notes": "Child containment, column metadata, and deterministic layout subset."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.Image",
+      "kind": "api",
+      "status": "partial",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.Image",
+      "parityStage": "visually-approximated",
+      "notes": "Logical export and placeholder/list renderer coverage."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.InfoBar",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.InfoBar",
+      "parityStage": "visually-approximated",
+      "notes": "Severity and message state covered by public gallery fixture."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.ItemsControl",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ItemsControl",
+      "parityStage": "semantic-compatible",
+      "notes": "Item collection binding and export supported."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.ListView",
+      "kind": "api",
+      "status": "partial",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ListView",
+      "parityStage": "visually-approximated",
+      "notes": "Item collection, selection, export, and placeholder painter covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.MediaPlayerElement",
+      "kind": "api",
+      "status": "not supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.MediaPlayerElement",
+      "parityStage": "not-supported",
+      "notes": "Media playback is outside the current macOS-managed runtime contract."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.NavigationView",
+      "kind": "api",
+      "status": "partial",
+      "area": "navigation",
+      "api": "Microsoft.UI.Xaml.Controls.NavigationView",
+      "parityStage": "visually-approximated",
+      "notes": "Menu items, selection, pane footer, and shell fixture renderer covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "kind": "api",
+      "status": "partial",
+      "area": "navigation",
+      "api": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "parityStage": "visually-approximated",
+      "notes": "Navigation shell fixture subset."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.Page",
+      "kind": "api",
+      "status": "supported",
+      "area": "runtime",
+      "api": "Microsoft.UI.Xaml.Controls.Page",
+      "parityStage": "semantic-compatible",
+      "notes": "Page activation and navigation fixture coverage."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.ProgressBar",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ProgressBar",
+      "parityStage": "visually-approximated",
+      "notes": "Determinate and indeterminate metadata covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.ProgressRing",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ProgressRing",
+      "parityStage": "visually-approximated",
+      "notes": "Active state and renderer coverage for public gallery fixture."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.RadioButton",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.RadioButton",
+      "parityStage": "visually-approximated",
+      "notes": "Checked state and group metadata covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.ScrollViewer",
+      "kind": "api",
+      "status": "supported",
+      "area": "layout",
+      "api": "Microsoft.UI.Xaml.Controls.ScrollViewer",
+      "parityStage": "visually-approximated",
+      "notes": "Single content slot and scroll bar metadata covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.StackPanel",
+      "kind": "api",
+      "status": "partial",
+      "area": "layout",
+      "api": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "parityStage": "visually-approximated",
+      "notes": "Orientation, spacing, children, and deterministic layout subset."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.TextBlock",
+      "kind": "api",
+      "status": "supported",
+      "area": "text",
+      "api": "Microsoft.UI.Xaml.Controls.TextBlock",
+      "parityStage": "visually-approximated",
+      "notes": "Text content, binding, accessibility, and skia-v2 painter covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.TextBox",
+      "kind": "api",
+      "status": "supported",
+      "area": "input",
+      "api": "Microsoft.UI.Xaml.Controls.TextBox",
+      "parityStage": "visually-approximated",
+      "notes": "Text, focus, two-way binding, and typed input fixture coverage."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.ToggleButton",
+      "kind": "api",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ToggleButton",
+      "parityStage": "visually-approximated",
+      "notes": "Checked state and click behavior covered."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Controls.WebView2",
+      "kind": "api",
+      "status": "not supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.WebView2",
+      "parityStage": "not-supported",
+      "notes": "Embedded browser hosting is outside the current clean-room runtime."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.FocusState",
+      "kind": "api",
+      "status": "partial",
+      "area": "focus",
+      "api": "Microsoft.UI.Xaml.FocusState",
+      "parityStage": "semantic-compatible",
+      "notes": "Programmatic focus export is covered; full focus visuals remain planned."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.FrameworkElement",
+      "kind": "api",
+      "status": "partial",
+      "area": "runtime",
+      "api": "Microsoft.UI.Xaml.FrameworkElement",
+      "parityStage": "semantic-compatible",
+      "notes": "Common properties, resources, data context, and focus subset."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Media.AcrylicBrush",
+      "kind": "api",
+      "status": "planned",
+      "area": "materials",
+      "api": "Microsoft.UI.Xaml.Media.AcrylicBrush",
+      "parityStage": "planned",
+      "notes": "Placeholder facade records a strict diagnostic; no acrylic rendering yet."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Media.Animation.Storyboard",
+      "kind": "api",
+      "status": "planned",
+      "area": "motion",
+      "api": "Microsoft.UI.Xaml.Media.Animation.Storyboard",
+      "parityStage": "planned",
+      "notes": "Tracked for deterministic visual-state motion compatibility."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop",
+      "kind": "api",
+      "status": "planned",
+      "area": "materials",
+      "api": "Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop",
+      "parityStage": "planned",
+      "notes": "Tracked as a system backdrop compatibility target."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Media.MicaBackdrop",
+      "kind": "api",
+      "status": "planned",
+      "area": "materials",
+      "api": "Microsoft.UI.Xaml.Media.MicaBackdrop",
+      "parityStage": "planned",
+      "notes": "Placeholder facade records a strict diagnostic; no Mica rendering yet."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Media.SystemBackdrop",
+      "kind": "api",
+      "status": "planned",
+      "area": "materials",
+      "api": "Microsoft.UI.Xaml.Media.SystemBackdrop",
+      "parityStage": "planned",
+      "notes": "Tracked for source compatibility and material fallback contracts."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Media.ThemeShadow",
+      "kind": "api",
+      "status": "planned",
+      "area": "materials",
+      "api": "Microsoft.UI.Xaml.Media.ThemeShadow",
+      "parityStage": "planned",
+      "notes": "Tracked for Fluent depth and shadow parity."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Media.Transform",
+      "kind": "api",
+      "status": "planned",
+      "area": "composition",
+      "api": "Microsoft.UI.Xaml.Media.Transform",
+      "parityStage": "planned",
+      "notes": "Tracked for translate, scale, rotate, and composite transform support."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.UIElement",
+      "kind": "api",
+      "status": "partial",
+      "area": "runtime",
+      "api": "Microsoft.UI.Xaml.UIElement",
+      "parityStage": "semantic-compatible",
+      "notes": "Dependency-object shape exists; broader input and visual behavior planned."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.VisualState",
+      "kind": "api",
+      "status": "planned",
+      "area": "visual-states",
+      "api": "Microsoft.UI.Xaml.VisualState",
+      "parityStage": "planned",
+      "notes": "Tracked for Fluent interaction-state compatibility."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.VisualStateManager",
+      "kind": "api",
+      "status": "planned",
+      "area": "visual-states",
+      "api": "Microsoft.UI.Xaml.VisualStateManager",
+      "parityStage": "planned",
+      "notes": "Tracked for state groups, transitions, and reduced-motion behavior."
+    },
+    {
+      "id": "api:Microsoft.UI.Xaml.Window",
+      "kind": "api",
+      "status": "supported",
+      "area": "runtime",
+      "api": "Microsoft.UI.Xaml.Window",
+      "parityStage": "semantic-compatible",
+      "notes": "Managed facade for content, title, activation, and system-backdrop diagnostics."
+    },
+    {
+      "id": "api:Microsoft.Windows.AppLifecycle.AppInstance",
+      "kind": "api",
+      "status": "windows-only",
+      "area": "windows-app-sdk",
+      "api": "Microsoft.Windows.AppLifecycle.AppInstance",
+      "parityStage": "windows-only",
+      "notes": "Windows process activation behavior is validated on real Windows, not executed locally."
+    },
+    {
+      "id": "api:Windows.System.Launcher",
+      "kind": "api",
+      "status": "windows-only",
+      "area": "os-integration",
+      "api": "Windows.System.Launcher",
+      "parityStage": "windows-only",
+      "notes": "Host OS launching remains a Windows validation concern."
+    },
+    {
+      "id": "fluent-resource:AccentFillColorDefaultBrush",
+      "kind": "fluent-resource",
+      "status": "planned",
+      "area": "theme-resources",
+      "api": "AccentFillColorDefaultBrush",
+      "parityStage": "planned",
+      "notes": "Tracked for Fluent accent fill parity."
+    },
+    {
+      "id": "fluent-resource:ControlFillColorDefaultBrush",
+      "kind": "fluent-resource",
+      "status": "planned",
+      "area": "theme-resources",
+      "api": "ControlFillColorDefaultBrush",
+      "parityStage": "planned",
+      "notes": "Tracked for default control fill parity across themes."
+    },
+    {
+      "id": "fluent-resource:TextControlForeground",
+      "kind": "fluent-resource",
+      "status": "partial",
+      "area": "theme-resources",
+      "api": "TextControlForeground",
+      "parityStage": "semantic-compatible",
+      "notes": "Simple ThemeResource lookup is supported; full Fluent brush mapping is planned."
+    },
+    {
+      "id": "fluent-resource:TextFillColorPrimaryBrush",
+      "kind": "fluent-resource",
+      "status": "planned",
+      "area": "theme-resources",
+      "api": "TextFillColorPrimaryBrush",
+      "parityStage": "planned",
+      "notes": "Tracked for Fluent text color parity."
+    },
+    {
+      "id": "fluent-state:disabled",
+      "kind": "visual-state",
+      "status": "partial",
+      "area": "visual-states",
+      "api": "Fluent.Disabled",
+      "parityStage": "visually-approximated",
+      "notes": "Enabled state is exported; complete disabled styling remains planned."
+    },
+    {
+      "id": "fluent-state:focused",
+      "kind": "visual-state",
+      "status": "partial",
+      "area": "visual-states",
+      "api": "Fluent.Focused",
+      "parityStage": "semantic-compatible",
+      "notes": "Focus state export exists; full Fluent focus visuals remain planned."
+    },
+    {
+      "id": "fluent-state:hover",
+      "kind": "visual-state",
+      "status": "planned",
+      "area": "visual-states",
+      "api": "Fluent.PointerOver",
+      "parityStage": "planned",
+      "notes": "Tracked for pointer interaction parity."
+    },
+    {
+      "id": "fluent-state:pressed",
+      "kind": "visual-state",
+      "status": "planned",
+      "area": "visual-states",
+      "api": "Fluent.Pressed",
+      "parityStage": "planned",
+      "notes": "Tracked for command/control pressed-state parity."
+    },
+    {
+      "id": "fluent-state:selected",
+      "kind": "visual-state",
+      "status": "partial",
+      "area": "visual-states",
+      "api": "Fluent.Selected",
+      "parityStage": "semantic-compatible",
+      "notes": "Selected item metadata exists; full selected styling remains planned."
+    },
+    {
+      "id": "xaml-attached-property:AutomationProperties.HelpText",
+      "kind": "xaml-attached-property",
+      "status": "supported",
+      "area": "accessibility",
+      "api": "AutomationProperties.HelpText",
+      "xamlProperty": "AutomationProperties.HelpText",
+      "parityStage": "semantic-compatible",
+      "notes": "Exports help text to the accessibility artifact."
+    },
+    {
+      "id": "xaml-attached-property:AutomationProperties.Name",
+      "kind": "xaml-attached-property",
+      "status": "supported",
+      "area": "accessibility",
+      "api": "AutomationProperties.Name",
+      "xamlProperty": "AutomationProperties.Name",
+      "parityStage": "semantic-compatible",
+      "notes": "Exports automation name to tree and accessibility artifacts."
+    },
+    {
+      "id": "xaml-attached-property:Grid.Column",
+      "kind": "xaml-attached-property",
+      "status": "supported",
+      "area": "layout",
+      "api": "Grid.Column",
+      "xamlProperty": "Grid.Column",
+      "parityStage": "semantic-compatible",
+      "notes": "Column metadata is exported for public layout fixtures."
+    },
+    {
+      "id": "xaml-directive:x:Bind",
+      "kind": "xaml-directive",
+      "status": "planned",
+      "area": "xaml",
+      "api": "x:Bind",
+      "xamlProperty": "Bind",
+      "parityStage": "planned",
+      "notes": "Tracked as a future XAML source-compatibility target."
+    },
+    {
+      "id": "xaml-directive:x:Class",
+      "kind": "xaml-directive",
+      "status": "supported",
+      "area": "xaml",
+      "api": "x:Class",
+      "xamlProperty": "Class",
+      "parityStage": "semantic-compatible",
+      "notes": "Generates a partial class."
+    },
+    {
+      "id": "xaml-directive:x:Name",
+      "kind": "xaml-directive",
+      "status": "supported",
+      "area": "xaml",
+      "api": "x:Name",
+      "xamlProperty": "Name",
+      "parityStage": "semantic-compatible",
+      "notes": "Generates strongly typed fields."
+    },
+    {
+      "id": "xaml-directive:x:Uid",
+      "kind": "xaml-directive",
+      "status": "supported",
+      "area": "localization",
+      "api": "x:Uid",
+      "xamlProperty": "Uid",
+      "parityStage": "semantic-compatible",
+      "notes": "Preserves localization metadata in the facade tree."
+    },
+    {
+      "id": "xaml-element:AcrylicBrush",
+      "kind": "xaml-element",
+      "status": "planned",
+      "area": "materials",
+      "api": "Microsoft.UI.Xaml.Media.AcrylicBrush",
+      "xamlElement": "AcrylicBrush",
+      "parityStage": "planned",
+      "notes": "Tracked for material source compatibility; not constructible from XAML yet."
+    },
+    {
+      "id": "xaml-element:AppBarButton",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.AppBarButton",
+      "xamlElement": "AppBarButton",
+      "parityStage": "visually-approximated",
+      "notes": "Supported in CommandBar.PrimaryCommands."
+    },
+    {
+      "id": "xaml-element:Border",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "layout",
+      "api": "Microsoft.UI.Xaml.Controls.Border",
+      "xamlElement": "Border",
+      "parityStage": "visually-approximated",
+      "notes": "Single child subset."
+    },
+    {
+      "id": "xaml-element:Button",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.Button",
+      "xamlElement": "Button",
+      "parityStage": "visually-approximated",
+      "notes": "Content and Click event subset."
+    },
+    {
+      "id": "xaml-element:CheckBox",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.CheckBox",
+      "xamlElement": "CheckBox",
+      "parityStage": "visually-approximated",
+      "notes": "Checked state fixture coverage."
+    },
+    {
+      "id": "xaml-element:ComboBox",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ComboBox",
+      "xamlElement": "ComboBox",
+      "parityStage": "visually-approximated",
+      "notes": "Items and selected index subset."
+    },
+    {
+      "id": "xaml-element:CommandBar",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.CommandBar",
+      "xamlElement": "CommandBar",
+      "parityStage": "visually-approximated",
+      "notes": "Primary commands subset."
+    },
+    {
+      "id": "xaml-element:ContentControl",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "xamlElement": "ContentControl",
+      "parityStage": "semantic-compatible",
+      "notes": "Single content slot subset."
+    },
+    {
+      "id": "xaml-element:FontIcon",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "icons",
+      "api": "Microsoft.UI.Xaml.Controls.FontIcon",
+      "xamlElement": "FontIcon",
+      "parityStage": "visually-approximated",
+      "notes": "Glyph metadata and simple renderer support."
+    },
+    {
+      "id": "xaml-element:Frame",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "navigation",
+      "api": "Microsoft.UI.Xaml.Controls.Frame",
+      "xamlElement": "Frame",
+      "parityStage": "semantic-compatible",
+      "notes": "Navigation target subset."
+    },
+    {
+      "id": "xaml-element:Grid",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "layout",
+      "api": "Microsoft.UI.Xaml.Controls.Grid",
+      "xamlElement": "Grid",
+      "parityStage": "visually-approximated",
+      "notes": "Overlay/column metadata subset."
+    },
+    {
+      "id": "xaml-element:Image",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.Image",
+      "xamlElement": "Image",
+      "parityStage": "visually-approximated",
+      "notes": "Source metadata and placeholder renderer."
+    },
+    {
+      "id": "xaml-element:InfoBar",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.InfoBar",
+      "xamlElement": "InfoBar",
+      "parityStage": "visually-approximated",
+      "notes": "Status message fixture coverage."
+    },
+    {
+      "id": "xaml-element:ItemsControl",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ItemsControl",
+      "xamlElement": "ItemsControl",
+      "parityStage": "semantic-compatible",
+      "notes": "Items collection subset."
+    },
+    {
+      "id": "xaml-element:ListView",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ListView",
+      "xamlElement": "ListView",
+      "parityStage": "visually-approximated",
+      "notes": "Item list and selection subset."
+    },
+    {
+      "id": "xaml-element:MicaBackdrop",
+      "kind": "xaml-element",
+      "status": "planned",
+      "area": "materials",
+      "api": "Microsoft.UI.Xaml.Media.MicaBackdrop",
+      "xamlElement": "MicaBackdrop",
+      "parityStage": "planned",
+      "notes": "Tracked for material source compatibility; not constructible from XAML yet."
+    },
+    {
+      "id": "xaml-element:NavigationView",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "navigation",
+      "api": "Microsoft.UI.Xaml.Controls.NavigationView",
+      "xamlElement": "NavigationView",
+      "parityStage": "visually-approximated",
+      "notes": "Shell fixture subset."
+    },
+    {
+      "id": "xaml-element:NavigationViewItem",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "navigation",
+      "api": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "xamlElement": "NavigationViewItem",
+      "parityStage": "visually-approximated",
+      "notes": "Shell fixture item subset."
+    },
+    {
+      "id": "xaml-element:Page",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "runtime",
+      "api": "Microsoft.UI.Xaml.Controls.Page",
+      "xamlElement": "Page",
+      "parityStage": "semantic-compatible",
+      "notes": "Page root and navigation subset."
+    },
+    {
+      "id": "xaml-element:ProgressBar",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ProgressBar",
+      "xamlElement": "ProgressBar",
+      "parityStage": "visually-approximated",
+      "notes": "Progress metadata subset."
+    },
+    {
+      "id": "xaml-element:ProgressRing",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ProgressRing",
+      "xamlElement": "ProgressRing",
+      "parityStage": "visually-approximated",
+      "notes": "Active state subset."
+    },
+    {
+      "id": "xaml-element:RadioButton",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.RadioButton",
+      "xamlElement": "RadioButton",
+      "parityStage": "visually-approximated",
+      "notes": "Checked and group state subset."
+    },
+    {
+      "id": "xaml-element:ResourceDictionary",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "resources",
+      "api": "Microsoft.UI.Xaml.ResourceDictionary",
+      "xamlElement": "ResourceDictionary",
+      "parityStage": "semantic-compatible",
+      "notes": "Simple resources and styles subset."
+    },
+    {
+      "id": "xaml-element:ScrollViewer",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "layout",
+      "api": "Microsoft.UI.Xaml.Controls.ScrollViewer",
+      "xamlElement": "ScrollViewer",
+      "parityStage": "visually-approximated",
+      "notes": "Content slot and vertical scroll bar visibility subset."
+    },
+    {
+      "id": "xaml-element:StackPanel",
+      "kind": "xaml-element",
+      "status": "partial",
+      "area": "layout",
+      "api": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "xamlElement": "StackPanel",
+      "parityStage": "visually-approximated",
+      "notes": "Children, spacing, and orientation subset."
+    },
+    {
+      "id": "xaml-element:TextBlock",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "text",
+      "api": "Microsoft.UI.Xaml.Controls.TextBlock",
+      "xamlElement": "TextBlock",
+      "parityStage": "visually-approximated",
+      "notes": "Text content subset."
+    },
+    {
+      "id": "xaml-element:TextBox",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "input",
+      "api": "Microsoft.UI.Xaml.Controls.TextBox",
+      "xamlElement": "TextBox",
+      "parityStage": "visually-approximated",
+      "notes": "Text input and binding subset."
+    },
+    {
+      "id": "xaml-element:ToggleButton",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "controls",
+      "api": "Microsoft.UI.Xaml.Controls.ToggleButton",
+      "xamlElement": "ToggleButton",
+      "parityStage": "visually-approximated",
+      "notes": "Click and checked state subset."
+    },
+    {
+      "id": "xaml-element:UserControl",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "runtime",
+      "api": "Microsoft.UI.Xaml.Controls.UserControl",
+      "xamlElement": "UserControl",
+      "parityStage": "semantic-compatible",
+      "notes": "Content root subset."
+    },
+    {
+      "id": "xaml-element:Window",
+      "kind": "xaml-element",
+      "status": "supported",
+      "area": "runtime",
+      "api": "Microsoft.UI.Xaml.Window",
+      "xamlElement": "Window",
+      "parityStage": "semantic-compatible",
+      "notes": "Root window subset."
+    },
+    {
+      "id": "xaml-event:AppBarButton.Click",
+      "kind": "xaml-event",
+      "status": "supported",
+      "area": "input",
+      "api": "AppBarButton.Click",
+      "xamlElement": "AppBarButton",
+      "xamlProperty": "Click",
+      "parityStage": "semantic-compatible",
+      "notes": "Handler hookup supported."
+    },
+    {
+      "id": "xaml-event:Button.Click",
+      "kind": "xaml-event",
+      "status": "supported",
+      "area": "input",
+      "api": "Button.Click",
+      "xamlElement": "Button",
+      "xamlProperty": "Click",
+      "parityStage": "semantic-compatible",
+      "notes": "Handler hookup supported."
+    },
+    {
+      "id": "xaml-event:NavigationView.SelectionChanged",
+      "kind": "xaml-event",
+      "status": "supported",
+      "area": "navigation",
+      "api": "NavigationView.SelectionChanged",
+      "xamlElement": "NavigationView",
+      "xamlProperty": "SelectionChanged",
+      "parityStage": "semantic-compatible",
+      "notes": "Handler hookup supported."
+    },
+    {
+      "id": "xaml-property-element:Control.Template",
+      "kind": "xaml-property-element",
+      "status": "planned",
+      "area": "templates",
+      "api": "Control.Template",
+      "xamlElement": "Control",
+      "xamlProperty": "Template",
+      "parityStage": "planned",
+      "notes": "Tracked for real app XAML source compatibility."
+    },
+    {
+      "id": "xaml-property-element:VisualStateManager.VisualStateGroups",
+      "kind": "xaml-property-element",
+      "status": "planned",
+      "area": "visual-states",
+      "api": "VisualStateManager.VisualStateGroups",
+      "xamlProperty": "VisualStateGroups",
+      "parityStage": "planned",
+      "notes": "Tracked for full Fluent visual state compatibility."
+    },
+    {
+      "id": "xaml-property:Button.Flyout",
+      "kind": "xaml-property",
+      "status": "planned",
+      "area": "controls",
+      "api": "Button.Flyout",
+      "xamlElement": "Button",
+      "xamlProperty": "Flyout",
+      "parityStage": "planned",
+      "notes": "Tracked for flyout source compatibility; not supported in the alpha subset."
+    },
+    {
+      "id": "xaml-property:FrameworkElement.Background",
+      "kind": "xaml-property",
+      "status": "partial",
+      "area": "resources",
+      "api": "FrameworkElement.Background",
+      "xamlProperty": "Background",
+      "parityStage": "semantic-compatible",
+      "notes": "Object-valued property and simple resource references supported."
+    },
+    {
+      "id": "xaml-property:FrameworkElement.Foreground",
+      "kind": "xaml-property",
+      "status": "partial",
+      "area": "resources",
+      "api": "FrameworkElement.Foreground",
+      "xamlProperty": "Foreground",
+      "parityStage": "semantic-compatible",
+      "notes": "Object-valued property and simple style setters supported."
+    },
+    {
+      "id": "xaml-property:Window.SystemBackdrop",
+      "kind": "xaml-property",
+      "status": "planned",
+      "area": "materials",
+      "api": "Window.SystemBackdrop",
+      "xamlElement": "Window",
+      "xamlProperty": "SystemBackdrop",
+      "parityStage": "planned",
+      "notes": "Property exists as an object slot; material behavior is not implemented."
+    },
+    {
+      "id": "xaml-resource:StaticResource",
+      "kind": "xaml-resource",
+      "status": "partial",
+      "area": "resources",
+      "api": "StaticResource",
+      "parityStage": "semantic-compatible",
+      "notes": "Simple resource dictionary lookup with strict missing-resource diagnostics."
+    },
+    {
+      "id": "xaml-resource:Style.Setter",
+      "kind": "xaml-resource",
+      "status": "supported",
+      "area": "resources",
+      "api": "Style.Setter",
+      "parityStage": "semantic-compatible",
+      "notes": "Supported for public facade properties listed in the matrix."
+    },
+    {
+      "id": "xaml-resource:ThemeResource",
+      "kind": "xaml-resource",
+      "status": "partial",
+      "area": "theme-resources",
+      "api": "ThemeResource",
+      "parityStage": "semantic-compatible",
+      "notes": "Simple lookup supported; full Fluent theme dictionary mapping is planned."
+    }
+  ]
+}

@@ -33,8 +33,11 @@ a new schema version and documentation update.
   written as `{ "schemaVersion": "0.1", "failures": [...] }`.
 - `resource-failures.json`: static or theme resources that could not be
   resolved, written as `{ "schemaVersion": "0.1", "failures": [...] }`.
-- `unsupported-apis.json`: facade APIs that were touched but are not
-  implemented, written as `{ "schemaVersion": "0.1", "apis": [...] }`.
+- `unsupported-apis.json`: facade APIs that were touched but are unavailable in
+  the current alpha, written as `{ "schemaVersion": "0.1", "apis": [...] }`.
+  Each entry status comes from the compatibility catalog when known
+  (`planned`, `windows-only`, or `not supported`) or `unknown` when the API is
+  not cataloged yet.
 - `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
   and unsupported API reports.
 - `interactions.json`: emitted when `--script` is provided; records every
@@ -93,16 +96,17 @@ unsupported behavior from fixture or environment drift:
 
 - `WINUI3MAC001`: binding path or target property failure.
 - `WINUI3MAC002`: static or theme resource lookup failure.
-- `WINUI3MAC003`: unsupported facade API or visual compatibility API.
+- `WINUI3MAC003`: unavailable, planned, Windows-only, not supported, unknown,
+  or unsupported facade/visual compatibility API.
 
 ## Compatibility Position
 
-Artifacts describe the compatibility runtime's supported subset. They are not a
-claim of full WinUI 3 compatibility or Windows binary compatibility.
-Unsupported APIs are reported structurally so callers can decide whether to fail
-a smoke run or track the gap as compatibility debt.
+Artifacts describe the compatibility runtime's current alpha subset and its
+cataloged gaps. They are not a claim of complete WinUI 3 behavior or Windows
+binary compatibility. Unavailable APIs are reported structurally so callers can
+decide whether to fail a smoke run or track the gap as compatibility debt.
 Snapshot output is deterministic smoke evidence for a supported control subset,
-not a full Fluent renderer.
+not a full Fluent, material, or compositor renderer.
 Windows reference screenshots are the source of truth for scenario pixel
 comparison. They are captured from generic public fixture content in public
 GitHub Actions runs, not from private products or private screenshots.

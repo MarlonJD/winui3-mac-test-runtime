@@ -5,10 +5,15 @@ Status values:
 - `supported`: implemented and covered by a fixture or test.
 - `partial`: implemented for a constrained headless test subset.
 - `planned`: part of the public direction but not implemented yet.
+- `windows-only`: valid public API surface that requires real Windows
+  validation or OS integration rather than local macOS execution.
 - `not supported`: intentionally outside the current public compatibility
   contract.
 
-## Compatibility Levels
+Compiler and runtime diagnostics may also report `unknown` for public API usage
+that is not present in the catalog yet.
+
+## Alpha Compatibility Levels
 
 | Level | Status | Current public contract |
 | --- | --- | --- |
@@ -21,6 +26,30 @@ Status values:
 | Level 6: Windows Reference Visual Compatibility | supported | Public `windows-latest` reference workflow and scenario-local pixel thresholds for shell, interaction/binding, and control-gallery strict fixture categories. |
 | Level 7: Release And Consumption Readiness | supported | Package metadata, pack smoke, consumer quick start, sample consumer CI, release checklist, verification evidence, troubleshooting, and known-gap documentation. |
 
+Levels 0 through 7 are the current alpha milestone. They are not the final
+WinUI 3 macOS development scope.
+
+## API Compatibility Catalog
+
+`docs/compatibility/winui-api-compatibility.catalog.json` is the deterministic
+catalog seed used by docs, XAML diagnostics, and placeholder facade runtime
+diagnostics. The current `0.1` catalog contains 106 entries:
+
+| Status | Count |
+| --- | ---: |
+| `supported` | 48 |
+| `partial` | 27 |
+| `planned` | 27 |
+| `windows-only` | 2 |
+| `not supported` | 2 |
+
+The catalog includes public WinUI 3 / Windows App SDK APIs, XAML constructs,
+Fluent theme resources, visual states, Mica, Acrylic, system backdrops,
+composition/effect concepts, shadows, transforms, and animation-related APIs.
+`supported` and `partial` entries describe the alpha surface. `planned`,
+`windows-only`, `not supported`, and `unknown` entries are strict diagnostics
+when app code touches unavailable behavior.
+
 ## Runtime
 
 | Area | Status | Notes |
@@ -31,8 +60,8 @@ Status values:
 | `accessibility.json` | supported | Role/name/label/help/focus/enabled/checked/selected/value approximation from the logical tree. |
 | `binding-failures.json` | supported | Versioned envelope captures unresolved paths and non-writable targets. |
 | `resource-failures.json` | supported | Versioned envelope captures unresolved static and theme resources. |
-| `unsupported-apis.json` | supported | Versioned envelope captures clean-room placeholder facade APIs that were touched. |
-| `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unsupported API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
+| `unsupported-apis.json` | supported | Versioned envelope captures clean-room placeholder facade APIs that were touched, with catalog statuses such as `planned`, `windows-only`, `not supported`, or `unknown`. |
+| `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unavailable API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
 | Scripted text entry, item selection, and assertions | supported | `typeText`, `selectItem`, and `assertProperty` actions emit deterministic pass/fail results. |
 | Versioned interaction scripts | supported | Script input accepts `schemaVersion: 0.1`; reports emit `schemaVersion: 0.1`. |
@@ -60,7 +89,7 @@ Status values:
 | `Grid.Column` | supported | Supported attached property for public fixture layout metadata. |
 | `{Binding Path}` | supported | One-way and two-way refresh through `BindingOperations`; both `{Binding Title}` and `{Binding Path=Title, Mode=TwoWay}` forms are accepted for supported properties. |
 | Unsupported elements and properties | supported | Unsupported elements, properties, property elements, directives, attached properties, and events fail compilation with stable diagnostics. |
-| Control templates and materials | not supported | Templates, Mica, Acrylic, and compositor-backed materials are reported or documented as unsupported. |
+| Control templates and materials | planned | Templates, Mica, Acrylic, system backdrops, visual states, and compositor-backed materials are cataloged as roadmap targets and rejected or reported when used. |
 
 ## Facade Controls
 
@@ -90,9 +119,13 @@ fixture subset: `Window`, `Page`, `Grid`, `StackPanel`, `Border`,
 and string content. A strict scenario records any unsupported control or missing
 renderer feature in `unsupported-apis.json` and exits non-zero.
 
-## Unsupported Facade Placeholders
+## Material And Composition Targets
 
 | Type | Status | Notes |
 | --- | --- | --- |
-| `Microsoft.UI.Xaml.Media.MicaBackdrop` | reported | Placeholder records `unsupported-apis.json`; no visual material behavior. |
-| `Microsoft.UI.Xaml.Media.AcrylicBrush` | reported | Placeholder records `unsupported-apis.json`; no visual material behavior. |
+| `Microsoft.UI.Xaml.Media.MicaBackdrop` | planned | Placeholder records `unsupported-apis.json`; no Mica rendering yet. |
+| `Microsoft.UI.Xaml.Media.AcrylicBrush` | planned | Placeholder records `unsupported-apis.json`; no Acrylic rendering yet. |
+| `Microsoft.UI.Xaml.Media.SystemBackdrop` | planned | Source-level object-slot tracking only. |
+| `Microsoft.UI.Composition.Compositor` and visual/effect APIs | planned | Catalog-only tracking for clean-room compositor-style modeling. |
+| `ThemeShadow`, transforms, storyboards, and key-frame animations | planned | Catalog-only tracking for future Fluent depth and motion parity. |
+| Fluent hover, pressed, focus, selected, and disabled states | partial/planned | Current metadata exists for selected/focused/disabled subsets; full interaction visuals are planned. |

@@ -296,7 +296,7 @@ public sealed class MacApplicationHost
                             {
                                 SarifRule(DiagnosticRuleIds.BindingFailure, "Binding failure"),
                                 SarifRule(DiagnosticRuleIds.ResourceFailure, "Resource lookup failure"),
-                                SarifRule(DiagnosticRuleIds.UnsupportedApi, "Unsupported compatibility API")
+                                SarifRule(DiagnosticRuleIds.UnsupportedApi, "Unavailable compatibility API")
                             }
                         }
                     },

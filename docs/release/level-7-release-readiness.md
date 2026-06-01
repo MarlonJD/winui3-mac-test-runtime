@@ -1,9 +1,12 @@
 # Level 7 Release Readiness
 
-Level 7 makes the runtime consumable by public projects that accept the
+Level 7 makes the alpha runtime consumable by public projects that accept the
 documented compatibility limits. It does not expand the WinUI API subset by
 itself; it records package, CI, troubleshooting, and release evidence contracts
-for the supported public levels.
+for the supported public alpha levels.
+
+Level 0 through Level 7 are the first alpha milestone toward full source-level
+WinUI 3 development on macOS. They are not the final product scope.
 
 ## Published Package Set
 
@@ -24,6 +27,10 @@ Version: `0.1.0-alpha.1`
 - Consumer GitHub Actions example:
   `docs/examples/consumer-github-actions.yml`.
 - Compatibility matrix: `docs/compatibility/matrix.md`.
+- API catalog: `docs/compatibility/api-catalog.md` and
+  `docs/compatibility/winui-api-compatibility.catalog.json`.
+- Material/composition contract:
+  `docs/compatibility/material-composition.md`.
 - Artifact schema contract: `docs/architecture/artifacts.md`.
 
 ## Release Checklist
@@ -42,6 +49,7 @@ Version: `0.1.0-alpha.1`
 - Public `windows-native-screenshot` workflow passes.
 - Review at least one `windows-reference.png`, `mac-runtime.png`, and
   `pixel-diff.png` for every changed fixture category.
+- Compatibility catalog status counts and diagnostics match the released docs.
 - Run the operator-provided private-name denylist scan before publishing.
 
 ## Verification Evidence
@@ -70,10 +78,14 @@ Inspected categories:
 ## Known Gaps
 
 - No Windows binary, `.msix`, arbitrary `.exe`, or Wine execution support.
-- No full WinUI 3, Windows App SDK, Fluent material, compositor, Mica, Acrylic,
-  or arbitrary pixel parity claim.
-- Unsupported API usage must remain visible through structured artifacts and
-  SARIF diagnostics.
+- Full source-level WinUI 3 development, Windows App SDK API coverage, Fluent
+  material, compositor, Mica, Acrylic, and arbitrary pixel parity remain product
+  goals, not current alpha claims.
+- Mica, Acrylic, system backdrops, compositor concepts, shadows, transforms,
+  motion, focus visuals, theme resources, high contrast, reduced motion, and
+  Fluent interaction states are cataloged compatibility targets.
+- Unavailable API usage must remain visible through structured artifacts and
+  SARIF diagnostics with catalog statuses.
 - Scenario thresholds are reviewed compatibility contracts, not hidden global
   tolerances.
 - Hosted runner image changes can alter Windows reference screenshots; use

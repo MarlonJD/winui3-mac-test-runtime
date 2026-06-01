@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using WinUI3.MacCompatibility;
 
 namespace WinUI3.MacXaml;
 
@@ -223,10 +224,11 @@ public sealed class MacXamlCompiler
 
         if (mapped is null)
         {
-            context.Diagnostics.Add(CreateDiagnostic(
+            context.Diagnostics.Add(CreateCompatibilityDiagnostic(
                 "XAML1001",
-                $"Unsupported XAML element '{typeName}'.",
-                "Error",
+                "XAML element",
+                typeName,
+                CompatibilityCatalog.Current.FindXamlElement(typeName),
                 context.FilePath,
                 element));
         }
@@ -254,6 +256,20 @@ public sealed class MacXamlCompiler
             filePath,
             lineInfo?.HasLineInfo() == true ? lineInfo.LineNumber : null,
             lineInfo?.HasLineInfo() == true ? lineInfo.LinePosition : null);
+    }
+
+    private static XamlDiagnostic CreateCompatibilityDiagnostic(
+        string code,
+        string kind,
+        string construct,
+        CompatibilityCatalogEntry? catalogEntry,
+        string? filePath,
+        XElement? element)
+    {
+        var message = catalogEntry is null
+            ? $"Unsupported {kind} '{construct}' is not present in the WinUI compatibility catalog."
+            : $"Unsupported {kind} '{construct}' is cataloged as {catalogEntry.Status}.";
+        return CreateDiagnostic(code, message, "Error", filePath, element);
     }
 
     private sealed record CSharpClassName(string Namespace, string Name)
@@ -387,10 +403,11 @@ public sealed class MacXamlCompiler
                         continue;
                     }
 
-                    context.Diagnostics.Add(CreateDiagnostic(
+                    context.Diagnostics.Add(CreateCompatibilityDiagnostic(
                         "XAML1004",
-                        $"Unsupported XAML directive 'x:{localName}' on '{element.Name.LocalName}'.",
-                        "Error",
+                        "XAML directive",
+                        $"x:{localName}",
+                        CompatibilityCatalog.Current.FindXamlDirective($"x:{localName}"),
                         context.FilePath,
                         element));
                     continue;
@@ -416,10 +433,11 @@ public sealed class MacXamlCompiler
 
                 if (localName.Contains('.', StringComparison.Ordinal))
                 {
-                    context.Diagnostics.Add(CreateDiagnostic(
+                    context.Diagnostics.Add(CreateCompatibilityDiagnostic(
                         "XAML1005",
-                        $"Unsupported attached property '{localName}' on '{element.Name.LocalName}'.",
-                        "Error",
+                        "attached property",
+                        $"{element.Name.LocalName}.{localName}",
+                        CompatibilityCatalog.Current.FindXamlAttachedProperty(localName),
                         context.FilePath,
                         element));
                     continue;
@@ -433,10 +451,11 @@ public sealed class MacXamlCompiler
 
                 if (LooksLikeEvent(localName))
                 {
-                    context.Diagnostics.Add(CreateDiagnostic(
+                    context.Diagnostics.Add(CreateCompatibilityDiagnostic(
                         "XAML1006",
-                        $"Unsupported event '{localName}' on '{element.Name.LocalName}'.",
-                        "Error",
+                        "event",
+                        $"{element.Name.LocalName}.{localName}",
+                        CompatibilityCatalog.Current.FindXamlEvent(element.Name.LocalName, localName),
                         context.FilePath,
                         element));
                     continue;
@@ -444,10 +463,11 @@ public sealed class MacXamlCompiler
 
                 if (!IsSupportedProperty(element.Name.LocalName, localName))
                 {
-                    context.Diagnostics.Add(CreateDiagnostic(
+                    context.Diagnostics.Add(CreateCompatibilityDiagnostic(
                         "XAML1002",
-                        $"Unsupported XAML property '{localName}' on '{element.Name.LocalName}'.",
-                        "Error",
+                        "XAML property",
+                        $"{element.Name.LocalName}.{localName}",
+                        CompatibilityCatalog.Current.FindXamlProperty(element.Name.LocalName, localName),
                         context.FilePath,
                         element));
                     continue;
@@ -481,10 +501,13 @@ public sealed class MacXamlCompiler
                     var propertyName = ReadPropertyElementName(child);
                     if (!IsSupportedPropertyElement(element.Name.LocalName, propertyName))
                     {
-                        context.Diagnostics.Add(CreateDiagnostic(
+                        context.Diagnostics.Add(CreateCompatibilityDiagnostic(
                             "XAML1003",
-                            $"Unsupported property element '{child.Name.LocalName}' on '{element.Name.LocalName}'.",
-                            "Error",
+                            "property element",
+                            child.Name.LocalName,
+                            CompatibilityCatalog.Current.FindXamlPropertyElement(
+                                element.Name.LocalName,
+                                propertyName),
                             context.FilePath,
                             child));
                         continue;
