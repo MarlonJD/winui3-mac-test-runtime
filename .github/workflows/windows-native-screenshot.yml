@@ -150,6 +150,8 @@ jobs:
           foreach ($scenario in $scenarios) {
             $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
             $viewport = "$($scenarioJson.viewport.width)x$($scenarioJson.viewport.height)"
+            $fixtureExecutable = (Resolve-Path $scenario.FixtureExecutable).Path
+            $fixtureScenarioPath = (Resolve-Path $scenario.Path).Path
             $outDir = "artifacts/windows-reference-screenshots/$($scenario.Name)"
             New-Item -ItemType Directory -Force $outDir | Out-Null
             dotnet $captureTool `
@@ -168,7 +170,7 @@ jobs:
               --viewport $viewport `
               --scale "$($scenarioJson.scale)" `
               --theme $scenarioJson.theme `
-              -- $scenario.FixtureExecutable --scenario $scenario.Path
+              -- $fixtureExecutable --scenario $fixtureScenarioPath
             if (!(Test-Path "$outDir/windows-reference.png")) {
               throw "Windows reference screenshot was not created for $($scenario.Name)."
             }
