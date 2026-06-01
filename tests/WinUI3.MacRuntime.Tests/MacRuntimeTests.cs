@@ -579,7 +579,7 @@ public sealed class MacRuntimeTests
 
         foreach (var entry in inventory.RootElement.GetProperty("entries").EnumerateArray())
         {
-            Assert.IsTrue(knownStatuses.Contains(entry.GetProperty("catalogStatus").GetString()));
+            CollectionAssert.Contains(knownStatuses, entry.GetProperty("catalogStatus").GetString());
             Assert.IsFalse(string.IsNullOrWhiteSpace(entry.GetProperty("demoPage").GetString()));
         }
 
@@ -588,8 +588,9 @@ public sealed class MacRuntimeTests
             var scenario = await VisualScenario.LoadAsync(scenarioPath);
             foreach (var requirement in scenario.Requirements)
             {
-                Assert.IsTrue(
-                    inventoryComponents.Contains(requirement.Component),
+                CollectionAssert.Contains(
+                    inventoryComponents.ToArray(),
+                    requirement.Component,
                     $"Inventory is missing scenario requirement '{requirement.Component}' from {Path.GetFileName(scenarioPath)}.");
             }
         }
@@ -635,7 +636,10 @@ public sealed class MacRuntimeTests
 
         foreach (var gap in requiredGaps)
         {
-            Assert.IsTrue(covered.Contains(gap), $"Source-audit gap '{gap}' is not covered by component lab source features.");
+            CollectionAssert.Contains(
+                covered.ToArray(),
+                gap,
+                $"Source-audit gap '{gap}' is not covered by component lab source features.");
         }
     }
 
