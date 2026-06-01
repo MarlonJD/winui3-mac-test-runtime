@@ -15,6 +15,19 @@ This repository does not run arbitrary Windows binaries, `.msix` packages, or
 clean-room `Microsoft.UI.Xaml` facade types, hosts the app in a macOS .NET
 process, and emits structured artifacts for test inspection.
 
+## Production Support Policy
+
+The current production claim is limited to the public sanitized component
+subset documented in `docs/compatibility/production-component-targets.md`.
+That subset is validated by local strict `skia-v2` runs, scripted smoke/E2E
+scenarios, component evidence, and public native WinUI reference screenshots
+from `windows-native-screenshot.yml`.
+
+The project does not claim arbitrary WinUI 3 app compatibility. APIs outside
+the cataloged subset must remain `planned`, `windows-only`, `not supported`, or
+`unknown` until they have fixture coverage, macOS artifact evidence, native
+WinUI provenance, and release documentation.
+
 ## Smoke Commands
 
 ```sh
@@ -29,6 +42,8 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGaller
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-high-contrast.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ProductionSmoke.WinUI/scenarios/production-smoke-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ProductionSmoke.WinUI/scenarios/production-e2e-workbench-light.json --strict-visual
 ```
 
 ## Consumer Quick Start
@@ -96,6 +111,11 @@ source-feature requirements, expected catalog status, interaction coverage,
 minimum visual grade, and known gaps. The runner writes
 `visual/component-evidence.json` so a whole screenshot pass cannot hide weak or
 diagnostic-only components.
+
+`ProductionSmoke.WinUI` is a public Windows-targeted smoke and E2E fixture for
+the production component subset. It exercises launch, navigation, form edits,
+combo/list selection, status transitions, command invocation, resource-backed
+theme styling, and managed popup decision actions without private product data.
 
 Scenario JSON files under each fixture's `scenarios/` directory describe the
 strict visual contract for the supported public subset. A scenario can set the

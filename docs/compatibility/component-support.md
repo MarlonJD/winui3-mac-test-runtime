@@ -25,6 +25,12 @@ Windows. Ring 0 macOS output now renders meaningful component chrome and target
 layout regions. Planned, unsupported, Windows-only, or diagnostic-only rows
 remain `not-rendered`.
 
+Production support is restricted to components listed in
+`production-component-targets.md` with public smoke or E2E coverage. A component
+listed below is not production-supported merely because it has a facade type; it
+must also have component evidence, interaction/accessibility evidence where
+applicable, and native WinUI reference provenance.
+
 ## Status Model
 
 | Status | Meaning |

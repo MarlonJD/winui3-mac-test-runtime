@@ -29,6 +29,14 @@ that is not present in the catalog yet.
 Levels 0 through 7 are the current alpha milestone. They are not the final
 WinUI 3 macOS development scope.
 
+## Production Compatibility Tiers
+
+| Tier | Claim | Evidence required |
+| --- | --- | --- |
+| Production subset | Public sanitized Ring 0 and required Ring 1 components only. | Catalog status, public fixture coverage, local strict `skia-v2` artifacts, component evidence, scripted interaction/accessibility evidence, and native WinUI reference provenance. |
+| Experimental | Cataloged controls or features outside the production subset. | May have partial facade or diagnostics coverage, but docs must not present them as production-supported. |
+| Excluded | Windows binaries, packaged apps, compositor/material features, templates, and broad WinUI controls not covered by the production inventory. | Must stay documented as `planned`, `windows-only`, `not supported`, or `unknown` until promoted through the production evidence gates. |
+
 ## API Compatibility Catalog
 
 `docs/compatibility/winui-api-compatibility.catalog.json` is the deterministic
