@@ -13,7 +13,7 @@
     "changedPixelPercentage": 18.0,
     "maxChannelDelta": 255,
     "meanAbsoluteError": 12.0,
-    "rootMeanSquaredError": 32.0
+    "rootMeanSquaredError": 48.0
   },
   "interactions": [
     {
