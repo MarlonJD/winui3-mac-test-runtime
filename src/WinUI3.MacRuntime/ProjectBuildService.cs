@@ -8,12 +8,25 @@ public sealed record ProjectBuildResult(
     string AssemblyPath,
     string Configuration,
     string TargetFramework,
-    IReadOnlyList<string> BuildOutput);
+    IReadOnlyList<string> BuildOutput,
+    ProjectIngestionReport? ProjectIngestion,
+    string? ProjectIngestionJsonPath);
 
 public sealed class ProjectBuildService
 {
+    private readonly ProjectIngestionService ingestionService = new();
+
     public async Task<ProjectBuildResult> BuildAsync(
         string projectPath,
+        string configuration,
+        CancellationToken cancellationToken = default)
+    {
+        return await BuildAsync(projectPath, artifactsDirectory: null, configuration, cancellationToken);
+    }
+
+    public async Task<ProjectBuildResult> BuildAsync(
+        string projectPath,
+        string? artifactsDirectory,
         string configuration,
         CancellationToken cancellationToken = default)
     {
@@ -23,10 +36,11 @@ public sealed class ProjectBuildService
             throw new FileNotFoundException("Project file was not found.", resolvedProject);
         }
 
-        var output = await RunDotNetBuildAsync(resolvedProject, configuration, cancellationToken);
-        var projectInfo = ProjectInfo.Read(resolvedProject);
+        var buildPlan = await ingestionService.PrepareAsync(resolvedProject, artifactsDirectory, configuration, cancellationToken);
+        var output = await RunDotNetBuildAsync(buildPlan.BuildProjectPath, configuration, buildPlan.RequiresRestore, cancellationToken);
+        var projectInfo = ProjectInfo.Read(buildPlan.BuildProjectPath);
         var assemblyPath = Path.Combine(
-            Path.GetDirectoryName(resolvedProject)!,
+            Path.GetDirectoryName(buildPlan.BuildProjectPath)!,
             "bin",
             configuration,
             projectInfo.TargetFramework,
@@ -42,12 +56,15 @@ public sealed class ProjectBuildService
             AssemblyPath: assemblyPath,
             Configuration: configuration,
             TargetFramework: projectInfo.TargetFramework,
-            BuildOutput: output);
+            BuildOutput: output,
+            ProjectIngestion: buildPlan.Report,
+            ProjectIngestionJsonPath: buildPlan.ReportPath);
     }
 
     private static async Task<IReadOnlyList<string>> RunDotNetBuildAsync(
         string projectPath,
         string configuration,
+        bool restore,
         CancellationToken cancellationToken)
     {
         var startInfo = new ProcessStartInfo
@@ -60,7 +77,11 @@ public sealed class ProjectBuildService
         startInfo.ArgumentList.Add(projectPath);
         startInfo.ArgumentList.Add("--configuration");
         startInfo.ArgumentList.Add(configuration);
-        startInfo.ArgumentList.Add("--no-restore");
+        if (!restore)
+        {
+            startInfo.ArgumentList.Add("--no-restore");
+        }
+
         startInfo.ArgumentList.Add("--disable-build-servers");
         startInfo.ArgumentList.Add("--nologo");
         startInfo.ArgumentList.Add("/m:1");

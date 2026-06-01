@@ -338,4 +338,51 @@ public sealed class MacXamlCompilerTests
         StringAssert.Contains(result.GeneratedSource, "new Microsoft.UI.Xaml.Setter(\"Foreground\"");
         StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.StyleOperations.Apply");
     }
+
+    [TestMethod]
+    public void CompileTextGeneratesApplicationRoot()
+    {
+        const string xaml = """
+            <Application
+                x:Class="Sample.App"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            </Application>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "public sealed partial class App : Microsoft.UI.Xaml.Application");
+    }
+
+    [TestMethod]
+    public void CompileTextGeneratesFrameContentAndListViewItems()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Frame>
+                <Frame.Content>
+                  <ListView SelectedIndex="0">
+                    <ListView.Items>
+                      <TextBlock Text="Review access request" />
+                    </ListView.Items>
+                  </ListView>
+                </Frame.Content>
+              </Frame>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, ".Content = __element2");
+        StringAssert.Contains(result.GeneratedSource, ".Items.Add(__element3)");
+        StringAssert.Contains(result.GeneratedSource, ".SelectedIndex = 0");
+    }
 }

@@ -43,6 +43,12 @@ Unknown usage is a product gap and must not silently pass strict checks.
 
 - `winui3-mac-doctor` reports the managed host and Wine optionality.
 - `winui3-mac-runner run` builds and launches a managed app assembly.
+- Windows-targeted WinUI source projects are ingested through a generated
+  compat shadow project under the runner output directory. The original project
+  is not mutated, Windows App SDK build targets are not executed on macOS, and
+  `project-ingestion.json` records included source, excluded Windows-only
+  project items, catalog statuses, unsupported project features, and XAML
+  diagnostics.
 - Strict visual runs fail on binding failures, resource lookup failures,
   unavailable facade APIs, unsupported visual features, failed interactions, or
   pixel thresholds that exceed the scenario contract.
@@ -71,6 +77,12 @@ documented public subset. The Level 2 public subset is fixture-backed by
 `InteractionBindingApp.MacTest`. When strict visual mode sees a logical tree
 node without a supported painter, it records an unsupported visual feature and
 fails the run.
+
+`PublicAdminWorkbench.WinUI` is the first public Windows-targeted source-level
+fixture for compat shadow build ingestion. It uses generic unpackaged WinUI 3
+admin/workbench content, is compiled on macOS through the shadow project, and
+has a public `public-admin-workbench-light` strict scenario in the Windows
+reference workflow.
 
 SVG and the current Skia renderer remain smoke renderers. `skia-v2` is the
 scenario-driven renderer used for public visual compatibility checks.
@@ -135,6 +147,9 @@ use versioned envelopes:
 - `binding-failures.json`: `{ "schemaVersion": "0.1", "failures": [...] }`
 - `resource-failures.json`: `{ "schemaVersion": "0.1", "failures": [...] }`
 - `unsupported-apis.json`: `{ "schemaVersion": "0.1", "apis": [...] }`
+- `project-ingestion.json`: `{ "schemaVersion": "0.1", "includedFiles": [...],
+  "excludedWindowsOnlyItems": [...], "catalogStatuses": [...],
+  "unsupportedFeatures": [...], "xamlDiagnostics": [...] }`
 
 `diagnostics.sarif` uses stable rule IDs:
 

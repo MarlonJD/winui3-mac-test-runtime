@@ -1,0 +1,120 @@
+<Window
+    x:Class="PublicAdminWorkbench.WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Public Admin Workbench">
+    <Window.Resources>
+        <ResourceDictionary>
+            <String x:Key="WorkbenchBackgroundBrush">#F7F8FA</String>
+            <String x:Key="AccentBrush">#2562D9</String>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <NavigationView
+        x:Name="RootNavigation"
+        x:Uid="RootNavigation"
+        Background="{ThemeResource WorkbenchBackgroundBrush}"
+        CompactPaneLength="56"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        OpenPaneLength="248"
+        PaneDisplayMode="Left"
+        SelectionChanged="OnNavigationSelectionChanged">
+        <NavigationView.MenuItems>
+            <NavigationViewItem x:Name="OverviewNavigationItem" Content="Overview" Tag="overview">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE80F;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Name="QueueNavigationItem" Content="Review queue" Tag="queue">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE8A5;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem x:Name="ReportsNavigationItem" Content="Reports" Tag="reports">
+                <NavigationViewItem.Icon>
+                    <FontIcon Glyph="&#xE9D2;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <NavigationView.PaneFooter>
+            <StackPanel Padding="12,8,12,12" Spacing="8">
+                <Border x:Name="AccountFooter">
+                    <Grid ColumnDefinitions="32,*" ColumnSpacing="10">
+                        <Border>
+                            <FontIcon
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Foreground="{ThemeResource AccentBrush}"
+                                Glyph="&#xE77B;" />
+                        </Border>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="1">
+                            <TextBlock x:Name="AccountDisplayNameTextBlock" Text="Public Admin" />
+                            <TextBlock x:Name="AccountUsernameTextBlock" Text="public.fixture" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Button
+                    x:Name="RefreshButton"
+                    HorizontalAlignment="Stretch"
+                    Click="OnRefreshClicked"
+                    Content="Refresh" />
+            </StackPanel>
+        </NavigationView.PaneFooter>
+
+        <Frame x:Name="WorkbenchFrame">
+            <Frame.Content>
+                <StackPanel Padding="0,0,0,0" Spacing="14">
+                    <TextBlock x:Name="WorkbenchTitleText" Text="Review queue" />
+                    <TextBox
+                        x:Name="SearchBox"
+                        AutomationProperties.Name="Search review queue"
+                        Text="Filter by status or owner" />
+                    <CommandBar x:Name="DecisionCommandBar">
+                        <CommandBar.PrimaryCommands>
+                            <AppBarButton x:Name="ApproveCommand" Label="Approve" Click="OnApproveClicked">
+                                <AppBarButton.Icon>
+                                    <FontIcon Glyph="&#xE73E;" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                            <AppBarButton x:Name="DeferCommand" Label="Defer" Click="OnDeferClicked">
+                                <AppBarButton.Icon>
+                                    <FontIcon Glyph="&#xE823;" />
+                                </AppBarButton.Icon>
+                            </AppBarButton>
+                        </CommandBar.PrimaryCommands>
+                    </CommandBar>
+                    <InfoBar
+                        x:Name="WorkbenchStatus"
+                        IsOpen="True"
+                        Message="No private data is used in this public fixture."
+                        Severity="Informational"
+                        Title="Ready" />
+                    <Grid ColumnDefinitions="280,*" ColumnSpacing="24">
+                        <ListView x:Name="ReviewQueueList" SelectedIndex="0">
+                            <ListView.Items>
+                                <TextBlock Text="Access request from regional team" />
+                                <TextBlock Text="Policy exception awaiting review" />
+                                <TextBlock Text="Publishing approval for public notice" />
+                            </ListView.Items>
+                        </ListView>
+                        <StackPanel Grid.Column="1" Spacing="8">
+                            <TextBlock Text="Decision detail" />
+                            <TextBlock Text="Requester: Public Fixture User" />
+                            <TextBlock Text="Risk: Low" />
+                            <TextBlock Text="State: Ready for review" />
+                            <Button
+                                x:Name="CompleteReviewButton"
+                                HorizontalAlignment="Stretch"
+                                Click="OnApproveClicked"
+                                Content="Complete review" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Frame.Content>
+        </Frame>
+    </NavigationView>
+</Window>

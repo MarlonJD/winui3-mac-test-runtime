@@ -27,6 +27,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminSh
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-high-contrast.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json --strict-visual
 ```
 
 ## Consumer Quick Start
@@ -52,6 +53,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/XamlTinyWinUI
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --script ./fixtures/InteractionBindingApp.MacTest/interactions.json
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json --strict-visual
 ```
 
 `XamlTinyWinUIApp.MacTest` exercises the Phase 1 XAML compiler path:
@@ -73,6 +75,14 @@ facade export, and a deterministic snapshot artifact.
 `ToggleButton`, `ComboBox`, `ProgressBar`, `ProgressRing`, `InfoBar`,
 `CommandBar`, and `AppBarButton`. It also exercises Level 3 style setter
 application and the high-contrast `skia-v2` theme scenario.
+
+`PublicAdminWorkbench.WinUI` is a public Windows-targeted WinUI 3 source
+fixture. It uses `net10.0-windows10.0.19041.0`, `<UseWinUI>true</UseWinUI>`,
+`Microsoft.WindowsAppSDK`, and XAML items like a normal Windows project, but the
+macOS runner ingests it through a generated compat shadow build. The original
+project is not mutated and the runner writes `project-ingestion.json` with
+included files, excluded Windows-only items, catalog statuses, unsupported
+project features, and XAML diagnostics.
 
 Scenario JSON files under each fixture's `scenarios/` directory describe the
 strict visual contract for the supported public subset. A scenario can set the
@@ -103,6 +113,8 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
   envelope.
 - `unsupported-apis.json`: versioned envelope for placeholder facade APIs
   touched by the app.
+- `project-ingestion.json`: emitted when a Windows-targeted WinUI source
+  project is redirected through compat shadow build discovery.
 - `diagnostics.sarif`: warning diagnostics for bindings, resources, and
   unsupported APIs with stable rule IDs.
 - `interactions.json`: optional scripted interaction results.
@@ -191,8 +203,11 @@ dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj -- \
 The workflow uses only generic public fixture content and public GitHub-hosted
 runners. It does not require Wine, private repositories, secrets, or private
 screenshots. Passing visual comparison means the documented alpha
-fixture/control subset stayed within the scenario thresholds; it is not a claim
-of arbitrary WinUI 3 pixel compatibility.
+fixture/control subset stayed within the scenario thresholds. The workflow also
+includes `public-admin-workbench-light`, which captures a real Windows
+reference for the public Windows-targeted admin/workbench source fixture and
+compares it with the macOS shadow-build runtime output. Passing the workflow is
+not a claim of arbitrary WinUI 3 pixel compatibility.
 
 ## License
 

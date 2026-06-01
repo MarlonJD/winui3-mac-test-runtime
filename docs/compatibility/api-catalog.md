@@ -16,20 +16,22 @@ The catalog is intentionally deterministic:
 
 ## Seed Coverage
 
-The `0.1` catalog has 106 entries:
+The `0.1` catalog has 113 entries:
 
 | Status | Count |
 | --- | ---: |
-| `supported` | 48 |
-| `partial` | 27 |
-| `planned` | 27 |
-| `windows-only` | 2 |
+| `supported` | 52 |
+| `partial` | 28 |
+| `planned` | 28 |
+| `windows-only` | 3 |
 | `not supported` | 2 |
 
 | Kind | Count |
 | --- | ---: |
 | `api` | 48 |
 | `fluent-resource` | 4 |
+| `project-item` | 3 |
+| `project-property` | 4 |
 | `visual-state` | 5 |
 | `xaml-attached-property` | 3 |
 | `xaml-directive` | 4 |

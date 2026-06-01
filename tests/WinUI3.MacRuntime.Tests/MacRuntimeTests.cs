@@ -290,7 +290,97 @@ public sealed class MacRuntimeTests
             CompatibilityStatuses.NotSupported,
             catalog.FindByApi("Microsoft.UI.Xaml.Controls.WebView2")?.Status);
         Assert.IsTrue(catalog.Entries.Any(entry => entry.Kind == "fluent-resource"));
+        Assert.IsTrue(catalog.Entries.Any(entry => entry.Kind == "project-property"));
         Assert.IsTrue(catalog.Entries.Any(entry => entry.Kind == "visual-state"));
+    }
+
+    [TestMethod]
+    public async Task ProjectBuildServiceBuildsWindowsWinUIProjectThroughShadowBuild()
+    {
+        var projectDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-shadow-project-tests", Guid.NewGuid().ToString("N"));
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-shadow-output-tests", Guid.NewGuid().ToString("N"));
+        await WritePublicWindowsWinUIProjectAsync(projectDirectory, """
+            <Window
+                x:Class="PublicFixture.MainWindow"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Title="Public Fixture">
+              <StackPanel>
+                <TextBlock x:Name="TitleText" Text="Public workbench" />
+                <Button x:Name="PrimaryButton" Content="Review" />
+              </StackPanel>
+            </Window>
+            """);
+
+        var projectPath = Path.Combine(projectDirectory, "PublicFixture.csproj");
+        var result = await new ProjectBuildService().BuildAsync(projectPath, outputDirectory, "Debug");
+
+        Assert.IsTrue(File.Exists(result.AssemblyPath));
+        Assert.IsNotNull(result.ProjectIngestion);
+        Assert.IsNotNull(result.ProjectIngestionJsonPath);
+        Assert.IsTrue(File.Exists(result.ProjectIngestionJsonPath));
+        Assert.AreEqual("passed", result.ProjectIngestion.Status);
+        Assert.IsTrue(result.ProjectIngestion.IsShadowBuild);
+        Assert.AreEqual("net10.0-windows10.0.19041.0", result.ProjectIngestion.TargetFramework);
+        Assert.AreEqual(projectPath, result.ProjectPath);
+        Assert.AreNotEqual(projectPath, result.ProjectIngestion.ShadowProjectPath);
+        Assert.IsTrue(result.ProjectIngestion.IncludedFiles.Any(file => file.Path == "MainWindow.xaml" && file.Kind == "xaml"));
+        Assert.IsTrue(result.ProjectIngestion.ExcludedWindowsOnlyItems.Any(item => item.Include == "Microsoft.WindowsAppSDK"));
+        Assert.IsTrue(result.ProjectIngestion.CatalogStatuses.Any(status => status.Id == "project-property:UseWinUI" && status.Status == CompatibilityStatuses.Supported));
+    }
+
+    [TestMethod]
+    public async Task ProjectBuildServiceFailsShadowBuildOnCatalogedUnsupportedProjectFeatures()
+    {
+        var projectDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-shadow-project-tests", Guid.NewGuid().ToString("N"));
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-shadow-output-tests", Guid.NewGuid().ToString("N"));
+        await WritePublicWindowsWinUIProjectAsync(projectDirectory, """
+            <Window
+                x:Class="PublicFixture.MainWindow"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Title="Public Fixture">
+              <TextBlock Text="Public workbench" />
+            </Window>
+            """, windowsAppSdkSelfContained: true);
+
+        var exception = await AssertThrowsAsync<InvalidOperationException>(() =>
+            new ProjectBuildService().BuildAsync(Path.Combine(projectDirectory, "PublicFixture.csproj"), outputDirectory, "Debug"));
+
+        StringAssert.Contains(exception.Message, "project-ingestion.json");
+        using var report = JsonDocument.Parse(await File.ReadAllTextAsync(Path.Combine(outputDirectory, "project-ingestion.json")));
+        Assert.AreEqual("failed", report.RootElement.GetProperty("status").GetString());
+        var unsupported = report.RootElement.GetProperty("unsupportedFeatures").EnumerateArray().ToArray();
+        Assert.IsTrue(unsupported.Any(feature =>
+            feature.GetProperty("id").GetString() == "project-property:WindowsAppSDKSelfContained" &&
+            feature.GetProperty("status").GetString() == CompatibilityStatuses.Planned));
+    }
+
+    [TestMethod]
+    public async Task ProjectBuildServiceWritesCatalogedXamlDiagnosticsBeforeShadowBuild()
+    {
+        var projectDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-shadow-project-tests", Guid.NewGuid().ToString("N"));
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-shadow-output-tests", Guid.NewGuid().ToString("N"));
+        await WritePublicWindowsWinUIProjectAsync(projectDirectory, """
+            <Window
+                x:Class="PublicFixture.MainWindow"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Title="Public Fixture">
+              <MicaBackdrop />
+            </Window>
+            """);
+
+        var exception = await AssertThrowsAsync<InvalidOperationException>(() =>
+            new ProjectBuildService().BuildAsync(Path.Combine(projectDirectory, "PublicFixture.csproj"), outputDirectory, "Debug"));
+
+        StringAssert.Contains(exception.Message, "project-ingestion.json");
+        using var report = JsonDocument.Parse(await File.ReadAllTextAsync(Path.Combine(outputDirectory, "project-ingestion.json")));
+        Assert.AreEqual("failed", report.RootElement.GetProperty("status").GetString());
+        var diagnostics = report.RootElement.GetProperty("xamlDiagnostics").EnumerateArray().ToArray();
+        Assert.IsTrue(diagnostics.Any(diagnostic =>
+            diagnostic.GetProperty("code").GetString() == "XAML1001" &&
+            diagnostic.GetProperty("message").GetString()?.Contains("cataloged as planned", StringComparison.Ordinal) == true));
     }
 
     [TestMethod]
@@ -494,6 +584,88 @@ public sealed class MacRuntimeTests
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
         using var stream = File.Create(path);
         data.SaveTo(stream);
+    }
+
+    private static async Task WritePublicWindowsWinUIProjectAsync(
+        string projectDirectory,
+        string mainWindowXaml,
+        bool windowsAppSdkSelfContained = false)
+    {
+        Directory.CreateDirectory(projectDirectory);
+        await File.WriteAllTextAsync(Path.Combine(projectDirectory, "PublicFixture.csproj"), $$"""
+            <Project Sdk="Microsoft.NET.Sdk">
+              <PropertyGroup>
+                <OutputType>WinExe</OutputType>
+                <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+                <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+                <UseWinUI>true</UseWinUI>
+                <WindowsPackageType>None</WindowsPackageType>
+                <WindowsAppSDKSelfContained>{{windowsAppSdkSelfContained.ToString().ToLowerInvariant()}}</WindowsAppSDKSelfContained>
+                <ImplicitUsings>enable</ImplicitUsings>
+                <Nullable>enable</Nullable>
+                <AssemblyName>PublicFixture</AssemblyName>
+                <RootNamespace>PublicFixture</RootNamespace>
+              </PropertyGroup>
+              <ItemGroup>
+                <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
+              </ItemGroup>
+              <ItemGroup>
+                <ApplicationDefinition Include="App.xaml" />
+                <Page Include="MainWindow.xaml" />
+              </ItemGroup>
+            </Project>
+            """);
+        await File.WriteAllTextAsync(Path.Combine(projectDirectory, "App.xaml"), """
+            <Application
+                x:Class="PublicFixture.App"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            </Application>
+            """);
+        await File.WriteAllTextAsync(Path.Combine(projectDirectory, "App.xaml.cs"), """
+            using Microsoft.UI.Xaml;
+
+            namespace PublicFixture;
+
+            public sealed partial class App : Application
+            {
+                protected override void OnLaunched(LaunchActivatedEventArgs args)
+                {
+                    InitializeComponent();
+                    MainWindow = new MainWindow();
+                }
+            }
+            """);
+        await File.WriteAllTextAsync(Path.Combine(projectDirectory, "MainWindow.xaml"), mainWindowXaml);
+        await File.WriteAllTextAsync(Path.Combine(projectDirectory, "MainWindow.xaml.cs"), """
+            using Microsoft.UI.Xaml;
+
+            namespace PublicFixture;
+
+            public sealed partial class MainWindow : Window
+            {
+                public MainWindow()
+                {
+                    InitializeComponent();
+                }
+            }
+            """);
+    }
+
+    private static async Task<TException> AssertThrowsAsync<TException>(Func<Task> action)
+        where TException : Exception
+    {
+        try
+        {
+            await action();
+        }
+        catch (TException exception)
+        {
+            return exception;
+        }
+
+        Assert.Fail($"Expected exception of type {typeof(TException).FullName}.");
+        throw new InvalidOperationException("Expected exception assertion did not stop execution.");
     }
 
     private static IEnumerable<UiNode> Flatten(UiNode node)

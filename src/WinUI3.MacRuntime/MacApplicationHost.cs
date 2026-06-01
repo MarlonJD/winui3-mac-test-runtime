@@ -12,7 +12,8 @@ public sealed record MacRunOptions(
     string? ProjectPath,
     string OutputDirectory,
     string? ScriptPath = null,
-    VisualRunSettings? VisualSettings = null);
+    VisualRunSettings? VisualSettings = null,
+    string? ProjectIngestionJsonPath = null);
 
 public sealed record MacRunResult(
     RunReport Run,
@@ -150,6 +151,11 @@ public sealed class MacApplicationHost
             ["snapshot"] = snapshotJsonPath,
             ["screenshot"] = snapshot.FilePath
         };
+        if (!string.IsNullOrWhiteSpace(options.ProjectIngestionJsonPath))
+        {
+            artifacts["projectIngestion"] = options.ProjectIngestionJsonPath;
+        }
+
         if (interactionJsonPath is not null)
         {
             artifacts["interactions"] = interactionJsonPath;
