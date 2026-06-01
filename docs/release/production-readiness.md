@@ -112,15 +112,15 @@ component gaps exposed by the native references.
 Latest inspected public native WinUI visual workflow:
 
 - Workflow: `windows-native-screenshot.yml`
-- Run: `26777029415`
-- Code commit inspected by that workflow: `95e8d7d`
+- Run: `26785240127`
+- Code commit inspected by that workflow: `61b6ad3`
 - Reference source: `native-winui`
-- Runner image: `win25 20260525.149.1`
 - Viewport: `1028x720`
 - Capture mode: client area.
 - Native reference provenance exists for `public-admin-workbench-light`, all
-  eight `ComponentParityLab.WinUI` scenarios, and the inspected component
-  examples checked into `docs/visual-parity/examples`.
+  light Ring 0 and Ring 1 `ComponentParityLab.WinUI` scenarios,
+  `production-smoke-light`, `production-e2e-workbench-light`, and the
+  inspected component examples checked into `docs/visual-parity/examples`.
 - Synthetic probe smoke artifacts are still produced separately for
   `shell-light`, `interactions-light`, and `control-gallery-light`, but they are
   not parity examples.
@@ -255,7 +255,7 @@ support, and native WinUI Windows reference evidence.
 
 | ID | Severity | Blocker | Why It Blocks Production | Exit Criteria |
 | --- | --- | --- | --- | --- |
-| PB-000 | Closed | Native Windows reference source of truth is available for the public fixture set. | Public run `26777029415` captured the actual public WinUI fixture projects, recorded `native-winui` provenance, and kept synthetic probe output separated as smoke evidence. | Keep this gate closed by preserving provenance, fixture launch coverage, and smoke-only labeling for synthetic output. |
+| PB-000 | Closed | Native Windows reference source of truth is available for the public fixture set. | Public run `26785240127` captured the actual public WinUI fixture projects plus production smoke scenarios, recorded `native-winui` provenance, and kept synthetic probe output separated as smoke evidence. | Keep this gate closed by preserving provenance, fixture launch coverage, and smoke-only labeling for synthetic output. |
 | PB-001 | Blocking | Broad WinUI API coverage is incomplete. | Production users will hit uncataloged or planned APIs in normal apps. | Expand the API catalog and diagnostics until common public WinUI apps produce no unknown API usage; unsupported APIs must have explicit status and docs. |
 | PB-002 | Blocking | Many controls are `not-rendered` or diagnostic-only. | The Microsoft Learn controls inventory is not yet represented by usable runtime behavior. | Component lab inventory has fixture coverage for the target production subset, with no unexpected `not-rendered` entries for claimed supported controls. |
 | PB-003 | Blocking | Supported component visuals are text-only, absent, or weak. | Local macOS evidence currently marks basic input controls, text input, collection controls, command controls, status controls, and layout/media primitives as `not-rendered`; whole-image passes would hide this without component evidence. | Claimed supported components reach at least `usable`, with native WinUI public Windows reference artifacts and reviewed `component-evidence.json`. |

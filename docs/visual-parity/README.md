@@ -7,6 +7,15 @@ public WinUI fixture projects. The matching macOS runtime render, pixel diff,
 and threshold failure checks are produced locally on a developer Mac with
 `winui3-mac-runner` when a visual scenario needs review.
 
+The latest full native reference artifact set was captured by public GitHub
+Actions run
+[`26785240127`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26785240127)
+on commit `61b6ad3`. It includes `public-admin-workbench-light`,
+`public-admin-workbench-deferred-light`, all light Ring 0 and Ring 1 component
+lab scenarios, `production-smoke-light`, and
+`production-e2e-workbench-light`; every `windows-reference.json` records
+`referenceSource: native-winui`, `titleMatched: true`, and viewport `1028x720`.
+
 The checked-in public admin workbench and component parity lab examples come
 from native WinUI public fixture references captured by public GitHub Actions
 run
