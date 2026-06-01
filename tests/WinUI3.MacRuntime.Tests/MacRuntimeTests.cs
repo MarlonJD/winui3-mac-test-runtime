@@ -149,6 +149,20 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void StyleOperationsAppliesSupportedSetterProperties()
+    {
+        var button = new Button { Name = "StyledButton", Content = "Save" };
+        var style = new Style { TargetType = "Button" };
+        style.Setters.Add(new Setter(nameof(Button.Foreground), "#2562D9"));
+
+        StyleOperations.Apply(button, style);
+
+        var tree = UiTreeBuilder.Build(new Window { Content = button });
+
+        Assert.AreEqual("#2562D9", tree.Root.Children[0].Properties["foreground"]);
+    }
+
+    [TestMethod]
     public void UnsupportedApiRegistryReportsUnsupportedFacadeUse()
     {
         UnsupportedApiRegistry.Clear();

@@ -15,7 +15,7 @@ Status values:
 | Level 0: Harness Reliability | supported | Managed macOS runner, doctor, SVG, current Skia, `skia-v2`, versioned artifacts, strict visual failures, and public CI workflow wiring. |
 | Level 1: Core App And XAML Compatibility | supported | `Application`, `Window`, `Page`, `Frame`, resource dictionaries, startup activation, navigation, strict unsupported XAML diagnostics, and the documented public XAML subset. |
 | Level 2: Layout And Controls Foundation | supported | Public fixture subset for `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `TextBox`, `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `Image`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `AppBarButton`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. |
-| Level 3: Styling, Resources, And Theme Fidelity | planned | Resource lookup is partial; full style/template/material fidelity is not supported. |
+| Level 3: Styling, Resources, And Theme Fidelity | supported | Resource lookup, style setter application for supported properties, light/dark/high-contrast renderer themes, and strict resource diagnostics for the public subset. |
 | Level 4: Data Binding, Commands, And State | partial | One-way binding refresh, button click simulation, navigation state, and keyboard accelerator invocation for public fixtures. |
 | Level 5: Input, Accessibility, And Automation | partial | Scripted click, focus, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility export. |
 | Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` reference workflow and scenario-local pixel thresholds for current strict fixtures. |
@@ -53,12 +53,13 @@ Status values:
 | Event hookup | supported | Covered for routed click and navigation selection events. |
 | `{StaticResource ...}` | partial | Simple dictionary lookup with missing-resource reporting. |
 | `{ThemeResource ...}` | partial | Simple dictionary lookup with missing-resource reporting. |
+| `Style` resources and `Setter` values | supported | Applies supported setter properties from resource dictionaries; unsupported templates remain out of scope. |
 | `AutomationProperties.Name` | supported | Exported into `tree.json` and `accessibility.json`. |
 | `AutomationProperties.HelpText` | supported | Exported into `tree.json` and `accessibility.json`. |
 | `Grid.Column` | supported | Supported attached property for public fixture layout metadata. |
 | `{Binding Path}` | partial | One-way refresh through `BindingOperations.RefreshTree`; both `{Binding Title}` and `{Binding Path=Title}` forms are accepted. |
 | Unsupported elements and properties | supported | Unsupported elements, properties, property elements, directives, attached properties, and events fail compilation with stable diagnostics. |
-| Styles and templates | planned | Style values are stored but not applied visually. |
+| Control templates and materials | not supported | Templates, Mica, Acrylic, and compositor-backed materials are reported or documented as unsupported. |
 
 ## Facade Controls
 

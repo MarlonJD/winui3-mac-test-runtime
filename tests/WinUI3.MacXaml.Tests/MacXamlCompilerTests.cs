@@ -229,4 +229,33 @@ public sealed class MacXamlCompilerTests
         StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Controls.ScrollBarVisibility.Auto");
         StringAssert.Contains(result.GeneratedSource, ".PrimaryCommands.Add(");
     }
+
+    [TestMethod]
+    public void CompileTextGeneratesStyleResourcesAndApplication()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Window.Resources>
+                <ResourceDictionary>
+                  <String x:Key="AccentBrush">#2562D9</String>
+                  <Style x:Key="CommandTextStyle" TargetType="Button">
+                    <Setter Property="Foreground" Value="{ThemeResource AccentBrush}" />
+                  </Style>
+                </ResourceDictionary>
+              </Window.Resources>
+              <Button Style="{StaticResource CommandTextStyle}" Content="Save" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "new Microsoft.UI.Xaml.Style");
+        StringAssert.Contains(result.GeneratedSource, "new Microsoft.UI.Xaml.Setter(\"Foreground\"");
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.StyleOperations.Apply");
+    }
 }

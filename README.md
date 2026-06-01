@@ -45,7 +45,8 @@ list/text/image facade export, and a deterministic snapshot artifact.
 `ControlGallery.MacTest` exercises the Level 2 public control subset:
 `ScrollViewer`, `ContentControl`, `ItemsControl`, `CheckBox`, `RadioButton`,
 `ToggleButton`, `ComboBox`, `ProgressBar`, `ProgressRing`, `InfoBar`,
-`CommandBar`, and `AppBarButton`.
+`CommandBar`, and `AppBarButton`. It also exercises Level 3 style setter
+application and the high-contrast `skia-v2` theme scenario.
 
 Scenario JSON files under each fixture's `scenarios/` directory describe the
 strict visual contract for the supported public subset. A scenario can set the
@@ -101,8 +102,9 @@ binary compatibility, arbitrary `.exe` execution, or full WinUI 3 behavior.
 
 The published compatibility claim includes **Level 0: Harness Reliability**,
 the documented **Level 1: Core App And XAML Compatibility** subset, and the
-public-fixture-backed **Level 2: Layout And Controls Foundation** subset, with
-higher levels documented as `supported`, `partial`, or `planned`.
+public-fixture-backed **Level 2: Layout And Controls Foundation** and
+**Level 3: Styling, Resources, And Theme Fidelity** subsets, with higher levels
+documented as `supported`, `partial`, or `planned`.
 See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/matrix.md` for the current supported subset.
 

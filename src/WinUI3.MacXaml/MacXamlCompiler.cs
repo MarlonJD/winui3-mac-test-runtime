@@ -285,7 +285,11 @@ public sealed class MacXamlCompiler
 
     private sealed record NamedElement(string FieldName, string TypeName);
 
-    private sealed record ResourceEntry(string Key, string Value);
+    private sealed record ResourceEntry(string Key, string? Value, StyleResource? Style);
+
+    private sealed record StyleResource(string? TargetType, IReadOnlyList<SetterResource> Setters);
+
+    private sealed record SetterResource(string Property, string Value);
 
     private sealed record PropertyElementChildren(string PropertyName, IReadOnlyList<XamlObjectModel> Children);
 
@@ -620,10 +624,37 @@ public sealed class MacXamlCompiler
                     continue;
                 }
 
-                resources.Add(new ResourceEntry(key, resource.Value.Trim()));
+                resources.Add(resource.Name.LocalName == "Style"
+                    ? new ResourceEntry(key, null, ReadStyle(resource, context))
+                    : new ResourceEntry(key, resource.Value.Trim(), null));
             }
 
             return resources;
+        }
+
+        private static StyleResource ReadStyle(XElement styleElement, GenerationContext context)
+        {
+            var targetType = styleElement.Attribute("TargetType")?.Value;
+            var setters = new List<SetterResource>();
+            foreach (var setter in styleElement.Elements().Where(element => element.Name.LocalName == "Setter"))
+            {
+                var property = setter.Attribute("Property")?.Value;
+                var value = setter.Attribute("Value")?.Value;
+                if (string.IsNullOrWhiteSpace(property) || value is null)
+                {
+                    context.Diagnostics.Add(CreateDiagnostic(
+                        "XAML2003",
+                        "Style setters must declare Property and Value.",
+                        "Error",
+                        context.FilePath,
+                        setter));
+                    continue;
+                }
+
+                setters.Add(new SetterResource(property, value));
+            }
+
+            return new StyleResource(targetType, setters);
         }
 
         private static string? ReadElementTextContent(XElement element)
@@ -649,9 +680,22 @@ public sealed class MacXamlCompiler
         public void WriteResources(IReadOnlyList<ResourceEntry> resources)
         {
             source.AppendLine("        var __resources = new Microsoft.UI.Xaml.ResourceDictionary();");
-            foreach (var resource in resources)
+            foreach (var (resource, index) in resources.Select((resource, index) => (resource, index)))
             {
-                source.AppendLine($"        __resources[{Literal(resource.Key)}] = {Literal(resource.Value)};");
+                if (resource.Style is { } style)
+                {
+                    var styleVariable = $"__style{index.ToString(CultureInfo.InvariantCulture)}";
+                    source.AppendLine($"        var {styleVariable} = new Microsoft.UI.Xaml.Style {{ TargetType = {Literal(style.TargetType ?? string.Empty)} }};");
+                    foreach (var setter in style.Setters)
+                    {
+                        source.AppendLine($"        {styleVariable}.Setters.Add(new Microsoft.UI.Xaml.Setter({Literal(setter.Property)}, {RenderValue(setter.Property, setter.Value)}));");
+                    }
+
+                    source.AppendLine($"        __resources[{Literal(resource.Key)}] = {styleVariable};");
+                    continue;
+                }
+
+                source.AppendLine($"        __resources[{Literal(resource.Key)}] = {Literal(resource.Value ?? string.Empty)};");
             }
 
             source.AppendLine("        this.Resources = __resources;");
@@ -728,6 +772,13 @@ public sealed class MacXamlCompiler
                 if (property.Key == "Grid.Column")
                 {
                     source.AppendLine($"        Microsoft.UI.Xaml.Controls.Grid.SetColumn({model.VariableName}, {RenderValue(property.Key, property.Value)});");
+                    continue;
+                }
+
+                if (property.Key == "Style" && TryReadResourceReference(property.Value, out var styleKey))
+                {
+                    source.AppendLine($"        {model.VariableName}.Style = Microsoft.UI.Xaml.ResourceOperations.ResolveStyle(__resources, {Literal(styleKey)}, {Literal(property.Key)});");
+                    source.AppendLine($"        Microsoft.UI.Xaml.StyleOperations.Apply({model.VariableName}, {model.VariableName}.Style as Microsoft.UI.Xaml.Style);");
                     continue;
                 }
 
@@ -841,14 +892,8 @@ public sealed class MacXamlCompiler
 
         private static string RenderValue(string propertyName, string value)
         {
-            if ((value.StartsWith("{StaticResource ", StringComparison.Ordinal) ||
-                    value.StartsWith("{ThemeResource ", StringComparison.Ordinal)) &&
-                value.EndsWith('}'))
+            if (TryReadResourceReference(value, out var key))
             {
-                var markerLength = value.StartsWith("{StaticResource ", StringComparison.Ordinal)
-                    ? "{StaticResource ".Length
-                    : "{ThemeResource ".Length;
-                var key = value[markerLength..^1].Trim();
                 if (IsStringProperty(propertyName))
                 {
                     return $"Microsoft.UI.Xaml.ResourceOperations.ResolveString(__resources, {Literal(key)}, {Literal(propertyName)})";
@@ -923,6 +968,23 @@ public sealed class MacXamlCompiler
             }
 
             return Literal(value);
+        }
+
+        private static bool TryReadResourceReference(string value, out string key)
+        {
+            if ((value.StartsWith("{StaticResource ", StringComparison.Ordinal) ||
+                    value.StartsWith("{ThemeResource ", StringComparison.Ordinal)) &&
+                value.EndsWith('}'))
+            {
+                var markerLength = value.StartsWith("{StaticResource ", StringComparison.Ordinal)
+                    ? "{StaticResource ".Length
+                    : "{ThemeResource ".Length;
+                key = value[markerLength..^1].Trim();
+                return !string.IsNullOrWhiteSpace(key);
+            }
+
+            key = string.Empty;
+            return false;
         }
 
         private static bool TryReadBindingPath(string value, out string path)

@@ -51,6 +51,15 @@ fails the run.
 SVG and the current Skia renderer remain smoke renderers. `skia-v2` is the
 scenario-driven renderer used for public visual compatibility checks.
 
+## Styling And Theme Contract
+
+Resource dictionaries support simple string resources and `Style` resources
+with `Setter` values for supported public properties. Static and theme resource
+lookups report deterministic failures when a key cannot be resolved. The
+scenario renderer supports `light`, `dark`, and `high-contrast` themes for the
+documented public subset. Control templates, Mica, Acrylic, and compositor
+materials are outside the supported styling contract.
+
 ## Interaction And Accessibility Contract
 
 Interaction scripts are versioned JSON documents with deterministic action

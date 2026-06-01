@@ -132,6 +132,20 @@ public class ResourceDictionary : Dictionary<string, object?>
 {
 }
 
+public sealed class Style
+{
+    public string? TargetType { get; set; }
+
+    public IList<Setter> Setters { get; } = new List<Setter>();
+
+    public override string ToString()
+    {
+        return TargetType is null ? "Style" : $"Style({TargetType})";
+    }
+}
+
+public sealed record Setter(string Property, object? Value);
+
 public enum FocusState
 {
     Programmatic

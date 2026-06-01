@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace Microsoft.UI.Xaml;
 
 public sealed record ResourceLookupFailure(
@@ -49,6 +51,11 @@ public static class ResourceOperations
         return Resolve(resources, key, targetProperty)?.ToString();
     }
 
+    public static Style? ResolveStyle(ResourceDictionary resources, string key, string targetProperty)
+    {
+        return Resolve(resources, key, targetProperty) as Style;
+    }
+
     private static void ReportMissing(string key, string targetProperty)
     {
         lock (Gate)
@@ -62,5 +69,54 @@ public static class ResourceOperations
 
             Failures.Add(new ResourceLookupFailure(key, targetProperty, "missing"));
         }
+    }
+}
+
+public static class StyleOperations
+{
+    public static void Apply(FrameworkElement element, Style? style)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+        if (style is null)
+        {
+            return;
+        }
+
+        foreach (var setter in style.Setters)
+        {
+            var property = element.GetType().GetProperty(setter.Property, BindingFlags.Instance | BindingFlags.Public);
+            if (property is null || !property.CanWrite)
+            {
+                continue;
+            }
+
+            property.SetValue(element, ConvertValue(setter.Value, property.PropertyType));
+        }
+    }
+
+    private static object? ConvertValue(object? value, Type targetType)
+    {
+        if (value is null)
+        {
+            return null;
+        }
+
+        var nonNullableTarget = Nullable.GetUnderlyingType(targetType) ?? targetType;
+        if (nonNullableTarget.IsInstanceOfType(value))
+        {
+            return value;
+        }
+
+        if (nonNullableTarget == typeof(string))
+        {
+            return value.ToString();
+        }
+
+        if (nonNullableTarget.IsEnum && value is string enumValue)
+        {
+            return Enum.Parse(nonNullableTarget, enumValue, ignoreCase: true);
+        }
+
+        return Convert.ChangeType(value, nonNullableTarget);
     }
 }

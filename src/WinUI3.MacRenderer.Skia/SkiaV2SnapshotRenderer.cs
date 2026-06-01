@@ -97,7 +97,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                 RenderNavigationItem(canvas, node, theme, paint, bodyFont, iconFont);
                 break;
             case "TextBlock":
-                DrawText(canvas, paint, bodyFont, ReadText(node) ?? node.Name ?? string.Empty, (float)node.Layout.X, (float)node.Layout.Y + 19, theme.TextPrimary);
+                DrawText(canvas, paint, bodyFont, ReadText(node) ?? node.Name ?? string.Empty, (float)node.Layout.X, (float)node.Layout.Y + 19, ReadColor(node, "foreground", theme.TextPrimary));
                 break;
             case "CommandBar":
                 RenderCommandBar(canvas, node, theme, paint, bodyFont, titleFont, smallFont, iconFont);
@@ -291,7 +291,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         DrawRoundRect(canvas, paint, rect, 6, enabled ? theme.Surface : theme.DisabledSurface);
         DrawRoundRectStroke(canvas, paint, rect, 6, theme.Stroke);
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Button"), rect.Left + 14, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Button"), rect.Left + 14, rect.Top + 25, enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled);
     }
 
     private static void RenderAppBarButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font, SKFont iconFont)
@@ -300,7 +300,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         DrawRoundRect(canvas, paint, rect, 6, theme.Surface);
         DrawRoundRectStroke(canvas, paint, rect, 6, theme.Stroke);
         DrawText(canvas, paint, iconFont, "*", rect.Left + 12, rect.Top + 25, theme.Accent);
-        DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 25, theme.TextPrimary);
+        DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 25, ReadColor(node, "foreground", theme.TextPrimary));
     }
 
     private static void RenderToggleButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -532,6 +532,26 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             : fallback;
     }
 
+    private static SKColor ReadColor(UiNode node, string key, SKColor fallback)
+    {
+        if (!node.Properties.TryGetValue(key, out var value))
+        {
+            return fallback;
+        }
+
+        var text = value?.ToString();
+        if (string.IsNullOrWhiteSpace(text) || !text.StartsWith('#') || text.Length != 7)
+        {
+            return fallback;
+        }
+
+        return byte.TryParse(text.AsSpan(1, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var red) &&
+            byte.TryParse(text.AsSpan(3, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var green) &&
+            byte.TryParse(text.AsSpan(5, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var blue)
+                ? new SKColor(red, green, blue)
+                : fallback;
+    }
+
     private static float ReadFloat(UiNode node, string key, float fallback)
     {
         if (!node.Properties.TryGetValue(key, out var value) || value is null)
@@ -625,6 +645,21 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         public static SkiaV2Theme For(string theme)
         {
+            if (string.Equals(theme, "high-contrast", StringComparison.OrdinalIgnoreCase))
+            {
+                return new SkiaV2Theme(
+                    AppBackground: new SKColor(0x00, 0x00, 0x00),
+                    PaneBackground: new SKColor(0x00, 0x00, 0x00),
+                    Surface: new SKColor(0x00, 0x00, 0x00),
+                    DisabledSurface: new SKColor(0x20, 0x20, 0x20),
+                    Stroke: new SKColor(0xff, 0xff, 0xff),
+                    TextPrimary: new SKColor(0xff, 0xff, 0xff),
+                    TextSecondary: new SKColor(0xff, 0xff, 0x00),
+                    TextDisabled: new SKColor(0x99, 0x99, 0x99),
+                    Accent: new SKColor(0x00, 0xff, 0xff),
+                    AccentSoft: new SKColor(0x00, 0x33, 0x33));
+            }
+
             if (string.Equals(theme, "dark", StringComparison.OrdinalIgnoreCase))
             {
                 return new SkiaV2Theme(

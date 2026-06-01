@@ -165,7 +165,7 @@ internal static class Cli
         var rawTheme = themeOption ?? scenario?.Theme ?? "light";
         if (!VisualTheme.IsSupported(rawTheme))
         {
-            throw new ArgumentException($"Unsupported theme '{rawTheme}'. Expected light or dark.");
+            throw new ArgumentException($"Unsupported theme '{rawTheme}'. Expected light, dark, or high-contrast.");
         }
 
         var theme = VisualTheme.Normalize(rawTheme);
