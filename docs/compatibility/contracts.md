@@ -1,35 +1,53 @@
 # Public Compatibility Contracts
 
-This project provides source-level WinUI-style compatibility for public,
-documented test surfaces. It does not run Windows binaries, `.msix` packages, or
-arbitrary `.exe` files on macOS.
+This project provides Wine-free source-level WinUI 3 compatibility on macOS.
+The long-term product goal is full WinUI 3 C# and XAML application development:
+developers should be able to build, run, test, inspect, and visually validate
+real app source from macOS while public Windows GitHub Actions runs remain the
+behavioral and visual source of truth.
+
+The current Level 0 through Level 7 support is an alpha milestone toward that
+goal. It does not run Windows binaries, `.msix` packages, or arbitrary `.exe`
+files on macOS, and it does not claim complete WinUI 3 behavior.
 
 The macOS runtime contract is Wine-free: application code is compiled as managed
 .NET, loaded into a managed macOS process, and exercised through clean-room
 `Microsoft.UI.Xaml` facade types.
 
-## Published Compatibility Level
+## Published Alpha Milestone
 
-The current published compatibility claim covers **Levels 0 through 7** as
-documented in `docs/compatibility/matrix.md`. Level 6 is limited to the public
-strict fixture categories captured by the `windows-latest` reference workflow:
-shell, interaction/binding, and control gallery. Level 7 covers package and
-consumer readiness contracts; it does not imply broader WinUI API support than
-the matrix documents.
+The current published alpha claim covers **Levels 0 through 7** as documented
+in `docs/compatibility/matrix.md`. Level 6 is limited to the public strict
+fixture categories captured by the `windows-latest` reference workflow: shell,
+interaction/binding, and control gallery. Level 7 covers package and consumer
+readiness contracts; it does not imply broader WinUI API support than the
+matrix and catalog document.
 
 Level claims are cumulative only when the matrix marks the relevant runtime,
 XAML, control, renderer, interaction, accessibility, and artifact behaviors as
 `supported` or `partial` with public fixture or test coverage.
+
+## Compatibility Catalog Contract
+
+`docs/compatibility/winui-api-compatibility.catalog.json` is the public
+catalog seed for the broader full-compatibility roadmap. The same catalog is
+compiled into the facade and XAML packages so diagnostics use the published
+classification.
+
+Catalog status values are `supported`, `partial`, `planned`, `windows-only`,
+and `not supported`. Runtime or compiler diagnostics may report `unknown` when
+app code touches a public API or XAML construct that is not in the catalog yet.
+Unknown usage is a product gap and must not silently pass strict checks.
 
 ## Runtime Contract
 
 - `winui3-mac-doctor` reports the managed host and Wine optionality.
 - `winui3-mac-runner run` builds and launches a managed app assembly.
 - Strict visual runs fail on binding failures, resource lookup failures,
-  unsupported facade APIs, unsupported visual features, failed interactions, or
+  unavailable facade APIs, unsupported visual features, failed interactions, or
   pixel thresholds that exceed the scenario contract.
-- Unsupported features are reported structurally in artifacts and SARIF; they
-  are not silently treated as supported behavior.
+- Unavailable or unsupported features are reported structurally in artifacts
+  and SARIF; they are not silently treated as supported behavior.
 
 ## XAML Contract
 
@@ -41,6 +59,9 @@ directives produce `XAML1004`, unsupported attached properties produce
 and line information when available. Resource dictionaries, static resources,
 theme resources, bindings, property elements, and attached properties are
 supported only to the extent documented in the matrix and public fixtures.
+When a rejected construct exists in the compatibility catalog, the diagnostic
+message includes its catalog status. When it does not, the message identifies
+the construct as an uncataloged compatibility gap.
 
 ## Control And Renderer Contract
 
@@ -70,8 +91,19 @@ Resource dictionaries support simple string resources and `Style` resources
 with `Setter` values for supported public properties. Static and theme resource
 lookups report deterministic failures when a key cannot be resolved. The
 scenario renderer supports `light`, `dark`, and `high-contrast` themes for the
-documented public subset. Control templates, Mica, Acrylic, and compositor
-materials are outside the supported styling contract.
+documented public subset. Control templates, Mica, Acrylic, system backdrops,
+compositor effects, transforms, shadows, motion, reduced motion, and complete
+Fluent interaction states are in-scope compatibility targets, but most are
+cataloged as `planned` in the current alpha rather than rendered.
+
+## Material And Composition Contract
+
+Material and composition compatibility is tracked separately in
+`docs/compatibility/material-composition.md`. Mica, Acrylic, system backdrops,
+composition visuals, effect brushes, shadows, transforms, storyboards,
+animations, focus visuals, high contrast, reduced motion, and Fluent states may
+only be promoted when catalog entries, clean-room semantics, tests, strict
+fixtures, and public Windows reference artifacts prove the claim.
 
 ## Interaction And Accessibility Contract
 
@@ -108,12 +140,12 @@ use versioned envelopes:
 
 - `WINUI3MAC001`: binding failure
 - `WINUI3MAC002`: resource lookup failure
-- `WINUI3MAC003`: unsupported compatibility API
+- `WINUI3MAC003`: unavailable compatibility API
 
 ## Release And Consumption Contract
 
 Package metadata, consumer quick-start documentation, sample public CI, release
 checklists, package smoke commands, known-gap notes, and visual workflow
 evidence are part of the Level 7 contract. Consumers should treat the
-compatibility matrix as the API boundary and the artifact schema documentation
-as the automation boundary.
+compatibility matrix and API catalog as the API boundary and the artifact
+schema documentation as the automation boundary.

@@ -1,10 +1,17 @@
 # WinUI3 Mac Test Runtime
 
-Wine-free feasibility harness for running a constrained subset of WinUI-style
-C# application code on macOS for automated tests.
+Wine-free alpha runtime for source-level WinUI 3 application development on
+macOS.
 
-This repository does not run arbitrary Windows binaries and does not claim full
-WinUI 3 compatibility. The current runtime runs managed .NET assemblies against
+The product goal is full source-level WinUI 3 C# and XAML development from
+macOS: developers should be able to build, run, test, inspect, and visually
+validate real WinUI 3 app code locally while public `windows-latest` GitHub
+Actions runs remain the behavioral and visual source of truth. The current
+Level 0 through Level 7 surface is the first alpha milestone toward that goal,
+not the final product scope.
+
+This repository does not run arbitrary Windows binaries, `.msix` packages, or
+`.exe` files on macOS. The current runtime runs managed .NET assemblies against
 clean-room `Microsoft.UI.Xaml` facade types, hosts the app in a macOS .NET
 process, and emits structured artifacts for test inspection.
 
@@ -19,6 +26,7 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-high-contrast.json --strict-visual
 ```
 
 ## Consumer Quick Start
@@ -114,21 +122,32 @@ macOS .NET process.
 
 ## Compatibility Status
 
-This is still a constrained test runtime. It supports a small source-level
-WinUI-style subset for automated macOS testing and intentionally does not claim
-binary compatibility, arbitrary `.exe` execution, or full WinUI 3 behavior.
+This is still an alpha compatibility runtime. The published alpha milestone
+includes **Level 0: Harness Reliability**, **Level 1: Core App And XAML
+Compatibility**, **Level 2: Layout And Controls Foundation**, **Level 3:
+Styling, Resources, And Theme Fidelity**, **Level 4: Data Binding, Commands,
+And State**, **Level 5: Input, Accessibility, And Automation**, **Level 6:
+Windows Reference Visual Compatibility**, and **Level 7: Release And
+Consumption Readiness**. These levels describe the current supported public
+subset; they are not a cap on the long-term WinUI 3 source-compatibility goal.
 
-The published compatibility claim includes **Level 0: Harness Reliability**,
-the documented **Level 1: Core App And XAML Compatibility** subset, the
-public-fixture-backed **Level 2: Layout And Controls Foundation** and
-**Level 3: Styling, Resources, And Theme Fidelity** subsets, the
-fixture-backed **Level 4: Data Binding, Commands, And State** and **Level 5:
-Input, Accessibility, And Automation** subsets, **Level 6: Windows Reference
-Visual Compatibility** for the public strict fixture categories, and **Level 7:
-Release And Consumption Readiness** for package smoke, consumer quick start,
-sample CI, release checklist, and known-gap documentation.
+The compatibility catalog in
+`docs/compatibility/winui-api-compatibility.catalog.json` is the public seed for
+tracking the broader roadmap. It classifies WinUI 3 / Windows App SDK APIs,
+XAML constructs, Fluent resources, Mica, Acrylic, system backdrops,
+composition/effect concepts, visual states, and animation-related APIs as
+`supported`, `partial`, `planned`, `windows-only`, or `not supported`. Unknown
+public usage is reported as a catalog gap instead of silently passing.
+
+Mica, Acrylic, compositor effects, shadows, transforms, motion, focus visuals,
+theme resources, high contrast, reduced motion, and full Fluent interaction
+states are compatibility targets. In this alpha, most material and composition
+entries are cataloged and diagnosed as planned rather than broadly rendered.
 See `docs/compatibility/contracts.md` for the public compatibility contract and
-`docs/compatibility/matrix.md` for the current supported subset.
+`docs/compatibility/matrix.md` for the current supported subset. See
+`docs/compatibility/api-catalog.md` and
+`docs/compatibility/material-composition.md` for the catalog and material
+compatibility contracts.
 
 ## Package Smoke
 
@@ -171,9 +190,9 @@ dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj -- \
 
 The workflow uses only generic public fixture content and public GitHub-hosted
 runners. It does not require Wine, private repositories, secrets, or private
-screenshots. Passing visual comparison means the documented fixture/control
-subset stayed within the scenario thresholds; it is not a claim of arbitrary
-WinUI 3 pixel compatibility.
+screenshots. Passing visual comparison means the documented alpha
+fixture/control subset stayed within the scenario thresholds; it is not a claim
+of arbitrary WinUI 3 pixel compatibility.
 
 ## License
 

@@ -184,7 +184,46 @@ public sealed class MacXamlCompilerTests
         Assert.IsFalse(result.Succeeded);
         Assert.AreEqual("XAML1002", result.Diagnostics[0].Code);
         StringAssert.Contains(result.Diagnostics[0].Message, "Flyout");
+        StringAssert.Contains(result.Diagnostics[0].Message, "cataloged as planned");
         Assert.IsNotNull(result.Diagnostics[0].Line);
+    }
+
+    [TestMethod]
+    public void CompileTextReportsUnknownCatalogGapsForUnsupportedProperties()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Button FuturePublicProperty="Tracked by diagnostics" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML1002", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "not present in the WinUI compatibility catalog");
+    }
+
+    [TestMethod]
+    public void CompileTextReportsCatalogStatusForMaterialElements()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <MicaBackdrop />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML1001", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "cataloged as planned");
     }
 
     [TestMethod]
@@ -208,6 +247,29 @@ public sealed class MacXamlCompilerTests
         Assert.IsFalse(result.Succeeded);
         Assert.AreEqual("XAML1003", result.Diagnostics[0].Code);
         Assert.IsNotNull(result.Diagnostics[0].Line);
+    }
+
+    [TestMethod]
+    public void CompileTextReportsCatalogStatusForVisualStatePropertyElements()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Grid>
+                <VisualStateManager.VisualStateGroups>
+                  <VisualState />
+                </VisualStateManager.VisualStateGroups>
+              </Grid>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML1003", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "cataloged as planned");
     }
 
     [TestMethod]

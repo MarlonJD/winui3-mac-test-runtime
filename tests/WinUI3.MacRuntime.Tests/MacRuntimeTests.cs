@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Windows.Input;
+using WinUI3.MacCompatibility;
 using WinUI3.MacCompat.Diagnostics;
 using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRuntime;
@@ -17,6 +18,7 @@ using WinUI3.MacRuntime;
 namespace WinUI3.MacRuntime.Tests;
 
 [TestClass]
+[DoNotParallelize]
 public sealed class MacRuntimeTests
 {
     [TestMethod]
@@ -252,7 +254,43 @@ public sealed class MacRuntimeTests
 
         Assert.HasCount(1, UnsupportedApiRegistry.Current);
         Assert.AreEqual("Microsoft.UI.Xaml.Media.MicaBackdrop", UnsupportedApiRegistry.Current[0].Api);
-        Assert.AreEqual("unsupported", UnsupportedApiRegistry.Current[0].Status);
+        Assert.AreEqual(CompatibilityStatuses.Planned, UnsupportedApiRegistry.Current[0].Status);
+    }
+
+    [TestMethod]
+    public void UnsupportedApiRegistryReportsUnknownPublicApiUse()
+    {
+        UnsupportedApiRegistry.Clear();
+
+        UnsupportedApiRegistry.Report("Microsoft.UI.Xaml.Controls.UnknownPublicControl", "compat-api", "test");
+
+        Assert.HasCount(1, UnsupportedApiRegistry.Current);
+        Assert.AreEqual(CompatibilityStatuses.Unknown, UnsupportedApiRegistry.Current[0].Status);
+    }
+
+    [TestMethod]
+    public void CompatibilityCatalogClassifiesFullRoadmapSeed()
+    {
+        var catalog = CompatibilityCatalog.Current;
+
+        Assert.AreEqual("0.1", catalog.Document.SchemaVersion);
+        CollectionAssert.AreEqual(
+            catalog.Entries.Select(entry => entry.Id).OrderBy(id => id, StringComparer.Ordinal).ToArray(),
+            catalog.Entries.Select(entry => entry.Id).ToArray());
+        Assert.AreEqual(
+            CompatibilityStatuses.Planned,
+            catalog.FindByApi("Microsoft.UI.Xaml.Media.MicaBackdrop")?.Status);
+        Assert.AreEqual(
+            CompatibilityStatuses.Planned,
+            catalog.FindByApi("Microsoft.UI.Composition.Compositor")?.Status);
+        Assert.AreEqual(
+            CompatibilityStatuses.WindowsOnly,
+            catalog.FindByApi("Windows.System.Launcher")?.Status);
+        Assert.AreEqual(
+            CompatibilityStatuses.NotSupported,
+            catalog.FindByApi("Microsoft.UI.Xaml.Controls.WebView2")?.Status);
+        Assert.IsTrue(catalog.Entries.Any(entry => entry.Kind == "fluent-resource"));
+        Assert.IsTrue(catalog.Entries.Any(entry => entry.Kind == "visual-state"));
     }
 
     [TestMethod]

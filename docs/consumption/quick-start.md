@@ -1,8 +1,12 @@
 # Consumer Quick Start
 
-This guide is for public projects that want source-level WinUI-style smoke and
+This guide is for public projects that want source-level WinUI 3 smoke and
 visual checks on macOS. The runtime does not run Windows binaries, `.msix`
 packages, or arbitrary `.exe` files.
+
+The current Level 0 through Level 7 surface is an alpha milestone toward full
+source-level WinUI 3 development on macOS. Treat the compatibility matrix and
+API catalog as the boundary for what can be used locally today.
 
 ## Requirements
 
@@ -57,7 +61,10 @@ screenshots, and private repositories.
 
 Use only controls, XAML constructs, bindings, interactions, and renderer
 features listed as `supported` or `partial` in
-`docs/compatibility/matrix.md`.
+`docs/compatibility/matrix.md` and
+`docs/compatibility/winui-api-compatibility.catalog.json`. `planned`,
+`windows-only`, `not supported`, and uncataloged `unknown` usage is reported as
+a strict compatibility gap.
 
 ## Run Smoke And Strict Visual Checks
 
@@ -99,8 +106,11 @@ managed fixture, and uploads strict visual artifacts.
 - XAML compiler gap: inspect the `XAML1001` through `XAML1006` diagnostics and
   compare the construct with the compatibility matrix before expanding the
   fixture.
-- Renderer gap: inspect `unsupported-apis.json` and `diagnostics.sarif` for
-  `WINUI3MAC003`.
+- Renderer or API catalog gap: inspect `unsupported-apis.json` and
+  `diagnostics.sarif` for `WINUI3MAC003`. Status values such as `planned`,
+  `windows-only`, `not supported`, and `unknown` identify whether the API is a
+  roadmap target, Windows validation target, explicit non-goal, or uncataloged
+  gap.
 - Binding or resource gap: inspect `binding-failures.json`,
   `resource-failures.json`, and SARIF rules `WINUI3MAC001` and
   `WINUI3MAC002`.
@@ -114,8 +124,11 @@ managed fixture, and uploads strict visual artifacts.
 
 ## Known Limits
 
-- No Windows binary, `.msix`, Wine, Mica, Acrylic, compositor, or arbitrary
-  WinUI 3 pixel parity claim.
+- No Windows binary, `.msix`, Wine, broad Mica/Acrylic rendering, compositor
+  effects, or arbitrary WinUI 3 pixel parity claim in the current alpha.
+- Mica, Acrylic, system backdrops, compositor concepts, shadows, transforms,
+  motion, focus visuals, high contrast, reduced motion, and Fluent interaction
+  states are compatibility targets tracked by the catalog and material contract.
 - Controls, properties, actions, and XAML constructs are supported only to the
   extent documented in the compatibility matrix.
 - Scenario thresholds are part of the public contract and must stay explicit in

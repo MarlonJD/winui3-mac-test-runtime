@@ -5,7 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>MarlonJD.WinUI3.MacCompat</PackageId>
-    <Description>Minimal Microsoft.UI.Xaml facade types for the Wine-free WinUI3 macOS test runtime.</Description>
+    <Description>Catalog-backed Microsoft.UI.Xaml facade types for the Wine-free WinUI3 macOS test runtime alpha.</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Shared\CompatibilityCatalog.cs" Link="CompatibilityCatalog.cs" />
+    <EmbeddedResource Include="..\..\docs\compatibility\winui-api-compatibility.catalog.json" LogicalName="WinUI3.MacCompatibility.winui-api-compatibility.catalog.json" />
+  </ItemGroup>
 
 </Project>
