@@ -10,17 +10,17 @@
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <String x:Key="LabThemeName">Light</String>
+                    <x:String x:Key="LabThemeName">Light</x:String>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
-                    <String x:Key="LabThemeName">Dark</String>
+                    <x:String x:Key="LabThemeName">Dark</x:String>
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="HighContrast">
-                    <String x:Key="LabThemeName">High contrast</String>
+                    <x:String x:Key="LabThemeName">High contrast</x:String>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
-            <String x:Key="LabAccentBrush">#2562D9</String>
-            <String x:Key="LabSurfaceBrush">#FFFFFF</String>
+            <SolidColorBrush x:Key="LabAccentBrush" Color="#2562D9" />
+            <SolidColorBrush x:Key="LabSurfaceBrush" Color="#FFFFFF" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

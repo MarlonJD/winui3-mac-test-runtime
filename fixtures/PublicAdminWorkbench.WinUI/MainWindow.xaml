@@ -5,8 +5,8 @@
     Title="Public Admin Workbench">
     <Window.Resources>
         <ResourceDictionary>
-            <String x:Key="WorkbenchBackgroundBrush">#F7F8FA</String>
-            <String x:Key="AccentBrush">#2562D9</String>
+            <SolidColorBrush x:Key="WorkbenchBackgroundBrush" Color="#F7F8FA" />
+            <SolidColorBrush x:Key="AccentBrush" Color="#2562D9" />
         </ResourceDictionary>
     </Window.Resources>
 
