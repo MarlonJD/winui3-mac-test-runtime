@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "resource-catalog",
+  "name": "resource-catalog-dark",
+  "viewport": {
+    "width": 900,
+    "height": 600
+  },
+  "scale": 1.0,
+  "theme": "dark",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 24.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": [
+    {
+      "type": "assertProperty",
+      "target": "AccentText",
+      "key": "Foreground",
+      "parameter": "#7CA7FF"
+    }
+  ]
+}

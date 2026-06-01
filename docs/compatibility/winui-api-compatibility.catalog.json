@@ -740,6 +740,26 @@
       "notes": "Single content slot subset."
     },
     {
+      "id": "xaml-element:ControlTemplate",
+      "kind": "xaml-element",
+      "status": "planned",
+      "area": "templates",
+      "api": "Microsoft.UI.Xaml.Controls.ControlTemplate",
+      "xamlElement": "ControlTemplate",
+      "parityStage": "planned",
+      "notes": "Control templates are an explicit planned exclusion; usage fails with an actionable diagnostic."
+    },
+    {
+      "id": "xaml-element:DataTemplate",
+      "kind": "xaml-element",
+      "status": "planned",
+      "area": "templates",
+      "api": "Microsoft.UI.Xaml.DataTemplate",
+      "xamlElement": "DataTemplate",
+      "parityStage": "planned",
+      "notes": "Data templates are an explicit planned exclusion; usage fails with an actionable diagnostic."
+    },
+    {
       "id": "xaml-element:FontIcon",
       "kind": "xaml-element",
       "status": "partial",
@@ -950,6 +970,26 @@
       "notes": "Content root subset."
     },
     {
+      "id": "xaml-element:VisualState",
+      "kind": "xaml-element",
+      "status": "planned",
+      "area": "visual-states",
+      "api": "Microsoft.UI.Xaml.VisualState",
+      "xamlElement": "VisualState",
+      "parityStage": "planned",
+      "notes": "Visual states are an explicit planned exclusion; usage fails with an actionable diagnostic."
+    },
+    {
+      "id": "xaml-element:VisualStateGroup",
+      "kind": "xaml-element",
+      "status": "planned",
+      "area": "visual-states",
+      "api": "Microsoft.UI.Xaml.VisualStateGroup",
+      "xamlElement": "VisualStateGroup",
+      "parityStage": "planned",
+      "notes": "Visual state groups are an explicit planned exclusion; usage fails with an actionable diagnostic."
+    },
+    {
       "id": "xaml-element:Window",
       "kind": "xaml-element",
       "status": "supported",
@@ -1011,6 +1051,17 @@
       "xamlProperty": "Template",
       "parityStage": "planned",
       "notes": "Tracked for real app XAML source compatibility."
+    },
+    {
+      "id": "xaml-property-element:ItemsControl.ItemTemplate",
+      "kind": "xaml-property-element",
+      "status": "planned",
+      "area": "templates",
+      "api": "ItemsControl.ItemTemplate",
+      "xamlElement": "ItemsControl",
+      "xamlProperty": "ItemTemplate",
+      "parityStage": "planned",
+      "notes": "Item templates are an explicit planned exclusion; usage fails with an actionable diagnostic."
     },
     {
       "id": "xaml-property-element:VisualStateManager.VisualStateGroups",

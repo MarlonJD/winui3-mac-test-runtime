@@ -208,6 +208,90 @@ public sealed class MacXamlCompilerTests
     }
 
     [TestMethod]
+    public void CompileTextReportsPlannedMarkupExtensions()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <TextBlock Text="{x:Bind Title}" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML1007", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "x:Bind");
+        StringAssert.Contains(result.Diagnostics[0].Message, "cataloged as planned");
+        Assert.IsNotNull(result.Diagnostics[0].Line);
+    }
+
+    [TestMethod]
+    public void CompileTextReportsUnknownMarkupExtensions()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <TextBlock Text="{FuturePublicExtension Value}" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML1007", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "not present in the WinUI compatibility catalog");
+    }
+
+    [TestMethod]
+    public void CompileTextAcceptsRecognizedMarkupExtensions()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <TextBlock Text="{Binding Title}" Foreground="{ThemeResource AccentBrush}" Background="{StaticResource SurfaceBrush}" />
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+    }
+
+    [TestMethod]
+    public void CompileTextReportsPlannedTemplateExclusions()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <ListView>
+                <ListView.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="Item" />
+                  </DataTemplate>
+                </ListView.ItemTemplate>
+              </ListView>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML1003", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "ItemTemplate");
+        StringAssert.Contains(result.Diagnostics[0].Message, "cataloged as planned");
+    }
+
+    [TestMethod]
     public void CompileTextReportsCatalogStatusForMaterialElements()
     {
         const string xaml = """

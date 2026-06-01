@@ -22,13 +22,13 @@ requirements, visual grades, and known gaps, see
 
 ## Seed Coverage
 
-The `0.1` catalog has 120 entries:
+The `0.1` catalog has 125 entries:
 
 | Status | Count |
 | --- | ---: |
 | `supported` | 54 |
 | `partial` | 35 |
-| `planned` | 26 |
+| `planned` | 31 |
 | `windows-only` | 3 |
 | `not supported` | 2 |
 
@@ -41,11 +41,11 @@ The `0.1` catalog has 120 entries:
 | `visual-state` | 5 |
 | `xaml-attached-property` | 3 |
 | `xaml-directive` | 5 |
-| `xaml-element` | 30 |
+| `xaml-element` | 34 |
 | `xaml-event` | 3 |
 | `xaml-markup` | 1 |
 | `xaml-property` | 5 |
-| `xaml-property-element` | 2 |
+| `xaml-property-element` | 3 |
 | `xaml-resource` | 7 |
 
 The `0.1` -> current additions classify the resource and markup surface that the
@@ -71,6 +71,8 @@ strict diagnostic IDs:
 - `XAML1004`: unsupported or unknown XAML directive.
 - `XAML1005`: unsupported or unknown attached property.
 - `XAML1006`: unsupported or unknown event.
+- `XAML1007`: unsupported or unknown markup extension (for example `{x:Bind}`),
+  reported instead of being silently treated as a literal string value.
 
 The message includes the catalog status when a construct is known. If the
 construct is not cataloged, the message says it is not present in the WinUI

@@ -44,6 +44,9 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/PublicAdminWo
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ProductionSmoke.WinUI/scenarios/production-smoke-light.json --strict-visual
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ProductionSmoke.WinUI/scenarios/production-e2e-workbench-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ResourceCatalogApp.WinUI/scenarios/resource-catalog-light.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ResourceCatalogApp.WinUI/scenarios/resource-catalog-dark.json --strict-visual
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ResourceCatalogApp.WinUI/scenarios/resource-catalog-high-contrast.json --strict-visual
 ```
 
 ## Public Application Corpus

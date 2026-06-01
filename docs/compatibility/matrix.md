@@ -42,13 +42,13 @@ WinUI 3 macOS development scope.
 `docs/compatibility/winui-api-compatibility.catalog.json` is the deterministic
 catalog seed used by docs, XAML diagnostics, project ingestion, corpus
 inventory, and placeholder facade runtime diagnostics. The current `0.1` catalog
-contains 120 entries:
+contains 125 entries:
 
 | Status | Count |
 | --- | ---: |
 | `supported` | 54 |
 | `partial` | 35 |
-| `planned` | 26 |
+| `planned` | 31 |
 | `windows-only` | 3 |
 | `not supported` | 2 |
 
@@ -110,7 +110,8 @@ See `component-support.md` for a readable component-by-component support table.
 | `Grid.Column` | supported | Supported attached property for public fixture layout metadata. |
 | `{Binding Path}` | supported | One-way and two-way refresh through `BindingOperations`; both `{Binding Title}` and `{Binding Path=Title, Mode=TwoWay}` forms are accepted for supported properties. |
 | Unsupported elements and properties | supported | Unsupported elements, properties, property elements, directives, attached properties, and events fail compilation with stable diagnostics. |
-| Control templates and materials | planned | Templates, Mica, Acrylic, system backdrops, visual states, and compositor-backed materials are cataloged as roadmap targets and rejected or reported when used. |
+| Markup extensions | partial | `{Binding}`, `{StaticResource}`, and `{ThemeResource}` are supported; `{x:Bind}` and unknown markup extensions fail compilation with the `XAML1007` diagnostic and their catalog status instead of leaking as literal strings. |
+| Control/data/item templates and visual states | planned | `ControlTemplate`, `DataTemplate`, `ItemTemplate`, `VisualState`, and `VisualStateGroup` are explicit planned exclusions cataloged in `winui-api-compatibility.catalog.json`; usage fails with `XAML1001`/`XAML1003` and a `cataloged as planned` message. Mica, Acrylic, system backdrops, and compositor-backed materials remain planned roadmap targets. |
 
 ## Facade Controls
 

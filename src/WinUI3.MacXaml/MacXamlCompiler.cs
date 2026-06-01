@@ -511,6 +511,18 @@ public sealed class MacXamlCompiler
                     continue;
                 }
 
+                if (IsUnsupportedMarkupExtension(attribute.Value, out var markupName, out var markupEntry))
+                {
+                    context.Diagnostics.Add(CreateCompatibilityDiagnostic(
+                        "XAML1007",
+                        "markup extension",
+                        markupName,
+                        markupEntry,
+                        context.FilePath,
+                        element));
+                    continue;
+                }
+
                 properties[localName] = attribute.Value;
             }
 
@@ -574,6 +586,40 @@ public sealed class MacXamlCompiler
             }
 
             return new XamlObjectModel(element, typeName, variableName, name, properties, events, resources, children, propertyChildren, namedElements);
+        }
+
+        private static bool IsUnsupportedMarkupExtension(
+            string value,
+            out string name,
+            out CompatibilityCatalogEntry? entry)
+        {
+            name = string.Empty;
+            entry = null;
+            var trimmed = value.Trim();
+            if (trimmed.Length < 2 || trimmed[0] != '{' || trimmed[^1] != '}')
+            {
+                return false;
+            }
+
+            if (trimmed.StartsWith("{}", StringComparison.Ordinal))
+            {
+                // {} is the XAML escape for a literal value that begins with a brace.
+                return false;
+            }
+
+            var inner = trimmed[1..^1].TrimStart();
+            var separator = inner.IndexOf(' ', StringComparison.Ordinal);
+            name = (separator < 0 ? inner : inner[..separator]).Trim();
+            if (name is "StaticResource" or "ThemeResource" or "Binding")
+            {
+                // Recognized markup extensions handled by the code writer.
+                return false;
+            }
+
+            entry = name.StartsWith("x:", StringComparison.Ordinal)
+                ? CompatibilityCatalog.Current.FindXamlDirective(name)
+                : CompatibilityCatalog.Current.FindByApi(name);
+            return true;
         }
 
         private static bool IsSupportedProperty(string elementName, string propertyName)
