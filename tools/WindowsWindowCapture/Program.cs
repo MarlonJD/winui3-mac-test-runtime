@@ -78,13 +78,25 @@ internal static class Program
 
     private static Process StartProcess(CaptureOptions options)
     {
+        var fileName = options.Command[0];
+        string? workingDirectory = null;
+        if (File.Exists(fileName))
+        {
+            fileName = Path.GetFullPath(fileName);
+            workingDirectory = Path.GetDirectoryName(fileName);
+        }
+
         var startInfo = new ProcessStartInfo
         {
-            FileName = options.Command[0],
+            FileName = fileName,
             UseShellExecute = false,
             RedirectStandardError = true,
             RedirectStandardOutput = true
         };
+        if (!string.IsNullOrWhiteSpace(workingDirectory))
+        {
+            startInfo.WorkingDirectory = workingDirectory;
+        }
 
         foreach (var argument in options.Command.Skip(1))
         {
