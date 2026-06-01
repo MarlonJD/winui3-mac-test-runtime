@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "public-admin-workbench",
+  "scenarioName": "public-admin-workbench-light",
+  "runnerOs": "Unix",
+  "osImage": "macos15",
+  "renderer": "skia-v2",
+  "rendererVersion": "0.2",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1,
+  "theme": "light",
+  "referenceImagePath": "windows-reference.png",
+  "runtimeImagePath": "mac-runtime.png",
+  "diffImagePath": "pixel-diff.png",
+  "thresholds": {
+    "changedPixelPercentage": 45,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 34,
+    "rootMeanSquaredError": 64
+  },
+  "comparison": {
+    "schemaVersion": "0.1",
+    "width": 1044,
+    "height": 720,
+    "changedPixelCount": 120355,
+    "changedPixelPercentage": 16.011468,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 8.497185,
+    "rootMeanSquaredError": 41.087847,
+    "boundingBox": {
+      "x": 0,
+      "y": 0,
+      "width": 1044,
+      "height": 720
+    },
+    "thresholds": {
+      "changedPixelPercentage": 45,
+      "maxChannelDelta": 255,
+      "meanAbsoluteError": 34,
+      "rootMeanSquaredError": 64
+    },
+    "status": "passed"
+  },
+  "unsupportedVisualFeatures": [],
+  "status": "passed"
+}

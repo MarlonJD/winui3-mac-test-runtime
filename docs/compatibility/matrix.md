@@ -49,6 +49,7 @@ composition/effect concepts, shadows, transforms, and animation-related APIs.
 `supported` and `partial` entries describe the alpha surface. `planned`,
 `windows-only`, `not supported`, and `unknown` entries are strict diagnostics
 when app code touches unavailable behavior.
+See `component-support.md` for a readable component-by-component support table.
 
 ## Runtime
 
