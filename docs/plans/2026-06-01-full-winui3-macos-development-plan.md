@@ -11,6 +11,9 @@ Owner subtree: root `docs/plans`, `docs/compatibility`, `docs/architecture`,
 Make the project a full source-level WinUI 3 development runtime for macOS: a
 developer should be able to build, run, test, inspect, and visually validate a
 real WinUI 3 application from macOS without using Wine in the managed runtime.
+This includes the long-term goal of supporting WinUI 3 Fluent visual behavior:
+Mica, Acrylic, system backdrops, composition-driven effects, motion, focus
+visuals, theme resources, and full Fluent interaction states.
 
 The current documented subset is an early milestone, not the final product
 claim. The long-term product goal is broad WinUI 3 source compatibility for C#
@@ -26,6 +29,10 @@ Full macOS WinUI development means:
 - The macOS runtime can execute supported application code through clean-room
   WinUI facade types, deterministic layout, input, resources, binding,
   accessibility, and rendering.
+- Fluent materials and compositor-backed concepts are compatibility targets,
+  not permanent exclusions. They should be implemented through clean-room
+  material, effect, animation, and visual-state abstractions and validated
+  against real Windows output.
 - The runtime exposes every compatibility gap through analyzers, structured
   artifacts, and strict diagnostics.
 - Real Windows builds and screenshots from public `windows-latest` GitHub
@@ -53,6 +60,10 @@ Required:
   accessibility.
 - Renderer coverage for common WinUI controls and states, with Windows
   reference screenshots and scenario-local thresholds.
+- Fluent visual parity coverage for Mica, Acrylic, system backdrops, shadows,
+  opacity, transforms, transitions, focus visuals, reveal-like states,
+  light/dark/high-contrast theme behavior, reduced motion, and accessibility
+  contrast requirements.
 - Developer tools for macOS build/run/test loops, package consumption, scenario
   generation, diagnostics, and Windows CI handoff.
 
@@ -61,7 +72,8 @@ Not required for the macOS-managed runtime:
 - Running arbitrary Windows `.exe` or `.msix` binaries directly on macOS.
 - Reimplementing private Windows internals.
 - Using Wine as the primary runtime path.
-- Claiming OS integration APIs are locally equivalent when they require Windows.
+- Treating OS integration APIs as locally complete before the clean-room
+  implementation and Windows reference validation prove the compatibility level.
 
 Windows-only APIs should be classified. They can be supported through clean-room
 facades, deterministic test doubles, explicit diagnostics, or remote/public
@@ -76,6 +88,10 @@ Windows validation depending on the API category.
 - Unknown public WinUI API usage is a product gap, not silent success.
 - Compatibility claims are based on coverage numbers, tests, fixtures, and
   Windows reference artifacts.
+- Mica, Acrylic, compositor, animation, and Fluent state support are tracked in
+  the compatibility catalog and move through explicit states: planned,
+  API-compatible, semantic-compatible, visually approximated,
+  reference-matched, or Windows-only.
 - The supported surface expands through conformance fixtures, not private app
   content.
 - macOS local runs stay Wine-free.
@@ -94,6 +110,9 @@ Windows validation depending on the API category.
   diagnostics.
 - Visual parity must be evidence-driven because fonts, text rendering, and
   compositor behavior differ across platforms.
+- Mica, Acrylic, composition, shadows, transforms, and Fluent motion can be
+  supported only by modeling public behavior and validating against Windows
+  reference output; private Windows compositor internals are not copied.
 - Private screenshots, private repositories, private product names, secrets, and
   proprietary fixture content remain prohibited.
 
@@ -161,7 +180,34 @@ Verification:
 - New fixture behavior is implemented through shared runtime primitives where
   practical.
 
-### Phase 4: Expand XAML Compatibility Toward Real Apps
+### Phase 4: Build Fluent Materials And Composition Parity
+
+- Add compatibility catalog entries for Mica, Acrylic, system backdrops,
+  compositor concepts, shadows, opacity, transforms, transitions, animations,
+  visual states, focus visuals, reveal-like interaction states, reduced motion,
+  and high-contrast behavior.
+- Build clean-room abstractions for material resolution, effect graphs,
+  animation clocks, visual layers, theme-aware brushes, and fallback behavior.
+- Implement initial public fixtures for material and composition surfaces:
+  active/inactive windows, light/dark/high-contrast themes, Mica backdrop,
+  Acrylic surfaces, layered command surfaces, focus states, animated state
+  transitions, and reduced-motion mode.
+- Define parity levels for these features:
+  API-compatible, semantic-compatible, visually approximated,
+  reference-matched, and Windows-only.
+- Keep unsupported or partially supported material/composition behavior visible
+  in strict diagnostics and compatibility reports.
+
+Verification:
+
+- Unit tests cover material fallback, theme switching, high contrast, reduced
+  motion, visual-state transitions, opacity, transforms, and animation timing.
+- Strict visual scenarios capture Windows references for material/composition
+  fixtures and compare macOS output with scenario-local thresholds.
+- Accessibility tests verify contrast and focus visibility across Mica,
+  Acrylic, light, dark, and high-contrast cases.
+
+### Phase 5: Expand XAML Compatibility Toward Real Apps
 
 - Support broader XAML grammar, property elements, collection syntax,
   namespaces, attached properties, markup extensions, styles, templates,
@@ -177,7 +223,7 @@ Verification:
 - Public conformance fixtures use realistic XAML without private content.
 - Unsupported XAML emits stable diagnostic IDs and actionable messages.
 
-### Phase 5: Expand Control And Layout Coverage
+### Phase 6: Expand Control And Layout Coverage
 
 - Build a public WinUI compatibility gallery fixture that exercises the common
   desktop app controls and states.
@@ -187,6 +233,9 @@ Verification:
   data presentation, progress/status, scrolling, flyouts, menus, and settings.
 - Track each control through the compatibility catalog, tests, scenario JSON,
   visual artifacts, and docs.
+- Include Fluent interaction states for supported controls: hover, pressed,
+  focused, selected, disabled, error, loading, animated transitions, theme
+  resources, and material-backed surfaces where Windows guidance uses them.
 
 Verification:
 
@@ -196,13 +245,16 @@ Verification:
 - Strict mode fails on missing control states, unsupported properties, or
   missing painters.
 
-### Phase 6: Make Visual Fidelity A Conformance Suite
+### Phase 7: Make Visual Fidelity A Conformance Suite
 
 - Expand the public Windows reference workflow from a few scenarios into a
   broad conformance suite.
 - Capture Windows reference screenshots for control gallery, app shell, forms,
   navigation, data/list, dialogs/flyouts, theme, accessibility state, and
   interaction states.
+- Add material/composition scenarios for Mica, Acrylic, system backdrop
+  fallback, shadows, transforms, animated state transitions, reduced motion,
+  focus visuals, and high-contrast Fluent resources.
 - Keep scenario-local thresholds, reviewable artifacts, and deterministic
   layout export.
 
@@ -213,7 +265,7 @@ Verification:
   visual run metadata, tree, diagnostics, and unsupported API reports.
 - Threshold changes require visual inspection and explanation.
 
-### Phase 7: Build The macOS Developer Workflow
+### Phase 8: Build The macOS Developer Workflow
 
 - Provide package and template support for creating and importing WinUI
   compatibility test projects on macOS.
@@ -228,7 +280,7 @@ Verification:
   validated through public CI.
 - Consumer docs and sample workflows work from a clean checkout.
 
-### Phase 8: Define Full-Compatibility Release Gates
+### Phase 9: Define Full-Compatibility Release Gates
 
 - Add release gates based on API catalog coverage, fixture coverage, test
   coverage, Windows reference coverage, and package/consumer readiness.
@@ -242,6 +294,9 @@ Verification:
   evidence, known unsupported API categories, and residual risks.
 - The public claim is precise: full source-level WinUI development is the goal,
   with current coverage stated by evidence.
+- Material and composition support is reported separately so consumers can see
+  whether Mica, Acrylic, compositor effects, animations, and Fluent visual
+  states are planned, approximated, or reference-matched.
 
 ## Verification Gates
 
@@ -296,6 +351,14 @@ gh run download --repo MarlonJD/winui3-mac-test-runtime --name windows-native-sc
 - Risk: Windows-only APIs block local macOS execution.
   Mitigation: classify them and provide clean-room facades, deterministic test
   doubles, diagnostics, or Windows CI validation paths.
+- Risk: Mica, Acrylic, and compositor behavior cannot be copied from Windows
+  internals.
+  Mitigation: implement clean-room public-behavior approximations first, then
+  promote individual features only when Windows reference scenarios prove
+  visual and semantic parity.
+- Risk: Fluent visual parity reduces accessibility or contrast on macOS.
+  Mitigation: verify high contrast, reduced motion, focus visibility, and text
+  contrast as first-class material/composition gates.
 - Risk: Current alpha docs imply the subset is enough.
   Mitigation: reframe the subset as an initial milestone under the full macOS
   WinUI development roadmap.
@@ -335,10 +398,10 @@ gh run download --repo MarlonJD/winui3-mac-test-runtime --name windows-native-sc
 
 ## Execution Prompt
 
-Use `$google-eng-practices` and implement `docs/plans/2026-06-01-full-winui3-macos-development-plan.md` in the public `MarlonJD/winui3-mac-test-runtime` repository. The product goal is full source-level WinUI 3 application development on macOS: developers should be able to build, run, test, inspect, and visually validate real WinUI 3 C# and XAML app code from macOS, while real Windows public GitHub Actions runs remain the behavioral and visual source of truth. Keep the macOS-managed runtime Wine-free. Preserve existing `winui3-mac-doctor`, `winui3-mac-runner`, SVG, current Skia, and `skia-v2` behavior. Do not use private repositories, private screenshots, private product names, secrets, or proprietary fixture content. Keep identifiers, comments, and canonical docs in English.
+Use `$google-eng-practices` and `$windows-winui3-design` and implement `docs/plans/2026-06-01-full-winui3-macos-development-plan.md` in the public `MarlonJD/winui3-mac-test-runtime` repository. The product goal is full source-level WinUI 3 application development on macOS: developers should be able to build, run, test, inspect, and visually validate real WinUI 3 C# and XAML app code from macOS, while real Windows public GitHub Actions runs remain the behavioral and visual source of truth. Mica, Acrylic, system backdrops, compositor-style effects, shadows, transforms, motion, focus visuals, theme resources, high contrast, reduced motion, and full Fluent interaction states are in-scope compatibility targets and must be tracked explicitly. Keep the macOS-managed runtime Wine-free. Preserve existing `winui3-mac-doctor`, `winui3-mac-runner`, SVG, current Skia, and `skia-v2` behavior. Do not use private repositories, private screenshots, private product names, secrets, or proprietary fixture content. Keep identifiers, comments, and canonical docs in English.
 
-Start by reframing the public docs so the current Level 0 through Level 7 subset is clearly an alpha milestone, not the final product scope. Then implement the smallest end-to-end foundation for the full-compatibility roadmap: a deterministic WinUI API compatibility catalog or equivalent source-of-truth mechanism that classifies public WinUI 3 / Windows App SDK APIs as supported, partial, planned, Windows-only, or not supported; connects that classification to docs; and produces strict diagnostics for unknown or unsupported API usage. Do not add broad control support opportunistically. Add only the tests, fixtures, analyzers, docs, and runtime hooks needed to prove this first foundation while keeping existing smoke and visual scenarios green.
+Start by reframing the public docs so the current Level 0 through Level 7 subset is clearly an alpha milestone, not the final product scope. Then implement the smallest end-to-end foundation for the full-compatibility roadmap: a deterministic WinUI API compatibility catalog or equivalent source-of-truth mechanism that classifies public WinUI 3 / Windows App SDK APIs, XAML constructs, Fluent resources, Mica/Acrylic/system backdrop APIs, compositor/effect concepts, visual states, and animation-related APIs as supported, partial, planned, Windows-only, or not supported. Connect that classification to docs and strict diagnostics for unknown or unsupported API usage. Add a first material/composition compatibility contract and public fixture plan, but do not opportunistically implement broad controls or visual effects without tests. Add only the tests, fixtures, analyzers, docs, and runtime hooks needed to prove this first foundation while keeping existing smoke and visual scenarios green.
 
 Run targeted tests while working and the relevant final verification before handoff: `dotnet build`, `dotnet test`, `PATH="$PWD/tools:$PATH" winui3-mac-doctor`, `PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj`, `PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj --renderer skia`, strict `skia-v2` runs for `SampleAdminShell`, `InteractionBindingApp`, and both `ControlGallery` light and high-contrast scenarios, `dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release`, `dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release`, package smoke commands for changed packages, and `rg -n "<private-name-denylist-regex>" .` with the operator-provided private-name denylist. If visual behavior or scenarios change, trigger `windows-native-screenshot.yml`, wait for it to finish, download artifacts, and inspect the relevant `windows-reference.png`, `mac-runtime.png`, and `pixel-diff.png` files before final handoff.
 
-Commit only relevant files with author `marlonjd <burak.karahan@mail.ru>` using a Conventional Commit message and push immediately. Final handoff must state how the docs now express full WinUI 3 macOS development as the product goal, what compatibility catalog or foundation was added, which verification commands passed, whether Windows reference workflow was needed, the private-name scan result, commit SHA, and residual risks.
+Commit only relevant files with author `marlonjd <burak.karahan@mail.ru>` using a Conventional Commit message and push immediately. Final handoff must state how the docs now express full WinUI 3 macOS development and Fluent/Mica/Acrylic/compositor parity as product goals, what compatibility catalog or foundation was added, which verification commands passed, whether Windows reference workflow was needed, the private-name scan result, commit SHA, and residual risks.
