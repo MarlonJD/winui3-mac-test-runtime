@@ -243,11 +243,14 @@ Release or visual-change gate:
 
 1. Run the PR gate.
 2. Run the Windows reference workflow.
-3. Download and inspect `windows-reference.png`, `mac-runtime.png`,
-   `pixel-diff.png`, `visual-run.json`, and, when available,
-   `component-evidence.json` and reference provenance.
-4. Record visible gaps as `good`, `usable`, `weak`, `poor`, or `not-rendered`.
-5. Do not claim visual parity for weak or poor components.
+3. Download the `windows-reference-screenshots` artifact.
+4. Run the matching local macOS strict scenario with `--reference` and
+   `--diff-output`.
+5. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`,
+   `visual-run.json`, and, when available, `component-evidence.json` and
+   reference provenance.
+6. Record visible gaps as `good`, `usable`, `weak`, `poor`, or `not-rendered`.
+7. Do not claim visual parity for weak or poor components.
 
 ## GitHub Actions Shape
 
@@ -257,15 +260,17 @@ repository.
 
 The CI shape is:
 
-1. macOS job installs `MarlonJD.WinUI3.MacRunner`.
-2. macOS job runs doctor, smoke, and strict visual scenarios.
-3. Windows job captures native WinUI Windows references for public-safe
+1. A local developer Mac or self-hosted macOS runner installs
+   `MarlonJD.WinUI3.MacRunner`.
+2. The local macOS tier runs doctor, smoke, and strict visual scenarios.
+3. A Windows job captures native WinUI Windows references for public-safe
    fixtures.
-4. macOS job downloads Windows references and runs strict pixel comparison.
-5. CI uploads runtime artifacts for review.
+4. The local macOS tier downloads Windows references and runs strict pixel
+   comparison.
+5. The operator keeps runtime artifacts for review.
 
 Use `docs/examples/consumer-github-actions.yml` as a starting point for the
-macOS smoke and strict visual tier. Mirror the repository's
+self-hosted macOS smoke and strict visual tier. Mirror the repository's
 `.github/workflows/windows-native-screenshot.yml` pattern when adding the
 Windows reference tier.
 

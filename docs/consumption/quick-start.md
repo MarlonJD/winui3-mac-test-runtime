@@ -94,9 +94,10 @@ When a Windows reference PNG is available, add `--reference` and
 
 ## CI
 
-Use `docs/examples/consumer-github-actions.yml` as the starting point for public
-consumer CI. The sample installs the packaged runner, runs doctor, executes a
-managed fixture, and uploads strict visual artifacts.
+Use `docs/examples/consumer-github-actions.yml` as the starting point only when
+you operate a self-hosted macOS runner. The same commands can also be run
+directly on a local developer Mac. The sample installs the packaged runner,
+runs doctor, executes a managed fixture, and uploads strict visual artifacts.
 
 For downstream Windows WinUI 3 app adoption, including why this tool exists and
 which test tiers should run, see

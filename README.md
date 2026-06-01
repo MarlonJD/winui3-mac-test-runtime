@@ -44,10 +44,10 @@ dotnet tool install MarlonJD.WinUI3.MacRunner --version 0.1.0-alpha.1 --tool-pat
 
 See `docs/consumption/quick-start.md` for fixture setup, strict visual commands,
 troubleshooting, and known limits. See
-`docs/examples/consumer-github-actions.yml` for a public consumer CI starting
-point. See `docs/consumption/downstream-windows-apps.md` for why this tool
-exists, how a downstream Windows WinUI 3 app can use it, and which tests should
-run locally and in CI.
+`docs/examples/consumer-github-actions.yml` for a self-hosted macOS consumer CI
+starting point. See `docs/consumption/downstream-windows-apps.md` for why this
+tool exists, how a downstream Windows WinUI 3 app can use it, and which tests
+should run locally and in CI.
 
 ## Current Fixtures
 
@@ -255,16 +255,13 @@ Release readiness evidence and the operator checklist live in
 
 ## Windows Native Screenshot Harness
 
-The `windows-native-screenshot` workflow runs on GitHub's `windows-latest`
+The `windows-native-screenshot` workflow runs only on GitHub's `windows-latest`
 runner and captures client-area PNG reference screenshots from Windows desktop
-windows. The current workflow launches `WindowsNativeProbe`, which draws
-synthetic public reference screens; it does not yet launch the actual native
-WinUI fixture projects. A follow-up `macos-latest` job renders the matching
-public scenario through `skia-v2`, compares the two PNGs, and uploads
-reviewable reference/runtime/diff artifacts for the shell, interaction/binding,
-control-gallery, public admin/workbench, and component parity lab fixture
-categories. Treat the current references as harness smoke evidence until native
-WinUI fixture capture replaces the synthetic probe.
+windows. The current workflow launches public native WinUI fixture projects and
+the `WindowsNativeProbe` smoke fixture; local macOS runtime comparison is run
+from a developer Mac with `winui3-mac-runner --reference` when visual parity
+needs review. Treat current synthetic references as harness smoke evidence until
+native WinUI fixture capture fully replaces the probe.
 
 The capture tool can be pointed at any Windows desktop app by changing the
 window title and command:
@@ -279,15 +276,14 @@ dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj -- \
 ```
 
 The workflow uses only generic public fixture content and public GitHub-hosted
-runners. It does not require Wine, private repositories, secrets, or private
-screenshots. Passing visual comparison means the documented alpha
-fixture/control subset stayed within the scenario thresholds against the
-current synthetic probe references. The workflow also includes
-`public-admin-workbench-light`, but that reference is currently a synthetic
-Windows probe drawing rather than a native WinUI fixture capture. Passing the
-workflow is not a claim of arbitrary WinUI 3 pixel compatibility, and visibly
-weak components must remain labeled `weak` or `poor` in component evidence until
-native WinUI public reference artifacts justify a stronger grade.
+Windows runners. It does not require Wine, macOS GitHub-hosted runners, private
+repositories, secrets, or private screenshots. Passing the workflow means the
+Windows reference capture tier completed; local visual comparison must still
+pass before claiming the documented alpha fixture/control subset stayed within
+scenario thresholds. Passing either tier is not a claim of arbitrary WinUI 3
+pixel compatibility, and visibly weak components must remain labeled `weak` or
+`poor` in component evidence until native WinUI public reference artifacts
+justify a stronger grade.
 
 ## License
 

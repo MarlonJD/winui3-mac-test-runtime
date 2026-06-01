@@ -1,10 +1,11 @@
 # Visual Parity Evidence
 
 This directory keeps public, reviewable visual harness evidence from the
-`windows-native-screenshot.yml` workflow. The current workflow captures a
-Windows-hosted `WindowsNativeProbe` synthetic reference PNG, renders the same
-public scenario through the macOS runtime, writes a pixel diff, and fails strict
-runs when metrics exceed the scenario thresholds.
+`windows-native-screenshot.yml` workflow and local macOS strict visual runs.
+The current GitHub workflow captures Windows-hosted reference PNGs from public
+fixtures. The matching macOS runtime render, pixel diff, and threshold failure
+checks are produced locally on a developer Mac with `winui3-mac-runner` when a
+visual scenario needs review.
 
 Important: the checked-in `windows-reference.png` examples are not native WinUI
 renders of the fixture projects yet. They are useful for validating the public
@@ -127,13 +128,15 @@ features such as `Window.SystemBackdrop / MicaBackdrop` remain diagnostic-only.
 
 When a visual scenario or renderer behavior changes:
 
-1. Run the local strict scenario.
+1. Run the local strict scenario without a reference.
 2. Trigger `windows-native-screenshot.yml` on the public repository.
-3. Download the `windows-native-screenshot` artifact.
-4. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, and
+3. Download the `windows-reference-screenshots` artifact.
+4. Re-run the matching local strict scenario with `--reference` and
+   `--diff-output`.
+5. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, and
    `visual-run.json`; inspect `component-evidence.json` for component lab
-   scenarios, and inspect reference provenance when the artifact supplies it.
-5. Update the relevant example folder only when the artifact is public and does
+   scenarios, and inspect reference provenance when the reference supplies it.
+6. Update the relevant example folder only when the artifact is public and does
    not contain private names, private screenshots, secrets, or proprietary
    fixture content. Production visual examples must come from native WinUI
    reference provenance; synthetic probe examples must remain labeled as smoke
