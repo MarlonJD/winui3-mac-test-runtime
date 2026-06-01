@@ -11,6 +11,10 @@ public sealed record AccessibilityNode(
     string? Label,
     string? HelpText,
     bool IsFocused,
+    bool? IsEnabled,
+    bool? IsChecked,
+    bool? IsSelected,
+    string? Value,
     IReadOnlyList<AccessibilityNode> Children);
 
 public static class AccessibilityTreeBuilder
@@ -35,6 +39,14 @@ public static class AccessibilityTreeBuilder
             Label: label,
             HelpText: ReadString(node.Properties, "automationHelpText"),
             IsFocused: ReadBool(node.Properties, "isFocused"),
+            IsEnabled: ReadNullableBool(node.Properties, "isEnabled"),
+            IsChecked: ReadNullableBool(node.Properties, "isChecked"),
+            IsSelected: ReadString(node.Properties, "selectedItem") is not null || ReadString(node.Properties, "selectedIndex") is not null
+                ? ReadString(node.Properties, "selectedIndex") != "-1"
+                : null,
+            Value: ReadString(node.Properties, "text") ??
+                ReadString(node.Properties, "selectedItem") ??
+                ReadString(node.Properties, "value"),
             Children: node.Children.Select(BuildNode).ToArray());
     }
 
@@ -133,5 +145,15 @@ public static class AccessibilityTreeBuilder
     private static bool ReadBool(IReadOnlyDictionary<string, object?> properties, string key)
     {
         return properties.TryGetValue(key, out var value) && value is bool boolean && boolean;
+    }
+
+    private static bool? ReadNullableBool(IReadOnlyDictionary<string, object?> properties, string key)
+    {
+        if (!properties.TryGetValue(key, out var value) || value is null)
+        {
+            return null;
+        }
+
+        return bool.TryParse(value.ToString(), out var boolean) ? boolean : null;
     }
 }

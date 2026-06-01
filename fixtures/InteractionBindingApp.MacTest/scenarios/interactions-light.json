@@ -21,8 +21,24 @@
       "target": "SearchBox"
     },
     {
+      "type": "typeText",
+      "target": "SearchBox",
+      "parameter": "Closed tasks"
+    },
+    {
       "type": "click",
       "target": "RefreshButton"
+    },
+    {
+      "type": "selectItem",
+      "target": "TaskList",
+      "parameter": "Archive completed task"
+    },
+    {
+      "type": "assertProperty",
+      "target": "TitleText",
+      "key": "Text",
+      "parameter": "Updated title"
     }
   ]
 }

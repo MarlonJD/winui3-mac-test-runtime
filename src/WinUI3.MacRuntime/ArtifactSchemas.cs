@@ -6,7 +6,7 @@ namespace WinUI3.MacRuntime;
 
 public static class ArtifactSchemas
 {
-    public const string Accessibility = "0.1";
+    public const string Accessibility = "0.2";
     public const string BindingFailures = "0.1";
     public const string DoctorReport = "0.1";
     public const string InteractionReport = "0.1";

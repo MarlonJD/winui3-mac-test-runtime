@@ -69,9 +69,12 @@ public sealed class InteractionScriptRunner
             {
                 "click" => Click(window, action, index),
                 "focus" => Focus(window, action, index),
+                "typeText" => TypeText(window, action, index),
+                "selectItem" => SelectItem(window, action, index),
                 "selectNavigation" => SelectNavigation(window, action, index),
                 "navigateFrame" => NavigateFrame(window, action, index),
                 "invokeAccelerator" => InvokeAccelerator(window, action, index),
+                "assertProperty" => AssertProperty(window, action, index),
                 _ => Failed(index, action, $"Unsupported action type '{action.Type}'.")
             };
         }
@@ -103,6 +106,49 @@ public sealed class InteractionScriptRunner
 
         frameworkElement.Focus(FocusState.Programmatic);
         return Passed(index, action);
+    }
+
+    private static InteractionStepResult TypeText(Window window, InteractionAction action, int index)
+    {
+        var target = RequireTarget(window, action);
+        if (target is not TextBox textBox)
+        {
+            return Failed(index, action, "Target is not a TextBox.");
+        }
+
+        textBox.Text = action.Parameter ?? string.Empty;
+        BindingOperations.UpdateSource(textBox, nameof(TextBox.Text));
+        return Passed(index, action);
+    }
+
+    private static InteractionStepResult SelectItem(Window window, InteractionAction action, int index)
+    {
+        var target = RequireTarget(window, action);
+        if (target is ComboBox comboBox)
+        {
+            var selectedIndex = FindItemIndex(comboBox.Items, action.Parameter);
+            if (selectedIndex < 0)
+            {
+                return Failed(index, action, $"Item '{action.Parameter}' was not found.");
+            }
+
+            comboBox.SelectedIndex = selectedIndex;
+            return Passed(index, action);
+        }
+
+        if (target is ListView listView)
+        {
+            var selectedIndex = FindItemIndex(listView.Items, action.Parameter);
+            if (selectedIndex < 0)
+            {
+                return Failed(index, action, $"Item '{action.Parameter}' was not found.");
+            }
+
+            listView.SelectedIndex = selectedIndex;
+            return Passed(index, action);
+        }
+
+        return Failed(index, action, "Target is not a selectable item control.");
     }
 
     private static InteractionStepResult SelectNavigation(Window window, InteractionAction action, int index)
@@ -168,6 +214,40 @@ public sealed class InteractionScriptRunner
 
         accelerator.Invoke();
         return Passed(index, action);
+    }
+
+    private static InteractionStepResult AssertProperty(Window window, InteractionAction action, int index)
+    {
+        var target = RequireTarget(window, action);
+        if (string.IsNullOrWhiteSpace(action.Key))
+        {
+            return Failed(index, action, "assertProperty requires key.");
+        }
+
+        var property = target.GetType().GetProperty(action.Key);
+        if (property is null || !property.CanRead)
+        {
+            return Failed(index, action, $"Property '{action.Key}' was not found.");
+        }
+
+        var actual = property.GetValue(target)?.ToString() ?? string.Empty;
+        var expected = action.Parameter ?? string.Empty;
+        return string.Equals(actual, expected, StringComparison.Ordinal)
+            ? Passed(index, action)
+            : Failed(index, action, $"Expected '{expected}' but found '{actual}'.");
+    }
+
+    private static int FindItemIndex(IList<object?> items, string? expected)
+    {
+        for (var index = 0; index < items.Count; index++)
+        {
+            if (string.Equals(items[index]?.ToString(), expected, StringComparison.Ordinal))
+            {
+                return index;
+            }
+        }
+
+        return -1;
     }
 
     private static object RequireTarget(Window window, InteractionAction action)

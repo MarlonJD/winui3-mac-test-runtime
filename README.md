@@ -40,8 +40,9 @@ and exports admin navigation visibility in `tree.json`.
 
 `InteractionBindingApp.MacTest` exercises page navigation, binding refresh,
 two-way binding, `INotifyPropertyChanged`, observable item binding, command
-execution, button click simulation, focus, accessibility export, binding failure
-export, list/text/image facade export, and a deterministic snapshot artifact.
+execution, button click simulation, focus, text input, item selection, property
+assertions, accessibility state export, binding failure export, list/text/image
+facade export, and a deterministic snapshot artifact.
 
 `ControlGallery.MacTest` exercises the Level 2 public control subset:
 `ScrollViewer`, `ContentControl`, `ItemsControl`, `CheckBox`, `RadioButton`,
@@ -105,8 +106,9 @@ The published compatibility claim includes **Level 0: Harness Reliability**,
 the documented **Level 1: Core App And XAML Compatibility** subset, and the
 public-fixture-backed **Level 2: Layout And Controls Foundation** and
 **Level 3: Styling, Resources, And Theme Fidelity** subsets, plus the
-fixture-backed **Level 4: Data Binding, Commands, And State** subset. Higher
-levels are documented as `supported`, `partial`, or `planned`.
+fixture-backed **Level 4: Data Binding, Commands, And State** and **Level 5:
+Input, Accessibility, And Automation** subsets. Higher levels are documented as
+`supported`, `partial`, or `planned`.
 See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/matrix.md` for the current supported subset.
 

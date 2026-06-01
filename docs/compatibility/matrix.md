@@ -17,7 +17,7 @@ Status values:
 | Level 2: Layout And Controls Foundation | supported | Public fixture subset for `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `TextBox`, `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `Image`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `AppBarButton`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. |
 | Level 3: Styling, Resources, And Theme Fidelity | supported | Resource lookup, style setter application for supported properties, light/dark/high-contrast renderer themes, and strict resource diagnostics for the public subset. |
 | Level 4: Data Binding, Commands, And State | supported | One-way and two-way binding for supported properties, `INotifyPropertyChanged`, observable item collections, command execution state, button command invocation, and navigation state for public fixtures. |
-| Level 5: Input, Accessibility, And Automation | partial | Scripted click, focus, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility export. |
+| Level 5: Input, Accessibility, And Automation | supported | Scripted click, focus, text entry, item selection, property assertions, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility state export. |
 | Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` reference workflow and scenario-local pixel thresholds for current strict fixtures. |
 | Level 7: Release And Consumption Readiness | planned | Packages can be smoked, but release/consumer contracts are not complete. |
 
@@ -28,12 +28,13 @@ Status values:
 | Wine-free managed host | supported | Runs facade-backed .NET assemblies on macOS. |
 | Windows executable loading | not supported | Binary `.exe` compatibility is out of scope. |
 | `run.json` and `tree.json` | supported | Emitted for every runner invocation. |
-| `accessibility.json` | supported | Role/name/label/help/focus approximation from the logical tree. |
+| `accessibility.json` | supported | Role/name/label/help/focus/enabled/checked/selected/value approximation from the logical tree. |
 | `binding-failures.json` | supported | Versioned envelope captures unresolved paths and non-writable targets. |
 | `resource-failures.json` | supported | Versioned envelope captures unresolved static and theme resources. |
 | `unsupported-apis.json` | supported | Versioned envelope captures clean-room placeholder facade APIs that were touched. |
 | `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unsupported API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
+| Scripted text entry, item selection, and assertions | supported | `typeText`, `selectItem`, and `assertProperty` actions emit deterministic pass/fail results. |
 | Versioned interaction scripts | supported | Script input accepts `schemaVersion: 0.1`; reports emit `schemaVersion: 0.1`. |
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
 | Snapshot output | partial | Deterministic SVG fallback and Skia-backed PNG output are available for the supported tree subset. |

@@ -14,7 +14,7 @@ a new schema version and documentation update.
 | --- | --- |
 | `run.json` | `0.1` |
 | `tree.json` | `0.1`; `0.2` when `skia-v2` layout metadata is exported |
-| `accessibility.json` | `0.1` |
+| `accessibility.json` | `0.2` |
 | `binding-failures.json` | `0.1` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
@@ -38,7 +38,9 @@ a new schema version and documentation update.
 - `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
   and unsupported API reports.
 - `interactions.json`: emitted when `--script` is provided; records every
-  scripted action and its result.
+  scripted action and its result. Supported action types are `click`, `focus`,
+  `typeText`, `selectItem`, `assertProperty`, `selectNavigation`,
+  `navigateFrame`, and `invokeAccelerator`.
 - `snapshot.json`: renderer metadata for the deterministic snapshot.
 - `screenshots/snapshot.svg`: nonblank deterministic visual representation of
   the logical tree from the default SVG renderer.
