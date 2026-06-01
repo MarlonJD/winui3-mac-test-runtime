@@ -14,6 +14,11 @@ public sealed partial class MainWindow : Window
 
     private readonly NativeLaunchOptions launchOptions;
 
+    public MainWindow()
+        : this(NativeLaunchOptions.Default)
+    {
+    }
+
     public MainWindow(NativeLaunchOptions launchOptions)
     {
         this.launchOptions = launchOptions;
