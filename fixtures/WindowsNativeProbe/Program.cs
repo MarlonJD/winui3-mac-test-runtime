@@ -140,42 +140,53 @@ internal sealed class ProbeForm : Form
     private static void DrawControlGalleryScenario(Graphics graphics, int width, int height)
     {
         using var bodyFont = new Font("Segoe UI", 10.5f, FontStyle.Regular, GraphicsUnit.Point);
-        using var titleFont = new Font("Segoe UI", 16f, FontStyle.Bold, GraphicsUnit.Point);
         Fill(graphics, Palette.AppBackground, new RectangleF(0, 0, width, height));
         Fill(graphics, Palette.Surface, new RectangleF(0, 0, width, 48));
         Line(graphics, Palette.Stroke, 0, 48, width, 48);
         DrawText(graphics, bodyFont, Palette.TextPrimary, "Public Control Gallery", 24, 14);
 
         var x = 24;
-        var y = 76;
-        DrawText(graphics, titleFont, Palette.TextPrimary, "Control gallery", x, y);
-        y += 36;
+        var y = 76f;
+        DrawText(graphics, bodyFont, Palette.TextPrimary, "Control gallery", x, y + 4);
+        y = 112;
         RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width - 48, 74), 8);
         StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width - 48, 74), 8);
-        Fill(graphics, Palette.Accent, new RectangleF(x, y, 5, 74));
+        Fill(graphics, Palette.SuccessAccent, new RectangleF(x, y, 5, 74));
         DrawText(graphics, bodyFont, Palette.TextPrimary, "Saved", x + 18, y + 18);
         DrawText(graphics, bodyFont, Palette.TextSecondary, "The public control gallery command ran.", x + 18, y + 42);
-        y += 86;
 
+        y = 198;
         DrawField(graphics, bodyFont, "Operations", x, y, width - 48);
-        y += 48;
+        y = 246;
         DrawField(graphics, bodyFont, "In review", x, y, width - 48);
-        y += 52;
+        DrawText(graphics, bodyFont, Palette.TextSecondary, "v", width - 46, y + 11);
+        y = 298;
         DrawCheckRow(graphics, bodyFont, "Enabled", x, y, check: true, radio: false);
-        y += 40;
+        y = 350;
         DrawCheckRow(graphics, bodyFont, "High priority", x, y, check: true, radio: true);
-        y += 40;
-        DrawField(graphics, bodyFont, "Pinned", x, y, width - 48);
-        y += 52;
+        y = 402;
+        RoundRect(graphics, Palette.AccentSoft, new RectangleF(x, y, width - 48, 40), 6);
+        StrokeRoundRect(graphics, Palette.Accent, new RectangleF(x, y, width - 48, 40), 6);
+        DrawText(graphics, bodyFont, Palette.Accent, "Pinned", x + 14, y + 14);
 
-        RoundRect(graphics, Palette.Stroke, new RectangleF(x, y + 9, width - 48, 10), 4);
+        y = 454;
+        RoundRect(graphics, Palette.DisabledSurface, new RectangleF(x, y + 9, width - 48, 10), 4);
         RoundRect(graphics, Palette.Accent, new RectangleF(x, y + 9, (width - 48) * 0.65f, 10), 4);
-        y += 40;
-        StrokeRoundRect(graphics, Palette.Accent, new RectangleF(x, y, 32, 32), 16);
-        y += 44;
+
+        y = 494;
+        StrokeRoundRect(graphics, Palette.Accent, new RectangleF((width / 2f) - 13, y + 3, 26, 26), 13);
+        FillEllipse(graphics, Palette.Accent, (width / 2f) + 10, y + 14, 6, 6);
+
+        y = 538;
         RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width - 48, 48), 8);
         StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width - 48, 48), 8);
-        DrawText(graphics, bodyFont, Palette.Accent, "Save", x + 30, y + 14);
+        RoundRect(graphics, Palette.Surface, new RectangleF(x + 8, y + 6, 104, 36), 6);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x + 8, y + 6, 104, 36), 6);
+        DrawText(graphics, bodyFont, Palette.Accent, "*", x + 20, y + 12);
+        DrawText(graphics, bodyFont, Palette.Accent, "Save", x + 38, y + 13);
+
+        DrawEmptyPanel(graphics, x, 598, width - 48, 64);
+        DrawEmptyPanel(graphics, x, 674, width - 48, 64);
     }
 
     private static void DrawField(Graphics graphics, Font font, string text, float x, float y, float width)
@@ -199,6 +210,12 @@ internal sealed class ProbeForm : Form
         }
 
         DrawText(graphics, font, Palette.TextPrimary, text, x + 34, y + 8);
+    }
+
+    private static void DrawEmptyPanel(Graphics graphics, float x, float y, float width, float height)
+    {
+        RoundRect(graphics, Palette.Surface, new RectangleF(x, y, width, height), 8);
+        StrokeRoundRect(graphics, Palette.Stroke, new RectangleF(x, y, width, height), 8);
     }
 
     private static void Fill(Graphics graphics, Color color, RectangleF rectangle)
@@ -292,8 +309,10 @@ internal static class Palette
     public static readonly Color PaneBackground = Color.FromArgb(242, 243, 245);
     public static readonly Color Surface = Color.White;
     public static readonly Color Stroke = Color.FromArgb(216, 220, 227);
+    public static readonly Color DisabledSurface = Color.FromArgb(239, 242, 247);
     public static readonly Color TextPrimary = Color.FromArgb(31, 35, 42);
     public static readonly Color TextSecondary = Color.FromArgb(93, 102, 115);
     public static readonly Color Accent = Color.FromArgb(37, 98, 217);
     public static readonly Color AccentSoft = Color.FromArgb(232, 240, 255);
+    public static readonly Color SuccessAccent = Color.FromArgb(15, 123, 15);
 }
