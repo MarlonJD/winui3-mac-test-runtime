@@ -25,6 +25,32 @@ public sealed partial class BasicInputPage : Page
 
     public void ApplyScenarioState(string scenarioName)
     {
+        if (scenarioName.Contains("disabled", StringComparison.OrdinalIgnoreCase))
+        {
+            PrimaryActionButton.IsEnabled = false;
+            PinnedToggleButton.IsEnabled = false;
+            StatusComboBox.IsEnabled = false;
+            BasicInputStateText.Text = "Disabled state";
+            return;
+        }
+
+        if (scenarioName.Contains("checked", StringComparison.OrdinalIgnoreCase))
+        {
+            PinnedToggleButton.IsChecked = true;
+            EnabledCheckBox.IsChecked = true;
+            HighPriorityRadioButton.IsChecked = true;
+            StatusComboBox.SelectedIndex = 1;
+            BasicInputStateText.Text = "Checked state";
+            return;
+        }
+
+        if (scenarioName.Contains("focused", StringComparison.OrdinalIgnoreCase))
+        {
+            StatusComboBox.Focus(FocusState.Programmatic);
+            BasicInputStateText.Text = "Focused state";
+            return;
+        }
+
         if (scenarioName.Contains("basic-input", StringComparison.OrdinalIgnoreCase))
         {
             StatusComboBox.SelectedIndex = 2;

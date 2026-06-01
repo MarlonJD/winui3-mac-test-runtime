@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-basic-input-checked-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 12.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "requirements": [
+    {
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "content", "isChecked" ],
+      "knownGaps": [ "Checked ToggleButton native chrome is captured on Windows, but macOS still emits only text." ]
+    },
+    {
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "content", "isChecked" ],
+      "knownGaps": [ "Checked CheckBox glyph and state chrome are not rendered on macOS yet." ]
+    },
+    {
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "content", "groupName", "isChecked" ],
+      "knownGaps": [ "Checked RadioButton glyph and state chrome are not rendered on macOS yet." ]
+    }
+  ]
+}

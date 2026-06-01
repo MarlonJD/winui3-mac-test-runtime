@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-status-pickers-error-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 22.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 14.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "requirements": [
+    {
+      "component": "InfoBar",
+      "target": "StatusInfoBar",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "title", "message", "severity", "isOpen", "error" ],
+      "knownGaps": [ "Error status is captured on Windows, but native InfoBar severity chrome is not rendered on macOS yet." ]
+    },
+    {
+      "component": "ProgressBar",
+      "target": "CompletionProgressBar",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "minimum", "maximum", "value" ],
+      "knownGaps": [ "ProgressBar track and indicator are not rendered on macOS yet." ]
+    }
+  ]
+}

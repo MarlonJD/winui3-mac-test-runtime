@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-commands-menus-command-invoked-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 24.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": [
+    {
+      "type": "click",
+      "target": "SaveCommandButton"
+    },
+    {
+      "type": "assertProperty",
+      "target": "CommandStateText",
+      "key": "Text",
+      "parameter": "Saved"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "primaryCommands", "command-invoked" ],
+      "knownGaps": [ "Command invocation is covered, but native CommandBar chrome is not rendered on macOS yet." ]
+    },
+    {
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "label", "icon", "click" ],
+      "knownGaps": [ "AppBarButton label/icon chrome is not rendered on macOS yet." ]
+    }
+  ]
+}

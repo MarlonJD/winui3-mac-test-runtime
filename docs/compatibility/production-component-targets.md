@@ -134,6 +134,9 @@ Run this checklist before every production-target commit:
 
 This inventory completes the public target mapping for Milestone 0 of
 `docs/plans/2026-06-01-production-windows-component-completion-plan.md`.
+Milestone 1 state scenario coverage is tracked in
+`docs/compatibility/winui-component-inventory.json` under
+`productionStateCoverage`.
 Production readiness remains blocked by renderer, interaction, accessibility,
 fixture, native reference, smoke, E2E, operations, and release gates listed in
 that plan.

@@ -20,6 +20,29 @@ public sealed partial class TextFormsPage : Page
 
     public void ApplyScenarioState(string scenarioName)
     {
+        if (scenarioName.Contains("invalid", StringComparison.OrdinalIgnoreCase))
+        {
+            SearchTextBox.Text = string.Empty;
+            TextFormsStateText.Text = "Validation error: query required";
+            return;
+        }
+
+        if (scenarioName.Contains("disabled", StringComparison.OrdinalIgnoreCase))
+        {
+            SearchTextBox.IsEnabled = false;
+            ApplyTextButton.IsEnabled = false;
+            TextFormsStateText.Text = "Disabled state";
+            return;
+        }
+
+        if (scenarioName.Contains("focused", StringComparison.OrdinalIgnoreCase))
+        {
+            SearchTextBox.Text = "Focused public query";
+            TextFormsStateText.Text = "Focused public query";
+            SearchTextBox.Focus(FocusState.Programmatic);
+            return;
+        }
+
         if (scenarioName.Contains("text-forms", StringComparison.OrdinalIgnoreCase))
         {
             SearchTextBox.Text = "Updated public query";

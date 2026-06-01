@@ -74,6 +74,13 @@ The foundation also tracks downstream source-audit gaps explicitly:
 `NavigationView.MenuItems`, `NavigationView.PaneFooter`,
 `ToolTipService.SetToolTip`, and `Window.SystemBackdrop / MicaBackdrop`.
 
+Milestone 1 adds public scenario coverage for focused, disabled, checked,
+invalid, selected, command-invoked, loading, error, success, and open-popup
+states. These scenarios are listed in
+`winui-component-inventory.json` under `productionStateCoverage`; they provide
+native Windows fixture capture targets without promoting macOS component visual
+grades.
+
 Latest inspected native comparison counts:
 
 | Scenario | Native comparison | Component evidence |

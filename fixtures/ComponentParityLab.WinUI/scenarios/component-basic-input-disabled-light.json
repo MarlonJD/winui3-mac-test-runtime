@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-basic-input-disabled-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 12.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "requirements": [
+    {
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "content", "isEnabled" ],
+      "knownGaps": [ "Disabled native button state is captured on Windows, but macOS does not render disabled button chrome yet." ]
+    },
+    {
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "content", "isChecked", "isEnabled" ],
+      "knownGaps": [ "Disabled checked ToggleButton chrome is not rendered on macOS yet." ]
+    },
+    {
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "items", "selectedIndex", "isEnabled" ],
+      "knownGaps": [ "Disabled ComboBox field, chevron, and popup chrome are not rendered on macOS yet." ]
+    }
+  ]
+}

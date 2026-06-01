@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-basic-input-focused-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 12.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": [
+    {
+      "type": "focus",
+      "target": "StatusComboBox"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "focus", "items", "selectedIndex" ],
+      "knownGaps": [ "Focused ComboBox state is captured for native Windows reference coverage, but macOS still emits text-only combo output." ]
+    },
+    {
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "content", "enabled" ],
+      "knownGaps": [ "Native button chrome and focus visuals are not rendered on macOS yet." ]
+    }
+  ]
+}

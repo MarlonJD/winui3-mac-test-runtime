@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-commands-menus-open-popup-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 24.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "requirements": [
+    {
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "open-popup" ],
+      "knownGaps": [ "The public fixture exposes command flyout targets on Windows; macOS popup open-state behavior is not implemented yet." ]
+    },
+    {
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "open-popup" ],
+      "knownGaps": [ "The public fixture exposes menu flyout targets on Windows; macOS menu flyout behavior is not implemented yet." ]
+    },
+    {
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "menuItems" ],
+      "knownGaps": [ "MenuBar is native-reference fixture coverage only until facade, interaction, and renderer support are added." ]
+    }
+  ]
+}

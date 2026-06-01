@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-dialogs-flyouts-open-popup-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 12.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "requirements": [
+    {
+      "component": "ContentDialog",
+      "target": "DiagnosticContentDialog",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "title", "content", "primaryButtonText" ],
+      "knownGaps": [ "ContentDialog is represented in the public Windows fixture, but dialog host behavior is not implemented on macOS." ]
+    },
+    {
+      "component": "Flyout",
+      "target": "DiagnosticFlyout",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "open-popup" ],
+      "knownGaps": [ "Flyout target coverage exists for native reference capture; macOS flyout host behavior is not implemented yet." ]
+    },
+    {
+      "component": "TeachingTip",
+      "target": "DiagnosticTeachingTip",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "isOpen", "title", "subtitle" ],
+      "knownGaps": [ "TeachingTip open state is native-reference fixture coverage only until macOS host behavior exists." ]
+    },
+    {
+      "component": "ToolTip",
+      "target": "DiagnosticToolTip",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "content" ],
+      "knownGaps": [ "Tooltip host behavior is not implemented on macOS yet." ]
+    }
+  ]
+}

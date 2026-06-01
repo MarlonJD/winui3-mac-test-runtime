@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-text-forms-invalid-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 12.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "requirements": [
+    {
+      "component": "TextBox",
+      "target": "SearchTextBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "text", "validation-state", "automationName" ],
+      "knownGaps": [ "The invalid form state is represented through public fixture text; native validation chrome is not rendered on macOS yet." ]
+    },
+    {
+      "component": "Labels/forms pattern",
+      "kind": "pattern",
+      "target": "SearchLabel",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "automationName" ],
+      "knownGaps": [ "Complete native label/form semantics are not rendered on macOS yet." ]
+    }
+  ]
+}

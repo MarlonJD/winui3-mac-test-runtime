@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-commands-menus-disabled-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 24.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "requirements": [
+    {
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "primaryCommands", "disabled" ],
+      "knownGaps": [ "Disabled command surface state is captured on Windows, but macOS does not render command chrome yet." ]
+    },
+    {
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "label", "icon", "isEnabled" ],
+      "knownGaps": [ "Disabled AppBarButton visuals are not rendered on macOS yet." ]
+    }
+  ]
+}

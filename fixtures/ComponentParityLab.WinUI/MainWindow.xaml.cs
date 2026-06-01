@@ -120,6 +120,9 @@ public sealed partial class MainWindow : Window
             case CollectionsPage page:
                 page.ApplyScenarioState(scenarioName);
                 break;
+            case DialogsFlyoutsPage page:
+                page.ApplyScenarioState(scenarioName);
+                break;
             case CommandsMenusPage page:
                 page.ApplyScenarioState(scenarioName);
                 break;

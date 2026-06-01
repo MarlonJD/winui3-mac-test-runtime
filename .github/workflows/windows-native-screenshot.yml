@@ -113,8 +113,32 @@ jobs:
               FixtureExecutable = "fixtures/PublicAdminWorkbench.WinUI/bin/Release/net8.0-windows10.0.19041.0/PublicAdminWorkbench.WinUI.exe"
             },
             @{
+              Name = "public-admin-workbench-deferred-light"
+              Path = "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json"
+              FixtureProject = "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj"
+              FixtureExecutable = "fixtures/PublicAdminWorkbench.WinUI/bin/Release/net8.0-windows10.0.19041.0/PublicAdminWorkbench.WinUI.exe"
+            },
+            @{
               Name = "component-basic-input-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-basic-input-focused-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-focused-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-basic-input-disabled-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-disabled-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-basic-input-checked-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-checked-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
               FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
@@ -125,8 +149,26 @@ jobs:
               FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
+              Name = "component-text-forms-focused-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-focused-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-text-forms-invalid-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-invalid-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
               Name = "component-collections-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-collections-selected-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-selected-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
               FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
@@ -137,8 +179,32 @@ jobs:
               FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
+              Name = "component-dialogs-flyouts-open-popup-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-open-popup-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
               Name = "component-commands-menus-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-commands-menus-command-invoked-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-command-invoked-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-commands-menus-disabled-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-disabled-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-commands-menus-open-popup-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-open-popup-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
               FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
@@ -151,6 +217,24 @@ jobs:
             @{
               Name = "component-status-pickers-light"
               Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-status-pickers-loading-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-loading-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-status-pickers-error-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-error-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-status-pickers-success-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-success-light.json"
               FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
               FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },

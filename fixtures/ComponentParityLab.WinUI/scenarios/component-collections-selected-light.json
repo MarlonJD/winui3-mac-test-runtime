@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-collections-selected-light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 22.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 14.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": [
+    {
+      "type": "selectItem",
+      "target": "CollectionListView",
+      "parameter": "Confirm owner"
+    },
+    {
+      "type": "assertProperty",
+      "target": "CollectionListView",
+      "key": "SelectedItem",
+      "parameter": "Confirm owner"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "ListView",
+      "target": "CollectionListView",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "items", "selectedIndex", "selectedItem" ],
+      "knownGaps": [ "Native selected row chrome is captured on Windows, but macOS still emits list item text without row or selection visuals." ]
+    },
+    {
+      "component": "ItemsControl",
+      "target": "SummaryItemsControl",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "requiredProperties": [ "items" ],
+      "knownGaps": [ "Native item container chrome is not rendered on macOS yet." ]
+    }
+  ]
+}

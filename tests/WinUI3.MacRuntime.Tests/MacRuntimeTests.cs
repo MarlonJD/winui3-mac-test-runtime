@@ -597,6 +597,26 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task ProductionStateCoverageReferencesExistingScenarios()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var inventoryPath = Path.Combine(repositoryRoot, "docs", "compatibility", "winui-component-inventory.json");
+        using var inventory = JsonDocument.Parse(await File.ReadAllTextAsync(inventoryPath));
+
+        foreach (var stateCoverage in inventory.RootElement.GetProperty("productionStateCoverage").EnumerateArray())
+        {
+            var relativePath = stateCoverage.GetProperty("path").GetString();
+            Assert.IsFalse(string.IsNullOrWhiteSpace(relativePath));
+
+            var scenarioPath = Path.Combine(repositoryRoot, relativePath);
+            Assert.IsTrue(File.Exists(scenarioPath), $"Missing production state scenario '{relativePath}'.");
+
+            var scenario = await VisualScenario.LoadAsync(scenarioPath);
+            Assert.AreEqual(stateCoverage.GetProperty("scenario").GetString(), scenario.Name);
+        }
+    }
+
+    [TestMethod]
     public async Task ComponentLabScenariosCoverDownstreamSourceAuditGaps()
     {
         var repositoryRoot = FindRepositoryRoot();

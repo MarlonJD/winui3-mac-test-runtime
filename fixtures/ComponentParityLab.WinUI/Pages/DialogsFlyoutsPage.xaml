@@ -13,5 +13,6 @@
             <ContentControl x:Name="DiagnosticToolTip" />
         </StackPanel>
         <ContentControl x:Name="DiagnosticToolTipServiceSetToolTip" />
+        <TextBlock x:Name="DialogsFlyoutsStateText" Text="Dialog and flyout targets ready" />
     </StackPanel>
 </Page>

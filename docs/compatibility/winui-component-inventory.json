@@ -7,6 +7,162 @@
     "https://fluent2.microsoft.design/components/windows"
   ],
   "fixture": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+  "productionStateCoverage": [
+    {
+      "productionPriority": "Ring 0",
+      "state": "deferred-decision",
+      "scenario": "public-admin-workbench-deferred-light",
+      "path": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json",
+      "components": [ "NavigationView", "ListView", "CommandBar", "AppBarButton", "InfoBar", "TextBox" ],
+      "interactionRequirement": "invoke alternate command and assert status",
+      "accessibilityRequirement": "workbench navigation, selected row, command, and status names remain visible and non-private",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "focused",
+      "scenario": "component-basic-input-focused-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-focused-light.json",
+      "components": [ "ComboBox", "Button" ],
+      "interactionRequirement": "focus",
+      "accessibilityRequirement": "focused control exposes role, name, enabled state, and value where available",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows focus coverage is present; macOS focus visuals are not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "disabled",
+      "scenario": "component-basic-input-disabled-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-disabled-light.json",
+      "components": [ "Button", "ToggleButton", "ComboBox" ],
+      "interactionRequirement": "disabled state export",
+      "accessibilityRequirement": "disabled controls expose enabled=false",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows disabled coverage is present; macOS disabled chrome is not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "checked",
+      "scenario": "component-basic-input-checked-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-checked-light.json",
+      "components": [ "ToggleButton", "CheckBox", "RadioButton" ],
+      "interactionRequirement": "checked state export",
+      "accessibilityRequirement": "checked controls expose checked state and name",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows checked-state coverage is present; macOS check/radio glyphs are not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "focused",
+      "scenario": "component-text-forms-focused-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-focused-light.json",
+      "components": [ "TextBox" ],
+      "interactionRequirement": "focus",
+      "accessibilityRequirement": "text input exposes role, name, value, and focus state",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows TextBox focus coverage is present; macOS caret and focus visuals are not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "invalid",
+      "scenario": "component-text-forms-invalid-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-invalid-light.json",
+      "components": [ "TextBox", "Labels/forms pattern" ],
+      "interactionRequirement": "validation state assertion",
+      "accessibilityRequirement": "validation message remains visible and is not color-only",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Invalid state is represented with public text; native validation chrome is not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "selected",
+      "scenario": "component-collections-selected-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-selected-light.json",
+      "components": [ "ListView", "ItemsControl" ],
+      "interactionRequirement": "select item and assert selected item",
+      "accessibilityRequirement": "selected list row exposes selected state and item name",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows selected-row coverage is present; macOS row and selection chrome are not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "command-invoked",
+      "scenario": "component-commands-menus-command-invoked-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-command-invoked-light.json",
+      "components": [ "CommandBar", "AppBarButton" ],
+      "interactionRequirement": "click command and assert result",
+      "accessibilityRequirement": "command exposes role, name, icon metadata, and enabled state",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows command invocation coverage is present; macOS command chrome is not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "disabled",
+      "scenario": "component-commands-menus-disabled-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-disabled-light.json",
+      "components": [ "CommandBar", "AppBarButton" ],
+      "interactionRequirement": "disabled command state export",
+      "accessibilityRequirement": "disabled command exposes enabled=false",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows disabled command coverage is present; macOS disabled command chrome is not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenario": "component-commands-menus-open-popup-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-open-popup-light.json",
+      "components": [ "CommandBarFlyout", "MenuFlyout", "MenuBar" ],
+      "interactionRequirement": "open menu or flyout, invoke item, dismiss",
+      "accessibilityRequirement": "popup/menu item names, expanded state, and accelerator text",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows popup targets are visible; macOS popup host behavior is not implemented yet." ]
+    },
+    {
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenario": "component-dialogs-flyouts-open-popup-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-open-popup-light.json",
+      "components": [ "ContentDialog", "Flyout", "TeachingTip", "ToolTip" ],
+      "interactionRequirement": "open dialog or flyout, choose or dismiss",
+      "accessibilityRequirement": "dialog/flyout title, body, button names, and popup relationship",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows dialog/flyout targets are represented; macOS dialog and popup host behavior is not implemented yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "loading",
+      "scenario": "component-status-pickers-loading-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-loading-light.json",
+      "components": [ "InfoBar", "ProgressRing" ],
+      "interactionRequirement": "loading state export",
+      "accessibilityRequirement": "loading status remains visible and non-color-only",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows loading coverage is present; macOS InfoBar and ProgressRing chrome are not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "error",
+      "scenario": "component-status-pickers-error-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-error-light.json",
+      "components": [ "InfoBar", "ProgressBar" ],
+      "interactionRequirement": "error state export",
+      "accessibilityRequirement": "error status includes visible text and severity, not color alone",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows error coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet." ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "success",
+      "scenario": "component-status-pickers-success-light",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-success-light.json",
+      "components": [ "InfoBar", "ProgressBar" ],
+      "interactionRequirement": "click completion command and assert success status",
+      "accessibilityRequirement": "success status includes visible text and severity, not color alone",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [ "Native Windows success coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet." ]
+    }
+  ],
   "entries": [
     { "component": "AnimatedIcon", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
     { "component": "Annotated scrollbar", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Tracked as a scrolling pattern, not implemented." ] },

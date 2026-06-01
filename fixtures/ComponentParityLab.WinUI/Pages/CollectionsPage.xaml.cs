@@ -29,9 +29,18 @@ public sealed partial class CollectionsPage : Page
 
     public void ApplyScenarioState(string scenarioName)
     {
+        if (scenarioName.Contains("empty", StringComparison.OrdinalIgnoreCase))
+        {
+            CollectionListView.Items.Clear();
+            SummaryItemsControl.Items.Clear();
+            CollectionStateText.Text = "Empty collection";
+            return;
+        }
+
         if (scenarioName.Contains("collections", StringComparison.OrdinalIgnoreCase))
         {
             CollectionListView.SelectedIndex = 1;
+            CollectionStateText.Text = "Confirm owner selected";
         }
     }
 }
