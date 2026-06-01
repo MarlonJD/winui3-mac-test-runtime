@@ -44,7 +44,9 @@ dotnet tool install MarlonJD.WinUI3.MacRunner --version 0.1.0-alpha.1 --tool-pat
 See `docs/consumption/quick-start.md` for fixture setup, strict visual commands,
 troubleshooting, and known limits. See
 `docs/examples/consumer-github-actions.yml` for a public consumer CI starting
-point.
+point. See `docs/consumption/downstream-windows-apps.md` for why this tool
+exists, how a downstream Windows WinUI 3 app can use it, and which tests should
+run locally and in CI.
 
 ## Current Fixtures
 

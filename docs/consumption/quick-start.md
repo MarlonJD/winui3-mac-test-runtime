@@ -98,6 +98,10 @@ Use `docs/examples/consumer-github-actions.yml` as the starting point for public
 consumer CI. The sample installs the packaged runner, runs doctor, executes a
 managed fixture, and uploads strict visual artifacts.
 
+For downstream Windows WinUI 3 app adoption, including why this tool exists and
+which test tiers should run, see
+`docs/consumption/downstream-windows-apps.md`.
+
 ## Troubleshooting
 
 - Strict visual failure: inspect `visual/visual-run.json`,
