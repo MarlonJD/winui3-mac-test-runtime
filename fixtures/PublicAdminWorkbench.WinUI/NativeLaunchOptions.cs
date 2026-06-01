@@ -14,6 +14,15 @@ public sealed record NativeLaunchOptions(
 {
     public string WindowTitle => "WinUI3 Mac Test Runtime - " + ScenarioName;
 
+    public static NativeLaunchOptions Default { get; } = new(
+        ScenarioPath: null,
+        ScenarioName: "public-admin-workbench-light",
+        ViewportWidth: 1044,
+        ViewportHeight: 720,
+        Scale: 1.0,
+        Theme: "light",
+        StartupRoute: "queue");
+
     public static NativeLaunchOptions Parse(string? launchArguments)
     {
         var tokens = string.IsNullOrWhiteSpace(launchArguments)
