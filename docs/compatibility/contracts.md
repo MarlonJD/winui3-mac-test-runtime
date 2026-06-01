@@ -70,6 +70,14 @@ Accessibility export is a deterministic approximation derived from the logical
 tree. It covers role, element name, label, help text, focus state, and child
 relationships for the documented control subset.
 
+## Binding And State Contract
+
+The supported MVVM subset includes one-way and two-way bindings for public
+facade properties, `INotifyPropertyChanged` refresh, observable collection
+refresh for item controls, and `ICommand` execution through supported button
+controls. Binding failures include source path, target property, element name,
+and element type in `binding-failures.json`.
+
 ## Artifact Contract
 
 Every runner-owned JSON artifact has a `schemaVersion`. Diagnostic collections
