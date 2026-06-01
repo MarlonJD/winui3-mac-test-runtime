@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "0.1",
+  "width": 1028,
+  "height": 720,
+  "changedPixelCount": 301076,
+  "changedPixelPercentage": 40.677151,
+  "maxChannelDelta": 255,
+  "meanAbsoluteError": 8.44828,
+  "rootMeanSquaredError": 35.225437,
+  "boundingBox": {
+    "x": 0,
+    "y": 0,
+    "width": 1028,
+    "height": 720
+  },
+  "thresholds": {
+    "changedPixelPercentage": 24,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16,
+    "rootMeanSquaredError": 48
+  },
+  "status": "failed"
+}

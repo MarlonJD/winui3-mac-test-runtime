@@ -3,16 +3,44 @@
   "fixtureName": "public-admin-workbench",
   "scenarioName": "public-admin-workbench-light",
   "runnerOs": "Unix",
-  "osImage": "macos15",
+  "osImage": "Unix 26.5.0",
   "renderer": "skia-v2",
   "rendererVersion": "0.2",
   "viewport": {
-    "width": 1044,
+    "width": 1028,
     "height": 720
   },
   "scale": 1,
   "theme": "light",
   "referenceImagePath": "windows-reference.png",
+  "referenceMetadataPath": "windows-reference.json",
+  "referenceSource": "native-winui",
+  "referenceProvenance": {
+    "schemaVersion": "0.2",
+    "referenceSource": "native-winui",
+    "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
+    "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
+    "scenarioName": "public-admin-workbench-light",
+    "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+    "workflowRunId": "26777029415",
+    "runnerImage": "win25 20260525.149.1",
+    "viewport": {
+      "width": 1028,
+      "height": 720
+    },
+    "scale": 1,
+    "theme": "light",
+    "windowTitle": "WinUI3 Mac Test Runtime - public-admin-workbench-light",
+    "actualWindowTitle": "WinUI3 Mac Test Runtime - public-admin-workbench-light",
+    "titleMatched": true,
+    "outputPath": "D:\\a\\winui3-mac-test-runtime\\winui3-mac-test-runtime\\artifacts\\windows-reference-screenshots\\public-admin-workbench-light\\windows-reference.png",
+    "captureMode": "client-area",
+    "dimensions": {
+      "width": 1028,
+      "height": 720
+    },
+    "capturedAt": "2026-06-01T19:31:02.7042774+00:00"
+  },
   "runtimeImagePath": "mac-runtime.png",
   "diffImagePath": "pixel-diff.png",
   "thresholds": {
@@ -23,17 +51,17 @@
   },
   "comparison": {
     "schemaVersion": "0.1",
-    "width": 1044,
+    "width": 1028,
     "height": 720,
-    "changedPixelCount": 120355,
-    "changedPixelPercentage": 16.011468,
+    "changedPixelCount": 740160,
+    "changedPixelPercentage": 100,
     "maxChannelDelta": 255,
-    "meanAbsoluteError": 8.497185,
-    "rootMeanSquaredError": 41.087847,
+    "meanAbsoluteError": 9.722603,
+    "rootMeanSquaredError": 35.874995,
     "boundingBox": {
       "x": 0,
       "y": 0,
-      "width": 1044,
+      "width": 1028,
       "height": 720
     },
     "thresholds": {
@@ -42,8 +70,9 @@
       "meanAbsoluteError": 34,
       "rootMeanSquaredError": 64
     },
-    "status": "passed"
+    "status": "failed"
   },
   "unsupportedVisualFeatures": [],
-  "status": "passed"
+  "status": "failed",
+  "componentEvidencePath": null
 }

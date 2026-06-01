@@ -5,8 +5,9 @@ The long-term product goal is full WinUI 3 C# and XAML application development:
 developers should be able to build, run, test, inspect, and visually validate
 real app source from macOS while public Windows GitHub Actions runs remain the
 intended behavioral and visual source of truth. Current visual screenshots from
-`WindowsNativeProbe` are synthetic harness references until the workflow
-captures the actual native WinUI fixture projects.
+public admin and component parity examples are native WinUI fixture captures
+with provenance; `WindowsNativeProbe` remains synthetic smoke-only harness
+evidence.
 
 The current Level 0 through Level 7 support is an alpha milestone toward that
 goal. It does not run Windows binaries, `.msix` packages, or arbitrary `.exe`
@@ -104,11 +105,11 @@ workflow covers public admin/workbench and component parity lab fixture
 categories on `windows-latest`. The macOS `skia-v2` render is compared against
 those references locally on a developer Mac using scenario-local thresholds.
 
-Current checked-in reference screenshots are captured from
-`WindowsNativeProbe`, a synthetic WinForms/GDI reference executable. They are
-useful for harness smoke validation, but they are not native WinUI renders of
-the fixture projects and cannot justify component visual grade promotion.
-Production visual claims require native WinUI fixture reference provenance.
+Current checked-in public admin and component lab reference screenshots are
+captured from native WinUI fixture projects with provenance.
+`WindowsNativeProbe`, a synthetic WinForms/GDI reference executable, remains
+useful for harness smoke validation but cannot justify component visual grade
+promotion.
 Passing the Windows workflow means the public reference capture tier completed.
 Passing the local macOS comparison means those documented public scenarios
 stayed within threshold against the current reference source; neither result is

@@ -14,20 +14,22 @@ development**.
 The important shift is that the project now has public harness evidence instead
 of only intent:
 
-- Local build, test, doctor, runner, strict visual, and Windows probe gates pass.
-- Public `windows-native-screenshot.yml` produces Windows-hosted synthetic
-  probe screenshots, macOS runtime screenshots, pixel diffs, and
-  `visual-run.json`.
+- Local build, test, doctor, runner, and Windows capture gates pass; native
+  WinUI visual comparisons now fail honestly where macOS component visuals are
+  text-only or absent.
+- Public `windows-native-screenshot.yml` now produces native WinUI Windows
+  references for the public admin workbench and component parity lab fixtures,
+  with `referenceSource: native-winui` provenance.
 - `ComponentParityLab.WinUI` produces `component-evidence.json`, so component
   quality is graded independently from whole-screenshot pass/fail status.
-- Public docs now include synthetic-probe-vs-macOS component visual examples,
-  labeled as harness evidence rather than native WinUI parity proof.
+- Public docs now include native-WinUI-vs-macOS component visual examples,
+  labeled as failed parity evidence where the macOS renderer is text-only or
+  absent.
 
-This is a useful harness foundation, but the current visual evidence is not a
-native WinUI reference source of truth. `WindowsNativeProbe` draws synthetic
-Windows reference screens instead of running the real WinUI fixture
-applications. That makes native WinUI Windows reference capture the first
-production blocker.
+This closes the native WinUI reference source-of-truth blocker for the public
+fixture set: `WindowsNativeProbe` remains only as labeled synthetic smoke
+evidence. The next production blockers are the honest comparison failures and
+component gaps exposed by the native references.
 
 ## What Is Done
 
@@ -74,7 +76,7 @@ production blocker.
 
 - `skia-v2` strict visual scenarios for shell, interactions, control gallery,
   public admin/workbench, and component parity lab categories.
-- Public synthetic Windows probe workflow:
+- Public native WinUI Windows reference workflow:
   `windows-native-screenshot.yml`.
 - Checked-in public visual examples under `docs/visual-parity/examples/`.
 - Component parity evidence is separated from whole-image pixel metrics.
@@ -105,14 +107,30 @@ production blocker.
 
 ## Evidence Available
 
-Latest inspected public component visual workflow:
+Latest inspected public native WinUI visual workflow:
 
 - Workflow: `windows-native-screenshot.yml`
-- Run: `26757799015`
-- Code commit inspected by that workflow: `72c3148`
-- Documentation commit adding checked-in examples: `e4e746f`
-- Reference limitation: this run captured `WindowsNativeProbe` synthetic
-  drawings, not native WinUI renders of the fixture projects.
+- Run: `26777029415`
+- Code commit inspected by that workflow: `95e8d7d`
+- Reference source: `native-winui`
+- Runner image: `win25 20260525.149.1`
+- Viewport: `1028x720`
+- Capture mode: client area.
+- Native reference provenance exists for `public-admin-workbench-light`, all
+  eight `ComponentParityLab.WinUI` scenarios, and the inspected component
+  examples checked into `docs/visual-parity/examples`.
+- Synthetic probe smoke artifacts are still produced separately for
+  `shell-light`, `interactions-light`, and `control-gallery-light`, but they are
+  not parity examples.
+
+Latest inspected native comparison status:
+
+| Scenario | Status | Changed pixels | MAE | RMS | Component evidence |
+| --- | --- | ---: | ---: | ---: | --- |
+| `public-admin-workbench-light` | failed | 100.00% / threshold 45% | 9.72 | 35.87 | n/a |
+| `component-basic-input-light` | failed | 42.07% / threshold 18% | 9.92 | 38.84 | 13 `not-rendered` |
+| `component-commands-menus-light` | failed | 40.68% / threshold 24% | 8.45 | 35.23 | 8 `not-rendered` |
+| `component-layout-media-light` | failed | 45.83% / threshold 24% | 10.48 | 39.27 | 4 `usable`, 24 `not-rendered` |
 
 Local verification gates run for the component parity foundation:
 
@@ -211,9 +229,10 @@ support, and native WinUI Windows reference evidence.
 
 - `skia-v2` is deterministic and useful for evidence, but still visibly
   simplified.
-- Current checked-in `windows-reference.png` files are synthetic
-  `WindowsNativeProbe` screenshots. They are not native WinUI screenshots and
-  must not be used to promote component visual grades.
+- Current checked-in public admin and component lab `windows-reference.png`
+  files are native WinUI fixture screenshots with provenance. They expose
+  honest macOS comparison failures and must not be used to promote component
+  visual grades until the macOS output improves.
 - Text metrics, edge anti-aliasing, Fluent control chrome, focus visuals,
   hover/pressed states, command surfaces, list/detail painters, depth, and
   material effects are not production parity.
@@ -224,9 +243,9 @@ support, and native WinUI Windows reference evidence.
 - Package release hardening is not yet enough for production adoption.
 - Consumer support docs exist, but upgrade, deprecation, compatibility policy,
   and troubleshooting depth are still alpha-level.
-- CI has public synthetic Windows probe evidence, but production needs native
-  WinUI reference capture, stronger flake tracking, artifact retention policy,
-  and reference drift review.
+- CI has public native WinUI reference capture for the fixture set and separate
+  synthetic smoke evidence, but production still needs stronger flake tracking,
+  artifact retention policy, and reference drift review.
 - Security, supply-chain provenance, license review, and release signing are
   not documented as completed production gates.
 
@@ -234,7 +253,7 @@ support, and native WinUI Windows reference evidence.
 
 | ID | Severity | Blocker | Why It Blocks Production | Exit Criteria |
 | --- | --- | --- | --- | --- |
-| PB-000 | Blocking | Native Windows reference source of truth is missing. | Current visual references are synthetic `WindowsNativeProbe` drawings, not real WinUI fixture renders, so visual parity evidence starts from the wrong baseline. | `windows-native-screenshot.yml` builds, launches, drives, and captures the actual public WinUI fixture projects on Windows, records reference provenance, and labels any remaining synthetic probe output as non-parity smoke evidence only. |
+| PB-000 | Closed | Native Windows reference source of truth is available for the public fixture set. | Public run `26777029415` captured the actual public WinUI fixture projects, recorded `native-winui` provenance, and kept synthetic probe output separated as smoke evidence. | Keep this gate closed by preserving provenance, fixture launch coverage, and smoke-only labeling for synthetic output. |
 | PB-001 | Blocking | Broad WinUI API coverage is incomplete. | Production users will hit uncataloged or planned APIs in normal apps. | Expand the API catalog and diagnostics until common public WinUI apps produce no unknown API usage; unsupported APIs must have explicit status and docs. |
 | PB-002 | Blocking | Many controls are `not-rendered` or diagnostic-only. | The Microsoft Learn controls inventory is not yet represented by usable runtime behavior. | Component lab inventory has fixture coverage for the target production subset, with no unexpected `not-rendered` entries for claimed supported controls. |
 | PB-003 | Blocking | Supported component visuals are text-only, absent, or weak. | Local macOS evidence currently marks basic input controls, text input, collection controls, command controls, status controls, and layout/media primitives as `not-rendered`; whole-image passes would hide this without component evidence. | Claimed supported components reach at least `usable`, with native WinUI public Windows reference artifacts and reviewed `component-evidence.json`. |
@@ -242,7 +261,7 @@ support, and native WinUI Windows reference evidence.
 | PB-005 | Blocking | Fluent materials and composition are not rendered. | Mica, Acrylic, system backdrops, shadows, transforms, and motion are core modern WinUI surfaces. | Add deterministic material/composition modeling or clearly define a production support tier that excludes them. |
 | PB-006 | Blocking | Input and accessibility behavior is partial. | Production testing needs reliable keyboard, pointer, focus, automation, and text behavior. | Add broader keyboard routing, pointer state, focus visuals, text editing, and accessibility automation coverage with tests. |
 | PB-007 | Blocking | Project ingestion matrix is too narrow. | Real projects vary in MSBuild structure, packaging, assets, resources, and multi-targeting. | Validate against a documented set of public WinUI project shapes and keep failures structured. |
-| PB-008 | Blocking | Public visual evidence is still fixture-focused. | Fixture evidence does not prove production app behavior, and current references are synthetic probe captures. | Add a public downstream app corpus or representative clean-room scenarios with native WinUI Windows references and component evidence. |
+| PB-008 | Blocking | Public visual evidence is still fixture-focused. | Fixture evidence does not prove production app behavior, even though current fixture references are now native WinUI captures. | Add a public downstream app corpus or representative clean-room scenarios with native WinUI Windows references and component evidence. |
 | PB-009 | Blocking | Performance and reliability are not measured. | Production adoption needs predictable runtime duration, memory use, and flake rate. | Add benchmark and flake tracking gates for runner startup, XAML compile, render, interaction, and artifact generation. |
 | PB-010 | Blocking | Release hardening is incomplete. | Production users need stable packages, upgrade policy, rollback path, provenance, and signed/reproducible release artifacts. | Publish a production release checklist covering semver, package signing/provenance, changelog, migration notes, and rollback. |
 | PB-011 | Blocking | Security and supply-chain review is incomplete. | The runner builds and executes user source projects locally. | Document threat model, dependency policy, artifact privacy policy, and safe CI usage guidance. |
@@ -257,7 +276,8 @@ Status: **partially met for the current documented alpha harness scope**.
 Required evidence:
 
 - Local build/test/doctor/runner gates pass.
-- Public synthetic Windows probe workflow passes.
+- Public native WinUI reference workflow passes for the fixture set, and
+  synthetic probe smoke remains separate.
 - Component evidence exists for the component parity lab.
 - Docs distinguish visual smoke evidence from component-level quality.
 
@@ -296,9 +316,10 @@ Required evidence:
 
 Detailed execution plan: `docs/plans/2026-06-01-production-readiness-roadmap-plan.md`.
 
-1. Replace synthetic `WindowsNativeProbe` visual references with native WinUI
-   Windows captures of the actual public WinUI fixture projects.
-2. Move checked-in `not-rendered` or weak component examples to `usable` only
+1. Keep native WinUI Windows reference capture healthy for every public fixture
+   scenario and preserve synthetic probe output as smoke-only evidence.
+2. Fix checked-in `not-rendered` or weak component examples and move them to
+   `usable` only
    after native reference capture and macOS inspection prove the grade is
    honest.
 3. Add crop-level or component-region diff metrics so whole-screen thresholds do

@@ -10,12 +10,12 @@
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "usable",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
-        "Real scrolling, inertia, and native scrollbars are limited."
+        "The macOS runtime currently emits only child text; native WinUI scrollbars, clipping, and scrolling chrome are not rendered in the screenshot."
       ]
     },
     {
@@ -25,12 +25,12 @@
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "weak",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
-        "Full row and column sizing, spanning, alignment, and invalidation remain partial."
+        "The macOS runtime currently emits only child text; native WinUI Grid layout shape and column separation are not visibly rendered."
       ]
     },
     {
@@ -40,12 +40,12 @@
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "usable",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
-        "Measure and arrange behavior is deterministic but not fully WinUI-compatible."
+        "The macOS runtime currently emits only child text; native WinUI StackPanel spacing/layout shape is not sufficient visual evidence."
       ]
     },
     {
@@ -55,12 +55,12 @@
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "weak",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
-        "CornerRadius, border thickness variants, brushes, shadows, and backgrounds are limited."
+        "The macOS runtime currently does not render the Border surface, corner radius, border thickness, brush, or background in the screenshot."
       ]
     },
     {
@@ -70,12 +70,12 @@
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "weak",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
-        "Font fallback, sizing, and exact Segoe Fluent icon rendering are approximated."
+        "The macOS runtime currently does not render the FontIcon glyph in the screenshot."
       ]
     },
     {
@@ -85,12 +85,12 @@
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "weak",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
-        "The renderer uses a placeholder; image decoding and scaling modes are not complete."
+        "The macOS runtime currently does not render the Image source or a visible image placeholder in the screenshot."
       ]
     },
     {
@@ -101,9 +101,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -116,9 +116,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -131,9 +131,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -146,9 +146,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "usable",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "ThemeResource lookup is simple and does not model full dynamic theme dictionaries."
       ]
@@ -161,9 +161,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "usable",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "StaticResource lookup supports simple local dictionaries only."
       ]
@@ -176,9 +176,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "usable",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Only supported setter properties are applied."
       ]
@@ -191,9 +191,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "usable",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Setter support is limited to simple values on supported facade properties."
       ]
@@ -206,9 +206,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -221,9 +221,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -236,9 +236,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -251,9 +251,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -266,9 +266,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -281,9 +281,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -296,9 +296,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -311,9 +311,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -326,9 +326,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -341,9 +341,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -356,9 +356,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -371,9 +371,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -386,9 +386,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -401,9 +401,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -416,9 +416,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.892241,
-      "meanAbsoluteError": 8.988409,
-      "rootMeanSquaredError": 42.883642,
+      "changedPixelPercentage": 45.830631,
+      "meanAbsoluteError": 10.481517,
+      "rootMeanSquaredError": 39.266825,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]

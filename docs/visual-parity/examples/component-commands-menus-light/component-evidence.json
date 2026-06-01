@@ -10,12 +10,12 @@
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "weak",
-      "changedPixelPercentage": 9.134339,
-      "meanAbsoluteError": 8.435513,
-      "rootMeanSquaredError": 41.819155,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 40.677151,
+      "meanAbsoluteError": 8.44828,
+      "rootMeanSquaredError": 35.225437,
       "knownGaps": [
-        "Command surface chrome, overflow behavior, focus, and pointer states are visibly simplified."
+        "The macOS runtime currently emits only command result text; native WinUI CommandBar surface, overflow, focus, and pointer chrome are not rendered."
       ]
     },
     {
@@ -25,12 +25,12 @@
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "passed",
-      "visualGrade": "weak",
-      "changedPixelPercentage": 9.134339,
-      "meanAbsoluteError": 8.435513,
-      "rootMeanSquaredError": 41.819155,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 40.677151,
+      "meanAbsoluteError": 8.44828,
+      "rootMeanSquaredError": 35.225437,
       "knownGaps": [
-        "Icon rendering and AppBarButton chrome are weak approximations."
+        "The macOS runtime currently emits only command result text; native WinUI AppBarButton label/icon chrome is not rendered."
       ]
     },
     {
@@ -41,9 +41,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.134339,
-      "meanAbsoluteError": 8.435513,
-      "rootMeanSquaredError": 41.819155,
+      "changedPixelPercentage": 40.677151,
+      "meanAbsoluteError": 8.44828,
+      "rootMeanSquaredError": 35.225437,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -55,12 +55,12 @@
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "weak",
-      "changedPixelPercentage": 9.134339,
-      "meanAbsoluteError": 8.435513,
-      "rootMeanSquaredError": 41.819155,
+      "visualGrade": "not-rendered",
+      "changedPixelPercentage": 40.677151,
+      "meanAbsoluteError": 8.44828,
+      "rootMeanSquaredError": 35.225437,
       "knownGaps": [
-        "FontIcon metadata is present, but exact Segoe Fluent symbol rendering is approximate."
+        "The macOS runtime currently does not render the AppBarButton icon slot in the screenshot."
       ]
     },
     {
@@ -71,9 +71,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.134339,
-      "meanAbsoluteError": 8.435513,
-      "rootMeanSquaredError": 41.819155,
+      "changedPixelPercentage": 40.677151,
+      "meanAbsoluteError": 8.44828,
+      "rootMeanSquaredError": 35.225437,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -86,9 +86,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.134339,
-      "meanAbsoluteError": 8.435513,
-      "rootMeanSquaredError": 41.819155,
+      "changedPixelPercentage": 40.677151,
+      "meanAbsoluteError": 8.44828,
+      "rootMeanSquaredError": 35.225437,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -101,9 +101,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.134339,
-      "meanAbsoluteError": 8.435513,
-      "rootMeanSquaredError": 41.819155,
+      "changedPixelPercentage": 40.677151,
+      "meanAbsoluteError": 8.44828,
+      "rootMeanSquaredError": 35.225437,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -116,9 +116,9 @@
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 9.134339,
-      "meanAbsoluteError": 8.435513,
-      "rootMeanSquaredError": 41.819155,
+      "changedPixelPercentage": 40.677151,
+      "meanAbsoluteError": 8.44828,
+      "rootMeanSquaredError": 35.225437,
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
