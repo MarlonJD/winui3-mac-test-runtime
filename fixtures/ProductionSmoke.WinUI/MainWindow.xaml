@@ -3,22 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Production Smoke Workbench">
-    <Window.Resources>
-        <ResourceDictionary>
-            <SolidColorBrush x:Key="SmokeAccentBrush" Color="#2562D9" />
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="SmokeAccentBrush" Color="#2562D9" />
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="SmokeAccentBrush" Color="#7CA7FF" />
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="HighContrast">
-                    <SolidColorBrush x:Key="SmokeAccentBrush" Color="#FFFF00" />
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <NavigationView
         x:Name="RootNavigation"
         CompactPaneLength="56"
@@ -27,6 +11,22 @@
         OpenPaneLength="236"
         PaneDisplayMode="Left"
         SelectionChanged="OnNavigationSelectionChanged">
+        <NavigationView.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.ThemeDictionaries>
+                    <ResourceDictionary x:Key="Light">
+                        <SolidColorBrush x:Key="SmokeAccentBrush" Color="#2562D9" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="Dark">
+                        <SolidColorBrush x:Key="SmokeAccentBrush" Color="#7CA7FF" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="HighContrast">
+                        <SolidColorBrush x:Key="SmokeAccentBrush" Color="#FFFF00" />
+                    </ResourceDictionary>
+                </ResourceDictionary.ThemeDictionaries>
+                <SolidColorBrush x:Key="SmokeAccentBrush" Color="#2562D9" />
+            </ResourceDictionary>
+        </NavigationView.Resources>
         <NavigationView.MenuItems>
             <NavigationViewItem x:Name="DashboardNavigationItem" Content="Dashboard" Tag="dashboard">
                 <NavigationViewItem.Icon>

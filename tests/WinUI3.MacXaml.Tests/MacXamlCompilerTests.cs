@@ -396,6 +396,39 @@ public sealed class MacXamlCompilerTests
     }
 
     [TestMethod]
+    public void CompileTextMergesFrameworkElementResourcesForResourceReferences()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <NavigationView>
+                <NavigationView.Resources>
+                  <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                      <ResourceDictionary x:Key="Light">
+                        <SolidColorBrush x:Key="AccentBrush" Color="#2562D9" />
+                      </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                    <SolidColorBrush x:Key="AccentBrush" Color="#2562D9" />
+                  </ResourceDictionary>
+                </NavigationView.Resources>
+                <TextBlock Text="Scoped resource" Foreground="{ThemeResource AccentBrush}" />
+              </NavigationView>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "\"AccentBrush\"");
+        StringAssert.Contains(result.GeneratedSource, ".ThemeDictionaries[\"Light\"]");
+        StringAssert.Contains(result.GeneratedSource, "ResourceOperations.Resolve(__resources, \"AccentBrush\", \"Foreground\")");
+    }
+
+    [TestMethod]
     public void CompileTextGeneratesFrameContentAndListViewItems()
     {
         const string xaml = """

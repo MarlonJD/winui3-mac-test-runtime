@@ -171,7 +171,7 @@ public sealed class MacXamlCompiler
         source.AppendLine("    {");
 
         var writer = new XamlCodeWriter(source);
-        writer.WriteResources(model.Resources);
+        writer.WriteResources(model.AllResources());
         writer.WriteRoot(model);
 
         source.AppendLine("    }");
@@ -367,6 +367,31 @@ public sealed class MacXamlCompiler
         public IReadOnlyList<PropertyElementChildren> PropertyChildren { get; }
 
         public IReadOnlyList<NamedElement> NamedElements { get; }
+
+        public IReadOnlyList<ResourceEntry> AllResources()
+        {
+            var resources = new List<ResourceEntry>(Resources);
+            AddChildResources(resources, Children);
+            foreach (var propertyChildren in PropertyChildren)
+            {
+                AddChildResources(resources, propertyChildren.Children);
+            }
+
+            return resources;
+        }
+
+        private static void AddChildResources(List<ResourceEntry> resources, IReadOnlyList<XamlObjectModel> children)
+        {
+            foreach (var child in children)
+            {
+                resources.AddRange(child.Resources);
+                AddChildResources(resources, child.Children);
+                foreach (var propertyChildren in child.PropertyChildren)
+                {
+                    AddChildResources(resources, propertyChildren.Children);
+                }
+            }
+        }
 
         public static XamlObjectModel FromRoot(XElement root, GenerationContext context)
         {

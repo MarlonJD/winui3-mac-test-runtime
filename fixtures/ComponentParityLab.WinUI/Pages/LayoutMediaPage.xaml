@@ -4,9 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Page.Resources>
         <ResourceDictionary>
-            <Color x:Key="LabAccentColor">#2562D9</Color>
-            <SolidColorBrush x:Key="LabAccentBrush" Color="#2562D9" />
-            <CornerRadius x:Key="LabCornerRadius">8</CornerRadius>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="LabAccentBrush" Color="#2562D9" />
@@ -18,6 +15,9 @@
                     <SolidColorBrush x:Key="LabAccentBrush" Color="#FFFF00" />
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
+            <Color x:Key="LabAccentColor">#2562D9</Color>
+            <SolidColorBrush x:Key="LabAccentBrush" Color="#2562D9" />
+            <CornerRadius x:Key="LabCornerRadius">8</CornerRadius>
             <x:String x:Key="LabStaticText">Static resource resolved</x:String>
             <Style x:Key="LabTextStyle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{ThemeResource LabAccentBrush}" />
