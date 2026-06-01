@@ -7,6 +7,8 @@
     <PackageProjectUrl>https://github.com/MarlonJD/winui3-mac-test-runtime</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageVersion>0.1.0-alpha.1</PackageVersion>
+    <PackageTags>winui;winui3;macos;testing;compatibility;skia</PackageTags>
+    <PackageReleaseNotes>Public compatibility Levels 0-7: Wine-free managed macOS runtime, documented XAML/control/binding/automation subset, Windows reference visual workflow, and consumer readiness documentation.</PackageReleaseNotes>
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
     <BuildInParallel>false</BuildInParallel>
     <UseSharedCompilation>false</UseSharedCompilation>

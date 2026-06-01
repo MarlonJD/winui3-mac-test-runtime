@@ -21,6 +21,22 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/InteractionBi
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json --strict-visual
 ```
 
+## Consumer Quick Start
+
+Public consumer projects can install the packaged runner and execute a managed
+fixture without Wine:
+
+```sh
+dotnet tool install MarlonJD.WinUI3.MacRunner --version 0.1.0-alpha.1 --tool-path ./.tools
+./.tools/winui3-mac-runner doctor
+./.tools/winui3-mac-runner run --project ./tests/PublicWinUIFixture/PublicWinUIFixture.csproj
+```
+
+See `docs/consumption/quick-start.md` for fixture setup, strict visual commands,
+troubleshooting, and known limits. See
+`docs/examples/consumer-github-actions.yml` for a public consumer CI starting
+point.
+
 ## Current Fixtures
 
 ```sh
@@ -107,9 +123,10 @@ the documented **Level 1: Core App And XAML Compatibility** subset, the
 public-fixture-backed **Level 2: Layout And Controls Foundation** and
 **Level 3: Styling, Resources, And Theme Fidelity** subsets, the
 fixture-backed **Level 4: Data Binding, Commands, And State** and **Level 5:
-Input, Accessibility, And Automation** subsets, and **Level 6: Windows
-Reference Visual Compatibility** for the public strict fixture categories.
-Higher levels are documented as `supported`, `partial`, or `planned`.
+Input, Accessibility, And Automation** subsets, **Level 6: Windows Reference
+Visual Compatibility** for the public strict fixture categories, and **Level 7:
+Release And Consumption Readiness** for package smoke, consumer quick start,
+sample CI, release checklist, and known-gap documentation.
 See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/matrix.md` for the current supported subset.
 
@@ -127,6 +144,9 @@ dotnet pack src/WinUI3.MacRunner/WinUI3.MacRunner.csproj --configuration Release
 `MarlonJD.WinUI3.MacRunner` is packaged as a .NET tool with the
 `winui3-mac-runner` command. `winui3-mac-doctor` remains available as a source
 checkout wrapper and as `winui3-mac-runner doctor`.
+
+Release readiness evidence and the operator checklist live in
+`docs/release/level-7-release-readiness.md`.
 
 ## Windows Native Screenshot Harness
 

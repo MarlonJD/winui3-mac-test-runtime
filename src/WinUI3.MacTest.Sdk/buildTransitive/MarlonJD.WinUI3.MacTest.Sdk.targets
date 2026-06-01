@@ -1,5 +1,5 @@
 <Project>
-  <Target Name="WinUI3MacTestRuntimePhase0" BeforeTargets="CoreCompile">
-    <Message Importance="Low" Text="WinUI3 Mac Test Runtime Phase 0 SDK skeleton is active." />
+  <Target Name="WinUI3MacTestRuntimeCompatibility" BeforeTargets="CoreCompile">
+    <Message Importance="Low" Text="WinUI3 Mac Test Runtime compatibility SDK is active." />
   </Target>
 </Project>

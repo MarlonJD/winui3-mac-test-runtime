@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>MarlonJD.WinUI3.MacXaml</PackageId>
-    <Description>Phase 0 placeholder for the future macOS-compatible WinUI XAML path.</Description>
+    <Description>Documented public XAML compiler subset for the Wine-free WinUI3 macOS compatibility runtime.</Description>
   </PropertyGroup>
 
 </Project>
