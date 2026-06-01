@@ -269,8 +269,9 @@ window title and command:
 ```sh
 dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj -- \
   --title "WinUI3 Mac Test Runtime - shell-light" \
-  --output artifacts/windows-reference-screenshots/shell-light/windows-reference.png \
-  --metadata-output artifacts/windows-reference-screenshots/shell-light/windows-reference.json \
+  --output artifacts/windows-synthetic-probe-smoke/shell-light/windows-reference.png \
+  --metadata-output artifacts/windows-synthetic-probe-smoke/shell-light/windows-reference.json \
+  --reference-source synthetic-probe \
   --client-area \
   -- dotnet run --project fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj
 ```
