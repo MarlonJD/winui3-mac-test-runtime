@@ -35,6 +35,21 @@ jobs:
       - name: Build native WinUI fixtures
         shell: pwsh
         run: |
+          $fixtureSdk = dotnet --list-sdks |
+            Where-Object { $_ -match "^8[.]" } |
+            ForEach-Object { ($_ -split " ")[0] } |
+            Select-Object -Last 1
+          if ([string]::IsNullOrWhiteSpace($fixtureSdk)) {
+            throw "A .NET 8 SDK is required to build the native WinUI fixture projects."
+          }
+          @{
+            sdk = @{
+              version = $fixtureSdk
+              rollForward = "latestPatch"
+            }
+          } | ConvertTo-Json -Depth 3 | Set-Content global.json -Encoding utf8
+          Write-Host "Pinned native WinUI fixture SDK to $(dotnet --version)."
+
           $diagnosticRoot = "artifacts/windows-native-build-diagnostics"
           New-Item -ItemType Directory -Force $diagnosticRoot | Out-Null
 
@@ -134,12 +149,13 @@ jobs:
           if ([string]::IsNullOrWhiteSpace($runnerImage)) {
             $runnerImage = $env:RUNNER_OS
           }
+          $captureTool = "tools/WindowsWindowCapture/bin/Release/net10.0-windows/WindowsWindowCapture.dll"
           foreach ($scenario in $scenarios) {
             $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
             $viewport = "$($scenarioJson.viewport.width)x$($scenarioJson.viewport.height)"
             $outDir = "artifacts/windows-reference-screenshots/$($scenario.Name)"
             New-Item -ItemType Directory -Force $outDir | Out-Null
-            dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release -- `
+            dotnet $captureTool `
               --title "WinUI3 Mac Test Runtime - $($scenario.Name)" `
               --output "$outDir/windows-reference.png" `
               --metadata-output "$outDir/windows-reference.json" `
