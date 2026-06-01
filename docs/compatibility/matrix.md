@@ -19,7 +19,7 @@ Status values:
 | Level 4: Data Binding, Commands, And State | supported | One-way and two-way binding for supported properties, `INotifyPropertyChanged`, observable item collections, command execution state, button command invocation, and navigation state for public fixtures. |
 | Level 5: Input, Accessibility, And Automation | supported | Scripted click, focus, text entry, item selection, property assertions, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility state export. |
 | Level 6: Windows Reference Visual Compatibility | supported | Public `windows-latest` reference workflow and scenario-local pixel thresholds for shell, interaction/binding, and control-gallery strict fixture categories. |
-| Level 7: Release And Consumption Readiness | planned | Packages can be smoked, but release/consumer contracts are not complete. |
+| Level 7: Release And Consumption Readiness | supported | Package metadata, pack smoke, consumer quick start, sample consumer CI, release checklist, verification evidence, troubleshooting, and known-gap documentation. |
 
 ## Runtime
 

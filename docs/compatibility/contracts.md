@@ -10,10 +10,12 @@ The macOS runtime contract is Wine-free: application code is compiled as managed
 
 ## Published Compatibility Level
 
-The current published compatibility claim covers **Levels 0 through 6** as
+The current published compatibility claim covers **Levels 0 through 7** as
 documented in `docs/compatibility/matrix.md`. Level 6 is limited to the public
 strict fixture categories captured by the `windows-latest` reference workflow:
-shell, interaction/binding, and control gallery.
+shell, interaction/binding, and control gallery. Level 7 covers package and
+consumer readiness contracts; it does not imply broader WinUI API support than
+the matrix documents.
 
 Level claims are cumulative only when the matrix marks the relevant runtime,
 XAML, control, renderer, interaction, accessibility, and artifact behaviors as
@@ -107,3 +109,11 @@ use versioned envelopes:
 - `WINUI3MAC001`: binding failure
 - `WINUI3MAC002`: resource lookup failure
 - `WINUI3MAC003`: unsupported compatibility API
+
+## Release And Consumption Contract
+
+Package metadata, consumer quick-start documentation, sample public CI, release
+checklists, package smoke commands, known-gap notes, and visual workflow
+evidence are part of the Level 7 contract. Consumers should treat the
+compatibility matrix as the API boundary and the artifact schema documentation
+as the automation boundary.

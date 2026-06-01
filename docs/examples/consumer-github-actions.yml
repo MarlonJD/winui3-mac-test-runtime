@@ -1,0 +1,51 @@
+name: winui3-mac-compatibility
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  macos-compatibility:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Install WinUI3 macOS runner
+        run: |
+          dotnet tool install MarlonJD.WinUI3.MacRunner \
+            --version 0.1.0-alpha.1 \
+            --tool-path ./.tools
+
+      - name: Build public fixture
+        run: dotnet build ./tests/PublicWinUIFixture/PublicWinUIFixture.csproj
+
+      - name: Doctor
+        run: ./.tools/winui3-mac-runner doctor
+
+      - name: Managed fixture smoke
+        run: |
+          ./.tools/winui3-mac-runner run \
+            --project ./tests/PublicWinUIFixture/PublicWinUIFixture.csproj
+
+      - name: Strict visual fixture
+        run: |
+          ./.tools/winui3-mac-runner run \
+            --project ./tests/PublicWinUIFixture/PublicWinUIFixture.csproj \
+            --renderer skia-v2 \
+            --scenario ./tests/PublicWinUIFixture/scenarios/light.json \
+            --strict-visual
+
+      - name: Upload runtime artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: winui3-mac-artifacts
+          path: artifacts/winui3-mac

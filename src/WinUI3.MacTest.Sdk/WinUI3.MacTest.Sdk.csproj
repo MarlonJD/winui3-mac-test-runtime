@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>MarlonJD.WinUI3.MacTest.Sdk</PackageId>
-    <Description>Phase 0 MSBuild SDK skeleton for the Wine-free WinUI3 macOS test runtime.</Description>
+    <Description>MSBuild integration package for public Wine-free WinUI3 macOS compatibility test projects.</Description>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
