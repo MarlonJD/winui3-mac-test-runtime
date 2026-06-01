@@ -16,12 +16,17 @@ public interface ISnapshotRenderer
     Task<SnapshotResult> RenderAsync(
         UiTreeDocument tree,
         string screenshotsDirectory,
+        SnapshotRenderOptions? options = null,
         CancellationToken cancellationToken = default);
 }
 
 public sealed class SnapshotRenderer : ISnapshotRenderer
 {
-    public async Task<SnapshotResult> RenderAsync(UiTreeDocument tree, string screenshotsDirectory, CancellationToken cancellationToken = default)
+    public async Task<SnapshotResult> RenderAsync(
+        UiTreeDocument tree,
+        string screenshotsDirectory,
+        SnapshotRenderOptions? options = null,
+        CancellationToken cancellationToken = default)
     {
         Directory.CreateDirectory(screenshotsDirectory);
         var width = 960;

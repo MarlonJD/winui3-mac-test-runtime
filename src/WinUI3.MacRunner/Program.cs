@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Globalization;
 using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRuntime;
 using WinUI3.MacXaml;
@@ -61,22 +62,56 @@ internal static class Cli
         }
 
         var configuration = ReadOption(args, "--configuration") ?? "Debug";
-        var outputDirectory = ReadOption(args, "--output")
-            ?? Path.Combine(Environment.CurrentDirectory, "artifacts", "winui3-mac");
+        var explicitOutputDirectory = ReadOption(args, "--output");
         var scriptPath = ReadOption(args, "--script");
         var rendererName = ReadOption(args, "--renderer") ?? "svg";
+        var scenarioPath = ReadOption(args, "--scenario");
+        var viewportOption = ReadOption(args, "--viewport");
+        var scaleOption = ReadOption(args, "--scale");
+        var themeOption = ReadOption(args, "--theme");
+        var strictVisual = HasOption(args, "--strict-visual");
+        var referencePath = ReadOption(args, "--reference");
+        var diffOutputOption = ReadOption(args, "--diff-output");
 
         try
         {
+            var scenario = string.IsNullOrWhiteSpace(scenarioPath)
+                ? null
+                : await VisualScenario.LoadAsync(scenarioPath);
+            var visualSettings = CreateVisualSettings(
+                scenario,
+                rendererName,
+                viewportOption,
+                scaleOption,
+                themeOption,
+                strictVisual,
+                referencePath,
+                diffOutputOption);
+            var outputDirectory = explicitOutputDirectory
+                ?? DefaultOutputDirectory(visualSettings);
+            var diffOutputDirectory = diffOutputOption
+                ?? (visualSettings is null ? null : Path.Combine(outputDirectory, "visual"));
+
             var runner = new MacProjectRunner(CreateSnapshotRenderer(rendererName));
-            var result = await runner.RunProjectAsync(projectPath, outputDirectory, configuration, scriptPath);
+            var result = await runner.RunProjectAsync(projectPath, outputDirectory, configuration, scriptPath, visualSettings);
             Console.WriteLine($"Status: {result.Run.Status}");
             Console.WriteLine($"run.json: {result.RunJsonPath}");
             Console.WriteLine($"tree.json: {result.TreeJsonPath}");
             Console.WriteLine($"accessibility.json: {result.AccessibilityJsonPath}");
             Console.WriteLine($"unsupported-apis.json: {result.UnsupportedApisJsonPath}");
             Console.WriteLine($"snapshot.json: {result.SnapshotJsonPath}");
-            return 0;
+            if (visualSettings is not null && diffOutputDirectory is not null)
+            {
+                var visualPassed = await VisualArtifacts.WriteAsync(result, visualSettings, referencePath, diffOutputDirectory);
+                Console.WriteLine($"visual-run.json: {Path.Combine(Path.GetFullPath(diffOutputDirectory), "visual-run.json")}");
+                Console.WriteLine($"mac-runtime.png: {Path.Combine(Path.GetFullPath(diffOutputDirectory), "mac-runtime.png")}");
+                if (!visualPassed)
+                {
+                    return 1;
+                }
+            }
+
+            return result.Run.Status == "passed" ? 0 : 1;
         }
         catch (Exception ex)
         {
@@ -91,8 +126,74 @@ internal static class Cli
         {
             "svg" => new SnapshotRenderer(),
             "skia" => new SkiaSnapshotRenderer(),
-            _ => throw new ArgumentException($"Unknown renderer '{rendererName}'. Expected 'svg' or 'skia'.")
+            "skia-v2" => new SkiaV2SnapshotRenderer(),
+            _ => throw new ArgumentException($"Unknown renderer '{rendererName}'. Expected 'svg', 'skia', or 'skia-v2'.")
         };
+    }
+
+    private static VisualRunSettings? CreateVisualSettings(
+        VisualScenario? scenario,
+        string rendererName,
+        string? viewportOption,
+        string? scaleOption,
+        string? themeOption,
+        bool strictVisual,
+        string? referencePath,
+        string? diffOutputOption)
+    {
+        var visualRequested =
+            scenario is not null ||
+            string.Equals(rendererName, "skia-v2", StringComparison.OrdinalIgnoreCase) ||
+            viewportOption is not null ||
+            scaleOption is not null ||
+            themeOption is not null ||
+            strictVisual ||
+            referencePath is not null ||
+            diffOutputOption is not null;
+
+        if (!visualRequested)
+        {
+            return null;
+        }
+
+        var viewport = viewportOption is null
+            ? scenario?.Viewport ?? new VisualViewport(1280, 800)
+            : VisualViewport.Parse(viewportOption);
+        var scale = scaleOption is null
+            ? scenario?.Scale ?? 1.0
+            : ParsePositiveDouble(scaleOption, "--scale");
+        var rawTheme = themeOption ?? scenario?.Theme ?? "light";
+        if (!VisualTheme.IsSupported(rawTheme))
+        {
+            throw new ArgumentException($"Unsupported theme '{rawTheme}'. Expected light or dark.");
+        }
+
+        var theme = VisualTheme.Normalize(rawTheme);
+
+        return new VisualRunSettings(
+            Scenario: scenario,
+            ScenarioName: scenario?.Name ?? "ad-hoc",
+            Renderer: rendererName.ToLowerInvariant(),
+            Viewport: viewport,
+            Scale: scale,
+            Theme: theme,
+            StrictVisual: strictVisual || scenario?.StrictVisual == true,
+            Thresholds: scenario?.Thresholds ?? new VisualThresholds());
+    }
+
+    private static string DefaultOutputDirectory(VisualRunSettings? visualSettings)
+    {
+        var root = Path.Combine(Environment.CurrentDirectory, "artifacts", "winui3-mac");
+        return visualSettings is null
+            ? root
+            : Path.Combine(root, SanitizePathSegment(visualSettings.ScenarioName));
+    }
+
+    private static string SanitizePathSegment(string value)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        var chars = value.Select(character => invalid.Contains(character) ? '-' : character).ToArray();
+        return new string(chars);
     }
 
     private static int RunXaml(string[] args)
@@ -159,6 +260,21 @@ internal static class Cli
         return null;
     }
 
+    private static bool HasOption(string[] args, string name)
+    {
+        return args.Contains(name, StringComparer.Ordinal);
+    }
+
+    private static double ParsePositiveDouble(string value, string option)
+    {
+        if (!double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var number) || number <= 0)
+        {
+            throw new FormatException($"{option} must be a positive number.");
+        }
+
+        return number;
+    }
+
     private static IReadOnlyList<string> ReadPositionalInputs(string[] args)
     {
         var values = new List<string>();
@@ -190,7 +306,9 @@ internal static class Cli
         Console.WriteLine();
         Console.WriteLine("Commands:");
         Console.WriteLine("  doctor [--json]");
-        Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>] [--renderer svg|skia]");
+        Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>] [--renderer svg|skia|skia-v2]");
+        Console.WriteLine("      [--scenario <path>] [--viewport <width>x<height>] [--scale <number>] [--theme light|dark]");
+        Console.WriteLine("      [--strict-visual] [--reference <path>] [--diff-output <dir>]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");
     }
 }

@@ -16,6 +16,7 @@ dotnet test
 PATH="$PWD/tools:$PATH" winui3-mac-doctor
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/TinyWinUIApp.MacTest.csproj --renderer skia
+PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj --renderer skia-v2 --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json --strict-visual
 ```
 
 ## Current Fixtures
@@ -36,7 +37,25 @@ and exports admin navigation visibility in `tree.json`.
 
 `InteractionBindingApp.MacTest` exercises page navigation, binding refresh,
 button click simulation, focus, accessibility export, binding failure export,
-and a deterministic snapshot artifact.
+list/text/image facade export, and a deterministic snapshot artifact.
+
+Scenario JSON files under each fixture's `scenarios/` directory describe the
+strict visual contract for the supported public subset. A scenario can set the
+viewport, scale, theme, interaction actions, strict visual mode, and pixel diff
+thresholds. The stricter renderer path is opt in:
+
+```sh
+PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+  --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj \
+  --renderer skia-v2 \
+  --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json \
+  --viewport 1280x800 \
+  --scale 1 \
+  --theme light \
+  --strict-visual \
+  --reference ./artifacts/windows-reference-screenshots/shell-light/windows-reference.png \
+  --diff-output ./artifacts/windows-native-screenshot/shell-light
+```
 
 The runner writes artifacts to `artifacts/winui3-mac/` by default:
 
@@ -52,6 +71,13 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
 - `snapshot.json` and `screenshots/snapshot.svg`: deterministic nonblank
   snapshot output for smoke and regression tests. Passing `--renderer skia`
   writes `screenshots/snapshot.png` with the Skia renderer.
+- `screenshots/mac-runtime.png`: deterministic PNG from `--renderer skia-v2`
+  for scenario-driven visual comparison.
+- `visual/visual-run.json`: scenario metadata, strict visual status,
+  unsupported visual features, and pixel comparison summary.
+- `visual/windows-reference.png`, `visual/mac-runtime.png`,
+  `visual/pixel-diff.png`, and `visual/pixel-diff.json`: comparison artifacts
+  when a Windows reference PNG is provided.
 
 Wine is optional diagnostic context only. The primary runtime path is a managed
 macOS .NET process.
@@ -82,22 +108,28 @@ checkout wrapper and as `winui3-mac-runner doctor`.
 ## Windows Native Screenshot Harness
 
 The `windows-native-screenshot` workflow runs on GitHub's `windows-latest`
-runner and uploads a PNG screenshot artifact from a real Windows desktop window.
-It uses a generic public probe app and the reusable
-`tools/WindowsWindowCapture` launcher/capture tool.
+runner and captures client-area PNG reference screenshots from real Windows
+desktop windows. A follow-up `macos-latest` job renders the matching public
+scenario through `skia-v2`, compares the two PNGs, and uploads reviewable
+reference/runtime/diff artifacts.
 
 The capture tool can be pointed at any Windows desktop app by changing the
 window title and command:
 
 ```sh
 dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj -- \
-  --title "WinUI3 Mac Test Runtime Native Probe" \
-  --output artifacts/windows-native-screenshot/native-probe.png \
+  --title "WinUI3 Mac Test Runtime - shell-light" \
+  --output artifacts/windows-reference-screenshots/shell-light/windows-reference.png \
+  --metadata-output artifacts/windows-reference-screenshots/shell-light/windows-reference.json \
+  --client-area \
   -- dotnet run --project fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj
 ```
 
-This workflow is separate from the macOS compatibility renderer. It is the path
-for true Windows-hosted screenshot artifacts.
+The workflow uses only generic public fixture content and public GitHub-hosted
+runners. It does not require Wine, private repositories, secrets, or private
+screenshots. Passing visual comparison means the documented fixture/control
+subset stayed within the scenario thresholds; it is not a claim of arbitrary
+WinUI 3 pixel compatibility.
 
 ## License
 

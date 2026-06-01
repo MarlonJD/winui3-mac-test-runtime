@@ -8,6 +8,8 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageVersion>0.1.0-alpha.1</PackageVersion>
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <BuildInParallel>false</BuildInParallel>
+    <UseSharedCompilation>false</UseSharedCompilation>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(IsPackable)' != 'false'">

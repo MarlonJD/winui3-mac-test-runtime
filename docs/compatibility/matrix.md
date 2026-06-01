@@ -21,6 +21,10 @@ Status values:
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
 | Snapshot output | partial | Deterministic SVG fallback and Skia-backed PNG output are available for the supported tree subset. |
+| Scenario JSON visual runs | supported | `--scenario`, `--viewport`, `--scale`, `--theme`, `--strict-visual`, `--reference`, and `--diff-output` drive the strict path. |
+| Deterministic layout export | partial | `skia-v2` scenarios add arranged rectangles, desired sizes, padding, alignment, and visibility to `tree.json`. |
+| Pixel diff artifacts | supported | `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, and `visual-run.json` are emitted for reference-backed runs. |
+| Windows reference source of truth | supported | Public `windows-latest` workflow captures generic reference screenshots and macOS comparison artifacts. |
 
 ## XAML
 
@@ -43,11 +47,20 @@ Status values:
 | --- | --- | --- |
 | `Application`, `Window`, `Page` | supported | Basic lifecycle and page activation. |
 | `Frame` | supported | Supports `Navigate(Type, object?)`. |
-| `StackPanel`, `Grid`, `Border` | partial | Logical child containment only. |
+| `StackPanel`, `Grid`, `Border` | partial | Logical child containment and deterministic `skia-v2` layout for public scenarios. |
 | `TextBlock`, `TextBox`, `Button` | supported | Basic content/text and button click. |
-| `Image`, `ListView` | partial | Logical model only. |
-| `NavigationView`, `NavigationViewItem` | partial | Menu items, selection, and pane footer. |
-| `FontIcon` | partial | Glyph and font size metadata only. |
+| `Image`, `ListView` | partial | Logical model plus `skia-v2` placeholder/list painters for public scenarios. |
+| `NavigationView`, `NavigationViewItem` | partial | Menu items, selection, pane footer, and `skia-v2` shell painter. |
+| `FontIcon` | partial | Glyph and font size metadata with simple `skia-v2` glyph/dot rendering. |
+
+## Visual Renderer Subset
+
+`skia-v2` is intentionally narrower than WinUI 3. It currently paints the public
+fixture subset: `Window`, `Page`, `Grid`, `StackPanel`, `Border`, `TextBlock`,
+`Button`, `TextBox`, `Frame`, `NavigationView`, `NavigationViewItem`,
+`ListView`, `FontIcon`, `Image`, and string content. A strict scenario records
+any unsupported control or missing renderer feature in `unsupported-apis.json`
+and exits non-zero.
 
 ## Unsupported Facade Placeholders
 

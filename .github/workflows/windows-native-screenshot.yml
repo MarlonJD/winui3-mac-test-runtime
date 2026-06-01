@@ -7,11 +7,13 @@ on:
       - main
     paths:
       - ".github/workflows/windows-native-screenshot.yml"
+      - "src/**"
       - "tools/WindowsWindowCapture/**"
       - "fixtures/WindowsNativeProbe/**"
+      - "fixtures/**/*.MacTest/**"
 
 jobs:
-  screenshot:
+  windows-reference:
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -28,21 +30,84 @@ jobs:
       - name: Build native probe
         run: dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release
 
-      - name: Capture native window
+      - name: Capture Windows reference scenarios
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force artifacts/windows-native-screenshot | Out-Null
-          dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release -- `
-            --title "WinUI3 Mac Test Runtime Native Probe" `
-            --output "artifacts/windows-native-screenshot/native-probe.png" `
-            --timeout-seconds 30 `
-            -- dotnet run --project fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release --no-build
-          if (!(Test-Path "artifacts/windows-native-screenshot/native-probe.png")) {
-            throw "Native screenshot was not created."
+          $scenarios = @(
+            @{
+              Name = "shell-light"
+              Path = "fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json"
+            },
+            @{
+              Name = "interactions-light"
+              Path = "fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json"
+            }
+          )
+
+          foreach ($scenario in $scenarios) {
+            $outDir = "artifacts/windows-reference-screenshots/$($scenario.Name)"
+            New-Item -ItemType Directory -Force $outDir | Out-Null
+            dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release -- `
+              --title "WinUI3 Mac Test Runtime - $($scenario.Name)" `
+              --output "$outDir/windows-reference.png" `
+              --metadata-output "$outDir/windows-reference.json" `
+              --client-area `
+              --timeout-seconds 30 `
+              -- dotnet run --project fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release --no-build -- --scenario $scenario.Path
+            if (!(Test-Path "$outDir/windows-reference.png")) {
+              throw "Windows reference screenshot was not created for $($scenario.Name)."
+            }
           }
 
-      - name: Upload screenshot artifact
+      - name: Upload Windows references
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-reference-screenshots
+          path: artifacts/windows-reference-screenshots
+
+  visual-comparison:
+    runs-on: macos-latest
+    needs: windows-reference
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Download Windows references
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-reference-screenshots
+          path: artifacts/windows-reference-screenshots
+
+      - name: Build
+        run: dotnet build
+
+      - name: Render and compare visual scenarios
+        shell: bash
+        run: |
+          set -euo pipefail
+          PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+            --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj \
+            --renderer skia-v2 \
+            --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json \
+            --strict-visual \
+            --reference ./artifacts/windows-reference-screenshots/shell-light/windows-reference.png \
+            --diff-output ./artifacts/windows-native-screenshot/shell-light
+
+          PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+            --project ./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj \
+            --renderer skia-v2 \
+            --scenario ./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json \
+            --strict-visual \
+            --reference ./artifacts/windows-reference-screenshots/interactions-light/windows-reference.png \
+            --diff-output ./artifacts/windows-native-screenshot/interactions-light
+
+      - name: Upload reviewable visual artifacts
         uses: actions/upload-artifact@v4
         with:
           name: windows-native-screenshot
-          path: artifacts/windows-native-screenshot/native-probe.png
+          path: artifacts/windows-native-screenshot

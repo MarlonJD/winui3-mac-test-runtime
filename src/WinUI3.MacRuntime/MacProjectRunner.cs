@@ -26,6 +26,7 @@ public sealed class MacProjectRunner
         string outputDirectory,
         string configuration = "Debug",
         string? scriptPath = null,
+        VisualRunSettings? visualSettings = null,
         CancellationToken cancellationToken = default)
     {
         var build = await buildService.BuildAsync(projectPath, configuration, cancellationToken);
@@ -34,7 +35,8 @@ public sealed class MacProjectRunner
                 AssemblyPath: build.AssemblyPath,
                 ProjectPath: build.ProjectPath,
                 OutputDirectory: outputDirectory,
-                ScriptPath: scriptPath),
+                ScriptPath: scriptPath,
+                VisualSettings: visualSettings),
             cancellationToken);
     }
 }
