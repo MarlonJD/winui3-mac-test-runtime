@@ -94,6 +94,8 @@ component gaps exposed by the native references.
   - Layout, media, and resources
 - Component inventory metadata in
   `docs/compatibility/winui-component-inventory.json`.
+- Sanitized production-ring target mapping in
+  `docs/compatibility/production-component-targets.md`.
 - Scenario requirements with expected catalog status, presence, interaction
   status, minimum visual grade, known gaps, and optional diff metrics.
 - Downstream source-audit gaps are explicitly represented:

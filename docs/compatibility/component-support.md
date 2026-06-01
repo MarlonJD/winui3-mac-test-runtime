@@ -12,6 +12,12 @@ the Microsoft Learn controls inventory and local source-audit gaps to a public
 fixture page, expected catalog status, interaction coverage, visual evidence
 grade, and known gaps.
 
+`production-component-targets.md` is the sanitized production target inventory.
+It maps the first production-ring component families to public clean-room
+fixture scenarios, required interaction and accessibility coverage, target
+visual grades, smoke or E2E targets, and private-content safety checks. It does
+not promote any component grade by itself.
+
 The latest checked-in visual evidence uses native WinUI Windows references from
 public workflow run
 [`26777029415`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26777029415)

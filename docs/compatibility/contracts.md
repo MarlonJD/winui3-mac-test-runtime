@@ -37,6 +37,10 @@ catalog seed for the broader full-compatibility roadmap. The same catalog is
 compiled into the facade and XAML packages so diagnostics use the published
 classification.
 
+`docs/compatibility/production-component-targets.md` defines the sanitized
+public production-ring component target. It is a planning and release gate for
+the first production support claim, not a support promotion by itself.
+
 Catalog status values are `supported`, `partial`, `planned`, `windows-only`,
 and `not supported`. Runtime or compiler diagnostics may report `unknown` when
 app code touches a public API or XAML construct that is not in the catalog yet.
