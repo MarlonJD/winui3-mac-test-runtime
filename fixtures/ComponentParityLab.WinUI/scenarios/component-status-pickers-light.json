@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-status-pickers-light",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 22.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 14.0,
+    "rootMeanSquaredError": 34.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "StatusPickersNavigationItem"
+    },
+    {
+      "type": "click",
+      "target": "CompleteStatusButton"
+    },
+    {
+      "type": "assertProperty",
+      "target": "StatusInfoBar",
+      "key": "Title",
+      "parameter": "Complete"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "InfoBar",
+      "target": "StatusInfoBar",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "title", "message", "severity", "isOpen" ],
+      "knownGaps": [ "InfoBar layout, close button, action area, and exact severity styling are weak approximations." ]
+    },
+    {
+      "component": "ProgressBar",
+      "target": "CompletionProgressBar",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "minimum", "maximum", "value" ],
+      "knownGaps": [ "Animation and exact Fluent geometry are approximated." ]
+    },
+    {
+      "component": "ProgressRing",
+      "target": "LoadingProgressRing",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "isActive" ],
+      "knownGaps": [ "Native animation and reduced-motion behavior are not modeled." ]
+    },
+    {
+      "component": "InfoBadge",
+      "target": "DiagnosticInfoBadge",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "PersonPicture",
+      "target": "DiagnosticPersonPicture",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ColorPicker",
+      "target": "DiagnosticColorPicker",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "CalendarDatePicker",
+      "target": "DiagnosticCalendarDatePicker",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "CalendarView",
+      "target": "DiagnosticCalendarView",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "DatePicker",
+      "target": "DiagnosticDatePicker",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "TimePicker",
+      "target": "DiagnosticTimePicker",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-commands-menus-light",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 24.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16.0,
+    "rootMeanSquaredError": 38.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "CommandsNavigationItem"
+    },
+    {
+      "type": "click",
+      "target": "SaveCommandButton"
+    },
+    {
+      "type": "assertProperty",
+      "target": "CommandStateText",
+      "key": "Text",
+      "parameter": "Saved"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "primaryCommands" ],
+      "knownGaps": [ "Command surface chrome, overflow behavior, focus, and pointer states are visibly simplified." ]
+    },
+    {
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "label", "icon", "click" ],
+      "knownGaps": [ "Icon rendering and AppBarButton chrome are weak approximations." ]
+    },
+    {
+      "component": "CommandBar.Content",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticCommandBarContent",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "AppBarButton.Icon",
+      "kind": "xaml-property-slot",
+      "target": "SaveCommandIcon",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "glyph" ],
+      "knownGaps": [ "FontIcon metadata is present, but exact Segoe Fluent symbol rendering is approximate." ]
+    },
+    {
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Context menu pattern",
+      "kind": "pattern",
+      "target": "DiagnosticContextMenuPattern",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "CommandBar.Content",
+      "kind": "xaml-property-slot",
+      "target": "DiagnosticCommandBarContent",
+      "expectedStatus": "planned",
+      "knownGaps": [ "Content slot support is tracked before compiler and renderer support are added." ]
+    },
+    {
+      "feature": "AppBarButton.Icon",
+      "kind": "xaml-property-slot",
+      "target": "SaveCommandIcon",
+      "expectedStatus": "partial",
+      "knownGaps": [ "The icon slot compiles for FontIcon, but visual fidelity is still weak." ]
+    }
+  ]
+}

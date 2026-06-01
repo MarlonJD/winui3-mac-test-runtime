@@ -358,6 +358,39 @@ public sealed class MacXamlCompilerTests
     }
 
     [TestMethod]
+    public void CompileTextAcceptsXamlControlsResourcesAndThemeDictionariesMarkers()
+    {
+        const string xaml = """
+            <Application
+                x:Class="Sample.App"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:controls="using:Microsoft.UI.Xaml.Controls">
+              <Application.Resources>
+                <ResourceDictionary>
+                  <ResourceDictionary.MergedDictionaries>
+                    <controls:XamlControlsResources />
+                  </ResourceDictionary.MergedDictionaries>
+                  <ResourceDictionary.ThemeDictionaries>
+                    <ResourceDictionary x:Key="Light">
+                      <String x:Key="LabThemeName">Light</String>
+                    </ResourceDictionary>
+                  </ResourceDictionary.ThemeDictionaries>
+                  <String x:Key="AccentBrush">#2562D9</String>
+                </ResourceDictionary>
+              </Application.Resources>
+            </Application>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "\"XamlControlsResources\"");
+        StringAssert.Contains(result.GeneratedSource, "\"ResourceDictionary.ThemeDictionaries\"");
+    }
+
+    [TestMethod]
     public void CompileTextGeneratesFrameContentAndListViewItems()
     {
         const string xaml = """

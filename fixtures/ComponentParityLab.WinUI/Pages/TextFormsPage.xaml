@@ -1,0 +1,19 @@
+<Page
+    x:Class="ComponentParityLab.WinUI.TextFormsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel x:Name="TextFormsRoot" Padding="24,20,24,24" Spacing="10">
+        <TextBlock x:Name="TextFormsTitle" Text="Page 2: Text and forms" />
+        <TextBlock x:Name="SearchLabel" Text="Search label" AutomationProperties.Name="Search label" />
+        <TextBox x:Name="SearchTextBox" Text="Public query" AutomationProperties.Name="Search public records" />
+        <Button x:Name="ApplyTextButton" Content="Apply text" Click="OnApplyTextClicked" />
+        <TextBlock x:Name="TextFormsStateText" Text="Text form is ready" />
+        <TextBlock x:Name="DiagnosticRichTextBlock" Text="RichTextBlock: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticRichEditBox" Text="RichEditBox: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticPasswordBox" Text="PasswordBox: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticNumberBox" Text="NumberBox: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticAutoSuggestBox" Text="AutoSuggestBox: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticAutoSuggestBoxQueryIcon" Text="AutoSuggestBox.QueryIcon: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticFormsPattern" Text="Labels and forms pattern: partial diagnostic" />
+    </StackPanel>
+</Page>

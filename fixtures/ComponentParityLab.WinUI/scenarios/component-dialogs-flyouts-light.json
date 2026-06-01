@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-dialogs-flyouts-light",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 18.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 12.0,
+    "rootMeanSquaredError": 32.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "DialogsNavigationItem"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "ContentDialog",
+      "target": "DiagnosticContentDialog",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Flyout",
+      "target": "DiagnosticFlyout",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "TeachingTip",
+      "target": "DiagnosticTeachingTip",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ToolTip",
+      "target": "DiagnosticToolTip",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ToolTipService.SetToolTip",
+      "kind": "xaml-attached-property",
+      "target": "DiagnosticToolTipServiceSetToolTip",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "ToolTipService.SetToolTip",
+      "kind": "xaml-attached-property",
+      "target": "DiagnosticToolTipServiceSetToolTip",
+      "expectedStatus": "planned",
+      "knownGaps": [ "Tooltip service source support is tracked as a diagnostic-only requirement." ]
+    }
+  ]
+}

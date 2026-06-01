@@ -1,0 +1,329 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-layout-media-light",
+  "viewport": {
+    "width": 1044,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 24.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16.0,
+    "rootMeanSquaredError": 38.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "LayoutMediaNavigationItem"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "ScrollViewer",
+      "target": "LayoutScrollViewer",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "content", "verticalScrollBarVisibility" ],
+      "knownGaps": [ "Real scrolling, inertia, and native scrollbars are limited." ]
+    },
+    {
+      "component": "Grid",
+      "target": "LayoutResourceGrid",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "columnDefinitions", "columnSpacing" ],
+      "knownGaps": [ "Full row and column sizing, spanning, alignment, and invalidation remain partial." ]
+    },
+    {
+      "component": "StackPanel",
+      "target": "LayoutNestedStack",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [ "spacing" ],
+      "knownGaps": [ "Measure and arrange behavior is deterministic but not fully WinUI-compatible." ]
+    },
+    {
+      "component": "Border",
+      "target": "LayoutBorder",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "knownGaps": [ "CornerRadius, border thickness variants, brushes, shadows, and backgrounds are limited." ]
+    },
+    {
+      "component": "FontIcon",
+      "target": "LayoutFontIcon",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "glyph", "fontSize" ],
+      "knownGaps": [ "Font fallback, sizing, and exact Segoe Fluent icon rendering are approximated." ]
+    },
+    {
+      "component": "Image",
+      "target": "PublicImagePlaceholder",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "weak",
+      "visualGrade": "weak",
+      "requiredProperties": [ "source" ],
+      "knownGaps": [ "The renderer uses a placeholder; image decoding and scaling modes are not complete." ]
+    },
+    {
+      "component": "SymbolIcon",
+      "target": "DiagnosticSymbolIcon",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "XamlControlsResources",
+      "kind": "resource",
+      "target": "DiagnosticXamlControlsResources",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ResourceDictionary.ThemeDictionaries",
+      "kind": "resource",
+      "target": "DiagnosticThemeDictionaries",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "ThemeResource",
+      "kind": "resource",
+      "target": "ThemeResourceText",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "ThemeResource lookup is simple and does not model full dynamic theme dictionaries." ]
+    },
+    {
+      "component": "StaticResource",
+      "kind": "resource",
+      "target": "StaticResourceText",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "StaticResource lookup supports simple local dictionaries only." ]
+    },
+    {
+      "component": "Style",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "Only supported setter properties are applied." ]
+    },
+    {
+      "component": "Setter",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "Setter support is limited to simple values on supported facade properties." ]
+    },
+    {
+      "component": "Color",
+      "kind": "resource",
+      "target": "DiagnosticColor",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "SolidColorBrush",
+      "kind": "resource",
+      "target": "DiagnosticSolidColorBrush",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "CornerRadius",
+      "kind": "resource",
+      "target": "DiagnosticCornerRadius",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Expander",
+      "target": "DiagnosticExpander",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Annotated scrollbar",
+      "kind": "pattern",
+      "target": "DiagnosticAnnotatedScrollbar",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "SemanticZoom",
+      "target": "DiagnosticSemanticZoom",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "SplitView",
+      "target": "DiagnosticSplitView",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "TwoPaneView",
+      "target": "DiagnosticTwoPaneView",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "AnimatedIcon",
+      "target": "DiagnosticAnimatedIcon",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Shapes",
+      "kind": "control",
+      "target": "DiagnosticShapes",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "MediaPlayerElement",
+      "target": "DiagnosticMediaPlayerElement",
+      "expectedStatus": "not supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "WebView2",
+      "target": "DiagnosticWebView2",
+      "expectedStatus": "not supported",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "InkCanvas / InkToolbar",
+      "target": "DiagnosticInkControls",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Title bar customization",
+      "kind": "platform-api",
+      "target": "DiagnosticTitleBarCustomization",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    },
+    {
+      "component": "Window.SystemBackdrop / MicaBackdrop",
+      "kind": "material",
+      "target": "DiagnosticSystemBackdrop",
+      "expectedStatus": "planned",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered"
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "SymbolIcon",
+      "kind": "icon",
+      "target": "DiagnosticSymbolIcon",
+      "expectedStatus": "planned",
+      "knownGaps": [ "SymbolIcon is tracked as diagnostic-only before facade and painter support are added." ]
+    },
+    {
+      "feature": "XamlControlsResources",
+      "kind": "resource",
+      "target": "DiagnosticXamlControlsResources",
+      "expectedStatus": "planned",
+      "knownGaps": [ "The fixture includes a bootstrap marker, but Fluent resource dictionaries are not modeled yet." ]
+    },
+    {
+      "feature": "ResourceDictionary.ThemeDictionaries",
+      "kind": "resource",
+      "target": "DiagnosticThemeDictionaries",
+      "expectedStatus": "planned",
+      "knownGaps": [ "Theme dictionaries are detected as source coverage, not fully resolved by theme." ]
+    },
+    {
+      "feature": "ThemeResource",
+      "kind": "resource",
+      "target": "ThemeResourceText",
+      "expectedStatus": "partial",
+      "knownGaps": [ "ThemeResource currently resolves through a simple dictionary lookup." ]
+    },
+    {
+      "feature": "StaticResource",
+      "kind": "resource",
+      "target": "StaticResourceText",
+      "expectedStatus": "partial",
+      "knownGaps": [ "StaticResource currently resolves through a simple dictionary lookup." ]
+    },
+    {
+      "feature": "Style",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "expectedStatus": "supported",
+      "knownGaps": [ "Style support is limited to simple setter application." ]
+    },
+    {
+      "feature": "Setter",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "expectedStatus": "supported",
+      "knownGaps": [ "Setter support is limited to supported facade properties." ]
+    },
+    {
+      "feature": "Color",
+      "kind": "resource",
+      "target": "DiagnosticColor",
+      "expectedStatus": "planned",
+      "knownGaps": [ "Color resources are represented in the fixture but not converted to typed colors." ]
+    },
+    {
+      "feature": "SolidColorBrush",
+      "kind": "resource",
+      "target": "DiagnosticSolidColorBrush",
+      "expectedStatus": "planned",
+      "knownGaps": [ "SolidColorBrush resources are represented in the fixture but not converted to typed brushes." ]
+    },
+    {
+      "feature": "CornerRadius",
+      "kind": "resource",
+      "target": "DiagnosticCornerRadius",
+      "expectedStatus": "planned",
+      "knownGaps": [ "CornerRadius resources are represented in the fixture but not applied to control geometry." ]
+    },
+    {
+      "feature": "Window.SystemBackdrop / MicaBackdrop",
+      "kind": "material",
+      "target": "DiagnosticSystemBackdrop",
+      "expectedStatus": "planned",
+      "knownGaps": [ "System backdrop and Mica are explicit planned diagnostics with no material rendering claim." ]
+    }
+  ]
+}

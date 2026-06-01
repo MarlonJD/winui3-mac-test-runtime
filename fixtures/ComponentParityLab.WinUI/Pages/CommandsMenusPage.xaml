@@ -1,0 +1,28 @@
+<Page
+    x:Class="ComponentParityLab.WinUI.CommandsMenusPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel x:Name="CommandsMenusRoot" Padding="24,20,24,24" Spacing="10">
+        <TextBlock x:Name="CommandsMenusTitle" Text="Page 5: Commands and menus" />
+        <CommandBar x:Name="PrimaryCommandBar">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="SaveCommandButton" Label="Save" Click="OnSaveClicked">
+                    <AppBarButton.Icon>
+                        <FontIcon x:Name="SaveCommandIcon" Glyph="&#xE74E;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton x:Name="RefreshCommandButton" Label="Refresh" Click="OnRefreshClicked">
+                    <AppBarButton.Icon>
+                        <FontIcon x:Name="RefreshCommandIcon" Glyph="&#xE72C;" />
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+        <TextBlock x:Name="CommandStateText" Text="Commands ready" />
+        <TextBlock x:Name="DiagnosticCommandBarContent" Text="CommandBar.Content: partial diagnostic" />
+        <TextBlock x:Name="DiagnosticCommandBarFlyout" Text="CommandBarFlyout: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticMenuFlyout" Text="MenuFlyout: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticMenuBar" Text="MenuBar: planned diagnostic" />
+        <TextBlock x:Name="DiagnosticContextMenuPattern" Text="Context menu pattern: planned diagnostic" />
+    </StackPanel>
+</Page>

@@ -6,6 +6,11 @@ truth for diagnostics and strict mode. A WinUI control or feature not listed
 here is unsupported in this alpha until it receives a catalog entry, fixture
 coverage, renderer behavior, and public Windows reference evidence.
 
+`winui-component-inventory.json` is the component parity lab inventory. It maps
+the Microsoft Learn controls inventory and local source-audit gaps to a public
+fixture page, expected catalog status, interaction coverage, visual evidence
+grade, and known gaps.
+
 ## Status Model
 
 | Status | Meaning |
@@ -15,6 +20,44 @@ coverage, renderer behavior, and public Windows reference evidence.
 | `planned` | Cataloged roadmap item. Strict diagnostics should prevent silent parity claims. |
 | `windows-only` | Validated on Windows or excluded from the macOS shadow build, not executed locally. |
 | `not supported` | Explicit non-goal for the current clean-room runtime. |
+
+## Visual Evidence Grades
+
+Whole-screenshot pixel metrics are scenario smoke evidence only. Component
+grades are recorded in `component-evidence.json` and must stay honest:
+
+| Grade | Meaning |
+| --- | --- |
+| `good` | Structure and visible state are close to Windows; only minor text or edge differences remain. |
+| `usable` | Recognizable and functionally correct, but native chrome differs. |
+| `weak` | Structure exists, but important visual details are missing or visibly simplified. |
+| `poor` | Visibly wrong, collapsed, misplaced, or misleading. |
+| `not-rendered` | Diagnostic-only, planned, Windows-only, or unsupported. |
+
+## Component Parity Lab
+
+`ComponentParityLab.WinUI` is a public Windows-targeted fixture with eight
+clean-room pages:
+
+| Page | Coverage |
+| --- | --- |
+| Page 1: Basic input | `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls. |
+| Page 2: Text and forms | `TextBlock`, `TextBox`, form labels, and diagnostic rows for rich text, password, number, and autosuggest controls. |
+| Page 3: Collections | `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics. |
+| Page 4: Dialogs and flyouts | Diagnostic rows for dialog, flyout, teaching tip, tooltip, and tooltip service coverage. |
+| Page 5: Commands and menus | `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics. |
+| Page 6: Navigation and workbench | `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure. |
+| Page 7: Status and pickers | `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics. |
+| Page 8: Layout, media, visuals | `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics. |
+
+The foundation also tracks downstream source-audit gaps explicitly:
+`SymbolIcon`, `XamlControlsResources`,
+`ResourceDictionary.ThemeDictionaries`, `ThemeResource`, `StaticResource`,
+`Style`, `Setter`, `Color`, `SolidColorBrush`, `CornerRadius`,
+`DataTemplate`, `ListView.ItemTemplate`, `ItemsControl.ItemTemplate`,
+`CommandBar.Content`, `AppBarButton.Icon`, `AutoSuggestBox.QueryIcon`,
+`NavigationView.MenuItems`, `NavigationView.PaneFooter`,
+`ToolTipService.SetToolTip`, and `Window.SystemBackdrop / MicaBackdrop`.
 
 ## Cataloged Controls
 
@@ -91,5 +134,7 @@ Common WinUI controls such as `AutoSuggestBox`, `CalendarDatePicker`,
 `NumberBox`, `PasswordBox`, `PersonPicture`, `RatingControl`, `RichEditBox`,
 `Slider`, `SplitButton`, `SplitView`, `TabView`, `TeachingTip`, `TimePicker`,
 `TreeView`, and `TwoPaneView` are not part of the current alpha support claim.
-Strict mode should treat uncataloged usage as a compatibility gap until the
-feature is added to the catalog and backed by public tests.
+The component parity lab now gives these controls explicit diagnostic rows and
+`not-rendered` evidence entries; strict mode should still treat uncataloged
+runtime usage as a compatibility gap until the feature is added to the API
+catalog and backed by public tests.
