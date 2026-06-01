@@ -32,19 +32,30 @@
       "component": "CommandBar",
       "target": "PrimaryCommandBar",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "primaryCommands", "command-invoked" ],
-      "knownGaps": [ "Command invocation is covered, but native CommandBar chrome is not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "primaryCommands",
+        "command-invoked"
+      ],
+      "knownGaps": [
+        "CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps."
+      ]
     },
     {
       "component": "AppBarButton",
       "target": "SaveCommandButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "label", "icon", "click" ],
-      "knownGaps": [ "AppBarButton label/icon chrome is not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "label",
+        "icon",
+        "click"
+      ],
+      "knownGaps": [
+        "AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps."
+      ]
     }
   ]
 }

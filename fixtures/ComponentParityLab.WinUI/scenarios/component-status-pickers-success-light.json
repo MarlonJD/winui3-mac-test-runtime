@@ -32,19 +32,33 @@
       "component": "InfoBar",
       "target": "StatusInfoBar",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "title", "message", "severity", "isOpen", "success" ],
-      "knownGaps": [ "Success status is captured on Windows, but native InfoBar chrome is not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "title",
+        "message",
+        "severity",
+        "isOpen",
+        "success"
+      ],
+      "knownGaps": [
+        "InfoBar title, message, and severity chrome are rendered approximately; close button and action area remain gaps."
+      ]
     },
     {
       "component": "ProgressBar",
       "target": "CompletionProgressBar",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "minimum", "maximum", "value" ],
-      "knownGaps": [ "Completed ProgressBar state is not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "minimum",
+        "maximum",
+        "value"
+      ],
+      "knownGaps": [
+        "ProgressBar track and indicator are rendered approximately; indeterminate animation remains a gap."
+      ]
     }
   ]
 }

@@ -26,19 +26,30 @@
       "component": "ComboBox",
       "target": "StatusComboBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "focus", "items", "selectedIndex" ],
-      "knownGaps": [ "Focused ComboBox state is captured for native Windows reference coverage, but macOS still emits text-only combo output." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "focus",
+        "items",
+        "selectedIndex"
+      ],
+      "knownGaps": [
+        "ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps."
+      ]
     },
     {
       "component": "Button",
       "target": "PrimaryActionButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "content", "enabled" ],
-      "knownGaps": [ "Native button chrome and focus visuals are not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "enabled"
+      ],
+      "knownGaps": [
+        "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      ]
     }
   ]
 }

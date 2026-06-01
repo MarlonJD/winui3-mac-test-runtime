@@ -26,10 +26,16 @@
       "component": "TextBox",
       "target": "SearchTextBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "text", "focus", "automationName" ],
-      "knownGaps": [ "Focused TextBox native border, caret, selection, and focus visuals are not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "text",
+        "focus",
+        "automationName"
+      ],
+      "knownGaps": [
+        "TextBox field chrome is approximated; caret, text selection, validation, and native input behavior remain gaps."
+      ]
     }
   ]
 }

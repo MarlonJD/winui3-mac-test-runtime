@@ -20,28 +20,45 @@
       "component": "Button",
       "target": "PrimaryActionButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "content", "isEnabled" ],
-      "knownGaps": [ "Disabled native button state is captured on Windows, but macOS does not render disabled button chrome yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "isEnabled"
+      ],
+      "knownGaps": [
+        "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      ]
     },
     {
       "component": "ToggleButton",
       "target": "PinnedToggleButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "content", "isChecked", "isEnabled" ],
-      "knownGaps": [ "Disabled checked ToggleButton chrome is not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "isChecked",
+        "isEnabled"
+      ],
+      "knownGaps": [
+        "ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      ]
     },
     {
       "component": "ComboBox",
       "target": "StatusComboBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "items", "selectedIndex", "isEnabled" ],
-      "knownGaps": [ "Disabled ComboBox field, chevron, and popup chrome are not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "items",
+        "selectedIndex",
+        "isEnabled"
+      ],
+      "knownGaps": [
+        "ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps."
+      ]
     }
   ]
 }

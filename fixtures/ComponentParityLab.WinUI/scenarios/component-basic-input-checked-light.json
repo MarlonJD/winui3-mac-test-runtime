@@ -20,28 +20,44 @@
       "component": "ToggleButton",
       "target": "PinnedToggleButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "content", "isChecked" ],
-      "knownGaps": [ "Checked ToggleButton native chrome is captured on Windows, but macOS still emits only text." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "isChecked"
+      ],
+      "knownGaps": [
+        "ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      ]
     },
     {
       "component": "CheckBox",
       "target": "EnabledCheckBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "content", "isChecked" ],
-      "knownGaps": [ "Checked CheckBox glyph and state chrome are not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "isChecked"
+      ],
+      "knownGaps": [
+        "CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps."
+      ]
     },
     {
       "component": "RadioButton",
       "target": "HighPriorityRadioButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "content", "groupName", "isChecked" ],
-      "knownGaps": [ "Checked RadioButton glyph and state chrome are not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "groupName",
+        "isChecked"
+      ],
+      "knownGaps": [
+        "RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps."
+      ]
     }
   ]
 }

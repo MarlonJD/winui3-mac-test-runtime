@@ -19,11 +19,11 @@ that is not present in the catalog yet.
 | --- | --- | --- |
 | Level 0: Harness Reliability | supported | Managed macOS runner, doctor, SVG, current Skia, `skia-v2`, versioned artifacts, strict visual failures, and public CI workflow wiring. |
 | Level 1: Core App And XAML Compatibility | supported | `Application`, `Window`, `Page`, `Frame`, resource dictionaries, startup activation, navigation, strict unsupported XAML diagnostics, and the documented public XAML subset. |
-| Level 2: Layout And Controls Foundation | supported | Public logical/source fixture subset for `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `TextBox`, `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `Image`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `AppBarButton`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. Component visual grades may still be `not-rendered`. |
+| Level 2: Layout And Controls Foundation | supported | Public logical/source fixture subset and `skia-v2` component-region evidence for `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `TextBox`, `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `Image`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `AppBarButton`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. Planned and unsupported controls remain `not-rendered`. |
 | Level 3: Styling, Resources, And Theme Fidelity | supported | Resource lookup, style setter application for supported properties, light/dark/high-contrast renderer themes, and strict resource diagnostics for the public subset. |
 | Level 4: Data Binding, Commands, And State | supported | One-way and two-way binding for supported properties, `INotifyPropertyChanged`, observable item collections, command execution state, button command invocation, and navigation state for public fixtures. |
 | Level 5: Input, Accessibility, And Automation | supported | Scripted click, focus, text entry, item selection, property assertions, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility state export. |
-| Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` workflow captures native WinUI references for public admin/workbench and component parity lab fixtures, while synthetic `WindowsNativeProbe` output remains smoke-only. Local macOS strict comparisons against native references currently fail for the inspected public scenarios. Whole-screenshot results do not override component-level grades, and text-only component output remains `not-rendered`. |
+| Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` workflow captures native WinUI references for public admin/workbench and component parity lab fixtures, while synthetic `WindowsNativeProbe` output remains smoke-only. Local macOS strict runs pass for Ring 0 component evidence; whole-screenshot native comparison remains CI artifact evidence and does not override component-level grades. |
 | Level 7: Release And Consumption Readiness | supported | Package metadata, pack smoke, consumer quick start, sample consumer CI, release checklist, verification evidence, troubleshooting, and known-gap documentation. |
 
 Levels 0 through 7 are the current alpha milestone. They are not the final
@@ -62,7 +62,7 @@ See `component-support.md` for a readable component-by-component support table.
 | `binding-failures.json` | supported | Versioned envelope captures unresolved paths and non-writable targets. |
 | `resource-failures.json` | supported | Versioned envelope captures unresolved static and theme resources. |
 | `unsupported-apis.json` | supported | Versioned envelope captures clean-room placeholder facade APIs that were touched, with catalog statuses such as `planned`, `windows-only`, `not supported`, or `unknown`. |
-| `component-evidence.json` | supported | Versioned component lab evidence captures catalog status, presence, interaction status, visual grade, known gaps, and optional reference diff metrics. It is the source of truth for marking text-only or absent macOS component output as `not-rendered`. |
+| `component-evidence.json` | supported | Versioned component lab evidence captures catalog status, presence, interaction status, visual grade, target layout region, known gaps, and optional reference diff metrics. It is the source of truth for marking planned, unsupported, text-only, or absent macOS component output as `not-rendered`. |
 | `project-ingestion.json` | supported | Versioned envelope for Windows-targeted WinUI compat shadow builds, including source files, excluded Windows-only items, catalog statuses, unsupported project features, and XAML diagnostics. |
 | `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unavailable API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
@@ -71,7 +71,7 @@ See `component-support.md` for a readable component-by-component support table.
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
 | Snapshot output | partial | Deterministic SVG fallback and Skia-backed PNG output are available for the supported tree subset. |
 | Scenario JSON visual runs | supported | `--scenario`, `--viewport`, `--scale`, `--theme`, `--strict-visual`, `--reference`, and `--diff-output` drive the strict path. |
-| Deterministic layout export | partial | `skia-v2` scenarios add arranged rectangles, desired sizes, padding, alignment, and visibility to `tree.json`. |
+| Deterministic layout export | partial | `skia-v2` scenarios add arranged rectangles, desired sizes, padding, alignment, visibility, and basic two-column `Grid` measurements to `tree.json`. |
 | Pixel diff artifacts | supported | `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, and `visual-run.json` are emitted for reference-backed runs. |
 | Windows reference source of truth | supported | Public `windows-latest` workflow captures native WinUI screenshots for the public fixture set with provenance; local macOS strict runs produce comparison artifacts. Synthetic `WindowsNativeProbe` evidence is kept separate as smoke-only harness coverage. |
 | Compat shadow build discovery | supported | Public Windows-targeted WinUI projects are redirected to generated macOS compatibility projects without mutating the original project or executing Windows App SDK build targets. |
@@ -102,7 +102,7 @@ See `component-support.md` for a readable component-by-component support table.
 | --- | --- | --- |
 | `Application`, `Window`, `Page` | supported | Basic lifecycle and page activation. |
 | `Frame` | supported | Supports `Navigate(Type, object?)` and XAML `Frame.Content` for public shadow-build fixtures. |
-| `StackPanel`, `Grid`, `Border` | partial | Logical child containment and deterministic `skia-v2` layout for public scenarios. |
+| `StackPanel`, `Grid`, `Border` | partial | Logical child containment, basic two-column grid measurement, and deterministic `skia-v2` layout/region rendering for public scenarios. |
 | `TextBlock`, `TextBox`, `Button` | supported | Basic content/text and button click. |
 | `ToggleButton`, `CheckBox`, `RadioButton` | supported | Checked state, content, tree export, accessibility roles, layout, and `skia-v2` painters for public fixtures. |
 | `ComboBox` | supported | Items, selected item/index, placeholder, tree export, layout, and `skia-v2` painter for public fixtures. |

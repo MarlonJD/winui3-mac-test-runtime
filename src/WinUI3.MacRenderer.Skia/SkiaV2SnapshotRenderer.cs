@@ -75,18 +75,24 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             case "NavigationView":
                 RenderNavigationView(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
                 break;
-            case "Grid":
             case "Page":
             case "Frame":
-            case "ScrollViewer":
             case "ContentControl":
-            case "StackPanel":
                 if (isRoot)
                 {
                     DrawRect(canvas, paint, Rect(node), theme.AppBackground);
                 }
 
                 RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+                break;
+            case "Grid":
+                RenderGrid(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont, isRoot);
+                break;
+            case "ScrollViewer":
+                RenderScrollViewer(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont, isRoot);
+                break;
+            case "StackPanel":
+                RenderStackPanel(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont, isRoot);
                 break;
             case "Border":
                 DrawRoundRect(canvas, paint, Rect(node), 8, theme.Surface);
@@ -178,7 +184,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             }
             else if (SimpleType(child) == "Frame")
             {
-                RenderContentFrame(canvas, child, node, theme, paint, titleFont, bodyFont, smallFont);
+                RenderNode(canvas, child, theme, paint, titleFont, bodyFont, smallFont, iconFont);
             }
             else
             {
@@ -210,6 +216,81 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
 
         DrawCircle(canvas, paint, row.Left + 14, row.Top + 20, 5, selected ? theme.Accent : theme.TextSecondary);
         DrawText(canvas, paint, bodyFont, ReadControlLabel(node, ToTitle(ReadString(node, "tag") ?? node.Name ?? "Item")), row.Left + 30, row.Top + 26, selected ? theme.Accent : theme.TextPrimary);
+    }
+
+    private static void RenderGrid(
+        SKCanvas canvas,
+        UiNode node,
+        SkiaV2Theme theme,
+        SKPaint paint,
+        SKFont titleFont,
+        SKFont bodyFont,
+        SKFont smallFont,
+        SKFont iconFont,
+        bool isRoot)
+    {
+        var rect = Rect(node);
+        if (isRoot)
+        {
+            DrawRect(canvas, paint, rect, theme.AppBackground);
+        }
+        else if (ShouldRenderLayoutSurface(node))
+        {
+            DrawRoundRect(canvas, paint, rect, 8, theme.SubtleSurface);
+            DrawRoundRectStroke(canvas, paint, rect, 8, theme.SubtleStroke);
+            DrawGridColumnSeparators(canvas, node, theme, paint, rect);
+        }
+
+        RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+    }
+
+    private static void RenderScrollViewer(
+        SKCanvas canvas,
+        UiNode node,
+        SkiaV2Theme theme,
+        SKPaint paint,
+        SKFont titleFont,
+        SKFont bodyFont,
+        SKFont smallFont,
+        SKFont iconFont,
+        bool isRoot)
+    {
+        var rect = Rect(node);
+        if (isRoot)
+        {
+            DrawRect(canvas, paint, rect, theme.AppBackground);
+        }
+        else
+        {
+            DrawRoundRectStroke(canvas, paint, rect, 8, theme.SubtleStroke);
+            var track = new SKRect(rect.Right - 7, rect.Top + 10, rect.Right - 4, rect.Bottom - 10);
+            DrawRoundRect(canvas, paint, track, 2, theme.DisabledSurface);
+        }
+
+        RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+    }
+
+    private static void RenderStackPanel(
+        SKCanvas canvas,
+        UiNode node,
+        SkiaV2Theme theme,
+        SKPaint paint,
+        SKFont titleFont,
+        SKFont bodyFont,
+        SKFont smallFont,
+        SKFont iconFont,
+        bool isRoot)
+    {
+        if (isRoot)
+        {
+            DrawRect(canvas, paint, Rect(node), theme.AppBackground);
+        }
+        else if (ShouldRenderLayoutSurface(node))
+        {
+            DrawRoundRectStroke(canvas, paint, Rect(node), 8, theme.SubtleStroke);
+        }
+
+        RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
     }
 
     private static void RenderPaneFooter(
@@ -289,89 +370,107 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
+        var focused = ReadBool(node, "isFocused", fallback: false);
         DrawRoundRect(canvas, paint, rect, 6, enabled ? theme.Surface : theme.DisabledSurface);
-        DrawRoundRectStroke(canvas, paint, rect, 6, theme.Stroke);
+        DrawRoundRectStroke(canvas, paint, rect, 6, focused ? theme.Accent : theme.Stroke, focused ? 2 : 1);
         DrawText(canvas, paint, font, ReadControlLabel(node, "Button"), rect.Left + 14, rect.Top + 25, enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled);
     }
 
     private static void RenderAppBarButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font, SKFont iconFont)
     {
         var rect = Rect(node);
-        DrawRoundRect(canvas, paint, rect, 6, theme.Surface);
+        var enabled = ReadBool(node, "isEnabled", fallback: true) && ReadBool(node, "commandCanExecute", fallback: true);
+        var foreground = enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled;
+        DrawRoundRect(canvas, paint, rect, 6, enabled ? theme.Surface : theme.DisabledSurface);
         DrawRoundRectStroke(canvas, paint, rect, 6, theme.Stroke);
-        DrawText(canvas, paint, iconFont, "*", rect.Left + 12, rect.Top + 25, theme.Accent);
-        DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 25, ReadColor(node, "foreground", theme.TextPrimary));
+        DrawText(canvas, paint, iconFont, FindFirstGlyph(node) ?? "*", rect.Left + 12, rect.Top + 25, enabled ? theme.Accent : theme.TextDisabled);
+        DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 25, foreground);
     }
 
     private static void RenderToggleButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
     {
         var rect = Rect(node);
         var checkedState = ReadBool(node, "isChecked", fallback: false);
-        DrawRoundRect(canvas, paint, rect, 6, checkedState ? theme.AccentSoft : theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, 6, checkedState ? theme.Accent : theme.Stroke);
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Toggle"), rect.Left + 14, rect.Top + 25, checkedState ? theme.Accent : theme.TextPrimary);
+        var enabled = ReadBool(node, "isEnabled", fallback: true);
+        DrawRoundRect(canvas, paint, rect, 6, !enabled ? theme.DisabledSurface : checkedState ? theme.AccentSoft : theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, 6, checkedState && enabled ? theme.Accent : theme.Stroke);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Toggle"), rect.Left + 14, rect.Top + 25, !enabled ? theme.TextDisabled : checkedState ? theme.Accent : theme.TextPrimary);
     }
 
     private static void RenderCheckBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
     {
         var rect = Rect(node);
         var checkedState = ReadBool(node, "isChecked", fallback: false);
+        var enabled = ReadBool(node, "isEnabled", fallback: true);
         var box = new SKRect(rect.Left + 2, rect.Top + 9, rect.Left + 22, rect.Top + 29);
-        DrawRoundRect(canvas, paint, box, 3, checkedState ? theme.Accent : theme.Surface);
+        DrawRoundRect(canvas, paint, box, 3, !enabled ? theme.DisabledSurface : checkedState ? theme.Accent : theme.Surface);
         DrawRoundRectStroke(canvas, paint, box, 3, theme.Stroke);
         if (checkedState)
         {
             DrawText(canvas, paint, font, "x", box.Left + 6, box.Bottom - 4, theme.Surface);
         }
 
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Check box"), rect.Left + 32, rect.Top + 25, theme.TextPrimary);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Check box"), rect.Left + 32, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
     private static void RenderRadioButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
     {
         var rect = Rect(node);
         var checkedState = ReadBool(node, "isChecked", fallback: false);
-        DrawCircle(canvas, paint, rect.Left + 12, rect.Top + 20, 10, theme.Surface);
+        var enabled = ReadBool(node, "isEnabled", fallback: true);
+        DrawCircle(canvas, paint, rect.Left + 12, rect.Top + 20, 10, enabled ? theme.Surface : theme.DisabledSurface);
         DrawCircleStroke(canvas, paint, rect.Left + 12, rect.Top + 20, 10, theme.Stroke);
         if (checkedState)
         {
-            DrawCircle(canvas, paint, rect.Left + 12, rect.Top + 20, 5, theme.Accent);
+            DrawCircle(canvas, paint, rect.Left + 12, rect.Top + 20, 5, enabled ? theme.Accent : theme.TextDisabled);
         }
 
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Option"), rect.Left + 32, rect.Top + 25, theme.TextPrimary);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Option"), rect.Left + 32, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
     private static void RenderTextBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
     {
         var rect = Rect(node);
-        DrawRoundRect(canvas, paint, rect, 4, theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, 4, theme.Stroke);
-        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 10, rect.Top + 24, theme.TextPrimary);
+        var enabled = ReadBool(node, "isEnabled", fallback: true);
+        var focused = ReadBool(node, "isFocused", fallback: false);
+        DrawRoundRect(canvas, paint, rect, 4, enabled ? theme.Surface : theme.DisabledSurface);
+        DrawRoundRectStroke(canvas, paint, rect, 4, focused ? theme.Accent : theme.Stroke, focused ? 2 : 1);
+        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 10, rect.Top + 24, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
     private static void RenderComboBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
     {
         var rect = Rect(node);
-        DrawRoundRect(canvas, paint, rect, 4, theme.Surface);
+        var enabled = ReadBool(node, "isEnabled", fallback: true);
+        DrawRoundRect(canvas, paint, rect, 4, enabled ? theme.Surface : theme.DisabledSurface);
         DrawRoundRectStroke(canvas, paint, rect, 4, theme.Stroke);
         var text = ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select";
-        DrawText(canvas, paint, font, text, rect.Left + 10, rect.Top + 25, theme.TextPrimary);
-        DrawText(canvas, paint, font, "v", rect.Right - 22, rect.Top + 25, theme.TextSecondary);
+        DrawText(canvas, paint, font, text, rect.Left + 10, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
+        DrawText(canvas, paint, font, "v", rect.Right - 22, rect.Top + 25, enabled ? theme.TextSecondary : theme.TextDisabled);
     }
 
     private static void RenderListView(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
     {
         var rect = Rect(node);
+        var selectedIndex = (int)Math.Round(ReadFloat(node, "selectedIndex", -1));
         DrawRoundRect(canvas, paint, rect, 8, theme.Surface);
         DrawRoundRectStroke(canvas, paint, rect, 8, theme.Stroke);
-        foreach (var child in node.Children)
+        for (var index = 0; index < node.Children.Count; index++)
         {
+            var child = node.Children[index];
             if (child.Layout is null)
             {
                 continue;
             }
 
-            DrawText(canvas, paint, bodyFont, ReadText(child) ?? child.Name ?? "Item", (float)child.Layout.X, (float)child.Layout.Y + 19, theme.TextPrimary);
+            if (index == selectedIndex)
+            {
+                var selectedRow = new SKRect(rect.Left + 6, (float)child.Layout.Y - 4, rect.Right - 6, (float)child.Layout.Y + 29);
+                DrawRoundRect(canvas, paint, selectedRow, 6, theme.AccentSoft);
+                DrawRoundRect(canvas, paint, new SKRect(selectedRow.Left, selectedRow.Top + 6, selectedRow.Left + 3, selectedRow.Bottom - 6), 2, theme.Accent);
+            }
+
+            DrawText(canvas, paint, bodyFont, ReadText(child) ?? child.Name ?? "Item", (float)child.Layout.X, (float)child.Layout.Y + 19, index == selectedIndex ? theme.Accent : theme.TextPrimary);
             DrawLine(canvas, paint, rect.Left + 12, (float)child.Layout.Y + 31, rect.Right - 12, (float)child.Layout.Y + 31, theme.Stroke);
         }
     }
@@ -525,6 +624,34 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         return node.Properties.TryGetValue(key, out var value) ? value?.ToString() : null;
     }
 
+    private static string? FindFirstGlyph(UiNode node)
+    {
+        var icon = Flatten(node).FirstOrDefault(child => SimpleType(child) == "FontIcon");
+        return icon is null ? null : ReadString(icon, "glyph");
+    }
+
+    private static bool ShouldRenderLayoutSurface(UiNode node)
+    {
+        return !string.IsNullOrWhiteSpace(node.Name);
+    }
+
+    private static void DrawGridColumnSeparators(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKRect rect)
+    {
+        var columnStarts = node.Children
+            .Where(child => ReadFloat(child, "gridColumn", 0) > 0 && child.Layout is not null)
+            .Select(child => (float)child.Layout!.X)
+            .Distinct()
+            .Order()
+            .ToArray();
+        foreach (var x in columnStarts)
+        {
+            if (x > rect.Left && x < rect.Right)
+            {
+                DrawLine(canvas, paint, x - 8, rect.Top + 8, x - 8, rect.Bottom - 8, theme.SubtleStroke);
+            }
+        }
+    }
+
     private static bool ReadBool(UiNode node, string key, bool fallback)
     {
         return node.Properties.TryGetValue(key, out var value) && bool.TryParse(value?.ToString(), out var boolean)
@@ -590,10 +717,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         canvas.DrawRoundRect(rect, radius, radius, paint);
     }
 
-    private static void DrawRoundRectStroke(SKCanvas canvas, SKPaint paint, SKRect rect, float radius, SKColor color)
+    private static void DrawRoundRectStroke(SKCanvas canvas, SKPaint paint, SKRect rect, float radius, SKColor color, float strokeWidth = 1)
     {
         paint.Style = SKPaintStyle.Stroke;
-        paint.StrokeWidth = 1;
+        paint.StrokeWidth = strokeWidth;
         paint.Color = color;
         canvas.DrawRoundRect(rect, radius, radius, paint);
         paint.Style = SKPaintStyle.Fill;
@@ -635,8 +762,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         SKColor AppBackground,
         SKColor PaneBackground,
         SKColor Surface,
+        SKColor SubtleSurface,
         SKColor DisabledSurface,
         SKColor Stroke,
+        SKColor SubtleStroke,
         SKColor TextPrimary,
         SKColor TextSecondary,
         SKColor TextDisabled,
@@ -651,8 +780,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                     AppBackground: new SKColor(0x00, 0x00, 0x00),
                     PaneBackground: new SKColor(0x00, 0x00, 0x00),
                     Surface: new SKColor(0x00, 0x00, 0x00),
+                    SubtleSurface: new SKColor(0x00, 0x00, 0x00),
                     DisabledSurface: new SKColor(0x20, 0x20, 0x20),
                     Stroke: new SKColor(0xff, 0xff, 0xff),
+                    SubtleStroke: new SKColor(0x66, 0x66, 0x66),
                     TextPrimary: new SKColor(0xff, 0xff, 0xff),
                     TextSecondary: new SKColor(0xff, 0xff, 0x00),
                     TextDisabled: new SKColor(0x99, 0x99, 0x99),
@@ -666,8 +797,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                     AppBackground: new SKColor(0x20, 0x22, 0x26),
                     PaneBackground: new SKColor(0x2a, 0x2d, 0x33),
                     Surface: new SKColor(0x31, 0x34, 0x3a),
+                    SubtleSurface: new SKColor(0x2b, 0x2e, 0x34),
                     DisabledSurface: new SKColor(0x3a, 0x3d, 0x43),
                     Stroke: new SKColor(0x4b, 0x50, 0x59),
+                    SubtleStroke: new SKColor(0x3a, 0x3f, 0x48),
                     TextPrimary: new SKColor(0xf5, 0xf6, 0xf8),
                     TextSecondary: new SKColor(0xbd, 0xc3, 0xcd),
                     TextDisabled: new SKColor(0x8d, 0x94, 0xa0),
@@ -679,8 +812,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                 AppBackground: new SKColor(0xf7, 0xf8, 0xfa),
                 PaneBackground: new SKColor(0xf2, 0xf3, 0xf5),
                 Surface: new SKColor(0xff, 0xff, 0xff),
+                SubtleSurface: new SKColor(0xfa, 0xfb, 0xfc),
                 DisabledSurface: new SKColor(0xed, 0xef, 0xf2),
                 Stroke: new SKColor(0xd8, 0xdc, 0xe3),
+                SubtleStroke: new SKColor(0xe9, 0xec, 0xf1),
                 TextPrimary: new SKColor(0x1f, 0x23, 0x2a),
                 TextSecondary: new SKColor(0x5d, 0x66, 0x73),
                 TextDisabled: new SKColor(0x98, 0xa1, 0xad),

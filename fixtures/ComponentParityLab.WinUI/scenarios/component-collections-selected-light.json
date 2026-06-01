@@ -33,19 +33,29 @@
       "component": "ListView",
       "target": "CollectionListView",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "items", "selectedIndex", "selectedItem" ],
-      "knownGaps": [ "Native selected row chrome is captured on Windows, but macOS still emits list item text without row or selection visuals." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "items",
+        "selectedIndex",
+        "selectedItem"
+      ],
+      "knownGaps": [
+        "ListView rows and selected state chrome are rendered approximately; templates, multi-select, keyboarding, and virtualization remain gaps."
+      ]
     },
     {
       "component": "ItemsControl",
       "target": "SummaryItemsControl",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "items" ],
-      "knownGaps": [ "Native item container chrome is not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "items"
+      ],
+      "knownGaps": [
+        "ItemsControl item rows are rendered through the skia-v2 list painter; templates and virtualization remain gaps."
+      ]
     }
   ]
 }

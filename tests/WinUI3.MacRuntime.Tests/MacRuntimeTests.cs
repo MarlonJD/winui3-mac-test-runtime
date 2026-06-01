@@ -539,16 +539,24 @@ public sealed class MacRuntimeTests
                 }
             }
         });
+        var settings = new VisualRunSettings(null, scenario.Name, "skia-v2", new VisualViewport(800, 600), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
         var interactions = new InteractionReport(
             ArtifactSchemas.InteractionReport,
             new[] { new InteractionStepResult(0, "click", "passed", "PrimaryButton", null) });
 
-        var evidence = ComponentEvidenceBuilder.Build(scenario, tree, interactions, metrics: null);
+        var evidence = ComponentEvidenceBuilder.Build(scenario, arranged, interactions, metrics: null);
 
         Assert.AreEqual(ArtifactSchemas.ComponentEvidence, evidence.SchemaVersion);
         Assert.AreEqual("passed", evidence.Status);
         Assert.HasCount(2, evidence.Components);
         Assert.AreEqual("present", evidence.Components[0].Presence);
+        var layoutRegion = evidence.Components[0].LayoutRegion ?? throw new AssertFailedException("Expected component evidence to include layout region.");
+        if (layoutRegion.Width <= 0 || layoutRegion.Height <= 0)
+        {
+            Assert.Fail("Expected component evidence layout region to have a positive size.");
+        }
+
         Assert.AreEqual("passed", evidence.Components[0].InteractionStatus);
         Assert.AreEqual("not-rendered", evidence.Components[1].VisualGrade);
         Assert.HasCount(1, evidence.SourceFeatures);

@@ -36,37 +36,52 @@
       "component": "NavigationView",
       "target": "InnerNavigationView",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "menuItems", "paneFooter", "selectedItem" ],
-      "knownGaps": [ "The macOS runtime currently emits inner navigation content as text; native WinUI NavigationView pane, selection, keyboarding, and focus chrome are not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "menuItems",
+        "paneFooter",
+        "selectedItem"
+      ],
+      "knownGaps": [
+        "NavigationView pane and selected item chrome are rendered approximately; adaptive modes, focus, and keyboarding remain gaps."
+      ]
     },
     {
       "component": "NavigationViewItem",
       "target": "WorkbenchQueueNavigationItem",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "content", "tag" ],
-      "knownGaps": [ "The macOS runtime currently emits NavigationViewItem content as text; native WinUI item chrome and selection styling are not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "tag"
+      ],
+      "knownGaps": [
+        "NavigationViewItem text and selected state chrome are rendered approximately; full Fluent item states remain gaps."
+      ]
     },
     {
       "component": "NavigationView.MenuItems",
       "kind": "xaml-property-slot",
       "target": "WorkbenchQueueNavigationItem",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "knownGaps": [ "The macOS runtime currently emits menu item content as text; native WinUI menu item chrome is not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "NavigationView menu items are visible through rendered item rows; nested and adaptive behavior remains partial."
+      ]
     },
     {
       "component": "NavigationView.PaneFooter",
       "kind": "xaml-property-slot",
       "target": "InnerPaneFooter",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "knownGaps": [ "The macOS runtime currently emits pane footer content as text; native WinUI pane footer layout chrome is not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "NavigationView pane footer content is rendered as a structured footer; exact layout and focus behavior remain partial."
+      ]
     },
     {
       "component": "Frame",
@@ -74,8 +89,12 @@
       "expectedStatus": "supported",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
-      "requiredProperties": [ "content" ],
-      "knownGaps": [ "Back stack and transition behavior are not modeled." ]
+      "requiredProperties": [
+        "content"
+      ],
+      "knownGaps": [
+        "Back stack and transition behavior are not modeled."
+      ]
     },
     {
       "component": "Page",
@@ -89,9 +108,11 @@
       "kind": "pattern",
       "target": "WorkbenchListDetailGrid",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "knownGaps": [ "The macOS runtime currently emits list/detail content as text; native WinUI list/detail rows, panels, and adaptive chrome are not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "List/detail regions are visible through grid, list, and detail panel layout; adaptive behavior and templates remain gaps."
+      ]
     },
     {
       "component": "BreadcrumbBar",
@@ -128,14 +149,18 @@
       "kind": "xaml-property-slot",
       "target": "WorkbenchQueueNavigationItem",
       "expectedStatus": "partial",
-      "knownGaps": [ "Menu item source support exists for the current subset, but nested and adaptive behavior remains partial." ]
+      "knownGaps": [
+        "Menu item source support exists for the current subset, but nested and adaptive behavior remains partial."
+      ]
     },
     {
       "feature": "NavigationView.PaneFooter",
       "kind": "xaml-property-slot",
       "target": "InnerPaneFooter",
       "expectedStatus": "partial",
-      "knownGaps": [ "Pane footer source support exists for the current subset, but exact footer layout and focus behavior are partial." ]
+      "knownGaps": [
+        "Pane footer source support exists for the current subset, but exact footer layout and focus behavior are partial."
+      ]
     }
   ]
 }

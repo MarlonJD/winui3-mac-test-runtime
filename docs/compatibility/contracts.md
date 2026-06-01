@@ -94,9 +94,9 @@ reference workflow.
 `ComponentParityLab.WinUI` is the public Windows-targeted fixture for component
 inventory evidence. It does not promote control support by existing; each lab
 scenario writes `component-evidence.json` with catalog status, presence,
-interaction status, visual grade, and known gaps. Planned, unsupported, and
-Windows-only controls must appear as explicit diagnostic rows instead of
-silently passing.
+interaction status, visual grade, target layout region, and known gaps. Planned,
+unsupported, and Windows-only controls must appear as explicit diagnostic rows
+instead of silently passing.
 
 SVG and the current Skia renderer remain smoke renderers. `skia-v2` is the
 scenario-driven renderer used for public visual compatibility checks.
@@ -173,7 +173,8 @@ use versioned envelopes:
 - `resource-failures.json`: `{ "schemaVersion": "0.1", "failures": [...] }`
 - `unsupported-apis.json`: `{ "schemaVersion": "0.1", "apis": [...] }`
 - `component-evidence.json`: `{ "schemaVersion": "0.1", "components": [...],
-  "sourceFeatures": [...] }`
+  "sourceFeatures": [...] }`; component entries include `layoutRegion` when the
+  target appears in the arranged visual tree.
 - `project-ingestion.json`: `{ "schemaVersion": "0.1", "includedFiles": [...],
   "excludedWindowsOnlyItems": [...], "catalogStatuses": [...],
   "unsupportedFeatures": [...], "xamlDiagnostics": [...] }`

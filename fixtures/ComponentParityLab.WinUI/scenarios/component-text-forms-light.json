@@ -47,27 +47,41 @@
       "expectedStatus": "supported",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
-      "requiredProperties": [ "text" ],
-      "knownGaps": [ "Text metrics are approximated." ]
+      "requiredProperties": [
+        "text"
+      ],
+      "knownGaps": [
+        "Text metrics are approximated."
+      ]
     },
     {
       "component": "TextBox",
       "target": "SearchTextBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "text", "focus", "automationName" ],
-      "knownGaps": [ "The macOS runtime currently emits only the text value; native WinUI TextBox border, caret, selection, focus, and validation chrome are not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "text",
+        "focus",
+        "automationName"
+      ],
+      "knownGaps": [
+        "TextBox field chrome is approximated; caret, text selection, validation, and native input behavior remain gaps."
+      ]
     },
     {
       "component": "Labels/forms pattern",
       "kind": "pattern",
       "target": "SearchLabel",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "automationName" ],
-      "knownGaps": [ "The macOS runtime currently shows only standalone text; complete native WinUI label/form layout semantics are not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "automationName"
+      ],
+      "knownGaps": [
+        "Labels and form rows are visible through deterministic layout; exact native form spacing and validation semantics remain gaps."
+      ]
     },
     {
       "component": "RichTextBlock",
@@ -119,7 +133,9 @@
       "kind": "xaml-property-slot",
       "target": "DiagnosticAutoSuggestBoxQueryIcon",
       "expectedStatus": "planned",
-      "knownGaps": [ "The query icon slot is tracked but not compiled or rendered in this foundation pass." ]
+      "knownGaps": [
+        "The query icon slot is tracked but not compiled or rendered in this foundation pass."
+      ]
     }
   ]
 }

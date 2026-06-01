@@ -127,6 +127,12 @@ public static class UiTreeBuilder
             case Grid grid:
                 properties["childCount"] = grid.Children.Count;
                 properties["columnDefinitions"] = grid.ColumnDefinitions;
+                if (!string.IsNullOrWhiteSpace(grid.ColumnDefinitions))
+                {
+                    properties["columnDefinitionWidths"] = grid.ColumnDefinitions
+                        .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                }
+
                 properties["columnSpacing"] = grid.ColumnSpacing;
                 foreach (var child in grid.Children)
                 {

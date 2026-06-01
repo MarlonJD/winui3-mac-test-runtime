@@ -22,8 +22,14 @@
       "expectedStatus": "planned",
       "minimumVisualGrade": "not-rendered",
       "visualGrade": "not-rendered",
-      "requiredProperties": [ "title", "content", "primaryButtonText" ],
-      "knownGaps": [ "ContentDialog is represented in the public Windows fixture, but dialog host behavior is not implemented on macOS." ]
+      "requiredProperties": [
+        "title",
+        "content",
+        "primaryButtonText"
+      ],
+      "knownGaps": [
+        "ContentDialog is represented in the public Windows fixture, but dialog host behavior is not implemented on macOS."
+      ]
     },
     {
       "component": "Flyout",
@@ -31,8 +37,12 @@
       "expectedStatus": "planned",
       "minimumVisualGrade": "not-rendered",
       "visualGrade": "not-rendered",
-      "requiredProperties": [ "open-popup" ],
-      "knownGaps": [ "Flyout target coverage exists for native reference capture; macOS flyout host behavior is not implemented yet." ]
+      "requiredProperties": [
+        "open-popup"
+      ],
+      "knownGaps": [
+        "Flyout target coverage exists for native reference capture; macOS flyout host behavior is not implemented yet."
+      ]
     },
     {
       "component": "TeachingTip",
@@ -40,8 +50,14 @@
       "expectedStatus": "planned",
       "minimumVisualGrade": "not-rendered",
       "visualGrade": "not-rendered",
-      "requiredProperties": [ "isOpen", "title", "subtitle" ],
-      "knownGaps": [ "TeachingTip open state is native-reference fixture coverage only until macOS host behavior exists." ]
+      "requiredProperties": [
+        "isOpen",
+        "title",
+        "subtitle"
+      ],
+      "knownGaps": [
+        "TeachingTip open state is native-reference fixture coverage only until macOS host behavior exists."
+      ]
     },
     {
       "component": "ToolTip",
@@ -49,8 +65,12 @@
       "expectedStatus": "planned",
       "minimumVisualGrade": "not-rendered",
       "visualGrade": "not-rendered",
-      "requiredProperties": [ "content" ],
-      "knownGaps": [ "Tooltip host behavior is not implemented on macOS yet." ]
+      "requiredProperties": [
+        "content"
+      ],
+      "knownGaps": [
+        "Tooltip host behavior is not implemented on macOS yet."
+      ]
     }
   ]
 }

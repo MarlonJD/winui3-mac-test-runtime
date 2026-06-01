@@ -26,54 +26,79 @@
       "component": "ScrollViewer",
       "target": "LayoutScrollViewer",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "content", "verticalScrollBarVisibility" ],
-      "knownGaps": [ "The macOS runtime currently emits only child text; native WinUI scrollbars, clipping, and scrolling chrome are not rendered in the screenshot." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "verticalScrollBarVisibility"
+      ],
+      "knownGaps": [
+        "ScrollViewer region and scrollbar affordance are rendered approximately; clipping and scroll physics remain gaps."
+      ]
     },
     {
       "component": "Grid",
       "target": "LayoutResourceGrid",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "columnDefinitions", "columnSpacing" ],
-      "knownGaps": [ "The macOS runtime currently emits only child text; native WinUI Grid layout shape and column separation are not visibly rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "columnDefinitions",
+        "columnSpacing"
+      ],
+      "knownGaps": [
+        "Grid surface and column separation are rendered for component evidence; full WinUI layout behavior remains partial."
+      ]
     },
     {
       "component": "StackPanel",
       "target": "LayoutNestedStack",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "spacing" ],
-      "knownGaps": [ "The macOS runtime currently emits only child text; native WinUI StackPanel spacing/layout shape is not sufficient visual evidence." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "spacing"
+      ],
+      "knownGaps": [
+        "StackPanel child spacing and region evidence are visible; full native layout behavior remains partial."
+      ]
     },
     {
       "component": "Border",
       "target": "LayoutBorder",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "knownGaps": [ "The macOS runtime currently does not render the Border surface, corner radius, border thickness, brush, or background in the screenshot." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "Border surface, stroke, and corner radius are rendered approximately; brush and thickness fidelity remain partial."
+      ]
     },
     {
       "component": "FontIcon",
       "target": "LayoutFontIcon",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "glyph", "fontSize" ],
-      "knownGaps": [ "The macOS runtime currently does not render the FontIcon glyph in the screenshot." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "glyph",
+        "fontSize"
+      ],
+      "knownGaps": [
+        "FontIcon glyph is rendered with the scenario font; exact Segoe MDL2 metrics remain approximate."
+      ]
     },
     {
       "component": "Image",
       "target": "PublicImagePlaceholder",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "source" ],
-      "knownGaps": [ "The macOS runtime currently does not render the Image source or a visible image placeholder in the screenshot." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "source"
+      ],
+      "knownGaps": [
+        "Image emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps."
+      ]
     },
     {
       "component": "SymbolIcon",
@@ -105,7 +130,9 @@
       "expectedStatus": "partial",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
-      "knownGaps": [ "ThemeResource lookup is simple and does not model full dynamic theme dictionaries." ]
+      "knownGaps": [
+        "ThemeResource lookup is simple and does not model full dynamic theme dictionaries."
+      ]
     },
     {
       "component": "StaticResource",
@@ -114,7 +141,9 @@
       "expectedStatus": "partial",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
-      "knownGaps": [ "StaticResource lookup supports simple local dictionaries only." ]
+      "knownGaps": [
+        "StaticResource lookup supports simple local dictionaries only."
+      ]
     },
     {
       "component": "Style",
@@ -123,7 +152,9 @@
       "expectedStatus": "supported",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
-      "knownGaps": [ "Only supported setter properties are applied." ]
+      "knownGaps": [
+        "Only supported setter properties are applied."
+      ]
     },
     {
       "component": "Setter",
@@ -132,7 +163,9 @@
       "expectedStatus": "supported",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
-      "knownGaps": [ "Setter support is limited to simple values on supported facade properties." ]
+      "knownGaps": [
+        "Setter support is limited to simple values on supported facade properties."
+      ]
     },
     {
       "component": "Color",
@@ -253,77 +286,99 @@
       "kind": "icon",
       "target": "DiagnosticSymbolIcon",
       "expectedStatus": "planned",
-      "knownGaps": [ "SymbolIcon is tracked as diagnostic-only before facade and painter support are added." ]
+      "knownGaps": [
+        "SymbolIcon is tracked as diagnostic-only before facade and painter support are added."
+      ]
     },
     {
       "feature": "XamlControlsResources",
       "kind": "resource",
       "target": "DiagnosticXamlControlsResources",
       "expectedStatus": "planned",
-      "knownGaps": [ "The fixture includes a bootstrap marker, but Fluent resource dictionaries are not modeled yet." ]
+      "knownGaps": [
+        "The fixture includes a bootstrap marker, but Fluent resource dictionaries are not modeled yet."
+      ]
     },
     {
       "feature": "ResourceDictionary.ThemeDictionaries",
       "kind": "resource",
       "target": "DiagnosticThemeDictionaries",
       "expectedStatus": "planned",
-      "knownGaps": [ "Theme dictionaries are detected as source coverage, not fully resolved by theme." ]
+      "knownGaps": [
+        "Theme dictionaries are detected as source coverage, not fully resolved by theme."
+      ]
     },
     {
       "feature": "ThemeResource",
       "kind": "resource",
       "target": "ThemeResourceText",
       "expectedStatus": "partial",
-      "knownGaps": [ "ThemeResource currently resolves through a simple dictionary lookup." ]
+      "knownGaps": [
+        "ThemeResource currently resolves through a simple dictionary lookup."
+      ]
     },
     {
       "feature": "StaticResource",
       "kind": "resource",
       "target": "StaticResourceText",
       "expectedStatus": "partial",
-      "knownGaps": [ "StaticResource currently resolves through a simple dictionary lookup." ]
+      "knownGaps": [
+        "StaticResource currently resolves through a simple dictionary lookup."
+      ]
     },
     {
       "feature": "Style",
       "kind": "resource",
       "target": "LayoutMediaTitle",
       "expectedStatus": "supported",
-      "knownGaps": [ "Style support is limited to simple setter application." ]
+      "knownGaps": [
+        "Style support is limited to simple setter application."
+      ]
     },
     {
       "feature": "Setter",
       "kind": "resource",
       "target": "LayoutMediaTitle",
       "expectedStatus": "supported",
-      "knownGaps": [ "Setter support is limited to supported facade properties." ]
+      "knownGaps": [
+        "Setter support is limited to supported facade properties."
+      ]
     },
     {
       "feature": "Color",
       "kind": "resource",
       "target": "DiagnosticColor",
       "expectedStatus": "planned",
-      "knownGaps": [ "Color resources are represented in the fixture but not converted to typed colors." ]
+      "knownGaps": [
+        "Color resources are represented in the fixture but not converted to typed colors."
+      ]
     },
     {
       "feature": "SolidColorBrush",
       "kind": "resource",
       "target": "DiagnosticSolidColorBrush",
       "expectedStatus": "planned",
-      "knownGaps": [ "SolidColorBrush resources are represented in the fixture but not converted to typed brushes." ]
+      "knownGaps": [
+        "SolidColorBrush resources are represented in the fixture but not converted to typed brushes."
+      ]
     },
     {
       "feature": "CornerRadius",
       "kind": "resource",
       "target": "DiagnosticCornerRadius",
       "expectedStatus": "planned",
-      "knownGaps": [ "CornerRadius resources are represented in the fixture but not applied to control geometry." ]
+      "knownGaps": [
+        "CornerRadius resources are represented in the fixture but not applied to control geometry."
+      ]
     },
     {
       "feature": "Window.SystemBackdrop / MicaBackdrop",
       "kind": "material",
       "target": "DiagnosticSystemBackdrop",
       "expectedStatus": "planned",
-      "knownGaps": [ "System backdrop and Mica are explicit planned diagnostics with no material rendering claim." ]
+      "knownGaps": [
+        "System backdrop and Mica are explicit planned diagnostics with no material rendering claim."
+      ]
     }
   ]
 }

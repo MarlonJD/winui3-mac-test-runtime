@@ -20,20 +20,30 @@
       "component": "TextBox",
       "target": "SearchTextBox",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "text", "validation-state", "automationName" ],
-      "knownGaps": [ "The invalid form state is represented through public fixture text; native validation chrome is not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "text",
+        "validation-state",
+        "automationName"
+      ],
+      "knownGaps": [
+        "TextBox field chrome is approximated; caret, text selection, validation, and native input behavior remain gaps."
+      ]
     },
     {
       "component": "Labels/forms pattern",
       "kind": "pattern",
       "target": "SearchLabel",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "automationName" ],
-      "knownGaps": [ "Complete native label/form semantics are not rendered on macOS yet." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "automationName"
+      ],
+      "knownGaps": [
+        "Labels and form rows are visible through deterministic layout; exact native form spacing and validation semantics remain gaps."
+      ]
     }
   ]
 }

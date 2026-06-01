@@ -36,19 +36,29 @@
       "component": "CommandBar",
       "target": "PrimaryCommandBar",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "primaryCommands" ],
-      "knownGaps": [ "The macOS runtime currently emits only command result text; native WinUI CommandBar surface, overflow, focus, and pointer chrome are not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "primaryCommands"
+      ],
+      "knownGaps": [
+        "CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps."
+      ]
     },
     {
       "component": "AppBarButton",
       "target": "SaveCommandButton",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "label", "icon", "click" ],
-      "knownGaps": [ "The macOS runtime currently emits only command result text; native WinUI AppBarButton label/icon chrome is not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "label",
+        "icon",
+        "click"
+      ],
+      "knownGaps": [
+        "AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps."
+      ]
     },
     {
       "component": "CommandBar.Content",
@@ -63,10 +73,14 @@
       "kind": "xaml-property-slot",
       "target": "SaveCommandIcon",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "glyph" ],
-      "knownGaps": [ "The macOS runtime currently does not render the AppBarButton icon slot in the screenshot." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "glyph"
+      ],
+      "knownGaps": [
+        "FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate."
+      ]
     },
     {
       "component": "CommandBarFlyout",
@@ -104,14 +118,18 @@
       "kind": "xaml-property-slot",
       "target": "DiagnosticCommandBarContent",
       "expectedStatus": "planned",
-      "knownGaps": [ "Content slot support is tracked before compiler and renderer support are added." ]
+      "knownGaps": [
+        "Content slot support is tracked before compiler and renderer support are added."
+      ]
     },
     {
       "feature": "AppBarButton.Icon",
       "kind": "xaml-property-slot",
       "target": "SaveCommandIcon",
       "expectedStatus": "partial",
-      "knownGaps": [ "The icon slot compiles for FontIcon, but visual fidelity is still weak." ]
+      "knownGaps": [
+        "The icon slot compiles for FontIcon, but visual fidelity is still weak."
+      ]
     }
   ]
 }

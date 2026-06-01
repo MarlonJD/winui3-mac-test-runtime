@@ -103,10 +103,35 @@ public static class VisualLayoutEngine
             "StackPanel" => ArrangeStackPanel(node, rect, unsupported),
             "ListView" or "ItemsControl" => ArrangeListView(node, rect, unsupported),
             "CommandBar" => ArrangeCommandBar(node, rect, unsupported),
+            "AppBarButton" => ArrangeAppBarButton(node, rect, unsupported, visibility),
             "Border" or "ScrollViewer" or "ContentControl" => ArrangeSingleSlot(node, Inset(rect, 0), unsupported, PaddingFor(node), visibility),
-            "Grid" or "Window" or "Page" or "Frame" => ArrangeOverlay(node, rect, unsupported, visibility),
+            "Grid" => ArrangeGrid(node, rect, unsupported, visibility),
+            "Window" or "Page" or "Frame" => ArrangeOverlay(node, rect, unsupported, visibility),
             _ => WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, node.Children)
         };
+    }
+
+    private static UiNode ArrangeGrid(
+        UiNode node,
+        LayoutRect rect,
+        ICollection<UnsupportedVisualFeature> unsupported,
+        string visibility)
+    {
+        var columnSpacing = ReadDouble(node, "columnSpacing", 0);
+        var maxColumn = node.Children
+            .Select(child => Math.Max(0, (int)Math.Round(ReadDouble(child, "gridColumn", 0))))
+            .DefaultIfEmpty(0)
+            .Max();
+        var columns = ResolveColumnWidths(node, rect.Width, columnSpacing, maxColumn + 1);
+        var arranged = new List<UiNode>(node.Children.Count);
+        foreach (var child in node.Children)
+        {
+            var column = Math.Clamp((int)Math.Round(ReadDouble(child, "gridColumn", 0)), 0, columns.Length - 1);
+            var x = rect.X + columns.Take(column).Sum() + column * columnSpacing;
+            arranged.Add(ArrangeNode(child, new LayoutRect(x, rect.Y, Math.Max(1, columns[column]), rect.Height), unsupported));
+        }
+
+        return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, arranged);
     }
 
     private static UiNode ArrangeOverlay(
@@ -253,6 +278,18 @@ public static class VisualLayoutEngine
         return WithLayout(node, rect, EmptyThickness, EmptyThickness, ReadString(node, "visibility") ?? "Visible", arranged);
     }
 
+    private static UiNode ArrangeAppBarButton(
+        UiNode node,
+        LayoutRect rect,
+        ICollection<UnsupportedVisualFeature> unsupported,
+        string visibility)
+    {
+        var children = node.Children
+            .Select(child => ArrangeNode(child, new LayoutRect(rect.X + 10, rect.Y + 10, 16, 16), unsupported))
+            .ToArray();
+        return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, children);
+    }
+
     private static UiNode WithLayout(
         UiNode node,
         LayoutRect rect,
@@ -364,6 +401,89 @@ public static class VisualLayoutEngine
     private static string? ReadString(UiNode node, string key)
     {
         return node.Properties.TryGetValue(key, out var value) ? value?.ToString() : null;
+    }
+
+    private static double[] ResolveColumnWidths(UiNode node, double availableWidth, double spacing, int minimumColumnCount)
+    {
+        var definitions = ReadStringArray(node, "columnDefinitionWidths").ToArray();
+        var columnCount = Math.Max(Math.Max(1, minimumColumnCount), definitions.Length);
+        var totalSpacing = Math.Max(0, columnCount - 1) * spacing;
+        var widthBudget = Math.Max(1, availableWidth - totalSpacing);
+        if (definitions.Length == 0 && columnCount == 2)
+        {
+            var first = Math.Round(widthBudget * 0.38, 3);
+            return new[] { first, Math.Max(1, widthBudget - first) };
+        }
+
+        var widths = new double[columnCount];
+        var starColumns = new List<int>();
+        var fixedTotal = 0d;
+        for (var index = 0; index < columnCount; index++)
+        {
+            var definition = index < definitions.Length ? definitions[index] : "*";
+            if (TryParseFixedGridLength(definition, out var fixedWidth))
+            {
+                widths[index] = fixedWidth;
+                fixedTotal += fixedWidth;
+            }
+            else
+            {
+                starColumns.Add(index);
+            }
+        }
+
+        var remaining = Math.Max(1, widthBudget - fixedTotal);
+        var starWidth = starColumns.Count == 0 ? 0 : remaining / starColumns.Count;
+        foreach (var index in starColumns)
+        {
+            widths[index] = starWidth;
+        }
+
+        return widths;
+    }
+
+    private static bool TryParseFixedGridLength(string? value, out double width)
+    {
+        width = 0;
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return false;
+        }
+
+        var normalized = value.Trim();
+        return !normalized.Contains('*', StringComparison.Ordinal) &&
+            !string.Equals(normalized, "Auto", StringComparison.OrdinalIgnoreCase) &&
+            double.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out width) &&
+            width > 0;
+    }
+
+    private static IEnumerable<string> ReadStringArray(UiNode node, string key)
+    {
+        if (!node.Properties.TryGetValue(key, out var value) || value is null)
+        {
+            yield break;
+        }
+
+        if (value is IEnumerable<string> strings)
+        {
+            foreach (var item in strings)
+            {
+                yield return item;
+            }
+
+            yield break;
+        }
+
+        if (value is System.Collections.IEnumerable values and not string)
+        {
+            foreach (var item in values)
+            {
+                if (item is not null)
+                {
+                    yield return item.ToString() ?? string.Empty;
+                }
+            }
+        }
     }
 
     private static double ReadDouble(UiNode node, string key, double fallback)

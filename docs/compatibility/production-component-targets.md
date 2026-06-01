@@ -44,28 +44,29 @@ production target is considered met:
 | Public fixture | The component appears in a clean-room public fixture scenario. |
 | Native provenance | `windows-reference.json` records `referenceSource: native-winui`. |
 | macOS renderer evidence | `mac-runtime.png` shows the component with meaningful visual output. |
-| Component evidence | `component-evidence.json` records catalog status, presence, interaction status, visual grade, and known gaps. |
+| Component evidence | `component-evidence.json` records catalog status, presence, interaction status, visual grade, target layout region, and known gaps. |
 | Interaction evidence | `interactions.json` records deterministic pass/fail details for the required action path when the component is interactive. |
 | Accessibility evidence | `accessibility.json` exposes the required role, name, enabled state, selected/checked/value state, and relationships. |
 | Visual grade | Ring 0 and claimed Ring 1 components reach at least `usable` after artifact inspection. |
 
-Current checked-in evidence still contains many `not-rendered` grades. Those
-grades remain blockers until renderer, interaction, accessibility, and native
-reference evidence justify promotion.
+Current checked-in evidence keeps planned and unsupported controls at
+`not-rendered`. Ring 0 supported and partial controls require `usable`
+component evidence with target layout regions before they can satisfy the
+production smoke foundation.
 
 ## Ring 0 Targets
 
 | Component family | Components and patterns | Current catalog status | Public fixture scenario | Required interaction coverage | Required accessibility coverage | Target visual grade | Smoke or E2E target | Current blocker |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | App shell | `Application`, `Window`, `Page`, `Frame` | supported | `public-admin-workbench-light`, `component-navigation-workbench-light` | launch, activate, navigate, stable title | window/page names, frame content relationship | `usable` | production smoke launch and navigation | Native window chrome and full lifecycle remain out of scope. |
-| Core layout | `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl` | supported or partial | `component-layout-media-light` | scroll where applicable | names for scrollable regions and contained content | `usable` | smoke layout and resize | Current macOS evidence is text-only or missing visible layout chrome. |
+| Core layout | `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl` | supported or partial | `component-layout-media-light` | scroll where applicable | names for scrollable regions and contained content | `usable` | smoke layout and resize | skia-v2 renders visible layout regions; full WinUI layout behavior remains partial. |
 | Text | `TextBlock`, labels/forms pattern | supported or partial | `component-text-forms-light` | none beyond tree export | text names, labels, help text where supplied | `usable` | smoke form readability | Text metrics, wrapping, trimming, and form layout are approximate. |
-| Basic commands | `Button`, `AppBarButton`, `CommandBar` | supported | `component-basic-input-light`, `component-commands-menus-light`, `public-admin-workbench-light` | click, command invocation, enabled and disabled assertions | button role, name, enabled state, command result status | `usable` | smoke primary command | Current macOS evidence is text-only and does not render native command chrome. |
-| Forms | `TextBox`, `ComboBox`, `CheckBox`, `RadioButton` | supported | `component-basic-input-light`, `component-text-forms-light` | focus, text entry, item selection, checked state export | edit/combo/check/radio roles, names, values, checked state | `usable` | smoke form entry and validation | Current macOS evidence lacks field borders, glyphs, popup chrome, caret, and validation visuals. |
-| Workbench | `NavigationView`, `NavigationViewItem`, `NavigationView.MenuItems`, `NavigationView.PaneFooter`, `ListView`, list/details pattern | partial | `public-admin-workbench-light`, `component-navigation-workbench-light`, `component-collections-light` | navigation selection, list selection, detail update | navigation/list roles, selected state, pane footer name | `usable` | smoke workbench flow | Native pane, selected row, list/detail panels, focus, and keyboarding visuals are not rendered yet. |
-| Status | `InfoBar`, `ProgressBar`, `ProgressRing` | supported | `component-status-pickers-light`, `public-admin-workbench-light` | state assertion, progress value export, status update | status title/message/severity, progress value, active state | `usable` | smoke loading, warning, error, success | Current macOS evidence does not render InfoBar or progress chrome. |
+| Basic commands | `Button`, `AppBarButton`, `CommandBar` | supported | `component-basic-input-light`, `component-commands-menus-light`, `public-admin-workbench-light` | click, command invocation, enabled and disabled assertions | button role, name, enabled state, command result status | `usable` | smoke primary command | skia-v2 renders command chrome; overflow, pointer states, and exact native spacing remain gaps. |
+| Forms | `TextBox`, `ComboBox`, `CheckBox`, `RadioButton` | supported | `component-basic-input-light`, `component-text-forms-light` | focus, text entry, item selection, checked state export | edit/combo/check/radio roles, names, values, checked state | `usable` | smoke form entry and validation | skia-v2 renders field/glyph chrome; popup, caret, selection, and validation visuals remain gaps. |
+| Workbench | `NavigationView`, `NavigationViewItem`, `NavigationView.MenuItems`, `NavigationView.PaneFooter`, `ListView`, list/details pattern | partial | `public-admin-workbench-light`, `component-navigation-workbench-light`, `component-collections-light` | navigation selection, list selection, detail update | navigation/list roles, selected state, pane footer name | `usable` | smoke workbench flow | skia-v2 renders pane, selected row, list/detail, and footer regions; adaptive layout and keyboarding remain gaps. |
+| Status | `InfoBar`, `ProgressBar`, `ProgressRing` | supported | `component-status-pickers-light`, `public-admin-workbench-light` | state assertion, progress value export, status update | status title/message/severity, progress value, active state | `usable` | smoke loading, warning, error, success | skia-v2 renders InfoBar and progress chrome; close/action areas and native animations remain gaps. |
 | Resources and theme | `StaticResource`, `ThemeResource`, `Style`, `Setter`, simple typography and spacing | supported or partial | `component-layout-media-light` | none beyond strict diagnostics | resource-driven text remains visible in light, dark, and high contrast | `usable` | smoke theme/resource gate | Full theme dictionaries and dynamic Fluent resource behavior remain planned. |
-| Artifacts | `tree.json`, `accessibility.json`, `visual-run.json`, `component-evidence.json`, pixel diff artifacts | supported | all production-ring scenarios | deterministic pass/fail details | complete deterministic export for supported controls | n/a | every smoke run | Component-region evidence still needs to prevent whole-screen thresholds from hiding missing controls. |
+| Artifacts | `tree.json`, `accessibility.json`, `visual-run.json`, `component-evidence.json`, pixel diff artifacts | supported | all production-ring scenarios | deterministic pass/fail details | complete deterministic export for supported controls | n/a | every smoke run | Component-region evidence records target layout boxes so whole-screen thresholds cannot hide missing controls. |
 
 ## Ring 1 Targets
 

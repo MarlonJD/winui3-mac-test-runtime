@@ -37,19 +37,29 @@
       "component": "ItemsControl",
       "target": "SummaryItemsControl",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "items" ],
-      "knownGaps": [ "The macOS runtime currently emits only item text; native WinUI item container chrome is not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "items"
+      ],
+      "knownGaps": [
+        "ItemsControl item rows are rendered through the skia-v2 list painter; templates and virtualization remain gaps."
+      ]
     },
     {
       "component": "ListView",
       "target": "CollectionListView",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
-      "requiredProperties": [ "items", "selectedIndex", "selectedItem" ],
-      "knownGaps": [ "The macOS runtime currently emits only list item text; native WinUI ListView rows, selection chrome, templates, keyboarding, and virtualization are not rendered." ]
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "items",
+        "selectedIndex",
+        "selectedItem"
+      ],
+      "knownGaps": [
+        "ListView rows and selected state chrome are rendered approximately; templates, multi-select, keyboarding, and virtualization remain gaps."
+      ]
     },
     {
       "component": "DataTemplate",
@@ -140,21 +150,27 @@
       "kind": "template",
       "target": "DiagnosticDataTemplate",
       "expectedStatus": "planned",
-      "knownGaps": [ "Data templates are represented as required diagnostics before compiler support is added." ]
+      "knownGaps": [
+        "Data templates are represented as required diagnostics before compiler support is added."
+      ]
     },
     {
       "feature": "ListView.ItemTemplate",
       "kind": "xaml-property-slot",
       "target": "DiagnosticListViewItemTemplate",
       "expectedStatus": "planned",
-      "knownGaps": [ "ListView item templates are not compiled in this foundation pass." ]
+      "knownGaps": [
+        "ListView item templates are not compiled in this foundation pass."
+      ]
     },
     {
       "feature": "ItemsControl.ItemTemplate",
       "kind": "xaml-property-slot",
       "target": "DiagnosticItemsControlItemTemplate",
       "expectedStatus": "planned",
-      "knownGaps": [ "ItemsControl item templates are not compiled in this foundation pass." ]
+      "knownGaps": [
+        "ItemsControl item templates are not compiled in this foundation pass."
+      ]
     }
   ]
 }

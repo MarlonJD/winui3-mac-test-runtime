@@ -65,7 +65,9 @@
       "kind": "xaml-attached-property",
       "target": "DiagnosticToolTipServiceSetToolTip",
       "expectedStatus": "planned",
-      "knownGaps": [ "Tooltip service source support is tracked as a diagnostic-only requirement." ]
+      "knownGaps": [
+        "Tooltip service source support is tracked as a diagnostic-only requirement."
+      ]
     }
   ]
 }

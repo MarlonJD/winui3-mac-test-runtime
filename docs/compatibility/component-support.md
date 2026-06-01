@@ -19,12 +19,11 @@ visual grades, smoke or E2E targets, and private-content safety checks. It does
 not promote any component grade by itself.
 
 The latest checked-in visual evidence uses native WinUI Windows references from
-public workflow run
-[`26777029415`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26777029415)
-on commit `95e8d7d`. The Windows references prove the public fixture pages show
-the intended native controls on Windows. The macOS comparisons currently fail
-for the inspected component scenarios, so text-only or absent macOS output stays
-`not-rendered`.
+public workflow runs and local `skia-v2` artifact inspection. The Windows
+references prove the public fixture pages show the intended native controls on
+Windows. Ring 0 macOS output now renders meaningful component chrome and target
+layout regions. Planned, unsupported, Windows-only, or diagnostic-only rows
+remain `not-rendered`.
 
 ## Status Model
 
@@ -56,14 +55,14 @@ clean-room pages:
 
 | Page | Coverage |
 | --- | --- |
-| Page 1: Basic input | Native Windows fixture controls for `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls; current macOS screenshot evidence is text-only and graded `not-rendered`. |
-| Page 2: Text and forms | `TextBlock`, native Windows fixture controls for `TextBox` and form labels, and diagnostic rows for rich text, password, number, and autosuggest controls; current macOS TextBox/form output is text-only and graded `not-rendered`. |
-| Page 3: Collections | Native Windows fixture controls for `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics; current macOS collection output is text-only and graded `not-rendered`. |
+| Page 1: Basic input | Native Windows fixture controls for `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls; current macOS `skia-v2` evidence is `usable` for the supported Ring 0 controls. |
+| Page 2: Text and forms | `TextBlock`, native Windows fixture controls for `TextBox` and form labels, and diagnostic rows for rich text, password, number, and autosuggest controls; current macOS `skia-v2` TextBox/form output is `usable` with approximate input chrome. |
+| Page 3: Collections | Native Windows fixture controls for `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics; current macOS `skia-v2` collection output is `usable` for item rows and selection chrome. |
 | Page 4: Dialogs and flyouts | Diagnostic rows for dialog, flyout, teaching tip, tooltip, and tooltip service coverage. |
-| Page 5: Commands and menus | Native Windows fixture controls for `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics; current macOS command output is text-only and graded `not-rendered`. |
-| Page 6: Navigation and workbench | Native Windows fixture controls for `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure; current macOS inner navigation/list-detail visuals are text-only and graded `not-rendered` except `Frame` and `Page` host coverage. |
-| Page 7: Status and pickers | Native Windows fixture controls for `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics; current macOS status controls are absent from the screenshot and graded `not-rendered`. |
-| Page 8: Layout, media, visuals | Native Windows fixture controls for `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics; current macOS layout/media component visuals are text-only or absent and graded `not-rendered`, while resource smoke rows remain `usable`. |
+| Page 5: Commands and menus | Native Windows fixture controls for `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics; current macOS `skia-v2` command output is `usable` for Ring 0 command surfaces. |
+| Page 6: Navigation and workbench | Native Windows fixture controls for `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure; current macOS `skia-v2` output is `usable` for the Ring 0 navigation/list-detail subset. |
+| Page 7: Status and pickers | Native Windows fixture controls for `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics; current macOS `skia-v2` output is `usable` for status and progress chrome. |
+| Page 8: Layout, media, visuals | Native Windows fixture controls for `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics; current macOS `skia-v2` layout/media output is `usable` for Ring 0 regions while advanced diagnostics remain `not-rendered`. |
 
 The foundation also tracks downstream source-audit gaps explicitly:
 `SymbolIcon`, `XamlControlsResources`,
@@ -78,16 +77,19 @@ Milestone 1 adds public scenario coverage for focused, disabled, checked,
 invalid, selected, command-invoked, loading, error, success, and open-popup
 states. These scenarios are listed in
 `winui-component-inventory.json` under `productionStateCoverage`; they provide
-native Windows fixture capture targets without promoting macOS component visual
-grades.
+native Windows fixture capture targets. Milestone 2 promotes the supported and
+partial Ring 0 `skia-v2` component output to `usable` only where local artifact
+inspection shows meaningful chrome and `component-evidence.json` records target
+layout regions.
 
 Latest inspected native comparison counts:
 
 | Scenario | Native comparison | Component evidence |
 | --- | --- | --- |
-| `component-basic-input-light` | Failed: `42.07%` changed pixels over the `18%` threshold. | 13 `not-rendered`. |
-| `component-commands-menus-light` | Failed: `40.68%` changed pixels over the `24%` threshold. | 8 `not-rendered`. |
-| `component-layout-media-light` | Failed: `45.83%` changed pixels over the `24%` threshold. | 4 `usable`, 24 `not-rendered`. |
+| `component-basic-input-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 5 `usable`, 8 planned `not-rendered`, all component targets include layout regions. |
+| `component-status-pickers-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 3 `usable`, 7 planned `not-rendered`, all component targets include layout regions. |
+| `component-layout-media-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 10 `usable`, 18 planned/non-goal `not-rendered`, all component targets include layout regions. |
+| `public-admin-workbench-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 9 `usable`, no missing component regions. |
 
 ## Cataloged Controls
 
@@ -98,29 +100,29 @@ Latest inspected native comparison counts:
 | `Page` | supported | Page root and activation through `Frame.Navigate`. | Full navigation stack behavior is limited. |
 | `UserControl` | supported | Content root subset. | Templates and broader resource behavior remain limited. |
 | `Frame` | supported | `Navigate(Type, object?)`, page activation, and XAML `Frame.Content`. | Back stack, transition animations, and complex navigation state are not implemented. |
-| `NavigationView` | partial | Source ingestion, tree export, and navigation selection are present. | Current macOS evidence for the inner fixture NavigationView is text-only, so component visual evidence is `not-rendered` until native pane and selection chrome render. |
-| `NavigationViewItem` | partial | Content, tag metadata, selected state, and tree export are present. | Current macOS evidence emits item content as text only; native item chrome and selected state visuals are not rendered. |
-| `CommandBar` | supported | `PrimaryCommands`, command click simulation, and public fixture ingestion are present. | Current macOS evidence emits only command result text; command surface chrome, overflow, focus, and pointer visuals are not rendered. |
-| `AppBarButton` | supported | Label, icon slot metadata, click event hookup, and command-bar fixture coverage are present. | Current macOS evidence emits only command result text; AppBarButton label/icon chrome is not rendered. |
-| `Button` | supported | Content, command, click simulation, and accessibility export are present. | Current macOS evidence emits only button text; native button chrome, focus, pressed, hover, and template visuals are not rendered. |
-| `ToggleButton` | supported | Checked state and click behavior are present in the logical model. | Current macOS evidence emits only toggle text; checked native WinUI chrome is not rendered. |
-| `CheckBox` | supported | Checked state, tree export, and accessibility role are present. | Current macOS evidence emits only checkbox text; checkbox glyph and state chrome are not rendered. |
-| `RadioButton` | supported | Checked state, group metadata, and tree export are present. | Current macOS evidence emits only radio button text; radio glyph and state chrome are not rendered. |
+| `NavigationView` | partial | Source ingestion, tree export, selection, pane/footer layout, and `skia-v2` pane rendering are present. | Adaptive modes, keyboarding, focus visuals, and exact Fluent spacing remain gaps. |
+| `NavigationViewItem` | partial | Content, tag metadata, selected state, tree export, and `skia-v2` item chrome are present. | Full Fluent item states and keyboarding remain gaps. |
+| `CommandBar` | supported | `PrimaryCommands`, command click simulation, public fixture ingestion, and `skia-v2` command surface rendering are present. | Overflow, pointer states, focus visuals, and exact native spacing remain gaps. |
+| `AppBarButton` | supported | Label, icon slot metadata, click event hookup, command-bar fixture coverage, and `skia-v2` label/icon chrome are present. | Overflow placement, focus visuals, and exact native command sizing remain gaps. |
+| `Button` | supported | Content, command, click simulation, accessibility export, and `skia-v2` button chrome are present. | Native pressed, hover, focus, and template visuals remain approximate. |
+| `ToggleButton` | supported | Checked state, click behavior, and `skia-v2` checked/disabled chrome are present. | Native pressed, hover, focus, and template visuals remain approximate. |
+| `CheckBox` | supported | Checked state, tree export, accessibility role, and `skia-v2` glyph chrome are present. | Indeterminate state and full template visuals remain gaps. |
+| `RadioButton` | supported | Checked state, group metadata, tree export, and `skia-v2` radio glyph chrome are present. | Group keyboarding and full template visuals remain gaps. |
 | `TextBlock` | supported | Text content, binding, accessibility, and visual painter coverage. | Text wrapping, trimming, typography, and font metrics are approximated. |
-| `TextBox` | supported | Text, focus, typed input, and automation metadata are present. | Current macOS evidence emits only the text value; TextBox border, caret, selection, focus, validation, and native input chrome are not rendered. |
-| `Border` | partial | Single-child facade and deterministic layout metadata are present. | Current macOS evidence does not render the border surface, corner radius, thickness, brush, or background. |
-| `Grid` | partial | Child containment, column metadata, and column spacing are present. | Current macOS evidence emits only child text; visible grid structure and native layout shape are not rendered. |
-| `StackPanel` | partial | Orientation, spacing metadata, and child containment are present. | Current macOS evidence emits only child text; spacing/layout behavior is not enough for component visual parity. |
-| `ScrollViewer` | supported | Single content slot and vertical scroll bar metadata are present. | Current macOS evidence emits only child text; scrollbars, clipping, inertia, and scrolling chrome are not rendered. |
+| `TextBox` | supported | Text, focus, typed input, automation metadata, and `skia-v2` field chrome are present. | Caret, selection, validation visuals, and native input behavior remain gaps. |
+| `Border` | partial | Single-child facade, deterministic layout metadata, and `skia-v2` surface/stroke rendering are present. | Brush and thickness fidelity remain partial. |
+| `Grid` | partial | Child containment, column metadata, column spacing, two-column layout, and `skia-v2` region evidence are present. | Full Grid sizing semantics, row definitions, spanning, and adaptive layout remain partial. |
+| `StackPanel` | partial | Orientation, spacing metadata, child containment, and `skia-v2` region evidence are present. | Full native layout behavior remains partial. |
+| `ScrollViewer` | supported | Single content slot, vertical scroll bar metadata, and `skia-v2` scroll-region affordance are present. | Clipping, inertia, and scrolling physics are not modeled. |
 | `ContentControl` | supported | Single content-slot facade. | Templates and complex content transitions are planned. |
-| `ItemsControl` | supported | Item collection binding and export are present. | Current macOS evidence emits only item text; item containers, templates, virtualization, and native list spacing are not rendered. |
-| `ListView` | partial | Item collection, `SelectedIndex`, selected item metadata, and export are present. | Current macOS evidence emits only list item text; rows, selection chrome, templates, multi-select, and keyboarding visuals are not rendered. |
-| `ComboBox` | supported | Items and selected index subset are present. | Current macOS evidence emits combo box items as text; field, chevron, popup, item chrome, editable mode, and full keyboarding are not rendered. |
-| `ProgressBar` | supported | Minimum, maximum, and value metadata are present. | Current macOS evidence does not render the ProgressBar track or indicator. |
-| `ProgressRing` | supported | Active-state metadata is present. | Current macOS evidence does not render the ProgressRing. |
-| `InfoBar` | supported | Title, message, severity, and open-state metadata are present. | Current macOS evidence does not render the InfoBar body, close button, action area, or severity chrome. |
-| `Image` | partial | Source metadata and tree export are present. | Current macOS evidence does not render the image source or a visible placeholder in the inspected component fixture. |
-| `FontIcon` | partial | Glyph metadata is present. | Current macOS evidence does not render the FontIcon glyph in the inspected component fixture. |
+| `ItemsControl` | supported | Item collection binding, export, and `skia-v2` item row rendering are present. | Templates and virtualization remain gaps. |
+| `ListView` | partial | Item collection, `SelectedIndex`, selected item metadata, export, and `skia-v2` row/selection chrome are present. | Templates, multi-select, keyboarding, and virtualization remain gaps. |
+| `ComboBox` | supported | Items, selected index subset, and `skia-v2` field/chevron chrome are present. | Popup, editable mode, item chrome, and full keyboarding remain gaps. |
+| `ProgressBar` | supported | Minimum, maximum, value metadata, and `skia-v2` track/indicator rendering are present. | Indeterminate animation remains a gap. |
+| `ProgressRing` | supported | Active-state metadata and `skia-v2` static ring rendering are present. | Native animation remains a gap. |
+| `InfoBar` | supported | Title, message, severity, open-state metadata, and `skia-v2` severity chrome are present. | Close button and action area are not modeled. |
+| `Image` | partial | Source metadata, tree export, and a visible `skia-v2` placeholder are present. | Real image decode and stretch modes remain gaps. |
+| `FontIcon` | partial | Glyph metadata and `skia-v2` glyph output are present. | Exact Segoe MDL2 metrics and glyph availability remain approximate on macOS. |
 | `MediaPlayerElement` | not supported | Explicitly outside the current macOS-managed runtime contract. | Media playback is not implemented. |
 | `WebView2` | not supported | Explicitly outside the current clean-room runtime. | Embedded browser hosting is not implemented. |
 

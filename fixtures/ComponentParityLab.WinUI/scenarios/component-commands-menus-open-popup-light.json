@@ -22,8 +22,12 @@
       "expectedStatus": "planned",
       "minimumVisualGrade": "not-rendered",
       "visualGrade": "not-rendered",
-      "requiredProperties": [ "open-popup" ],
-      "knownGaps": [ "The public fixture exposes command flyout targets on Windows; macOS popup open-state behavior is not implemented yet." ]
+      "requiredProperties": [
+        "open-popup"
+      ],
+      "knownGaps": [
+        "The public fixture exposes command flyout targets on Windows; macOS popup open-state behavior is not implemented yet."
+      ]
     },
     {
       "component": "MenuFlyout",
@@ -31,8 +35,12 @@
       "expectedStatus": "planned",
       "minimumVisualGrade": "not-rendered",
       "visualGrade": "not-rendered",
-      "requiredProperties": [ "open-popup" ],
-      "knownGaps": [ "The public fixture exposes menu flyout targets on Windows; macOS menu flyout behavior is not implemented yet." ]
+      "requiredProperties": [
+        "open-popup"
+      ],
+      "knownGaps": [
+        "The public fixture exposes menu flyout targets on Windows; macOS menu flyout behavior is not implemented yet."
+      ]
     },
     {
       "component": "MenuBar",
@@ -40,8 +48,12 @@
       "expectedStatus": "planned",
       "minimumVisualGrade": "not-rendered",
       "visualGrade": "not-rendered",
-      "requiredProperties": [ "menuItems" ],
-      "knownGaps": [ "MenuBar is native-reference fixture coverage only until facade, interaction, and renderer support are added." ]
+      "requiredProperties": [
+        "menuItems"
+      ],
+      "knownGaps": [
+        "MenuBar is native-reference fixture coverage only until facade, interaction, and renderer support are added."
+      ]
     }
   ]
 }

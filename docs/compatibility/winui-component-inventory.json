@@ -13,254 +13,1508 @@
       "state": "deferred-decision",
       "scenario": "public-admin-workbench-deferred-light",
       "path": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json",
-      "components": [ "NavigationView", "ListView", "CommandBar", "AppBarButton", "InfoBar", "TextBox" ],
+      "components": [
+        "NavigationView",
+        "ListView",
+        "CommandBar",
+        "AppBarButton",
+        "InfoBar",
+        "TextBox"
+      ],
       "interactionRequirement": "invoke alternate command and assert status",
       "accessibilityRequirement": "workbench navigation, selected row, command, and status names remain visible and non-private",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "focused",
       "scenario": "component-basic-input-focused-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-focused-light.json",
-      "components": [ "ComboBox", "Button" ],
+      "components": [
+        "ComboBox",
+        "Button"
+      ],
       "interactionRequirement": "focus",
       "accessibilityRequirement": "focused control exposes role, name, enabled state, and value where available",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows focus coverage is present; macOS focus visuals are not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows focus coverage is present; macOS focus visuals are not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "disabled",
       "scenario": "component-basic-input-disabled-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-disabled-light.json",
-      "components": [ "Button", "ToggleButton", "ComboBox" ],
+      "components": [
+        "Button",
+        "ToggleButton",
+        "ComboBox"
+      ],
       "interactionRequirement": "disabled state export",
       "accessibilityRequirement": "disabled controls expose enabled=false",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows disabled coverage is present; macOS disabled chrome is not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows disabled coverage is present; macOS disabled chrome is not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "checked",
       "scenario": "component-basic-input-checked-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-checked-light.json",
-      "components": [ "ToggleButton", "CheckBox", "RadioButton" ],
+      "components": [
+        "ToggleButton",
+        "CheckBox",
+        "RadioButton"
+      ],
       "interactionRequirement": "checked state export",
       "accessibilityRequirement": "checked controls expose checked state and name",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows checked-state coverage is present; macOS check/radio glyphs are not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows checked-state coverage is present; macOS check/radio glyphs are not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "focused",
       "scenario": "component-text-forms-focused-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-focused-light.json",
-      "components": [ "TextBox" ],
+      "components": [
+        "TextBox"
+      ],
       "interactionRequirement": "focus",
       "accessibilityRequirement": "text input exposes role, name, value, and focus state",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows TextBox focus coverage is present; macOS caret and focus visuals are not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows TextBox focus coverage is present; macOS caret and focus visuals are not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "invalid",
       "scenario": "component-text-forms-invalid-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-invalid-light.json",
-      "components": [ "TextBox", "Labels/forms pattern" ],
+      "components": [
+        "TextBox",
+        "Labels/forms pattern"
+      ],
       "interactionRequirement": "validation state assertion",
       "accessibilityRequirement": "validation message remains visible and is not color-only",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Invalid state is represented with public text; native validation chrome is not production-rendered yet." ]
+      "knownGaps": [
+        "Invalid state is represented with public text; native validation chrome is not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "selected",
       "scenario": "component-collections-selected-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-selected-light.json",
-      "components": [ "ListView", "ItemsControl" ],
+      "components": [
+        "ListView",
+        "ItemsControl"
+      ],
       "interactionRequirement": "select item and assert selected item",
       "accessibilityRequirement": "selected list row exposes selected state and item name",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows selected-row coverage is present; macOS row and selection chrome are not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows selected-row coverage is present; macOS row and selection chrome are not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "command-invoked",
       "scenario": "component-commands-menus-command-invoked-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-command-invoked-light.json",
-      "components": [ "CommandBar", "AppBarButton" ],
+      "components": [
+        "CommandBar",
+        "AppBarButton"
+      ],
       "interactionRequirement": "click command and assert result",
       "accessibilityRequirement": "command exposes role, name, icon metadata, and enabled state",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows command invocation coverage is present; macOS command chrome is not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows command invocation coverage is present; macOS command chrome is not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "disabled",
       "scenario": "component-commands-menus-disabled-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-disabled-light.json",
-      "components": [ "CommandBar", "AppBarButton" ],
+      "components": [
+        "CommandBar",
+        "AppBarButton"
+      ],
       "interactionRequirement": "disabled command state export",
       "accessibilityRequirement": "disabled command exposes enabled=false",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows disabled command coverage is present; macOS disabled command chrome is not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows disabled command coverage is present; macOS disabled command chrome is not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 1",
       "state": "open-popup",
       "scenario": "component-commands-menus-open-popup-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-open-popup-light.json",
-      "components": [ "CommandBarFlyout", "MenuFlyout", "MenuBar" ],
+      "components": [
+        "CommandBarFlyout",
+        "MenuFlyout",
+        "MenuBar"
+      ],
       "interactionRequirement": "open menu or flyout, invoke item, dismiss",
       "accessibilityRequirement": "popup/menu item names, expanded state, and accelerator text",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows popup targets are visible; macOS popup host behavior is not implemented yet." ]
+      "knownGaps": [
+        "Native Windows popup targets are visible; macOS popup host behavior is not implemented yet."
+      ]
     },
     {
       "productionPriority": "Ring 1",
       "state": "open-popup",
       "scenario": "component-dialogs-flyouts-open-popup-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-open-popup-light.json",
-      "components": [ "ContentDialog", "Flyout", "TeachingTip", "ToolTip" ],
+      "components": [
+        "ContentDialog",
+        "Flyout",
+        "TeachingTip",
+        "ToolTip"
+      ],
       "interactionRequirement": "open dialog or flyout, choose or dismiss",
       "accessibilityRequirement": "dialog/flyout title, body, button names, and popup relationship",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows dialog/flyout targets are represented; macOS dialog and popup host behavior is not implemented yet." ]
+      "knownGaps": [
+        "Native Windows dialog/flyout targets are represented; macOS dialog and popup host behavior is not implemented yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "loading",
       "scenario": "component-status-pickers-loading-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-loading-light.json",
-      "components": [ "InfoBar", "ProgressRing" ],
+      "components": [
+        "InfoBar",
+        "ProgressRing"
+      ],
       "interactionRequirement": "loading state export",
       "accessibilityRequirement": "loading status remains visible and non-color-only",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows loading coverage is present; macOS InfoBar and ProgressRing chrome are not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows loading coverage is present; macOS InfoBar and ProgressRing chrome are not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "error",
       "scenario": "component-status-pickers-error-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-error-light.json",
-      "components": [ "InfoBar", "ProgressBar" ],
+      "components": [
+        "InfoBar",
+        "ProgressBar"
+      ],
       "interactionRequirement": "error state export",
       "accessibilityRequirement": "error status includes visible text and severity, not color alone",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows error coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows error coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet."
+      ]
     },
     {
       "productionPriority": "Ring 0",
       "state": "success",
       "scenario": "component-status-pickers-success-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-success-light.json",
-      "components": [ "InfoBar", "ProgressBar" ],
+      "components": [
+        "InfoBar",
+        "ProgressBar"
+      ],
       "interactionRequirement": "click completion command and assert success status",
       "accessibilityRequirement": "success status includes visible text and severity, not color alone",
       "minimumVisualGrade": "not-rendered",
-      "knownGaps": [ "Native Windows success coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet." ]
+      "knownGaps": [
+        "Native Windows success coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet."
+      ]
     }
   ],
   "entries": [
-    { "component": "AnimatedIcon", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Annotated scrollbar", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Tracked as a scrolling pattern, not implemented." ] },
-    { "component": "AppBarButton", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 5: Commands And Menus", "fixtureCoverage": "rendered", "interactionCoverage": "click", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only command result text; native AppBarButton label/icon chrome is not rendered." ] },
-    { "component": "AppBarButton.Icon", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 5: Commands And Menus", "fixtureCoverage": "property slot", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "The icon slot compiles, but the inspected macOS screenshot does not render the AppBarButton icon." ] },
-    { "component": "AutoSuggestBox", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No source or renderer support is claimed yet." ] },
-    { "component": "AutoSuggestBox.QueryIcon", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "QueryIcon slot is tracked as a source-audit requirement." ] },
-    { "component": "Border", "kind": "layout", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "rendered", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence does not render the Border surface, corner radius, border thickness, brush, or background." ] },
-    { "component": "BreadcrumbBar", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Button", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "rendered", "interactionCoverage": "click", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only button text; native button chrome is not rendered." ] },
-    { "component": "CalendarDatePicker", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "CalendarView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "CheckBox", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "rendered", "interactionCoverage": "state export", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only checkbox text; native checkbox glyph and state chrome are not rendered." ] },
-    { "component": "Color", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "resource diagnostic", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Color resources are not converted to typed colors yet." ] },
-    { "component": "ColorPicker", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "ComboBox", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "rendered", "interactionCoverage": "select item", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits combo box items as text; native field, chevron, popup, and item chrome are not rendered." ] },
-    { "component": "CommandBar", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 5: Commands And Menus", "fixtureCoverage": "rendered", "interactionCoverage": "command click", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only command result text; native command surface chrome is not rendered." ] },
-    { "component": "CommandBar.Content", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 5: Commands And Menus", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Content slot source support is tracked but not implemented." ] },
-    { "component": "CommandBarFlyout", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 5: Commands And Menus", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "ContentDialog", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 4: Dialogs And Flyouts", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No dialog host behavior is implemented." ] },
-    { "component": "ContentControl", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Existing ControlGallery.MacTest", "fixtureCoverage": "existing fixture", "interactionCoverage": "tree export", "visualEvidence": "usable", "knownGaps": [ "Templates and transitions are planned." ] },
-    { "component": "Context menu pattern", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 5: Commands And Menus", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Context menu semantics and visuals are not implemented." ] },
-    { "component": "CornerRadius", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "resource diagnostic", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "CornerRadius resources are not applied to geometry yet." ] },
-    { "component": "DataTemplate", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Template parsing and instantiation are not implemented." ] },
-    { "component": "DatePicker", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "DropDownButton", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Expander", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "FlipView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Flyout", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 4: Dialogs And Flyouts", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No flyout host behavior is implemented." ] },
-    { "component": "FontIcon", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "rendered", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence does not render the FontIcon glyph in the inspected component fixture." ] },
-    { "component": "Frame", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "rendered", "interactionCoverage": "content navigation", "visualEvidence": "usable", "knownGaps": [ "Back stack and transitions are not modeled." ] },
-    { "component": "Grid", "kind": "layout", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "rendered", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only child text; visible grid structure and native layout shape are not rendered." ] },
-    { "component": "GridView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "HyperlinkButton", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Image", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "placeholder render", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence does not render the image source or a visible placeholder in the inspected component fixture." ] },
-    { "component": "InfoBadge", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "InfoBar", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "rendered", "interactionCoverage": "state assertion", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence does not render the InfoBar body, close button, action area, or severity chrome." ] },
-    { "component": "InkCanvas / InkToolbar", "kind": "control", "winuiAvailability": "experimental", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Ink input and toolbar behavior are not implemented." ] },
-    { "component": "ItemsControl", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 3: Collections", "fixtureCoverage": "rendered", "interactionCoverage": "tree export", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only item text; native item container chrome is not rendered." ] },
-    { "component": "ItemsControl.ItemTemplate", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Item template parsing and instantiation are not implemented." ] },
-    { "component": "ItemsRepeater", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "ItemsView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Labels/forms pattern", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "rendered label plus automation", "interactionCoverage": "focus text box", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence shows only standalone text; complete native form layout semantics are not rendered." ] },
-    { "component": "List/details pattern", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "rendered structure", "interactionCoverage": "navigation selection", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits list/detail content as text; native rows, panels, and adaptive chrome are not rendered." ] },
-    { "component": "ListView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 3: Collections", "fixtureCoverage": "rendered", "interactionCoverage": "select item", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only list item text; native rows and selection chrome are not rendered." ] },
-    { "component": "ListView.ItemTemplate", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Item template parsing and instantiation are not implemented." ] },
-    { "component": "MediaPlayerElement", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "not supported", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Media playback is outside the current managed runtime contract." ] },
-    { "component": "MenuBar", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 5: Commands And Menus", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "MenuFlyout", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 5: Commands And Menus", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No flyout host behavior is implemented." ] },
-    { "component": "NavigationView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "rendered", "interactionCoverage": "select navigation", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits inner navigation content as text; native pane and selection chrome are not rendered." ] },
-    { "component": "NavigationView.MenuItems", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "property slot", "interactionCoverage": "select navigation", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits menu items as text; native menu item chrome is not rendered." ] },
-    { "component": "NavigationView.PaneFooter", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "property slot", "interactionCoverage": "footer button", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits pane footer content as text; native pane footer chrome is not rendered." ] },
-    { "component": "NavigationViewItem", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "rendered", "interactionCoverage": "select navigation", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits NavigationViewItem content as text; native item chrome and selection styling are not rendered." ] },
-    { "component": "NumberBox", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Page", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "page root", "interactionCoverage": "navigation", "visualEvidence": "usable", "knownGaps": [ "Full navigation stack behavior is limited." ] },
-    { "component": "PasswordBox", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "PersonPicture", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "PipsPager", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Pivot", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "ProgressBar", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "rendered", "interactionCoverage": "state assertion", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence does not render the native ProgressBar track or indicator." ] },
-    { "component": "ProgressRing", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "rendered", "interactionCoverage": "state export", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence does not render the native ProgressRing." ] },
-    { "component": "Pull-to-refresh pattern", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Refresh container behavior is not implemented." ] },
-    { "component": "RadioButton", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "rendered", "interactionCoverage": "state export", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only radio button text; native radio glyph and state chrome are not rendered." ] },
-    { "component": "RatingControl", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "RepeatButton", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "ResourceDictionary.ThemeDictionaries", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "bootstrap marker plus diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Theme dictionaries are represented but not fully resolved by theme." ] },
-    { "component": "RichEditBox", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "RichTextBlock", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "ScrollViewer", "kind": "layout", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "rendered", "interactionCoverage": "tree export", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only child text; native scrollbars, clipping, and scrolling chrome are not rendered." ] },
-    { "component": "SelectorBar", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "SemanticZoom", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Setter", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "style resource", "interactionCoverage": "none", "visualEvidence": "usable", "knownGaps": [ "Only simple supported facade properties are applied." ] },
-    { "component": "Shapes", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Shape elements are not implemented." ] },
-    { "component": "Slider", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "SolidColorBrush", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "resource diagnostic", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Brush resources are not converted to typed brushes yet." ] },
-    { "component": "SplitButton", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "SplitView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "StackPanel", "kind": "layout", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "rendered", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only child text; spacing/layout shape is not sufficient visual evidence." ] },
-    { "component": "StaticResource", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "resource lookup", "interactionCoverage": "none", "visualEvidence": "usable", "knownGaps": [ "Only simple local dictionary lookup is supported." ] },
-    { "component": "Style", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "style resource", "interactionCoverage": "none", "visualEvidence": "usable", "knownGaps": [ "Templates and complex setters remain planned." ] },
-    { "component": "Swipe pattern", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Swipe actions are not implemented." ] },
-    { "component": "SymbolIcon", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Tracked as a source-audit gap before facade and painter support." ] },
-    { "component": "TabView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 6: Navigation And Workbench", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "TeachingTip", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 4: Dialogs And Flyouts", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No teaching tip host behavior is implemented." ] },
-    { "component": "TextBlock", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "rendered", "interactionCoverage": "tree export", "visualEvidence": "usable", "knownGaps": [ "Text wrapping, trimming, typography, and font metrics are approximated." ] },
-    { "component": "TextBox", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 2: Text And Forms", "fixtureCoverage": "rendered", "interactionCoverage": "focus and type text", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only the text value; native TextBox border, caret, selection, focus, and validation chrome are not rendered." ] },
-    { "component": "ThemeResource", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "partial", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "resource lookup", "interactionCoverage": "none", "visualEvidence": "usable", "knownGaps": [ "Dynamic theme dictionary behavior is not modeled." ] },
-    { "component": "TimePicker", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 7: Status, Progress, Pickers, People", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "Title bar customization", "kind": "platform-api", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Native title bar APIs and behavior are not implemented." ] },
-    { "component": "ToggleButton", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "supported", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "rendered", "interactionCoverage": "checked state", "visualEvidence": "not-rendered", "knownGaps": [ "Current macOS evidence emits only toggle text; checked native WinUI chrome is not rendered." ] },
-    { "component": "ToggleSplitButton", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "ToggleSwitch", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 1: Basic Input", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "ToolTip", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 4: Dialogs And Flyouts", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No tooltip host behavior is implemented." ] },
-    { "component": "ToolTipService.SetToolTip", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 4: Dialogs And Flyouts", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Tooltip attached property support is tracked but not implemented." ] },
-    { "component": "TreeView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 3: Collections", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "TwoPaneView", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "No facade, compiler, or painter support is claimed yet." ] },
-    { "component": "WebView2", "kind": "control", "winuiAvailability": "stable", "catalogStatus": "not supported", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "Embedded browser hosting is outside the current clean-room runtime." ] },
-    { "component": "Window.SystemBackdrop / MicaBackdrop", "kind": "material", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "Page 8: Layout, Media, Visuals", "fixtureCoverage": "diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "System backdrop and Mica are explicit planned diagnostics; no material rendering claim is made." ] },
-    { "component": "XamlControlsResources", "kind": "pattern", "winuiAvailability": "stable", "catalogStatus": "planned", "demoPage": "App.xaml bootstrap and Page 8 diagnostics", "fixtureCoverage": "bootstrap marker plus diagnostic row", "interactionCoverage": "none", "visualEvidence": "not-rendered", "knownGaps": [ "The lab marks the dependency but does not model full Fluent resource dictionaries yet." ] }
+    {
+      "component": "AnimatedIcon",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Annotated scrollbar",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Tracked as a scrolling pattern, not implemented."
+      ]
+    },
+    {
+      "component": "AppBarButton",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 5: Commands And Menus",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "click",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders AppBarButton label and icon chrome; overflow, focus, and native command sizing remain gaps."
+      ]
+    },
+    {
+      "component": "AppBarButton.Icon",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 5: Commands And Menus",
+      "fixtureCoverage": "property slot",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate."
+      ]
+    },
+    {
+      "component": "AutoSuggestBox",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No source or renderer support is claimed yet."
+      ]
+    },
+    {
+      "component": "AutoSuggestBox.QueryIcon",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "QueryIcon slot is tracked as a source-audit requirement."
+      ]
+    },
+    {
+      "component": "Border",
+      "kind": "layout",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders surface, stroke, and corner radius; brush and thickness fidelity remain partial."
+      ]
+    },
+    {
+      "component": "BreadcrumbBar",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Button",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "click",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders recognizable button chrome; native pressed, hover, focus, and template visuals remain approximate."
+      ]
+    },
+    {
+      "component": "CalendarDatePicker",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "CalendarView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "CheckBox",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "state export",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders checkbox glyph and checked-state chrome; indeterminate and full template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "Color",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "resource diagnostic",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Color resources are not converted to typed colors yet."
+      ]
+    },
+    {
+      "component": "ColorPicker",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "ComboBox",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "select item",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders the combo field and chevron; popup, editable mode, item chrome, and full keyboarding remain gaps."
+      ]
+    },
+    {
+      "component": "CommandBar",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 5: Commands And Menus",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "command click",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders the command surface and primary commands; overflow, pointer states, and native spacing remain gaps."
+      ]
+    },
+    {
+      "component": "CommandBar.Content",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 5: Commands And Menus",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Content slot source support is tracked but not implemented."
+      ]
+    },
+    {
+      "component": "CommandBarFlyout",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 5: Commands And Menus",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "ContentDialog",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 4: Dialogs And Flyouts",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No dialog host behavior is implemented."
+      ]
+    },
+    {
+      "component": "ContentControl",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Existing ControlGallery.MacTest",
+      "fixtureCoverage": "existing fixture",
+      "interactionCoverage": "tree export",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Templates and transitions are planned."
+      ]
+    },
+    {
+      "component": "Context menu pattern",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 5: Commands And Menus",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Context menu semantics and visuals are not implemented."
+      ]
+    },
+    {
+      "component": "CornerRadius",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "resource diagnostic",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "CornerRadius resources are not applied to geometry yet."
+      ]
+    },
+    {
+      "component": "DataTemplate",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Template parsing and instantiation are not implemented."
+      ]
+    },
+    {
+      "component": "DatePicker",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "DropDownButton",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Expander",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "FlipView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Flyout",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 4: Dialogs And Flyouts",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No flyout host behavior is implemented."
+      ]
+    },
+    {
+      "component": "FontIcon",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders the glyph with the scenario font; exact Segoe MDL2 metrics remain approximate."
+      ]
+    },
+    {
+      "component": "Frame",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "content navigation",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Back stack and transitions are not modeled."
+      ]
+    },
+    {
+      "component": "Grid",
+      "kind": "layout",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders grid surface evidence and column separation; full WinUI layout behavior remains partial."
+      ]
+    },
+    {
+      "component": "GridView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "HyperlinkButton",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Image",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "placeholder render",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps."
+      ]
+    },
+    {
+      "component": "InfoBadge",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "InfoBar",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "state assertion",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders title, message, and severity chrome; close button and action area remain gaps."
+      ]
+    },
+    {
+      "component": "InkCanvas / InkToolbar",
+      "kind": "control",
+      "winuiAvailability": "experimental",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Ink input and toolbar behavior are not implemented."
+      ]
+    },
+    {
+      "component": "ItemsControl",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "tree export",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders item rows through the list painter; templates and virtualization remain gaps."
+      ]
+    },
+    {
+      "component": "ItemsControl.ItemTemplate",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Item template parsing and instantiation are not implemented."
+      ]
+    },
+    {
+      "component": "ItemsRepeater",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "ItemsView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Labels/forms pattern",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "rendered label plus automation",
+      "interactionCoverage": "focus text box",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Labels and form rows are visible through deterministic layout; exact native form spacing and validation semantics remain gaps."
+      ]
+    },
+    {
+      "component": "List/details pattern",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "rendered structure",
+      "interactionCoverage": "navigation selection",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "List/detail regions are visible through grid, list, and detail panel layout; adaptive behavior and templates remain gaps."
+      ]
+    },
+    {
+      "component": "ListView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "select item",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders rows and selected-state chrome; templates, multi-select, keyboarding, and virtualization remain gaps."
+      ]
+    },
+    {
+      "component": "ListView.ItemTemplate",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Item template parsing and instantiation are not implemented."
+      ]
+    },
+    {
+      "component": "MediaPlayerElement",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "not supported",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Media playback is outside the current managed runtime contract."
+      ]
+    },
+    {
+      "component": "MenuBar",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 5: Commands And Menus",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "MenuFlyout",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 5: Commands And Menus",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No flyout host behavior is implemented."
+      ]
+    },
+    {
+      "component": "NavigationView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "select navigation",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders the pane and selected item chrome; adaptive modes, focus, and keyboarding remain gaps."
+      ]
+    },
+    {
+      "component": "NavigationView.MenuItems",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "property slot",
+      "interactionCoverage": "select navigation",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "NavigationView menu items are visible through rendered item rows; nested and adaptive behavior remains partial."
+      ]
+    },
+    {
+      "component": "NavigationView.PaneFooter",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "property slot",
+      "interactionCoverage": "footer button",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "NavigationView pane footer content is rendered as a structured footer; exact layout and focus behavior remain partial."
+      ]
+    },
+    {
+      "component": "NavigationViewItem",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "select navigation",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders item text and selected-state chrome; full Fluent item states remain gaps."
+      ]
+    },
+    {
+      "component": "NumberBox",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Page",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "page root",
+      "interactionCoverage": "navigation",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Full navigation stack behavior is limited."
+      ]
+    },
+    {
+      "component": "PasswordBox",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "PersonPicture",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "PipsPager",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Pivot",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "ProgressBar",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "state assertion",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders track and indicator chrome; indeterminate animation remains a gap."
+      ]
+    },
+    {
+      "component": "ProgressRing",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "state export",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders an active ring glyph; native animation remains a gap."
+      ]
+    },
+    {
+      "component": "Pull-to-refresh pattern",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Refresh container behavior is not implemented."
+      ]
+    },
+    {
+      "component": "RadioButton",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "state export",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders radio glyph and checked-state chrome; group keyboarding and full template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "RatingControl",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "RepeatButton",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "ResourceDictionary.ThemeDictionaries",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "bootstrap marker plus diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Theme dictionaries are represented but not fully resolved by theme."
+      ]
+    },
+    {
+      "component": "RichEditBox",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "RichTextBlock",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "ScrollViewer",
+      "kind": "layout",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "tree export",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders a scroll region and scrollbar affordance; clipping and scroll physics remain gaps."
+      ]
+    },
+    {
+      "component": "SelectorBar",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "SemanticZoom",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Setter",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "style resource",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Only simple supported facade properties are applied."
+      ]
+    },
+    {
+      "component": "Shapes",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Shape elements are not implemented."
+      ]
+    },
+    {
+      "component": "Slider",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "SolidColorBrush",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "resource diagnostic",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Brush resources are not converted to typed brushes yet."
+      ]
+    },
+    {
+      "component": "SplitButton",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "SplitView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "StackPanel",
+      "kind": "layout",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders stack-panel region evidence and child spacing; full native layout behavior remains partial."
+      ]
+    },
+    {
+      "component": "StaticResource",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "resource lookup",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Only simple local dictionary lookup is supported."
+      ]
+    },
+    {
+      "component": "Style",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "style resource",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Templates and complex setters remain planned."
+      ]
+    },
+    {
+      "component": "Swipe pattern",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Swipe actions are not implemented."
+      ]
+    },
+    {
+      "component": "SymbolIcon",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Tracked as a source-audit gap before facade and painter support."
+      ]
+    },
+    {
+      "component": "TabView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 6: Navigation And Workbench",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "TeachingTip",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 4: Dialogs And Flyouts",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No teaching tip host behavior is implemented."
+      ]
+    },
+    {
+      "component": "TextBlock",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "tree export",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Text wrapping, trimming, typography, and font metrics are approximated."
+      ]
+    },
+    {
+      "component": "TextBox",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 2: Text And Forms",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "focus and type text",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders field chrome and focus state; caret, selection, validation visuals, and native input behavior remain gaps."
+      ]
+    },
+    {
+      "component": "ThemeResource",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "partial",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "resource lookup",
+      "interactionCoverage": "none",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "Dynamic theme dictionary behavior is not modeled."
+      ]
+    },
+    {
+      "component": "TimePicker",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 7: Status, Progress, Pickers, People",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "Title bar customization",
+      "kind": "platform-api",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Native title bar APIs and behavior are not implemented."
+      ]
+    },
+    {
+      "component": "ToggleButton",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "supported",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "rendered",
+      "interactionCoverage": "checked state",
+      "visualEvidence": "usable",
+      "knownGaps": [
+        "skia-v2 renders checked and disabled toggle chrome; native pressed, hover, focus, and template visuals remain approximate."
+      ]
+    },
+    {
+      "component": "ToggleSplitButton",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "ToggleSwitch",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 1: Basic Input",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "ToolTip",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 4: Dialogs And Flyouts",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No tooltip host behavior is implemented."
+      ]
+    },
+    {
+      "component": "ToolTipService.SetToolTip",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 4: Dialogs And Flyouts",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Tooltip attached property support is tracked but not implemented."
+      ]
+    },
+    {
+      "component": "TreeView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 3: Collections",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "TwoPaneView",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "No facade, compiler, or painter support is claimed yet."
+      ]
+    },
+    {
+      "component": "WebView2",
+      "kind": "control",
+      "winuiAvailability": "stable",
+      "catalogStatus": "not supported",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "Embedded browser hosting is outside the current clean-room runtime."
+      ]
+    },
+    {
+      "component": "Window.SystemBackdrop / MicaBackdrop",
+      "kind": "material",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "Page 8: Layout, Media, Visuals",
+      "fixtureCoverage": "diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "System backdrop and Mica are explicit planned diagnostics; no material rendering claim is made."
+      ]
+    },
+    {
+      "component": "XamlControlsResources",
+      "kind": "pattern",
+      "winuiAvailability": "stable",
+      "catalogStatus": "planned",
+      "demoPage": "App.xaml bootstrap and Page 8 diagnostics",
+      "fixtureCoverage": "bootstrap marker plus diagnostic row",
+      "interactionCoverage": "none",
+      "visualEvidence": "not-rendered",
+      "knownGaps": [
+        "The lab marks the dependency but does not model full Fluent resource dictionaries yet."
+      ]
+    }
   ]
 }
