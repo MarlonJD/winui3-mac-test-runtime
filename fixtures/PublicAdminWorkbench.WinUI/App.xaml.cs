@@ -8,7 +8,9 @@ public sealed partial class App : Application
     {
         InitializeComponent();
         var window = new MainWindow(NativeLaunchOptions.Parse(args.Arguments));
+#if !WINDOWS
         MainWindow = window;
+#endif
         window.Activate();
         window.ApplyLaunchBounds();
     }
