@@ -191,4 +191,42 @@ public sealed class MacXamlCompilerTests
         Assert.AreEqual("XAML1003", result.Diagnostics[0].Code);
         Assert.IsNotNull(result.Diagnostics[0].Line);
     }
+
+    [TestMethod]
+    public void CompileTextGeneratesLevel2Controls()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                  <StackPanel>
+                    <CheckBox Content="Enabled" IsChecked="True" />
+                    <RadioButton Content="High priority" GroupName="Priority" IsChecked="True" />
+                    <ComboBox x:Name="StatusComboBox" PlaceholderText="Status" SelectedIndex="0" />
+                    <ProgressBar Minimum="0" Maximum="100" Value="65" />
+                    <ProgressRing IsActive="True" />
+                    <InfoBar Title="Ready" Message="Public fixture state" Severity="Success" IsOpen="True" />
+                    <CommandBar>
+                      <CommandBar.PrimaryCommands>
+                        <AppBarButton Label="Save" Click="OnSaveClicked" />
+                      </CommandBar.PrimaryCommands>
+                    </CommandBar>
+                  </StackPanel>
+                </ScrollViewer>
+              </StackPanel>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml);
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "new Microsoft.UI.Xaml.Controls.CheckBox()");
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success");
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Controls.ScrollBarVisibility.Auto");
+        StringAssert.Contains(result.GeneratedSource, ".PrimaryCommands.Add(");
+    }
 }

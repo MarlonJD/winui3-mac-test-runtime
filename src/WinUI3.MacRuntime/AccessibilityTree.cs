@@ -50,6 +50,26 @@ public static class AccessibilityTreeBuilder
             return "button";
         }
 
+        if (typeName.EndsWith(".AppBarButton", StringComparison.Ordinal))
+        {
+            return "button";
+        }
+
+        if (typeName.EndsWith(".CheckBox", StringComparison.Ordinal))
+        {
+            return "checkbox";
+        }
+
+        if (typeName.EndsWith(".RadioButton", StringComparison.Ordinal))
+        {
+            return "radio";
+        }
+
+        if (typeName.EndsWith(".ToggleButton", StringComparison.Ordinal))
+        {
+            return "toggle-button";
+        }
+
         if (typeName.EndsWith(".TextBlock", StringComparison.Ordinal))
         {
             return "text";
@@ -63,6 +83,33 @@ public static class AccessibilityTreeBuilder
         if (typeName.EndsWith(".NavigationView", StringComparison.Ordinal))
         {
             return "navigation";
+        }
+
+        if (typeName.EndsWith(".ComboBox", StringComparison.Ordinal))
+        {
+            return "combobox";
+        }
+
+        if (typeName.EndsWith(".ListView", StringComparison.Ordinal) ||
+            typeName.EndsWith(".ItemsControl", StringComparison.Ordinal))
+        {
+            return "list";
+        }
+
+        if (typeName.EndsWith(".ProgressBar", StringComparison.Ordinal) ||
+            typeName.EndsWith(".ProgressRing", StringComparison.Ordinal))
+        {
+            return "progress";
+        }
+
+        if (typeName.EndsWith(".InfoBar", StringComparison.Ordinal))
+        {
+            return "status";
+        }
+
+        if (typeName.EndsWith(".CommandBar", StringComparison.Ordinal))
+        {
+            return "toolbar";
         }
 
         if (typeName.EndsWith(".NavigationViewItem", StringComparison.Ordinal))

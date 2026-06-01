@@ -35,6 +35,16 @@ public class Control : FrameworkElement
         new List<Microsoft.UI.Xaml.Input.KeyboardAccelerator>();
 }
 
+public class ContentControl : Control
+{
+    public object? Content { get; set; }
+}
+
+public class ItemsControl : Control
+{
+    public IList<object?> Items { get; } = new List<object?>();
+}
+
 public class Frame : Control
 {
     public object? Content { get; set; }
@@ -73,6 +83,27 @@ public class Button : Control
     }
 }
 
+public class AppBarButton : Button
+{
+    public string? Label { get; set; }
+
+    public object? Icon { get; set; }
+}
+
+public class ToggleButton : Button
+{
+    public bool? IsChecked { get; set; }
+}
+
+public class CheckBox : ToggleButton
+{
+}
+
+public class RadioButton : ToggleButton
+{
+    public string? GroupName { get; set; }
+}
+
 public class TextBlock : FrameworkElement
 {
     public string? Text { get; set; }
@@ -88,9 +119,82 @@ public class Image : Control
     public object? Source { get; set; }
 }
 
-public class ListView : Control
+public class ListView : ItemsControl
 {
-    public IList<object?> Items { get; } = new List<object?>();
+}
+
+public class ComboBox : ItemsControl
+{
+    private int selectedIndex = -1;
+
+    public string? PlaceholderText { get; set; }
+
+    public int SelectedIndex
+    {
+        get => selectedIndex;
+        set
+        {
+            selectedIndex = value;
+            SelectedItem = value >= 0 && value < Items.Count ? Items[value] : null;
+        }
+    }
+
+    public object? SelectedItem { get; set; }
+}
+
+public enum ScrollBarVisibility
+{
+    Disabled,
+    Auto,
+    Hidden,
+    Visible
+}
+
+public class ScrollViewer : Control
+{
+    public object? Content { get; set; }
+
+    public ScrollBarVisibility VerticalScrollBarVisibility { get; set; } = ScrollBarVisibility.Auto;
+}
+
+public class ProgressRing : Control
+{
+    public bool IsActive { get; set; }
+}
+
+public class ProgressBar : Control
+{
+    public double Minimum { get; set; }
+
+    public double Maximum { get; set; } = 100;
+
+    public double Value { get; set; }
+
+    public bool IsIndeterminate { get; set; }
+}
+
+public enum InfoBarSeverity
+{
+    Informational,
+    Success,
+    Warning,
+    Error
+}
+
+public class InfoBar : Control
+{
+    public string? Title { get; set; }
+
+    public string? Message { get; set; }
+
+    public InfoBarSeverity Severity { get; set; } = InfoBarSeverity.Informational;
+
+    public bool IsOpen { get; set; } = true;
+}
+
+public class CommandBar : Control
+{
+    public IList<object?> PrimaryCommands { get; } = new List<object?>();
 }
 
 public class StackPanel : FrameworkElement

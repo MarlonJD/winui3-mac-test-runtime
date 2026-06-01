@@ -106,6 +106,13 @@ public static class UiTreeBuilder
             case Page page:
                 AddChild(page.Content, children);
                 break;
+            case ContentControl contentControl:
+                AddChild(contentControl.Content, children);
+                break;
+            case ScrollViewer scrollViewer:
+                properties["verticalScrollBarVisibility"] = scrollViewer.VerticalScrollBarVisibility.ToString();
+                AddChild(scrollViewer.Content, children);
+                break;
             case StackPanel stackPanel:
                 properties["orientation"] = stackPanel.Orientation.ToString();
                 properties["childCount"] = stackPanel.Children.Count;
@@ -138,6 +145,14 @@ public static class UiTreeBuilder
                 properties["sourcePageType"] = frame.SourcePageType?.FullName;
                 AddChild(frame.Content, children);
                 break;
+            case CommandBar commandBar:
+                properties["primaryCommandCount"] = commandBar.PrimaryCommands.Count;
+                foreach (var command in commandBar.PrimaryCommands)
+                {
+                    AddChild(command, children);
+                }
+
+                break;
             case NavigationView navigationView:
                 properties["menuItemCount"] = navigationView.MenuItems.Count;
                 properties["paneDisplayMode"] = navigationView.PaneDisplayMode;
@@ -157,11 +172,44 @@ public static class UiTreeBuilder
                 properties["content"] = navigationViewItem.Content is UIElement ? null : navigationViewItem.Content?.ToString();
                 AddChild(navigationViewItem.Content, children);
                 break;
+            case AppBarButton appBarButton:
+                properties["label"] = appBarButton.Label;
+                properties["content"] = appBarButton.Content is UIElement ? null : appBarButton.Content?.ToString();
+                AddChild(appBarButton.Icon, children);
+                AddChild(appBarButton.Content, children);
+                break;
+            case RadioButton radioButton:
+                properties["isChecked"] = radioButton.IsChecked;
+                properties["groupName"] = radioButton.GroupName;
+                properties["content"] = radioButton.Content is UIElement ? null : radioButton.Content?.ToString();
+                AddChild(radioButton.Content, children);
+                break;
+            case CheckBox checkBox:
+                properties["isChecked"] = checkBox.IsChecked;
+                properties["content"] = checkBox.Content is UIElement ? null : checkBox.Content?.ToString();
+                AddChild(checkBox.Content, children);
+                break;
+            case ToggleButton toggleButton:
+                properties["isChecked"] = toggleButton.IsChecked;
+                properties["content"] = toggleButton.Content is UIElement ? null : toggleButton.Content?.ToString();
+                AddChild(toggleButton.Content, children);
+                break;
             case TextBlock textBlock:
                 properties["text"] = textBlock.Text;
                 break;
             case TextBox textBox:
                 properties["text"] = textBox.Text;
+                break;
+            case ComboBox comboBox:
+                properties["itemCount"] = comboBox.Items.Count;
+                properties["placeholderText"] = comboBox.PlaceholderText;
+                properties["selectedIndex"] = comboBox.SelectedIndex;
+                properties["selectedItem"] = comboBox.SelectedItem?.ToString();
+                foreach (var item in comboBox.Items)
+                {
+                    AddChild(item, children);
+                }
+
                 break;
             case Button button:
                 properties["content"] = button.Content is UIElement ? null : button.Content?.ToString();
@@ -174,9 +222,24 @@ public static class UiTreeBuilder
             case Image image:
                 properties["source"] = image.Source?.ToString();
                 break;
-            case ListView listView:
-                properties["itemCount"] = listView.Items.Count;
-                foreach (var item in listView.Items)
+            case ProgressRing progressRing:
+                properties["isActive"] = progressRing.IsActive;
+                break;
+            case ProgressBar progressBar:
+                properties["minimum"] = progressBar.Minimum;
+                properties["maximum"] = progressBar.Maximum;
+                properties["value"] = progressBar.Value;
+                properties["isIndeterminate"] = progressBar.IsIndeterminate;
+                break;
+            case InfoBar infoBar:
+                properties["title"] = infoBar.Title;
+                properties["message"] = infoBar.Message;
+                properties["severity"] = infoBar.Severity.ToString();
+                properties["isOpen"] = infoBar.IsOpen;
+                break;
+            case ItemsControl itemsControl:
+                properties["itemCount"] = itemsControl.Items.Count;
+                foreach (var item in itemsControl.Items)
                 {
                     AddChild(item, children);
                 }

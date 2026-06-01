@@ -43,6 +43,8 @@ public static class ElementQuery
             Window window => One(window.Content),
             Page page => One(page.Content),
             UserControl userControl => One(userControl.Content),
+            ContentControl contentControl => One(contentControl.Content),
+            ScrollViewer scrollViewer => One(scrollViewer.Content),
             Border border => One(border.Child),
             Button button => One(button.Content),
             Frame frame => One(frame.Content),
@@ -50,7 +52,8 @@ public static class ElementQuery
             Grid grid => grid.Children,
             NavigationView navigationView => navigationView.MenuItems.Concat(One(navigationView.PaneFooter)).Concat(One(navigationView.Content)),
             NavigationViewItem item => One(item.Content).Concat(One(item.Icon)),
-            ListView listView => listView.Items,
+            CommandBar commandBar => commandBar.PrimaryCommands,
+            ItemsControl itemsControl => itemsControl.Items,
             _ => Array.Empty<object?>()
         };
     }
