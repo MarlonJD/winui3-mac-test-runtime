@@ -192,6 +192,9 @@ jobs:
               --scale "$($scenarioJson.scale)" `
               --theme $scenarioJson.theme `
               -- $fixtureExecutable --scenario $fixtureScenarioPath
+            if ($LASTEXITCODE -ne 0) {
+              throw "Native WinUI reference capture failed for $($scenario.Name) with exit code $LASTEXITCODE."
+            }
             if (!(Test-Path "$outDir/windows-reference.png")) {
               throw "Windows reference screenshot was not created for $($scenario.Name)."
             }
@@ -201,7 +204,47 @@ jobs:
             }
           }
 
+      - name: Dump native WinUI launch diagnostics
+        if: failure()
+        shell: pwsh
+        run: |
+          $diagnosticRoot = "artifacts/windows-native-launch-diagnostics"
+          New-Item -ItemType Directory -Force $diagnosticRoot | Out-Null
+
+          $startTime = (Get-Date).AddMinutes(-20)
+          Get-WinEvent -FilterHashtable @{ LogName = "Application"; StartTime = $startTime } -ErrorAction SilentlyContinue |
+            Where-Object {
+              $_.LevelDisplayName -in @("Critical", "Error") -or
+              $_.ProviderName -in @("Application Error", ".NET Runtime", "Windows Error Reporting")
+            } |
+            Select-Object TimeCreated, ProviderName, Id, LevelDisplayName, Message |
+            Format-List |
+            Tee-Object (Join-Path $diagnosticRoot "application-events.txt")
+
+          Get-AppxPackage -Name "Microsoft.WindowsAppRuntime.1.7" -ErrorAction SilentlyContinue |
+            Select-Object Name, Version, PackageFullName, InstallLocation |
+            Format-List |
+            Tee-Object (Join-Path $diagnosticRoot "windows-app-runtime-packages.txt")
+
+          Get-ChildItem fixtures/PublicAdminWorkbench.WinUI/bin/Release -Recurse -File -ErrorAction SilentlyContinue |
+            Select-Object FullName, Length |
+            Format-Table -AutoSize |
+            Tee-Object (Join-Path $diagnosticRoot "public-admin-output-files.txt")
+
+          Get-ChildItem fixtures/ComponentParityLab.WinUI/bin/Release -Recurse -File -ErrorAction SilentlyContinue |
+            Select-Object FullName, Length |
+            Format-Table -AutoSize |
+            Tee-Object (Join-Path $diagnosticRoot "component-lab-output-files.txt")
+
+      - name: Upload native WinUI launch diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-native-launch-diagnostics
+          path: artifacts/windows-native-launch-diagnostics
+
       - name: Upload Windows references
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: windows-reference-screenshots
