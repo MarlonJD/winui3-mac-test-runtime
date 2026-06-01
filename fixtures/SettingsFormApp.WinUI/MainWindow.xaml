@@ -1,0 +1,39 @@
+<Window
+    x:Class="SettingsFormApp.WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Settings Form">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="SettingsPanel" Padding="24,20,24,24" Spacing="16">
+            <TextBlock x:Name="HeadingText" Text="Profile settings" />
+            <StackPanel Spacing="6">
+                <TextBlock Text="Display name" />
+                <TextBox
+                    x:Name="DisplayNameTextBox"
+                    AutomationProperties.Name="Display name"
+                    Text="{Binding Path=DisplayName, Mode=TwoWay}" />
+            </StackPanel>
+            <StackPanel Spacing="6">
+                <TextBlock Text="Notifications" />
+                <CheckBox x:Name="NotificationsCheckBox" Content="Enable notifications" IsChecked="True" />
+            </StackPanel>
+            <StackPanel Spacing="6">
+                <TextBlock Text="Theme" />
+                <ComboBox x:Name="ThemeComboBox" PlaceholderText="Theme" SelectedIndex="0">
+                    <ComboBox.Items>
+                        <TextBlock Text="Light" />
+                        <TextBlock Text="Dark" />
+                        <TextBlock Text="High contrast" />
+                    </ComboBox.Items>
+                </ComboBox>
+            </StackPanel>
+            <Button x:Name="SaveButton" Content="Save settings" Click="OnSaveClicked" />
+            <InfoBar
+                x:Name="SaveStatus"
+                IsOpen="True"
+                Title="Ready"
+                Message="No private data is used in this public fixture."
+                Severity="Informational" />
+        </StackPanel>
+    </ScrollViewer>
+</Window>

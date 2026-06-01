@@ -26,9 +26,148 @@ internal static class Cli
         {
             "doctor" => RunDoctor(args[1..]),
             "run" => await RunProjectAsync(args[1..]),
+            "ingest" => RunIngest(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
         };
+    }
+
+    private static int RunIngest(string[] args)
+    {
+        var manifestPath = ReadOption(args, "--manifest");
+        if (manifestPath is null)
+        {
+            Console.Error.WriteLine("Missing required option: --manifest <path>");
+            return 2;
+        }
+
+        var configuration = ReadOption(args, "--configuration") ?? "Debug";
+        var outputDirectory = ReadOption(args, "--output");
+        var baselineDirectoryOption = ReadOption(args, "--baseline-dir");
+        var check = HasOption(args, "--check");
+        var writeBaseline = HasOption(args, "--write-baseline");
+
+        try
+        {
+            var result = new CorpusInventoryService().Generate(manifestPath, configuration);
+            var inventoryJson = JsonSerializer.Serialize(result.Inventory, JsonDefaults.Options);
+            var unknownJson = JsonSerializer.Serialize(result.Unknown, JsonDefaults.Options);
+            var summaryJson = JsonSerializer.Serialize(result.Summary, JsonDefaults.Options);
+
+            if (outputDirectory is not null)
+            {
+                var outputRoot = Path.GetFullPath(outputDirectory);
+                Directory.CreateDirectory(outputRoot);
+                File.WriteAllText(Path.Combine(outputRoot, "corpus-inventory.json"), inventoryJson);
+                File.WriteAllText(Path.Combine(outputRoot, "corpus-unknown-apis.json"), unknownJson);
+                File.WriteAllText(Path.Combine(outputRoot, "corpus-summary.json"), summaryJson);
+            }
+
+            Console.WriteLine($"Corpus apps: {result.Summary.AppCount}");
+            Console.WriteLine($"Discovered surfaces: {result.Summary.EntryCount}");
+            Console.WriteLine($"Unknown surfaces: {result.Summary.UnknownCount}");
+            foreach (var status in result.Summary.StatusCounts)
+            {
+                Console.WriteLine($"  status {status.Key}: {status.Value}");
+            }
+
+            foreach (var app in result.Summary.Apps)
+            {
+                Console.WriteLine(
+                    $"  [{app.IngestionStatus}] {app.Id} ({app.Category}) tfm={app.TargetFramework} xaml={app.XamlFileCount} assets={app.Assets.Count}");
+            }
+
+            var baselineDirectory = baselineDirectoryOption is not null
+                ? Path.GetFullPath(baselineDirectoryOption)
+                : Path.Combine(FindRepositoryRoot(manifestPath), "docs", "compatibility");
+            var inventoryBaseline = Path.Combine(baselineDirectory, "corpus-inventory.json");
+            var unknownBaseline = Path.Combine(baselineDirectory, "corpus-unknown-apis.json");
+
+            if (writeBaseline)
+            {
+                Directory.CreateDirectory(baselineDirectory);
+                File.WriteAllText(inventoryBaseline, inventoryJson + Environment.NewLine);
+                File.WriteAllText(unknownBaseline, unknownJson + Environment.NewLine);
+                Console.WriteLine($"Wrote baseline: {inventoryBaseline}");
+                Console.WriteLine($"Wrote baseline: {unknownBaseline}");
+            }
+
+            var failedApps = result.Summary.Apps
+                .Where(app => app.IngestionStatus != "passed")
+                .Select(app => app.Id)
+                .ToArray();
+            if (failedApps.Length > 0)
+            {
+                Console.Error.WriteLine($"Corpus ingestion failed for: {string.Join(", ", failedApps)}");
+                return 1;
+            }
+
+            if (check)
+            {
+                var problems = new List<string>();
+                if (result.Summary.UnknownCount > 0)
+                {
+                    problems.Add($"{result.Summary.UnknownCount} discovered surface(s) are not classified in the compatibility catalog.");
+                }
+
+                problems.AddRange(CompareBaseline("corpus-inventory.json", inventoryBaseline, inventoryJson));
+                problems.AddRange(CompareBaseline("corpus-unknown-apis.json", unknownBaseline, unknownJson));
+                if (problems.Count > 0)
+                {
+                    foreach (var problem in problems)
+                    {
+                        Console.Error.WriteLine($"corpus --check: {problem}");
+                    }
+
+                    Console.Error.WriteLine("Run `ingest --write-baseline` after reviewing the corpus surface change.");
+                    return 1;
+                }
+
+                Console.WriteLine("corpus --check: inventory and unknown report match the tracked baseline.");
+            }
+
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+            return 1;
+        }
+    }
+
+    private static IEnumerable<string> CompareBaseline(string name, string baselinePath, string generatedJson)
+    {
+        if (!File.Exists(baselinePath))
+        {
+            return new[] { $"{name} baseline is missing at {baselinePath}." };
+        }
+
+        var committed = NormalizeJson(File.ReadAllText(baselinePath));
+        var generated = NormalizeJson(generatedJson);
+        return string.Equals(committed, generated, StringComparison.Ordinal)
+            ? Array.Empty<string>()
+            : new[] { $"{name} drifted from the tracked baseline." };
+    }
+
+    private static string NormalizeJson(string value)
+    {
+        return value.Replace("\r\n", "\n", StringComparison.Ordinal).TrimEnd('\n');
+    }
+
+    private static string FindRepositoryRoot(string startPath)
+    {
+        var directory = new DirectoryInfo(Path.GetDirectoryName(Path.GetFullPath(startPath))!);
+        while (directory is not null)
+        {
+            if (File.Exists(Path.Combine(directory.FullName, "WinUI3.MacTestRuntime.sln")))
+            {
+                return directory.FullName;
+            }
+
+            directory = directory.Parent;
+        }
+
+        return Environment.CurrentDirectory;
     }
 
     private static int RunDoctor(string[] args)
@@ -309,6 +448,8 @@ internal static class Cli
         Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>] [--renderer svg|skia|skia-v2]");
         Console.WriteLine("      [--scenario <path>] [--viewport <width>x<height>] [--scale <number>] [--theme light|dark]");
         Console.WriteLine("      [--strict-visual] [--reference <path>] [--diff-output <dir>]");
+        Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
+        Console.WriteLine("      [--check] [--write-baseline]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");
     }
 }

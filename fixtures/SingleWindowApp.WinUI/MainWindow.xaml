@@ -1,0 +1,15 @@
+<Window
+    x:Class="SingleWindowApp.WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Single Window App">
+    <StackPanel Padding="24,20,24,24" Spacing="12">
+        <TextBlock x:Name="HeadingText" Text="Single window workbench" />
+        <TextBlock Text="A minimal single-window public WinUI 3 fixture with no navigation shell." />
+        <TextBox
+            x:Name="NoteTextBox"
+            AutomationProperties.Name="Public note"
+            Text="No private data is used in this public fixture." />
+        <Button x:Name="PrimaryButton" Content="Continue" Click="OnContinueClicked" />
+    </StackPanel>
+</Window>

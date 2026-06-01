@@ -9,6 +9,8 @@ public static class ArtifactSchemas
     public const string Accessibility = "0.2";
     public const string BindingFailures = "0.1";
     public const string ComponentEvidence = "0.1";
+    public const string CorpusInventory = "0.1";
+    public const string CorpusSummary = "0.1";
     public const string DoctorReport = "0.1";
     public const string InteractionReport = "0.1";
     public const string InteractionScript = "0.1";

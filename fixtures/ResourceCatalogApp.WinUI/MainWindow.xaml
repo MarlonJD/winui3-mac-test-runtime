@@ -1,0 +1,32 @@
+<Window
+    x:Class="ResourceCatalogApp.WinUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Resource Catalog">
+    <StackPanel x:Name="CatalogRoot" Padding="24,20,24,24" Spacing="12">
+        <StackPanel.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.ThemeDictionaries>
+                    <ResourceDictionary x:Key="Light">
+                        <SolidColorBrush x:Key="CatalogAccentBrush" Color="#2562D9" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="Dark">
+                        <SolidColorBrush x:Key="CatalogAccentBrush" Color="#7CA7FF" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="HighContrast">
+                        <SolidColorBrush x:Key="CatalogAccentBrush" Color="#FFFF00" />
+                    </ResourceDictionary>
+                </ResourceDictionary.ThemeDictionaries>
+                <SolidColorBrush x:Key="CatalogAccentBrush" Color="#2562D9" />
+                <Style x:Key="HeadingTextStyle" TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="#2562D9" />
+                </Style>
+            </ResourceDictionary>
+        </StackPanel.Resources>
+        <TextBlock x:Name="HeadingText" Text="Resource catalog" Style="{StaticResource HeadingTextStyle}" />
+        <TextBlock x:Name="AccentText" Text="Theme-aware accent token" Foreground="{ThemeResource CatalogAccentBrush}" />
+        <Border x:Name="AccentSurface" CornerRadius="8" Background="{StaticResource CatalogAccentBrush}">
+            <TextBlock Text="Accent surface uses a static resource brush." />
+        </Border>
+    </StackPanel>
+</Window>

@@ -761,6 +761,72 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void CorpusInventoryClassifiesEveryDiscoveredSurfaceWithoutUnknowns()
+    {
+        var manifestPath = Path.Combine(FindRepositoryRoot(), "fixtures", "corpus.json");
+
+        var result = new CorpusInventoryService().Generate(manifestPath, "Debug");
+
+        Assert.IsTrue(
+            result.Summary.Apps.All(app => app.IngestionStatus == "passed"),
+            "Every corpus app must ingest through the compat shadow build without blocking diagnostics.");
+        Assert.HasCount(0, result.Unknown.Entries, "Every discovered corpus surface must be classified in the catalog.");
+        Assert.IsGreaterThan(0, result.Inventory.Entries.Count);
+
+        var knownStatuses = new[]
+        {
+            CompatibilityStatuses.Supported,
+            CompatibilityStatuses.Partial,
+            CompatibilityStatuses.Planned,
+            CompatibilityStatuses.WindowsOnly,
+            CompatibilityStatuses.NotSupported
+        };
+        foreach (var entry in result.Inventory.Entries)
+        {
+            CollectionAssert.Contains(
+                knownStatuses,
+                entry.Status,
+                $"Discovered surface '{entry.Kind} {entry.Construct}' has unexpected status '{entry.Status}'.");
+            Assert.IsGreaterThan(0, entry.UsedBy.Count);
+        }
+
+        AssertCorpusEntry(result.Inventory, "xaml-element", "Window", CompatibilityStatuses.Supported);
+        AssertCorpusEntry(result.Inventory, "xaml-element", "NavigationView", CompatibilityStatuses.Partial);
+        AssertCorpusEntry(result.Inventory, "xaml-resource", "ThemeResource", CompatibilityStatuses.Partial);
+        AssertCorpusEntry(result.Inventory, "xaml-markup", "Binding", CompatibilityStatuses.Partial);
+        AssertCorpusEntry(result.Inventory, "project-item", "Microsoft.WindowsAppSDK", CompatibilityStatuses.WindowsOnly);
+    }
+
+    [TestMethod]
+    public void CorpusInventoryMatchesTrackedBaseline()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var manifestPath = Path.Combine(repositoryRoot, "fixtures", "corpus.json");
+        var compatibilityDirectory = Path.Combine(repositoryRoot, "docs", "compatibility");
+
+        var result = new CorpusInventoryService().Generate(manifestPath, "Debug");
+
+        AssertMatchesBaseline(
+            Path.Combine(compatibilityDirectory, "corpus-inventory.json"),
+            JsonSerializer.Serialize(result.Inventory, JsonDefaults.Options));
+        AssertMatchesBaseline(
+            Path.Combine(compatibilityDirectory, "corpus-unknown-apis.json"),
+            JsonSerializer.Serialize(result.Unknown, JsonDefaults.Options));
+    }
+
+    [TestMethod]
+    public void CorpusInventoryGenerationIsDeterministic()
+    {
+        var manifestPath = Path.Combine(FindRepositoryRoot(), "fixtures", "corpus.json");
+        var service = new CorpusInventoryService();
+
+        var first = JsonSerializer.Serialize(service.Generate(manifestPath, "Debug").Inventory, JsonDefaults.Options);
+        var second = JsonSerializer.Serialize(service.Generate(manifestPath, "Debug").Inventory, JsonDefaults.Options);
+
+        Assert.AreEqual(first, second);
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineExportsDeterministicLayout()
     {
         var window = new Window
@@ -882,6 +948,28 @@ public sealed class MacRuntimeTests
         }
 
         throw new InvalidOperationException("Repository root was not found.");
+    }
+
+    private static void AssertCorpusEntry(
+        CorpusInventoryDocument inventory,
+        string kind,
+        string construct,
+        string expectedStatus)
+    {
+        var entry = inventory.Entries.SingleOrDefault(item => item.Kind == kind && item.Construct == construct)
+            ?? throw new AssertFailedException($"Corpus inventory is missing '{kind} {construct}'.");
+        Assert.AreEqual(expectedStatus, entry.Status);
+    }
+
+    private static void AssertMatchesBaseline(string baselinePath, string generatedJson)
+    {
+        Assert.IsTrue(File.Exists(baselinePath), $"Missing tracked corpus baseline '{baselinePath}'.");
+        var committed = File.ReadAllText(baselinePath).Replace("\r\n", "\n", StringComparison.Ordinal).TrimEnd('\n');
+        var generated = generatedJson.Replace("\r\n", "\n", StringComparison.Ordinal).TrimEnd('\n');
+        Assert.AreEqual(
+            committed,
+            generated,
+            $"Corpus baseline '{Path.GetFileName(baselinePath)}' drifted; run `ingest --write-baseline` after review.");
     }
 
     private static void WriteSolidPng(string path, SKColor color)

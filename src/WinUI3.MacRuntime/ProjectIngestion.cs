@@ -5,6 +5,12 @@ using WinUI3.MacCompatibility;
 
 namespace WinUI3.MacRuntime;
 
+public static class ProjectIngestionStatuses
+{
+    public const string Passed = "passed";
+    public const string Failed = "failed";
+}
+
 public sealed record ProjectIngestionBuildPlan(
     string BuildProjectPath,
     ProjectIngestionReport? Report,
@@ -86,33 +92,13 @@ public sealed class ProjectIngestionService
         Directory.CreateDirectory(shadowDirectory);
 
         var reportPath = Path.Combine(outputRoot, "project-ingestion.json");
-        var includedFiles = model.SourceFiles
-            .Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "compile"))
-            .Concat(model.XamlFiles.Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "xaml")))
-            .OrderBy(item => item.Path, StringComparer.Ordinal)
-            .ToArray();
-        var excludedItems = BuildExcludedItems(model);
-        var catalogStatuses = BuildCatalogStatuses(model);
-        var unsupportedFeatures = BuildUnsupportedFeatures(model);
-        var xamlDiagnostics = BuildXamlDiagnostics(model, configuration);
-
         var shadowProjectPath = Path.Combine(shadowDirectory, Path.GetFileName(projectPath));
-        var hasBlockingDiagnostics =
-            unsupportedFeatures.Any(feature => !CompatibilityStatuses.IsAvailableOnMac(feature.Status)) ||
-            xamlDiagnostics.Any(diagnostic => diagnostic.Severity == "Error");
-        var report = new ProjectIngestionReport(
-            SchemaVersion: ArtifactSchemas.ProjectIngestion,
-            Status: hasBlockingDiagnostics ? "failed" : "passed",
-            SourceProjectPath: Path.GetFullPath(projectPath),
-            ShadowProjectPath: hasBlockingDiagnostics ? null : shadowProjectPath,
-            IsShadowBuild: true,
-            TargetFramework: model.TargetFramework,
-            IsWindowsTargetedWinUI: true,
-            IncludedFiles: includedFiles,
-            ExcludedWindowsOnlyItems: excludedItems,
-            CatalogStatuses: catalogStatuses,
-            UnsupportedFeatures: unsupportedFeatures,
-            XamlDiagnostics: xamlDiagnostics);
+        var report = BuildDiscoveryReport(model, configuration);
+        var hasBlockingDiagnostics = report.Status == ProjectIngestionStatuses.Failed;
+        if (!hasBlockingDiagnostics)
+        {
+            report = report with { ShadowProjectPath = shadowProjectPath };
+        }
 
         await File.WriteAllTextAsync(reportPath, JsonSerializer.Serialize(report, JsonDefaults.Options), cancellationToken);
         if (hasBlockingDiagnostics)
@@ -125,10 +111,50 @@ public sealed class ProjectIngestionService
             ShadowProjectWriter.Write(model, shadowDirectory, configuration),
             cancellationToken);
 
-        report = report with { ShadowProjectPath = shadowProjectPath };
         await File.WriteAllTextAsync(reportPath, JsonSerializer.Serialize(report, JsonDefaults.Options), cancellationToken);
 
         return new ProjectIngestionBuildPlan(shadowProjectPath, report, reportPath, RequiresRestore: true);
+    }
+
+    /// <summary>
+    /// Runs project ingestion discovery only: it classifies project metadata and XAML without
+    /// generating or building a compat shadow project, and never throws on blocking diagnostics.
+    /// Returns <c>null</c> when the project is not a Windows-targeted WinUI project.
+    /// </summary>
+    public ProjectIngestionReport? Inspect(string projectPath, string configuration)
+    {
+        var model = ProjectModel.Read(projectPath);
+        return model.IsWindowsTargetedWinUI ? BuildDiscoveryReport(model, configuration) : null;
+    }
+
+    private static ProjectIngestionReport BuildDiscoveryReport(ProjectModel model, string configuration)
+    {
+        var includedFiles = model.SourceFiles
+            .Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "compile"))
+            .Concat(model.XamlFiles.Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "xaml")))
+            .OrderBy(item => item.Path, StringComparer.Ordinal)
+            .ToArray();
+        var excludedItems = BuildExcludedItems(model);
+        var catalogStatuses = BuildCatalogStatuses(model);
+        var unsupportedFeatures = BuildUnsupportedFeatures(model);
+        var xamlDiagnostics = BuildXamlDiagnostics(model, configuration);
+        var hasBlockingDiagnostics =
+            unsupportedFeatures.Any(feature => !CompatibilityStatuses.IsAvailableOnMac(feature.Status)) ||
+            xamlDiagnostics.Any(diagnostic => diagnostic.Severity == "Error");
+
+        return new ProjectIngestionReport(
+            SchemaVersion: ArtifactSchemas.ProjectIngestion,
+            Status: hasBlockingDiagnostics ? ProjectIngestionStatuses.Failed : ProjectIngestionStatuses.Passed,
+            SourceProjectPath: model.ProjectPath,
+            ShadowProjectPath: null,
+            IsShadowBuild: true,
+            TargetFramework: model.TargetFramework,
+            IsWindowsTargetedWinUI: true,
+            IncludedFiles: includedFiles,
+            ExcludedWindowsOnlyItems: excludedItems,
+            CatalogStatuses: catalogStatuses,
+            UnsupportedFeatures: unsupportedFeatures,
+            XamlDiagnostics: xamlDiagnostics);
     }
 
     private static ProjectIngestionExcludedItem[] BuildExcludedItems(ProjectModel model)

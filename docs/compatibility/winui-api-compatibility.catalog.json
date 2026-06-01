@@ -629,6 +629,17 @@
       "notes": "Generates a partial class."
     },
     {
+      "id": "xaml-directive:x:Key",
+      "kind": "xaml-directive",
+      "status": "supported",
+      "area": "resources",
+      "api": "x:Key",
+      "xamlElement": "None",
+      "xamlProperty": "Key",
+      "parityStage": "alpha",
+      "notes": "Resource and item keys are read for dictionary entries, theme dictionaries, and styles."
+    },
+    {
       "id": "xaml-directive:x:Name",
       "kind": "xaml-directive",
       "status": "supported",
@@ -982,6 +993,15 @@
       "notes": "Handler hookup supported."
     },
     {
+      "id": "xaml-markup:Binding",
+      "kind": "xaml-markup",
+      "status": "partial",
+      "area": "binding",
+      "api": "Binding",
+      "parityStage": "alpha",
+      "notes": "One-way and two-way {Binding} markup is resolved for the supported property subset; {x:Bind} remains planned."
+    },
+    {
       "id": "xaml-property-element:Control.Template",
       "kind": "xaml-property-element",
       "status": "planned",
@@ -1056,6 +1076,33 @@
       "notes": "Property exists as an object slot; material behavior is not implemented."
     },
     {
+      "id": "xaml-resource:ResourceDictionary.MergedDictionaries",
+      "kind": "xaml-resource",
+      "status": "partial",
+      "area": "resources",
+      "api": "ResourceDictionary.MergedDictionaries",
+      "parityStage": "alpha",
+      "notes": "Merged dictionaries are recognized; XamlControlsResources is tracked as a present marker rather than a loaded Fluent dictionary."
+    },
+    {
+      "id": "xaml-resource:ResourceDictionary.ThemeDictionaries",
+      "kind": "xaml-resource",
+      "status": "supported",
+      "area": "resources",
+      "api": "ResourceDictionary.ThemeDictionaries",
+      "parityStage": "alpha",
+      "notes": "Light, Dark, and HighContrast theme dictionaries are resolved against the active scenario theme."
+    },
+    {
+      "id": "xaml-resource:SolidColorBrush",
+      "kind": "xaml-resource",
+      "status": "partial",
+      "area": "resources",
+      "api": "SolidColorBrush",
+      "parityStage": "alpha",
+      "notes": "SolidColorBrush resources are stored and resolved as color tokens; full brush object modeling is planned."
+    },
+    {
       "id": "xaml-resource:StaticResource",
       "kind": "xaml-resource",
       "status": "partial",
@@ -1081,6 +1128,15 @@
       "api": "ThemeResource",
       "parityStage": "semantic-compatible",
       "notes": "Simple lookup supported; full Fluent theme dictionary mapping is planned."
+    },
+    {
+      "id": "xaml-resource:XamlControlsResources",
+      "kind": "xaml-resource",
+      "status": "partial",
+      "area": "resources",
+      "api": "XamlControlsResources",
+      "parityStage": "alpha",
+      "notes": "XamlControlsResources is recognized as a present merged-dictionary marker; the real Fluent dictionary is not loaded."
     }
   ]
 }

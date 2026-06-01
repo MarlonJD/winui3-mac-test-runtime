@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "0.1",
+  "description": "Curated public, clean-room WinUI 3 application corpus with varied project shapes. Every app is ingested through the macOS compat shadow build for deterministic API, XAML, resource, asset, and project-ingestion inventory. No private product names, repositories, or screenshots are used as evidence.",
+  "apps": [
+    {
+      "id": "production-smoke",
+      "name": "Production Smoke Workbench",
+      "project": "ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj",
+      "category": "navigation-shell",
+      "tier": "production-subset",
+      "provenance": "clean-room",
+      "owner": "Evidence corpus owner",
+      "exitCriteria": "Ingests through the compat shadow build with zero blocking diagnostics, zero unknown surface, and native WinUI reference scenarios; advances PB-007 and PB-008.",
+      "description": "Navigation shell with MVVM form inputs, command surfaces, list/items controls, status controls, and light/dark/high-contrast theme dictionaries."
+    },
+    {
+      "id": "public-admin-workbench",
+      "name": "Public Admin Workbench",
+      "project": "PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
+      "category": "navigation-shell",
+      "tier": "production-subset",
+      "provenance": "clean-room",
+      "owner": "Evidence corpus owner",
+      "exitCriteria": "Ingests through the compat shadow build with zero blocking diagnostics, zero unknown surface, and native WinUI reference scenarios; advances PB-007 and PB-008.",
+      "description": "Navigation shell with pane footer account surface, command bar decisions, review queue list, and localization metadata via x:Uid."
+    },
+    {
+      "id": "single-window",
+      "name": "Single Window App",
+      "project": "SingleWindowApp.WinUI/SingleWindowApp.WinUI.csproj",
+      "category": "single-window",
+      "tier": "production-subset",
+      "provenance": "clean-room",
+      "owner": "Project ingestion owner",
+      "exitCriteria": "Ingests through the compat shadow build with zero blocking diagnostics and zero unknown surface; advances PB-007.",
+      "description": "Minimal single-window layout with no navigation shell: stack layout, text, text input, automation name, and a click command."
+    },
+    {
+      "id": "settings-form",
+      "name": "Settings Form App",
+      "project": "SettingsFormApp.WinUI/SettingsFormApp.WinUI.csproj",
+      "category": "mvvm-settings-form",
+      "tier": "production-subset",
+      "provenance": "clean-room",
+      "owner": "Project ingestion owner",
+      "exitCriteria": "Ingests through the compat shadow build with zero blocking diagnostics and zero unknown surface; two-way {Binding} resolves against an INotifyPropertyChanged view model; advances PB-007.",
+      "description": "Scrollable settings form with two-way data binding, INotifyPropertyChanged view model, toggle/check input, combo selection, and status info bar."
+    },
+    {
+      "id": "resource-catalog",
+      "name": "Resource Catalog App",
+      "project": "ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj",
+      "category": "resource-heavy",
+      "tier": "production-subset",
+      "provenance": "clean-room",
+      "owner": "Compatibility catalog owner",
+      "exitCriteria": "Ingests through the compat shadow build with zero blocking diagnostics and zero unknown surface; merged dictionaries, theme dictionaries, static/theme resources, styles, and packaging-like assets are classified; advances PB-001 and PB-007.",
+      "description": "Resource-heavy, packaging-like layout with XamlControlsResources merged dictionary, light/dark/high-contrast theme dictionaries, static/theme resource tokens, a style setter, and an Assets content file."
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Private-name denylist for the public winui3-mac-test-runtime surface.
+#
+# One case-insensitive, whole-word term per line. Lines beginning with '#' and
+# blank lines are ignored. The scan fails when any term appears in the tracked
+# public/production surface so private product names never become public
+# compatibility evidence (see docs/plans assumptions and Non-Goals).
+#
+# Scope note: internal planning notes under docs/plans/ and this tool directory
+# are excluded by the scanner; they may discuss private scope (for example,
+# stating that this runtime is intentionally NOT a private-product subset).
+emsi
+izsu

@@ -40,16 +40,23 @@ WinUI 3 macOS development scope.
 ## API Compatibility Catalog
 
 `docs/compatibility/winui-api-compatibility.catalog.json` is the deterministic
-catalog seed used by docs, XAML diagnostics, project ingestion, and placeholder
-facade runtime diagnostics. The current `0.1` catalog contains 114 entries:
+catalog seed used by docs, XAML diagnostics, project ingestion, corpus
+inventory, and placeholder facade runtime diagnostics. The current `0.1` catalog
+contains 120 entries:
 
 | Status | Count |
 | --- | ---: |
-| `supported` | 52 |
-| `partial` | 31 |
+| `supported` | 54 |
+| `partial` | 35 |
 | `planned` | 26 |
 | `windows-only` | 3 |
 | `not supported` | 2 |
+
+The public application corpus (`fixtures/corpus.json`) is ingested into a
+deterministic, classified surface inventory. See
+[`corpus.md`](corpus.md), `corpus-inventory.json`, and `corpus-unknown-apis.json`.
+Every surface the corpus discovers is classified; the tracked unknown report is
+empty.
 
 The catalog includes public WinUI 3 / Windows App SDK APIs, XAML constructs,
 Fluent theme resources, visual states, Mica, Acrylic, system backdrops,

@@ -1,0 +1,499 @@
+{
+  "schemaVersion": "0.1",
+  "generatedFrom": "corpus.json",
+  "apps": [
+    "production-smoke",
+    "public-admin-workbench",
+    "resource-catalog",
+    "settings-form",
+    "single-window"
+  ],
+  "entries": [
+    {
+      "kind": "api",
+      "construct": "Application",
+      "status": "supported",
+      "catalogId": "api:Microsoft.UI.Xaml.Application",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "project-item",
+      "construct": "ApplicationDefinition",
+      "status": "supported",
+      "catalogId": "project-item:ApplicationDefinition",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "project-item",
+      "construct": "Microsoft.WindowsAppSDK",
+      "status": "windows-only",
+      "catalogId": "project-item:Microsoft.WindowsAppSDK",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "project-item",
+      "construct": "Page",
+      "status": "supported",
+      "catalogId": "project-item:Page",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "project-property",
+      "construct": "TargetFramework.windows",
+      "status": "supported",
+      "catalogId": "project-property:TargetFramework.windows",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "project-property",
+      "construct": "UseWinUI",
+      "status": "supported",
+      "catalogId": "project-property:UseWinUI",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "project-property",
+      "construct": "WindowsPackageType",
+      "status": "partial",
+      "catalogId": "project-property:WindowsPackageType",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-attached-property",
+      "construct": "AutomationProperties.Name",
+      "status": "supported",
+      "catalogId": "xaml-attached-property:AutomationProperties.Name",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-attached-property",
+      "construct": "Grid.Column",
+      "status": "supported",
+      "catalogId": "xaml-attached-property:Grid.Column",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-directive",
+      "construct": "x:Class",
+      "status": "supported",
+      "catalogId": "xaml-directive:x:Class",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-directive",
+      "construct": "x:Key",
+      "status": "supported",
+      "catalogId": "xaml-directive:x:Key",
+      "usedBy": [
+        "production-smoke",
+        "resource-catalog"
+      ]
+    },
+    {
+      "kind": "xaml-directive",
+      "construct": "x:Name",
+      "status": "supported",
+      "catalogId": "xaml-directive:x:Name",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-directive",
+      "construct": "x:Uid",
+      "status": "supported",
+      "catalogId": "xaml-directive:x:Uid",
+      "usedBy": [
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "AppBarButton",
+      "status": "supported",
+      "catalogId": "xaml-element:AppBarButton",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "Border",
+      "status": "partial",
+      "catalogId": "xaml-element:Border",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "Button",
+      "status": "supported",
+      "catalogId": "xaml-element:Button",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "CheckBox",
+      "status": "supported",
+      "catalogId": "xaml-element:CheckBox",
+      "usedBy": [
+        "settings-form"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "ComboBox",
+      "status": "supported",
+      "catalogId": "xaml-element:ComboBox",
+      "usedBy": [
+        "production-smoke",
+        "settings-form"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "CommandBar",
+      "status": "supported",
+      "catalogId": "xaml-element:CommandBar",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "FontIcon",
+      "status": "partial",
+      "catalogId": "xaml-element:FontIcon",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "Frame",
+      "status": "supported",
+      "catalogId": "xaml-element:Frame",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "Grid",
+      "status": "partial",
+      "catalogId": "xaml-element:Grid",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "InfoBar",
+      "status": "supported",
+      "catalogId": "xaml-element:InfoBar",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "settings-form"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "ListView",
+      "status": "partial",
+      "catalogId": "xaml-element:ListView",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "NavigationView",
+      "status": "partial",
+      "catalogId": "xaml-element:NavigationView",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "NavigationViewItem",
+      "status": "partial",
+      "catalogId": "xaml-element:NavigationViewItem",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "ResourceDictionary",
+      "status": "partial",
+      "catalogId": "xaml-element:ResourceDictionary",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "ScrollViewer",
+      "status": "supported",
+      "catalogId": "xaml-element:ScrollViewer",
+      "usedBy": [
+        "production-smoke",
+        "settings-form"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "StackPanel",
+      "status": "partial",
+      "catalogId": "xaml-element:StackPanel",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "TextBlock",
+      "status": "supported",
+      "catalogId": "xaml-element:TextBlock",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "TextBox",
+      "status": "supported",
+      "catalogId": "xaml-element:TextBox",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "Window",
+      "status": "supported",
+      "catalogId": "xaml-element:Window",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-event",
+      "construct": "AppBarButton.Click",
+      "status": "supported",
+      "catalogId": "xaml-event:AppBarButton.Click",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-event",
+      "construct": "Button.Click",
+      "status": "supported",
+      "catalogId": "xaml-event:Button.Click",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "settings-form",
+        "single-window"
+      ]
+    },
+    {
+      "kind": "xaml-event",
+      "construct": "NavigationView.SelectionChanged",
+      "status": "supported",
+      "catalogId": "xaml-event:NavigationView.SelectionChanged",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-markup",
+      "construct": "Binding",
+      "status": "partial",
+      "catalogId": "xaml-markup:Binding",
+      "usedBy": [
+        "settings-form"
+      ]
+    },
+    {
+      "kind": "xaml-resource",
+      "construct": "ResourceDictionary.MergedDictionaries",
+      "status": "partial",
+      "catalogId": "xaml-resource:ResourceDictionary.MergedDictionaries",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form"
+      ]
+    },
+    {
+      "kind": "xaml-resource",
+      "construct": "ResourceDictionary.ThemeDictionaries",
+      "status": "supported",
+      "catalogId": "xaml-resource:ResourceDictionary.ThemeDictionaries",
+      "usedBy": [
+        "production-smoke",
+        "resource-catalog"
+      ]
+    },
+    {
+      "kind": "xaml-resource",
+      "construct": "Setter",
+      "status": "supported",
+      "catalogId": "xaml-resource:Style.Setter",
+      "usedBy": [
+        "resource-catalog"
+      ]
+    },
+    {
+      "kind": "xaml-resource",
+      "construct": "SolidColorBrush",
+      "status": "partial",
+      "catalogId": "xaml-resource:SolidColorBrush",
+      "usedBy": [
+        "production-smoke",
+        "resource-catalog"
+      ]
+    },
+    {
+      "kind": "xaml-resource",
+      "construct": "StaticResource",
+      "status": "partial",
+      "catalogId": "xaml-resource:StaticResource",
+      "usedBy": [
+        "resource-catalog"
+      ]
+    },
+    {
+      "kind": "xaml-resource",
+      "construct": "Style",
+      "status": "supported",
+      "catalogId": "xaml-resource:Style.Setter",
+      "usedBy": [
+        "resource-catalog"
+      ]
+    },
+    {
+      "kind": "xaml-resource",
+      "construct": "ThemeResource",
+      "status": "partial",
+      "catalogId": "xaml-resource:ThemeResource",
+      "usedBy": [
+        "production-smoke",
+        "resource-catalog"
+      ]
+    },
+    {
+      "kind": "xaml-resource",
+      "construct": "XamlControlsResources",
+      "status": "partial",
+      "catalogId": "xaml-resource:XamlControlsResources",
+      "usedBy": [
+        "production-smoke",
+        "public-admin-workbench",
+        "resource-catalog",
+        "settings-form"
+      ]
+    }
+  ]
+}

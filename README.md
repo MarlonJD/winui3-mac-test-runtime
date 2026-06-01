@@ -46,6 +46,28 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ProductionSmo
 PATH="$PWD/tools:$PATH" winui3-mac-runner run --project ./fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj --renderer skia-v2 --scenario ./fixtures/ProductionSmoke.WinUI/scenarios/production-e2e-workbench-light.json --strict-visual
 ```
 
+## Public Application Corpus
+
+`fixtures/corpus.json` curates a public, clean-room WinUI 3 application corpus
+with varied project shapes (single-window, navigation shell, MVVM/settings form,
+and resource-heavy). The `ingest` command discovers and classifies the API, XAML
+construct, resource, asset, and project-ingestion surface across the corpus into
+a deterministic, tracked inventory.
+
+```sh
+# Verify the corpus surface against the tracked baseline (CI mode):
+dotnet run --project src/WinUI3.MacRunner -- ingest --manifest fixtures/corpus.json --output artifacts/corpus --check
+
+# Refresh the tracked baseline after an intentional corpus change:
+dotnet run --project src/WinUI3.MacRunner -- ingest --manifest fixtures/corpus.json --write-baseline
+```
+
+Every discovered surface is classified; the tracked unknown report
+(`docs/compatibility/corpus-unknown-apis.json`) is empty. See
+[`docs/compatibility/corpus.md`](docs/compatibility/corpus.md). The
+[`tools/private-name-denylist`](tools/private-name-denylist/README.md) scan keeps
+private product names out of the public surface, and both gates run in CI.
+
 ## Consumer Quick Start
 
 Public consumer projects can install the packaged runner and execute a managed

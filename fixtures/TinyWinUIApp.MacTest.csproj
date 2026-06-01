@@ -12,6 +12,9 @@
     <Compile Remove="PublicAdminWorkbench.WinUI\**\*.cs" />
     <Compile Remove="ComponentParityLab.WinUI\**\*.cs" />
     <Compile Remove="ProductionSmoke.WinUI\**\*.cs" />
+    <Compile Remove="SingleWindowApp.WinUI\**\*.cs" />
+    <Compile Remove="SettingsFormApp.WinUI\**\*.cs" />
+    <Compile Remove="ResourceCatalogApp.WinUI\**\*.cs" />
     <Compile Remove="WindowsNativeProbe\**\*.cs" />
   </ItemGroup>
 

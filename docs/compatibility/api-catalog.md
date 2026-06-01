@@ -22,12 +22,12 @@ requirements, visual grades, and known gaps, see
 
 ## Seed Coverage
 
-The `0.1` catalog has 114 entries:
+The `0.1` catalog has 120 entries:
 
 | Status | Count |
 | --- | ---: |
-| `supported` | 52 |
-| `partial` | 31 |
+| `supported` | 54 |
+| `partial` | 35 |
 | `planned` | 26 |
 | `windows-only` | 3 |
 | `not supported` | 2 |
@@ -40,12 +40,18 @@ The `0.1` catalog has 114 entries:
 | `project-property` | 4 |
 | `visual-state` | 5 |
 | `xaml-attached-property` | 3 |
-| `xaml-directive` | 4 |
+| `xaml-directive` | 5 |
 | `xaml-element` | 30 |
 | `xaml-event` | 3 |
+| `xaml-markup` | 1 |
 | `xaml-property` | 5 |
 | `xaml-property-element` | 2 |
-| `xaml-resource` | 3 |
+| `xaml-resource` | 7 |
+
+The `0.1` -> current additions classify the resource and markup surface that the
+public application corpus exercises: `x:Key`, `{Binding}`, `SolidColorBrush`,
+`XamlControlsResources`, and the merged/theme dictionary property elements. See
+[`corpus.md`](corpus.md).
 
 The seed is not an exhaustive WinUI inventory yet. Its job is to make the
 current alpha claims measurable and to make important future targets explicit:
