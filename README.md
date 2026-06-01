@@ -6,9 +6,9 @@ macOS.
 The product goal is full source-level WinUI 3 C# and XAML development from
 macOS: developers should be able to build, run, test, inspect, and visually
 validate real WinUI 3 app code locally while public `windows-latest` GitHub
-Actions runs remain the behavioral and visual source of truth. The current
-Level 0 through Level 7 surface is the first alpha milestone toward that goal,
-not the final product scope.
+Actions runs provide the intended behavioral and visual source of truth from
+actual native WinUI fixture apps. The current Level 0 through Level 7 surface is
+the first alpha milestone toward that goal, not the final product scope.
 
 This repository does not run arbitrary Windows binaries, `.msix` packages, or
 `.exe` files on macOS. The current runtime runs managed .NET assemblies against
@@ -150,27 +150,31 @@ macOS .NET process.
 
 ## Visual Parity Evidence
 
-Public visual evidence lives in `docs/visual-parity/`. It includes real Windows
-reference screenshots, macOS runtime screenshots, pixel-diff images, and
-`visual-run.json` metrics from public GitHub Actions runs. Component lab runs
-also publish `component-evidence.json`; treat that file as the component-level
-truth for `good`, `usable`, `weak`, `poor`, or `not-rendered` grades. A whole
-screenshot that passes thresholds is necessary smoke evidence, but it is not
-enough to call every visible control visually good.
+Public visual evidence lives in `docs/visual-parity/`. The current checked-in
+examples are Windows-hosted synthetic probe references from
+`WindowsNativeProbe`, macOS runtime screenshots, pixel-diff images, and
+`visual-run.json` metrics from public GitHub Actions runs. They validate the
+capture, artifact, and comparison harness, but they are not native WinUI visual
+parity references for the fixture projects. Component lab runs also publish
+`component-evidence.json`; treat that file as the component-level truth for
+`good`, `usable`, `weak`, `poor`, or `not-rendered` grades. A whole screenshot
+that passes thresholds is necessary smoke evidence, but it is not enough to call
+every visible control visually good.
 
-The current `public-admin-workbench-light` evidence comes from public workflow
-run
+The current `public-admin-workbench-light` synthetic probe evidence comes from
+public workflow run
 [`26752174485`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26752174485)
 and passed strict comparison:
 
-| Windows reference | macOS runtime | Pixel diff |
+| Synthetic Windows probe reference | macOS runtime | Pixel diff |
 | --- | --- | --- |
-| ![Windows reference](docs/visual-parity/examples/public-admin-workbench-light/windows-reference.png) | ![macOS runtime](docs/visual-parity/examples/public-admin-workbench-light/mac-runtime.png) | ![Pixel diff](docs/visual-parity/examples/public-admin-workbench-light/pixel-diff.png) |
+| ![Synthetic Windows probe reference](docs/visual-parity/examples/public-admin-workbench-light/windows-reference.png) | ![macOS runtime](docs/visual-parity/examples/public-admin-workbench-light/mac-runtime.png) | ![Pixel diff](docs/visual-parity/examples/public-admin-workbench-light/pixel-diff.png) |
 
 For this scenario, `16.01%` of pixels changed, `83.99%` were byte-identical,
 mean absolute error was `8.50`, and RMS error was `41.09`, all inside the
 scenario thresholds. This should be read as **weak visual parity / source
-ingestion smoke evidence**, not as a broad component-quality claim. The
+ingestion smoke evidence**, not as native WinUI visual parity evidence or as a
+broad component-quality claim. The
 matching parts are the Windows-targeted project ingestion path, navigation
 shell, selected state, list/detail workbench shape, and command-click
 assertion. The visible gaps are still important: exact Fluent control chrome,
@@ -181,17 +185,19 @@ shadows, Mica/Acrylic, and native interaction states are not yet pixel-perfect.
 
 The component parity lab examples below come from public GitHub Actions run
 [`26757799015`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26757799015).
-Each row shows the Windows reference first, then the current macOS runtime
-rendering from this library, then the pixel diff. These are examples, not broad
-parity claims: `component-evidence.json` remains the source of truth for each
-component's catalog status, presence, interaction status, visual grade, and
-known gaps.
+Each row shows the synthetic Windows probe reference first, then the current
+macOS runtime rendering from this library, then the pixel diff. These are
+harness examples, not native WinUI parity claims:
+`component-evidence.json` remains the source of truth for each component's
+catalog status, presence, interaction status, visual grade, and known gaps, and
+component grades must not be promoted until native WinUI Windows reference
+artifacts exist.
 
-| Scenario | Windows reference | macOS runtime | Pixel diff | Evidence summary |
+| Scenario | Synthetic Windows probe reference | macOS runtime | Pixel diff | Evidence summary |
 | --- | --- | --- | --- | --- |
-| `component-basic-input-light` | ![Windows basic input component reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | 13 components: 5 `usable`, 8 `not-rendered`; changed pixels `8.07%`, MAE `7.46`, RMS `39.75`. |
-| `component-commands-menus-light` | ![Windows commands and menus component reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | 8 components: 3 `weak`, 5 `not-rendered`; weak items are `CommandBar`, `AppBarButton`, and `AppBarButton.Icon`. |
-| `component-layout-media-light` | ![Windows layout and media component reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | 28 components/features: 6 `usable`, 4 `weak`, 18 `not-rendered`; weak items include `Grid`, `Border`, `FontIcon`, and `Image`. |
+| `component-basic-input-light` | ![Synthetic Windows basic input probe reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | 13 components: 5 `usable`, 8 `not-rendered`; changed pixels `8.07%`, MAE `7.46`, RMS `39.75`. |
+| `component-commands-menus-light` | ![Synthetic Windows commands and menus probe reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | 8 components: 3 `weak`, 5 `not-rendered`; weak items are `CommandBar`, `AppBarButton`, and `AppBarButton.Icon`. |
+| `component-layout-media-light` | ![Synthetic Windows layout and media probe reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | 28 components/features: 6 `usable`, 4 `weak`, 18 `not-rendered`; weak items include `Grid`, `Border`, `FontIcon`, and `Image`. |
 
 See `docs/visual-parity/README.md` for the current evidence table and
 interpretation notes.
@@ -250,12 +256,15 @@ Release readiness evidence and the operator checklist live in
 ## Windows Native Screenshot Harness
 
 The `windows-native-screenshot` workflow runs on GitHub's `windows-latest`
-runner and captures client-area PNG reference screenshots from real Windows
-desktop windows. A follow-up `macos-latest` job renders the matching public
-scenario through `skia-v2`, compares the two PNGs, and uploads reviewable
-reference/runtime/diff artifacts for the shell, interaction/binding,
+runner and captures client-area PNG reference screenshots from Windows desktop
+windows. The current workflow launches `WindowsNativeProbe`, which draws
+synthetic public reference screens; it does not yet launch the actual native
+WinUI fixture projects. A follow-up `macos-latest` job renders the matching
+public scenario through `skia-v2`, compares the two PNGs, and uploads
+reviewable reference/runtime/diff artifacts for the shell, interaction/binding,
 control-gallery, public admin/workbench, and component parity lab fixture
-categories.
+categories. Treat the current references as harness smoke evidence until native
+WinUI fixture capture replaces the synthetic probe.
 
 The capture tool can be pointed at any Windows desktop app by changing the
 window title and command:
@@ -272,13 +281,13 @@ dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj -- \
 The workflow uses only generic public fixture content and public GitHub-hosted
 runners. It does not require Wine, private repositories, secrets, or private
 screenshots. Passing visual comparison means the documented alpha
-fixture/control subset stayed within the scenario thresholds. The workflow also
-includes `public-admin-workbench-light`, which captures a real Windows
-reference for the public Windows-targeted admin/workbench source fixture and
-compares it with the macOS shadow-build runtime output. Passing the workflow is
-not a claim of arbitrary WinUI 3 pixel compatibility, and visibly weak
-components must remain labeled `weak` or `poor` in component evidence until
-public reference artifacts justify a stronger grade.
+fixture/control subset stayed within the scenario thresholds against the
+current synthetic probe references. The workflow also includes
+`public-admin-workbench-light`, but that reference is currently a synthetic
+Windows probe drawing rather than a native WinUI fixture capture. Passing the
+workflow is not a claim of arbitrary WinUI 3 pixel compatibility, and visibly
+weak components must remain labeled `weak` or `poor` in component evidence until
+native WinUI public reference artifacts justify a stronger grade.
 
 ## License
 

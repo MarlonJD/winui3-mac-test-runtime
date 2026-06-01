@@ -28,8 +28,9 @@ Production-grade compatibility means:
 - unsupported features fail loudly with actionable diagnostics;
 - every supported behavior has fixture coverage, compatibility matrix entries,
   and CI verification;
-- visual behavior is checked against real Windows screenshots from public
-  `windows-latest` GitHub Actions runs where pixel fidelity matters.
+- visual behavior is checked against native WinUI Windows screenshots from
+  public `windows-latest` GitHub Actions runs where pixel fidelity matters.
+  Synthetic probe screenshots do not satisfy this production-grade visual gate.
 
 ## Compatibility Levels
 
@@ -155,7 +156,8 @@ suite.
 
 Scope:
 
-- public Windows reference screenshots for each supported fixture state;
+- native WinUI public Windows reference screenshots for each supported fixture
+  state;
 - macOS `skia-v2` rendering for the same viewport, scale, theme, and scenario;
 - pixel diff thresholds tuned per scenario and justified in JSON;
 - reviewable artifacts for reference, runtime, diff image, diff metrics, layout
@@ -163,8 +165,8 @@ Scope:
 
 Exit criteria:
 
-- every Level 2 supported visual control appears in at least one Windows
-  reference scenario;
+- every Level 2 supported visual control appears in at least one native WinUI
+  Windows reference scenario;
 - workflow artifacts can be downloaded and inspected without private access;
 - failures distinguish visual drift, missing renderer support, unsupported
   features, and environmental mismatch.
@@ -196,7 +198,7 @@ Exit criteria:
   execution.
 - The primary macOS runtime remains a managed .NET process and remains Wine-free.
 - Public GitHub-hosted `windows-latest` runners are acceptable as the Windows
-  reference source of truth for screenshots.
+  reference environment when they capture the actual native WinUI fixture app.
 - Pixel-perfect parity across fonts and OS rendering stacks may require
   thresholds, but every threshold must be explicit and reviewable.
 - Generic public fixtures can be realistic without using private product names,

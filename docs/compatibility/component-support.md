@@ -4,7 +4,8 @@ This page is the readable component view of
 `winui-api-compatibility.catalog.json`. The JSON catalog remains the source of
 truth for diagnostics and strict mode. A WinUI control or feature not listed
 here is unsupported in this alpha until it receives a catalog entry, fixture
-coverage, renderer behavior, and public Windows reference evidence.
+coverage, renderer behavior, and native WinUI public Windows reference
+evidence.
 
 `winui-component-inventory.json` is the component parity lab inventory. It maps
 the Microsoft Learn controls inventory and local source-audit gaps to a public

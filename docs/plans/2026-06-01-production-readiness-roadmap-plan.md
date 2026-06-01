@@ -15,9 +15,10 @@ documented public subset.
 
 Production-ready does not mean arbitrary Windows binary execution or full WinUI
 3 parity. It means the project has a stable, honest, externally consumable
-production contract backed by public tests, public Windows reference artifacts,
-component-level evidence, source-ingestion coverage, performance/reliability
-gates, security/release policy, and clear unsupported behavior.
+production contract backed by public tests, native WinUI Windows reference
+artifacts for the actual public WinUI fixtures, component-level evidence,
+source-ingestion coverage, performance/reliability gates, security/release
+policy, and clear unsupported behavior.
 
 ## Current Baseline
 
@@ -26,20 +27,34 @@ The current baseline is documented in
 
 - Current verdict: alpha-ready for public compatibility experiments and fixture
   validation, not production-ready for general-purpose WinUI 3 development.
-- Public evidence exists for local gates, Windows reference screenshots, macOS
-  runtime screenshots, pixel diffs, `visual-run.json`, and
+- Public harness evidence exists for local gates, Windows-hosted synthetic probe
+  screenshots, macOS runtime screenshots, pixel diffs, `visual-run.json`, and
   `component-evidence.json`.
+- Current `windows-native-screenshot.yml` references are captured from
+  `WindowsNativeProbe`, a synthetic WinForms/GDI reference app. They are not
+  native WinUI renders of the fixture projects and must not be used to promote
+  component visual grades.
 - `ComponentParityLab.WinUI` provides a clean-room component lab with eight
   pages and source-audit gap coverage.
-- Known production blockers are tracked as `PB-001` through `PB-012`.
+- Known production blockers are tracked as `PB-000` through `PB-012`.
+
+## Plan Reframe
+
+This roadmap supersedes the previous production ordering. Because every current
+checked-in visual reference starts from synthetic `WindowsNativeProbe` output,
+the project does not yet have a trustworthy native WinUI visual baseline.
+`PB-000` and Milestone 0 block all production visual claims, component grade
+promotions, and broad renderer work. Later milestones may use current artifacts
+as harness smoke evidence, but not as proof of native WinUI parity.
 
 ## Assumptions
 
 - The product remains Wine-free on macOS.
 - The product targets source-level WinUI-style compatibility, not `.exe`,
   `.msix`, or arbitrary Windows binary execution.
-- Public GitHub Actions Windows runners remain the visual reference source of
-  truth.
+- Public GitHub Actions Windows runners remain the intended visual reference
+  source of truth, but the workflow must launch and capture the actual public
+  WinUI fixture projects rather than `WindowsNativeProbe` synthetic drawings.
 - Public, clean-room fixtures are acceptable for production evidence when they
   are representative and documented.
 - Every production claim must map to tests, docs, component evidence, or public
@@ -76,7 +91,8 @@ The project is production-ready only when all of these are true:
 5. XAML, resource, template, visual-state, input, accessibility, and project
    ingestion behavior needed by the production subset has public tests.
 6. Public Windows reference workflows pass and artifacts are inspected for every
-   changed visual category.
+   changed visual category; production visual claims require native WinUI
+   fixture references, not synthetic probe screenshots.
 7. Performance, flake-rate, artifact-size, and release gates are documented and
    enforced.
 8. Security, privacy, supply-chain, package provenance, semver, rollback, and
@@ -84,7 +100,37 @@ The project is production-ready only when all of these are true:
 
 ## Milestones
 
-### Milestone 0: Freeze The Production Claim
+### Milestone 0: Replace Synthetic References With Native WinUI References
+
+Blockers addressed: `PB-000`, `PB-003`, `PB-008`
+
+Tasks:
+
+- Redesign `windows-native-screenshot.yml` so the Windows reference job builds,
+  launches, drives, and captures the actual public WinUI fixture projects for
+  all reference-backed scenarios.
+- Keep `WindowsNativeProbe` only as a synthetic harness smoke fallback, and label
+  its artifacts as non-parity probe output.
+- Add reference provenance metadata that records the captured executable type,
+  fixture project path, scenario path, commit SHA, runner image, viewport, scale,
+  theme, and whether the reference is native WinUI or synthetic probe output.
+- Update artifact schemas and docs so `windows-reference.png` cannot be assumed
+  to be native unless provenance says so.
+- Regenerate or quarantine checked-in visual examples that currently come from
+  synthetic probe output.
+- Make component grade promotion impossible unless the scenario has native
+  Windows reference provenance.
+
+Exit criteria:
+
+- Public workflow artifacts can distinguish `native-winui` references from
+  `synthetic-probe` references.
+- Component parity lab scenarios that claim visual quality use native WinUI
+  fixture screenshots.
+- Existing synthetic examples remain clearly labeled as harness smoke only or
+  are replaced by native WinUI examples.
+
+### Milestone 1: Freeze The Production Claim
 
 Blockers addressed: `PB-001`, `PB-012`
 
@@ -105,7 +151,7 @@ Exit criteria:
 - `docs/release/production-readiness.md` can link to a concrete production
   contract rather than an alpha-only readiness assessment.
 
-### Milestone 1: Close Catalog And Diagnostic Unknowns
+### Milestone 2: Close Catalog And Diagnostic Unknowns
 
 Blockers addressed: `PB-001`, `PB-007`, `PB-012`
 
@@ -124,7 +170,7 @@ Exit criteria:
 - Selected production fixtures produce no unknown API or component usage.
 - All unsupported usage has stable diagnostics and documentation.
 
-### Milestone 2: Move Weak Checked-In Components To Usable Or Excluded
+### Milestone 3: Move Weak Checked-In Components To Usable Or Excluded
 
 Blockers addressed: `PB-002`, `PB-003`, `PB-008`
 
@@ -137,8 +183,8 @@ Tasks:
   whole-screen thresholds cannot mask local regressions.
 - Improve facade behavior, layout metadata, renderer output, and scenario
   assertions only where needed for the production subset.
-- Update `component-evidence.json` expectations and docs after public Windows
-  reference artifacts justify stronger grades.
+- Update `component-evidence.json` expectations and docs only after native WinUI
+  Windows reference artifacts justify stronger grades.
 
 Exit criteria:
 
@@ -146,7 +192,7 @@ Exit criteria:
 - Any remaining `weak` grades are excluded from production or explicitly
   documented as production-tier limitations.
 
-### Milestone 3: Expand High-Value Component Coverage
+### Milestone 4: Expand High-Value Component Coverage
 
 Blockers addressed: `PB-002`, `PB-008`
 
@@ -165,7 +211,7 @@ Exit criteria:
 - The production component subset is represented by fixture pages, scenario
   requirements, docs, tests, and public visual evidence.
 
-### Milestone 4: Implement Production XAML, Theme, Template, And Visual-State Subset
+### Milestone 5: Implement Production XAML, Theme, Template, And Visual-State Subset
 
 Blockers addressed: `PB-004`, `PB-005`
 
@@ -188,7 +234,7 @@ Exit criteria:
 - Materials/composition are either implemented for the production subset or
   explicitly excluded from the production claim.
 
-### Milestone 5: Harden Input, Accessibility, And Text Behavior
+### Milestone 6: Harden Input, Accessibility, And Text Behavior
 
 Blockers addressed: `PB-006`
 
@@ -208,7 +254,7 @@ Exit criteria:
   actionable.
 - Accessibility output for the production subset is stable and documented.
 
-### Milestone 6: Add A Public Downstream App Corpus
+### Milestone 7: Add A Public Downstream App Corpus
 
 Blockers addressed: `PB-007`, `PB-008`
 
@@ -231,7 +277,7 @@ Exit criteria:
 - Production claims are backed by more than isolated component fixtures.
 - Corpus failures are structured and documented.
 
-### Milestone 7: Add Performance, Reliability, And Artifact Gates
+### Milestone 8: Add Performance, Reliability, And Artifact Gates
 
 Blockers addressed: `PB-009`
 
@@ -253,7 +299,7 @@ Exit criteria:
 - Production readiness includes objective performance and reliability numbers,
   not only correctness tests.
 
-### Milestone 8: Complete Release, Security, And Support Hardening
+### Milestone 9: Complete Release, Security, And Support Hardening
 
 Blockers addressed: `PB-010`, `PB-011`, `PB-012`
 
@@ -271,17 +317,19 @@ Exit criteria:
 - A production release can be shipped with documented support boundaries,
   provenance, rollback, and security posture.
 
-### Milestone 9: Final Production Readiness Gate
+### Milestone 10: Final Production Readiness Gate
 
 Blockers addressed: all blockers
 
 Tasks:
 
 - Run the full local gate.
-- Trigger public Windows reference workflows for every changed visual scenario.
+- Trigger public Windows reference workflows for every changed visual scenario,
+  and verify that production claims use `native-winui` reference provenance.
 - Download and inspect all relevant `windows-reference.png`,
   `mac-runtime.png`, `pixel-diff.png`, `visual-run.json`, and
   `component-evidence.json` artifacts.
+- Confirm every production visual claim has `native-winui` reference provenance.
 - Update checked-in evidence only from public artifacts.
 - Re-run private-name denylist scan.
 - Update `docs/release/production-readiness.md` from "not production-ready" to
@@ -388,13 +436,13 @@ Before any production-ready claim, also run:
 ```text
 /goal Use $google-eng-practices and implement docs/plans/2026-06-01-production-readiness-roadmap-plan.md in the public MarlonJD/winui3-mac-test-runtime repository.
 
-The goal is to move the library from evidence-backed alpha to production-ready for a clearly documented public source-level WinUI 3 compatibility subset. Start by freezing the production compatibility contract and closing catalog/diagnostic unknowns; do not begin with broad renderer rewrites. Work milestone by milestone, keeping each change small, testable, and backed by public fixtures, docs, and evidence. At the end of every milestone, run the milestone's relevant verification gate, commit only that milestone's relevant files with author marlonjd <burak.karahan@mail.ru> using a Conventional Commit message, and push immediately before starting the next milestone.
+The goal is to move the library from evidence-backed alpha to production-ready for a clearly documented public source-level WinUI 3 compatibility subset. Start by replacing the synthetic WindowsNativeProbe visual references with native WinUI Windows captures of the actual public WinUI fixture projects; do not freeze production claims, promote component grades, or begin broad renderer rewrites until the reference source of truth is fixed. Work milestone by milestone, keeping each change small, testable, and backed by public fixtures, docs, and evidence. At the end of every milestone, run the milestone's relevant verification gate, commit only that milestone's relevant files with author marlonjd <burak.karahan@mail.ru> using a Conventional Commit message, and push immediately before starting the next milestone.
 
 Preserve the Wine-free macOS runtime, existing winui3-mac-doctor, winui3-mac-runner, SVG, current Skia, skia-v2, existing fixtures, public admin/workbench source ingestion, and the ComponentParityLab.WinUI foundation. Do not use private repositories, private screenshots, private product names, secrets, proprietary fixture content, or copied WinUI Gallery fixture content. Keep identifiers, source comments, and canonical docs in English.
 
-For every supported production claim, require matching compatibility catalog entries, tests, docs, public fixture coverage, and component or visual evidence. Whole-screenshot pass is not enough: component-evidence.json must remain the component-level source of truth, and visibly weak or poor components must stay labeled weak or poor until public Windows reference artifacts justify stronger grades.
+For every supported production claim, require matching compatibility catalog entries, tests, docs, public fixture coverage, and component or visual evidence. Whole-screenshot pass is not enough: component-evidence.json must remain the component-level source of truth, and visibly weak or poor components must stay labeled weak or poor until public native WinUI Windows reference artifacts justify stronger grades. Synthetic WindowsNativeProbe artifacts may be kept only as harness smoke evidence and must be labeled as synthetic-probe, not native WinUI visual parity evidence.
 
-Address the production blockers from docs/release/production-readiness.md: API/catalog coverage, not-rendered controls, weak visuals, templates/theme/visual states, material/composition policy, input/accessibility, project ingestion matrix, public downstream app corpus, performance/reliability gates, release hardening, security/supply-chain posture, and production support documentation.
+Address the production blockers from docs/release/production-readiness.md in order, starting with PB-000 native WinUI Windows reference source of truth. Then address API/catalog coverage, not-rendered controls, weak visuals, templates/theme/visual states, material/composition policy, input/accessibility, project ingestion matrix, public downstream app corpus, performance/reliability gates, release hardening, security/supply-chain posture, and production support documentation.
 
-Run targeted tests while working and the full verification gate from the plan before any production-ready claim. If visual scenarios or renderer behavior change, trigger windows-native-screenshot.yml, wait for completion, download artifacts, and inspect the relevant windows-reference.png, mac-runtime.png, pixel-diff.png, visual-run.json, and component-evidence.json files before handoff. Do not batch multiple completed milestones into one commit; each completed milestone must have its own focused commit and push. Final handoff must list every milestone completed, its commit SHA, verification run, and any remaining blockers.
+Run targeted tests while working and the full verification gate from the plan before any production-ready claim. If visual scenarios, reference capture, or renderer behavior change, trigger windows-native-screenshot.yml, wait for completion, download artifacts, and inspect the relevant windows-reference.png, mac-runtime.png, pixel-diff.png, visual-run.json, component-evidence.json, and reference provenance metadata before handoff. Do not batch multiple completed milestones into one commit; each completed milestone must have its own focused commit and push. Final handoff must list every milestone completed, its commit SHA, verification run, reference provenance status, and any remaining blockers.
 ```

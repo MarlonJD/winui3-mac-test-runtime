@@ -10,8 +10,10 @@ Move the project from the current Level 0 through Level 7 alpha foundation to
 reference-matched WinUI 3 visual parity for real source-level C# and XAML apps
 on macOS. The target behavior is that developers can point the macOS runner at
 a real WinUI 3 project, build a Wine-free managed compatibility assembly, run
-deterministic scenarios, and compare `mac-runtime.png` against real
+deterministic scenarios, and compare `mac-runtime.png` against native WinUI
 `windows-reference.png` screenshots captured by public Windows GitHub Actions.
+Synthetic `WindowsNativeProbe` screenshots may remain as harness smoke evidence,
+but they do not prove reference-matched parity.
 
 The product should only claim "nearly the same as Windows" for a scenario after
 the public Windows reference, macOS runtime image, and pixel diff pass the
@@ -30,18 +32,18 @@ apps.
 | 3 Styling, Resources, And Theme Fidelity | Simple resources, style setters, and light/dark/high-contrast renderer themes. | Full `ThemeResource`, merged dictionaries, templates, or material resources. |
 | 4 Data Binding, Commands, And State | Basic binding, observable items, and command execution for supported controls. | `x:Bind`, converters, collection views, validation, or full MVVM behavior. |
 | 5 Input, Accessibility, And Automation | Scripted actions and accessibility export for the public subset. | Complete keyboard, pointer, hover, pressed, focus, Narrator, or UIA behavior. |
-| 6 Windows Reference Visual Compatibility | Public fixture screenshots can be compared with Windows references. | Arbitrary Windows app screenshots, Mica/Acrylic, compositor, or full Fluent states. |
+| 6 Windows Reference Visual Compatibility | Public fixture screenshots can be compared by the harness. | Native WinUI fixture screenshots, arbitrary Windows app screenshots, Mica/Acrylic, compositor, or full Fluent states. |
 | 7 Release And Consumption Readiness | Packages, quick start docs, smoke checks, and release notes are ready for alpha use. | Production-grade WinUI compatibility. |
 
-The next milestone must stop treating the alpha renderer as a proxy for
-Windows. It must make Windows reference evidence the gate for every new visual
-claim.
+The next milestone must stop treating the alpha renderer or synthetic probe
+screenshots as a proxy for Windows. It must make native WinUI Windows reference
+evidence the gate for every new visual claim.
 
 ## Assumptions
 
 - The macOS runtime remains Wine-free and does not execute Windows binaries.
-- Real Windows output is captured only from public GitHub Actions workflows or
-  other explicitly provided public, non-secret reference artifacts.
+- Native WinUI Windows output is captured only from public GitHub Actions
+  workflows or other explicitly provided public, non-secret reference artifacts.
 - Public fixtures must not contain private repositories, private screenshots,
   private product names, secrets, or proprietary content.
 - Source identifiers, comments, and canonical docs remain English.
@@ -54,10 +56,10 @@ claim.
 - Do not use Wine, Windows VMs, private screenshots, or proprietary fixture
   content as part of the public repository contract.
 - Do not broadly implement controls or visual effects without a catalog entry,
-  a fixture, tests, and Windows reference evidence.
+  a fixture, tests, and native WinUI Windows reference evidence.
 - Do not claim parity for Mica, Acrylic, compositor effects, shadows,
   transforms, animation, focus visuals, or Fluent interaction states until
-  each scenario has passing Windows reference comparison artifacts.
+  each scenario has passing native WinUI Windows reference comparison artifacts.
 
 ## Target Architecture
 

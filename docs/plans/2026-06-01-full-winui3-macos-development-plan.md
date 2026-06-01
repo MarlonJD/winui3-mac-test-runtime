@@ -17,8 +17,8 @@ visuals, theme resources, and full Fluent interaction states.
 
 The current documented subset is an early milestone, not the final product
 claim. The long-term product goal is broad WinUI 3 source compatibility for C#
-and XAML application development, with real Windows validation used as the
-source of truth for behavior and visual output.
+and XAML application development, with native WinUI Windows validation used as
+the source of truth for behavior and visual output.
 
 ## Product Definition
 
@@ -32,11 +32,11 @@ Full macOS WinUI development means:
 - Fluent materials and compositor-backed concepts are compatibility targets,
   not permanent exclusions. They should be implemented through clean-room
   material, effect, animation, and visual-state abstractions and validated
-  against real Windows output.
+  against native WinUI Windows output.
 - The runtime exposes every compatibility gap through analyzers, structured
   artifacts, and strict diagnostics.
-- Real Windows builds and screenshots from public `windows-latest` GitHub
-  Actions runs remain the reference source of truth.
+- Real Windows builds and native WinUI screenshots from public `windows-latest`
+  GitHub Actions runs remain the intended reference source of truth.
 - The developer workflow supports local macOS iteration and CI verification for
   Windows correctness.
 
@@ -58,8 +58,8 @@ Required:
 - Runtime semantics for dependency properties, routed events, dispatcher
   behavior, measure/arrange, focus, input, navigation, resources, state, and
   accessibility.
-- Renderer coverage for common WinUI controls and states, with Windows
-  reference screenshots and scenario-local thresholds.
+- Renderer coverage for common WinUI controls and states, with native WinUI
+  Windows reference screenshots and scenario-local thresholds.
 - Fluent visual parity coverage for Mica, Acrylic, system backdrops, shadows,
   opacity, transforms, transitions, focus visuals, reveal-like states,
   light/dark/high-contrast theme behavior, reduced motion, and accessibility
@@ -87,7 +87,7 @@ Windows validation depending on the API category.
   partial, planned, Windows-only, or not supported.
 - Unknown public WinUI API usage is a product gap, not silent success.
 - Compatibility claims are based on coverage numbers, tests, fixtures, and
-  Windows reference artifacts.
+  native WinUI Windows reference artifacts.
 - Mica, Acrylic, compositor, animation, and Fluent state support are tracked in
   the compatibility catalog and move through explicit states: planned,
   API-compatible, semantic-compatible, visually approximated,

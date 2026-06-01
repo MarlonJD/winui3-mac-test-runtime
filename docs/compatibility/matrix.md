@@ -23,7 +23,7 @@ that is not present in the catalog yet.
 | Level 3: Styling, Resources, And Theme Fidelity | supported | Resource lookup, style setter application for supported properties, light/dark/high-contrast renderer themes, and strict resource diagnostics for the public subset. |
 | Level 4: Data Binding, Commands, And State | supported | One-way and two-way binding for supported properties, `INotifyPropertyChanged`, observable item collections, command execution state, button command invocation, and navigation state for public fixtures. |
 | Level 5: Input, Accessibility, And Automation | supported | Scripted click, focus, text entry, item selection, property assertions, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility state export. |
-| Level 6: Windows Reference Visual Compatibility | supported | Public `windows-latest` reference workflow and scenario-local pixel thresholds for shell, interaction/binding, control-gallery, public admin/workbench, and component parity lab strict fixture categories. Whole-screenshot passes do not override component-level grades. |
+| Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` workflow and scenario-local pixel thresholds exist for shell, interaction/binding, control-gallery, public admin/workbench, and component parity lab strict fixture categories. Current references are synthetic `WindowsNativeProbe` captures, not native WinUI fixture renders. Whole-screenshot passes do not override component-level grades. |
 | Level 7: Release And Consumption Readiness | supported | Package metadata, pack smoke, consumer quick start, sample consumer CI, release checklist, verification evidence, troubleshooting, and known-gap documentation. |
 
 Levels 0 through 7 are the current alpha milestone. They are not the final
@@ -73,7 +73,7 @@ See `component-support.md` for a readable component-by-component support table.
 | Scenario JSON visual runs | supported | `--scenario`, `--viewport`, `--scale`, `--theme`, `--strict-visual`, `--reference`, and `--diff-output` drive the strict path. |
 | Deterministic layout export | partial | `skia-v2` scenarios add arranged rectangles, desired sizes, padding, alignment, and visibility to `tree.json`. |
 | Pixel diff artifacts | supported | `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, and `visual-run.json` are emitted for reference-backed runs. |
-| Windows reference source of truth | supported | Public `windows-latest` workflow captures generic reference screenshots and macOS comparison artifacts. |
+| Windows reference source of truth | partial | Public `windows-latest` workflow captures generic reference screenshots and macOS comparison artifacts. Current references come from synthetic `WindowsNativeProbe`; native WinUI fixture capture is required before production visual claims. |
 | Compat shadow build discovery | supported | Public Windows-targeted WinUI projects are redirected to generated macOS compatibility projects without mutating the original project or executing Windows App SDK build targets. |
 
 ## XAML

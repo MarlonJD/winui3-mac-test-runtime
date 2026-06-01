@@ -7,7 +7,7 @@ They are not implemented broadly in the current alpha milestone.
 
 The macOS-managed runtime remains Wine-free. Material and composition support
 must be clean-room, driven by public WinUI 3 and Windows App SDK behavior, and
-validated against real Windows output from public GitHub Actions runs.
+validated against native WinUI Windows output from public GitHub Actions runs.
 
 ## Current Alpha Contract
 
@@ -34,8 +34,9 @@ Material and composition entries move through these levels independently:
   tested.
 - `visually-approximated`: `skia-v2` renders a documented approximation for
   public fixtures.
-- `reference-matched`: public Windows reference screenshots and macOS runtime
-  output pass scenario-local thresholds.
+- `reference-matched`: native WinUI public Windows reference screenshots and
+  macOS runtime output pass scenario-local thresholds. Synthetic
+  `WindowsNativeProbe` screenshots do not qualify.
 - `windows-only`: the behavior depends on Windows OS integration and is
   validated only on Windows.
 

@@ -65,9 +65,11 @@ a new schema version and documentation update.
   component/source-feature catalog status, presence, interaction status, visual
   grade, known gaps, and optional diff metrics when a reference-backed
   comparison supplies them.
-- `visual/windows-reference.png`: copy of the real Windows reference screenshot
-  captured by the public `windows-latest` workflow or supplied with
-  `--reference`.
+- `visual/windows-reference.png`: copy of the Windows-hosted reference
+  screenshot captured by the public workflow or supplied with `--reference`.
+  Current checked-in examples are synthetic `WindowsNativeProbe` captures, not
+  native WinUI fixture captures; production visual claims require provenance
+  that identifies the reference as native WinUI.
 - `visual/mac-runtime.png`: copy of the `skia-v2` runtime screenshot used for
   comparison.
 - `visual/pixel-diff.png`: red-highlight PNG showing changed pixels.
@@ -104,9 +106,12 @@ validate the supported subset and renderer output.
 The public Windows reference workflow currently captures and compares one light
 scenario from each strict fixture category: shell, interaction/binding, and
 control gallery, plus the public admin/workbench fixture and component parity
-lab pages. Each category uploads reviewable `windows-reference.png`,
-`mac-runtime.png`, `pixel-diff.png`, `pixel-diff.json`, `visual-run.json`, and
-component lab `component-evidence.json` artifacts where applicable.
+lab pages. Today the Windows-side reference executable is
+`WindowsNativeProbe`, which draws synthetic public reference screens. These
+artifacts are harness smoke evidence, not native WinUI visual parity evidence.
+Each category uploads reviewable `windows-reference.png`, `mac-runtime.png`,
+`pixel-diff.png`, `pixel-diff.json`, `visual-run.json`, and component lab
+`component-evidence.json` artifacts where applicable.
 
 ## Diagnostics
 
@@ -126,6 +131,8 @@ binary compatibility. Unavailable APIs are reported structurally so callers can
 decide whether to fail a smoke run or track the gap as compatibility debt.
 Snapshot output is deterministic smoke evidence for a supported control subset,
 not a full Fluent, material, or compositor renderer.
-Windows reference screenshots are the source of truth for scenario pixel
-comparison. They are captured from generic public fixture content in public
-GitHub Actions runs, not from private products or private screenshots.
+Native WinUI Windows reference screenshots are the intended source of truth for
+scenario pixel comparison. Current synthetic probe screenshots are harness
+smoke references only. Reference artifacts are captured from generic public
+fixture content in public GitHub Actions runs, not from private products or
+private screenshots.

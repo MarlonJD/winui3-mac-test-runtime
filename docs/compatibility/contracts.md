@@ -4,7 +4,9 @@ This project provides Wine-free source-level WinUI 3 compatibility on macOS.
 The long-term product goal is full WinUI 3 C# and XAML application development:
 developers should be able to build, run, test, inspect, and visually validate
 real app source from macOS while public Windows GitHub Actions runs remain the
-behavioral and visual source of truth.
+intended behavioral and visual source of truth. Current visual screenshots from
+`WindowsNativeProbe` are synthetic harness references until the workflow
+captures the actual native WinUI fixture projects.
 
 The current Level 0 through Level 7 support is an alpha milestone toward that
 goal. It does not run Windows binaries, `.msix` packages, or arbitrary `.exe`
@@ -101,10 +103,17 @@ content in the public `windows-native-screenshot` GitHub Actions workflow. The
 workflow covers the shell, interaction/binding, control-gallery, public
 admin/workbench, and component parity lab strict fixture categories, then
 compares the macOS `skia-v2` render against each reference using
-scenario-local thresholds. Passing the workflow means those documented public
-scenarios stayed within threshold; it is not a claim of full WinUI 3 pixel
-parity. A scenario-level pass does not override component-level evidence:
-visibly weak components must remain graded `weak` or `poor`.
+scenario-local thresholds.
+
+Current checked-in reference screenshots are captured from
+`WindowsNativeProbe`, a synthetic WinForms/GDI reference executable. They are
+useful for harness smoke validation, but they are not native WinUI renders of
+the fixture projects and cannot justify component visual grade promotion.
+Production visual claims require native WinUI fixture reference provenance.
+Passing the workflow means those documented public scenarios stayed within
+threshold against the current reference source; it is not a claim of full WinUI
+3 pixel parity. A scenario-level pass does not override component-level
+evidence: visibly weak components must remain graded `weak` or `poor`.
 
 ## Styling And Theme Contract
 
@@ -124,7 +133,7 @@ Material and composition compatibility is tracked separately in
 composition visuals, effect brushes, shadows, transforms, storyboards,
 animations, focus visuals, high contrast, reduced motion, and Fluent states may
 only be promoted when catalog entries, clean-room semantics, tests, strict
-fixtures, and public Windows reference artifacts prove the claim.
+fixtures, and native WinUI public Windows reference artifacts prove the claim.
 
 ## Interaction And Accessibility Contract
 
