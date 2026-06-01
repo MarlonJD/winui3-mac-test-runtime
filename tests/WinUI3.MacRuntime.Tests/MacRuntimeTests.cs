@@ -4,9 +4,12 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using SkiaSharp;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Windows.Input;
 using WinUI3.MacCompat.Diagnostics;
 using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRuntime;
@@ -68,6 +71,56 @@ public sealed class MacRuntimeTests
 
         Assert.HasCount(1, BindingOperations.CurrentFailures);
         Assert.AreEqual("TitleText", BindingOperations.CurrentFailures[0].ElementName);
+    }
+
+    [TestMethod]
+    public void BindingOperationsTracksPropertyChangedAndTwoWayUpdates()
+    {
+        var state = new MutableObservableState("Before");
+        var textBox = new TextBox { Name = "TitleBox" };
+        BindingOperations.SetBinding(textBox, nameof(TextBox.Text), new Binding(nameof(MutableObservableState.Title), BindingMode.TwoWay));
+        var root = new StackPanel { DataContext = state };
+        root.Children.Add(textBox);
+
+        BindingOperations.RefreshTree(root);
+        Assert.AreEqual("Before", textBox.Text);
+
+        state.Title = "After notify";
+        Assert.AreEqual("After notify", textBox.Text);
+
+        textBox.Text = "Updated from target";
+        BindingOperations.UpdateSource(textBox, nameof(TextBox.Text));
+        Assert.AreEqual("Updated from target", state.Title);
+    }
+
+    [TestMethod]
+    public void BindingOperationsRefreshesObservableItemsControlSources()
+    {
+        var state = new CollectionState();
+        state.Tasks.Add("Review queue");
+        var listView = new ListView { Name = "TaskList" };
+        BindingOperations.SetBinding(listView, nameof(ItemsControl.Items), new Binding(nameof(CollectionState.Tasks)));
+        var root = new StackPanel { DataContext = state };
+        root.Children.Add(listView);
+
+        BindingOperations.RefreshTree(root);
+        Assert.HasCount(1, listView.Items);
+
+        state.Tasks.Add("Publish summary");
+        Assert.HasCount(2, listView.Items);
+    }
+
+    [TestMethod]
+    public void ButtonsExecuteCommandsAndExportCommandState()
+    {
+        var command = new TestCommand();
+        var button = new Button { Name = "SaveButton", Content = "Save", Command = command, CommandParameter = "save" };
+
+        button.PerformClick();
+        var tree = UiTreeBuilder.Build(new Window { Content = button });
+
+        Assert.AreEqual("save", command.LastParameter);
+        Assert.IsTrue((bool)tree.Root.Children[0].Properties["commandCanExecute"]!);
     }
 
     [TestMethod]
@@ -398,6 +451,51 @@ public sealed class MacRuntimeTests
     }
 
     private sealed record MutableState(string Title);
+
+    private sealed class MutableObservableState : INotifyPropertyChanged
+    {
+        private string title;
+
+        public MutableObservableState(string title)
+        {
+            this.title = title;
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public string Title
+        {
+            get => title;
+            set
+            {
+                title = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Title)));
+            }
+        }
+    }
+
+    private sealed class CollectionState
+    {
+        public ObservableCollection<string> Tasks { get; } = new();
+    }
+
+    private sealed class TestCommand : ICommand
+    {
+        public event EventHandler? CanExecuteChanged;
+
+        public object? LastParameter { get; private set; }
+
+        public bool CanExecute(object? parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object? parameter)
+        {
+            LastParameter = parameter;
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+    }
 }
 
 public sealed class ArtifactSchemaTestApp : Application

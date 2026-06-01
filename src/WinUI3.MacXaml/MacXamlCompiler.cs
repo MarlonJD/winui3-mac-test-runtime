@@ -39,14 +39,14 @@ public sealed class MacXamlCompiler
         ["ItemsControl"] = new(StringComparer.Ordinal) { "Items" },
         ["TextBlock"] = new(StringComparer.Ordinal) { "Text" },
         ["TextBox"] = new(StringComparer.Ordinal) { "Text" },
-        ["Button"] = new(StringComparer.Ordinal) { "Content" },
-        ["AppBarButton"] = new(StringComparer.Ordinal) { "Content", "Icon", "Label" },
-        ["ToggleButton"] = new(StringComparer.Ordinal) { "Content", "IsChecked" },
-        ["CheckBox"] = new(StringComparer.Ordinal) { "Content", "IsChecked" },
-        ["RadioButton"] = new(StringComparer.Ordinal) { "Content", "GroupName", "IsChecked" },
+        ["Button"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content" },
+        ["AppBarButton"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content", "Icon", "Label" },
+        ["ToggleButton"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content", "IsChecked" },
+        ["CheckBox"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content", "IsChecked" },
+        ["RadioButton"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content", "GroupName", "IsChecked" },
         ["ComboBox"] = new(StringComparer.Ordinal) { "Items", "PlaceholderText", "SelectedIndex" },
         ["Image"] = new(StringComparer.Ordinal) { "Source" },
-        ["ListView"] = new(StringComparer.Ordinal),
+        ["ListView"] = new(StringComparer.Ordinal) { "Items" },
         ["ProgressRing"] = new(StringComparer.Ordinal) { "IsActive" },
         ["ProgressBar"] = new(StringComparer.Ordinal) { "IsIndeterminate", "Maximum", "Minimum", "Value" },
         ["InfoBar"] = new(StringComparer.Ordinal) { "IsOpen", "Message", "Severity", "Title" },
@@ -782,9 +782,9 @@ public sealed class MacXamlCompiler
                     continue;
                 }
 
-                if (TryReadBindingPath(property.Value, out var bindingPath))
+                if (TryReadBinding(property.Value, out var bindingPath, out var bindingMode))
                 {
-                    source.AppendLine($"        Microsoft.UI.Xaml.Data.BindingOperations.SetBinding({model.VariableName}, {Literal(property.Key)}, new Microsoft.UI.Xaml.Data.Binding({Literal(bindingPath)}));");
+                    source.AppendLine($"        Microsoft.UI.Xaml.Data.BindingOperations.SetBinding({model.VariableName}, {Literal(property.Key)}, new Microsoft.UI.Xaml.Data.Binding({Literal(bindingPath)}, Microsoft.UI.Xaml.Data.BindingMode.{bindingMode}));");
                     continue;
                 }
 
@@ -987,15 +987,18 @@ public sealed class MacXamlCompiler
             return false;
         }
 
-        private static bool TryReadBindingPath(string value, out string path)
+        private static bool TryReadBinding(string value, out string path, out string mode)
         {
+            mode = "OneWay";
             if (value.StartsWith("{Binding Path=", StringComparison.Ordinal) && value.EndsWith('}'))
             {
                 path = value["{Binding Path=".Length..^1].Trim();
                 var comma = path.IndexOf(',');
                 if (comma >= 0)
                 {
+                    var options = path[(comma + 1)..];
                     path = path[..comma].Trim();
+                    mode = ReadBindingMode(options);
                 }
 
                 return !string.IsNullOrWhiteSpace(path);
@@ -1009,6 +1012,20 @@ public sealed class MacXamlCompiler
 
             path = string.Empty;
             return false;
+        }
+
+        private static string ReadBindingMode(string options)
+        {
+            foreach (var part in options.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (part.StartsWith("Mode=", StringComparison.OrdinalIgnoreCase))
+                {
+                    var value = part["Mode=".Length..];
+                    return string.Equals(value, "TwoWay", StringComparison.OrdinalIgnoreCase) ? "TwoWay" : "OneWay";
+                }
+            }
+
+            return "OneWay";
         }
 
         private static bool IsDoubleProperty(string propertyName)

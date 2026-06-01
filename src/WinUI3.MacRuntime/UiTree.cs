@@ -175,6 +175,11 @@ public static class UiTreeBuilder
             case AppBarButton appBarButton:
                 properties["label"] = appBarButton.Label;
                 properties["content"] = appBarButton.Content is UIElement ? null : appBarButton.Content?.ToString();
+                if (appBarButton.Command is not null)
+                {
+                    properties["commandCanExecute"] = appBarButton.Command.CanExecute(appBarButton.CommandParameter);
+                }
+
                 AddChild(appBarButton.Icon, children);
                 AddChild(appBarButton.Content, children);
                 break;
@@ -213,6 +218,11 @@ public static class UiTreeBuilder
                 break;
             case Button button:
                 properties["content"] = button.Content is UIElement ? null : button.Content?.ToString();
+                if (button.Command is not null)
+                {
+                    properties["commandCanExecute"] = button.Command.CanExecute(button.CommandParameter);
+                }
+
                 if (button.Content is UIElement buttonContent)
                 {
                     AddChild(buttonContent, children);

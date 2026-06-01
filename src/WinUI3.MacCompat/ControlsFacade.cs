@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml;
+using System.Windows.Input;
 
 namespace Microsoft.UI.Xaml.Controls;
 
@@ -75,10 +76,19 @@ public class Button : Control
 {
     public object? Content { get; set; }
 
+    public ICommand? Command { get; set; }
+
+    public object? CommandParameter { get; set; }
+
     public event RoutedEventHandler? Click;
 
     public void PerformClick()
     {
+        if (Command?.CanExecute(CommandParameter) == true)
+        {
+            Command.Execute(CommandParameter);
+        }
+
         Click?.Invoke(this, new RoutedEventArgs());
     }
 }

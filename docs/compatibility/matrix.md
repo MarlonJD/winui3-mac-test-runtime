@@ -16,7 +16,7 @@ Status values:
 | Level 1: Core App And XAML Compatibility | supported | `Application`, `Window`, `Page`, `Frame`, resource dictionaries, startup activation, navigation, strict unsupported XAML diagnostics, and the documented public XAML subset. |
 | Level 2: Layout And Controls Foundation | supported | Public fixture subset for `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `TextBox`, `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `Image`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `AppBarButton`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. |
 | Level 3: Styling, Resources, And Theme Fidelity | supported | Resource lookup, style setter application for supported properties, light/dark/high-contrast renderer themes, and strict resource diagnostics for the public subset. |
-| Level 4: Data Binding, Commands, And State | partial | One-way binding refresh, button click simulation, navigation state, and keyboard accelerator invocation for public fixtures. |
+| Level 4: Data Binding, Commands, And State | supported | One-way and two-way binding for supported properties, `INotifyPropertyChanged`, observable item collections, command execution state, button command invocation, and navigation state for public fixtures. |
 | Level 5: Input, Accessibility, And Automation | partial | Scripted click, focus, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility export. |
 | Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` reference workflow and scenario-local pixel thresholds for current strict fixtures. |
 | Level 7: Release And Consumption Readiness | planned | Packages can be smoked, but release/consumer contracts are not complete. |
@@ -57,7 +57,7 @@ Status values:
 | `AutomationProperties.Name` | supported | Exported into `tree.json` and `accessibility.json`. |
 | `AutomationProperties.HelpText` | supported | Exported into `tree.json` and `accessibility.json`. |
 | `Grid.Column` | supported | Supported attached property for public fixture layout metadata. |
-| `{Binding Path}` | partial | One-way refresh through `BindingOperations.RefreshTree`; both `{Binding Title}` and `{Binding Path=Title}` forms are accepted. |
+| `{Binding Path}` | supported | One-way and two-way refresh through `BindingOperations`; both `{Binding Title}` and `{Binding Path=Title, Mode=TwoWay}` forms are accepted for supported properties. |
 | Unsupported elements and properties | supported | Unsupported elements, properties, property elements, directives, attached properties, and events fail compilation with stable diagnostics. |
 | Control templates and materials | not supported | Templates, Mica, Acrylic, and compositor-backed materials are reported or documented as unsupported. |
 

@@ -1,10 +1,20 @@
+using System.Collections;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 namespace Microsoft.UI.Xaml.Data;
 
-public sealed record Binding(string Path);
+public enum BindingMode
+{
+    OneWay,
+    TwoWay
+}
+
+public sealed record Binding(string Path, BindingMode Mode = BindingMode.OneWay);
 
 public sealed record BindingFailure(
     string ElementName,
@@ -16,6 +26,9 @@ public sealed record BindingFailure(
 public static class BindingOperations
 {
     private static readonly Dictionary<FrameworkElement, List<ElementBinding>> Bindings = new();
+    private static readonly Dictionary<FrameworkElement, object?> LastDataContexts = new();
+    private static readonly HashSet<string> PropertySubscriptions = new(StringComparer.Ordinal);
+    private static readonly HashSet<string> CollectionSubscriptions = new(StringComparer.Ordinal);
     private static readonly List<BindingFailure> Failures = new();
 
     public static IReadOnlyList<BindingFailure> CurrentFailures => Failures;
@@ -60,6 +73,11 @@ public static class BindingOperations
             _ => inheritedDataContext
         };
 
+        if (element is FrameworkElement frameworkElementWithContext)
+        {
+            LastDataContexts[frameworkElementWithContext] = dataContext;
+        }
+
         if (element is FrameworkElement boundElement && Bindings.TryGetValue(boundElement, out var bindings))
         {
             foreach (var binding in bindings)
@@ -89,7 +107,15 @@ public static class BindingOperations
             return;
         }
 
+        SubscribePropertyChanged(element, binding, dataContext);
+
         var property = element.GetType().GetProperty(binding.PropertyName, BindingFlags.Instance | BindingFlags.Public);
+        if (element is ItemsControl itemsControl && binding.PropertyName == nameof(ItemsControl.Items))
+        {
+            ApplyItemsBinding(itemsControl, binding, value.Value);
+            return;
+        }
+
         if (property is null || !property.CanWrite)
         {
             Failures.Add(CreateFailure(element, binding, $"Property '{binding.PropertyName}' is not writable."));
@@ -97,6 +123,92 @@ public static class BindingOperations
         }
 
         property.SetValue(element, ConvertValue(value.Value, property.PropertyType));
+    }
+
+    public static void UpdateSource(FrameworkElement element, string propertyName)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+        ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
+
+        if (!Bindings.TryGetValue(element, out var bindings))
+        {
+            return;
+        }
+
+        var binding = bindings.FirstOrDefault(candidate =>
+            candidate.PropertyName == propertyName &&
+            candidate.Binding.Mode == BindingMode.TwoWay);
+        if (binding is null || !LastDataContexts.TryGetValue(element, out var dataContext) || dataContext is null)
+        {
+            return;
+        }
+
+        var property = element.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public);
+        if (property is null || !property.CanRead)
+        {
+            Failures.Add(CreateFailure(element, binding, $"Property '{propertyName}' is not readable."));
+            return;
+        }
+
+        if (!SetPathValue(dataContext, binding.Binding.Path, property.GetValue(element)))
+        {
+            Failures.Add(CreateFailure(element, binding, $"Path '{binding.Binding.Path}' is not writable."));
+        }
+    }
+
+    private static void ApplyItemsBinding(ItemsControl itemsControl, ElementBinding binding, object? value)
+    {
+        itemsControl.Items.Clear();
+        if (value is IEnumerable enumerable && value is not string)
+        {
+            foreach (var item in enumerable)
+            {
+                itemsControl.Items.Add(item);
+            }
+        }
+        else if (value is not null)
+        {
+            itemsControl.Items.Add(value);
+        }
+
+        if (value is INotifyCollectionChanged collectionChanged)
+        {
+            SubscribeCollectionChanged(itemsControl, binding, collectionChanged, value);
+        }
+    }
+
+    private static void SubscribePropertyChanged(FrameworkElement element, ElementBinding binding, object dataContext)
+    {
+        if (dataContext is not INotifyPropertyChanged propertyChanged)
+        {
+            return;
+        }
+
+        var key = $"{RuntimeHelpers.GetHashCode(dataContext)}:{RuntimeHelpers.GetHashCode(element)}:{binding.PropertyName}:{binding.Binding.Path}";
+        if (!PropertySubscriptions.Add(key))
+        {
+            return;
+        }
+
+        propertyChanged.PropertyChanged += (_, args) =>
+        {
+            var firstSegment = binding.Binding.Path.Split('.', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(args.PropertyName) || args.PropertyName == firstSegment)
+            {
+                ApplyBinding(element, binding, dataContext);
+            }
+        };
+    }
+
+    private static void SubscribeCollectionChanged(ItemsControl itemsControl, ElementBinding binding, INotifyCollectionChanged collectionChanged, object source)
+    {
+        var key = $"{RuntimeHelpers.GetHashCode(source)}:{RuntimeHelpers.GetHashCode(itemsControl)}:{binding.PropertyName}:{binding.Binding.Path}";
+        if (!CollectionSubscriptions.Add(key))
+        {
+            return;
+        }
+
+        collectionChanged.CollectionChanged += (_, _) => ApplyItemsBinding(itemsControl, binding, source);
     }
 
     private static (bool Found, object? Value) ResolvePath(object source, string path)
@@ -119,6 +231,46 @@ public static class BindingOperations
         }
 
         return (true, current);
+    }
+
+    private static bool SetPathValue(object source, string path, object? value)
+    {
+        var segments = path.Split('.', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (segments.Length == 0)
+        {
+            return false;
+        }
+
+        object? current = source;
+        foreach (var segment in segments[..^1])
+        {
+            if (current is null)
+            {
+                return false;
+            }
+
+            var nested = current.GetType().GetProperty(segment, BindingFlags.Instance | BindingFlags.Public);
+            if (nested is null)
+            {
+                return false;
+            }
+
+            current = nested.GetValue(current);
+        }
+
+        if (current is null)
+        {
+            return false;
+        }
+
+        var property = current.GetType().GetProperty(segments[^1], BindingFlags.Instance | BindingFlags.Public);
+        if (property is null || !property.CanWrite)
+        {
+            return false;
+        }
+
+        property.SetValue(current, ConvertValue(value, property.PropertyType));
+        return true;
     }
 
     private static object? ConvertValue(object? value, Type targetType)
