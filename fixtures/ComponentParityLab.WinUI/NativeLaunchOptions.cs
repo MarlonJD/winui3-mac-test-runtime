@@ -16,7 +16,7 @@ public sealed record NativeLaunchOptions(
     public static NativeLaunchOptions Default { get; } = new(
         ScenarioPath: null,
         ScenarioName: "component-basic-input-light",
-        ViewportWidth: 1044,
+        ViewportWidth: 1028,
         ViewportHeight: 720,
         Scale: 1.0,
         Theme: "light");
@@ -29,7 +29,7 @@ public sealed record NativeLaunchOptions(
         var values = ReadOptions(tokens);
         var scenarioPath = values.GetValueOrDefault("--scenario");
         var scenarioName = values.GetValueOrDefault("--scenario-name");
-        var viewportWidth = 1044;
+        var viewportWidth = 1028;
         var viewportHeight = 720;
         var scale = 1.0;
         var theme = "light";
