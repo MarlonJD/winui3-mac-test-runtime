@@ -66,7 +66,7 @@ public sealed class VisualScenario
 
         if (!VisualTheme.IsSupported(Theme))
         {
-            throw new InvalidOperationException($"Scenario '{path}' uses unsupported theme '{Theme}'. Expected light or dark.");
+            throw new InvalidOperationException($"Scenario '{path}' uses unsupported theme '{Theme}'. Expected light, dark, or high-contrast.");
         }
     }
 }
@@ -135,11 +135,17 @@ public static class VisualTheme
     public static bool IsSupported(string? theme)
     {
         return string.Equals(theme, "light", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(theme, "dark", StringComparison.OrdinalIgnoreCase);
+            string.Equals(theme, "dark", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(theme, "high-contrast", StringComparison.OrdinalIgnoreCase);
     }
 
     public static string Normalize(string? theme)
     {
-        return string.Equals(theme, "dark", StringComparison.OrdinalIgnoreCase) ? "dark" : "light";
+        if (string.Equals(theme, "dark", StringComparison.OrdinalIgnoreCase))
+        {
+            return "dark";
+        }
+
+        return string.Equals(theme, "high-contrast", StringComparison.OrdinalIgnoreCase) ? "high-contrast" : "light";
     }
 }

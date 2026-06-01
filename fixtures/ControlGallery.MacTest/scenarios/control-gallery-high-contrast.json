@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "control-gallery",
+  "name": "control-gallery-high-contrast",
+  "viewport": {
+    "width": 960,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "high-contrast",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 35.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 28.0,
+    "rootMeanSquaredError": 52.0
+  },
+  "interactions": []
+}

@@ -3,6 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Public Control Gallery">
+  <Window.Resources>
+    <ResourceDictionary>
+      <String x:Key="AccentBrush">#2562D9</String>
+      <Style x:Key="CommandTextStyle" TargetType="AppBarButton">
+        <Setter Property="Foreground" Value="{ThemeResource AccentBrush}" />
+      </Style>
+    </ResourceDictionary>
+  </Window.Resources>
   <ScrollViewer VerticalScrollBarVisibility="Auto">
     <StackPanel x:Name="RootStack" Padding="24,24,24,24" Spacing="12">
       <TextBlock Text="Control gallery" AutomationProperties.Name="Control gallery title" />
@@ -21,7 +29,7 @@
       <ProgressRing x:Name="RefreshProgress" IsActive="True" />
       <CommandBar x:Name="CommandSurface">
         <CommandBar.PrimaryCommands>
-          <AppBarButton x:Name="SaveCommand" Label="Save" Click="OnSaveClicked" />
+          <AppBarButton x:Name="SaveCommand" Label="Save" Style="{StaticResource CommandTextStyle}" Click="OnSaveClicked" />
         </CommandBar.PrimaryCommands>
       </CommandBar>
       <ItemsControl x:Name="SummaryItems" />
