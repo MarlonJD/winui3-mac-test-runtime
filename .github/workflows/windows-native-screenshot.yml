@@ -30,10 +30,121 @@ jobs:
       - name: Build capture tool
         run: dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release
 
+      - name: Build native WinUI fixtures
+        run: |
+          dotnet build fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --configuration Release
+          dotnet build fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj --configuration Release
+
+      - name: Capture native WinUI reference scenarios
+        shell: pwsh
+        run: |
+          $scenarios = @(
+            @{
+              Name = "public-admin-workbench-light"
+              Path = "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json"
+              FixtureProject = "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj"
+            },
+            @{
+              Name = "component-basic-input-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+            },
+            @{
+              Name = "component-text-forms-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+            },
+            @{
+              Name = "component-collections-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+            },
+            @{
+              Name = "component-dialogs-flyouts-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+            },
+            @{
+              Name = "component-commands-menus-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+            },
+            @{
+              Name = "component-navigation-workbench-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-navigation-workbench-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+            },
+            @{
+              Name = "component-status-pickers-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+            },
+            @{
+              Name = "component-layout-media-light"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+            }
+          )
+
+          $runnerImage = (($env:ImageOS, $env:ImageVersion) | Where-Object { $_ }) -join " "
+          if ([string]::IsNullOrWhiteSpace($runnerImage)) {
+            $runnerImage = $env:RUNNER_OS
+          }
+          foreach ($scenario in $scenarios) {
+            $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
+            $viewport = "$($scenarioJson.viewport.width)x$($scenarioJson.viewport.height)"
+            $outDir = "artifacts/windows-reference-screenshots/$($scenario.Name)"
+            New-Item -ItemType Directory -Force $outDir | Out-Null
+            dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release -- `
+              --title "WinUI3 Mac Test Runtime - $($scenario.Name)" `
+              --output "$outDir/windows-reference.png" `
+              --metadata-output "$outDir/windows-reference.json" `
+              --client-area `
+              --timeout-seconds 60 `
+              --reference-source native-winui `
+              --fixture-project $scenario.FixtureProject `
+              --scenario $scenario.Path `
+              --scenario-name $scenario.Name `
+              --commit-sha "${{ github.sha }}" `
+              --workflow-run-id "${{ github.run_id }}" `
+              --runner-image $runnerImage `
+              --viewport $viewport `
+              --scale "$($scenarioJson.scale)" `
+              --theme $scenarioJson.theme `
+              -- dotnet run --project $scenario.FixtureProject --configuration Release --no-build -- --scenario $scenario.Path
+            if (!(Test-Path "$outDir/windows-reference.png")) {
+              throw "Windows reference screenshot was not created for $($scenario.Name)."
+            }
+            $metadata = Get-Content "$outDir/windows-reference.json" -Raw | ConvertFrom-Json
+            if ($metadata.referenceSource -ne "native-winui") {
+              throw "Windows reference provenance for $($scenario.Name) was '$($metadata.referenceSource)', expected native-winui."
+            }
+          }
+
+      - name: Upload Windows references
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-reference-screenshots
+          path: artifacts/windows-reference-screenshots
+
+  synthetic-probe-smoke:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build capture tool
+        run: dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release
+
       - name: Build native probe
         run: dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release
 
-      - name: Capture Windows reference scenarios
+      - name: Capture synthetic probe smoke scenarios
         shell: pwsh
         run: |
           $scenarios = @(
@@ -48,47 +159,17 @@ jobs:
             @{
               Name = "control-gallery-light"
               Path = "fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json"
-            },
-            @{
-              Name = "public-admin-workbench-light"
-              Path = "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json"
-            },
-            @{
-              Name = "component-basic-input-light"
-              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json"
-            },
-            @{
-              Name = "component-text-forms-light"
-              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-light.json"
-            },
-            @{
-              Name = "component-collections-light"
-              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-light.json"
-            },
-            @{
-              Name = "component-dialogs-flyouts-light"
-              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-light.json"
-            },
-            @{
-              Name = "component-commands-menus-light"
-              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json"
-            },
-            @{
-              Name = "component-navigation-workbench-light"
-              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-navigation-workbench-light.json"
-            },
-            @{
-              Name = "component-status-pickers-light"
-              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-light.json"
-            },
-            @{
-              Name = "component-layout-media-light"
-              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json"
             }
           )
 
+          $runnerImage = (($env:ImageOS, $env:ImageVersion) | Where-Object { $_ }) -join " "
+          if ([string]::IsNullOrWhiteSpace($runnerImage)) {
+            $runnerImage = $env:RUNNER_OS
+          }
           foreach ($scenario in $scenarios) {
-            $outDir = "artifacts/windows-reference-screenshots/$($scenario.Name)"
+            $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
+            $viewport = "$($scenarioJson.viewport.width)x$($scenarioJson.viewport.height)"
+            $outDir = "artifacts/windows-synthetic-probe-smoke/$($scenario.Name)"
             New-Item -ItemType Directory -Force $outDir | Out-Null
             dotnet run --project tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release -- `
               --title "WinUI3 Mac Test Runtime - $($scenario.Name)" `
@@ -96,17 +177,31 @@ jobs:
               --metadata-output "$outDir/windows-reference.json" `
               --client-area `
               --timeout-seconds 30 `
+              --reference-source synthetic-probe `
+              --fixture-project "fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj" `
+              --scenario $scenario.Path `
+              --scenario-name $scenario.Name `
+              --commit-sha "${{ github.sha }}" `
+              --workflow-run-id "${{ github.run_id }}" `
+              --runner-image $runnerImage `
+              --viewport $viewport `
+              --scale "$($scenarioJson.scale)" `
+              --theme $scenarioJson.theme `
               -- dotnet run --project fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj --configuration Release --no-build -- --scenario $scenario.Path
             if (!(Test-Path "$outDir/windows-reference.png")) {
-              throw "Windows reference screenshot was not created for $($scenario.Name)."
+              throw "Synthetic probe screenshot was not created for $($scenario.Name)."
+            }
+            $metadata = Get-Content "$outDir/windows-reference.json" -Raw | ConvertFrom-Json
+            if ($metadata.referenceSource -ne "synthetic-probe") {
+              throw "Synthetic probe provenance for $($scenario.Name) was '$($metadata.referenceSource)', expected synthetic-probe."
             }
           }
 
-      - name: Upload Windows references
+      - name: Upload synthetic probe smoke
         uses: actions/upload-artifact@v4
         with:
-          name: windows-reference-screenshots
-          path: artifacts/windows-reference-screenshots
+          name: windows-synthetic-probe-smoke
+          path: artifacts/windows-synthetic-probe-smoke
 
   visual-comparison:
     runs-on: macos-latest
@@ -132,11 +227,8 @@ jobs:
       - name: Render and compare visual scenarios
         shell: bash
         run: |
-          set -euo pipefail
+          set -uo pipefail
           scenarios=(
-            "shell-light|./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj|./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json"
-            "interactions-light|./fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj|./fixtures/InteractionBindingApp.MacTest/scenarios/interactions-light.json"
-            "control-gallery-light|./fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj|./fixtures/ControlGallery.MacTest/scenarios/control-gallery-light.json"
             "public-admin-workbench-light|./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj|./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json"
             "component-basic-input-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json"
             "component-text-forms-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-light.json"
@@ -148,16 +240,22 @@ jobs:
             "component-layout-media-light|./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj|./fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json"
           )
 
+          status=0
           for entry in "${scenarios[@]}"; do
             IFS='|' read -r name project scenario <<< "$entry"
-            PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+            if ! PATH="$PWD/tools:$PATH" winui3-mac-runner run \
               --project "$project" \
               --renderer skia-v2 \
               --scenario "$scenario" \
               --strict-visual \
               --reference "./artifacts/windows-reference-screenshots/$name/windows-reference.png" \
-              --diff-output "./artifacts/windows-native-screenshot/$name"
+              --diff-output "./artifacts/windows-native-screenshot/$name"; then
+              echo "::warning::Native WinUI comparison failed for $name; preserving artifacts for review."
+              status=1
+            fi
           done
+
+          exit "$status"
 
       - name: Upload reviewable visual artifacts
         if: always()
