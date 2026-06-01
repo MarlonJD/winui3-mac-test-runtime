@@ -36,35 +36,37 @@
       "component": "NavigationView",
       "target": "InnerNavigationView",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "menuItems", "paneFooter", "selectedItem" ],
-      "knownGaps": [ "Adaptive pane modes, settings behavior, full keyboarding, and focus visuals remain partial." ]
+      "knownGaps": [ "The macOS runtime currently emits inner navigation content as text; native WinUI NavigationView pane, selection, keyboarding, and focus chrome are not rendered." ]
     },
     {
       "component": "NavigationViewItem",
       "target": "WorkbenchQueueNavigationItem",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "content", "tag" ],
-      "knownGaps": [ "Nested menu behavior and exact selection styling remain partial." ]
+      "knownGaps": [ "The macOS runtime currently emits NavigationViewItem content as text; native WinUI item chrome and selection styling are not rendered." ]
     },
     {
       "component": "NavigationView.MenuItems",
       "kind": "xaml-property-slot",
       "target": "WorkbenchQueueNavigationItem",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak"
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "knownGaps": [ "The macOS runtime currently emits menu item content as text; native WinUI menu item chrome is not rendered." ]
     },
     {
       "component": "NavigationView.PaneFooter",
       "kind": "xaml-property-slot",
       "target": "InnerPaneFooter",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak"
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "knownGaps": [ "The macOS runtime currently emits pane footer content as text; native WinUI pane footer layout chrome is not rendered." ]
     },
     {
       "component": "Frame",
@@ -87,9 +89,9 @@
       "kind": "pattern",
       "target": "WorkbenchListDetailGrid",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
-      "knownGaps": [ "The pattern is structural only; adaptive desktop density and list/detail chrome are not matched yet." ]
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
+      "knownGaps": [ "The macOS runtime currently emits list/detail content as text; native WinUI list/detail rows, panels, and adaptive chrome are not rendered." ]
     },
     {
       "component": "BreadcrumbBar",

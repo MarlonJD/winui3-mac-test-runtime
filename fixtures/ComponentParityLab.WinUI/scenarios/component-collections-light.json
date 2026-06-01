@@ -37,19 +37,19 @@
       "component": "ItemsControl",
       "target": "SummaryItemsControl",
       "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "items" ],
-      "knownGaps": [ "Virtualization and item containers are not general-purpose." ]
+      "knownGaps": [ "The macOS runtime currently emits only item text; native WinUI item container chrome is not rendered." ]
     },
     {
       "component": "ListView",
       "target": "CollectionListView",
       "expectedStatus": "partial",
-      "minimumVisualGrade": "weak",
-      "visualGrade": "weak",
+      "minimumVisualGrade": "not-rendered",
+      "visualGrade": "not-rendered",
       "requiredProperties": [ "items", "selectedIndex", "selectedItem" ],
-      "knownGaps": [ "Selected item visuals, templates, keyboarding, and virtualization remain partial." ]
+      "knownGaps": [ "The macOS runtime currently emits only list item text; native WinUI ListView rows, selection chrome, templates, keyboarding, and virtualization are not rendered." ]
     },
     {
       "component": "DataTemplate",
