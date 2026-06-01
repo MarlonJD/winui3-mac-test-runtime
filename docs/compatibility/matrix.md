@@ -33,13 +33,13 @@ WinUI 3 macOS development scope.
 
 `docs/compatibility/winui-api-compatibility.catalog.json` is the deterministic
 catalog seed used by docs, XAML diagnostics, project ingestion, and placeholder
-facade runtime diagnostics. The current `0.1` catalog contains 113 entries:
+facade runtime diagnostics. The current `0.1` catalog contains 114 entries:
 
 | Status | Count |
 | --- | ---: |
 | `supported` | 52 |
-| `partial` | 29 |
-| `planned` | 27 |
+| `partial` | 31 |
+| `planned` | 26 |
 | `windows-only` | 3 |
 | `not supported` | 2 |
 
@@ -87,8 +87,8 @@ See `component-support.md` for a readable component-by-component support table.
 | `x:Uid` | supported | Preserved as `FrameworkElement.Uid` for public fixture localization metadata. |
 | Text content | supported | Covered for `TextBlock` and `Button`. |
 | Event hookup | supported | Covered for routed click and navigation selection events. |
-| `{StaticResource ...}` | partial | Simple dictionary lookup with missing-resource reporting. |
-| `{ThemeResource ...}` | partial | Simple dictionary lookup with missing-resource reporting. |
+| `{StaticResource ...}` | partial | Simple dictionary lookup with missing-resource reporting, including the documented `CornerRadius` subset. |
+| `{ThemeResource ...}` | partial | Active scenario theme dictionary lookup works for the documented light, dark, and high-contrast resource subset. |
 | `Style` resources and `Setter` values | supported | Applies supported setter properties from resource dictionaries; unsupported templates remain out of scope. |
 | `AutomationProperties.Name` | supported | Exported into `tree.json` and `accessibility.json`. |
 | `AutomationProperties.HelpText` | supported | Exported into `tree.json` and `accessibility.json`. |

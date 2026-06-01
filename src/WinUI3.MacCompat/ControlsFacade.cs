@@ -335,6 +335,8 @@ public class Grid : FrameworkElement
 public class Border : FrameworkElement
 {
     public object? Child { get; set; }
+
+    public object? CornerRadius { get; set; }
 }
 
 public class FontIcon : Control

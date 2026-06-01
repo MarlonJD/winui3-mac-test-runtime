@@ -95,8 +95,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                 RenderStackPanel(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont, isRoot);
                 break;
             case "Border":
-                DrawRoundRect(canvas, paint, Rect(node), 8, theme.Surface);
-                DrawRoundRectStroke(canvas, paint, Rect(node), 8, theme.Stroke);
+                var borderRadius = ReadFloat(node, "cornerRadius", 8);
+                DrawRoundRect(canvas, paint, Rect(node), borderRadius, theme.Surface);
+                DrawRoundRectStroke(canvas, paint, Rect(node), borderRadius, theme.Stroke);
                 RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
                 break;
             case "NavigationViewItem":

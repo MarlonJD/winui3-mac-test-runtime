@@ -35,7 +35,7 @@ public sealed class MacXamlCompiler
         ["UserControl"] = new(StringComparer.Ordinal) { "Content", "Resources" },
         ["StackPanel"] = new(StringComparer.Ordinal) { "Orientation", "Padding", "Spacing" },
         ["Grid"] = new(StringComparer.Ordinal) { "ColumnDefinitions", "ColumnSpacing" },
-        ["Border"] = new(StringComparer.Ordinal) { "Child" },
+        ["Border"] = new(StringComparer.Ordinal) { "Child", "CornerRadius" },
         ["ScrollViewer"] = new(StringComparer.Ordinal) { "Content", "VerticalScrollBarVisibility" },
         ["ContentControl"] = new(StringComparer.Ordinal) { "Content" },
         ["ItemsControl"] = new(StringComparer.Ordinal) { "Items" },
@@ -308,7 +308,13 @@ public sealed class MacXamlCompiler
 
     private sealed record NamedElement(string FieldName, string TypeName);
 
-    private sealed record ResourceEntry(string Key, string? Value, StyleResource? Style);
+    private sealed record ResourceEntry(
+        string Key,
+        string? Value,
+        StyleResource? Style,
+        IReadOnlyList<ThemeDictionaryResource>? ThemeDictionaries = null);
+
+    private sealed record ThemeDictionaryResource(string Theme, IReadOnlyList<ResourceEntry> Entries);
 
     private sealed record StyleResource(string? TargetType, IReadOnlyList<SetterResource> Setters);
 
@@ -639,6 +645,14 @@ public sealed class MacXamlCompiler
                 return Array.Empty<ResourceEntry>();
             }
 
+            return ReadDictionaryEntries(dictionary, context, allowThemeDictionaries: true);
+        }
+
+        private static IReadOnlyList<ResourceEntry> ReadDictionaryEntries(
+            XElement dictionary,
+            GenerationContext context,
+            bool allowThemeDictionaries)
+        {
             var resources = new List<ResourceEntry>();
             foreach (var resource in dictionary.Elements())
             {
@@ -654,7 +668,11 @@ public sealed class MacXamlCompiler
 
                 if (resource.Name.LocalName == "ResourceDictionary.ThemeDictionaries")
                 {
-                    resources.Add(new ResourceEntry("ResourceDictionary.ThemeDictionaries", "present", null));
+                    resources.Add(new ResourceEntry(
+                        "ResourceDictionary.ThemeDictionaries",
+                        "present",
+                        null,
+                        allowThemeDictionaries ? ReadThemeDictionaries(resource, context) : Array.Empty<ThemeDictionaryResource>()));
                     continue;
                 }
 
@@ -678,10 +696,46 @@ public sealed class MacXamlCompiler
 
                 resources.Add(resource.Name.LocalName == "Style"
                     ? new ResourceEntry(key, null, ReadStyle(resource, context))
-                    : new ResourceEntry(key, resource.Value.Trim(), null));
+                    : new ResourceEntry(key, ReadResourceValue(resource), null));
             }
 
             return resources;
+        }
+
+        private static IReadOnlyList<ThemeDictionaryResource> ReadThemeDictionaries(
+            XElement themeDictionaries,
+            GenerationContext context)
+        {
+            var dictionaries = new List<ThemeDictionaryResource>();
+            foreach (var dictionary in themeDictionaries.Elements().Where(element => element.Name.LocalName == "ResourceDictionary"))
+            {
+                var themeKey = ReadXamlAttribute(dictionary, "Key");
+                if (string.IsNullOrWhiteSpace(themeKey))
+                {
+                    context.Diagnostics.Add(CreateDiagnostic(
+                        "XAML2002",
+                        "Theme dictionaries must declare x:Key.",
+                        "Error",
+                        context.FilePath,
+                        dictionary));
+                    continue;
+                }
+
+                dictionaries.Add(new ThemeDictionaryResource(
+                    themeKey,
+                    ReadDictionaryEntries(dictionary, context, allowThemeDictionaries: false)));
+            }
+
+            return dictionaries;
+        }
+
+        private static string ReadResourceValue(XElement resource)
+        {
+            return resource.Name.LocalName switch
+            {
+                "SolidColorBrush" => resource.Attribute("Color")?.Value ?? resource.Value.Trim(),
+                _ => resource.Value.Trim()
+            };
         }
 
         private static StyleResource ReadStyle(XElement styleElement, GenerationContext context)
@@ -732,29 +786,55 @@ public sealed class MacXamlCompiler
         public void WriteResources(IReadOnlyList<ResourceEntry> resources)
         {
             source.AppendLine("        var __resources = new Microsoft.UI.Xaml.ResourceDictionary();");
-            foreach (var (resource, index) in resources.Select((resource, index) => (resource, index)))
-            {
-                if (resource.Style is { } style)
-                {
-                    var styleVariable = $"__style{index.ToString(CultureInfo.InvariantCulture)}";
-                    source.AppendLine($"        var {styleVariable} = new Microsoft.UI.Xaml.Style {{ TargetType = {Literal(style.TargetType ?? string.Empty)} }};");
-                    foreach (var setter in style.Setters)
-                    {
-                        source.AppendLine($"        {styleVariable}.Setters.Add(new Microsoft.UI.Xaml.Setter({Literal(setter.Property)}, {RenderValue(setter.Property, setter.Value)}));");
-                    }
-
-                    source.AppendLine($"        __resources[{Literal(resource.Key)}] = {styleVariable};");
-                    continue;
-                }
-
-                source.AppendLine($"        __resources[{Literal(resource.Key)}] = {Literal(resource.Value ?? string.Empty)};");
-            }
+            WriteResourceEntries(resources, "__resources", "__style");
 
             source.AppendLine("        this.Resources.Clear();");
             source.AppendLine("        foreach (var __resource in __resources)");
             source.AppendLine("        {");
             source.AppendLine("            this.Resources[__resource.Key] = __resource.Value;");
             source.AppendLine("        }");
+            source.AppendLine("        foreach (var __themeDictionary in __resources.ThemeDictionaries)");
+            source.AppendLine("        {");
+            source.AppendLine("            this.Resources.ThemeDictionaries[__themeDictionary.Key] = __themeDictionary.Value;");
+            source.AppendLine("        }");
+        }
+
+        private void WriteResourceEntries(
+            IReadOnlyList<ResourceEntry> resources,
+            string dictionaryVariable,
+            string stylePrefix)
+        {
+            foreach (var (resource, index) in resources.Select((resource, index) => (resource, index)))
+            {
+                if (resource.ThemeDictionaries is { } themeDictionaries)
+                {
+                    source.AppendLine($"        {dictionaryVariable}[{Literal(resource.Key)}] = {Literal(resource.Value ?? string.Empty)};");
+                    foreach (var (themeDictionary, themeIndex) in themeDictionaries.Select((themeDictionary, themeIndex) => (themeDictionary, themeIndex)))
+                    {
+                        var themeVariable = $"__themeDictionary{index.ToString(CultureInfo.InvariantCulture)}_{themeIndex.ToString(CultureInfo.InvariantCulture)}";
+                        source.AppendLine($"        var {themeVariable} = new Microsoft.UI.Xaml.ResourceDictionary();");
+                        WriteResourceEntries(themeDictionary.Entries, themeVariable, $"{stylePrefix}{index.ToString(CultureInfo.InvariantCulture)}_{themeIndex.ToString(CultureInfo.InvariantCulture)}");
+                        source.AppendLine($"        {dictionaryVariable}.ThemeDictionaries[{Literal(themeDictionary.Theme)}] = {themeVariable};");
+                    }
+
+                    continue;
+                }
+
+                if (resource.Style is { } style)
+                {
+                    var styleVariable = $"{stylePrefix}{index.ToString(CultureInfo.InvariantCulture)}";
+                    source.AppendLine($"        var {styleVariable} = new Microsoft.UI.Xaml.Style {{ TargetType = {Literal(style.TargetType ?? string.Empty)} }};");
+                    foreach (var setter in style.Setters)
+                    {
+                        source.AppendLine($"        {styleVariable}.Setters.Add(new Microsoft.UI.Xaml.Setter({Literal(setter.Property)}, {RenderValue(setter.Property, setter.Value)}));");
+                    }
+
+                    source.AppendLine($"        {dictionaryVariable}[{Literal(resource.Key)}] = {styleVariable};");
+                    continue;
+                }
+
+                source.AppendLine($"        {dictionaryVariable}[{Literal(resource.Key)}] = {Literal(resource.Value ?? string.Empty)};");
+            }
         }
 
         public void WriteRoot(XamlObjectModel model)

@@ -22,13 +22,13 @@ requirements, visual grades, and known gaps, see
 
 ## Seed Coverage
 
-The `0.1` catalog has 113 entries:
+The `0.1` catalog has 114 entries:
 
 | Status | Count |
 | --- | ---: |
 | `supported` | 52 |
-| `partial` | 28 |
-| `planned` | 28 |
+| `partial` | 31 |
+| `planned` | 26 |
 | `windows-only` | 3 |
 | `not supported` | 2 |
 
@@ -43,7 +43,7 @@ The `0.1` catalog has 113 entries:
 | `xaml-directive` | 4 |
 | `xaml-element` | 30 |
 | `xaml-event` | 3 |
-| `xaml-property` | 4 |
+| `xaml-property` | 5 |
 | `xaml-property-element` | 2 |
 | `xaml-resource` | 3 |
 

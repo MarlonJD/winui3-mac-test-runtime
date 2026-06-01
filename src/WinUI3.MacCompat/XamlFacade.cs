@@ -130,6 +130,8 @@ public abstract class Application
 
 public class ResourceDictionary : Dictionary<string, object?>
 {
+    public IDictionary<string, ResourceDictionary> ThemeDictionaries { get; } =
+        new Dictionary<string, ResourceDictionary>(StringComparer.OrdinalIgnoreCase);
 }
 
 public sealed class Style

@@ -184,7 +184,7 @@ public sealed class MacXamlCompilerTests
         Assert.IsFalse(result.Succeeded);
         Assert.AreEqual("XAML1002", result.Diagnostics[0].Code);
         StringAssert.Contains(result.Diagnostics[0].Message, "Flyout");
-        StringAssert.Contains(result.Diagnostics[0].Message, "cataloged as planned");
+        StringAssert.Contains(result.Diagnostics[0].Message, "cataloged as partial");
         Assert.IsNotNull(result.Diagnostics[0].Line);
     }
 
@@ -373,7 +373,10 @@ public sealed class MacXamlCompilerTests
                   </ResourceDictionary.MergedDictionaries>
                   <ResourceDictionary.ThemeDictionaries>
                     <ResourceDictionary x:Key="Light">
-                      <String x:Key="LabThemeName">Light</String>
+                      <SolidColorBrush x:Key="AccentBrush" Color="#2562D9" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="Dark">
+                      <SolidColorBrush x:Key="AccentBrush" Color="#7CA7FF" />
                     </ResourceDictionary>
                   </ResourceDictionary.ThemeDictionaries>
                   <String x:Key="AccentBrush">#2562D9</String>
@@ -388,6 +391,8 @@ public sealed class MacXamlCompilerTests
         Assert.HasCount(0, result.Diagnostics);
         StringAssert.Contains(result.GeneratedSource, "\"XamlControlsResources\"");
         StringAssert.Contains(result.GeneratedSource, "\"ResourceDictionary.ThemeDictionaries\"");
+        StringAssert.Contains(result.GeneratedSource, ".ThemeDictionaries[\"Dark\"]");
+        StringAssert.Contains(result.GeneratedSource, "\"#7CA7FF\"");
     }
 
     [TestMethod]

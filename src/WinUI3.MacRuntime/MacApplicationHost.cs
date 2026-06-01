@@ -75,6 +75,7 @@ public sealed class MacApplicationHost
         }
 
         ResourceOperations.ClearFailures();
+        ResourceOperations.SetTheme(options.VisualSettings?.Theme);
         UnsupportedApiRegistry.Clear();
 
         var assembly = Assembly.LoadFrom(assemblyPath);

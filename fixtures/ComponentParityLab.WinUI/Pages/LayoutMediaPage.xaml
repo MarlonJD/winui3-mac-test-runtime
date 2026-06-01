@@ -7,6 +7,17 @@
             <Color x:Key="LabAccentColor">#2562D9</Color>
             <SolidColorBrush x:Key="LabAccentBrush" Color="#2562D9" />
             <CornerRadius x:Key="LabCornerRadius">8</CornerRadius>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="LabAccentBrush" Color="#2562D9" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="LabAccentBrush" Color="#7CA7FF" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="LabAccentBrush" Color="#FFFF00" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
             <x:String x:Key="LabStaticText">Static resource resolved</x:String>
             <Style x:Key="LabTextStyle" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{ThemeResource LabAccentBrush}" />
@@ -17,7 +28,7 @@
         <StackPanel x:Name="LayoutMediaRoot" Padding="24,20,24,24" Spacing="10">
             <TextBlock x:Name="LayoutMediaTitle" Text="Page 8: Layout, media, visuals" Style="{StaticResource LabTextStyle}" />
             <Grid x:Name="LayoutResourceGrid" ColumnDefinitions="160,*" ColumnSpacing="16">
-                <Border x:Name="LayoutBorder">
+                <Border x:Name="LayoutBorder" CornerRadius="{StaticResource LabCornerRadius}">
                     <StackPanel x:Name="LayoutNestedStack" Spacing="6">
                         <TextBlock x:Name="StaticResourceText" Text="{StaticResource LabStaticText}" />
                         <TextBlock x:Name="ThemeResourceText" Text="ThemeResource row" Foreground="{ThemeResource LabAccentBrush}" />

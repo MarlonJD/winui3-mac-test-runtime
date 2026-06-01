@@ -162,6 +162,7 @@ public static class UiTreeBuilder
 
                 break;
             case Border border:
+                AddObjectProperty(properties, "cornerRadius", border.CornerRadius);
                 AddChild(border.Child, children);
                 break;
             case FontIcon fontIcon:

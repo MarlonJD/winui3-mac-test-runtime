@@ -519,13 +519,13 @@
       "component": "CornerRadius",
       "kind": "pattern",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "resource diagnostic",
+      "fixtureCoverage": "component-layout-media-light/dark/high-contrast",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "CornerRadius resources are not applied to geometry yet."
+        "StaticResource-backed CornerRadius metadata is applied to Border geometry in the clean-room layout subset; full typed CornerRadius fidelity remains partial."
       ]
     },
     {
@@ -1078,13 +1078,13 @@
       "component": "ResourceDictionary.ThemeDictionaries",
       "kind": "pattern",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "bootstrap marker plus diagnostic row",
+      "fixtureCoverage": "component-layout-media-light/dark/high-contrast",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "Theme dictionaries are represented but not fully resolved by theme."
+        "Theme dictionaries resolve the active light, dark, and high-contrast scenario resources for the clean-room subset; dynamic WinUI resource invalidation remains planned."
       ]
     },
     {
@@ -1195,13 +1195,13 @@
       "component": "SolidColorBrush",
       "kind": "pattern",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "resource diagnostic",
+      "fixtureCoverage": "component-layout-media-light/dark/high-contrast",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "Brush resources are not converted to typed brushes yet."
+        "SolidColorBrush resources are reduced to deterministic color strings for supported renderer properties; full brush object fidelity remains planned."
       ]
     },
     {

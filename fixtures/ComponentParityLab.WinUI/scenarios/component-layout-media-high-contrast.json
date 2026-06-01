@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "component-parity-lab",
+  "name": "component-layout-media-high-contrast",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1.0,
+  "theme": "high-contrast",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 24.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 16.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "LayoutMediaNavigationItem"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "ScrollViewer",
+      "target": "LayoutScrollViewer",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "ThemeResource",
+      "kind": "resource",
+      "target": "ThemeResourceText",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "foreground"
+      ],
+      "knownGaps": [
+        "ThemeResource resolves through the active high-contrast scenario theme dictionary for the clean-room resource subset; full system high-contrast resource mapping remains planned."
+      ]
+    },
+    {
+      "component": "StaticResource",
+      "kind": "resource",
+      "target": "StaticResourceText",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "Style",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "Setter",
+      "kind": "resource",
+      "target": "LayoutMediaTitle",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "CornerRadius",
+      "kind": "resource",
+      "target": "LayoutBorder",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "cornerRadius"
+      ]
+    }
+  ]
+}

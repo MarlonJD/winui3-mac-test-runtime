@@ -1003,9 +1003,20 @@
       "notes": "Tracked for full Fluent visual state compatibility."
     },
     {
+      "id": "xaml-property:Border.CornerRadius",
+      "kind": "xaml-property",
+      "status": "partial",
+      "area": "resources",
+      "api": "Border.CornerRadius",
+      "xamlElement": "Border",
+      "xamlProperty": "CornerRadius",
+      "parityStage": "visually-approximated",
+      "notes": "StaticResource-backed corner radius metadata and skia-v2 border radius rendering are supported for the clean-room layout subset."
+    },
+    {
       "id": "xaml-property:Button.Flyout",
       "kind": "xaml-property",
-      "status": "planned",
+      "status": "partial",
       "area": "controls",
       "api": "Button.Flyout",
       "xamlElement": "Button",

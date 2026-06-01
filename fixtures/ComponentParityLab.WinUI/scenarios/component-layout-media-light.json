@@ -118,10 +118,16 @@
     {
       "component": "ResourceDictionary.ThemeDictionaries",
       "kind": "resource",
-      "target": "DiagnosticThemeDictionaries",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "target": "ThemeResourceText",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "foreground"
+      ],
+      "knownGaps": [
+        "Theme dictionaries are resolved for the active scenario theme in the clean-room resource subset; full dynamic resource invalidation remains planned."
+      ]
     },
     {
       "component": "ThemeResource",
@@ -178,18 +184,27 @@
     {
       "component": "SolidColorBrush",
       "kind": "resource",
-      "target": "DiagnosticSolidColorBrush",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "target": "ThemeResourceText",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "foreground"
+      ],
+      "knownGaps": [
+        "SolidColorBrush resources are reduced to deterministic color strings for renderer evidence; full brush object fidelity remains planned."
+      ]
     },
     {
       "component": "CornerRadius",
       "kind": "resource",
-      "target": "DiagnosticCornerRadius",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "target": "LayoutBorder",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "cornerRadius"
+      ]
     },
     {
       "component": "Expander",
@@ -302,10 +317,10 @@
     {
       "feature": "ResourceDictionary.ThemeDictionaries",
       "kind": "resource",
-      "target": "DiagnosticThemeDictionaries",
-      "expectedStatus": "planned",
+      "target": "ThemeResourceText",
+      "expectedStatus": "partial",
       "knownGaps": [
-        "Theme dictionaries are detected as source coverage, not fully resolved by theme."
+        "Theme dictionaries resolve active light, dark, and high-contrast scenario resources for the clean-room subset; dynamic invalidation remains planned."
       ]
     },
     {
@@ -314,7 +329,7 @@
       "target": "ThemeResourceText",
       "expectedStatus": "partial",
       "knownGaps": [
-        "ThemeResource currently resolves through a simple dictionary lookup."
+        "ThemeResource resolves through the active scenario theme dictionary for the clean-room subset."
       ]
     },
     {

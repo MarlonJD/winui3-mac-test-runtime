@@ -11,6 +11,7 @@ public static class ResourceOperations
 {
     private static readonly object Gate = new();
     private static readonly List<ResourceLookupFailure> Failures = new();
+    private static string currentTheme = "Light";
 
     public static IReadOnlyList<ResourceLookupFailure> CurrentFailures
     {
@@ -20,6 +21,25 @@ public static class ResourceOperations
             {
                 return Failures.ToArray();
             }
+        }
+    }
+
+    public static string CurrentTheme
+    {
+        get
+        {
+            lock (Gate)
+            {
+                return currentTheme;
+            }
+        }
+    }
+
+    public static void SetTheme(string? theme)
+    {
+        lock (Gate)
+        {
+            currentTheme = ThemeDictionaryKey(theme);
         }
     }
 
@@ -36,6 +56,11 @@ public static class ResourceOperations
         ArgumentNullException.ThrowIfNull(resources);
         ArgumentException.ThrowIfNullOrWhiteSpace(key);
         ArgumentException.ThrowIfNullOrWhiteSpace(targetProperty);
+
+        if (TryResolveThemeValue(resources, key, out var themedValue))
+        {
+            return themedValue;
+        }
 
         if (resources.TryGetValue(key, out var value))
         {
@@ -69,6 +94,40 @@ public static class ResourceOperations
 
             Failures.Add(new ResourceLookupFailure(key, targetProperty, "missing"));
         }
+    }
+
+    private static bool TryResolveThemeValue(ResourceDictionary resources, string key, out object? value)
+    {
+        if (resources.ThemeDictionaries.TryGetValue(CurrentTheme, out var themedResources) &&
+            themedResources.TryGetValue(key, out value))
+        {
+            return true;
+        }
+
+        if (resources.ThemeDictionaries.TryGetValue("Default", out var defaultResources) &&
+            defaultResources.TryGetValue(key, out value))
+        {
+            return true;
+        }
+
+        value = null;
+        return false;
+    }
+
+    private static string ThemeDictionaryKey(string? theme)
+    {
+        if (string.Equals(theme, "dark", StringComparison.OrdinalIgnoreCase))
+        {
+            return "Dark";
+        }
+
+        if (string.Equals(theme, "high-contrast", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(theme, "HighContrast", StringComparison.OrdinalIgnoreCase))
+        {
+            return "HighContrast";
+        }
+
+        return "Light";
     }
 }
 

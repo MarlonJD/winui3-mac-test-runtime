@@ -312,6 +312,29 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void ResourceOperationsResolvesThemeDictionaryBeforeFallback()
+    {
+        var resources = new ResourceDictionary
+        {
+            ["AccentBrush"] = "#2562D9"
+        };
+        resources.ThemeDictionaries["Dark"] = new ResourceDictionary
+        {
+            ["AccentBrush"] = "#7CA7FF"
+        };
+
+        ResourceOperations.SetTheme("dark");
+        try
+        {
+            Assert.AreEqual("#7CA7FF", ResourceOperations.ResolveString(resources, "AccentBrush", "Foreground"));
+        }
+        finally
+        {
+            ResourceOperations.SetTheme("light");
+        }
+    }
+
+    [TestMethod]
     public void UnsupportedApiRegistryReportsUnsupportedFacadeUse()
     {
         UnsupportedApiRegistry.Clear();
