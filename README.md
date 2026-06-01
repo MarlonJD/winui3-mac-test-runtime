@@ -103,12 +103,13 @@ WinUI-style subset for automated macOS testing and intentionally does not claim
 binary compatibility, arbitrary `.exe` execution, or full WinUI 3 behavior.
 
 The published compatibility claim includes **Level 0: Harness Reliability**,
-the documented **Level 1: Core App And XAML Compatibility** subset, and the
+the documented **Level 1: Core App And XAML Compatibility** subset, the
 public-fixture-backed **Level 2: Layout And Controls Foundation** and
-**Level 3: Styling, Resources, And Theme Fidelity** subsets, plus the
+**Level 3: Styling, Resources, And Theme Fidelity** subsets, the
 fixture-backed **Level 4: Data Binding, Commands, And State** and **Level 5:
-Input, Accessibility, And Automation** subsets. Higher levels are documented as
-`supported`, `partial`, or `planned`.
+Input, Accessibility, And Automation** subsets, and **Level 6: Windows
+Reference Visual Compatibility** for the public strict fixture categories.
+Higher levels are documented as `supported`, `partial`, or `planned`.
 See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/matrix.md` for the current supported subset.
 
@@ -133,7 +134,8 @@ The `windows-native-screenshot` workflow runs on GitHub's `windows-latest`
 runner and captures client-area PNG reference screenshots from real Windows
 desktop windows. A follow-up `macos-latest` job renders the matching public
 scenario through `skia-v2`, compares the two PNGs, and uploads reviewable
-reference/runtime/diff artifacts.
+reference/runtime/diff artifacts for the shell, interaction/binding, and
+control-gallery fixture categories.
 
 The capture tool can be pointed at any Windows desktop app by changing the
 window title and command:

@@ -10,9 +10,10 @@ The macOS runtime contract is Wine-free: application code is compiled as managed
 
 ## Published Compatibility Level
 
-The current published level is **Level 0: Harness Reliability**, with public
-fixture-backed slices of Levels 1, 2, 4, 5, and 6 documented in
-`docs/compatibility/matrix.md`.
+The current published compatibility claim covers **Levels 0 through 6** as
+documented in `docs/compatibility/matrix.md`. Level 6 is limited to the public
+strict fixture categories captured by the `windows-latest` reference workflow:
+shell, interaction/binding, and control gallery.
 
 Level claims are cumulative only when the matrix marks the relevant runtime,
 XAML, control, renderer, interaction, accessibility, and artifact behaviors as
@@ -50,6 +51,16 @@ fails the run.
 
 SVG and the current Skia renderer remain smoke renderers. `skia-v2` is the
 scenario-driven renderer used for public visual compatibility checks.
+
+## Windows Reference Contract
+
+Windows reference screenshots are captured only from generic public fixture
+content in the public `windows-native-screenshot` GitHub Actions workflow. The
+workflow covers the shell, interaction/binding, and control-gallery strict
+fixture categories, then compares the macOS `skia-v2` render against each
+reference using scenario-local thresholds. Passing the workflow means those
+documented public scenarios stayed within threshold; it is not a claim of full
+WinUI 3 pixel parity.
 
 ## Styling And Theme Contract
 
