@@ -6,7 +6,9 @@ public sealed partial class App : Application
 {
     public App()
     {
+#if WINDOWS
         UnhandledException += OnUnhandledException;
+#endif
         AppDomain.CurrentDomain.UnhandledException += (_, args) =>
         {
             if (args.ExceptionObject is Exception error)
@@ -39,10 +41,12 @@ public sealed partial class App : Application
         }
     }
 
+#if WINDOWS
     private static void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs args)
     {
         WriteLaunchFailure("WinUI unhandled exception", args.Exception);
     }
+#endif
 
     private static void WriteLaunchFailure(string stage, Exception error)
     {
