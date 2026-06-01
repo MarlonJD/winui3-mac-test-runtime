@@ -132,6 +132,33 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
 Wine is optional diagnostic context only. The primary runtime path is a managed
 macOS .NET process.
 
+## Visual Parity Evidence
+
+Public visual evidence lives in `docs/visual-parity/`. It includes real Windows
+reference screenshots, macOS runtime screenshots, pixel-diff images, and
+`visual-run.json` metrics from public GitHub Actions runs.
+
+The current `public-admin-workbench-light` evidence comes from public workflow
+run
+[`26752174485`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26752174485)
+and passed strict comparison:
+
+| Windows reference | macOS runtime | Pixel diff |
+| --- | --- | --- |
+| ![Windows reference](docs/visual-parity/examples/public-admin-workbench-light/windows-reference.png) | ![macOS runtime](docs/visual-parity/examples/public-admin-workbench-light/mac-runtime.png) | ![Pixel diff](docs/visual-parity/examples/public-admin-workbench-light/pixel-diff.png) |
+
+For this scenario, `16.01%` of pixels changed, `83.99%` were byte-identical,
+mean absolute error was `8.50`, and RMS error was `41.09`, all inside the
+scenario thresholds. The matching parts are the Windows-targeted project
+ingestion path, navigation shell, selected state, list/detail workbench shape,
+and command-click assertion. The visible gaps are still important: exact Fluent
+control chrome, command surfaces, InfoBar/list/detail painters, text metrics,
+focus visuals, shadows, Mica/Acrylic, and native interaction states are not yet
+pixel-perfect.
+
+See `docs/visual-parity/README.md` for the current evidence table and
+interpretation notes.
+
 ## Compatibility Status
 
 This is still an alpha compatibility runtime. The published alpha milestone
@@ -158,8 +185,9 @@ entries are cataloged and diagnosed as planned rather than broadly rendered.
 See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/matrix.md` for the current supported subset. See
 `docs/compatibility/api-catalog.md` and
-`docs/compatibility/material-composition.md` for the catalog and material
-compatibility contracts.
+`docs/compatibility/component-support.md` for the readable component-by-component
+support matrix. See `docs/compatibility/material-composition.md` for the
+material compatibility contract.
 
 ## Package Smoke
 

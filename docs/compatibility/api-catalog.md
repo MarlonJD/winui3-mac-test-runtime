@@ -14,6 +14,9 @@ The catalog is intentionally deterministic:
 - A runtime or compiler diagnostic may report `unknown` when public app code
   touches a WinUI API or XAML construct that is not yet cataloged.
 
+For a readable control-by-control view, see
+`docs/compatibility/component-support.md`.
+
 ## Seed Coverage
 
 The `0.1` catalog has 113 entries:
