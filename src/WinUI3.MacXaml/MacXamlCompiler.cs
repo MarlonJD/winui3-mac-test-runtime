@@ -8,6 +8,77 @@ namespace WinUI3.MacXaml;
 public sealed class MacXamlCompiler
 {
     private static readonly XNamespace XamlNamespace = "http://schemas.microsoft.com/winfx/2006/xaml";
+    private static readonly HashSet<string> CommonFrameworkProperties = new(StringComparer.Ordinal)
+    {
+        "Background",
+        "DataContext",
+        "Foreground",
+        "HorizontalAlignment",
+        "Style",
+        "Tag",
+        "Uid",
+        "VerticalAlignment",
+        "Visibility"
+    };
+
+    private static readonly HashSet<string> ControlProperties = new(StringComparer.Ordinal)
+    {
+        "IsEnabled"
+    };
+
+    private static readonly Dictionary<string, HashSet<string>> ElementProperties = new(StringComparer.Ordinal)
+    {
+        ["Window"] = new(StringComparer.Ordinal) { "Content", "Resources", "SystemBackdrop", "Title" },
+        ["Page"] = new(StringComparer.Ordinal) { "Content", "Resources" },
+        ["UserControl"] = new(StringComparer.Ordinal) { "Content", "Resources" },
+        ["StackPanel"] = new(StringComparer.Ordinal) { "Orientation", "Padding", "Spacing" },
+        ["Grid"] = new(StringComparer.Ordinal) { "ColumnDefinitions", "ColumnSpacing" },
+        ["Border"] = new(StringComparer.Ordinal) { "Child" },
+        ["TextBlock"] = new(StringComparer.Ordinal) { "Text" },
+        ["TextBox"] = new(StringComparer.Ordinal) { "Text" },
+        ["Button"] = new(StringComparer.Ordinal) { "Content" },
+        ["Image"] = new(StringComparer.Ordinal) { "Source" },
+        ["ListView"] = new(StringComparer.Ordinal),
+        ["FontIcon"] = new(StringComparer.Ordinal) { "FontSize", "Glyph" },
+        ["Frame"] = new(StringComparer.Ordinal),
+        ["NavigationView"] = new(StringComparer.Ordinal)
+        {
+            "CompactPaneLength",
+            "Content",
+            "IsBackButtonVisible",
+            "IsSettingsVisible",
+            "MenuItems",
+            "OpenPaneLength",
+            "PaneDisplayMode",
+            "PaneFooter"
+        },
+        ["NavigationViewItem"] = new(StringComparer.Ordinal) { "Content", "Icon" },
+        ["ResourceDictionary"] = new(StringComparer.Ordinal)
+    };
+
+    private static readonly Dictionary<string, HashSet<string>> ElementEvents = new(StringComparer.Ordinal)
+    {
+        ["Button"] = new(StringComparer.Ordinal) { "Click" },
+        ["NavigationView"] = new(StringComparer.Ordinal) { "SelectionChanged" }
+    };
+
+    private static readonly Dictionary<string, HashSet<string>> ElementPropertyElements = new(StringComparer.Ordinal)
+    {
+        ["Window"] = new(StringComparer.Ordinal) { "Resources" },
+        ["Page"] = new(StringComparer.Ordinal) { "Resources" },
+        ["UserControl"] = new(StringComparer.Ordinal) { "Resources" },
+        ["NavigationView"] = new(StringComparer.Ordinal) { "MenuItems", "PaneFooter", "Content" },
+        ["NavigationViewItem"] = new(StringComparer.Ordinal) { "Icon", "Content" },
+        ["Border"] = new(StringComparer.Ordinal) { "Child" },
+        ["Button"] = new(StringComparer.Ordinal) { "Content" }
+    };
+
+    private static readonly HashSet<string> SupportedAttachedProperties = new(StringComparer.Ordinal)
+    {
+        "AutomationProperties.Name",
+        "AutomationProperties.HelpText",
+        "Grid.Column"
+    };
 
     public XamlCompilationResult CompileFile(string xamlPath)
     {
@@ -251,27 +322,93 @@ public sealed class MacXamlCompiler
 
             foreach (var attribute in element.Attributes())
             {
-                if (attribute.IsNamespaceDeclaration ||
-                    attribute.Name.Namespace == XamlNamespace)
+                if (attribute.IsNamespaceDeclaration)
                 {
                     continue;
                 }
 
                 var localName = attribute.Name.LocalName;
-                if (localName is "AutomationProperties.Name" or "AutomationProperties.HelpText")
+                if (attribute.Name.Namespace == XamlNamespace)
+                {
+                    if (localName == "Name")
+                    {
+                        continue;
+                    }
+
+                    if (localName == "Uid")
+                    {
+                        properties["Uid"] = attribute.Value;
+                        continue;
+                    }
+
+                    if (localName == "Class")
+                    {
+                        continue;
+                    }
+
+                    context.Diagnostics.Add(CreateDiagnostic(
+                        "XAML1004",
+                        $"Unsupported XAML directive 'x:{localName}' on '{element.Name.LocalName}'.",
+                        "Error",
+                        context.FilePath,
+                        element));
+                    continue;
+                }
+
+                if (SupportedAttachedProperties.Contains(localName) &&
+                    localName is "AutomationProperties.Name" or "AutomationProperties.HelpText")
                 {
                     properties[localName] = attribute.Value;
                     continue;
                 }
 
-                if (localName == "Name" || localName.Contains('.', StringComparison.Ordinal))
+                if (SupportedAttachedProperties.Contains(localName) && localName == "Grid.Column")
+                {
+                    properties[localName] = attribute.Value;
+                    continue;
+                }
+
+                if (localName == "Name")
                 {
                     continue;
                 }
 
-                if (localName is "Click" or "SelectionChanged")
+                if (localName.Contains('.', StringComparison.Ordinal))
+                {
+                    context.Diagnostics.Add(CreateDiagnostic(
+                        "XAML1005",
+                        $"Unsupported attached property '{localName}' on '{element.Name.LocalName}'.",
+                        "Error",
+                        context.FilePath,
+                        element));
+                    continue;
+                }
+
+                if (IsSupportedEvent(element.Name.LocalName, localName))
                 {
                     events[localName] = attribute.Value;
+                    continue;
+                }
+
+                if (LooksLikeEvent(localName))
+                {
+                    context.Diagnostics.Add(CreateDiagnostic(
+                        "XAML1006",
+                        $"Unsupported event '{localName}' on '{element.Name.LocalName}'.",
+                        "Error",
+                        context.FilePath,
+                        element));
+                    continue;
+                }
+
+                if (!IsSupportedProperty(element.Name.LocalName, localName))
+                {
+                    context.Diagnostics.Add(CreateDiagnostic(
+                        "XAML1002",
+                        $"Unsupported XAML property '{localName}' on '{element.Name.LocalName}'.",
+                        "Error",
+                        context.FilePath,
+                        element));
                     continue;
                 }
 
@@ -301,6 +438,17 @@ public sealed class MacXamlCompiler
                 if (IsPropertyElement(child))
                 {
                     var propertyName = ReadPropertyElementName(child);
+                    if (!IsSupportedPropertyElement(element.Name.LocalName, propertyName))
+                    {
+                        context.Diagnostics.Add(CreateDiagnostic(
+                            "XAML1003",
+                            $"Unsupported property element '{child.Name.LocalName}' on '{element.Name.LocalName}'.",
+                            "Error",
+                            context.FilePath,
+                            child));
+                        continue;
+                    }
+
                     var values = new List<XamlObjectModel>();
                     foreach (var propertyChild in child.Elements())
                     {
@@ -324,6 +472,49 @@ public sealed class MacXamlCompiler
             }
 
             return new XamlObjectModel(element, typeName, variableName, name, properties, events, resources, children, propertyChildren, namedElements);
+        }
+
+        private static bool IsSupportedProperty(string elementName, string propertyName)
+        {
+            if (CommonFrameworkProperties.Contains(propertyName))
+            {
+                return true;
+            }
+
+            if (IsControl(elementName) && ControlProperties.Contains(propertyName))
+            {
+                return true;
+            }
+
+            return ElementProperties.TryGetValue(elementName, out var properties) && properties.Contains(propertyName);
+        }
+
+        private static bool IsSupportedEvent(string elementName, string eventName)
+        {
+            return ElementEvents.TryGetValue(elementName, out var events) && events.Contains(eventName);
+        }
+
+        private static bool LooksLikeEvent(string localName)
+        {
+            return localName is "Click" or "SelectionChanged";
+        }
+
+        private static bool IsSupportedPropertyElement(string elementName, string propertyName)
+        {
+            return ElementPropertyElements.TryGetValue(elementName, out var properties) && properties.Contains(propertyName);
+        }
+
+        private static bool IsControl(string elementName)
+        {
+            return elementName is
+                "Button" or
+                "TextBox" or
+                "Image" or
+                "ListView" or
+                "FontIcon" or
+                "Frame" or
+                "NavigationView" or
+                "NavigationViewItem";
         }
 
         private static bool IsPropertyElement(XElement element)
@@ -486,6 +677,12 @@ public sealed class MacXamlCompiler
                     continue;
                 }
 
+                if (property.Key == "Grid.Column")
+                {
+                    source.AppendLine($"        Microsoft.UI.Xaml.Controls.Grid.SetColumn({model.VariableName}, {RenderValue(property.Key, property.Value)});");
+                    continue;
+                }
+
                 if (TryReadBindingPath(property.Value, out var bindingPath))
                 {
                     source.AppendLine($"        Microsoft.UI.Xaml.Data.BindingOperations.SetBinding({model.VariableName}, {Literal(property.Key)}, new Microsoft.UI.Xaml.Data.Binding({Literal(bindingPath)}));");
@@ -630,11 +827,28 @@ public sealed class MacXamlCompiler
                 return number.ToString(CultureInfo.InvariantCulture);
             }
 
+            if (IsIntProperty(propertyName) && int.TryParse(value, CultureInfo.InvariantCulture, out var integer))
+            {
+                return integer.ToString(CultureInfo.InvariantCulture);
+            }
+
             return Literal(value);
         }
 
         private static bool TryReadBindingPath(string value, out string path)
         {
+            if (value.StartsWith("{Binding Path=", StringComparison.Ordinal) && value.EndsWith('}'))
+            {
+                path = value["{Binding Path=".Length..^1].Trim();
+                var comma = path.IndexOf(',');
+                if (comma >= 0)
+                {
+                    path = path[..comma].Trim();
+                }
+
+                return !string.IsNullOrWhiteSpace(path);
+            }
+
             if (value.StartsWith("{Binding ", StringComparison.Ordinal) && value.EndsWith('}'))
             {
                 path = value["{Binding ".Length..^1].Trim();
@@ -653,6 +867,11 @@ public sealed class MacXamlCompiler
                 "Spacing" or
                 "ColumnSpacing" or
                 "FontSize";
+        }
+
+        private static bool IsIntProperty(string propertyName)
+        {
+            return propertyName is "Grid.Column";
         }
 
         private static bool IsStringProperty(string propertyName)

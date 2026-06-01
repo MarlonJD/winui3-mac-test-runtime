@@ -56,10 +56,20 @@ public static class UiTreeBuilder
         if (element is FrameworkElement frameworkElement)
         {
             name = frameworkElement.Name;
+            if (!string.IsNullOrWhiteSpace(frameworkElement.Uid))
+            {
+                properties["uid"] = frameworkElement.Uid;
+            }
+
             properties["visibility"] = frameworkElement.Visibility.ToString();
             properties["horizontalAlignment"] = frameworkElement.HorizontalAlignment.ToString();
             properties["verticalAlignment"] = frameworkElement.VerticalAlignment.ToString();
             properties["isFocused"] = frameworkElement.IsFocused;
+            if (Grid.GetColumn(frameworkElement) is var gridColumn and > 0)
+            {
+                properties["gridColumn"] = gridColumn;
+            }
+
             AddObjectProperty(properties, "background", frameworkElement.Background);
             AddObjectProperty(properties, "foreground", frameworkElement.Foreground);
             AddObjectProperty(properties, "style", frameworkElement.Style);

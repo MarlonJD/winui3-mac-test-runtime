@@ -329,7 +329,7 @@ public sealed class MacRuntimeTests
         using var document = JsonDocument.Parse(File.ReadAllText(path));
 
         Assert.AreEqual(schemaVersion, document.RootElement.GetProperty("schemaVersion").GetString());
-        Assert.IsTrue(document.RootElement.GetProperty(itemsProperty).GetArrayLength() >= minimumItemCount);
+        Assert.IsGreaterThanOrEqualTo(minimumItemCount, document.RootElement.GetProperty(itemsProperty).GetArrayLength());
     }
 
     private sealed record MutableState(string Title);

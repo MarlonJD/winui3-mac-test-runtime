@@ -31,10 +31,13 @@ XAML, control, renderer, interaction, accessibility, and artifact behaviors as
 ## XAML Contract
 
 The XAML compiler supports only constructs listed in the matrix. Unsupported
-elements produce `XAML1001` diagnostics with file and line information when
-available. Resource dictionaries, static resources, theme resources, bindings,
-property elements, and attached automation properties are supported only to the
-extent documented in the matrix and public fixtures.
+elements produce `XAML1001` diagnostics, unsupported properties produce
+`XAML1002`, unsupported property elements produce `XAML1003`, unsupported XAML
+directives produce `XAML1004`, unsupported attached properties produce
+`XAML1005`, and unsupported events produce `XAML1006`. Diagnostics include file
+and line information when available. Resource dictionaries, static resources,
+theme resources, bindings, property elements, and attached properties are
+supported only to the extent documented in the matrix and public fixtures.
 
 ## Control And Renderer Contract
 

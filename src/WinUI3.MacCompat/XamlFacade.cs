@@ -49,6 +49,8 @@ public class FrameworkElement : UIElement
 {
     public string? Name { get; set; }
 
+    public string? Uid { get; set; }
+
     public object? DataContext { get; set; }
 
     public object? Tag { get; set; }

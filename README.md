@@ -92,7 +92,8 @@ This is still a constrained test runtime. It supports a small source-level
 WinUI-style subset for automated macOS testing and intentionally does not claim
 binary compatibility, arbitrary `.exe` execution, or full WinUI 3 behavior.
 
-The published compatibility claim is **Level 0: Harness Reliability**, with
+The published compatibility claim includes **Level 0: Harness Reliability** and
+the documented **Level 1: Core App And XAML Compatibility** subset, with
 fixture-backed slices of higher levels documented as `supported` or `partial`.
 See `docs/compatibility/contracts.md` for the public compatibility contract and
 `docs/compatibility/matrix.md` for the current supported subset.
