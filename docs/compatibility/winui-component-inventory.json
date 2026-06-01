@@ -467,26 +467,26 @@
       "component": "CommandBarFlyout",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 5: Commands And Menus",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-commands-menus-light",
+      "interactionCoverage": "openPopup + invokeMenuItem",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "Open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
       ]
     },
     {
       "component": "ContentDialog",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 4: Dialogs And Flyouts",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-dialogs-flyouts-light",
+      "interactionCoverage": "openPopup + dismissPopup",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No dialog host behavior is implemented."
+        "Open and dismiss state are supported for clean-room smoke scenarios; modal focus trapping and native window overlay remain gaps."
       ]
     },
     {
@@ -597,13 +597,13 @@
       "component": "Flyout",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 4: Dialogs And Flyouts",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-dialogs-flyouts-light",
+      "interactionCoverage": "openPopup",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No flyout host behavior is implemented."
+        "Open state is supported for clean-room smoke scenarios; native placement, light-dismiss, and keyboarding remain gaps."
       ]
     },
     {
@@ -857,13 +857,13 @@
       "component": "MenuFlyout",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 5: Commands And Menus",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-commands-menus-light",
+      "interactionCoverage": "openPopup + invokeMenuItem",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No flyout host behavior is implemented."
+        "Open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
       ]
     },
     {
@@ -1429,13 +1429,13 @@
       "component": "ToolTip",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 4: Dialogs And Flyouts",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-dialogs-flyouts-light",
+      "interactionCoverage": "openPopup",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No tooltip host behavior is implemented."
+        "Open state is supported for clean-room smoke scenarios; hover timing and native placement remain gaps."
       ]
     },
     {

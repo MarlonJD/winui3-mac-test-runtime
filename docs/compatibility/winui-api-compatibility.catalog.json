@@ -5,7 +5,7 @@
     {
       "id": "api:Microsoft.UI.Composition.CompositionEffectBrush",
       "kind": "api",
-      "status": "planned",
+      "status": "partial",
       "area": "composition",
       "api": "Microsoft.UI.Composition.CompositionEffectBrush",
       "parityStage": "planned",
@@ -1010,8 +1010,8 @@
       "api": "Button.Flyout",
       "xamlElement": "Button",
       "xamlProperty": "Flyout",
-      "parityStage": "planned",
-      "notes": "Tracked for flyout source compatibility; not supported in the alpha subset."
+      "parityStage": "partial",
+      "notes": "Supported for the documented clean-room popup smoke subset; native placement, light-dismiss, and keyboarding remain partial."
     },
     {
       "id": "xaml-property:FrameworkElement.Background",

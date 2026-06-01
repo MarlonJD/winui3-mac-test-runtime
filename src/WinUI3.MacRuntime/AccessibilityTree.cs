@@ -14,6 +14,7 @@ public sealed record AccessibilityNode(
     bool? IsEnabled,
     bool? IsChecked,
     bool? IsSelected,
+    bool? IsExpanded,
     string? Value,
     IReadOnlyList<AccessibilityNode> Children);
 
@@ -44,6 +45,7 @@ public static class AccessibilityTreeBuilder
             IsSelected: ReadString(node.Properties, "selectedItem") is not null || ReadString(node.Properties, "selectedIndex") is not null
                 ? ReadString(node.Properties, "selectedIndex") != "-1"
                 : null,
+            IsExpanded: ReadNullableBool(node.Properties, "isOpen"),
             Value: ReadString(node.Properties, "text") ??
                 ReadString(node.Properties, "selectedItem") ??
                 ReadString(node.Properties, "value"),
@@ -117,6 +119,29 @@ public static class AccessibilityTreeBuilder
         if (typeName.EndsWith(".InfoBar", StringComparison.Ordinal))
         {
             return "status";
+        }
+
+        if (typeName.EndsWith(".Flyout", StringComparison.Ordinal) ||
+            typeName.EndsWith(".MenuFlyout", StringComparison.Ordinal) ||
+            typeName.EndsWith(".CommandBarFlyout", StringComparison.Ordinal))
+        {
+            return "popup";
+        }
+
+        if (typeName.EndsWith(".ContentDialog", StringComparison.Ordinal))
+        {
+            return "dialog";
+        }
+
+        if (typeName.EndsWith(".ToolTip", StringComparison.Ordinal) ||
+            typeName.EndsWith(".TeachingTip", StringComparison.Ordinal))
+        {
+            return "tooltip";
+        }
+
+        if (typeName.EndsWith(".MenuFlyoutItem", StringComparison.Ordinal))
+        {
+            return "menuitem";
         }
 
         if (typeName.EndsWith(".CommandBar", StringComparison.Ordinal))

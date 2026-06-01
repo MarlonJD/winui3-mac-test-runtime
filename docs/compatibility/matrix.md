@@ -19,7 +19,7 @@ that is not present in the catalog yet.
 | --- | --- | --- |
 | Level 0: Harness Reliability | supported | Managed macOS runner, doctor, SVG, current Skia, `skia-v2`, versioned artifacts, strict visual failures, and public CI workflow wiring. |
 | Level 1: Core App And XAML Compatibility | supported | `Application`, `Window`, `Page`, `Frame`, resource dictionaries, startup activation, navigation, strict unsupported XAML diagnostics, and the documented public XAML subset. |
-| Level 2: Layout And Controls Foundation | supported | Public logical/source fixture subset and `skia-v2` component-region evidence for `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `TextBox`, `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `Image`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `AppBarButton`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. Planned and unsupported controls remain `not-rendered`. |
+| Level 2: Layout And Controls Foundation | supported | Public logical/source fixture subset and `skia-v2` component-region evidence for `Grid`, `StackPanel`, `Border`, `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `TextBox`, `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `Image`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `AppBarButton`, `CommandBarFlyout`, `MenuFlyout`, `ContentDialog`, `Flyout`, `ToolTip`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. Planned and unsupported controls remain `not-rendered`. |
 | Level 3: Styling, Resources, And Theme Fidelity | supported | Resource lookup, style setter application for supported properties, light/dark/high-contrast renderer themes, and strict resource diagnostics for the public subset. |
 | Level 4: Data Binding, Commands, And State | supported | One-way and two-way binding for supported properties, `INotifyPropertyChanged`, observable item collections, command execution state, button command invocation, and navigation state for public fixtures. |
 | Level 5: Input, Accessibility, And Automation | supported | Scripted click, focus, text entry, item selection, property assertions, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility state export. |
@@ -38,8 +38,8 @@ facade runtime diagnostics. The current `0.1` catalog contains 113 entries:
 | Status | Count |
 | --- | ---: |
 | `supported` | 52 |
-| `partial` | 28 |
-| `planned` | 28 |
+| `partial` | 29 |
+| `planned` | 27 |
 | `windows-only` | 3 |
 | `not supported` | 2 |
 
@@ -67,6 +67,7 @@ See `component-support.md` for a readable component-by-component support table.
 | `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unavailable API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
 | Scripted text entry, item selection, and assertions | supported | `typeText`, `selectItem`, and `assertProperty` actions emit deterministic pass/fail results. |
+| Scripted popup actions | partial | `openPopup`, `dismissPopup`, and `invokeMenuItem` support the documented `Button.Flyout`, `MenuFlyout`, `CommandBarFlyout`, `ContentDialog`, `Flyout`, and `ToolTip` smoke subset. |
 | Versioned interaction scripts | supported | Script input accepts `schemaVersion: 0.1`; reports emit `schemaVersion: 0.1`. |
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
 | Snapshot output | partial | Deterministic SVG fallback and Skia-backed PNG output are available for the supported tree subset. |
@@ -103,12 +104,14 @@ See `component-support.md` for a readable component-by-component support table.
 | `Application`, `Window`, `Page` | supported | Basic lifecycle and page activation. |
 | `Frame` | supported | Supports `Navigate(Type, object?)` and XAML `Frame.Content` for public shadow-build fixtures. |
 | `StackPanel`, `Grid`, `Border` | partial | Logical child containment, basic two-column grid measurement, and deterministic `skia-v2` layout/region rendering for public scenarios. |
-| `TextBlock`, `TextBox`, `Button` | supported | Basic content/text and button click. |
+| `TextBlock`, `TextBox`, `Button` | supported | Basic content/text, button click, and `Button.Flyout` hosting for the partial popup smoke subset. |
 | `ToggleButton`, `CheckBox`, `RadioButton` | supported | Checked state, content, tree export, accessibility roles, layout, and `skia-v2` painters for public fixtures. |
 | `ComboBox` | supported | Items, selected item/index, placeholder, tree export, layout, and `skia-v2` painter for public fixtures. |
 | `ProgressRing`, `ProgressBar`, `InfoBar` | supported | State/value/severity metadata, tree export, layout, and `skia-v2` painters for public fixtures. |
 | `CommandBar`, `AppBarButton` | supported | Primary commands, labels, click simulation, tree export, layout, and `skia-v2` painters for public fixtures. |
+| `CommandBarFlyout`, `MenuFlyout` | partial | Open state, command/menu item invocation, accessibility popup/menuitem metadata, layout, and `skia-v2` popup painters for public smoke scenarios. |
 | `ScrollViewer`, `ContentControl`, `ItemsControl` | supported | Single-slot or item collection containment, tree export, layout, and `skia-v2` support for public fixtures. |
+| `ContentDialog`, `Flyout`, `ToolTip` | partial | Open state, dialog/flyout/tooltip metadata, accessibility expanded state, layout, and `skia-v2` popup painters for public smoke scenarios. |
 | `Image`, `ListView` | partial | Logical model plus `skia-v2` placeholder/list painters for public scenarios. |
 | `NavigationView`, `NavigationViewItem` | partial | Menu items, selection, pane footer, and `skia-v2` shell painter. |
 | `FontIcon` | partial | Glyph and font size metadata with simple `skia-v2` glyph/dot rendering. |
@@ -118,11 +121,13 @@ See `component-support.md` for a readable component-by-component support table.
 `skia-v2` is intentionally narrower than WinUI 3. It currently paints the public
 fixture subset: `Window`, `Page`, `Grid`, `StackPanel`, `Border`,
 `ScrollViewer`, `ContentControl`, `ItemsControl`, `TextBlock`, `Button`,
-`AppBarButton`, `ToggleButton`, `CheckBox`, `RadioButton`, `TextBox`,
-`ComboBox`, `Frame`, `NavigationView`, `NavigationViewItem`, `ListView`,
-`ProgressRing`, `ProgressBar`, `InfoBar`, `CommandBar`, `FontIcon`, `Image`,
-and string content. A strict scenario records any unsupported control or missing
-renderer feature in `unsupported-apis.json` and exits non-zero.
+`AppBarButton`, `CommandBarFlyout`, `MenuFlyout`, `MenuFlyoutItem`,
+`ContentDialog`, `Flyout`, `ToolTip`, `ToggleButton`, `CheckBox`,
+`RadioButton`, `TextBox`, `ComboBox`, `Frame`, `NavigationView`,
+`NavigationViewItem`, `ListView`, `ProgressRing`, `ProgressBar`, `InfoBar`,
+`CommandBar`, `FontIcon`, `Image`, and string content. A strict scenario
+records any unsupported control or missing renderer feature in
+`unsupported-apis.json` and exits non-zero.
 
 ## Material And Composition Targets
 

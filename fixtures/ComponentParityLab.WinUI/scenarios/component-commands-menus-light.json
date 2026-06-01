@@ -29,6 +29,24 @@
       "target": "CommandStateText",
       "key": "Text",
       "parameter": "Saved"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticCommandBarFlyout"
+    },
+    {
+      "type": "invokeMenuItem",
+      "target": "DiagnosticCommandBarFlyout",
+      "parameter": "Pin"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticMenuFlyout"
+    },
+    {
+      "type": "invokeMenuItem",
+      "target": "DiagnosticMenuFlyout",
+      "parameter": "Approve"
     }
   ],
   "requirements": [
@@ -85,16 +103,28 @@
     {
       "component": "CommandBarFlyout",
       "target": "DiagnosticCommandBarFlyout",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "open-popup"
+      ],
+      "knownGaps": [
+        "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+      ]
     },
     {
       "component": "MenuFlyout",
       "target": "DiagnosticMenuFlyout",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "open-popup"
+      ],
+      "knownGaps": [
+        "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+      ]
     },
     {
       "component": "MenuBar",

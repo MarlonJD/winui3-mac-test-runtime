@@ -46,13 +46,14 @@ public static class ElementQuery
             ContentControl contentControl => One(contentControl.Content),
             ScrollViewer scrollViewer => One(scrollViewer.Content),
             Border border => One(border.Child),
-            Button button => One(button.Content),
+            Button button => One(button.Content).Concat(One(button.Flyout)).Concat(One(button.ContextFlyout)),
             Frame frame => One(frame.Content),
             StackPanel stackPanel => stackPanel.Children,
             Grid grid => grid.Children,
             NavigationView navigationView => navigationView.MenuItems.Concat(One(navigationView.PaneFooter)).Concat(One(navigationView.Content)),
             NavigationViewItem item => One(item.Content).Concat(One(item.Icon)),
             CommandBar commandBar => commandBar.PrimaryCommands,
+            CommandBarFlyout flyout => flyout.PrimaryCommands.Concat(flyout.SecondaryCommands),
             ItemsControl itemsControl => itemsControl.Items,
             _ => Array.Empty<object?>()
         };

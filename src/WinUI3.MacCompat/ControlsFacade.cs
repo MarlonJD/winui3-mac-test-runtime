@@ -76,6 +76,10 @@ public class Button : Control
 {
     public object? Content { get; set; }
 
+    public object? Flyout { get; set; }
+
+    public object? ContextFlyout { get; set; }
+
     public ICommand? Command { get; set; }
 
     public object? CommandParameter { get; set; }
@@ -218,6 +222,78 @@ public class InfoBar : Control
 public class CommandBar : Control
 {
     public IList<object?> PrimaryCommands { get; } = new List<object?>();
+}
+
+public class Flyout : ContentControl
+{
+    public bool IsOpen { get; set; }
+}
+
+public class ToolTip : ContentControl
+{
+    public bool IsOpen { get; set; }
+}
+
+public class TeachingTip : ContentControl
+{
+    public string? Title { get; set; }
+
+    public string? Subtitle { get; set; }
+
+    public bool IsOpen { get; set; }
+}
+
+public class ContentDialog : ContentControl
+{
+    public object? Title { get; set; }
+
+    public string? PrimaryButtonText { get; set; }
+
+    public bool IsOpen { get; set; }
+
+    public string? Result { get; private set; }
+
+    public void Show()
+    {
+        IsOpen = true;
+        Result = null;
+    }
+
+    public void Hide(string? result = null)
+    {
+        IsOpen = false;
+        Result = result;
+    }
+}
+
+public class MenuFlyout : ItemsControl
+{
+    public bool IsOpen { get; set; }
+
+    public string? InvokedItem { get; set; }
+}
+
+public class CommandBarFlyout : Control
+{
+    public IList<object?> PrimaryCommands { get; } = new List<object?>();
+
+    public IList<object?> SecondaryCommands { get; } = new List<object?>();
+
+    public bool IsOpen { get; set; }
+
+    public string? InvokedCommand { get; set; }
+}
+
+public class MenuFlyoutItem : Control
+{
+    public string? Text { get; set; }
+
+    public event RoutedEventHandler? Click;
+
+    public void PerformClick()
+    {
+        Click?.Invoke(this, new RoutedEventArgs());
+    }
 }
 
 public class StackPanel : FrameworkElement

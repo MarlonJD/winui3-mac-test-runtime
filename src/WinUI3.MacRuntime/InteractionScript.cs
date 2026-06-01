@@ -29,7 +29,9 @@ public sealed record InteractionStepResult(
     string Type,
     string Status,
     string? Target,
-    string? Message);
+    string? Message,
+    string? Expected = null,
+    string? Actual = null);
 
 public sealed class InteractionScriptRunner
 {
@@ -74,6 +76,9 @@ public sealed class InteractionScriptRunner
                 "selectNavigation" => SelectNavigation(window, action, index),
                 "navigateFrame" => NavigateFrame(window, action, index),
                 "invokeAccelerator" => InvokeAccelerator(window, action, index),
+                "openPopup" => OpenPopup(window, action, index),
+                "dismissPopup" => DismissPopup(window, action, index),
+                "invokeMenuItem" => InvokeMenuItem(window, action, index),
                 "assertProperty" => AssertProperty(window, action, index),
                 _ => Failed(index, action, $"Unsupported action type '{action.Type}'.")
             };
@@ -118,7 +123,7 @@ public sealed class InteractionScriptRunner
 
         textBox.Text = action.Parameter ?? string.Empty;
         BindingOperations.UpdateSource(textBox, nameof(TextBox.Text));
-        return Passed(index, action);
+        return Passed(index, action, expected: action.Parameter ?? string.Empty, actual: textBox.Text);
     }
 
     private static InteractionStepResult SelectItem(Window window, InteractionAction action, int index)
@@ -133,7 +138,7 @@ public sealed class InteractionScriptRunner
             }
 
             comboBox.SelectedIndex = selectedIndex;
-            return Passed(index, action);
+            return Passed(index, action, expected: action.Parameter, actual: comboBox.SelectedItem?.ToString());
         }
 
         if (target is ListView listView)
@@ -145,7 +150,7 @@ public sealed class InteractionScriptRunner
             }
 
             listView.SelectedIndex = selectedIndex;
-            return Passed(index, action);
+            return Passed(index, action, expected: action.Parameter, actual: listView.SelectedItem?.ToString());
         }
 
         return Failed(index, action, "Target is not a selectable item control.");
@@ -216,6 +221,59 @@ public sealed class InteractionScriptRunner
         return Passed(index, action);
     }
 
+    private static InteractionStepResult OpenPopup(Window window, InteractionAction action, int index)
+    {
+        var popup = RequirePopup(window, action);
+        SetPopupOpenState(popup, isOpen: true);
+        return Passed(index, action, $"Opened {SimpleType(popup)}.", expected: "True", actual: GetPopupOpenState(popup).ToString());
+    }
+
+    private static InteractionStepResult DismissPopup(Window window, InteractionAction action, int index)
+    {
+        var popup = RequirePopup(window, action);
+        SetPopupOpenState(popup, isOpen: false);
+        return Passed(index, action, $"Dismissed {SimpleType(popup)}.", expected: "False", actual: GetPopupOpenState(popup).ToString());
+    }
+
+    private static InteractionStepResult InvokeMenuItem(Window window, InteractionAction action, int index)
+    {
+        var popup = RequirePopup(window, action);
+        var expected = action.Parameter ?? string.Empty;
+        if (popup is MenuFlyout menuFlyout)
+        {
+            var item = menuFlyout.Items.OfType<MenuFlyoutItem>().FirstOrDefault(candidate =>
+                string.Equals(candidate.Text, expected, StringComparison.Ordinal));
+            if (item is null)
+            {
+                return Failed(index, action, $"Menu item '{expected}' was not found.");
+            }
+
+            menuFlyout.IsOpen = true;
+            menuFlyout.InvokedItem = item.Text;
+            item.PerformClick();
+            return Passed(index, action, $"Invoked menu item '{item.Text}'.", expected: expected, actual: menuFlyout.InvokedItem);
+        }
+
+        if (popup is CommandBarFlyout commandBarFlyout)
+        {
+            var command = commandBarFlyout.PrimaryCommands
+                .Concat(commandBarFlyout.SecondaryCommands)
+                .OfType<AppBarButton>()
+                .FirstOrDefault(candidate => string.Equals(candidate.Label, expected, StringComparison.Ordinal));
+            if (command is null)
+            {
+                return Failed(index, action, $"Command '{expected}' was not found.");
+            }
+
+            commandBarFlyout.IsOpen = true;
+            commandBarFlyout.InvokedCommand = command.Label;
+            command.PerformClick();
+            return Passed(index, action, $"Invoked command '{command.Label}'.", expected: expected, actual: commandBarFlyout.InvokedCommand);
+        }
+
+        return Failed(index, action, $"Target popup '{SimpleType(popup)}' does not expose invokable menu items.");
+    }
+
     private static InteractionStepResult AssertProperty(Window window, InteractionAction action, int index)
     {
         var target = RequireTarget(window, action);
@@ -233,8 +291,8 @@ public sealed class InteractionScriptRunner
         var actual = property.GetValue(target)?.ToString() ?? string.Empty;
         var expected = action.Parameter ?? string.Empty;
         return string.Equals(actual, expected, StringComparison.Ordinal)
-            ? Passed(index, action)
-            : Failed(index, action, $"Expected '{expected}' but found '{actual}'.");
+            ? Passed(index, action, expected: expected, actual: actual)
+            : Failed(index, action, $"Expected '{expected}' but found '{actual}'.", expected, actual);
     }
 
     private static int FindItemIndex(IList<object?> items, string? expected)
@@ -261,14 +319,104 @@ public sealed class InteractionScriptRunner
             ?? throw new InvalidOperationException($"Target '{action.Target}' was not found.");
     }
 
-    private static InteractionStepResult Passed(int index, InteractionAction action)
+    private static object RequirePopup(Window window, InteractionAction action)
     {
-        return new InteractionStepResult(index, action.Type, "passed", action.Target, null);
+        var target = RequireTarget(window, action);
+        return ResolvePopup(target)
+            ?? throw new InvalidOperationException($"Target '{action.Target}' does not contain a supported popup.");
     }
 
-    private static InteractionStepResult Failed(int index, InteractionAction action, string message)
+    private static object? ResolvePopup(object target)
     {
-        return new InteractionStepResult(index, action.Type, "failed", action.Target, message);
+        if (IsPopup(target))
+        {
+            return target;
+        }
+
+        if (target is Button button)
+        {
+            return button.Flyout is not null
+                ? ResolvePopup(button.Flyout)
+                : button.ContextFlyout is not null
+                    ? ResolvePopup(button.ContextFlyout)
+                    : null;
+        }
+
+        return ElementQuery.Traverse(target).FirstOrDefault(IsPopup);
+    }
+
+    private static bool IsPopup(object value)
+    {
+        return value is Flyout or MenuFlyout or CommandBarFlyout or ContentDialog or TeachingTip or ToolTip;
+    }
+
+    private static void SetPopupOpenState(object popup, bool isOpen)
+    {
+        switch (popup)
+        {
+            case ContentDialog dialog when isOpen:
+                dialog.Show();
+                break;
+            case ContentDialog dialog:
+                dialog.Hide("dismissed");
+                break;
+            case Flyout flyout:
+                flyout.IsOpen = isOpen;
+                break;
+            case MenuFlyout menuFlyout:
+                menuFlyout.IsOpen = isOpen;
+                break;
+            case CommandBarFlyout commandBarFlyout:
+                commandBarFlyout.IsOpen = isOpen;
+                break;
+            case TeachingTip teachingTip:
+                teachingTip.IsOpen = isOpen;
+                break;
+            case ToolTip toolTip:
+                toolTip.IsOpen = isOpen;
+                break;
+        }
+    }
+
+    private static bool GetPopupOpenState(object popup)
+    {
+        return popup switch
+        {
+            ContentDialog dialog => dialog.IsOpen,
+            Flyout flyout => flyout.IsOpen,
+            MenuFlyout menuFlyout => menuFlyout.IsOpen,
+            CommandBarFlyout commandBarFlyout => commandBarFlyout.IsOpen,
+            TeachingTip teachingTip => teachingTip.IsOpen,
+            ToolTip toolTip => toolTip.IsOpen,
+            _ => false
+        };
+    }
+
+    private static string SimpleType(object value)
+    {
+        var type = value.GetType().Name;
+        var tick = type.IndexOf('`', StringComparison.Ordinal);
+        return tick < 0 ? type : type[..tick];
+    }
+
+    private static InteractionStepResult Passed(
+        int index,
+        InteractionAction action,
+        string? message = null,
+        string? expected = null,
+        string? actual = null)
+    {
+        return new InteractionStepResult(index, action.Type, "passed", action.Target, message, expected, actual);
+    }
+
+    private static InteractionStepResult Failed(
+        int index,
+        InteractionAction action,
+        string message,
+        string? expected = null,
+        string? actual = null)
+    {
+        return new InteractionStepResult(index, action.Type, "failed", action.Target, message, expected, actual);
     }
 }
 

@@ -41,6 +41,13 @@ public static class VisualLayoutEngine
         "ProgressBar",
         "InfoBar",
         "CommandBar",
+        "CommandBarFlyout",
+        "Flyout",
+        "MenuFlyout",
+        "MenuFlyoutItem",
+        "ContentDialog",
+        "TeachingTip",
+        "ToolTip",
         "FontIcon",
         "Image",
         "String"
@@ -101,9 +108,12 @@ public static class VisualLayoutEngine
         {
             "NavigationView" => ArrangeNavigationView(node, rect, unsupported),
             "StackPanel" => ArrangeStackPanel(node, rect, unsupported),
-            "ListView" or "ItemsControl" => ArrangeListView(node, rect, unsupported),
+            "ListView" or "ItemsControl" or "MenuFlyout" => ArrangeListView(node, rect, unsupported),
             "CommandBar" => ArrangeCommandBar(node, rect, unsupported),
+            "CommandBarFlyout" => ArrangeCommandBar(node, rect, unsupported),
             "AppBarButton" => ArrangeAppBarButton(node, rect, unsupported, visibility),
+            "Button" => ArrangeButton(node, rect, unsupported, visibility),
+            "Flyout" or "ContentDialog" or "TeachingTip" or "ToolTip" => ArrangeSingleSlot(node, Inset(rect, 0), unsupported, PaddingFor(node), visibility),
             "Border" or "ScrollViewer" or "ContentControl" => ArrangeSingleSlot(node, Inset(rect, 0), unsupported, PaddingFor(node), visibility),
             "Grid" => ArrangeGrid(node, rect, unsupported, visibility),
             "Window" or "Page" or "Frame" => ArrangeOverlay(node, rect, unsupported, visibility),
@@ -278,6 +288,32 @@ public static class VisualLayoutEngine
         return WithLayout(node, rect, EmptyThickness, EmptyThickness, ReadString(node, "visibility") ?? "Visible", arranged);
     }
 
+    private static UiNode ArrangeButton(
+        UiNode node,
+        LayoutRect rect,
+        ICollection<UnsupportedVisualFeature> unsupported,
+        string visibility)
+    {
+        var children = new List<UiNode>(node.Children.Count);
+        var popupY = rect.Y + rect.Height + 8;
+        foreach (var child in node.Children)
+        {
+            var childType = SimpleType(child);
+            var childRect = childType switch
+            {
+                "MenuFlyout" => new LayoutRect(rect.X, popupY, Math.Max(180, rect.Width), 96),
+                "CommandBarFlyout" => new LayoutRect(rect.X, popupY, Math.Max(240, rect.Width), 48),
+                "ContentDialog" => new LayoutRect(rect.X, popupY, Math.Max(280, rect.Width), 128),
+                "Flyout" or "ToolTip" or "TeachingTip" => new LayoutRect(rect.X, popupY, Math.Max(220, rect.Width), 72),
+                _ => rect
+            };
+            children.Add(ArrangeNode(child, childRect, unsupported));
+            popupY += childRect.Height + 8;
+        }
+
+        return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, children);
+    }
+
     private static UiNode ArrangeAppBarButton(
         UiNode node,
         LayoutRect rect,
@@ -327,6 +363,10 @@ public static class VisualLayoutEngine
             "ProgressRing" => 32,
             "InfoBar" => 74,
             "CommandBar" => 48,
+            "CommandBarFlyout" => 54,
+            "MenuFlyout" => Math.Max(72, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
+            "ContentDialog" => 128,
+            "Flyout" or "ToolTip" or "TeachingTip" => 72,
             "Border" => Math.Min(86, fallback),
             "ListView" or "ItemsControl" => Math.Max(64, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
             "ScrollViewer" or "ContentControl" => Math.Min(Math.Max(64, fallback), fallback),

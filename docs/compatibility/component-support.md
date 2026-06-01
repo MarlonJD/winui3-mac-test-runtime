@@ -58,8 +58,8 @@ clean-room pages:
 | Page 1: Basic input | Native Windows fixture controls for `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls; current macOS `skia-v2` evidence is `usable` for the supported Ring 0 controls. |
 | Page 2: Text and forms | `TextBlock`, native Windows fixture controls for `TextBox` and form labels, and diagnostic rows for rich text, password, number, and autosuggest controls; current macOS `skia-v2` TextBox/form output is `usable` with approximate input chrome. |
 | Page 3: Collections | Native Windows fixture controls for `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics; current macOS `skia-v2` collection output is `usable` for item rows and selection chrome. |
-| Page 4: Dialogs and flyouts | Diagnostic rows for dialog, flyout, teaching tip, tooltip, and tooltip service coverage. |
-| Page 5: Commands and menus | Native Windows fixture controls for `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics; current macOS `skia-v2` command output is `usable` for Ring 0 command surfaces. |
+| Page 4: Dialogs and flyouts | Dialog, flyout, tooltip, teaching tip, and tooltip service coverage; current macOS `skia-v2` output is `usable` for the partial `ContentDialog`, `Flyout`, and `ToolTip` open-state subset while `TeachingTip` and tooltip service remain planned. |
+| Page 5: Commands and menus | Native Windows fixture controls for `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics; current macOS `skia-v2` command output is `usable` for Ring 0 command surfaces and the partial `CommandBarFlyout`/`MenuFlyout` open/invoke subset. |
 | Page 6: Navigation and workbench | Native Windows fixture controls for `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure; current macOS `skia-v2` output is `usable` for the Ring 0 navigation/list-detail subset. |
 | Page 7: Status and pickers | Native Windows fixture controls for `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics; current macOS `skia-v2` output is `usable` for status and progress chrome. |
 | Page 8: Layout, media, visuals | Native Windows fixture controls for `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics; current macOS `skia-v2` layout/media output is `usable` for Ring 0 regions while advanced diagnostics remain `not-rendered`. |
@@ -88,6 +88,8 @@ Latest inspected native comparison counts:
 | --- | --- | --- |
 | `component-basic-input-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 5 `usable`, 8 planned `not-rendered`, all component targets include layout regions. |
 | `component-status-pickers-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 3 `usable`, 7 planned `not-rendered`, all component targets include layout regions. |
+| `component-dialogs-flyouts-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | `ContentDialog`, `Flyout`, and `ToolTip` are `usable` with passed open/dismiss interaction evidence; `TeachingTip` and tooltip service remain planned `not-rendered`. |
+| `component-commands-menus-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | `CommandBarFlyout` and `MenuFlyout` are `usable` with passed open/invoke interaction evidence; `MenuBar` and context menu pattern remain planned `not-rendered`. |
 | `component-layout-media-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 10 `usable`, 18 planned/non-goal `not-rendered`, all component targets include layout regions. |
 | `public-admin-workbench-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 9 `usable`, no missing component regions. |
 
@@ -104,6 +106,8 @@ Latest inspected native comparison counts:
 | `NavigationViewItem` | partial | Content, tag metadata, selected state, tree export, and `skia-v2` item chrome are present. | Full Fluent item states and keyboarding remain gaps. |
 | `CommandBar` | supported | `PrimaryCommands`, command click simulation, public fixture ingestion, and `skia-v2` command surface rendering are present. | Overflow, pointer states, focus visuals, and exact native spacing remain gaps. |
 | `AppBarButton` | supported | Label, icon slot metadata, click event hookup, command-bar fixture coverage, and `skia-v2` label/icon chrome are present. | Overflow placement, focus visuals, and exact native command sizing remain gaps. |
+| `CommandBarFlyout` | partial | Open state, primary/secondary command export, `invokeMenuItem` command invocation, accessibility expanded state, and `skia-v2` popup chrome are present for public smoke scenarios. | Native placement, overflow, dismissal semantics, focus trapping, and full keyboarding remain gaps. |
+| `MenuFlyout` | partial | Open state, menu item export, `invokeMenuItem` item invocation, accessibility popup/menuitem roles, and `skia-v2` menu chrome are present for public smoke scenarios. | Native placement, light-dismiss, accelerator text, disabled item behavior, and full keyboarding remain gaps. |
 | `Button` | supported | Content, command, click simulation, accessibility export, and `skia-v2` button chrome are present. | Native pressed, hover, focus, and template visuals remain approximate. |
 | `ToggleButton` | supported | Checked state, click behavior, and `skia-v2` checked/disabled chrome are present. | Native pressed, hover, focus, and template visuals remain approximate. |
 | `CheckBox` | supported | Checked state, tree export, accessibility role, and `skia-v2` glyph chrome are present. | Indeterminate state and full template visuals remain gaps. |
@@ -115,6 +119,9 @@ Latest inspected native comparison counts:
 | `StackPanel` | partial | Orientation, spacing metadata, child containment, and `skia-v2` region evidence are present. | Full native layout behavior remains partial. |
 | `ScrollViewer` | supported | Single content slot, vertical scroll bar metadata, and `skia-v2` scroll-region affordance are present. | Clipping, inertia, and scrolling physics are not modeled. |
 | `ContentControl` | supported | Single content-slot facade. | Templates and complex content transitions are planned. |
+| `ContentDialog` | partial | Title/content/primary button metadata, open/dismiss state, accessibility dialog role and expanded state, and `skia-v2` dialog chrome are present for public smoke scenarios. | Modal focus trapping, native overlay/window semantics, secondary buttons, and default button handling remain gaps. |
+| `Flyout` | partial | Content, open state, accessibility expanded state, and `skia-v2` popup chrome are present for public smoke scenarios. | Native placement, light-dismiss, target relationship, and keyboarding remain gaps. |
+| `ToolTip` | partial | Content, open state, accessibility tooltip role, and `skia-v2` popup chrome are present for public smoke scenarios. | Hover timing, placement, and tooltip service attachment semantics remain gaps. |
 | `ItemsControl` | supported | Item collection binding, export, and `skia-v2` item row rendering are present. | Templates and virtualization remain gaps. |
 | `ListView` | partial | Item collection, `SelectedIndex`, selected item metadata, export, and `skia-v2` row/selection chrome are present. | Templates, multi-select, keyboarding, and virtualization remain gaps. |
 | `ComboBox` | supported | Items, selected index subset, and `skia-v2` field/chevron chrome are present. | Popup, editable mode, item chrome, and full keyboarding remain gaps. |
@@ -142,7 +149,7 @@ Latest inspected native comparison counts:
 | `StaticResource`, `ThemeResource`, `Style.Setter` | partial/supported subset | Simple resource lookup and supported style setters work with strict missing-resource diagnostics. | Full Fluent theme dictionaries, template resources, and dynamic theme behavior are planned. |
 | `Control.Template` | planned | Cataloged for diagnostics. | Real templates are not implemented. |
 | `VisualStateManager.VisualStateGroups` | planned | Cataloged for diagnostics. | Full state groups, transitions, and reduced-motion behavior are not implemented. |
-| `Button.Flyout` | planned | Cataloged for diagnostics. | Flyout source compatibility and rendering are not implemented. |
+| `Button.Flyout` | partial | Buttons can host the supported popup subset for scripted open/invoke smoke scenarios. | Native placement, light-dismiss, target relationship, and full pointer/keyboard behavior remain partial. |
 
 ## Materials, Composition, And Platform APIs
 
@@ -162,7 +169,7 @@ Latest inspected native comparison counts:
 
 Common WinUI controls such as `AutoSuggestBox`, `CalendarDatePicker`,
 `CalendarView`, `ColorPicker`, `DatePicker`, `DropDownButton`, `Expander`,
-`FlipView`, `GridView`, `HyperlinkButton`, `MenuBar`, `MenuFlyout`,
+`FlipView`, `GridView`, `HyperlinkButton`, `MenuBar`,
 `NumberBox`, `PasswordBox`, `PersonPicture`, `RatingControl`, `RichEditBox`,
 `Slider`, `SplitButton`, `SplitView`, `TabView`, `TeachingTip`, `TimePicker`,
 `TreeView`, and `TwoPaneView` are not part of the current alpha support claim.

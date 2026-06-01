@@ -19,22 +19,48 @@
     {
       "type": "selectNavigation",
       "target": "DialogsNavigationItem"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticContentDialog"
+    },
+    {
+      "type": "dismissPopup",
+      "target": "DiagnosticContentDialog"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticContentDialog"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticFlyout"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticToolTip"
     }
   ],
   "requirements": [
     {
       "component": "ContentDialog",
       "target": "DiagnosticContentDialog",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "ContentDialog open and dismiss state are supported for clean-room smoke scenarios; modal focus trapping and native window overlay remain gaps."
+      ]
     },
     {
       "component": "Flyout",
       "target": "DiagnosticFlyout",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "Flyout open state is supported for clean-room smoke scenarios; native placement, light-dismiss, and keyboarding remain gaps."
+      ]
     },
     {
       "component": "TeachingTip",
@@ -46,9 +72,12 @@
     {
       "component": "ToolTip",
       "target": "DiagnosticToolTip",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "ToolTip open state is supported for clean-room smoke scenarios; hover timing and native placement remain gaps."
+      ]
     },
     {
       "component": "ToolTipService.SetToolTip",

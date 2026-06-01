@@ -106,6 +106,27 @@ public static class UiTreeBuilder
             case Page page:
                 AddChild(page.Content, children);
                 break;
+            case ContentDialog contentDialog:
+                properties["title"] = contentDialog.Title?.ToString();
+                properties["primaryButtonText"] = contentDialog.PrimaryButtonText;
+                properties["isOpen"] = contentDialog.IsOpen;
+                properties["result"] = contentDialog.Result;
+                AddChild(contentDialog.Content, children);
+                break;
+            case TeachingTip teachingTip:
+                properties["title"] = teachingTip.Title;
+                properties["subtitle"] = teachingTip.Subtitle;
+                properties["isOpen"] = teachingTip.IsOpen;
+                AddChild(teachingTip.Content, children);
+                break;
+            case Flyout flyout:
+                properties["isOpen"] = flyout.IsOpen;
+                AddChild(flyout.Content, children);
+                break;
+            case ToolTip toolTip:
+                properties["isOpen"] = toolTip.IsOpen;
+                AddChild(toolTip.Content, children);
+                break;
             case ContentControl contentControl:
                 AddChild(contentControl.Content, children);
                 break;
@@ -158,6 +179,30 @@ public static class UiTreeBuilder
                     AddChild(command, children);
                 }
 
+                break;
+            case CommandBarFlyout commandBarFlyout:
+                properties["isOpen"] = commandBarFlyout.IsOpen;
+                properties["primaryCommandCount"] = commandBarFlyout.PrimaryCommands.Count;
+                properties["secondaryCommandCount"] = commandBarFlyout.SecondaryCommands.Count;
+                properties["invokedCommand"] = commandBarFlyout.InvokedCommand;
+                foreach (var command in commandBarFlyout.PrimaryCommands.Concat(commandBarFlyout.SecondaryCommands))
+                {
+                    AddChild(command, children);
+                }
+
+                break;
+            case MenuFlyout menuFlyout:
+                properties["isOpen"] = menuFlyout.IsOpen;
+                properties["itemCount"] = menuFlyout.Items.Count;
+                properties["invokedItem"] = menuFlyout.InvokedItem;
+                foreach (var item in menuFlyout.Items)
+                {
+                    AddChild(item, children);
+                }
+
+                break;
+            case MenuFlyoutItem menuFlyoutItem:
+                properties["text"] = menuFlyoutItem.Text;
                 break;
             case NavigationView navigationView:
                 properties["menuItemCount"] = navigationView.MenuItems.Count;
@@ -234,6 +279,8 @@ public static class UiTreeBuilder
                     AddChild(buttonContent, children);
                 }
 
+                AddChild(button.Flyout, children);
+                AddChild(button.ContextFlyout, children);
                 break;
             case Image image:
                 properties["source"] = image.Source?.ToString();

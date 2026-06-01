@@ -15,33 +15,51 @@
     "meanAbsoluteError": 12.0,
     "rootMeanSquaredError": 48.0
   },
+  "interactions": [
+    {
+      "type": "selectNavigation",
+      "target": "DialogsNavigationItem"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticContentDialog"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticFlyout"
+    },
+    {
+      "type": "openPopup",
+      "target": "DiagnosticToolTip"
+    }
+  ],
   "requirements": [
     {
       "component": "ContentDialog",
       "target": "DiagnosticContentDialog",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
       "requiredProperties": [
         "title",
         "content",
         "primaryButtonText"
       ],
       "knownGaps": [
-        "ContentDialog is represented in the public Windows fixture, but dialog host behavior is not implemented on macOS."
+        "ContentDialog open state is supported for clean-room smoke scenarios; modal focus trapping and native window overlay remain gaps."
       ]
     },
     {
       "component": "Flyout",
       "target": "DiagnosticFlyout",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
       "requiredProperties": [
         "open-popup"
       ],
       "knownGaps": [
-        "Flyout target coverage exists for native reference capture; macOS flyout host behavior is not implemented yet."
+        "Flyout open state is supported for clean-room smoke scenarios; native placement, light-dismiss, and keyboarding remain gaps."
       ]
     },
     {
@@ -62,14 +80,14 @@
     {
       "component": "ToolTip",
       "target": "DiagnosticToolTip",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
       "requiredProperties": [
         "content"
       ],
       "knownGaps": [
-        "Tooltip host behavior is not implemented on macOS yet."
+        "ToolTip open state is supported for clean-room smoke scenarios; hover timing and native placement remain gaps."
       ]
     }
   ]

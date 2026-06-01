@@ -175,6 +175,55 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void InteractionScriptOpensInvokesAndDismissesPopups()
+    {
+        var invoked = string.Empty;
+        var menuItem = new MenuFlyoutItem { Text = "Approve" };
+        menuItem.Click += (_, _) => invoked = "Approve";
+        var menuFlyout = new MenuFlyout
+        {
+            Items =
+            {
+                menuItem,
+                new MenuFlyoutItem { Text = "Defer" }
+            }
+        };
+        var menuButton = new Button { Name = "MenuButton", Content = "Open", Flyout = menuFlyout };
+        var dialog = new ContentDialog { Name = "DecisionDialog", Title = "Decision", PrimaryButtonText = "OK" };
+        var root = new StackPanel
+        {
+            Children =
+            {
+                menuButton,
+                dialog
+            }
+        };
+        var window = new Window { Content = root };
+
+        var report = new InteractionScriptRunner(new TypeResolver(Array.Empty<Type>()))
+            .Run(window, new InteractionScript(new[]
+            {
+                new InteractionAction("openPopup", "MenuButton", null, null, null, null),
+                new InteractionAction("invokeMenuItem", "MenuButton", null, null, null, "Approve"),
+                new InteractionAction("openPopup", "DecisionDialog", null, null, null, null),
+                new InteractionAction("dismissPopup", "DecisionDialog", null, null, null, null)
+            }));
+
+        Assert.IsTrue(report.Steps.All(step => step.Status == "passed"));
+        Assert.AreEqual("True", report.Steps[0].Expected);
+        Assert.AreEqual("True", report.Steps[0].Actual);
+        Assert.AreEqual("Approve", report.Steps[1].Expected);
+        Assert.AreEqual("Approve", report.Steps[1].Actual);
+        Assert.AreEqual("False", report.Steps[3].Expected);
+        Assert.AreEqual("False", report.Steps[3].Actual);
+        Assert.IsTrue(menuFlyout.IsOpen);
+        Assert.AreEqual("Approve", menuFlyout.InvokedItem);
+        Assert.AreEqual("Approve", invoked);
+        Assert.IsFalse(dialog.IsOpen);
+        Assert.AreEqual("dismissed", dialog.Result);
+    }
+
+    [TestMethod]
     public void AccessibilityTreeUsesAutomationNamesAndFocusState()
     {
         var button = new Button { Name = "PrimaryButton", Content = "Continue" };
@@ -190,6 +239,23 @@ public sealed class MacRuntimeTests
         Assert.AreEqual("Primary action", node.Label);
         Assert.AreEqual("Runs the primary action", node.HelpText);
         Assert.IsTrue(node.IsFocused);
+    }
+
+    [TestMethod]
+    public void AccessibilityTreeExportsPopupExpandedState()
+    {
+        var button = new Button
+        {
+            Name = "MenuButton",
+            Content = "Open",
+            Flyout = new MenuFlyout { IsOpen = true }
+        };
+
+        var accessibility = AccessibilityTreeBuilder.Build(UiTreeBuilder.Build(new Window { Content = button }));
+
+        var popup = accessibility.Root.Children[0].Children.Single(node => node.Role == "popup");
+        Assert.IsTrue(popup.IsExpanded);
+        Assert.IsTrue(popup.IsEnabled);
     }
 
     [TestMethod]

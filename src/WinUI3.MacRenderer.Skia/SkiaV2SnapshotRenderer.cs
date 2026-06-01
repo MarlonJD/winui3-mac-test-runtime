@@ -108,6 +108,23 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             case "CommandBar":
                 RenderCommandBar(canvas, node, theme, paint, bodyFont, titleFont, smallFont, iconFont);
                 break;
+            case "CommandBarFlyout":
+                RenderCommandBarFlyout(canvas, node, theme, paint, bodyFont, titleFont, smallFont, iconFont);
+                break;
+            case "MenuFlyout":
+                RenderMenuFlyout(canvas, node, theme, paint, bodyFont, smallFont);
+                break;
+            case "MenuFlyoutItem":
+                DrawText(canvas, paint, bodyFont, ReadString(node, "text") ?? ReadControlLabel(node, "Menu item"), (float)node.Layout.X, (float)node.Layout.Y + 19, theme.TextPrimary);
+                break;
+            case "ContentDialog":
+                RenderContentDialog(canvas, node, theme, paint, bodyFont, smallFont);
+                break;
+            case "Flyout":
+            case "ToolTip":
+            case "TeachingTip":
+                RenderPopupSurface(canvas, node, theme, paint, bodyFont, smallFont);
+                break;
             case "AppBarButton":
                 RenderAppBarButton(canvas, node, theme, paint, bodyFont, iconFont);
                 break;
@@ -374,6 +391,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         DrawRoundRect(canvas, paint, rect, 6, enabled ? theme.Surface : theme.DisabledSurface);
         DrawRoundRectStroke(canvas, paint, rect, 6, focused ? theme.Accent : theme.Stroke, focused ? 2 : 1);
         DrawText(canvas, paint, font, ReadControlLabel(node, "Button"), rect.Left + 14, rect.Top + 25, enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled);
+        RenderChildren(canvas, node, theme, paint, font, font, font, font);
     }
 
     private static void RenderAppBarButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font, SKFont iconFont)
@@ -541,6 +559,91 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         DrawRoundRect(canvas, paint, rect, 8, theme.Surface);
         DrawRoundRectStroke(canvas, paint, rect, 8, theme.Stroke);
         RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+    }
+
+    private static void RenderCommandBarFlyout(
+        SKCanvas canvas,
+        UiNode node,
+        SkiaV2Theme theme,
+        SKPaint paint,
+        SKFont bodyFont,
+        SKFont titleFont,
+        SKFont smallFont,
+        SKFont iconFont)
+    {
+        if (!ReadBool(node, "isOpen", fallback: false))
+        {
+            return;
+        }
+
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, 8, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, 8, theme.Stroke);
+        RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+    }
+
+    private static void RenderMenuFlyout(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
+    {
+        if (!ReadBool(node, "isOpen", fallback: false))
+        {
+            return;
+        }
+
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, 8, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, 8, theme.Stroke);
+        for (var index = 0; index < node.Children.Count; index++)
+        {
+            var child = node.Children[index];
+            if (child.Layout is null)
+            {
+                continue;
+            }
+
+            DrawText(canvas, paint, bodyFont, ReadString(child, "text") ?? ReadControlLabel(child, "Menu item"), (float)child.Layout.X, (float)child.Layout.Y + 19, theme.TextPrimary);
+            if (index < node.Children.Count - 1)
+            {
+                DrawLine(canvas, paint, rect.Left + 12, (float)child.Layout.Y + 31, rect.Right - 12, (float)child.Layout.Y + 31, theme.Stroke);
+            }
+        }
+    }
+
+    private static void RenderContentDialog(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
+    {
+        if (!ReadBool(node, "isOpen", fallback: false))
+        {
+            return;
+        }
+
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, 10, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, 10, theme.Stroke);
+        DrawText(canvas, paint, bodyFont, ReadString(node, "title") ?? "Dialog", rect.Left + 18, rect.Top + 28, theme.TextPrimary);
+        var content = node.Children.FirstOrDefault();
+        DrawText(canvas, paint, smallFont, ReadText(content) ?? ReadString(node, "primaryButtonText") ?? string.Empty, rect.Left + 18, rect.Top + 54, theme.TextSecondary);
+        var button = new SKRect(rect.Right - 96, rect.Bottom - 42, rect.Right - 18, rect.Bottom - 12);
+        DrawRoundRect(canvas, paint, button, 6, theme.AccentSoft);
+        DrawRoundRectStroke(canvas, paint, button, 6, theme.Accent);
+        DrawText(canvas, paint, smallFont, ReadString(node, "primaryButtonText") ?? "OK", button.Left + 18, button.Top + 20, theme.Accent);
+    }
+
+    private static void RenderPopupSurface(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
+    {
+        if (!ReadBool(node, "isOpen", fallback: false))
+        {
+            return;
+        }
+
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, 8, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, 8, theme.Stroke);
+        var title = ReadString(node, "title") ?? ReadString(node, "subtitle") ?? SimpleType(node);
+        DrawText(canvas, paint, bodyFont, title, rect.Left + 14, rect.Top + 26, theme.TextPrimary);
+        var content = node.Children.FirstOrDefault();
+        if (content is not null)
+        {
+            DrawText(canvas, paint, smallFont, ReadText(content) ?? ReadControlLabel(content, string.Empty), rect.Left + 14, rect.Top + 48, theme.TextSecondary);
+        }
     }
 
     private static void RenderChildren(
