@@ -4,7 +4,9 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using SkiaSharp;
+using System.Reflection;
 using System.Security.Cryptography;
+using System.Text.Json;
 using WinUI3.MacCompat.Diagnostics;
 using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRuntime;
@@ -120,6 +122,33 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task MacApplicationHostWritesVersionedDiagnosticArtifactsAndSarifRules()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-artifact-schema-tests", Guid.NewGuid().ToString("N"));
+        var result = await new MacApplicationHost().RunAsync(new MacRunOptions(
+            AssemblyPath: Assembly.GetExecutingAssembly().Location,
+            ProjectPath: null,
+            OutputDirectory: outputDirectory));
+
+        Assert.AreEqual(ArtifactSchemas.RunReport, result.Run.SchemaVersion);
+        AssertJsonDocument(result.BindingFailuresJsonPath, ArtifactSchemas.BindingFailures, "failures", 1);
+        AssertJsonDocument(result.ResourceFailuresJsonPath, ArtifactSchemas.ResourceFailures, "failures", 1);
+        AssertJsonDocument(result.UnsupportedApisJsonPath, ArtifactSchemas.UnsupportedApis, "apis", 1);
+
+        using var sarif = JsonDocument.Parse(await File.ReadAllTextAsync(result.DiagnosticsSarifPath));
+        var ruleIds = sarif.RootElement
+            .GetProperty("runs")[0]
+            .GetProperty("results")
+            .EnumerateArray()
+            .Select(resultElement => resultElement.GetProperty("ruleId").GetString())
+            .ToArray();
+
+        Assert.IsTrue(ruleIds.Contains(DiagnosticRuleIds.BindingFailure));
+        Assert.IsTrue(ruleIds.Contains(DiagnosticRuleIds.ResourceFailure));
+        Assert.IsTrue(ruleIds.Contains(DiagnosticRuleIds.UnsupportedApi));
+    }
+
+    [TestMethod]
     public async Task SkiaSnapshotRendererWritesPng()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-snapshot-tests", Guid.NewGuid().ToString("N"));
@@ -212,7 +241,7 @@ public sealed class MacRuntimeTests
     public void VisualLayoutEngineReportsUnsupportedVisualTypes()
     {
         var tree = new UiTreeDocument(
-            "0.1",
+            ArtifactSchemas.UiTree,
             DateTimeOffset.UtcNow,
             new UiNode("PublicFixture.UnsupportedWidget", "Unsupported", new Dictionary<string, object?>(), Array.Empty<UiNode>()));
         var settings = new VisualRunSettings(null, "unsupported", "skia-v2", new VisualViewport(320, 240), 1, "light", true, new VisualThresholds());
@@ -295,5 +324,43 @@ public sealed class MacRuntimeTests
         data.SaveTo(stream);
     }
 
+    private static void AssertJsonDocument(string path, string schemaVersion, string itemsProperty, int minimumItemCount)
+    {
+        using var document = JsonDocument.Parse(File.ReadAllText(path));
+
+        Assert.AreEqual(schemaVersion, document.RootElement.GetProperty("schemaVersion").GetString());
+        Assert.IsTrue(document.RootElement.GetProperty(itemsProperty).GetArrayLength() >= minimumItemCount);
+    }
+
     private sealed record MutableState(string Title);
+}
+
+public sealed class ArtifactSchemaTestApp : Application
+{
+    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        var missingBindingText = new TextBlock { Name = "MissingBindingText" };
+        BindingOperations.SetBinding(missingBindingText, nameof(TextBlock.Text), new Binding("MissingTitle"));
+
+        var missingResourceText = new TextBlock
+        {
+            Name = "MissingResourceText",
+            Text = ResourceOperations.ResolveString(new ResourceDictionary(), "MissingTitle", nameof(TextBlock.Text))
+        };
+
+        MainWindow = new Window
+        {
+            Title = "Artifact Schema Test",
+            SystemBackdrop = new MicaBackdrop(),
+            Content = new StackPanel
+            {
+                DataContext = new { Title = "Public artifact schema fixture" },
+                Children =
+                {
+                    missingBindingText,
+                    missingResourceText
+                }
+            }
+        };
+    }
 }

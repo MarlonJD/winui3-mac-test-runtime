@@ -70,7 +70,7 @@ internal static class VisualArtifacts
         else
         {
             comparison = new SkippedPixelDiff(
-                SchemaVersion: "0.1",
+                SchemaVersion: ArtifactSchemas.PixelDiff,
                 Status: "skipped",
                 Reason: "No Windows reference image was provided.",
                 Thresholds: settings.Thresholds);
@@ -97,7 +97,7 @@ internal static class VisualArtifacts
             : "passed";
 
         var report = new VisualRunReport(
-            SchemaVersion: "0.1",
+            SchemaVersion: ArtifactSchemas.VisualRun,
             FixtureName: settings.Scenario?.FixtureName ?? "fixture",
             ScenarioName: settings.ScenarioName,
             RunnerOs: Environment.OSVersion.Platform.ToString(),

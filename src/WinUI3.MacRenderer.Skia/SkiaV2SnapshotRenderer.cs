@@ -44,7 +44,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         await using var stream = File.Create(path);
         data.SaveTo(stream);
 
-        return new SnapshotResult("0.2", "skia-v2-png", path, width, height, IsNonBlank: true);
+        return new SnapshotResult(ArtifactSchemas.SkiaV2Snapshot, "skia-v2-png", path, width, height, IsNonBlank: true);
     }
 
     private static void RenderNode(

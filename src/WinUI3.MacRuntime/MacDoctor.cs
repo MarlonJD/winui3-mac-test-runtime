@@ -25,7 +25,7 @@ public static class MacDoctor
         var winePath = CommandLocator.FindOnPath("wine");
 
         return new DoctorReport(
-            SchemaVersion: "0.1",
+            SchemaVersion: ArtifactSchemas.DoctorReport,
             Status: "ok",
             Host: "managed-macos-dotnet",
             PrimaryPathRequiresWine: false,

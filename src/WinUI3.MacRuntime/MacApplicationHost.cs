@@ -156,7 +156,7 @@ public sealed class MacApplicationHost
         }
 
         var report = new RunReport(
-            SchemaVersion: "0.1",
+            SchemaVersion: ArtifactSchemas.RunReport,
             Status: status,
             Host: "managed-macos-dotnet",
             PrimaryPathRequiresWine: false,
@@ -174,9 +174,18 @@ public sealed class MacApplicationHost
         await File.WriteAllTextAsync(runJsonPath, JsonSerializer.Serialize(report, JsonDefaults.Options), cancellationToken);
         await File.WriteAllTextAsync(treeJsonPath, JsonSerializer.Serialize(tree, JsonDefaults.Options), cancellationToken);
         await File.WriteAllTextAsync(accessibilityJsonPath, JsonSerializer.Serialize(accessibility, JsonDefaults.Options), cancellationToken);
-        await File.WriteAllTextAsync(bindingFailuresJsonPath, JsonSerializer.Serialize(bindingFailures, JsonDefaults.Options), cancellationToken);
-        await File.WriteAllTextAsync(resourceFailuresJsonPath, JsonSerializer.Serialize(resourceFailures, JsonDefaults.Options), cancellationToken);
-        await File.WriteAllTextAsync(unsupportedApisJsonPath, JsonSerializer.Serialize(unsupportedApis, JsonDefaults.Options), cancellationToken);
+        await File.WriteAllTextAsync(
+            bindingFailuresJsonPath,
+            JsonSerializer.Serialize(new BindingFailureDocument(ArtifactSchemas.BindingFailures, bindingFailures), JsonDefaults.Options),
+            cancellationToken);
+        await File.WriteAllTextAsync(
+            resourceFailuresJsonPath,
+            JsonSerializer.Serialize(new ResourceFailureDocument(ArtifactSchemas.ResourceFailures, resourceFailures), JsonDefaults.Options),
+            cancellationToken);
+        await File.WriteAllTextAsync(
+            unsupportedApisJsonPath,
+            JsonSerializer.Serialize(new UnsupportedApiDocument(ArtifactSchemas.UnsupportedApis, unsupportedApis), JsonDefaults.Options),
+            cancellationToken);
         await File.WriteAllTextAsync(diagnosticsSarifPath, JsonSerializer.Serialize(BuildSarif(diagnostics), JsonDefaults.Options), cancellationToken);
         if (interactionReport is not null && interactionJsonPath is not null)
         {
@@ -231,7 +240,7 @@ public sealed class MacApplicationHost
         var steps = first.Steps
             .Concat(second.Steps.Select((step, index) => step with { Index = first.Steps.Count + index }))
             .ToArray();
-        return new InteractionReport("0.1", steps);
+        return new InteractionReport(ArtifactSchemas.InteractionReport, steps);
     }
 
     private static string BuildStatus(
@@ -282,11 +291,18 @@ public sealed class MacApplicationHost
                     {
                         Driver = new
                         {
-                            Name = "WinUI3.MacTestRuntime"
+                            Name = "WinUI3.MacTestRuntime",
+                            Rules = new[]
+                            {
+                                SarifRule(DiagnosticRuleIds.BindingFailure, "Binding failure"),
+                                SarifRule(DiagnosticRuleIds.ResourceFailure, "Resource lookup failure"),
+                                SarifRule(DiagnosticRuleIds.UnsupportedApi, "Unsupported compatibility API")
+                            }
                         }
                     },
                     Results = diagnostics.Select(diagnostic => new
                     {
+                        RuleId = RuleIdFor(diagnostic),
                         Level = "warning",
                         Message = new
                         {
@@ -296,6 +312,39 @@ public sealed class MacApplicationHost
                 }
             }
         };
+    }
+
+    private static object SarifRule(string id, string description)
+    {
+        return new
+        {
+            Id = id,
+            Name = id,
+            ShortDescription = new
+            {
+                Text = description
+            }
+        };
+    }
+
+    private static string RuleIdFor(string diagnostic)
+    {
+        if (diagnostic.StartsWith("binding:", StringComparison.Ordinal))
+        {
+            return DiagnosticRuleIds.BindingFailure;
+        }
+
+        if (diagnostic.StartsWith("resource:", StringComparison.Ordinal))
+        {
+            return DiagnosticRuleIds.ResourceFailure;
+        }
+
+        if (diagnostic.StartsWith("unsupported-api:", StringComparison.Ordinal))
+        {
+            return DiagnosticRuleIds.UnsupportedApi;
+        }
+
+        return DiagnosticRuleIds.UnsupportedApi;
     }
 
     private static Application CreateApplication(Assembly assembly)

@@ -5,6 +5,21 @@ Status values:
 - `supported`: implemented and covered by a fixture or test.
 - `partial`: implemented for a constrained headless test subset.
 - `planned`: part of the public direction but not implemented yet.
+- `not supported`: intentionally outside the current public compatibility
+  contract.
+
+## Compatibility Levels
+
+| Level | Status | Current public contract |
+| --- | --- | --- |
+| Level 0: Harness Reliability | supported | Managed macOS runner, doctor, SVG, current Skia, `skia-v2`, versioned artifacts, strict visual failures, and public CI workflow wiring. |
+| Level 1: Core App And XAML Compatibility | partial | `Application`, `Window`, `Page`, `Frame`, resource dictionaries, startup activation, navigation, and the documented XAML subset. |
+| Level 2: Layout And Controls Foundation | partial | Public fixture subset for `Grid`, `StackPanel`, `Border`, `TextBlock`, `TextBox`, `Button`, `Image`, `ListView`, `NavigationView`, `NavigationViewItem`, `Frame`, and `FontIcon`. |
+| Level 3: Styling, Resources, And Theme Fidelity | planned | Resource lookup is partial; full style/template/material fidelity is not supported. |
+| Level 4: Data Binding, Commands, And State | partial | One-way binding refresh, button click simulation, navigation state, and keyboard accelerator invocation for public fixtures. |
+| Level 5: Input, Accessibility, And Automation | partial | Scripted click, focus, navigation selection, frame navigation, accelerator invocation, and deterministic accessibility export. |
+| Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` reference workflow and scenario-local pixel thresholds for current strict fixtures. |
+| Level 7: Release And Consumption Readiness | planned | Packages can be smoked, but release/consumer contracts are not complete. |
 
 ## Runtime
 
@@ -14,11 +29,12 @@ Status values:
 | Windows executable loading | not supported | Binary `.exe` compatibility is out of scope. |
 | `run.json` and `tree.json` | supported | Emitted for every runner invocation. |
 | `accessibility.json` | supported | Role/name/label/help/focus approximation from the logical tree. |
-| `binding-failures.json` | supported | Captures unresolved paths and non-writable targets. |
-| `resource-failures.json` | supported | Captures unresolved static and theme resources. |
-| `unsupported-apis.json` | supported | Captures clean-room placeholder facade APIs that were touched. |
-| `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unsupported API reports. |
+| `binding-failures.json` | supported | Versioned envelope captures unresolved paths and non-writable targets. |
+| `resource-failures.json` | supported | Versioned envelope captures unresolved static and theme resources. |
+| `unsupported-apis.json` | supported | Versioned envelope captures clean-room placeholder facade APIs that were touched. |
+| `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unsupported API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
 | Scripted click/focus actions | supported | Name-based interaction script actions. |
+| Versioned interaction scripts | supported | Script input accepts `schemaVersion: 0.1`; reports emit `schemaVersion: 0.1`. |
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
 | Snapshot output | partial | Deterministic SVG fallback and Skia-backed PNG output are available for the supported tree subset. |
 | Scenario JSON visual runs | supported | `--scenario`, `--viewport`, `--scale`, `--theme`, `--strict-visual`, `--reference`, and `--diff-output` drive the strict path. |

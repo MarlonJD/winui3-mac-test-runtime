@@ -18,7 +18,7 @@ public static class AccessibilityTreeBuilder
     public static AccessibilityDocument Build(UiTreeDocument tree)
     {
         return new AccessibilityDocument(
-            "0.1",
+            ArtifactSchemas.Accessibility,
             DateTimeOffset.UtcNow,
             BuildNode(tree.Root));
     }

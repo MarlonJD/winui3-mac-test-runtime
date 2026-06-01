@@ -47,7 +47,7 @@ public static class PixelDiff
         {
             WriteDimensionMismatchDiff(reference, runtime, diffOutputPath);
             return new PixelDiffResult(
-                SchemaVersion: "0.1",
+                SchemaVersion: ArtifactSchemas.PixelDiff,
                 Width: Math.Max(reference.Width, runtime.Width),
                 Height: Math.Max(reference.Height, runtime.Height),
                 ChangedPixelCount: Math.Max(reference.Width * reference.Height, runtime.Width * runtime.Height),
@@ -118,7 +118,7 @@ public static class PixelDiff
             rootMeanSquaredError <= thresholds.RootMeanSquaredError;
 
         return new PixelDiffResult(
-            SchemaVersion: "0.1",
+            SchemaVersion: ArtifactSchemas.PixelDiff,
             Width: width,
             Height: height,
             ChangedPixelCount: changed,

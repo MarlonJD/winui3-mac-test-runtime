@@ -42,7 +42,7 @@ public static class UiTreeBuilder
         ArgumentNullException.ThrowIfNull(window);
 
         return new UiTreeDocument(
-            SchemaVersion: "0.1",
+            SchemaVersion: ArtifactSchemas.UiTree,
             GeneratedAt: DateTimeOffset.UtcNow,
             Root: BuildNode(window));
     }

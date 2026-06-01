@@ -51,7 +51,7 @@ public sealed class SkiaSnapshotRenderer : ISnapshotRenderer
         await using var stream = File.Create(path);
         data.SaveTo(stream);
 
-        return new SnapshotResult("0.1", "skia-png", path, size.Width, size.Height, IsNonBlank: true);
+        return new SnapshotResult(ArtifactSchemas.Snapshot, "skia-png", path, size.Width, size.Height, IsNonBlank: true);
     }
 
     private static void RenderNavigationShell(
