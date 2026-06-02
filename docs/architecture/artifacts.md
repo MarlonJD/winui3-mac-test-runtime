@@ -115,7 +115,10 @@ unsupported visual features in `unsupported-apis.json`, and writes
 `visual-run.json`. When component evidence is available, it also writes
 `visual-review.html` and `visual-review.json` for manual crop inspection. When
 `--reference` is supplied, it also copies the reference to
-`windows-reference.png` and writes pixel diff artifacts.
+`windows-reference.png` and writes pixel diff artifacts. `--reference` may be a
+single PNG or a normalized `native-reference-import` directory; directory
+references are resolved by scenario from `native-reference-import.json` or
+adjacent native WinUI provenance.
 
 When `--project` points at a Windows-targeted WinUI source project, the runner
 does not mutate or build the original Windows project. It writes a compat shadow

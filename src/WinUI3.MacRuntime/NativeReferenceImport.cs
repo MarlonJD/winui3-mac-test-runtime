@@ -32,6 +32,79 @@ public sealed record NativeReferenceImportItem(
 
 public static class NativeReferenceImporter
 {
+    public static string? ResolveReferenceImagePath(
+        string repositoryRoot,
+        string? referencePath,
+        string? scenarioName,
+        string? scenarioPath)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(repositoryRoot);
+        if (string.IsNullOrWhiteSpace(referencePath))
+        {
+            return null;
+        }
+
+        var reference = Path.GetFullPath(referencePath);
+        if (File.Exists(reference))
+        {
+            return reference;
+        }
+
+        if (!Directory.Exists(reference))
+        {
+            throw new FileNotFoundException("Reference image or directory was not found.", reference);
+        }
+
+        if (string.IsNullOrWhiteSpace(scenarioName))
+        {
+            throw new InvalidOperationException("A scenario is required when --reference points to a native reference directory.");
+        }
+
+        var normalizedScenarioPath = NormalizeScenarioPath(repositoryRoot, scenarioPath);
+        var manifestPath = Path.Combine(reference, "native-reference-import.json");
+        if (File.Exists(manifestPath))
+        {
+            var manifest = JsonSerializer.Deserialize<NativeReferenceImportDocument>(File.ReadAllText(manifestPath), JsonDefaults.Options)
+                ?? throw new InvalidOperationException($"Native reference import manifest '{manifestPath}' did not contain a valid JSON object.");
+            var matches = manifest.Items
+                .Where(item => string.Equals(item.ReferenceSource, "native-winui", StringComparison.Ordinal))
+                .Where(item => string.Equals(item.ScenarioName, scenarioName, StringComparison.Ordinal) ||
+                    (!string.IsNullOrWhiteSpace(normalizedScenarioPath) &&
+                        string.Equals(item.ScenarioPath, normalizedScenarioPath, StringComparison.Ordinal)))
+                .ToArray();
+            if (matches.Length > 1)
+            {
+                throw new InvalidOperationException($"Native reference directory '{reference}' contains multiple references for scenario '{scenarioName}'.");
+            }
+
+            if (matches.Length == 1)
+            {
+                var imagePath = Path.Combine(reference, matches[0].ImportedReferenceImagePath);
+                if (!File.Exists(imagePath))
+                {
+                    throw new FileNotFoundException("Imported native reference image from manifest was not found.", imagePath);
+                }
+
+                return imagePath;
+            }
+        }
+
+        var candidates = new[]
+        {
+            Path.Combine(reference, scenarioName, "windows-reference.png"),
+            Path.Combine(reference, "windows-reference.png")
+        };
+        foreach (var candidate in candidates)
+        {
+            if (File.Exists(candidate) && ReferenceMatchesScenario(candidate, scenarioName, normalizedScenarioPath))
+            {
+                return candidate;
+            }
+        }
+
+        throw new FileNotFoundException($"No native WinUI reference image for scenario '{scenarioName}' was found in '{reference}'.");
+    }
+
     public static NativeReferenceImportDocument Import(
         string repositoryRoot,
         string sourceRoot,
@@ -236,6 +309,51 @@ public static class NativeReferenceImporter
         return string.IsNullOrWhiteSpace(path)
             ? null
             : path.Replace('\\', '/');
+    }
+
+    private static string? NormalizeScenarioPath(string repositoryRoot, string? scenarioPath)
+    {
+        if (string.IsNullOrWhiteSpace(scenarioPath))
+        {
+            return null;
+        }
+
+        var normalized = NormalizeRelativePath(scenarioPath)!;
+        if (!Path.IsPathFullyQualified(normalized))
+        {
+            return normalized;
+        }
+
+        var repository = Path.GetFullPath(repositoryRoot);
+        var fullPath = Path.GetFullPath(scenarioPath);
+        return RelativePath(repository, fullPath);
+    }
+
+    private static bool ReferenceMatchesScenario(
+        string imagePath,
+        string scenarioName,
+        string? scenarioPath)
+    {
+        var metadataPath = Path.Combine(Path.GetDirectoryName(imagePath)!, "windows-reference.json");
+        if (!File.Exists(metadataPath))
+        {
+            return false;
+        }
+
+        var provenance = JsonSerializer.Deserialize<NativeReferenceProvenance>(File.ReadAllText(metadataPath), JsonDefaults.Options);
+        if (provenance is null ||
+            !string.Equals(provenance.ReferenceSource, "native-winui", StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        if (string.Equals(provenance.ScenarioName, scenarioName, StringComparison.Ordinal))
+        {
+            return true;
+        }
+
+        return !string.IsNullOrWhiteSpace(scenarioPath) &&
+            string.Equals(NormalizeRelativePath(provenance.ScenarioPath), scenarioPath, StringComparison.Ordinal);
     }
 
     private static string RelativePath(string root, string path)

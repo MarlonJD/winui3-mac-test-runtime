@@ -199,15 +199,12 @@ thresholds. The stricter renderer path is opt in:
 
 ```sh
 PATH="$PWD/tools:$PATH" winui3-mac-runner run \
-  --project ./fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj \
+  --project ./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj \
   --renderer skia-v2 \
-  --scenario ./fixtures/SampleAdminShell.MacTest/scenarios/shell-light.json \
-  --viewport 960x640 \
-  --scale 1 \
-  --theme light \
+  --scenario ./fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json \
   --strict-visual \
-  --reference ./artifacts/windows-reference-screenshots/shell-light/windows-reference.png \
-  --diff-output ./artifacts/windows-native-screenshot/shell-light
+  --reference ./artifacts/native-reference-import \
+  --diff-output ./artifacts/winui3-mac/component-basic-input-light/visual
 ```
 
 After downloading the public `windows-reference-screenshots` workflow artifact,
@@ -218,6 +215,12 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner native-reference-import \
   --source ./artifacts/windows-reference-screenshots \
   --output ./artifacts/native-reference-import
 ```
+
+For scenario-driven runs, `--reference` accepts either one
+`windows-reference.png` file or the normalized native reference import
+directory. When a directory is supplied, the runner resolves the matching
+scenario reference from `native-reference-import.json` or adjacent native WinUI
+provenance before writing crop and diff artifacts.
 
 The runner writes artifacts to `artifacts/winui3-mac/` by default:
 

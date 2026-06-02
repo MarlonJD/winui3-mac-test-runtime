@@ -1285,6 +1285,16 @@ public sealed class MacRuntimeTests
             Assert.IsTrue(File.Exists(Path.Combine(outputRoot, item.ImportedReferenceImagePath)));
             Assert.IsTrue(File.Exists(Path.Combine(outputRoot, item.ImportedReferenceMetadataPath)));
         }
+
+        var firstScenario = await VisualScenario.LoadAsync(scenarioPaths[0]);
+        var resolvedReference = NativeReferenceImporter.ResolveReferenceImagePath(
+            RepositoryRoot(),
+            outputRoot,
+            firstScenario.Name,
+            scenarioPaths[0]);
+        Assert.AreEqual(
+            Path.GetFullPath(Path.Combine(outputRoot, firstScenario.Name, "windows-reference.png")),
+            resolvedReference);
     }
 
     [TestMethod]

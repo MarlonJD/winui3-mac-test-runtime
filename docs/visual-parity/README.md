@@ -117,11 +117,14 @@ When a visual scenario or renderer behavior changes:
 1. Run the local strict scenario without a reference.
 2. Trigger `windows-native-screenshot.yml` on the public repository.
 3. Download the `windows-reference-screenshots` artifact.
-4. Run `winui3-mac-runner native-reference-import --source <downloaded-dir>`
-   to normalize the artifact, validate `native-winui` provenance, and confirm
-   every checked-in component parity lab scenario has a reference.
-5. Re-run the matching local strict scenario with `--reference` and
-   `--diff-output`.
+4. Run `winui3-mac-runner native-reference-import --source <downloaded-dir>
+   --output artifacts/native-reference-import` to normalize the artifact,
+   validate `native-winui` provenance, and confirm every checked-in component
+   parity lab scenario has a reference.
+5. Re-run the matching local strict scenario with
+   `--reference artifacts/native-reference-import` and `--diff-output`. The
+   runner resolves the scenario's `windows-reference.png` from the import
+   manifest or adjacent native provenance before generating crops and diffs.
 6. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, and
    `visual-run.json`; inspect `component-evidence.json` for component lab
    scenarios, and inspect reference provenance when the reference supplies it.

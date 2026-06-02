@@ -225,6 +225,12 @@ internal static class Cli
             var scenario = string.IsNullOrWhiteSpace(scenarioPath)
                 ? null
                 : await VisualScenario.LoadAsync(scenarioPath);
+            var repositoryRoot = FindRepositoryRoot(projectPath);
+            var resolvedReferencePath = NativeReferenceImporter.ResolveReferenceImagePath(
+                repositoryRoot,
+                referencePath,
+                scenario?.Name,
+                scenarioPath);
             var visualSettings = CreateVisualSettings(
                 scenario,
                 rendererName,
@@ -249,7 +255,7 @@ internal static class Cli
             Console.WriteLine($"snapshot.json: {result.SnapshotJsonPath}");
             if (visualSettings is not null && diffOutputDirectory is not null)
             {
-                var visualPassed = await VisualArtifacts.WriteAsync(result, visualSettings, referencePath, diffOutputDirectory);
+                var visualPassed = await VisualArtifacts.WriteAsync(result, visualSettings, resolvedReferencePath, diffOutputDirectory);
                 Console.WriteLine($"visual-run.json: {Path.Combine(Path.GetFullPath(diffOutputDirectory), "visual-run.json")}");
                 Console.WriteLine($"mac-runtime.png: {Path.Combine(Path.GetFullPath(diffOutputDirectory), "mac-runtime.png")}");
                 // Surface the strict-visual gate result explicitly. The base run can
@@ -644,7 +650,7 @@ internal static class Cli
         Console.WriteLine("  doctor [--json]");
         Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>] [--renderer svg|skia|skia-v2]");
         Console.WriteLine("      [--scenario <path>] [--viewport <width>x<height>] [--scale <number>] [--theme light|dark]");
-        Console.WriteLine("      [--strict-visual] [--reference <path>] [--diff-output <dir>]");
+        Console.WriteLine("      [--strict-visual] [--reference <png-or-native-reference-dir>] [--diff-output <dir>]");
         Console.WriteLine("  benchmark [--output <path>] [--iterations <count>]");
         Console.WriteLine("  release-check [--package-dir <dir>] [--output <path>]");
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");

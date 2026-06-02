@@ -180,7 +180,8 @@ Run a strict macOS visual scenario without a Windows reference:
   --strict-visual
 ```
 
-Run a strict comparison when a Windows reference PNG exists:
+Run a strict comparison when a Windows reference PNG or normalized native
+reference import directory exists:
 
 ```sh
 ./.tools/winui3-mac-runner run \
@@ -188,7 +189,7 @@ Run a strict comparison when a Windows reference PNG exists:
   --renderer skia-v2 \
   --scenario ./tests/winui-compat/PublicWorkbench.WinUI/scenarios/workbench-light.json \
   --strict-visual \
-  --reference ./artifacts/windows-reference/workbench-light/windows-reference.png \
+  --reference ./artifacts/native-reference-import \
   --diff-output ./artifacts/winui3-mac-visual/workbench-light
 ```
 
@@ -244,10 +245,11 @@ Release or visual-change gate:
 1. Run the PR gate.
 2. Run the Windows reference workflow.
 3. Download the `windows-reference-screenshots` artifact.
-4. Run `winui3-mac-runner native-reference-import --source <downloaded-dir>` to
-   validate and normalize downloaded references before review.
-5. Run the matching local macOS strict scenario with `--reference` and
-   `--diff-output`.
+4. Run `winui3-mac-runner native-reference-import --source <downloaded-dir>
+   --output artifacts/native-reference-import` to validate and normalize
+   downloaded references before review.
+5. Run the matching local macOS strict scenario with
+   `--reference artifacts/native-reference-import` and `--diff-output`.
 6. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`,
    `visual-run.json`, and, when available, `component-evidence.json` and
    reference provenance.
