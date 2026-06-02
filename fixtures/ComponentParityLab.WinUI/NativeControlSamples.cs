@@ -419,11 +419,11 @@ internal static class NativeControlSamples
         colorHost.Content = Labeled("Color", MacColorSwatch("Color resource", "#1E90FF"));
         solidColorBrushHost.Content = Labeled("SolidColorBrush", MacColorSwatch("Brush resource", "#2E8B57"));
         cornerRadiusHost.Content = Labeled("CornerRadius", new Border { CornerRadius = 10, Child = new TextBlock { Text = "Rounded border" } });
-        expanderHost.Content = Labeled("Expander", new StackPanel { Spacing = 4, Children = { new TextBlock { Text = "More details" }, new TextBlock { Text = "Expanded public content" } } });
-        annotatedScrollBarHost.Content = Labeled("AnnotatedScrollBar", new TextBlock { Text = "Annotated scrollbar" });
-        semanticZoomHost.Content = Labeled("SemanticZoom", new StackPanel { Spacing = 4, Children = { new TextBlock { Text = "Detailed item" }, new TextBlock { Text = "Group" } } });
-        splitViewHost.Content = Labeled("SplitView", new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { new TextBlock { Text = "Pane" }, new TextBlock { Text = "Content" } } });
-        twoPaneViewHost.Content = Labeled("TwoPaneView", new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { new TextBlock { Text = "Pane 1" }, new TextBlock { Text = "Pane 2" } } });
+        expanderHost.Content = Labeled("Expander", new Expander { Header = "More details", Content = "Expanded public content", IsExpanded = true, Width = 260, Height = 92 });
+        annotatedScrollBarHost.Content = Labeled("AnnotatedScrollBar", new AnnotatedScrollBar { Width = 180, Height = 92, MarkerCount = 3 });
+        semanticZoomHost.Content = Labeled("SemanticZoom", new SemanticZoom { ZoomedInView = new TextBlock { Text = "Detailed item" }, ZoomedOutView = new TextBlock { Text = "Group" }, Width = 260, Height = 96 });
+        splitViewHost.Content = Labeled("SplitView", new SplitView { Pane = new TextBlock { Text = "Pane" }, Content = new TextBlock { Text = "Content" }, IsPaneOpen = true, Width = 260, Height = 96 });
+        twoPaneViewHost.Content = Labeled("TwoPaneView", new TwoPaneView { Pane1 = new TextBlock { Text = "Pane 1" }, Pane2 = new TextBlock { Text = "Pane 2" }, Width = 300, Height = 72 });
         animatedIconHost.Content = Labeled("AnimatedIcon", new TextBlock { Text = "Animated icon" });
         shapesHost.Content = Labeled("Shapes", new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { new TextBlock { Text = "Rectangle" }, new TextBlock { Text = "Ellipse" }, new TextBlock { Text = "Line" } } });
         mediaPlayerElementHost.Content = Labeled("MediaPlayerElement", new TextBlock { Text = "Media player surface" });

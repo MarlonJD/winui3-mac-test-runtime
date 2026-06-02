@@ -56,6 +56,11 @@ public static class VisualLayoutEngine
         "MenuFlyoutItem",
         "MenuBar",
         "MenuBarItem",
+        "Expander",
+        "AnnotatedScrollBar",
+        "SemanticZoom",
+        "SplitView",
+        "TwoPaneView",
         "ContentDialog",
         "TeachingTip",
         "ToolTip",
@@ -121,6 +126,10 @@ public static class VisualLayoutEngine
             "StackPanel" => ArrangeStackPanel(node, rect, unsupported),
             "ListView" or "ItemsControl" or "MenuFlyout" => ArrangeListView(node, rect, unsupported),
             "MenuBar" => ArrangeMenuBar(node, rect, unsupported, visibility),
+            "Expander" => ArrangeExpander(node, rect, unsupported, visibility),
+            "SplitView" => ArrangeSplitView(node, rect, unsupported, visibility),
+            "TwoPaneView" => ArrangeTwoPaneView(node, rect, unsupported, visibility),
+            "SemanticZoom" => ArrangeTwoPaneView(node, rect, unsupported, visibility),
             "CommandBar" => ArrangeCommandBar(node, rect, unsupported),
             "CommandBarFlyout" => ArrangeCommandBar(node, rect, unsupported),
             "AppBarButton" => ArrangeAppBarButton(node, rect, unsupported, visibility),
@@ -180,6 +189,69 @@ public static class VisualLayoutEngine
             .Select(child => ArrangeNode(child, contentRect, unsupported))
             .ToArray();
         return WithLayout(node, rect, EmptyThickness, padding, visibility, children);
+    }
+
+    private static UiNode ArrangeExpander(
+        UiNode node,
+        LayoutRect rect,
+        ICollection<UnsupportedVisualFeature> unsupported,
+        string visibility)
+    {
+        var isExpanded = ReadBool(node, "isExpanded", false);
+        var hasHeaderText = !string.IsNullOrWhiteSpace(ReadString(node, "header"));
+        var children = new List<UiNode>(node.Children.Count);
+        for (var index = 0; index < node.Children.Count; index++)
+        {
+            var isHeaderChild = !hasHeaderText && index == 0;
+            var childRect = isHeaderChild
+                ? new LayoutRect(rect.X + 32, rect.Y + 4, Math.Max(1, rect.Width - 40), 28)
+                : new LayoutRect(rect.X + 12, rect.Y + 38, Math.Max(1, rect.Width - 24), Math.Max(1, rect.Height - 44));
+            if (isHeaderChild || isExpanded)
+            {
+                children.Add(ArrangeNode(node.Children[index], childRect, unsupported));
+            }
+        }
+
+        return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, children);
+    }
+
+    private static UiNode ArrangeSplitView(
+        UiNode node,
+        LayoutRect rect,
+        ICollection<UnsupportedVisualFeature> unsupported,
+        string visibility)
+    {
+        var paneWidth = ReadBool(node, "isPaneOpen", false) ? Math.Min(96, Math.Max(56, rect.Width * 0.36)) : 0;
+        var children = new List<UiNode>(node.Children.Count);
+        if (node.Children.Count > 0)
+        {
+            children.Add(ArrangeNode(node.Children[0], new LayoutRect(rect.X + 8, rect.Y + 8, Math.Max(1, paneWidth - 16), Math.Max(1, rect.Height - 16)), unsupported));
+        }
+
+        if (node.Children.Count > 1)
+        {
+            children.Add(ArrangeNode(node.Children[1], new LayoutRect(rect.X + paneWidth + 8, rect.Y + 8, Math.Max(1, rect.Width - paneWidth - 16), Math.Max(1, rect.Height - 16)), unsupported));
+        }
+
+        return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, children);
+    }
+
+    private static UiNode ArrangeTwoPaneView(
+        UiNode node,
+        LayoutRect rect,
+        ICollection<UnsupportedVisualFeature> unsupported,
+        string visibility)
+    {
+        var gap = 8;
+        var paneWidth = Math.Max(1, (rect.Width - gap) / 2);
+        var children = new List<UiNode>(node.Children.Count);
+        for (var index = 0; index < node.Children.Count && index < 2; index++)
+        {
+            var x = rect.X + index * (paneWidth + gap);
+            children.Add(ArrangeNode(node.Children[index], new LayoutRect(x + 8, rect.Y + 8, Math.Max(1, paneWidth - 16), Math.Max(1, rect.Height - 16)), unsupported));
+        }
+
+        return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, children);
     }
 
     private static UiNode ArrangeNavigationView(
@@ -430,6 +502,10 @@ public static class VisualLayoutEngine
             "MenuFlyout" => Math.Max(72, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
             "MenuBar" => 32,
             "MenuBarItem" => 28,
+            "Expander" => Math.Min(92, fallback),
+            "AnnotatedScrollBar" => Math.Min(92, fallback),
+            "SemanticZoom" or "SplitView" => Math.Min(96, fallback),
+            "TwoPaneView" => Math.Min(72, fallback),
             "ContentDialog" => 128,
             "Flyout" or "ToolTip" or "TeachingTip" => 72,
             "Border" => Math.Min(86, fallback),
@@ -469,6 +545,10 @@ public static class VisualLayoutEngine
             "CommandBar" or "CommandBarFlyout" or "MenuFlyout" or "ContentDialog" or "Flyout" or "ToolTip" or "TeachingTip" => fallback,
             "MenuBar" => Math.Min(fallback, Math.Max(96, node.Children.Sum(child => EstimateWidth(child, fallback)) + 8)),
             "MenuBarItem" => Math.Min(fallback, Math.Max(64, EstimateTextWidth(ReadString(node, "title") ?? "Menu") + 28)),
+            "Expander" => Math.Min(fallback, 260),
+            "AnnotatedScrollBar" => Math.Min(fallback, 180),
+            "SemanticZoom" or "SplitView" => Math.Min(fallback, 260),
+            "TwoPaneView" => Math.Min(fallback, 300),
             "Border" or "ScrollViewer" or "Frame" or "Page" or "Window" or "Grid" => fallback,
             "ContentControl" => EstimateContentControlWidth(node, fallback),
             "StackPanel" => EstimateStackWidth(node, fallback),
@@ -657,6 +737,16 @@ public static class VisualLayoutEngine
     private static string? ReadString(UiNode node, string key)
     {
         return node.Properties.TryGetValue(key, out var value) ? value?.ToString() : null;
+    }
+
+    private static bool ReadBool(UiNode node, string key, bool fallback)
+    {
+        if (!node.Properties.TryGetValue(key, out var value) || value is null)
+        {
+            return fallback;
+        }
+
+        return bool.TryParse(value.ToString(), out var boolean) ? boolean : fallback;
     }
 
     private static string? ReadText(UiNode node)

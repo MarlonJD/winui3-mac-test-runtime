@@ -224,38 +224,63 @@
     {
       "component": "Expander",
       "target": "DiagnosticExpander",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "header",
+        "isExpanded"
+      ],
+      "knownGaps": [
+        "Expander renders a static expanded header/content diagnostic; collapse interaction, focus visuals, and expanded automation behavior remain partial."
+      ]
     },
     {
       "component": "Annotated scrollbar",
       "kind": "pattern",
       "target": "DiagnosticAnnotatedScrollbar",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "markerCount"
+      ],
+      "knownGaps": [
+        "Annotated scrollbar renders static rail and marker diagnostics; scroll position binding, annotation labels, and pointer interaction remain planned."
+      ]
     },
     {
       "component": "SemanticZoom",
       "target": "DiagnosticSemanticZoom",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "SemanticZoom renders static zoomed-in and zoomed-out preview panes; zoom switching and collection semantics remain planned."
+      ]
     },
     {
       "component": "SplitView",
       "target": "DiagnosticSplitView",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "isPaneOpen"
+      ],
+      "knownGaps": [
+        "SplitView renders a static open pane/content diagnostic; display modes, light dismiss, compact overlay behavior, and interaction remain partial."
+      ]
     },
     {
       "component": "TwoPaneView",
       "target": "DiagnosticTwoPaneView",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "TwoPaneView renders static side-by-side panes; adaptive spanning behavior and responsive breakpoints remain planned."
+      ]
     },
     {
       "component": "AnimatedIcon",

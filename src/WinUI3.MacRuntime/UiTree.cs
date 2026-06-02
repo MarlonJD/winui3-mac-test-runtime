@@ -251,6 +251,32 @@ public static class UiTreeBuilder
                 }
 
                 break;
+            case Expander expander:
+                properties["header"] = expander.Header is UIElement ? null : expander.Header?.ToString();
+                properties["isExpanded"] = expander.IsExpanded;
+                if (expander.Header is UIElement expanderHeader)
+                {
+                    AddChild(expanderHeader, children);
+                }
+
+                AddChild(expander.Content, children);
+                break;
+            case AnnotatedScrollBar annotatedScrollBar:
+                properties["markerCount"] = annotatedScrollBar.MarkerCount;
+                break;
+            case SemanticZoom semanticZoom:
+                AddChild(semanticZoom.ZoomedInView, children);
+                AddChild(semanticZoom.ZoomedOutView, children);
+                break;
+            case SplitView splitView:
+                properties["isPaneOpen"] = splitView.IsPaneOpen;
+                AddChild(splitView.Pane, children);
+                AddChild(splitView.Content, children);
+                break;
+            case TwoPaneView twoPaneView:
+                AddChild(twoPaneView.Pane1, children);
+                AddChild(twoPaneView.Pane2, children);
+                break;
             case NavigationView navigationView:
                 properties["menuItemCount"] = navigationView.MenuItems.Count;
                 properties["paneDisplayMode"] = navigationView.PaneDisplayMode;

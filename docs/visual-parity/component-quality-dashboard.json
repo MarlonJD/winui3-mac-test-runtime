@@ -6,8 +6,8 @@
     "scenarioCount": 4,
     "componentCount": 58,
     "visualGradeCounts": {
-      "not-rendered": 12,
-      "usable": 46
+      "not-rendered": 7,
+      "usable": 51
     },
     "nativeQualityGradeCounts": {
       "not-evaluated": 58
@@ -722,8 +722,8 @@
       "component": "Expander",
       "target": "DiagnosticExpander",
       "ownerFamily": "Layout, media, visuals, and platform",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -732,7 +732,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -740,8 +740,8 @@
       "component": "Annotated scrollbar",
       "target": "DiagnosticAnnotatedScrollbar",
       "ownerFamily": "Layout, media, visuals, and platform",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -750,7 +750,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -758,8 +758,8 @@
       "component": "SemanticZoom",
       "target": "DiagnosticSemanticZoom",
       "ownerFamily": "Layout, media, visuals, and platform",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -768,7 +768,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -776,8 +776,8 @@
       "component": "SplitView",
       "target": "DiagnosticSplitView",
       "ownerFamily": "Layout, media, visuals, and platform",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -786,7 +786,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -794,8 +794,8 @@
       "component": "TwoPaneView",
       "target": "DiagnosticTwoPaneView",
       "ownerFamily": "Layout, media, visuals, and platform",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -804,7 +804,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -1619,11 +1619,11 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Expander",
       "target": "DiagnosticExpander",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1633,11 +1633,11 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Annotated scrollbar",
       "target": "DiagnosticAnnotatedScrollbar",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1647,11 +1647,11 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "SemanticZoom",
       "target": "DiagnosticSemanticZoom",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1661,11 +1661,11 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "SplitView",
       "target": "DiagnosticSplitView",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1675,11 +1675,11 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "TwoPaneView",
       "target": "DiagnosticTwoPaneView",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]

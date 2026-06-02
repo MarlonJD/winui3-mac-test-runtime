@@ -359,6 +359,43 @@ public class MenuBarItem : ItemsControl
     public string? Title { get; set; }
 }
 
+public class Expander : Control
+{
+    public object? Header { get; set; }
+
+    public object? Content { get; set; }
+
+    public bool IsExpanded { get; set; }
+}
+
+public class AnnotatedScrollBar : Control
+{
+    public int MarkerCount { get; set; } = 3;
+}
+
+public class SemanticZoom : Control
+{
+    public object? ZoomedInView { get; set; }
+
+    public object? ZoomedOutView { get; set; }
+}
+
+public class SplitView : Control
+{
+    public object? Pane { get; set; }
+
+    public object? Content { get; set; }
+
+    public bool IsPaneOpen { get; set; }
+}
+
+public class TwoPaneView : Control
+{
+    public object? Pane1 { get; set; }
+
+    public object? Pane2 { get; set; }
+}
+
 public class StackPanel : FrameworkElement
 {
     public Orientation Orientation { get; set; } = Orientation.Vertical;

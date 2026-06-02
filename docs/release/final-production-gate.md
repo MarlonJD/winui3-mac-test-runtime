@@ -86,10 +86,10 @@ Current inspected renderer evidence:
 | Commands and menus | 8 `usable`, zero `not-rendered`; command surfaces, content-slot, MenuBar, and context target are simplified and popup/menu behavior remains partial. |
 | Navigation and workbench | Public admin workbench has 9 `usable` rows; adaptive behavior and broader keyboarding remain partial. |
 | Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; loading and success state scenarios add 4 `usable` rows. Animation and close/action areas remain gaps. |
-| Layout, media, and resources | Light scenario has 16 `usable`, 12 planned/non-goal `not-rendered`; dark and high-contrast smoke rows are usable, while media, web, ink, materials, and advanced visuals remain excluded or planned. |
+| Layout, media, and resources | Light scenario has 21 `usable`, 7 planned/non-goal `not-rendered`; dark and high-contrast smoke rows are usable, while media, web, ink, animation, shapes, materials, and advanced visuals remain excluded or planned. |
 
 Across the checked-in public component-quality dashboard, there are 58
-component rows: 46 `usable` and 12 `not-rendered`. The rows have
+component rows: 51 `usable` and 7 `not-rendered`. The rows have
 native/macOS/diff crop triptychs, which is enough for manual inspection
 queuing. It is not enough for a native-quality WinUI visual claim.
 

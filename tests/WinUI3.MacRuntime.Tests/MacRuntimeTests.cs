@@ -1745,6 +1745,49 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsAdaptiveContainerDiagnostics()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "adaptive");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Adaptive containers",
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                Children =
+                {
+                    new Expander { Name = "DetailsExpander", Header = "More details", Content = "Expanded content", IsExpanded = true, Width = 260, Height = 92 },
+                    new AnnotatedScrollBar { Name = "MarkerScrollBar", MarkerCount = 3, Width = 180, Height = 92 },
+                    new SemanticZoom { Name = "SummaryZoom", ZoomedInView = new TextBlock { Text = "Detailed item" }, ZoomedOutView = new TextBlock { Text = "Group" }, Width = 260, Height = 96 },
+                    new SplitView { Name = "OpenSplitView", Pane = new TextBlock { Text = "Pane" }, Content = new TextBlock { Text = "Content" }, IsPaneOpen = true, Width = 260, Height = 96 },
+                    new TwoPaneView { Name = "PairTwoPaneView", Pane1 = new TextBlock { Text = "Pane 1" }, Pane2 = new TextBlock { Text = "Pane 2" }, Width = 300, Height = 72 }
+                }
+            }
+        });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "adaptive", "skia-v2", new VisualViewport(520, 420), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "adaptive", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        Assert.IsTrue((bool)RequireNode(arranged.Root, "DetailsExpander").Properties["isExpanded"]!);
+        Assert.IsTrue((bool)RequireNode(arranged.Root, "OpenSplitView").Properties["isPaneOpen"]!);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var scrollBar = RequireNode(arranged.Root, "MarkerScrollBar").Layout!;
+        var splitView = RequireNode(arranged.Root, "OpenSplitView").Layout!;
+        var twoPaneNode = RequireNode(arranged.Root, "PairTwoPaneView");
+        var twoPaneView = twoPaneNode.Layout!;
+
+        Assert.IsGreaterThan(10, CountExactPixels(bitmap, new SKRect((float)scrollBar.X, (float)scrollBar.Y, (float)(scrollBar.X + scrollBar.Width), (float)(scrollBar.Y + scrollBar.Height)), theme.Accent));
+        Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)splitView.X, (float)splitView.Y, (float)(splitView.X + splitView.Width), (float)(splitView.Y + splitView.Height)), theme.PaneBackground));
+        Assert.IsGreaterThan(100, twoPaneNode.Children[1].Layout!.X - twoPaneNode.Children[0].Layout!.X);
+        Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)twoPaneView.X, (float)twoPaneView.Y, (float)(twoPaneView.X + twoPaneView.Width), (float)(twoPaneView.Y + twoPaneView.Height)), theme.Surface));
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineReportsUnsupportedVisualTypes()
     {
         var tree = new UiTreeDocument(

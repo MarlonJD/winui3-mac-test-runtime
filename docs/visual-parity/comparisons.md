@@ -23,8 +23,8 @@ interaction/accessibility evidence, and native-reference provenance. See
 
 As of the checked-in public component-quality dashboard, the current macOS
 renderer is a usable harness scaffold rather than a high-fidelity WinUI
-renderer. The public evidence set contains 58 component rows: 46 `usable` and
-12 `not-rendered`. All public rows now have native/macOS/diff crop triptychs,
+renderer. The public evidence set contains 58 component rows: 51 `usable` and
+7 `not-rendered`. All public rows now have native/macOS/diff crop triptychs,
 but many controls still have simplified chrome, missing native states, missing
 templates, incomplete popup placement, or diagnostic-only rendering.
 
@@ -56,7 +56,7 @@ Historical checked-in examples:
 | `public-admin-workbench-light` | failed | 99.988381% | 45% | 9.678085 | 36.397928 | 9 `usable` |
 | `component-basic-input-light` | failed | 30.145914% | 18% | 9.611153 | 39.380451 | 13 `usable`, zero `not-rendered` |
 | `component-commands-menus-light` | failed | 28.866596% | 24% | 7.884937 | 35.151692 | 8 `usable`, zero `not-rendered` |
-| `component-layout-media-light` | failed | 44.096276% | 24% | 13.65914 | 45.554856 | 16 `usable`, 12 `not-rendered` |
+| `component-layout-media-light` | failed | 44.828821% | 24% | 13.06852 | 44.114842 | 21 `usable`, 7 `not-rendered` |
 
 Current inspected local macOS artifacts:
 
@@ -65,7 +65,7 @@ Current inspected local macOS artifacts:
 | `component-basic-input-light` / `component-basic-input-checked-light` | failed against native reference for the base light scenario; checked-state smoke remains historical | Base scenario has 13 `usable` rows and zero `not-rendered`; checked-state scenario has 3 `usable` | Recognizable controls with improved static chrome; final native inspection, automation state, and interaction coverage remain incomplete. |
 | `component-commands-menus-light` | failed against native reference | 8 `usable`, zero `not-rendered` | Command, flyout, MenuBar, content-slot, and context-target scaffold exists; native menu/command fidelity and final inspection remain incomplete. |
 | `component-status-pickers-light` / `component-status-pickers-loading-light` / `component-status-pickers-success-light` | passed | Base scenario has 3 `usable`, 7 planned `not-rendered`; loading and success scenarios add 4 `usable` | Status/progress scaffold exists with regenerated success evidence; native animation and close/action areas remain gaps. |
-| `component-layout-media-light` | failed against native reference | 16 `usable`, 12 planned/non-goal `not-rendered` | Layout/resource/icon scaffold exists for static diagnostics; media, web, ink, and materials remain excluded or planned. |
+| `component-layout-media-light` | failed against native reference | 21 `usable`, 7 planned/non-goal `not-rendered` | Layout/resource/icon/adaptive-container scaffold exists for static diagnostics; media, web, ink, animation, shapes, and materials remain excluded or planned. |
 | `public-admin-workbench-light` | passed | 9 `usable` | Workbench scaffold is usable for smoke/E2E checks; it is not native-quality parity. |
 
 ## Public Admin Workbench

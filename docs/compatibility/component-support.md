@@ -80,7 +80,7 @@ clean-room pages:
 | Page 5: Commands and menus | Native Windows fixture controls for `CommandBar`, `AppBarButton`, icon slot coverage, content-slot, MenuBar, context target, and menu/flyout diagnostics; current macOS `skia-v2` command output is 8 `usable` harness rows and zero `not-rendered`, with simplified command/flyout/menu chrome. |
 | Page 6: Navigation and workbench | Native Windows fixture controls for `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure; current macOS `skia-v2` output is usable for the Ring 0 navigation/list-detail scaffold. |
 | Page 7: Status and pickers | Native Windows fixture controls for `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics; current macOS `skia-v2` base, loading, and success scenarios are usable for status/progress smoke testing, while animation and close/action areas remain gaps. |
-| Page 8: Layout, media, visuals | Native Windows fixture controls for `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics; current macOS `skia-v2` light evidence is 16 `usable` and 12 planned/non-goal `not-rendered` rows while advanced diagnostics remain `not-rendered`. |
+| Page 8: Layout, media, visuals | Native Windows fixture controls for `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, adaptive containers, media, web, ink, and backdrop diagnostics; current macOS `skia-v2` light evidence is 21 `usable` and 7 planned/non-goal `not-rendered` rows while advanced diagnostics remain `not-rendered`. |
 
 The foundation also tracks downstream source-audit gaps explicitly:
 `SymbolIcon`, `XamlControlsResources`,
@@ -109,7 +109,7 @@ Latest inspected native comparison counts:
 | `component-status-pickers-light` / `component-status-pickers-loading-light` / `component-status-pickers-success-light` | Local strict runs passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | Base scenario has 3 `usable`, 7 planned `not-rendered`; loading and success scenarios add 4 `usable` state rows. Success-state evidence was regenerated with nonblank crops for `InfoBar` and `ProgressBar`. |
 | `component-dialogs-flyouts-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | `ContentDialog`, `Flyout`, and `ToolTip` are `usable` with passed open/dismiss interaction evidence; `TeachingTip` and tooltip service remain planned `not-rendered`. |
 | `component-commands-menus-light` | Native-reference strict visual comparison is checked in and currently fails the native-quality threshold. | 8 `usable` rows and zero `not-rendered`; `CommandBarFlyout` and `MenuFlyout` have passed open/invoke interaction evidence, while `CommandBar.Content`, `MenuBar`, and context menu target export remain static partial evidence. |
-| `component-layout-media-light` | Native-reference strict visual comparison is checked in and currently fails the native-quality threshold. | 16 `usable`, 12 planned/non-goal `not-rendered`, including usable `SymbolIcon`, `XamlControlsResources`, `Color`, theme dictionary, `ThemeResource`, `SolidColorBrush`, and `CornerRadius` evidence with layout regions. |
+| `component-layout-media-light` | Native-reference strict visual comparison is checked in and currently fails the native-quality threshold. | 21 `usable`, 7 planned/non-goal `not-rendered`, including usable `SymbolIcon`, `XamlControlsResources`, `Color`, `Expander`, annotated scrollbar, `SemanticZoom`, `SplitView`, `TwoPaneView`, theme dictionary, `ThemeResource`, `SolidColorBrush`, and `CornerRadius` evidence with layout regions. |
 | `component-layout-media-dark` / `component-layout-media-high-contrast` | Local strict runs passed without local Windows reference paths; native reference comparison remains a CI artifact concern. | 6 `usable` resource/layout smoke targets in each theme; `ThemeResource` resolves to theme-specific foreground values. |
 | `public-admin-workbench-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 9 `usable`, no missing component regions; visually it is a simplified workbench scaffold, not native-quality parity. |
 
@@ -152,6 +152,11 @@ Latest inspected native comparison counts:
 | `FontIcon` | partial | Glyph metadata and `skia-v2` glyph output are present. | Exact Segoe MDL2 metrics and glyph availability remain approximate on macOS. |
 | `MediaPlayerElement` | not supported | Explicitly outside the current macOS-managed runtime contract. | Media playback is not implemented. |
 | `WebView2` | not supported | Explicitly outside the current clean-room runtime. | Embedded browser hosting is not implemented. |
+| `Expander` | partial | Static expanded header/content metadata, accessibility expanded state, and `skia-v2` header/content chrome are present for public evidence. | Collapse interaction, focus visuals, and expanded automation behavior remain partial. |
+| Annotated scrollbar pattern | partial | Static rail and marker metadata plus `skia-v2` rail/marker diagnostics are present for public evidence. | Scroll position binding, annotation labels, and pointer interaction remain planned. |
+| `SemanticZoom` | partial | Static zoomed-in and zoomed-out preview panes render in `skia-v2`. | Zoom switching and collection semantics remain planned. |
+| `SplitView` | partial | Static open pane/content metadata and `skia-v2` pane/content chrome are present. | Display modes, light dismiss, compact overlay behavior, and interaction remain partial. |
+| `TwoPaneView` | partial | Static side-by-side pane metadata and `skia-v2` pane layout are present. | Adaptive spanning behavior and responsive breakpoints remain planned. |
 
 ## Project And XAML Source Features
 
@@ -188,14 +193,15 @@ Latest inspected native comparison counts:
 ## Not Yet Cataloged
 
 Common WinUI controls such as `AutoSuggestBox`, `CalendarDatePicker`,
-`CalendarView`, `ColorPicker`, `DatePicker`, `Expander`, `FlipView`,
-`GridView`, `MenuBar`, `NumberBox`, `PasswordBox`, `PersonPicture`,
-`RichEditBox`, `SplitView`, `TabView`, `TeachingTip`, `TimePicker`,
-`TreeView`, and `TwoPaneView` are not part of the current support claim.
-The component parity lab now gives these controls explicit diagnostic rows and
-`not-rendered` evidence entries; strict mode should still treat uncataloged
-runtime usage as a compatibility gap until the feature is added to the API
-catalog and backed by public tests. `RepeatButton`, `HyperlinkButton`,
+`CalendarView`, `ColorPicker`, `DatePicker`, `FlipView`, `GridView`,
+`NumberBox`, `PasswordBox`, `PersonPicture`, `RichEditBox`, `TabView`,
+`TeachingTip`, `TimePicker`, and `TreeView` are not part of the current support
+claim. The component parity lab now gives these controls explicit diagnostic
+rows and `not-rendered` evidence entries; strict mode should still treat
+uncataloged runtime usage as a compatibility gap until the feature is added to
+the API catalog and backed by public tests. `MenuBar`, `Expander`,
+`SplitView`, and `TwoPaneView` have static partial public evidence but are not
+native-quality support claims. `RepeatButton`, `HyperlinkButton`,
 `DropDownButton`, `SplitButton`, `ToggleSplitButton`, `Slider`,
 `ToggleSwitch`, and `RatingControl` have bounded `component-basic-input-light`
 rendering evidence, but remain partial harness rows until native-quality

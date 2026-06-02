@@ -49,7 +49,7 @@ public static class AccessibilityTreeBuilder
             IsSelected: ReadString(node.Properties, "selectedItem") is not null || ReadString(node.Properties, "selectedIndex") is not null
                 ? ReadString(node.Properties, "selectedIndex") != "-1"
                 : null,
-            IsExpanded: ReadNullableBool(node.Properties, "isOpen"),
+            IsExpanded: ReadNullableBool(node.Properties, "isOpen") ?? ReadNullableBool(node.Properties, "isExpanded") ?? ReadNullableBool(node.Properties, "isPaneOpen"),
             Value: ReadString(node.Properties, "text") ??
                 ReadString(node.Properties, "selectedItem") ??
                 ReadString(node.Properties, "value"),
@@ -161,6 +161,23 @@ public static class AccessibilityTreeBuilder
         if (typeName.EndsWith(".CommandBar", StringComparison.Ordinal))
         {
             return "toolbar";
+        }
+
+        if (typeName.EndsWith(".Expander", StringComparison.Ordinal))
+        {
+            return "button";
+        }
+
+        if (typeName.EndsWith(".AnnotatedScrollBar", StringComparison.Ordinal))
+        {
+            return "scrollbar";
+        }
+
+        if (typeName.EndsWith(".SemanticZoom", StringComparison.Ordinal) ||
+            typeName.EndsWith(".SplitView", StringComparison.Ordinal) ||
+            typeName.EndsWith(".TwoPaneView", StringComparison.Ordinal))
+        {
+            return "group";
         }
 
         if (typeName.EndsWith(".NavigationViewItem", StringComparison.Ordinal))

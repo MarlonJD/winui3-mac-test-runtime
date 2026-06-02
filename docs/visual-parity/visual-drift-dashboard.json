@@ -51,11 +51,11 @@
         "gated": true,
         "metric": "component-evidence crop grade and per-component thresholds",
         "status": "within-target-for-supported-subset",
-        "note": "Ring 0 layout/resource/icon regions are usable; media, web, ink, materials, and advanced visuals remain excluded or planned."
+        "note": "Ring 0 layout/resource/icon/adaptive-container regions are usable; media, web, ink, animation, shapes, materials, and advanced visuals remain excluded or planned."
       },
       "wholeScreenDrift": {
         "gated": false,
-        "changedPixelPercentage": 44.096276,
+        "changedPixelPercentage": 44.828821,
         "threshold": 24,
         "status": "informational-over-threshold",
         "note": "Superseded by component evidence; cross-platform rasterization difference."

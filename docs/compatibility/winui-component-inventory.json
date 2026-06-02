@@ -361,7 +361,7 @@
         "priority": 10,
         "interactionRequired": true,
         "requiredStates": ["collapsed", "expanded", "focused", "disabled"],
-        "currentGrade": "not-rendered",
+        "currentGrade": "usable",
         "disposition": "production-ready-diagnostic-exclusion-until-promoted",
         "promotionExitCriteria": "Expander facade and XAML ingestion, header/chevron and expanded-content painter, expand/collapse interaction, accessibility expanded state, component evidence, native reference, docs, and tests."
       },
@@ -495,13 +495,13 @@
       "component": "Annotated scrollbar",
       "kind": "pattern",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-layout-media-light",
+      "interactionCoverage": "static marker export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "Tracked as a scrolling pattern, not implemented."
+        "Annotated scrollbar renders static rail and marker diagnostics; scroll position binding, annotation labels, and pointer interaction remain planned."
       ]
     },
     {
@@ -807,13 +807,13 @@
       "component": "Expander",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-layout-media-light",
+      "interactionCoverage": "static expanded-state export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "Expander renders a static expanded header/content diagnostic; collapse interaction, focus visuals, and expanded automation behavior remain partial."
       ]
     },
     {
@@ -1379,13 +1379,13 @@
       "component": "SemanticZoom",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "diagnostic row",
+      "fixtureCoverage": "component-layout-media-light",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "SemanticZoom renders static zoomed-in and zoomed-out preview panes; zoom switching and collection semantics remain planned."
       ]
     },
     {
@@ -1457,13 +1457,13 @@
       "component": "SplitView",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "diagnostic row",
+      "fixtureCoverage": "component-layout-media-light",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "SplitView renders a static open pane/content diagnostic; display modes, light dismiss, compact overlay behavior, and interaction remain partial."
       ]
     },
     {
@@ -1704,13 +1704,13 @@
       "component": "TwoPaneView",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "diagnostic row",
+      "fixtureCoverage": "component-layout-media-light",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "TwoPaneView renders static side-by-side panes; adaptive spanning behavior and responsive breakpoints remain planned."
       ]
     },
     {

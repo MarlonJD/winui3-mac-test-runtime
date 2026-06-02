@@ -118,6 +118,21 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             case "MenuBarItem":
                 RenderMenuBarItem(canvas, node, theme, paint, bodyFont);
                 break;
+            case "Expander":
+                RenderExpander(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+                break;
+            case "AnnotatedScrollBar":
+                RenderAnnotatedScrollBar(canvas, node, theme, paint);
+                break;
+            case "SemanticZoom":
+                RenderSemanticZoom(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+                break;
+            case "SplitView":
+                RenderSplitView(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+                break;
+            case "TwoPaneView":
+                RenderTwoPaneView(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+                break;
             case "MenuFlyoutItem":
                 DrawText(canvas, paint, bodyFont, ReadString(node, "text") ?? ReadControlLabel(node, "Menu item"), (float)node.Layout.X, (float)node.Layout.Y + 19, theme.TextPrimary);
                 break;
@@ -723,6 +738,104 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         {
             FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 18, rect.Top + 11, theme.TextSecondary);
         }
+    }
+
+    private static void RenderExpander(
+        SKCanvas canvas,
+        UiNode node,
+        SkiaV2Theme theme,
+        SKPaint paint,
+        SKFont titleFont,
+        SKFont bodyFont,
+        SKFont smallFont,
+        SKFont iconFont)
+    {
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
+        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Left + 13, rect.Top + 14, theme.TextSecondary);
+        DrawText(canvas, paint, bodyFont, ReadString(node, "header") ?? "Expander", rect.Left + 32, rect.Top + 24, theme.TextPrimary);
+        if (ReadBool(node, "isExpanded", fallback: false))
+        {
+            DrawLine(canvas, paint, rect.Left + 8, rect.Top + 34, rect.Right - 8, rect.Top + 34, theme.SubtleStroke);
+            RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+        }
+    }
+
+    private static void RenderAnnotatedScrollBar(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint)
+    {
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
+        var rail = new SKRect(rect.Right - 24, rect.Top + 10, rect.Right - 18, rect.Bottom - 10);
+        DrawRoundRect(canvas, paint, rail, 3, theme.DisabledSurface);
+        DrawRoundRect(canvas, paint, new SKRect(rail.Left, rail.Top + 14, rail.Right, Math.Min(rail.Bottom, rail.Top + 42)), 3, theme.Accent);
+        var markerCount = Math.Clamp((int)Math.Round(ReadFloat(node, "markerCount", 3)), 1, 8);
+        for (var index = 0; index < markerCount; index++)
+        {
+            var y = rail.Top + 8 + index * Math.Max(8, (rail.Height - 16) / Math.Max(1, markerCount - 1));
+            DrawCircle(canvas, paint, rect.Left + 18, y, 3, theme.Accent);
+            DrawLine(canvas, paint, rect.Left + 28, y, rail.Left - 8, y, theme.SubtleStroke);
+        }
+    }
+
+    private static void RenderSemanticZoom(
+        SKCanvas canvas,
+        UiNode node,
+        SkiaV2Theme theme,
+        SKPaint paint,
+        SKFont titleFont,
+        SKFont bodyFont,
+        SKFont smallFont,
+        SKFont iconFont)
+    {
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
+        DrawText(canvas, paint, smallFont, "zoomed in", rect.Left + 10, rect.Top + 17, theme.TextSecondary);
+        DrawText(canvas, paint, smallFont, "zoomed out", rect.Left + rect.Width / 2 + 10, rect.Top + 17, theme.TextSecondary);
+        DrawLine(canvas, paint, rect.Left + rect.Width / 2, rect.Top + 8, rect.Left + rect.Width / 2, rect.Bottom - 8, theme.SubtleStroke);
+        RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+    }
+
+    private static void RenderSplitView(
+        SKCanvas canvas,
+        UiNode node,
+        SkiaV2Theme theme,
+        SKPaint paint,
+        SKFont titleFont,
+        SKFont bodyFont,
+        SKFont smallFont,
+        SKFont iconFont)
+    {
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
+        if (ReadBool(node, "isPaneOpen", fallback: false) && node.Children.Count > 0 && node.Children[0].Layout is not null)
+        {
+            var pane = Rect(node.Children[0]);
+            DrawRoundRect(canvas, paint, new SKRect(rect.Left + 4, rect.Top + 4, pane.Right + 8, rect.Bottom - 4), theme.ControlCornerRadius, theme.PaneBackground);
+            DrawLine(canvas, paint, pane.Right + 8, rect.Top + 8, pane.Right + 8, rect.Bottom - 8, theme.SubtleStroke);
+        }
+
+        RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+    }
+
+    private static void RenderTwoPaneView(
+        SKCanvas canvas,
+        UiNode node,
+        SkiaV2Theme theme,
+        SKPaint paint,
+        SKFont titleFont,
+        SKFont bodyFont,
+        SKFont smallFont,
+        SKFont iconFont)
+    {
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
+        DrawLine(canvas, paint, rect.Left + rect.Width / 2, rect.Top + 8, rect.Left + rect.Width / 2, rect.Bottom - 8, theme.SubtleStroke);
+        RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
     }
 
     private static void RenderContentDialog(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
