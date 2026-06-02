@@ -66,3 +66,23 @@ Each scenario should produce `windows-reference.png`, `mac-runtime.png`,
 `diagnostics.sarif`, and `unsupported-apis.json`. New material or composition
 behavior must start with a failing or planned catalog entry, then move through
 tests before a renderer approximation is accepted.
+
+## Phase 8 Approximation Registry And Drift Dashboard
+
+The machine-readable approximation registry is
+`docs/compatibility/material-motion-approximations.json`. It records every
+materials, composition, and motion catalog surface as either a deterministic
+macOS approximation target or an explicit exclusion, with reduced-motion,
+high-contrast, and native-reference provenance rules. None of these surfaces is
+real Windows OS composition; motion is captured as a deterministic end state,
+not animation timing. The
+`MaterialMotionApproximationsCoverEveryPhase8CatalogEntry` test fails if a
+materials/composition/motion catalog API is missing from the registry or if any
+surface claims OS composition.
+
+The visual drift dashboard is `docs/visual-parity/visual-drift-dashboard.json`.
+Component-crop drift is the gated production metric; whole-screen drift is
+informational only, because cross-platform font rasterization, GPU paths, and OS
+composition differ. The dashboard's whole-screen values are read from the
+checked-in `pixel-diff.json` artifacts and verified by the
+`VisualDriftDashboardGatesComponentCropNotWholeScreen` test.

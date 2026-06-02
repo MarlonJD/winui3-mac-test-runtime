@@ -530,7 +530,7 @@ public sealed class MacRuntimeTests
             .OrderBy(phase => phase, StringComparer.Ordinal)
             .ToArray();
         CollectionAssert.AreEqual(
-            new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7" },
+            new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7", "Phase 8" },
             phases);
     }
 
@@ -1041,6 +1041,88 @@ public sealed class MacRuntimeTests
             expectedControls,
             seen.ToArray(),
             "The broader control inventory must track exactly the prioritized Phase 7 controls.");
+    }
+
+    [TestMethod]
+    public void MaterialMotionApproximationsCoverEveryPhase8CatalogEntry()
+    {
+        var audit = CatalogReadinessAudit.Build(CompatibilityCatalog.Current);
+        var phase8Apis = audit.Entries
+            .Where(entry => entry.Area is "materials" or "composition" or "motion")
+            .Select(entry => entry.Api)
+            .ToHashSet(StringComparer.Ordinal);
+
+        using var registry = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/compatibility/material-motion-approximations.json")));
+        var root = registry.RootElement;
+
+        Assert.IsFalse(root.GetProperty("osCompositionClaim").GetBoolean(), "The material/motion registry must not claim OS composition.");
+
+        var covered = new HashSet<string>(StringComparer.Ordinal);
+        var knownGrades = new[] { "not-rendered", "usable", "good", "production-ready" };
+
+        foreach (var surface in root.GetProperty("surfaces").EnumerateArray())
+        {
+            var name = RequireNonEmptyString(surface, "surface");
+            var disposition = RequireNonEmptyString(surface, "disposition");
+            _ = RequireNonEmptyString(surface, "approximation");
+            _ = RequireNonEmptyString(surface, "reducedMotion");
+            _ = RequireNonEmptyString(surface, "highContrast");
+            _ = RequireNonEmptyString(surface, "provenanceRequirement");
+            CollectionAssert.Contains(knownGrades, RequireNonEmptyString(surface, "currentGrade"));
+
+            // No surface may claim real Windows OS composition on macOS.
+            Assert.IsFalse(surface.GetProperty("isOsComposition").GetBoolean(), $"Surface '{name}' must not claim OS composition.");
+
+            // Motion surfaces capture deterministic end states, not timing.
+            if (surface.GetProperty("kind").GetString() == "motion")
+            {
+                StringAssert.Contains(disposition, "end-state", $"Motion surface '{name}' must capture deterministic end states, not animation timing.");
+            }
+
+            foreach (var api in surface.GetProperty("winuiApis").EnumerateArray())
+            {
+                covered.Add(api.GetString()!);
+            }
+        }
+
+        foreach (var api in phase8Apis)
+        {
+            Assert.Contains(api, covered, $"Material/motion catalog API '{api}' is not covered by the approximation registry.");
+        }
+    }
+
+    [TestMethod]
+    public void VisualDriftDashboardGatesComponentCropNotWholeScreen()
+    {
+        using var dashboard = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/visual-parity/visual-drift-dashboard.json")));
+        var root = dashboard.RootElement;
+
+        Assert.AreEqual("component-crop", root.GetProperty("gatedMetric").GetString());
+        Assert.AreEqual("whole-screen", root.GetProperty("informationalMetric").GetString());
+        _ = RequireNonEmptyString(root, "policy");
+        _ = RequireNonEmptyString(root, "latestRunId");
+
+        var families = root.GetProperty("families").EnumerateArray().ToArray();
+        Assert.IsGreaterThan(0, families.Length);
+
+        foreach (var family in families)
+        {
+            var name = RequireNonEmptyString(family, "family");
+            var crop = family.GetProperty("componentCropDrift");
+            var whole = family.GetProperty("wholeScreenDrift");
+
+            Assert.IsTrue(crop.GetProperty("gated").GetBoolean(), $"{name} component-crop drift must be the gated metric.");
+            Assert.IsFalse(whole.GetProperty("gated").GetBoolean(), $"{name} whole-screen drift must be informational only.");
+
+            // Whole-screen drift must match the checked-in pixel-diff artifact exactly.
+            var pixelDiffPath = RepositoryPath(RequireNonEmptyString(family, "pixelDiffPath"));
+            using var pixelDiff = JsonDocument.Parse(File.ReadAllText(pixelDiffPath));
+            Assert.AreEqual(
+                pixelDiff.RootElement.GetProperty("changedPixelPercentage").GetDouble(),
+                whole.GetProperty("changedPixelPercentage").GetDouble(),
+                0.000001,
+                $"{name} whole-screen drift must match its pixel-diff artifact.");
+        }
     }
 
     [TestMethod]

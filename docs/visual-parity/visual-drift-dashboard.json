@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "0.1",
+  "phase": "Phase 8",
+  "date": "2026-06-02",
+  "policy": "Component-crop drift is the gated metric for production grades. Whole-screen drift is informational only: cross-platform font rasterization, GPU paths, and OS composition differ, so a high whole-screen change ratio does not by itself demote a component grade. Whole-screen values below are read from the checked-in pixel-diff artifacts and must match them exactly.",
+  "latestRunId": "26792033793",
+  "gatedMetric": "component-crop",
+  "informationalMetric": "whole-screen",
+  "families": [
+    {
+      "family": "Basic input and forms",
+      "scenario": "component-basic-input-light",
+      "pixelDiffPath": "docs/visual-parity/examples/component-basic-input-light/pixel-diff.json",
+      "componentCropDrift": {
+        "gated": true,
+        "metric": "component-evidence crop grade and per-component thresholds",
+        "status": "within-target-for-supported-subset",
+        "note": "Supported Ring 0 basic input controls are usable; planned rich-input rows remain not-rendered."
+      },
+      "wholeScreenDrift": {
+        "gated": false,
+        "changedPixelPercentage": 42.070093,
+        "threshold": 18,
+        "status": "informational-over-threshold",
+        "note": "Superseded by component evidence; cross-platform rasterization difference."
+      }
+    },
+    {
+      "family": "Commands and menus",
+      "scenario": "component-commands-menus-light",
+      "pixelDiffPath": "docs/visual-parity/examples/component-commands-menus-light/pixel-diff.json",
+      "componentCropDrift": {
+        "gated": true,
+        "metric": "component-evidence crop grade and per-component thresholds",
+        "status": "within-target-for-supported-subset",
+        "note": "Supported command surfaces and the partial flyout/menu subset are usable; planned controls remain not-rendered."
+      },
+      "wholeScreenDrift": {
+        "gated": false,
+        "changedPixelPercentage": 40.677151,
+        "threshold": 24,
+        "status": "informational-over-threshold",
+        "note": "Superseded by component evidence; cross-platform rasterization difference."
+      }
+    },
+    {
+      "family": "Layout, media, and resources",
+      "scenario": "component-layout-media-light",
+      "pixelDiffPath": "docs/visual-parity/examples/component-layout-media-light/pixel-diff.json",
+      "componentCropDrift": {
+        "gated": true,
+        "metric": "component-evidence crop grade and per-component thresholds",
+        "status": "within-target-for-supported-subset",
+        "note": "Ring 0 layout/resource regions are usable; media, web, ink, materials, and advanced visuals remain excluded or planned."
+      },
+      "wholeScreenDrift": {
+        "gated": false,
+        "changedPixelPercentage": 45.830631,
+        "threshold": 24,
+        "status": "informational-over-threshold",
+        "note": "Superseded by component evidence; cross-platform rasterization difference."
+      }
+    },
+    {
+      "family": "Public admin workbench",
+      "scenario": "public-admin-workbench-light",
+      "pixelDiffPath": "docs/visual-parity/examples/public-admin-workbench-light/pixel-diff.json",
+      "componentCropDrift": {
+        "gated": true,
+        "metric": "component-evidence crop grade and per-component thresholds",
+        "status": "within-target-for-supported-subset",
+        "note": "Workbench navigation, list/detail, command, and status subset is usable; adaptive behavior remains partial."
+      },
+      "wholeScreenDrift": {
+        "gated": false,
+        "changedPixelPercentage": 100,
+        "threshold": 45,
+        "status": "informational-over-threshold",
+        "note": "Historical whole-image comparison; superseded by component evidence for the documented workbench subset."
+      }
+    }
+  ]
+}

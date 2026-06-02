@@ -93,6 +93,16 @@
         "every prioritized control is tracked as a planned not-rendered diagnostic row in entries with no false local support claim",
         "the broader-control honesty gate fails if any control claims a rendered grade without matching catalog status, visual evidence, and interaction coverage"
       ]
+    },
+    {
+      "phase": "Phase 8",
+      "name": "Materials, motion, and high-fidelity polish",
+      "status": "approximation registry, reduced-motion and high-contrast rules, and drift dashboard implemented; surfaces remain not-rendered pending evidence-gated promotion",
+      "evidence": [
+        "docs/compatibility/material-motion-approximations.json documents every materials, composition, and motion catalog surface as a deterministic approximation target or explicit exclusion, with reduced-motion, high-contrast, and provenance rules and no OS composition claim",
+        "motion surfaces are captured as deterministic end states, not animation timing",
+        "docs/visual-parity/visual-drift-dashboard.json gates component-crop drift and keeps whole-screen drift informational, with whole-screen values read from the checked-in pixel-diff artifacts"
+      ]
     }
   ],
   "promotionRules": [

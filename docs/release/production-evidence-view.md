@@ -68,7 +68,7 @@ Promotion is evidence-backed:
 | `good` | Entry meets the usable bar plus reviewed component-level visual fidelity against native WinUI references across required state/theme scenarios. |
 | production-ready | Entry has a deliberate production disposition: implemented support at the required grade, bounded partial support with exact limits, Windows-only exclusion, diagnostic roadmap exclusion, or explicit non-goal exclusion. |
 
-## Phase 2-7 Gate Status
+## Phase 2-8 Gate Status
 
 | Phase | Current status | Evidence gate |
 | --- | --- | --- |
@@ -78,6 +78,7 @@ Promotion is evidence-backed:
 | Phase 5: Ring 1 E2E visual completion | Implemented for claimed subsets | Open-popup, selected collection, and layout/theme scenarios cover claimed `MenuFlyout`, `CommandBarFlyout`, `ContentDialog`, `Flyout`, `ToolTip`, collection hosts, theme dictionaries, `SolidColorBrush`, and `CornerRadius`; rich input, templates, broader keyboarding, advanced collections, `TeachingTip`, and `MenuBar` remain planned diagnostics. |
 | Phase 6: All-126 catalog closure | Implemented | `docs/compatibility/all-catalog-readiness-audit.json` accounts for all 126 entries with a per-entry production disposition, owner phase, primary blocker, evidence profile, and release gate; `winui3-mac-runner catalog-audit --check` fails on drift and the audit agrees with the inventory buckets. |
 | Phase 7: Broader WinUI control inventory | Inventory and gate implemented; controls pending promotion | `docs/compatibility/winui-component-inventory.json` `broaderControlInventory` enumerates 20 prioritized public WinUI controls with target family, required states, priority, and promotion exit criteria (`docs/compatibility/broader-control-inventory.md`); the honesty gate keeps every control `not-rendered` until it carries matching catalog status, visual evidence, and interaction coverage. |
+| Phase 8: Materials, motion, and high-fidelity polish | Registry, motion/contrast rules, and drift dashboard implemented; surfaces pending promotion | `docs/compatibility/material-motion-approximations.json` documents every Mica, Acrylic, backdrop, shadow, transform, compositor, and motion surface as a deterministic approximation target or explicit exclusion with reduced-motion, high-contrast, and provenance rules and no OS composition claim; `docs/visual-parity/visual-drift-dashboard.json` gates component-crop drift and keeps whole-screen drift informational with values read from the checked-in pixel-diff artifacts. |
 
 ## Catalog Snapshot
 

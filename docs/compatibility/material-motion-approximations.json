@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "0.1",
+  "phase": "Phase 8",
+  "date": "2026-06-02",
+  "generatedFrom": "docs/compatibility/winui-api-compatibility.catalog.json materials, composition, and motion entries and docs/compatibility/material-composition.md",
+  "principle": "Every surface below is either a deterministic macOS approximation target or an explicit exclusion. None is real Windows OS composition: the Wine-free macOS runtime cannot reproduce DWM, the Windows compositor, system backdrops, or GPU effect graphs, so material and motion fidelity is documented and reference-gated, never claimed as OS composition. Motion is captured as deterministic end states, not animation timing.",
+  "osCompositionClaim": false,
+  "surfaces": [
+    {
+      "surface": "Mica",
+      "kind": "material",
+      "winuiApis": [
+        "Microsoft.UI.Xaml.Media.MicaBackdrop"
+      ],
+      "disposition": "deterministic-approximation-planned",
+      "isOsComposition": false,
+      "approximation": "Layered opaque theme-surface fill that approximates the Mica tint with the theme background tokens; no desktop-wallpaper sampling, no blur, and no system backdrop.",
+      "reducedMotion": "not-applicable-static-surface",
+      "highContrast": "Falls back to a solid high-contrast surface with visible window and content borders; no tint.",
+      "provenanceRequirement": "native-winui reference before any visual promotion; WindowsNativeProbe is smoke-only.",
+      "currentGrade": "not-rendered",
+      "catalogStatus": "planned"
+    },
+    {
+      "surface": "Acrylic",
+      "kind": "material",
+      "winuiApis": [
+        "Microsoft.UI.Xaml.Media.AcrylicBrush",
+        "Microsoft.UI.Xaml.Media.DesktopAcrylicBackdrop"
+      ],
+      "disposition": "deterministic-approximation-planned",
+      "isOsComposition": false,
+      "approximation": "Static translucent-looking layered fill using theme tokens and a fixed tint opacity; no live blur of content behind the surface and no desktop Acrylic backdrop.",
+      "reducedMotion": "not-applicable-static-surface",
+      "highContrast": "Falls back to a solid high-contrast surface with visible borders; tint and translucency are dropped.",
+      "provenanceRequirement": "native-winui reference before any visual promotion; WindowsNativeProbe is smoke-only.",
+      "currentGrade": "not-rendered",
+      "catalogStatus": "planned"
+    },
+    {
+      "surface": "System backdrop",
+      "kind": "material",
+      "winuiApis": [
+        "Microsoft.UI.Xaml.Media.SystemBackdrop",
+        "Window.SystemBackdrop"
+      ],
+      "disposition": "explicit-exclusion-until-promoted",
+      "isOsComposition": false,
+      "approximation": "Source-level object slot only; the backdrop has no OS composition behavior on macOS and is recorded as an unsupported API diagnostic when used.",
+      "reducedMotion": "not-applicable-static-surface",
+      "highContrast": "Window uses the solid high-contrast theme surface.",
+      "provenanceRequirement": "Windows-validation only; no local macOS visual support claim.",
+      "currentGrade": "not-rendered",
+      "catalogStatus": "planned"
+    },
+    {
+      "surface": "Shadow and elevation",
+      "kind": "composition",
+      "winuiApis": [
+        "Microsoft.UI.Xaml.Media.ThemeShadow",
+        "Microsoft.UI.Composition.DropShadow"
+      ],
+      "disposition": "deterministic-approximation-planned",
+      "isOsComposition": false,
+      "approximation": "Deterministic static drop-shadow band drawn under popups and elevated surfaces using fixed blur radius and opacity tokens; not the Windows compositor shadow and not depth-reactive.",
+      "reducedMotion": "not-applicable-static-surface",
+      "highContrast": "Shadow is dropped; elevation is conveyed by a visible high-contrast border instead.",
+      "provenanceRequirement": "native-winui reference before any visual promotion.",
+      "currentGrade": "not-rendered",
+      "catalogStatus": "planned"
+    },
+    {
+      "surface": "Transforms and opacity",
+      "kind": "composition",
+      "winuiApis": [
+        "Microsoft.UI.Xaml.Media.Transform"
+      ],
+      "disposition": "deterministic-approximation-planned",
+      "isOsComposition": false,
+      "approximation": "Deterministic static end-state of translate, scale, rotate, and opacity applied at layout time; no animated transform clock and no compositor visual.",
+      "reducedMotion": "honored-renders-final-static-transform",
+      "highContrast": "Transform is preserved; opacity floors are raised so text and borders stay visible.",
+      "provenanceRequirement": "native-winui reference before any visual promotion.",
+      "currentGrade": "not-rendered",
+      "catalogStatus": "planned"
+    },
+    {
+      "surface": "Compositor visuals and effect brushes",
+      "kind": "composition",
+      "winuiApis": [
+        "Microsoft.UI.Composition.Compositor",
+        "Microsoft.UI.Composition.SpriteVisual",
+        "Microsoft.UI.Composition.CompositionEffectBrush"
+      ],
+      "disposition": "explicit-exclusion-until-promoted",
+      "isOsComposition": false,
+      "approximation": "Source-level compatibility only; the compositor visual tree and effect graph are not executed on macOS and are recorded as unsupported API diagnostics when used.",
+      "reducedMotion": "not-applicable-no-animation-clock",
+      "highContrast": "No effect graph; surfaces use solid high-contrast theme tokens.",
+      "provenanceRequirement": "Windows-validation only; no local macOS visual support claim.",
+      "currentGrade": "not-rendered",
+      "catalogStatus": "partial-or-planned"
+    },
+    {
+      "surface": "Motion: storyboards and key frames",
+      "kind": "motion",
+      "winuiApis": [
+        "Microsoft.UI.Xaml.Media.Animation.Storyboard",
+        "Microsoft.UI.Composition.ScalarKeyFrameAnimation",
+        "Microsoft.UI.Composition.Vector3KeyFrameAnimation"
+      ],
+      "disposition": "deterministic-end-state-approximation-planned",
+      "isOsComposition": false,
+      "approximation": "Deterministic capture of the animation end state only; the runtime renders the final visual-state values with no animation clock or timing, so evidence is stable and reproducible.",
+      "reducedMotion": "honored-end-state-is-the-only-state-rendered",
+      "highContrast": "End-state values use high-contrast theme tokens with visible focus and state markers.",
+      "provenanceRequirement": "native-winui reference of the end state before any visual promotion.",
+      "currentGrade": "not-rendered",
+      "catalogStatus": "planned"
+    }
+  ]
+}
