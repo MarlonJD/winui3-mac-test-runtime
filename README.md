@@ -201,19 +201,19 @@ macOS .NET process.
 ## Visual Parity Evidence
 
 Public visual evidence lives in `docs/visual-parity/`. The current checked-in
-public admin and component parity examples are native WinUI Windows fixture
-captures from public GitHub Actions run
-[`26777029415`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26777029415)
-on commit `95e8d7d`, plus local macOS runtime screenshots, pixel-diff images,
-`visual-run.json`, provenance JSON, and component evidence. Synthetic
-`WindowsNativeProbe` output remains only as smoke evidence for the harness.
-Fresh component lab runs publish `component-evidence.json`; treat that file as
-the component-level truth for `good`, `usable`, `weak`, `poor`, or
-`not-rendered` grades. A whole screenshot that passes thresholds is necessary
-smoke evidence, but it is not enough to call every visible control visually
-good. Controls that only emit text or disappear in macOS screenshots remain
-`not-rendered` and outside the production claim until fresh evidence promotes
-them.
+public admin and component parity PNG examples are historical visual-review
+fixtures. The latest full native WinUI reference artifact set comes from public
+GitHub Actions run
+[`26792033793`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26792033793)
+on commit `3c929f4`, and the final production gate evidence is recorded in
+`docs/release/final-production-gate.md`. Synthetic `WindowsNativeProbe` output
+remains only as smoke evidence for the harness. Fresh component lab runs publish
+`component-evidence.json`; treat that file as the component-level truth for
+`good`, `usable`, `weak`, `poor`, or `not-rendered` grades. A whole screenshot
+that passes thresholds is necessary smoke evidence, but it is not enough to
+call every visible control visually good. Controls that only emit text or
+disappear in macOS screenshots remain `not-rendered` and outside the production
+claim until fresh evidence promotes them.
 
 The current `public-admin-workbench-light` native comparison fails honestly
 against the native WinUI reference:
@@ -234,21 +234,21 @@ interaction states are not yet pixel-perfect.
 
 ### Component Parity Examples
 
-The component parity lab examples below come from the same native WinUI public
-workflow run. Each row shows the native WinUI Windows reference first, then the
-historical macOS runtime rendering checked into this repository, then the pixel
-diff. Current scenario JSON and freshly generated `component-evidence.json`
-artifacts remain the source of truth for each component's catalog status,
-presence, interaction status, visual grade, and known gaps.
+Current component parity status is not read from the checked-in PNG examples.
+It is read from freshly generated `component-evidence.json`, strict scenario
+results, and the production target inventory:
 
-| Scenario | Native WinUI Windows reference | macOS runtime | Pixel diff | Evidence summary |
-| --- | --- | --- | --- | --- |
-| `component-basic-input-light` | ![Native WinUI basic input reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | Historical failed example: `42.07%` changed pixels over the `18%` threshold, MAE `9.92`, RMS `38.84`; superseded by fresh component evidence for production claims. |
-| `component-commands-menus-light` | ![Native WinUI commands and menus reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | Historical failed example: `40.68%` changed pixels over the `24%` threshold, MAE `8.45`, RMS `35.23`; superseded by fresh component evidence for production claims. |
-| `component-layout-media-light` | ![Native WinUI layout and media reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | Historical failed example: `45.83%` changed pixels over the `24%` threshold, MAE `10.48`, RMS `39.27`; superseded by fresh component evidence for production claims. |
+- Supported Ring 0 and claimed Ring 1 components must have at least `usable`
+  component evidence with target layout regions.
+- Planned, unsupported, Windows-only, diagnostic-only, weak, poor, or
+  `not-rendered` rows remain outside the production claim.
+- The `ClaimedSupportedComponentsAreNeverNotRendered` test prevents supported
+  or partial component claims from regressing to `not-rendered`.
 
-See `docs/visual-parity/README.md` for the current evidence table and
-interpretation notes.
+See `docs/compatibility/component-support.md`,
+`docs/compatibility/production-component-targets.md`,
+`docs/visual-parity/README.md`, and `docs/release/final-production-gate.md` for
+the current evidence tables and interpretation notes.
 
 ## Compatibility Status
 
