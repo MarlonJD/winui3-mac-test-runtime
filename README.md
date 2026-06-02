@@ -1,7 +1,6 @@
 # WinUI3 Mac Test Runtime
 
-Wine-free alpha runtime for source-level WinUI 3 application development on
-macOS.
+Wine-free source-level WinUI 3 compatibility runtime for macOS.
 
 The product goal is full source-level WinUI 3 C# and XAML development from
 macOS: developers should be able to build, run, test, inspect, and visually
@@ -15,6 +14,22 @@ This repository does not run arbitrary Windows binaries, `.msix` packages, or
 `.exe` files on macOS. The current runtime runs managed .NET assemblies against
 clean-room `Microsoft.UI.Xaml` facade types, hosts the app in a macOS .NET
 process, and emits structured artifacts for test inspection.
+
+## Read This First
+
+Production-ready means **production-ready for the documented public
+source-level subset only**.
+
+It does **not** mean full WinUI 3 compatibility. The current catalog has 126
+entries: 55 `supported`, 35 `partial`, 31 `planned`, 3 `windows-only`, and 2
+`not supported`. That is intentionally transparent: planned, Windows-only,
+not-supported, and uncataloged APIs must fail or report diagnostics instead of
+silently looking supported.
+
+Use this runtime when your app or fixture stays inside the documented
+`supported` and `partial` subset. Do not use it as evidence that arbitrary WinUI
+3 apps, templates, visual states, Mica/Acrylic, composition, advanced controls,
+Windows binaries, `.msix` packages, or full Fluent pixel parity work on macOS.
 
 ## Production Support Policy
 
