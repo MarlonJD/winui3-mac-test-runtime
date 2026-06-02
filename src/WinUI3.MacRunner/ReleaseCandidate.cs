@@ -31,6 +31,7 @@ internal static class ReleaseCandidateCommand
             CheckDriftGate(repositoryRoot),
             CheckComponentQualityDashboard(repositoryRoot),
             CheckNativeProvenancePolicy(repositoryRoot),
+            CheckNativeReferenceReadiness(repositoryRoot),
             CheckReleaseDocsPresent(repositoryRoot),
         };
 
@@ -293,6 +294,49 @@ internal static class ReleaseCandidateCommand
         return Pass("native-provenance-policy", $"All {referenceFiles.Length} checked-in references declare native-winui provenance.", ("references", referenceFiles.Length.ToString()));
     }
 
+    private static ReleaseCheck CheckNativeReferenceReadiness(string repositoryRoot)
+    {
+        var path = Path.Combine(repositoryRoot, "docs", "visual-parity", "native-reference-readiness.json");
+        if (!File.Exists(path))
+        {
+            return Fail("native-reference-readiness", $"Missing {path}.");
+        }
+
+        using var document = JsonDocument.Parse(File.ReadAllText(path));
+        var rows = document.RootElement.GetProperty("rows").EnumerateArray().ToArray();
+        var rowKeys = rows
+            .Select(NativeReferenceReadinessKey)
+            .ToHashSet(StringComparer.Ordinal);
+
+        var dashboard = ComponentQualityDashboard.BuildFromPublicEvidence(repositoryRoot);
+        var dashboardKeys = dashboard.Rows
+            .Select(row => row.ScenarioName + "|" + row.Component + "|" + (row.Target ?? string.Empty))
+            .ToHashSet(StringComparer.Ordinal);
+        if (!rowKeys.SetEquals(dashboardKeys))
+        {
+            return Fail(
+                "native-reference-readiness",
+                $"native-reference-readiness.json accounts for {rowKeys.Count} row(s), but the public dashboard has {dashboardKeys.Count} row(s).");
+        }
+
+        var blocking = rows
+            .Where(row => row.GetProperty("nativeReferenceStatus").GetString() != "ready")
+            .ToArray();
+        if (blocking.Length > 0)
+        {
+            var statusCounts = blocking
+                .Select(row => row.GetProperty("nativeReferenceStatus").GetString() ?? "missing")
+                .GroupBy(status => status, StringComparer.Ordinal)
+                .OrderBy(group => group.Key, StringComparer.Ordinal)
+                .Select(group => $"{group.Key}={group.Count()}");
+            return Fail(
+                "native-reference-readiness",
+                $"{blocking.Length} public native reference row(s) are not source-ready: {string.Join(", ", statusCounts)}.");
+        }
+
+        return Pass("native-reference-readiness", $"All {rows.Length} public native reference rows are source-ready.", ("rows", rows.Length.ToString()));
+    }
+
     private static ReleaseCheck CheckReleaseDocsPresent(string repositoryRoot)
     {
         string[] required =
@@ -374,6 +418,13 @@ internal static class ReleaseCandidateCommand
     private static ReleaseCheck External(string name, string message)
     {
         return new ReleaseCheck(name, "external-evidence-required", message, new Dictionary<string, string>(StringComparer.Ordinal));
+    }
+
+    private static string NativeReferenceReadinessKey(JsonElement row)
+    {
+        return row.GetProperty("scenarioName").GetString() + "|" +
+            row.GetProperty("component").GetString() + "|" +
+            (row.TryGetProperty("target", out var target) ? target.GetString() : string.Empty);
     }
 
     private static string? ReadOption(string[] args, string name)

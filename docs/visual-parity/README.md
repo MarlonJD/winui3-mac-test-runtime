@@ -26,6 +26,13 @@ records `referenceSource: native-winui`, `titleMatched: true`, the workflow run
 ID, commit SHA, runner image, viewport, theme, title, capture mode, and image
 dimensions.
 
+Native provenance and native source readiness are separate gates. Provenance
+proves that a full-window screenshot came from native Windows; readiness proves
+that the component-level native crop targets the intended component and is not
+placeholder, unavailable, or offscreen. Current source-readiness findings are
+tracked in `native-reference-source-audit.md` and enforced through
+`native-reference-readiness.json`.
+
 The checked-in public admin workbench and component parity lab examples come
 from native WinUI public fixture references captured by public GitHub Actions
 run
@@ -89,6 +96,13 @@ The checked-in public component-quality dashboard contains 58 component
 evidence rows: 51 `usable` and 7 `not-rendered`. Those rows all have
 native/macOS/diff crop triptychs, but they do not establish native WinUI visual
 fidelity until final grades and manual inspection metadata are present.
+
+The current native reference readiness manifest blocks all 58 public rows.
+This is intentional: crop presence alone is not enough when the native crop
+uses runtime-derived bounds, points at a neighboring region, or the Windows
+reference itself is placeholder/unavailable/offscreen. Treat
+`native-reference-readiness.json` as the source-readiness gate before manual
+promotion.
 
 `component-quality-dashboard.json` is the checked-in generated quality gate for
 the public example evidence. It lists every checked-in component row, its

@@ -21,6 +21,7 @@ states, Mica, Acrylic, composition, media, WebView2, or platform integration.
 | Production status | Release evidence gate is met for the documented harness subset; production visual fidelity is not met. |
 | Runtime model | Wine-free managed macOS execution against local `Microsoft.UI.Xaml` facade types. |
 | Windows source of truth | Public native WinUI fixture captures from `windows-native-screenshot.yml`. |
+| Native source readiness | `docs/visual-parity/native-reference-readiness.json`; currently 58/58 public rows are blocked until Windows element crops or reviewed native bounds prove the references target the intended components. |
 | macOS renderer evidence | Local `skia-v2` strict scenario artifacts show usable scaffolding plus many simplified or `not-rendered` controls. |
 | Component grade source | `component-evidence.json`, not whole-screenshot pass/fail alone; `usable` is not a native-fidelity grade. |
 | Support boundary | Public sanitized Ring 0 and claimed Ring 1 harness components with required evidence. |
@@ -50,6 +51,13 @@ The checked-in public component-quality dashboard contains 58 component rows:
 triptychs for manual inspection, but large areas of WinUI chrome, templates,
 states, and advanced controls still need direct renderer work before any
 native-quality claim.
+
+Native crop presence is not enough for promotion. The checked-in native
+reference source audit (`docs/visual-parity/native-reference-source-audit.md`)
+found that several Windows reference crops are runtime-bound, placeholder,
+unavailable, or offscreen. The release candidate gate now reads
+`docs/visual-parity/native-reference-readiness.json` and blocks every public row
+whose Windows reference source is not explicitly `ready`.
 
 | Family | Target grade | Current grade | Latest run ID | Next blocker |
 | --- | --- | --- | --- | --- |
@@ -83,7 +91,7 @@ Promotion is evidence-backed:
 | Phase 6: All-126 catalog closure | Implemented | `docs/compatibility/all-catalog-readiness-audit.json` accounts for all 126 entries with a per-entry production disposition, owner phase, primary blocker, evidence profile, and release gate; `winui3-mac-runner catalog-audit --check` fails on drift and the audit agrees with the inventory buckets. |
 | Phase 7: Broader WinUI control inventory | Inventory and gate implemented; controls pending promotion | `docs/compatibility/winui-component-inventory.json` `broaderControlInventory` enumerates 20 prioritized public WinUI controls with target family, required states, priority, and promotion exit criteria (`docs/compatibility/broader-control-inventory.md`); the honesty gate keeps every control `not-rendered` until it carries matching catalog status, visual evidence, and interaction coverage. |
 | Phase 8: Materials, motion, and high-fidelity polish | Registry, motion/contrast rules, and drift dashboard implemented; surfaces pending promotion | `docs/compatibility/material-motion-approximations.json` documents every Mica, Acrylic, backdrop, shadow, transform, compositor, and motion surface as a deterministic approximation target or explicit exclusion with reduced-motion, high-contrast, and provenance rules and no OS composition claim; `docs/visual-parity/visual-drift-dashboard.json` gates component-crop drift and keeps whole-screen drift informational with values read from the checked-in pixel-diff artifacts. |
-| Phase 9: Release candidate gate | Implemented | `winui3-mac-runner release-candidate` aggregates the deterministic local release requirements and lists the external workflow requirements; see the Release Candidate Gate section below. |
+| Phase 9: Release candidate gate | Implemented | `winui3-mac-runner release-candidate` aggregates the deterministic local release requirements, including native reference source readiness, and lists the external workflow requirements; see the Release Candidate Gate section below. |
 
 ## Catalog Snapshot
 

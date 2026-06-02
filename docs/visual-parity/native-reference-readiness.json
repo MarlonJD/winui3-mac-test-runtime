@@ -1,0 +1,544 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "1970-01-01T00:00:00+00:00",
+  "policy": "Native Windows screenshots are the visual source of truth. A public row is release-ready only when nativeReferenceStatus is ready; crop presence alone is not sufficient.",
+  "totals": {
+    "rowCount": 58,
+    "readyRowCount": 0,
+    "blockingRowCount": 58,
+    "statusCounts": {
+      "diagnostic-reference": 1,
+      "diagnostic-reference-needs-crop-bounds": 9,
+      "native-not-rendered": 1,
+      "native-unavailable": 1,
+      "needs-native-crop-bounds": 38,
+      "offscreen-reference": 2,
+      "placeholder-reference": 2,
+      "state-reference-incomplete": 4
+    }
+  },
+  "rows": [
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RepeatButton",
+      "target": "DiagnosticRepeatButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "HyperlinkButton",
+      "target": "DiagnosticHyperlinkButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "DropDownButton",
+      "target": "DiagnosticDropDownButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "SplitButton",
+      "target": "DiagnosticSplitButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleSplitButton",
+      "target": "DiagnosticToggleSplitButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "Slider",
+      "target": "DiagnosticSlider",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleSwitch",
+      "target": "DiagnosticToggleSwitch",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RatingControl",
+      "target": "DiagnosticRatingControl",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBar.Content",
+      "target": "DiagnosticCommandBarContent",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "AppBarButton.Icon",
+      "target": "SaveCommandIcon",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "nativeReferenceStatus": "state-reference-incomplete",
+      "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+      "requiredAction": "Use state-specific native references for open/invoked popup states before promotion."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "nativeReferenceStatus": "state-reference-incomplete",
+      "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+      "requiredAction": "Use state-specific native references for open/invoked popup states before promotion."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "nativeReferenceStatus": "state-reference-incomplete",
+      "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+      "requiredAction": "Use state-specific native references for open/invoked popup states before promotion."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "Context menu pattern",
+      "target": "DiagnosticContextMenuPattern",
+      "nativeReferenceStatus": "state-reference-incomplete",
+      "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+      "requiredAction": "Use state-specific native references for open/invoked popup states before promotion."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ScrollViewer",
+      "target": "LayoutScrollViewer",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Grid",
+      "target": "LayoutResourceGrid",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "StackPanel",
+      "target": "LayoutNestedStack",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Border",
+      "target": "LayoutBorder",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "FontIcon",
+      "target": "LayoutFontIcon",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Image",
+      "target": "PublicImagePlaceholder",
+      "nativeReferenceStatus": "diagnostic-reference",
+      "reason": "The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only.",
+      "requiredAction": "Use a deterministic image asset in the Windows fixture and recapture native evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SymbolIcon",
+      "target": "DiagnosticSymbolIcon",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "XamlControlsResources",
+      "target": "DiagnosticXamlControlsResources",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ResourceDictionary.ThemeDictionaries",
+      "target": "ThemeResourceText",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ThemeResource",
+      "target": "ThemeResourceText",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "StaticResource",
+      "target": "StaticResourceText",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Style",
+      "target": "LayoutMediaTitle",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Setter",
+      "target": "LayoutMediaTitle",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Color",
+      "target": "DiagnosticColor",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SolidColorBrush",
+      "target": "ThemeResourceText",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "CornerRadius",
+      "target": "LayoutBorder",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Expander",
+      "target": "DiagnosticExpander",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Annotated scrollbar",
+      "target": "DiagnosticAnnotatedScrollbar",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SemanticZoom",
+      "target": "DiagnosticSemanticZoom",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SplitView",
+      "target": "DiagnosticSplitView",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "TwoPaneView",
+      "target": "DiagnosticTwoPaneView",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "AnimatedIcon",
+      "target": "DiagnosticAnimatedIcon",
+      "nativeReferenceStatus": "native-not-rendered",
+      "reason": "The current Windows reference does not show a production AnimatedIcon source/frame.",
+      "requiredAction": "Update the Windows fixture/reference capture so AnimatedIcon renders a real native frame before macOS parity work is promoted."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Shapes",
+      "target": "DiagnosticShapes",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "MediaPlayerElement",
+      "target": "DiagnosticMediaPlayerElement",
+      "nativeReferenceStatus": "placeholder-reference",
+      "reason": "The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content.",
+      "requiredAction": "Capture a Windows reference with the native surface populated, or keep the row unpromoted."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "WebView2",
+      "target": "DiagnosticWebView2",
+      "nativeReferenceStatus": "placeholder-reference",
+      "reason": "The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content.",
+      "requiredAction": "Capture a Windows reference with the native surface populated, or keep the row unpromoted."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "InkCanvas / InkToolbar",
+      "target": "DiagnosticInkControls",
+      "nativeReferenceStatus": "native-unavailable",
+      "reason": "The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls.",
+      "requiredAction": "Fix the Windows fixture/reference environment so InkToolbar and InkCanvas instantiate and render before promotion."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Title bar customization",
+      "target": "DiagnosticTitleBarCustomization",
+      "nativeReferenceStatus": "offscreen-reference",
+      "reason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface.",
+      "requiredAction": "Capture explicit title-bar/backdrop evidence with visible bounds and native provenance."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Window.SystemBackdrop / MicaBackdrop",
+      "target": "DiagnosticSystemBackdrop",
+      "nativeReferenceStatus": "offscreen-reference",
+      "reason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface.",
+      "requiredAction": "Capture explicit title-bar/backdrop evidence with visible bounds and native provenance."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "NavigationView",
+      "target": "RootNavigation",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "NavigationViewItem",
+      "target": "QueueNavigationItem",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "Frame",
+      "target": "WorkbenchFrame",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "TextBox",
+      "target": "SearchBox",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "CommandBar",
+      "target": "DecisionCommandBar",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "AppBarButton",
+      "target": "ApproveCommand",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "InfoBar",
+      "target": "WorkbenchStatus",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "ListView",
+      "target": "ReviewQueueList",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "Button",
+      "target": "CompleteReviewButton",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+    }
+  ]
+}

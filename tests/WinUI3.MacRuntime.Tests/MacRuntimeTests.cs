@@ -1343,6 +1343,19 @@ public sealed class MacRuntimeTests
                 $"{Path.GetFileName(Path.GetDirectoryName(referenceFile))} must declare native-winui provenance.");
         }
 
+        using (var readiness = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/visual-parity/native-reference-readiness.json"))))
+        {
+            var readinessRows = readiness.RootElement.GetProperty("rows").EnumerateArray().ToArray();
+            Assert.HasCount(58, readinessRows);
+            Assert.AreEqual(
+                58,
+                readiness.RootElement.GetProperty("totals").GetProperty("blockingRowCount").GetInt32(),
+                "Current native reference source readiness must block every public row until native element crops are proven.");
+            Assert.IsTrue(
+                readinessRows.All(row => row.GetProperty("nativeReferenceStatus").GetString() != "ready"),
+                "No public row should claim ready native source quality before the source crop contract is fixed.");
+        }
+
         // Release and support-policy documents are present and name the gate.
         string[] requiredDocs =
         {
