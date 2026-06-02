@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.1",
+  "schemaVersion": "0.4",
   "fixtureName": "component-parity-lab",
   "scenarioName": "component-commands-menus-light",
   "components": [
@@ -7,43 +7,262 @@
       "component": "CommandBar",
       "kind": "control",
       "target": "PrimaryCommandBar",
+      "layoutRegion": {
+        "x": 312,
+        "y": 142,
+        "width": 660,
+        "height": 48,
+        "desiredWidth": 660,
+        "desiredHeight": 48,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 40.677151,
-      "meanAbsoluteError": 8.44828,
-      "rootMeanSquaredError": 35.225437,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 15.590278,
+      "meanAbsoluteError": 8.318561,
+      "rootMeanSquaredError": 35.192269,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 312,
+          "y": 142,
+          "width": 660,
+          "height": 48
+        },
+        "nativeReferencePath": "components/commandbar-primarycommandbar/windows-reference.png",
+        "macRuntimePath": "components/commandbar-primarycommandbar/mac-runtime.png",
+        "pixelDiffPath": "components/commandbar-primarycommandbar/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 15.590278,
+        "meanAbsoluteError": 8.318561,
+        "rootMeanSquaredError": 35.192269,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+          "scenarioName": "component-commands-menus-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:10.8927652\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently emits only command result text; native WinUI CommandBar surface, overflow, focus, and pointer chrome are not rendered."
+        "CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps."
       ]
     },
     {
       "component": "AppBarButton",
       "kind": "control",
       "target": "SaveCommandButton",
+      "layoutRegion": {
+        "x": 320,
+        "y": 148,
+        "width": 104,
+        "height": 36,
+        "desiredWidth": 104,
+        "desiredHeight": 36,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "passed",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 40.677151,
-      "meanAbsoluteError": 8.44828,
-      "rootMeanSquaredError": 35.225437,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 25.186966,
+      "meanAbsoluteError": 17.692508,
+      "rootMeanSquaredError": 53.037253,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 320,
+          "y": 148,
+          "width": 104,
+          "height": 36
+        },
+        "nativeReferencePath": "components/appbarbutton-savecommandbutton/windows-reference.png",
+        "macRuntimePath": "components/appbarbutton-savecommandbutton/mac-runtime.png",
+        "pixelDiffPath": "components/appbarbutton-savecommandbutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 25.186966,
+        "meanAbsoluteError": 17.692508,
+        "rootMeanSquaredError": 53.037253,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+          "scenarioName": "component-commands-menus-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:10.8927652\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently emits only command result text; native WinUI AppBarButton label/icon chrome is not rendered."
+        "AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps."
       ]
     },
     {
       "component": "CommandBar.Content",
       "kind": "xaml-property-slot",
       "target": "DiagnosticCommandBarContent",
+      "layoutRegion": {
+        "x": 312,
+        "y": 238,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 40.677151,
-      "meanAbsoluteError": 8.44828,
-      "rootMeanSquaredError": 35.225437,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 7.523329,
+      "rootMeanSquaredError": 21.482281,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 238,
+          "width": 323,
+          "height": 120
+        },
+        "nativeReferencePath": "components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png",
+        "macRuntimePath": "components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png",
+        "pixelDiffPath": "components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 7.523329,
+        "rootMeanSquaredError": 21.482281,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+          "scenarioName": "component-commands-menus-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:10.8927652\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -52,58 +271,350 @@
       "component": "AppBarButton.Icon",
       "kind": "xaml-property-slot",
       "target": "SaveCommandIcon",
+      "layoutRegion": {
+        "x": 330,
+        "y": 158,
+        "width": 16,
+        "height": 16,
+        "desiredWidth": 16,
+        "desiredHeight": 16,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 40.677151,
-      "meanAbsoluteError": 8.44828,
-      "rootMeanSquaredError": 35.225437,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 50.390625,
+      "meanAbsoluteError": 43.260742,
+      "rootMeanSquaredError": 84.670703,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 330,
+          "y": 158,
+          "width": 16,
+          "height": 16
+        },
+        "nativeReferencePath": "components/appbarbutton-icon-savecommandicon/windows-reference.png",
+        "macRuntimePath": "components/appbarbutton-icon-savecommandicon/mac-runtime.png",
+        "pixelDiffPath": "components/appbarbutton-icon-savecommandicon/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 50.390625,
+        "meanAbsoluteError": 43.260742,
+        "rootMeanSquaredError": 84.670703,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+          "scenarioName": "component-commands-menus-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:10.8927652\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently does not render the AppBarButton icon slot in the screenshot."
+        "FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate."
       ]
     },
     {
       "component": "CommandBarFlyout",
       "kind": "control",
       "target": "DiagnosticCommandBarFlyout",
-      "catalogStatus": "planned",
+      "layoutRegion": {
+        "x": 649,
+        "y": 238,
+        "width": 323,
+        "height": 40,
+        "desiredWidth": 323,
+        "desiredHeight": 40,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
       "presence": "present",
-      "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 40.677151,
-      "meanAbsoluteError": 8.44828,
-      "rootMeanSquaredError": 35.225437,
+      "interactionStatus": "passed",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 12.229102,
+      "meanAbsoluteError": 6.788429,
+      "rootMeanSquaredError": 32.16082,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 649,
+          "y": 238,
+          "width": 323,
+          "height": 40
+        },
+        "nativeReferencePath": "components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png",
+        "macRuntimePath": "components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png",
+        "pixelDiffPath": "components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 12.229102,
+        "meanAbsoluteError": 6.788429,
+        "rootMeanSquaredError": 32.16082,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+          "scenarioName": "component-commands-menus-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:10.8927652\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
       ]
     },
     {
       "component": "MenuFlyout",
       "kind": "control",
       "target": "DiagnosticMenuFlyout",
-      "catalogStatus": "planned",
+      "layoutRegion": {
+        "x": 312,
+        "y": 368,
+        "width": 323,
+        "height": 40,
+        "desiredWidth": 323,
+        "desiredHeight": 40,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
       "presence": "present",
-      "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 40.677151,
-      "meanAbsoluteError": 8.44828,
-      "rootMeanSquaredError": 35.225437,
+      "interactionStatus": "passed",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 10.921053,
+      "meanAbsoluteError": 5.532372,
+      "rootMeanSquaredError": 28.596058,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 312,
+          "y": 368,
+          "width": 323,
+          "height": 40
+        },
+        "nativeReferencePath": "components/menuflyout-diagnosticmenuflyout/windows-reference.png",
+        "macRuntimePath": "components/menuflyout-diagnosticmenuflyout/mac-runtime.png",
+        "pixelDiffPath": "components/menuflyout-diagnosticmenuflyout/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 10.921053,
+        "meanAbsoluteError": 5.532372,
+        "rootMeanSquaredError": 28.596058,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+          "scenarioName": "component-commands-menus-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:10.8927652\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
       ]
     },
     {
       "component": "MenuBar",
       "kind": "control",
       "target": "DiagnosticMenuBar",
+      "layoutRegion": {
+        "x": 649,
+        "y": 368,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 40.677151,
-      "meanAbsoluteError": 8.44828,
-      "rootMeanSquaredError": 35.225437,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 368,
+          "width": 323,
+          "height": 120
+        },
+        "nativeReferencePath": "components/menubar-diagnosticmenubar/windows-reference.png",
+        "macRuntimePath": "components/menubar-diagnosticmenubar/mac-runtime.png",
+        "pixelDiffPath": "components/menubar-diagnosticmenubar/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+          "scenarioName": "component-commands-menus-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:10.8927652\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -112,13 +623,86 @@
       "component": "Context menu pattern",
       "kind": "pattern",
       "target": "DiagnosticContextMenuPattern",
+      "layoutRegion": {
+        "x": 312,
+        "y": 498,
+        "width": 660,
+        "height": 40,
+        "desiredWidth": 660,
+        "desiredHeight": 40,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 40.677151,
-      "meanAbsoluteError": 8.44828,
-      "rootMeanSquaredError": 35.225437,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 8.875,
+      "meanAbsoluteError": 3.866534,
+      "rootMeanSquaredError": 23.365423,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 312,
+          "y": 498,
+          "width": 660,
+          "height": 40
+        },
+        "nativeReferencePath": "components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png",
+        "macRuntimePath": "components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png",
+        "pixelDiffPath": "components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 8.875,
+        "meanAbsoluteError": 3.866534,
+        "rootMeanSquaredError": 23.365423,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+          "scenarioName": "component-commands-menus-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:10.8927652\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -146,5 +730,5 @@
       ]
     }
   ],
-  "status": "passed"
+  "status": "failed"
 }

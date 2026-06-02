@@ -1,0 +1,278 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>component-commands-menus-light visual review</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 24px; color: #1f1f1f; background: #fff; }
+h1 { font-size: 24px; margin: 0 0 8px; }
+h2 { font-size: 18px; margin: 0 0 12px; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+.metric { border: 1px solid #d1d1d1; border-radius: 4px; padding: 8px 10px; min-width: 150px; }
+.metric strong { display: block; font-size: 20px; }
+.component { border-top: 1px solid #d1d1d1; padding: 20px 0 24px; }
+.metadata { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; color: #4b4b4b; font-size: 13px; }
+.metadata span { border: 1px solid #ddd; border-radius: 4px; padding: 3px 6px; }
+.triptych { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+figure { margin: 0; border: 1px solid #d1d1d1; border-radius: 4px; background: #fafafa; min-height: 120px; }
+figcaption { font-weight: 600; padding: 8px 10px; border-bottom: 1px solid #d1d1d1; background: #f3f3f3; }
+img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.missing { display: grid; min-height: 96px; place-items: center; color: #7a1f1f; padding: 12px; text-align: center; }
+.notes { margin-top: 10px; color: #3b3b3b; line-height: 1.4; }
+@media (max-width: 760px) { .triptych { grid-template-columns: 1fr; } body { margin: 16px; } }
+</style>
+</head>
+<body>
+<h1>component-commands-menus-light visual review</h1>
+<p>Evidence: <code>component-evidence.json</code></p>
+<div class="summary">
+<div class="metric"><strong>8</strong>Components</div>
+<div class="metric"><strong>8</strong>Complete triptychs</div>
+<div class="metric"><strong>0</strong>Missing native crops</div>
+<div class="metric"><strong>0</strong>Missing macOS crops</div>
+<div class="metric"><strong>0</strong>Missing diffs</div>
+<div class="metric"><strong>8</strong>Missing inspections</div>
+</div>
+<section class="component">
+<h2>CommandBar <code>PrimaryCommandBar</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>15,59</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/commandbar-primarycommandbar/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/commandbar-primarycommandbar/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/commandbar-primarycommandbar/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps.</p>
+</section>
+<section class="component">
+<h2>AppBarButton <code>SaveCommandButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>25,187</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/appbarbutton-savecommandbutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/appbarbutton-savecommandbutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/appbarbutton-savecommandbutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps.</p>
+</section>
+<section class="component">
+<h2>CommandBar.Content <code>DiagnosticCommandBarContent</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>AppBarButton.Icon <code>SaveCommandIcon</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>50,391</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/appbarbutton-icon-savecommandicon/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/appbarbutton-icon-savecommandicon/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/appbarbutton-icon-savecommandicon/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate.</p>
+</section>
+<section class="component">
+<h2>CommandBarFlyout <code>DiagnosticCommandBarFlyout</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>12,229</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial.</p>
+</section>
+<section class="component">
+<h2>MenuFlyout <code>DiagnosticMenuFlyout</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>10,921</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/menuflyout-diagnosticmenuflyout/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/menuflyout-diagnosticmenuflyout/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/menuflyout-diagnosticmenuflyout/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial.</p>
+</section>
+<section class="component">
+<h2>MenuBar <code>DiagnosticMenuBar</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/menubar-diagnosticmenubar/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/menubar-diagnosticmenubar/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/menubar-diagnosticmenubar/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>Context menu pattern <code>DiagnosticContextMenuPattern</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>8,875</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+</body>
+</html>
