@@ -163,6 +163,7 @@ internal static class ProductionGatesCommand
         {
             CheckFile(repositoryRoot, "docs/security/threat-model.md", "security-threat-model"),
             CheckFile(repositoryRoot, "docs/release/release-gates.md", "release-gates-doc"),
+            CheckFile(repositoryRoot, "docs/release/support-policy.md", "support-policy-doc"),
             CheckFile(repositoryRoot, "docs/release/level-7-release-readiness.md", "level-7-readiness-doc"),
             CheckFile(repositoryRoot, "docs/compatibility/contracts.md", "compatibility-contract"),
             CheckPackageVersion(repositoryRoot),

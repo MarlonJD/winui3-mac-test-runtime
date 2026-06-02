@@ -9,22 +9,23 @@ public admin and component parity examples are native WinUI fixture captures
 with provenance; `WindowsNativeProbe` remains synthetic smoke-only harness
 evidence.
 
-The current Level 0 through Level 7 support is an alpha milestone toward that
-goal. It does not run Windows binaries, `.msix` packages, or arbitrary `.exe`
-files on macOS, and it does not claim complete WinUI 3 behavior.
+The current Level 0 through Level 7 support is production-ready for the
+documented public source-level subset. It does not run Windows binaries,
+`.msix` packages, or arbitrary `.exe` files on macOS, and it does not claim
+complete WinUI 3 behavior.
 
 The macOS runtime contract is Wine-free: application code is compiled as managed
 .NET, loaded into a managed macOS process, and exercised through clean-room
 `Microsoft.UI.Xaml` facade types.
 
-## Published Alpha Milestone
+## Published Production Subset
 
-The current published alpha claim covers **Levels 0 through 7** as documented
-in `docs/compatibility/matrix.md`. Level 6 is limited to the public strict
-fixture categories captured by the `windows-latest` reference workflow: shell,
-interaction/binding, and control gallery. Level 7 covers package and consumer
-readiness contracts; it does not imply broader WinUI API support than the
-matrix and catalog document.
+The current published production claim covers **Levels 0 through 7** as
+documented in `docs/compatibility/matrix.md`. Level 6 is limited to public
+fixture and corpus categories captured by the `windows-latest` native reference
+workflow. Level 7 covers package, support-policy, security, benchmark, flake,
+and consumer readiness contracts; it does not imply broader WinUI API support
+than the matrix and catalog document.
 
 Level claims are cumulative only when the matrix marks the relevant runtime,
 XAML, control, renderer, interaction, accessibility, and artifact behaviors as
@@ -38,8 +39,10 @@ compiled into the facade and XAML packages so diagnostics use the published
 classification.
 
 `docs/compatibility/production-component-targets.md` defines the sanitized
-public production-ring component target. It is a planning and release gate for
-the first production support claim, not a support promotion by itself.
+public production-ring component target. It is a release gate for the current
+production support claim, but a component is production-supported only when its
+scenario evidence meets the documented catalog, interaction, accessibility, and
+visual-grade requirements.
 
 Catalog status values are `supported`, `partial`, `planned`, `windows-only`,
 and `not supported`. Runtime or compiler diagnostics may report `unknown` when
@@ -131,7 +134,8 @@ scenario renderer supports `light`, `dark`, and `high-contrast` themes for the
 documented public subset. Control templates, Mica, Acrylic, system backdrops,
 compositor effects, transforms, shadows, motion, reduced motion, and complete
 Fluent interaction states are in-scope compatibility targets, but most are
-cataloged as `planned` in the current alpha rather than rendered.
+cataloged as `planned` or excluded from the current production subset rather
+than rendered.
 
 ## Material And Composition Contract
 

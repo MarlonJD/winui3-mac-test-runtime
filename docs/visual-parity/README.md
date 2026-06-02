@@ -9,8 +9,8 @@ and threshold failure checks are produced locally on a developer Mac with
 
 The latest full native reference artifact set was captured by public GitHub
 Actions run
-[`26790967052`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26790967052)
-on commit `6d2fc9c`. It includes `public-admin-workbench-light`,
+[`26791576394`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26791576394)
+on commit `cd814a4`. It includes `public-admin-workbench-light`,
 `public-admin-workbench-deferred-light`, all light Ring 0 and Ring 1 component
 lab scenarios, `production-smoke-light`, and
 `production-e2e-workbench-light`. It also includes native WinUI corpus
@@ -51,7 +51,9 @@ feature remains visibly weak or absent. Component lab scenarios must publish
 `component-evidence.json` and keep visibly weak controls labeled `weak` or
 `poor`; controls that only emit text or disappear in macOS screenshots must be
 labeled `not-rendered` until native WinUI public reference artifacts and
-reviewed macOS output justify a stronger grade.
+reviewed macOS output justify a stronger grade. The production subset is
+limited to component rows whose current evidence meets the minimum grade in
+`docs/compatibility/production-component-targets.md`.
 
 Component visual grades:
 
@@ -71,6 +73,14 @@ Component visual grades:
 | `interactions-light` | synthetic probe / passed | 31.69% | 68.31% | 4.06 | 17.77 | Interaction result state, list/text/image layout, binding-driven updates. | Reference is synthetic probe output; many pixels change because text and small control edges render differently on the two platforms. |
 | `control-gallery-light` | synthetic probe / passed | 6.49% | 93.51% | 1.67 | 12.69 | Supported public controls, high-level spacing, checked/progress/info states. | Reference is synthetic probe output; native control chrome, exact typography, and Fluent focus/hover details are approximated. |
 | `public-admin-workbench-light` | native WinUI reference / failed | 100.00% | 0.00% | 9.72 | 35.87 | Windows-targeted source ingestion, selected page, text content, and interaction state. | Native WinUI shows command surfaces, filter box, InfoBar, selected list row, and button chrome that the macOS renderer does not yet render; changed pixels exceed the `45%` threshold. |
+
+The checked-in PNG examples intentionally remain historical visual-review
+fixtures. Current production support is determined by fresh scenario
+`component-evidence.json`, catalog status, required interactions,
+accessibility export, and native-reference provenance. When fresh evidence
+promotes a component to `usable`, the production claim applies only to that
+component's documented subset; older checked-in examples must not be read as
+the full current component inventory.
 
 Component lab scenario artifacts are produced for:
 `component-basic-input-light`, `component-text-forms-light`,
@@ -123,12 +133,13 @@ claim.
 | --- | --- | --- |
 | ![Native WinUI basic input reference](examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](examples/component-basic-input-light/pixel-diff.png) |
 
-`component-basic-input-light` records 13 component requirements and all 13 are
-`not-rendered`. Native WinUI shows the button, toggle button, checkbox, radio
+The checked-in `component-basic-input-light` example is a historical failed
+comparison. Native WinUI shows the button, toggle button, checkbox, radio
 button, combo box, repeat/hyperlink/dropdown/split/toggle-split controls,
-slider, toggle switch, and rating control; the macOS screenshot emits text-only
-output for the controls. The native comparison fails with `42.07%` changed
-pixels against the `18%` threshold, MAE `9.92`, and RMS `38.84`.
+slider, toggle switch, and rating control; the older macOS screenshot emits
+text-only output for the controls. The native comparison fails with `42.07%`
+changed pixels against the `18%` threshold, MAE `9.92`, and RMS `38.84`.
+Fresh component evidence controls current production grades.
 
 ### Commands And Menus
 
@@ -136,12 +147,13 @@ pixels against the `18%` threshold, MAE `9.92`, and RMS `38.84`.
 | --- | --- | --- |
 | ![Native WinUI commands and menus reference](examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](examples/component-commands-menus-light/pixel-diff.png) |
 
-`component-commands-menus-light` records 8 component requirements and all 8 are
-`not-rendered`. Native WinUI shows the command bar, AppBarButton icons, command
-content, flyout/menu/menu bar/context menu rows, and buttons; the macOS
+The checked-in `component-commands-menus-light` example is a historical failed
+comparison. Native WinUI shows the command bar, AppBarButton icons, command
+content, flyout/menu/menu bar/context menu rows, and buttons; the older macOS
 screenshot shows command result text without native command chrome. The native
 comparison fails with `40.68%` changed pixels against the `24%` threshold, MAE
-`8.45`, and RMS `35.23`.
+`8.45`, and RMS `35.23`. Fresh component evidence controls current production
+grades.
 
 ### Layout, Media, And Resources
 
@@ -149,13 +161,13 @@ comparison fails with `40.68%` changed pixels against the `24%` threshold, MAE
 | --- | --- | --- |
 | ![Native WinUI layout and media reference](examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](examples/component-layout-media-light/pixel-diff.png) |
 
-`component-layout-media-light` records 28 component or source-feature
-requirements: 4 resource smoke rows are `usable`, and 24 controls/features are
-`not-rendered`. Native WinUI shows layout/resource rows, icon glyphs, colors,
+The checked-in `component-layout-media-light` example is a historical failed
+comparison. Native WinUI shows layout/resource rows, icon glyphs, colors,
 brushes, corner radius, expander, annotated scroll bar, split view, shapes, and
-other diagnostics; the macOS screenshot is text-only or absent for those
+other diagnostics; the older macOS screenshot is text-only or absent for many
 component visuals. The native comparison fails with `45.83%` changed pixels
-against the `24%` threshold, MAE `10.48`, and RMS `39.27`.
+against the `24%` threshold, MAE `10.48`, and RMS `39.27`. Fresh component
+evidence controls current production grades.
 
 ## Updating Evidence
 

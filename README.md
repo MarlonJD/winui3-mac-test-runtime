@@ -8,7 +8,8 @@ macOS: developers should be able to build, run, test, inspect, and visually
 validate real WinUI 3 app code locally while public `windows-latest` GitHub
 Actions runs provide the intended behavioral and visual source of truth from
 actual native WinUI fixture apps. The current Level 0 through Level 7 surface is
-the first alpha milestone toward that goal, not the final product scope.
+production-ready for the documented public source-level subset, not the final
+arbitrary WinUI 3 product scope.
 
 This repository does not run arbitrary Windows binaries, `.msix` packages, or
 `.exe` files on macOS. The current runtime runs managed .NET assemblies against
@@ -27,6 +28,10 @@ The project does not claim arbitrary WinUI 3 app compatibility. APIs outside
 the cataloged subset must remain `planned`, `windows-only`, `not supported`, or
 `unknown` until they have fixture coverage, macOS artifact evidence, native
 WinUI provenance, and release documentation.
+
+The production support policy, final gate evidence, and residual risks are
+tracked in `docs/release/support-policy.md` and
+`docs/release/final-production-gate.md`.
 
 ## Smoke Commands
 
@@ -202,12 +207,13 @@ captures from public GitHub Actions run
 on commit `95e8d7d`, plus local macOS runtime screenshots, pixel-diff images,
 `visual-run.json`, provenance JSON, and component evidence. Synthetic
 `WindowsNativeProbe` output remains only as smoke evidence for the harness.
-Component lab runs also publish `component-evidence.json`; treat that file as
+Fresh component lab runs publish `component-evidence.json`; treat that file as
 the component-level truth for `good`, `usable`, `weak`, `poor`, or
 `not-rendered` grades. A whole screenshot that passes thresholds is necessary
 smoke evidence, but it is not enough to call every visible control visually
 good. Controls that only emit text or disappear in macOS screenshots remain
-`not-rendered`.
+`not-rendered` and outside the production claim until fresh evidence promotes
+them.
 
 The current `public-admin-workbench-light` native comparison fails honestly
 against the native WinUI reference:
@@ -230,32 +236,31 @@ interaction states are not yet pixel-perfect.
 
 The component parity lab examples below come from the same native WinUI public
 workflow run. Each row shows the native WinUI Windows reference first, then the
-current macOS runtime rendering from this library, then the pixel diff. Current
-scenario JSON and freshly generated `component-evidence.json` artifacts remain
-the source of truth for each component's catalog status, presence, interaction
-status, visual grade, and known gaps, and component grades must not be promoted
-until native WinUI Windows reference artifacts and reviewed macOS output justify
-the claim.
+historical macOS runtime rendering checked into this repository, then the pixel
+diff. Current scenario JSON and freshly generated `component-evidence.json`
+artifacts remain the source of truth for each component's catalog status,
+presence, interaction status, visual grade, and known gaps.
 
 | Scenario | Native WinUI Windows reference | macOS runtime | Pixel diff | Evidence summary |
 | --- | --- | --- | --- | --- |
-| `component-basic-input-light` | ![Native WinUI basic input reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | Failed native comparison: `42.07%` changed pixels over the `18%` threshold, MAE `9.92`, RMS `38.84`; 13 components, all 13 `not-rendered` because macOS emits text-only output. |
-| `component-commands-menus-light` | ![Native WinUI commands and menus reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | Failed native comparison: `40.68%` changed pixels over the `24%` threshold, MAE `8.45`, RMS `35.23`; 8 components, all 8 `not-rendered`. |
-| `component-layout-media-light` | ![Native WinUI layout and media reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | Failed native comparison: `45.83%` changed pixels over the `24%` threshold, MAE `10.48`, RMS `39.27`; 4 resource smoke rows `usable`, 24 controls/features `not-rendered`. |
+| `component-basic-input-light` | ![Native WinUI basic input reference](docs/visual-parity/examples/component-basic-input-light/windows-reference.png) | ![macOS basic input component runtime](docs/visual-parity/examples/component-basic-input-light/mac-runtime.png) | ![Basic input pixel diff](docs/visual-parity/examples/component-basic-input-light/pixel-diff.png) | Historical failed example: `42.07%` changed pixels over the `18%` threshold, MAE `9.92`, RMS `38.84`; superseded by fresh component evidence for production claims. |
+| `component-commands-menus-light` | ![Native WinUI commands and menus reference](docs/visual-parity/examples/component-commands-menus-light/windows-reference.png) | ![macOS commands and menus component runtime](docs/visual-parity/examples/component-commands-menus-light/mac-runtime.png) | ![Commands and menus pixel diff](docs/visual-parity/examples/component-commands-menus-light/pixel-diff.png) | Historical failed example: `40.68%` changed pixels over the `24%` threshold, MAE `8.45`, RMS `35.23`; superseded by fresh component evidence for production claims. |
+| `component-layout-media-light` | ![Native WinUI layout and media reference](docs/visual-parity/examples/component-layout-media-light/windows-reference.png) | ![macOS layout and media component runtime](docs/visual-parity/examples/component-layout-media-light/mac-runtime.png) | ![Layout and media pixel diff](docs/visual-parity/examples/component-layout-media-light/pixel-diff.png) | Historical failed example: `45.83%` changed pixels over the `24%` threshold, MAE `10.48`, RMS `39.27`; superseded by fresh component evidence for production claims. |
 
 See `docs/visual-parity/README.md` for the current evidence table and
 interpretation notes.
 
 ## Compatibility Status
 
-This is still an alpha compatibility runtime. The published alpha milestone
-includes **Level 0: Harness Reliability**, **Level 1: Core App And XAML
+This runtime is production-ready only for the documented public source-level
+subset. The published support surface includes **Level 0: Harness Reliability**,
+**Level 1: Core App And XAML
 Compatibility**, **Level 2: Layout And Controls Foundation**, **Level 3:
 Styling, Resources, And Theme Fidelity**, **Level 4: Data Binding, Commands,
 And State**, **Level 5: Input, Accessibility, And Automation**, **Level 6:
 Windows Reference Visual Compatibility**, and **Level 7: Release And
-Consumption Readiness**. These levels describe the current supported public
-subset; they are not a cap on the long-term WinUI 3 source-compatibility goal.
+Consumption Readiness**. These levels describe the supported public subset;
+they are not a claim of arbitrary WinUI 3 app compatibility.
 
 The compatibility catalog in
 `docs/compatibility/winui-api-compatibility.catalog.json` is the public seed for

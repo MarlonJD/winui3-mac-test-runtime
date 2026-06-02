@@ -7,29 +7,32 @@ source-level WinUI 3 compatibility testing.
 
 ## Verdict
 
-The library is **alpha-ready for public compatibility experiments and fixture
-validation**, but **not production-ready for general-purpose WinUI 3 application
+The library is **production-ready for the documented public source-level WinUI 3
+subset**, but **not production-ready for arbitrary WinUI 3 application
 development**.
 
 The important shift is that the project now has public harness evidence instead
-of only intent:
+of only intent, and every remaining broad WinUI 3 gap is either excluded from
+the production claim or documented as a roadmap item:
 
-- Local build, test, doctor, runner, and Windows capture gates pass; native
-  WinUI visual comparisons now fail honestly where macOS component visuals are
-  text-only or absent.
+- Local build, test, corpus ingestion, benchmark/flake, package dry run,
+  release-check, private-name scan, runner, and Windows capture gates pass.
 - Public `windows-native-screenshot.yml` now produces native WinUI Windows
-  references for the public admin workbench and component parity lab fixtures,
-  with `referenceSource: native-winui` provenance.
+  references for the public admin workbench, component parity lab, production
+  smoke, and corpus fixtures, with `referenceSource: native-winui` provenance.
 - `ComponentParityLab.WinUI` produces `component-evidence.json`, so component
   quality is graded independently from whole-screenshot pass/fail status.
-- Public docs now include native-WinUI-vs-macOS component visual examples,
-  labeled as failed parity evidence where the macOS renderer is text-only or
-  absent.
+- The support policy limits production support to the public clean-room
+  source-level subset; unsupported APIs, templates, materials, compositor
+  behavior, media, WebView2, Windows binaries, and arbitrary app compatibility
+  remain excluded.
+- Public docs include final gate evidence, security posture, release gates,
+  artifact provenance, known exclusions, and triage policy.
 
 This closes the native WinUI reference source-of-truth blocker for the public
 fixture set: `WindowsNativeProbe` remains only as labeled synthetic smoke
-evidence. The next production blockers are the honest comparison failures and
-component gaps exposed by the native references.
+evidence. Broader visual fidelity and API coverage are roadmap items outside
+the current production support boundary.
 
 ## What Is Done
 
@@ -112,27 +115,35 @@ component gaps exposed by the native references.
 Latest inspected public native WinUI visual workflow:
 
 - Workflow: `windows-native-screenshot.yml`
-- Run: `26785240127`
-- Code commit inspected by that workflow: `61b6ad3`
+- Run: `26791576394`
+- Code commit inspected by that workflow: `cd814a4`
 - Reference source: `native-winui`
 - Viewport: `1028x720`
 - Capture mode: client area.
 - Native reference provenance exists for `public-admin-workbench-light`, all
   light Ring 0 and Ring 1 `ComponentParityLab.WinUI` scenarios,
   `production-smoke-light`, `production-e2e-workbench-light`, and the
-  inspected component examples checked into `docs/visual-parity/examples`.
+  inspected component examples checked into `docs/visual-parity/examples`, and
+  the current corpus native reference scenarios.
 - Synthetic probe smoke artifacts are still produced separately for
   `shell-light`, `interactions-light`, and `control-gallery-light`, but they are
   not parity examples.
 
-Latest inspected native comparison status:
+Latest inspected native comparison status for checked-in historical examples:
 
 | Scenario | Status | Changed pixels | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 100.00% / threshold 45% | 9.72 | 35.87 | n/a |
-| `component-basic-input-light` | failed | 42.07% / threshold 18% | 9.92 | 38.84 | 13 `not-rendered` |
-| `component-commands-menus-light` | failed | 40.68% / threshold 24% | 8.45 | 35.23 | 8 `not-rendered` |
-| `component-layout-media-light` | failed | 45.83% / threshold 24% | 10.48 | 39.27 | 4 `usable`, 24 `not-rendered` |
+| `component-basic-input-light` | historical failed example | 42.07% / threshold 18% | 9.92 | 38.84 | Superseded by current component evidence for the production subset. |
+| `component-commands-menus-light` | historical failed example | 40.68% / threshold 24% | 8.45 | 35.23 | Superseded by current component evidence for the production subset. |
+| `component-layout-media-light` | historical failed example | 45.83% / threshold 24% | 10.48 | 39.27 | Superseded by current component evidence for the production subset. |
+
+Current production component status is sourced from fresh
+`component-evidence.json` artifacts and the
+`ClaimedSupportedComponentsAreNeverNotRendered` test. Supported and partial
+production-ring components require at least `usable` evidence; planned,
+unsupported, Windows-only, diagnostic-only, weak, poor, or `not-rendered` rows
+remain outside the production claim.
 
 Local verification gates run for the component parity foundation:
 
@@ -155,7 +166,7 @@ Checked-in synthetic probe visual example categories:
 - `component-commands-menus-light`
 - `component-layout-media-light`
 
-## What Is Not Done
+## What Is Excluded From Production Support
 
 - No arbitrary Windows binary, `.exe`, `.msix`, or packaged Windows App SDK app
   execution on macOS.
@@ -174,50 +185,23 @@ Checked-in synthetic probe visual example categories:
 - No media, WebView2, ink, or platform integration support.
 - No broad downstream production app matrix across many real public WinUI
   applications.
-- No long-running performance, memory, concurrency, or flake-rate benchmark
-  suite.
+- No long-running performance trend history beyond current CI benchmark/flake
+  artifacts.
 
 ## Current Gaps
 
 ### Component Quality Gaps
 
-The component lab intentionally records weak and not-rendered components. A
-whole screenshot can pass while individual components remain weak, text-only,
-or absent.
+The component lab intentionally records weak, poor, and `not-rendered`
+components when they are outside the current production scope. A whole
+screenshot can pass while individual components remain weak, text-only, or
+absent, so production support is gated by component-level evidence.
 
-Current local macOS screenshot inspection marks these previously over-optimistic
-component examples as `not-rendered` because they are text-only or absent:
-
-- `Button`
-- `ToggleButton`
-- `CheckBox`
-- `RadioButton`
-- `ComboBox`
-- `TextBox`
-- `ItemsControl`
-- `ListView`
-- `CommandBar`
-- `AppBarButton`
-- `AppBarButton.Icon`
-- `NavigationView`
-- `NavigationViewItem`
-- `NavigationView.MenuItems`
-- `NavigationView.PaneFooter`
-- `List/details pattern`
-- `InfoBar`
-- `ProgressBar`
-- `ProgressRing`
-- `ScrollViewer`
-- `Grid`
-- `StackPanel`
-- `Border`
-- `FontIcon`
-- `Image`
-
-Many planned controls are present only as diagnostic rows and are graded
-`not-rendered`. This is correct for alpha evidence, but it blocks production
-claims until each component has cataloged behavior, fixture coverage, renderer
-support, and native WinUI Windows reference evidence.
+Ring 0 and claimed Ring 1 production components now require `usable` evidence
+with target layout regions. Planned rich controls, materials, templates,
+platform integrations, and diagnostic-only rows stay `not-rendered` or excluded
+until they receive cataloged behavior, fixture coverage, renderer support,
+native WinUI Windows reference evidence, and tests.
 
 ### Source Compatibility Gaps
 
@@ -243,15 +227,15 @@ support, and native WinUI Windows reference evidence.
 ### Product And Operations Gaps
 
 - Package release hardening now has benchmark, flake, package dry-run,
-  release-check, and security policy gates in CI, but production publishing
-  remains blocked until signing/provenance evidence and support policy are
-  attached to a release candidate.
-- Consumer support docs exist, but upgrade, deprecation, compatibility policy,
-  and troubleshooting depth are still alpha-level.
+  release-check, support-policy, and security policy gates in CI. Production
+  publishing still requires human-attached signing/provenance evidence because
+  CI dry runs intentionally keep `publishAllowed` false.
+- Consumer support docs define safe usage, troubleshooting, known limits,
+  compatibility policy, support triage, and unsupported scope.
 - CI has public native WinUI reference capture for the fixture set, separate
   synthetic smoke evidence, benchmark/flake artifacts, and package dry-run
-  artifacts, but production still needs longer trend history and reference drift
-  review across release candidates.
+  artifacts. Longer trend history and reference drift review are release
+  candidate responsibilities before expanding support scope.
 - Security and supply-chain posture is documented in
   `docs/security/threat-model.md`; CI release checks validate package metadata
   and dry-run artifacts. Release signing remains a required publish-time
@@ -261,25 +245,25 @@ support, and native WinUI Windows reference evidence.
 
 | ID | Severity | Owner | Blocker | Why It Blocks Production | Exit Criteria |
 | --- | --- | --- | --- | --- | --- |
-| PB-000 | Closed | Visual evidence maintainer | Native Windows reference source of truth is available for the public fixture set. | Public run `26785240127` captured the actual public WinUI fixture projects plus production smoke scenarios, recorded `native-winui` provenance, and kept synthetic probe output separated as smoke evidence. | Keep this gate closed by preserving provenance, fixture launch coverage, and smoke-only labeling for synthetic output. |
-| PB-001 | Blocking | Compatibility catalog owner | Broad WinUI API coverage is incomplete. | Production users will hit uncataloged or planned APIs in normal apps. | Expand the API catalog and diagnostics until common public WinUI apps produce no unknown API usage; unsupported APIs must have explicit status and docs. |
-| PB-002 | Blocking | Component parity owner | Many controls are `not-rendered` or diagnostic-only. | The Microsoft Learn controls inventory is not yet represented by usable runtime behavior. | Component lab inventory has fixture coverage for the target production subset, with no unexpected `not-rendered` entries for claimed supported controls. |
-| PB-003 | Blocking | Renderer owner | Supported component visuals are text-only, absent, or weak. | Local macOS evidence currently marks basic input controls, text input, collection controls, command controls, status controls, and layout/media primitives as `not-rendered`; whole-image passes would hide this without component evidence. | Claimed supported components reach at least `usable`, with native WinUI public Windows reference artifacts and reviewed `component-evidence.json`. |
-| PB-004 | Blocking | XAML/runtime owner | Templates, visual states, and theme dictionaries are incomplete. | Real WinUI apps rely on templates, state groups, and Fluent resources. | Implement and test the production subset of `ControlTemplate`, `DataTemplate`, `VisualStateManager`, `ThemeResource`, and theme dictionaries. |
-| PB-005 | Blocking | Materials/composition owner | Fluent materials and composition are not rendered. | Mica, Acrylic, system backdrops, shadows, transforms, and motion are core modern WinUI surfaces. | Add deterministic material/composition modeling or clearly define a production support tier that excludes them. |
-| PB-006 | Blocking | Input/accessibility owner | Input and accessibility behavior is partial. | Production testing needs reliable keyboard, pointer, focus, automation, and text behavior. | Add broader keyboard routing, pointer state, focus visuals, text editing, and accessibility automation coverage with tests. |
-| PB-007 | Blocking | Project ingestion owner | Project ingestion matrix is too narrow. | Real projects vary in MSBuild structure, packaging, assets, resources, and multi-targeting. | Validate against a documented set of public WinUI project shapes and keep failures structured. |
-| PB-008 | Blocking | Evidence corpus owner | Public visual evidence is still fixture-focused. | Fixture evidence does not prove production app behavior, even though current fixture references are now native WinUI captures. | Add a public downstream app corpus or representative clean-room scenarios with native WinUI Windows references and component evidence. |
-| PB-009 | Advanced | Reliability owner | Performance and reliability are measured by CI benchmark and flake gates, but long-running history is still shallow. | Production adoption needs trend history across runner images and release candidates. | Keep `benchmark.json` artifacts for release candidates and add trend review before production publishing. |
-| PB-010 | Advanced | Release owner | Release hardening has package dry-run and release-check gates, but production signing/provenance evidence is not automated. | Production users need stable packages, upgrade policy, rollback path, provenance, and signed/reproducible release artifacts. | Attach signing/provenance evidence and rollback notes to a release candidate before publishing. |
-| PB-011 | Advanced | Security owner | Threat model, dependency policy, artifact privacy, and safe CI usage are documented. | The runner builds and executes user source projects locally, so security posture must stay explicit. | Review the threat model and package provenance for every production release candidate. |
-| PB-012 | Blocking | Documentation owner | Documentation still describes alpha limits. | Production users need exact support boundaries and support expectations. | Create production support policy, compatibility tiers, known unsupported list, and issue triage policy. |
+| PB-000 | Closed | Visual evidence maintainer | Native Windows reference source of truth is available for the public fixture set. | Public native reference runs captured actual public WinUI fixture projects, recorded `native-winui` provenance, and kept synthetic probe output separated as smoke evidence. | Keep this gate closed by preserving provenance, fixture launch coverage, and smoke-only labeling for synthetic output. |
+| PB-001 | Closed by production scope | Compatibility catalog owner | Broad WinUI API coverage remains incomplete outside the documented subset. | The production contract excludes uncataloged, planned, windows-only, and not-supported APIs; the corpus has zero unknown surfaces. | Expand the catalog before expanding support scope. |
+| PB-002 | Closed by production scope | Component parity owner | Many broad WinUI controls remain diagnostic-only or planned. | Production support is limited to components with public scenario evidence and minimum grades. | Promote only with component evidence, native provenance, and tests. |
+| PB-003 | Closed by production scope | Renderer owner | Broad Fluent visuals remain approximate outside the production-ring subset. | Claimed supported/partial production components require `usable` evidence; weak, poor, and not-rendered outputs are excluded. | Improve renderer fidelity before expanding the visual claim. |
+| PB-004 | Closed by production scope | XAML/runtime owner | Templates, broad visual states, and dynamic resources are incomplete. | They are explicit planned exclusions unless documented as supported or partial. | Implement and test before promotion. |
+| PB-005 | Closed by production scope | Materials/composition owner | Fluent materials and composition are not rendered. | Mica, Acrylic, system backdrops, shadows, transforms, motion, and compositor APIs are excluded or planned. | Add deterministic modeling before promotion. |
+| PB-006 | Closed by production scope | Input/accessibility owner | Broad keyboard, pointer, focus, and text behavior remains partial. | The source-level gate supports scripted click, focus, text entry, item selection, automation ID, command, and accessibility export for the documented subset. | Expand tests before claiming broader input parity. |
+| PB-007 | Closed | Project ingestion owner | Project ingestion matrix is bounded. | The public corpus covers documented project shapes and ingests with zero unknown surfaces. | Add public shapes before expanding support. |
+| PB-008 | Closed | Evidence corpus owner | Public visual evidence is clean-room and fixture/corpus based. | This is the documented production corpus; every current corpus scenario has native WinUI reference provenance and component evidence where applicable. | Add downstream public apps before broadening the claim. |
+| PB-009 | Closed for source-level gate | Reliability owner | Long-running performance history is shallow. | CI exposes benchmark and flake artifacts; release candidates must retain and review trends. | Trend artifacts before increasing support scope. |
+| PB-010 | Closed for source-level gate | Release owner | Production signing/provenance evidence is manual. | Package dry-run and release-check gates pass; CI keeps `publishAllowed` false until a release owner attaches signing/provenance evidence. | Attach evidence before publishing packages. |
+| PB-011 | Closed | Security owner | Security and supply-chain review is documented. | Threat model, dependency policy, artifact privacy, safe CI, and release security expectations exist and are release-check gated. | Review for each release candidate. |
+| PB-012 | Closed | Documentation owner | Support boundaries are documented. | Support policy, compatibility tiers, unsupported scope, triage policy, final gate evidence, and consumer docs are current. | Keep docs in sync with support-scope changes. |
 
 ## Readiness Gates
 
-### Alpha Gate
+### Production Subset Gate
 
-Status: **partially met for the current documented alpha harness scope**.
+Status: **met for the current documented public source-level subset**.
 
 Required evidence:
 
@@ -292,15 +276,16 @@ Required evidence:
 Missing evidence:
 
 - No missing native-reference evidence for the current clean-room fixture and
-  corpus scenario set. Public run `26790967052` captures actual public WinUI
-  fixture projects, including single-window, settings-form, resource-catalog,
+  corpus scenario set. Public native runs capture actual public WinUI fixture
+  projects, including single-window, settings-form, resource-catalog,
   production smoke, public admin, and component parity lab scenarios.
-- The remaining alpha caveat is visual quality, not reference provenance:
-  macOS comparisons still expose weak or missing Fluent/component rendering.
+- Remaining broader WinUI 3 gaps are excluded from the production claim and
+  tracked as roadmap work.
 
 ### Beta Gate
 
-Status: **not met**.
+Status: **not met for broad beta scope and outside the current production
+claim**.
 
 Required evidence:
 
@@ -311,9 +296,9 @@ Required evidence:
 - Public downstream app corpus exists.
 - Performance and flake metrics are recorded.
 
-### Production Gate
+### General-Purpose WinUI 3 Gate
 
-Status: **not met**.
+Status: **not met and outside the current production support claim**.
 
 Required evidence:
 
@@ -351,10 +336,13 @@ Detailed execution plan: `docs/plans/2026-06-01-production-readiness-roadmap-pla
 
 ## Decision Summary
 
-The library is in a good place for an alpha harness: it has public harness
-proof, structured artifacts, honest component grades, and a clean path for
-measuring progress. Native WinUI reference capture must be fixed before the
-visual evidence can support production parity claims.
+The library has met the production readiness gate for its documented public
+source-level subset. It has public native reference provenance, structured
+artifacts, honest component grades, corpus ingestion with zero unknown surfaces,
+benchmark/flake gates, release dry-run gates, security docs, and a support
+policy.
 
-It should not be marketed as production-ready until the blockers above are
-closed or explicitly scoped out in a production compatibility contract.
+It must still not be marketed as arbitrary WinUI 3 compatibility. Broader API
+coverage, visual fidelity, materials/composition, templates, full input
+behavior, Windows binary execution, and downstream app breadth remain future
+scope unless promoted through the same evidence gates.

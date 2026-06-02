@@ -43,6 +43,7 @@ serve as microbenchmark targets.
 
 - security threat model exists;
 - release gate documentation exists;
+- production support policy exists;
 - compatibility contract and Level 7 release docs exist;
 - package metadata has semver, repository URL, and license expression;
 - every expected package dry-run artifact exists;

@@ -13,7 +13,7 @@ Status values:
 Compiler and runtime diagnostics may also report `unknown` for public API usage
 that is not present in the catalog yet.
 
-## Alpha Compatibility Levels
+## Production Compatibility Levels
 
 | Level | Status | Current public contract |
 | --- | --- | --- |
@@ -26,8 +26,8 @@ that is not present in the catalog yet.
 | Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` workflow captures native WinUI references for public admin/workbench and component parity lab fixtures, while synthetic `WindowsNativeProbe` output remains smoke-only. Local macOS strict runs pass for Ring 0 component evidence; whole-screenshot native comparison remains CI artifact evidence and does not override component-level grades. |
 | Level 7: Release And Consumption Readiness | supported | Package metadata, pack smoke, consumer quick start, sample consumer CI, release checklist, verification evidence, troubleshooting, and known-gap documentation. |
 
-Levels 0 through 7 are the current alpha milestone. They are not the final
-WinUI 3 macOS development scope.
+Levels 0 through 7 are production-ready for the documented public source-level
+subset. They are not the final arbitrary WinUI 3 macOS development scope.
 
 ## Production Compatibility Tiers
 

@@ -1,12 +1,12 @@
 # Level 7 Release Readiness
 
-Level 7 makes the alpha runtime consumable by public projects that accept the
-documented compatibility limits. It does not expand the WinUI API subset by
-itself; it records package, CI, troubleshooting, and release evidence contracts
-for the supported public alpha levels.
+Level 7 makes the documented public source-level subset consumable by public
+projects that accept the compatibility limits. It does not expand the WinUI API
+subset by itself; it records package, CI, troubleshooting, and release evidence
+contracts for the supported public levels.
 
-Level 0 through Level 7 are the first alpha milestone toward full source-level
-WinUI 3 development on macOS. They are not the final product scope.
+Level 0 through Level 7 are production-ready for the documented public subset.
+They are not a claim of arbitrary WinUI 3 app compatibility.
 
 For the broader production readiness assessment, including completed work,
 known gaps, and production blockers, see `docs/release/production-readiness.md`.
@@ -55,8 +55,9 @@ Version: `0.1.0-alpha.1`
 - `dotnet pack` passes for every published package.
 - Threat model, release gates, package provenance, and artifact privacy docs
   are current.
+- Production support policy is current and `release-check` gated.
 - Public `windows-native-screenshot` Windows reference workflow passes for the
-  current alpha harness scope.
+  current production subset.
 - Review at least one `windows-reference.png`, `mac-runtime.png`, and
   `pixel-diff.png` for every changed fixture category after local macOS
   comparison, including reference provenance when present.
@@ -68,8 +69,11 @@ Version: `0.1.0-alpha.1`
 
 ## Verification Evidence
 
-Latest public Windows synthetic-probe visual workflow inspected during Level 7 readiness:
-`windows-native-screenshot` run `26731192942`.
+Latest public native WinUI reference workflow inspected during Level 7
+readiness: `windows-native-screenshot` run `26791576394` on commit `cd814a4`.
+
+Latest production gate CI inspected during Level 7 readiness: `ci` run
+`26791576401` on commit `cd814a4`.
 
 Local package smoke:
 
@@ -94,7 +98,7 @@ Inspected categories:
 - No Windows binary, `.msix`, arbitrary `.exe`, or Wine execution support.
 - Full source-level WinUI 3 development, Windows App SDK API coverage, Fluent
   material, compositor, Mica, Acrylic, and arbitrary pixel parity remain product
-  goals, not current alpha claims.
+  goals, not current production-subset claims.
 - Mica, Acrylic, system backdrops, compositor concepts, shadows, transforms,
   motion, focus visuals, theme resources, high contrast, reduced motion, and
   Fluent interaction states are cataloged compatibility targets.

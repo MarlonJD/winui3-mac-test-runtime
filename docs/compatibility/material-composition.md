@@ -3,13 +3,13 @@
 Mica, Acrylic, system backdrops, compositor-style effects, shadows, transforms,
 motion, focus visuals, theme resources, high contrast, reduced motion, and full
 Fluent interaction states are in-scope compatibility targets for the product.
-They are not implemented broadly in the current alpha milestone.
+They are not implemented broadly in the current production subset.
 
 The macOS-managed runtime remains Wine-free. Material and composition support
 must be clean-room, driven by public WinUI 3 and Windows App SDK behavior, and
 validated against native WinUI Windows output from public GitHub Actions runs.
 
-## Current Alpha Contract
+## Current Production Contract
 
 | Area | Current catalog status | Current runtime behavior |
 | --- | --- | --- |

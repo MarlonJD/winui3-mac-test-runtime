@@ -189,7 +189,8 @@ Common WinUI controls such as `AutoSuggestBox`, `CalendarDatePicker`,
 `FlipView`, `GridView`, `HyperlinkButton`, `MenuBar`,
 `NumberBox`, `PasswordBox`, `PersonPicture`, `RatingControl`, `RichEditBox`,
 `Slider`, `SplitButton`, `SplitView`, `TabView`, `TeachingTip`, `TimePicker`,
-`TreeView`, and `TwoPaneView` are not part of the current alpha support claim.
+`TreeView`, and `TwoPaneView` are not part of the current production support
+claim.
 The component parity lab now gives these controls explicit diagnostic rows and
 `not-rendered` evidence entries; strict mode should still treat uncataloged
 runtime usage as a compatibility gap until the feature is added to the API

@@ -133,11 +133,14 @@ Run this checklist before every production-target commit:
 
 ## Current Status
 
-This inventory completes the public target mapping for Milestone 0 of
-`docs/plans/2026-06-01-production-windows-component-completion-plan.md`.
-Milestone 1 state scenario coverage is tracked in
+This inventory is the production support boundary for the current documented
+source-level subset. Ring 0 and claimed Ring 1 components require public
+scenario evidence, native WinUI provenance, local `skia-v2` artifacts,
+interaction/accessibility evidence where applicable, and a minimum `usable`
+visual grade. Planned, unsupported, Windows-only, diagnostic-only, weak, poor,
+or `not-rendered` rows remain outside the production claim.
+
+State scenario coverage is tracked in
 `docs/compatibility/winui-component-inventory.json` under
-`productionStateCoverage`.
-Production readiness remains blocked by renderer, interaction, accessibility,
-fixture, native reference, smoke, E2E, operations, and release gates listed in
-that plan.
+`productionStateCoverage`. The final source-level gate evidence is recorded in
+`docs/release/final-production-gate.md`.

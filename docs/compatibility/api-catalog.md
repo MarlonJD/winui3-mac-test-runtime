@@ -22,11 +22,11 @@ requirements, visual grades, and known gaps, see
 
 ## Seed Coverage
 
-The `0.1` catalog has 125 entries:
+The `0.1` catalog has 126 entries:
 
 | Status | Count |
 | --- | ---: |
-| `supported` | 54 |
+| `supported` | 55 |
 | `partial` | 35 |
 | `planned` | 31 |
 | `windows-only` | 3 |
@@ -54,7 +54,7 @@ public application corpus exercises: `x:Key`, `{Binding}`, `SolidColorBrush`,
 [`corpus.md`](corpus.md).
 
 The seed is not an exhaustive WinUI inventory yet. Its job is to make the
-current alpha claims measurable and to make important future targets explicit:
+current production subset measurable and to make important future targets explicit:
 Mica, Acrylic, system backdrops, compositor concepts, shadows, transforms,
 motion, focus visuals, theme resources, high contrast, reduced motion, and
 Fluent interaction states are cataloged rather than treated as permanent
