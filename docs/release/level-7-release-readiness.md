@@ -40,6 +40,10 @@ Version: `0.1.0-alpha.1`
 
 - `dotnet build` passes.
 - `dotnet test` passes.
+- `winui3-mac-runner benchmark` passes and uploads `benchmark.json` with
+  performance and flake metrics.
+- `winui3-mac-runner release-check` passes after the package dry run and
+  uploads `release-readiness.json`.
 - `winui3-mac-runner doctor` or source wrapper `winui3-mac-doctor` passes.
 - Managed smoke fixture and current Skia smoke fixture pass.
 - `skia-v2` strict visual fixtures pass for shell, interaction/binding, and
@@ -49,6 +53,8 @@ Version: `0.1.0-alpha.1`
 - `dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj
   --configuration Release` passes.
 - `dotnet pack` passes for every published package.
+- Threat model, release gates, package provenance, and artifact privacy docs
+  are current.
 - Public `windows-native-screenshot` Windows reference workflow passes for the
   current alpha harness scope.
 - Review at least one `windows-reference.png`, `mac-runtime.png`, and

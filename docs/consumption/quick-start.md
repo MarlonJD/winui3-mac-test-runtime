@@ -103,6 +103,16 @@ For downstream Windows WinUI 3 app adoption, including why this tool exists and
 which test tiers should run, see
 `docs/consumption/downstream-windows-apps.md`.
 
+## Operational Safety
+
+The runner builds and executes source projects; it is not a sandbox. Run
+private or untrusted app fixtures in isolated local or private CI workspaces,
+avoid granting unnecessary secrets, and review screenshots, tree JSON,
+accessibility JSON, SARIF, and logs before publishing artifacts. The full
+threat model, artifact privacy policy, dependency policy, and release gates are
+tracked in `docs/security/threat-model.md` and
+`docs/release/release-gates.md`.
+
 ## Troubleshooting
 
 - Strict visual failure: inspect `visual/visual-run.json`,

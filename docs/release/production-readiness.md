@@ -242,14 +242,20 @@ support, and native WinUI Windows reference evidence.
 
 ### Product And Operations Gaps
 
-- Package release hardening is not yet enough for production adoption.
+- Package release hardening now has benchmark, flake, package dry-run,
+  release-check, and security policy gates in CI, but production publishing
+  remains blocked until signing/provenance evidence and support policy are
+  attached to a release candidate.
 - Consumer support docs exist, but upgrade, deprecation, compatibility policy,
   and troubleshooting depth are still alpha-level.
-- CI has public native WinUI reference capture for the fixture set and separate
-  synthetic smoke evidence, but production still needs stronger flake tracking,
-  artifact retention policy, and reference drift review.
-- Security, supply-chain provenance, license review, and release signing are
-  not documented as completed production gates.
+- CI has public native WinUI reference capture for the fixture set, separate
+  synthetic smoke evidence, benchmark/flake artifacts, and package dry-run
+  artifacts, but production still needs longer trend history and reference drift
+  review across release candidates.
+- Security and supply-chain posture is documented in
+  `docs/security/threat-model.md`; CI release checks validate package metadata
+  and dry-run artifacts. Release signing remains a required publish-time
+  evidence item, not an automatic CI action.
 
 ## Production Blockers
 
@@ -264,9 +270,9 @@ support, and native WinUI Windows reference evidence.
 | PB-006 | Blocking | Input/accessibility owner | Input and accessibility behavior is partial. | Production testing needs reliable keyboard, pointer, focus, automation, and text behavior. | Add broader keyboard routing, pointer state, focus visuals, text editing, and accessibility automation coverage with tests. |
 | PB-007 | Blocking | Project ingestion owner | Project ingestion matrix is too narrow. | Real projects vary in MSBuild structure, packaging, assets, resources, and multi-targeting. | Validate against a documented set of public WinUI project shapes and keep failures structured. |
 | PB-008 | Blocking | Evidence corpus owner | Public visual evidence is still fixture-focused. | Fixture evidence does not prove production app behavior, even though current fixture references are now native WinUI captures. | Add a public downstream app corpus or representative clean-room scenarios with native WinUI Windows references and component evidence. |
-| PB-009 | Blocking | Reliability owner | Performance and reliability are not measured. | Production adoption needs predictable runtime duration, memory use, and flake rate. | Add benchmark and flake tracking gates for runner startup, XAML compile, render, interaction, and artifact generation. |
-| PB-010 | Blocking | Release owner | Release hardening is incomplete. | Production users need stable packages, upgrade policy, rollback path, provenance, and signed/reproducible release artifacts. | Publish a production release checklist covering semver, package signing/provenance, changelog, migration notes, and rollback. |
-| PB-011 | Blocking | Security owner | Security and supply-chain review is incomplete. | The runner builds and executes user source projects locally. | Document threat model, dependency policy, artifact privacy policy, and safe CI usage guidance. |
+| PB-009 | Advanced | Reliability owner | Performance and reliability are measured by CI benchmark and flake gates, but long-running history is still shallow. | Production adoption needs trend history across runner images and release candidates. | Keep `benchmark.json` artifacts for release candidates and add trend review before production publishing. |
+| PB-010 | Advanced | Release owner | Release hardening has package dry-run and release-check gates, but production signing/provenance evidence is not automated. | Production users need stable packages, upgrade policy, rollback path, provenance, and signed/reproducible release artifacts. | Attach signing/provenance evidence and rollback notes to a release candidate before publishing. |
+| PB-011 | Advanced | Security owner | Threat model, dependency policy, artifact privacy, and safe CI usage are documented. | The runner builds and executes user source projects locally, so security posture must stay explicit. | Review the threat model and package provenance for every production release candidate. |
 | PB-012 | Blocking | Documentation owner | Documentation still describes alpha limits. | Production users need exact support boundaries and support expectations. | Create production support policy, compatibility tiers, known unsupported list, and issue triage policy. |
 
 ## Readiness Gates

@@ -27,6 +27,8 @@ internal static class Cli
             "doctor" => RunDoctor(args[1..]),
             "run" => await RunProjectAsync(args[1..]),
             "ingest" => RunIngest(args[1..]),
+            "benchmark" => await ProductionGatesCommand.RunBenchmarkAsync(args[1..]),
+            "release-check" => await ProductionGatesCommand.RunReleaseCheckAsync(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
         };
@@ -448,6 +450,8 @@ internal static class Cli
         Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>] [--renderer svg|skia|skia-v2]");
         Console.WriteLine("      [--scenario <path>] [--viewport <width>x<height>] [--scale <number>] [--theme light|dark]");
         Console.WriteLine("      [--strict-visual] [--reference <path>] [--diff-output <dir>]");
+        Console.WriteLine("  benchmark [--output <path>] [--iterations <count>]");
+        Console.WriteLine("  release-check [--package-dir <dir>] [--output <path>]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
         Console.WriteLine("      [--check] [--write-baseline]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");

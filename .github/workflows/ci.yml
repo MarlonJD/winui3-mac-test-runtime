@@ -32,10 +32,48 @@ jobs:
           dotnet run --no-build --project src/WinUI3.MacRunner --
           ingest --manifest fixtures/corpus.json --output artifacts/corpus --check
 
+      - name: Benchmark and flake gate
+        run: >-
+          dotnet run --no-build --project src/WinUI3.MacRunner --
+          benchmark --output artifacts/production-gates/benchmark.json
+          --iterations 3
+
+      - name: Package dry run
+        run: |
+          mkdir -p artifacts/packages
+          dotnet pack src/WinUI3.MacCompat/WinUI3.MacCompat.csproj --configuration Debug --no-build --output artifacts/packages
+          dotnet pack src/WinUI3.MacRuntime/WinUI3.MacRuntime.csproj --configuration Debug --no-build --output artifacts/packages
+          dotnet pack src/WinUI3.MacXaml/WinUI3.MacXaml.csproj --configuration Debug --no-build --output artifacts/packages
+          dotnet pack src/WinUI3.MacRenderer.Skia/WinUI3.MacRenderer.Skia.csproj --configuration Debug --no-build --output artifacts/packages
+          dotnet pack src/WinUI3.MacRunner/WinUI3.MacRunner.csproj --configuration Debug --no-build --output artifacts/packages
+          dotnet pack src/WinUI3.MacTest.Sdk/WinUI3.MacTest.Sdk.csproj --configuration Debug --no-build --output artifacts/packages
+
+      - name: Release readiness dry run
+        run: >-
+          dotnet run --no-build --project src/WinUI3.MacRunner --
+          release-check --package-dir artifacts/packages
+          --output artifacts/production-gates/release-readiness.json
+
       - name: Upload corpus inventory
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: corpus-inventory
           path: artifacts/corpus
+          if-no-files-found: ignore
+
+      - name: Upload production gates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-gates
+          path: artifacts/production-gates
+          if-no-files-found: ignore
+
+      - name: Upload package dry run
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-dry-run
+          path: artifacts/packages
           if-no-files-found: ignore
