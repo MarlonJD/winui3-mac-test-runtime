@@ -46,6 +46,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26777029415</strong></span>
 <span>reference commit: <strong>95e8d7d</strong></span>
+<span>native reference: <strong>needs-native-crop-bounds</strong></span>
+<span>bounds source: <strong>mac-runtime-layout-bounds</strong></span>
 <span>changed pixels: <strong>1,171</strong></span>
 </div>
 <div class="triptych">
@@ -62,6 +64,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/commandbar-primarycommandbar/pixel-diff.png">
 </figure>
 </div>
+<p class="notes">Native reference integrity: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.</p>
 <p class="notes">CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps.</p>
 </section>
 <section class="component">
@@ -76,6 +79,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26777029415</strong></span>
 <span>reference commit: <strong>95e8d7d</strong></span>
+<span>native reference: <strong>needs-native-crop-bounds</strong></span>
+<span>bounds source: <strong>mac-runtime-layout-bounds</strong></span>
 <span>changed pixels: <strong>10,006</strong></span>
 </div>
 <div class="triptych">
@@ -92,6 +97,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/appbarbutton-savecommandbutton/pixel-diff.png">
 </figure>
 </div>
+<p class="notes">Native reference integrity: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.</p>
 <p class="notes">AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps.</p>
 </section>
 <section class="component">
@@ -106,6 +112,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26777029415</strong></span>
 <span>reference commit: <strong>95e8d7d</strong></span>
+<span>native reference: <strong>needs-native-crop-bounds</strong></span>
+<span>bounds source: <strong>mac-runtime-layout-bounds</strong></span>
 <span>changed pixels: <strong>12,132</strong></span>
 </div>
 <div class="triptych">
@@ -122,6 +130,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png">
 </figure>
 </div>
+<p class="notes">Native reference integrity: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.</p>
 <p class="notes">CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps.</p>
 </section>
 <section class="component">
@@ -136,6 +145,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26777029415</strong></span>
 <span>reference commit: <strong>95e8d7d</strong></span>
+<span>native reference: <strong>needs-native-crop-bounds</strong></span>
+<span>bounds source: <strong>mac-runtime-layout-bounds</strong></span>
 <span>changed pixels: <strong>48,047</strong></span>
 </div>
 <div class="triptych">
@@ -152,6 +163,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/appbarbutton-icon-savecommandicon/pixel-diff.png">
 </figure>
 </div>
+<p class="notes">Native reference integrity: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.</p>
 <p class="notes">FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate.</p>
 </section>
 <section class="component">
@@ -166,6 +178,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26777029415</strong></span>
 <span>reference commit: <strong>95e8d7d</strong></span>
+<span>native reference: <strong>state-reference-incomplete</strong></span>
+<span>bounds source: <strong>mac-runtime-layout-bounds</strong></span>
 <span>changed pixels: <strong>28,712</strong></span>
 </div>
 <div class="triptych">
@@ -182,6 +196,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png">
 </figure>
 </div>
+<p class="notes">Native reference integrity: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</p>
 <p class="notes">CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial.</p>
 </section>
 <section class="component">
@@ -196,6 +211,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26777029415</strong></span>
 <span>reference commit: <strong>95e8d7d</strong></span>
+<span>native reference: <strong>state-reference-incomplete</strong></span>
+<span>bounds source: <strong>mac-runtime-layout-bounds</strong></span>
 <span>changed pixels: <strong>22,418</strong></span>
 </div>
 <div class="triptych">
@@ -212,6 +229,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/menuflyout-diagnosticmenuflyout/pixel-diff.png">
 </figure>
 </div>
+<p class="notes">Native reference integrity: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</p>
 <p class="notes">MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial.</p>
 </section>
 <section class="component">
@@ -226,6 +244,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26777029415</strong></span>
 <span>reference commit: <strong>95e8d7d</strong></span>
+<span>native reference: <strong>state-reference-incomplete</strong></span>
+<span>bounds source: <strong>mac-runtime-layout-bounds</strong></span>
 <span>changed pixels: <strong>85,514</strong></span>
 </div>
 <div class="triptych">
@@ -242,6 +262,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/menubar-diagnosticmenubar/pixel-diff.png">
 </figure>
 </div>
+<p class="notes">Native reference integrity: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</p>
 <p class="notes">MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps.</p>
 </section>
 <section class="component">
@@ -256,6 +277,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26777029415</strong></span>
 <span>reference commit: <strong>95e8d7d</strong></span>
+<span>native reference: <strong>state-reference-incomplete</strong></span>
+<span>bounds source: <strong>mac-runtime-layout-bounds</strong></span>
 <span>changed pixels: <strong>22,423</strong></span>
 </div>
 <div class="triptych">
@@ -272,6 +295,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png">
 </figure>
 </div>
+<p class="notes">Native reference integrity: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</p>
 <p class="notes">Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps.</p>
 </section>
 </body>

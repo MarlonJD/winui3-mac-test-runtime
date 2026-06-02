@@ -57,6 +57,7 @@ internal static class VisualArtifacts
         string? copiedReferenceMetadataPath = null;
         JsonElement? referenceProvenance = null;
         NativeReferenceProvenance? nativeReferenceProvenance = null;
+        NativeReferenceTargetDocument? nativeReferenceTargets = null;
         string? referenceSource = null;
         string? diffPath = null;
         object? comparison;
@@ -80,6 +81,15 @@ internal static class VisualArtifacts
                 referenceProvenance = await ReadReferenceProvenanceAsync(sourceReferenceMetadataPath, cancellationToken);
                 nativeReferenceProvenance = await ReadNativeReferenceProvenanceAsync(sourceReferenceMetadataPath, cancellationToken);
                 referenceSource = ReadReferenceSource(referenceProvenance);
+                var sourceReferenceTargetsPath = ResolveNativeReferenceTargetsPath(
+                    sourceReferenceMetadataPath,
+                    nativeReferenceProvenance?.NativeReferenceTargetsPath);
+                if (sourceReferenceTargetsPath is not null)
+                {
+                    var copiedReferenceTargetsPath = Path.Combine(outputDirectory, "native-reference-targets.json");
+                    File.Copy(sourceReferenceTargetsPath, copiedReferenceTargetsPath, overwrite: true);
+                    nativeReferenceTargets = await ReadNativeReferenceTargetsAsync(copiedReferenceTargetsPath, cancellationToken);
+                }
             }
 
             diffPath = Path.Combine(outputDirectory, "pixel-diff.png");
@@ -131,7 +141,8 @@ internal static class VisualArtifacts
                 settings.Scale,
                 settings.Thresholds,
                 nativeReferenceProvenance,
-                useRelativePaths: true);
+                useRelativePaths: true,
+                nativeReferenceTargets: nativeReferenceTargets);
             var componentEvidencePath = Path.Combine(outputDirectory, "component-evidence.json");
             await File.WriteAllTextAsync(
                 componentEvidencePath,
@@ -209,6 +220,37 @@ internal static class VisualArtifacts
             stream,
             JsonDefaults.Options,
             cancellationToken);
+    }
+
+    private static async Task<NativeReferenceTargetDocument?> ReadNativeReferenceTargetsAsync(
+        string targetsPath,
+        CancellationToken cancellationToken)
+    {
+        await using var stream = File.OpenRead(targetsPath);
+        return await JsonSerializer.DeserializeAsync<NativeReferenceTargetDocument>(
+            stream,
+            JsonDefaults.Options,
+            cancellationToken);
+    }
+
+    private static string? ResolveNativeReferenceTargetsPath(
+        string metadataPath,
+        string? declaredTargetsPath)
+    {
+        var directory = Path.GetDirectoryName(Path.GetFullPath(metadataPath))!;
+        if (!string.IsNullOrWhiteSpace(declaredTargetsPath))
+        {
+            var candidate = Path.IsPathRooted(declaredTargetsPath)
+                ? Path.GetFullPath(declaredTargetsPath)
+                : Path.GetFullPath(Path.Combine(directory, declaredTargetsPath));
+            if (File.Exists(candidate))
+            {
+                return candidate;
+            }
+        }
+
+        var sibling = Path.Combine(directory, "native-reference-targets.json");
+        return File.Exists(sibling) ? sibling : null;
     }
 
     private static string? ReadReferenceSource(JsonElement? provenance)

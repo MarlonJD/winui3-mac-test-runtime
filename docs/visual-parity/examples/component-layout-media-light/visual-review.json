@@ -1,5 +1,5 @@
 ﻿{
-  "schemaVersion": "0.2",
+  "schemaVersion": "0.3",
   "generatedAt": "1970-01-01T00:00:00+00:00",
   "scenarioName": "component-layout-media-light",
   "evidencePath": "component-evidence.json",
@@ -31,6 +31,9 @@
       "changedPixelPercentage": 26.907563,
       "meanAbsoluteError": 12.95601,
       "rootMeanSquaredError": 47.656298,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "ScrollViewer region and scrollbar affordance are rendered approximately; clipping and scroll physics remain gaps."
     },
@@ -52,6 +55,9 @@
       "changedPixelPercentage": 81.592426,
       "meanAbsoluteError": 14.861781,
       "rootMeanSquaredError": 35.298732,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Grid surface and column separation are rendered for component evidence; full WinUI layout behavior remains partial."
     },
@@ -73,6 +79,9 @@
       "changedPixelPercentage": 25.807292,
       "meanAbsoluteError": 18.713916,
       "rootMeanSquaredError": 54.413839,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "StackPanel child spacing and region evidence are visible; full native layout behavior remains partial."
     },
@@ -94,6 +103,9 @@
       "changedPixelPercentage": 25.807292,
       "meanAbsoluteError": 18.713916,
       "rootMeanSquaredError": 54.413839,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Border surface, stroke, and corner radius are rendered approximately; brush and thickness fidelity remain partial."
     },
@@ -115,6 +127,9 @@
       "changedPixelPercentage": 19.791667,
       "meanAbsoluteError": 15.896267,
       "rootMeanSquaredError": 51.565017,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "FontIcon glyph is rendered with the scenario font; exact Segoe MDL2 metrics remain approximate."
     },
@@ -136,6 +151,9 @@
       "changedPixelPercentage": 99.939173,
       "meanAbsoluteError": 14.140368,
       "rootMeanSquaredError": 27.951659,
+      "nativeReferenceReadiness": "diagnostic-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only.",
       "inspectionStatus": "missing",
       "notes": "Image emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps."
     },
@@ -157,6 +175,9 @@
       "changedPixelPercentage": 32.193588,
       "meanAbsoluteError": 12.3281,
       "rootMeanSquaredError": 44.834362,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "SymbolIcon exports and renders a static Fluent glyph diagnostic; exact Segoe Fluent Icons metrics and state variants remain partial."
     },
@@ -178,6 +199,9 @@
       "changedPixelPercentage": 67.005479,
       "meanAbsoluteError": 24.986033,
       "rootMeanSquaredError": 63.689726,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "XamlControlsResources is represented as a bounded Fluent resource bootstrap diagnostic; the real WinUI resource dictionary is not loaded."
     },
@@ -199,6 +223,9 @@
       "changedPixelPercentage": 42.95393,
       "meanAbsoluteError": 27.059451,
       "rootMeanSquaredError": 61.863599,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "Theme dictionaries are resolved for the active scenario theme in the clean-room resource subset; full dynamic resource invalidation remains planned."
     },
@@ -220,6 +247,9 @@
       "changedPixelPercentage": 42.95393,
       "meanAbsoluteError": 27.059451,
       "rootMeanSquaredError": 61.863599,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "ThemeResource lookup is simple and does not model full dynamic theme dictionaries."
     },
@@ -241,6 +271,9 @@
       "changedPixelPercentage": 46.614583,
       "meanAbsoluteError": 38.814648,
       "rootMeanSquaredError": 80.725796,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "StaticResource lookup supports simple local dictionaries only."
     },
@@ -262,6 +295,9 @@
       "changedPixelPercentage": 29.783951,
       "meanAbsoluteError": 16.338252,
       "rootMeanSquaredError": 46.409838,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "Only supported setter properties are applied."
     },
@@ -283,6 +319,9 @@
       "changedPixelPercentage": 29.783951,
       "meanAbsoluteError": 16.338252,
       "rootMeanSquaredError": 46.409838,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "Setter support is limited to simple values on supported facade properties."
     },
@@ -304,6 +343,9 @@
       "changedPixelPercentage": 31.367458,
       "meanAbsoluteError": 19.807585,
       "rootMeanSquaredError": 52.917531,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "Color resources are represented as deterministic swatch tokens for renderer evidence; full typed color object fidelity remains planned."
     },
@@ -325,6 +367,9 @@
       "changedPixelPercentage": 42.95393,
       "meanAbsoluteError": 27.059451,
       "rootMeanSquaredError": 61.863599,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "SolidColorBrush resources are reduced to deterministic color strings for renderer evidence; full brush object fidelity remains planned."
     },
@@ -346,6 +391,9 @@
       "changedPixelPercentage": 25.807292,
       "meanAbsoluteError": 18.713916,
       "rootMeanSquaredError": 54.413839,
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
       "inspectionStatus": "missing",
       "notes": "Manual inspection is pending."
     },
@@ -367,6 +415,9 @@
       "changedPixelPercentage": 20.618207,
       "meanAbsoluteError": 8.461065,
       "rootMeanSquaredError": 36.884039,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Expander renders a static expanded header/content diagnostic; collapse interaction, focus visuals, and expanded automation behavior remain partial."
     },
@@ -388,6 +439,9 @@
       "changedPixelPercentage": 21.290666,
       "meanAbsoluteError": 16.713068,
       "rootMeanSquaredError": 59.97332,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Annotated scrollbar renders static rail and marker diagnostics; scroll position binding, annotation labels, and pointer interaction remain planned."
     },
@@ -409,6 +463,9 @@
       "changedPixelPercentage": 8.419364,
       "meanAbsoluteError": 5.915737,
       "rootMeanSquaredError": 31.100417,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "SemanticZoom renders static zoomed-in and zoomed-out preview panes; zoom switching and collection semantics remain planned."
     },
@@ -430,6 +487,9 @@
       "changedPixelPercentage": 35.168998,
       "meanAbsoluteError": 16.007293,
       "rootMeanSquaredError": 56.791192,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "SplitView renders a static open pane/content diagnostic; display modes, light dismiss, compact overlay behavior, and interaction remain partial."
     },
@@ -451,6 +511,9 @@
       "changedPixelPercentage": 13.120446,
       "meanAbsoluteError": 10.12749,
       "rootMeanSquaredError": 41.667101,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "TwoPaneView renders static side-by-side panes; adaptive spanning behavior and responsive breakpoints remain planned."
     },
@@ -472,6 +535,9 @@
       "changedPixelPercentage": 19.325881,
       "meanAbsoluteError": 24.633003,
       "rootMeanSquaredError": 70.919585,
+      "nativeReferenceReadiness": "native-not-rendered",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference does not show a production AnimatedIcon source/frame.",
       "inspectionStatus": "missing",
       "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
     },
@@ -493,6 +559,9 @@
       "changedPixelPercentage": 15.819007,
       "meanAbsoluteError": 14.257163,
       "rootMeanSquaredError": 50.002466,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
     },
@@ -514,6 +583,9 @@
       "changedPixelPercentage": 22.690763,
       "meanAbsoluteError": 21.062594,
       "rootMeanSquaredError": 60.719634,
+      "nativeReferenceReadiness": "placeholder-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content.",
       "inspectionStatus": "missing",
       "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
     },
@@ -535,6 +607,9 @@
       "changedPixelPercentage": 17.275433,
       "meanAbsoluteError": 15.901177,
       "rootMeanSquaredError": 52.794122,
+      "nativeReferenceReadiness": "placeholder-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content.",
       "inspectionStatus": "missing",
       "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
     },
@@ -556,6 +631,9 @@
       "changedPixelPercentage": 13.97977,
       "meanAbsoluteError": 12.372846,
       "rootMeanSquaredError": 45.815156,
+      "nativeReferenceReadiness": "native-unavailable",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls.",
       "inspectionStatus": "missing",
       "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
     },
@@ -577,6 +655,9 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 7.5,
       "rootMeanSquaredError": 8.660254,
+      "nativeReferenceReadiness": "offscreen-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface.",
       "inspectionStatus": "missing",
       "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
     },
@@ -598,6 +679,9 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 16.892045,
       "rootMeanSquaredError": 49.810835,
+      "nativeReferenceReadiness": "offscreen-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface.",
       "inspectionStatus": "missing",
       "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
     }

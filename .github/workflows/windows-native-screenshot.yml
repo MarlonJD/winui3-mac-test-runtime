@@ -329,6 +329,49 @@ jobs:
             $runnerImage = $env:RUNNER_OS
           }
           $captureTool = "tools/WindowsWindowCapture/bin/Release/net10.0-windows/WindowsWindowCapture.dll"
+          function Test-RequiresNativeTargets($scenarioPath) {
+            return $scenarioPath.StartsWith("fixtures/ComponentParityLab.WinUI/scenarios/") -or
+              $scenarioPath.StartsWith("fixtures/PublicAdminWorkbench.WinUI/scenarios/")
+          }
+
+          function Assert-NativeReferenceTargets($scenario, $targetBoundsOutput) {
+            if (!(Test-Path $targetBoundsOutput)) {
+              throw "Native reference target export was not created for $($scenario.Name). Public component references require native-reference-targets.json with Windows native element bounds; macOS/runtime crop bounds are not valid source crop bounds."
+            }
+
+            $targets = Get-Content $targetBoundsOutput -Raw | ConvertFrom-Json
+            if ($targets.referenceSource -ne "native-winui-element-bounds") {
+              throw "Native reference target export for $($scenario.Name) was '$($targets.referenceSource)', expected native-winui-element-bounds."
+            }
+
+            $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
+            $expectedTargets = @(
+              foreach ($requirement in $scenarioJson.requirements) {
+                if (-not [string]::IsNullOrWhiteSpace($requirement.target)) {
+                  $requirement.target
+                }
+              }
+            )
+            if ($expectedTargets.Count -gt 0 -and (-not $targets.targets -or $targets.targets.Count -eq 0)) {
+              throw "Native reference target export for $($scenario.Name) did not contain any target bounds."
+            }
+
+            $exportedTargets = @{}
+            foreach ($target in $targets.targets) {
+              if (-not [string]::IsNullOrWhiteSpace($target.target)) {
+                $exportedTargets[$target.target] = $true
+              }
+            }
+
+            foreach ($expectedTarget in $expectedTargets) {
+              if (-not $exportedTargets.ContainsKey($expectedTarget)) {
+                throw "Native reference target export for $($scenario.Name) is missing required public row target '$expectedTarget'."
+              }
+            }
+
+            return $targets
+          }
+
           foreach ($scenario in $scenarios) {
             $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
             $viewport = "$($scenarioJson.viewport.width)x$($scenarioJson.viewport.height)"
@@ -336,8 +379,11 @@ jobs:
             $fixtureScenarioPath = (Resolve-Path $scenario.Path).Path
             $outDir = "artifacts/windows-reference-screenshots/$($scenario.Name)"
             New-Item -ItemType Directory -Force $outDir | Out-Null
-            $launchLog = Join-Path (Resolve-Path $outDir).Path "native-launch.log"
+            $resolvedOutDir = (Resolve-Path $outDir).Path
+            $launchLog = Join-Path $resolvedOutDir "native-launch.log"
+            $targetBoundsOutput = Join-Path $resolvedOutDir "native-reference-targets.json"
             $env:WINUI3_MAC_NATIVE_LAUNCH_LOG = $launchLog
+            $env:WINUI3_MAC_NATIVE_REFERENCE_TARGETS_OUTPUT = $targetBoundsOutput
             dotnet $captureTool `
               --title "WinUI3 Mac Test Runtime - $($scenario.Name)" `
               --output "$outDir/windows-reference.png" `
@@ -358,6 +404,7 @@ jobs:
               -- $fixtureExecutable --scenario $fixtureScenarioPath
             $captureExitCode = $LASTEXITCODE
             Remove-Item Env:\WINUI3_MAC_NATIVE_LAUNCH_LOG -ErrorAction SilentlyContinue
+            Remove-Item Env:\WINUI3_MAC_NATIVE_REFERENCE_TARGETS_OUTPUT -ErrorAction SilentlyContinue
             if ($captureExitCode -ne 0) {
               if (Test-Path $launchLog) {
                 Write-Host "===== Native launch log for $($scenario.Name) ====="
@@ -372,6 +419,16 @@ jobs:
             $metadata = Get-Content "$outDir/windows-reference.json" -Raw | ConvertFrom-Json
             if ($metadata.referenceSource -ne "native-winui") {
               throw "Windows reference provenance for $($scenario.Name) was '$($metadata.referenceSource)', expected native-winui."
+            }
+            if (Test-RequiresNativeTargets $scenario.Path) {
+              $targets = Assert-NativeReferenceTargets $scenario $targetBoundsOutput
+              $metadata | Add-Member -NotePropertyName nativeReferenceTargetsPath -NotePropertyValue "native-reference-targets.json" -Force
+              $metadata | ConvertTo-Json -Depth 20 | Set-Content "$outDir/windows-reference.json"
+            }
+            elseif (Test-Path $targetBoundsOutput) {
+              $targets = Assert-NativeReferenceTargets $scenario $targetBoundsOutput
+              $metadata | Add-Member -NotePropertyName nativeReferenceTargetsPath -NotePropertyValue "native-reference-targets.json" -Force
+              $metadata | ConvertTo-Json -Depth 20 | Set-Content "$outDir/windows-reference.json"
             }
           }
 

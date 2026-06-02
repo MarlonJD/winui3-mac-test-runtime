@@ -14,7 +14,8 @@ public static class ComponentCropper
         double scale,
         VisualThresholds scenarioThresholds,
         NativeReferenceProvenance? nativeReferenceProvenance = null,
-        bool useRelativePaths = false)
+        bool useRelativePaths = false,
+        NativeReferenceTargetDocument? nativeReferenceTargets = null)
     {
         ArgumentNullException.ThrowIfNull(evidence);
         ArgumentException.ThrowIfNullOrWhiteSpace(runtimeImagePath);
@@ -29,7 +30,7 @@ public static class ComponentCropper
         var cropEvidence = new Dictionary<string, ComponentCropEvidence>(StringComparer.Ordinal);
         foreach (var component in evidence.Components)
         {
-            var crop = WriteCrop(component, runtime, reference, outputDirectory, cropsDirectory, scale, scenarioThresholds, nativeReferenceProvenance, useRelativePaths);
+            var crop = WriteCrop(component, runtime, reference, outputDirectory, cropsDirectory, scale, scenarioThresholds, nativeReferenceProvenance, nativeReferenceTargets, useRelativePaths);
             cropEvidence[ComponentEvidenceBuilder.ComponentKey(component.Component, component.Target)] = crop;
         }
 
@@ -55,6 +56,25 @@ public static class ComponentCropper
         return new ComponentCropBounds(x, y, right - x, bottom - y);
     }
 
+    public static ComponentCropBounds? BoundsFor(NativeReferenceBounds? bounds, int imageWidth, int imageHeight, double scale)
+    {
+        if (bounds is null || bounds.Width <= 0 || bounds.Height <= 0)
+        {
+            return null;
+        }
+
+        var x = (int)Math.Floor(bounds.X * scale);
+        var y = (int)Math.Floor(bounds.Y * scale);
+        var right = (int)Math.Ceiling((bounds.X + bounds.Width) * scale);
+        var bottom = (int)Math.Ceiling((bounds.Y + bounds.Height) * scale);
+        x = Math.Clamp(x, 0, Math.Max(0, imageWidth - 1));
+        y = Math.Clamp(y, 0, Math.Max(0, imageHeight - 1));
+        right = Math.Clamp(right, x + 1, imageWidth);
+        bottom = Math.Clamp(bottom, y + 1, imageHeight);
+
+        return new ComponentCropBounds(x, y, right - x, bottom - y);
+    }
+
     public static bool IsBlankCrop(string imagePath)
     {
         using var bitmap = Decode(imagePath);
@@ -70,16 +90,19 @@ public static class ComponentCropper
         double scale,
         VisualThresholds scenarioThresholds,
         NativeReferenceProvenance? nativeReferenceProvenance,
+        NativeReferenceTargetDocument? nativeReferenceTargets,
         bool useRelativePaths)
     {
         var thresholds = component.ComponentThresholds ?? scenarioThresholds;
         var bounds = BoundsFor(component.LayoutRegion, runtime.Width, runtime.Height, scale);
         var strictClaim = component.CatalogStatus is "supported" or "partial";
+        var nativeTarget = FindNativeReferenceTarget(nativeReferenceTargets, component);
         if (bounds is null)
         {
             return new ComponentCropEvidence(
                 Status: strictClaim ? "failed" : "not-applicable",
                 Bounds: null,
+                NativeReferenceBounds: null,
                 NativeReferencePath: null,
                 MacRuntimePath: null,
                 PixelDiffPath: null,
@@ -92,7 +115,22 @@ public static class ComponentCropper
                     ? "Claimed component is missing a positive target layout region."
                     : "Diagnostic or excluded component does not require crop evidence.")
             {
-                NativeReferenceProvenance = nativeReferenceProvenance
+                NativeReferenceProvenance = nativeReferenceProvenance,
+                NativeReferenceTarget = nativeTarget,
+                NativeReferenceReadinessStatus = "missing-runtime-bounds",
+                NativeReferenceReadinessReason = "The macOS runtime did not expose a positive layout region for this component.",
+                NativeReferenceRequiredAction = "Fix macOS runtime target layout before comparing native reference crops.",
+                NativeReferenceBoundsSource = "missing",
+                NativeReferenceBoundsValidForPromotion = false,
+                NativeReferenceIntegrityBlockerReason = "The macOS runtime did not expose a positive layout region for this component.",
+                NativeReferenceReadiness = Readiness(
+                    "missing-runtime-bounds",
+                    "The macOS runtime did not expose a positive layout region for this component.",
+                    "Fix macOS runtime target layout before comparing native reference crops.",
+                    readyForPromotion: false),
+                NativeReferenceCropSize = null,
+                MacRuntimeCropSize = null,
+                NativeReferenceBoundsDelta = null
             };
         }
 
@@ -104,12 +142,12 @@ public static class ComponentCropper
         var blank = IsBlankCrop(runtimeCropPath);
         if (strictClaim && string.Equals(component.VisualGrade, "not-rendered", StringComparison.Ordinal))
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Claimed component is not-rendered.", outputDirectory, useRelativePaths);
+            return CropFailure(component, bounds, null, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, nativeTarget, "Claimed component is not-rendered.", outputDirectory, useRelativePaths);
         }
 
         if (strictClaim && blank)
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Claimed component crop is blank.", outputDirectory, useRelativePaths);
+            return CropFailure(component, bounds, null, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, nativeTarget, "Claimed component crop is blank.", outputDirectory, useRelativePaths);
         }
 
         if (reference is null)
@@ -117,6 +155,7 @@ public static class ComponentCropper
             return new ComponentCropEvidence(
                 Status: strictClaim ? "reference-skipped" : "not-applicable",
                 Bounds: bounds,
+                NativeReferenceBounds: null,
                 NativeReferencePath: null,
                 MacRuntimePath: ArtifactPath(outputDirectory, runtimeCropPath, useRelativePaths),
                 PixelDiffPath: null,
@@ -127,25 +166,75 @@ public static class ComponentCropper
                 RootMeanSquaredError: null,
                 Message: "No native reference image was provided for component crop comparison.")
             {
-                NativeReferenceProvenance = nativeReferenceProvenance
+                NativeReferenceProvenance = nativeReferenceProvenance,
+                NativeReferenceTarget = nativeTarget,
+                NativeReferenceReadinessStatus = "missing-native-reference-crop",
+                NativeReferenceReadinessReason = "No native reference image was provided for component crop comparison.",
+                NativeReferenceRequiredAction = "Capture and import a native Windows reference image with target bounds.",
+                NativeReferenceBoundsSource = "missing",
+                NativeReferenceBoundsValidForPromotion = false,
+                NativeReferenceIntegrityBlockerReason = "No native reference image was provided for component crop comparison.",
+                NativeReferenceReadiness = Readiness(
+                    "missing-native-reference-crop",
+                    "No native reference image was provided for component crop comparison.",
+                    "Capture and import a native Windows reference image with target bounds.",
+                    readyForPromotion: false),
+                NativeReferenceCropSize = null,
+                MacRuntimeCropSize = CropSize(bounds),
+                NativeReferenceBoundsDelta = null
             };
         }
 
-        var referenceBounds = BoundsFor(component.LayoutRegion, reference.Width, reference.Height, scale);
+        var referenceBounds = BoundsFor(nativeTarget?.Bounds, reference.Width, reference.Height, scale);
         if (referenceBounds is null)
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Native reference crop bounds are outside the reference image.", outputDirectory, useRelativePaths);
+            return CropFailure(
+                component,
+                bounds,
+                null,
+                runtimeCropPath,
+                null,
+                null,
+                blank,
+                thresholds,
+                nativeReferenceProvenance,
+                nativeTarget,
+                nativeTarget is null
+                    ? "Native reference target bounds are missing; refusing to crop the Windows image from macOS/runtime layout bounds."
+                    : "Native reference target bounds are outside the reference image.",
+                outputDirectory,
+                useRelativePaths);
         }
 
         var referenceCropPath = Path.Combine(componentDirectory, "windows-reference.png");
         var diffPath = Path.Combine(componentDirectory, "pixel-diff.png");
         WriteCrop(reference, referenceBounds, referenceCropPath);
+        if (referenceBounds.Width != bounds.Width || referenceBounds.Height != bounds.Height)
+        {
+            return CropFailure(
+                component,
+                bounds,
+                referenceBounds,
+                runtimeCropPath,
+                referenceCropPath,
+                diffPath: null,
+                blank: blank,
+                thresholds: thresholds,
+                nativeReferenceProvenance: nativeReferenceProvenance,
+                nativeReferenceTarget: nativeTarget,
+                message: $"Native and macOS crop dimensions differ. Native crop is {referenceBounds.Width}x{referenceBounds.Height}; macOS crop is {bounds.Width}x{bounds.Height}. Phase -1 does not normalize crop sizes.",
+                outputDirectory: outputDirectory,
+                useRelativePaths: useRelativePaths,
+                readinessStatus: "native-crop-size-mismatch");
+        }
+
         var diff = PixelDiff.Compare(referenceCropPath, runtimeCropPath, diffPath, thresholds);
         var status = strictClaim && diff.Status == "failed" ? "failed" : diff.Status;
 
         return new ComponentCropEvidence(
             Status: status,
             Bounds: bounds,
+            NativeReferenceBounds: referenceBounds,
             NativeReferencePath: ArtifactPath(outputDirectory, referenceCropPath, useRelativePaths),
             MacRuntimePath: ArtifactPath(outputDirectory, runtimeCropPath, useRelativePaths),
             PixelDiffPath: ArtifactPath(outputDirectory, diffPath, useRelativePaths),
@@ -156,26 +245,46 @@ public static class ComponentCropper
             RootMeanSquaredError: diff.RootMeanSquaredError,
             Message: diff.Message)
         {
-            NativeReferenceProvenance = nativeReferenceProvenance
+            NativeReferenceProvenance = nativeReferenceProvenance,
+            NativeReferenceTarget = nativeTarget,
+            NativeReferenceReadinessStatus = "ready",
+            NativeReferenceReadinessReason = "Native crop uses Windows native element bounds from native-reference-targets.json.",
+            NativeReferenceRequiredAction = "Keep the native target export with the Windows reference artifact.",
+            NativeReferenceBoundsSource = "windows-native-element-bounds",
+            NativeReferenceBoundsValidForPromotion = true,
+            NativeReferenceIntegrityBlockerReason = "none",
+            NativeReferenceReadiness = Readiness(
+                "ready",
+                "Native crop uses Windows native element bounds from native-reference-targets.json.",
+                "Keep the native target export with the Windows reference artifact.",
+                readyForPromotion: true),
+            NativeReferenceCropSize = CropSize(referenceBounds),
+            MacRuntimeCropSize = CropSize(bounds),
+            NativeReferenceBoundsDelta = BoundsDelta(referenceBounds, bounds)
         };
     }
 
     private static ComponentCropEvidence CropFailure(
         ComponentEvidenceEntry component,
         ComponentCropBounds bounds,
+        ComponentCropBounds? nativeReferenceBounds,
         string runtimeCropPath,
         string? referenceCropPath,
         string? diffPath,
         bool blank,
         VisualThresholds thresholds,
         NativeReferenceProvenance? nativeReferenceProvenance,
+        NativeReferenceTarget? nativeReferenceTarget,
         string message,
         string outputDirectory,
-        bool useRelativePaths)
+        bool useRelativePaths,
+        string? readinessStatus = null)
     {
+        var status = readinessStatus ?? (nativeReferenceTarget is null ? "needs-native-crop-bounds" : "invalid-native-crop-bounds");
         return new ComponentCropEvidence(
             Status: component.CatalogStatus is "supported" or "partial" ? "failed" : "not-applicable",
             Bounds: bounds,
+            NativeReferenceBounds: nativeReferenceBounds,
             NativeReferencePath: ArtifactPath(outputDirectory, referenceCropPath, useRelativePaths),
             MacRuntimePath: ArtifactPath(outputDirectory, runtimeCropPath, useRelativePaths),
             PixelDiffPath: ArtifactPath(outputDirectory, diffPath, useRelativePaths),
@@ -186,8 +295,42 @@ public static class ComponentCropper
             RootMeanSquaredError: null,
             Message: message)
         {
-            NativeReferenceProvenance = nativeReferenceProvenance
+            NativeReferenceProvenance = nativeReferenceProvenance,
+            NativeReferenceTarget = nativeReferenceTarget,
+            NativeReferenceReadinessStatus = status,
+            NativeReferenceReadinessReason = message,
+            NativeReferenceRequiredAction = nativeReferenceTarget is null
+                ? "Re-run the Windows native reference workflow and keep native-reference-targets.json with the screenshot artifact."
+                : "Fix the exported Windows native target bounds and regenerate component evidence.",
+            NativeReferenceBoundsSource = nativeReferenceTarget is null ? "missing" : "windows-native-element-bounds",
+            NativeReferenceBoundsValidForPromotion = false,
+            NativeReferenceIntegrityBlockerReason = message,
+            NativeReferenceReadiness = Readiness(
+                status,
+                message,
+                nativeReferenceTarget is null
+                    ? "Re-run the Windows native reference workflow and keep native-reference-targets.json with the screenshot artifact."
+                    : "Fix the exported Windows native target bounds and regenerate component evidence.",
+                readyForPromotion: false),
+            NativeReferenceCropSize = nativeReferenceBounds is null ? null : CropSize(nativeReferenceBounds),
+            MacRuntimeCropSize = CropSize(bounds),
+            NativeReferenceBoundsDelta = nativeReferenceBounds is null ? null : BoundsDelta(nativeReferenceBounds, bounds)
         };
+    }
+
+    private static NativeReferenceTarget? FindNativeReferenceTarget(
+        NativeReferenceTargetDocument? targets,
+        ComponentEvidenceEntry component)
+    {
+        if (targets is null || string.IsNullOrWhiteSpace(component.Target))
+        {
+            return null;
+        }
+
+        return targets.Targets
+            .Where(target => string.Equals(target.Target, component.Target, StringComparison.Ordinal))
+            .OrderByDescending(target => string.Equals(target.Component, component.Component, StringComparison.Ordinal))
+            .FirstOrDefault();
     }
 
     private static SKBitmap Decode(string imagePath)
@@ -206,6 +349,34 @@ public static class ComponentCropper
         return useRelativePaths
             ? Path.GetRelativePath(outputDirectory, path).Replace('\\', '/')
             : path;
+    }
+
+    private static NativeReferenceReadinessEvidence Readiness(
+        string status,
+        string reason,
+        string requiredAction,
+        bool readyForPromotion)
+    {
+        return new NativeReferenceReadinessEvidence(
+            status,
+            reason,
+            requiredAction,
+            readyForPromotion,
+            readyForPromotion ? "none" : reason);
+    }
+
+    private static ReferenceImageDimensions CropSize(ComponentCropBounds bounds)
+    {
+        return new ReferenceImageDimensions(bounds.Width, bounds.Height);
+    }
+
+    private static ComponentCropBoundsDelta BoundsDelta(ComponentCropBounds nativeReferenceBounds, ComponentCropBounds macRuntimeBounds)
+    {
+        return new ComponentCropBoundsDelta(
+            nativeReferenceBounds.X - macRuntimeBounds.X,
+            nativeReferenceBounds.Y - macRuntimeBounds.Y,
+            nativeReferenceBounds.Width - macRuntimeBounds.Width,
+            nativeReferenceBounds.Height - macRuntimeBounds.Height);
     }
 
     private static void WriteCrop(SKBitmap source, ComponentCropBounds bounds, string outputPath)

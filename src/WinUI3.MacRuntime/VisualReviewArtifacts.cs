@@ -40,6 +40,9 @@ public sealed record VisualReviewRow(
     double? ChangedPixelPercentage,
     double? MeanAbsoluteError,
     double? RootMeanSquaredError,
+    string NativeReferenceReadiness,
+    string NativeReferenceBoundsSource,
+    string NativeReferenceIntegrityBlockerReason,
     string InspectionStatus,
     string Notes);
 
@@ -130,6 +133,13 @@ public static class VisualReviewArtifacts
             ChangedPixelPercentage: component.Crop?.ChangedPixelPercentage ?? component.ChangedPixelPercentage,
             MeanAbsoluteError: component.Crop?.MeanAbsoluteError ?? component.MeanAbsoluteError,
             RootMeanSquaredError: component.Crop?.RootMeanSquaredError ?? component.RootMeanSquaredError,
+            NativeReferenceReadiness: component.Crop?.NativeReferenceReadiness.Status ??
+                component.Crop?.NativeReferenceReadinessStatus ??
+                "missing-native-reference-crop",
+            NativeReferenceBoundsSource: component.Crop?.NativeReferenceBoundsSource ?? "missing",
+            NativeReferenceIntegrityBlockerReason: component.Crop?.NativeReferenceIntegrityBlockerReason ??
+                component.Crop?.NativeReferenceReadinessReason ??
+                "Native reference crop integrity is not proven.",
             InspectionStatus: component.Inspection is null ? "missing" : "present",
             Notes: NotesFor(component));
     }
@@ -217,6 +227,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
             AppendMetadata(html, "reference source", row.ReferenceSource);
             AppendMetadata(html, "reference run", row.NativeReferenceRunId);
             AppendMetadata(html, "reference commit", ShortCommit(row.ReferenceCommitSha));
+            AppendMetadata(html, "native reference", row.NativeReferenceReadiness);
+            AppendMetadata(html, "bounds source", row.NativeReferenceBoundsSource);
             if (row.ChangedPixelPercentage is { } changed)
             {
                 AppendMetadata(html, "changed pixels", changed.ToString("0.###"));
@@ -227,6 +239,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
             AppendFigure(html, "macOS runtime", row.MacRuntimeCropPath);
             AppendFigure(html, "Pixel diff", row.PixelDiffPath);
             html.AppendLine("</div>");
+            html.AppendLine($"<p class=\"notes\">Native reference integrity: {Escape(row.NativeReferenceIntegrityBlockerReason)}</p>");
             html.AppendLine($"<p class=\"notes\">{Escape(row.Notes)}</p>");
             html.AppendLine("</section>");
         }

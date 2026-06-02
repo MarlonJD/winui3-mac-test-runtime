@@ -25,6 +25,9 @@ public sealed record VisualReviewIndexSummary(
     int MissingMacRuntimeCrops,
     int MissingDiffCrops,
     int MissingInspectionNotes,
+    int InvalidNativeReferenceRows,
+    int UntrustedNativeReferenceRows,
+    int ReferenceIntegrityBlockingRowCount,
     int BlockingRowCount);
 
 public sealed record VisualReviewIndexScenario(
@@ -56,6 +59,11 @@ public sealed record VisualReviewIndexRow(
     double? ChangedPixelPercentage,
     double? MeanAbsoluteError,
     double? RootMeanSquaredError,
+    string NativeReferenceReadiness,
+    string NativeReferenceBoundsSource,
+    string NativeReferenceStatus,
+    string NativeReferenceRequiredAction,
+    string NativeReferenceIntegrityBlockerReason,
     string RemainingBlocker);
 
 public static class VisualReviewIndexArtifacts
@@ -74,6 +82,10 @@ public static class VisualReviewIndexArtifacts
         var blockerMap = dashboard.Rows.ToDictionary(
             row => RowKey(row.ScenarioName, row.Component, row.Target),
             row => row.RemainingBlocker,
+            StringComparer.Ordinal);
+        var dashboardRowMap = dashboard.Rows.ToDictionary(
+            row => RowKey(row.ScenarioName, row.Component, row.Target),
+            row => row,
             StringComparer.Ordinal);
         var blockerCountMap = dashboard.Blockers
             .GroupBy(blocker => blocker.ScenarioName, StringComparer.Ordinal)
@@ -124,6 +136,7 @@ public static class VisualReviewIndexArtifacts
 
             foreach (var row in review.Rows)
             {
+                dashboardRowMap.TryGetValue(RowKey(scenario.ScenarioName, row.Component, row.Target), out var dashboardRow);
                 rows.Add(new VisualReviewIndexRow(
                     ScenarioName: scenario.ScenarioName,
                     Component: row.Component,
@@ -141,6 +154,11 @@ public static class VisualReviewIndexArtifacts
                     ChangedPixelPercentage: row.ChangedPixelPercentage,
                     MeanAbsoluteError: row.MeanAbsoluteError,
                     RootMeanSquaredError: row.RootMeanSquaredError,
+                    NativeReferenceReadiness: dashboardRow?.NativeReferenceReadiness ?? "missing",
+                    NativeReferenceBoundsSource: dashboardRow?.NativeReferenceBoundsSource ?? "missing",
+                    NativeReferenceStatus: dashboardRow?.NativeReferenceStatus ?? "missing",
+                    NativeReferenceRequiredAction: dashboardRow?.NativeReferenceRequiredAction ?? "Capture Windows native element bounds and regenerate evidence.",
+                    NativeReferenceIntegrityBlockerReason: dashboardRow?.NativeReferenceIntegrityBlockerReason ?? "Native reference crop integrity is not proven.",
                     RemainingBlocker: blockerMap.TryGetValue(RowKey(scenario.ScenarioName, row.Component, row.Target), out var blocker)
                         ? blocker
                         : "none"));
@@ -156,6 +174,9 @@ public static class VisualReviewIndexArtifacts
             MissingMacRuntimeCrops: dashboard.Totals.MissingMacRuntimeCrops,
             MissingDiffCrops: dashboard.Totals.MissingComponentDiffs,
             MissingInspectionNotes: dashboard.Totals.MissingInspectionNotes,
+            InvalidNativeReferenceRows: dashboard.Totals.InvalidNativeReferenceRows,
+            UntrustedNativeReferenceRows: dashboard.Totals.UntrustedNativeReferenceRows,
+            ReferenceIntegrityBlockingRowCount: dashboard.Totals.ReferenceIntegrityBlockingRowCount,
             BlockingRowCount: dashboard.Totals.BlockingRowCount);
 
         return new VisualReviewIndexDocument(
@@ -222,6 +243,9 @@ th { background: #f3f3f3; }
         AppendMetric(html, "Complete triptychs", document.Summary.CompleteTriptychCount);
         AppendMetric(html, "Missing reviews", document.Summary.MissingReviewFiles);
         AppendMetric(html, "Missing inspections", document.Summary.MissingInspectionNotes);
+        AppendMetric(html, "Invalid native refs", document.Summary.InvalidNativeReferenceRows);
+        AppendMetric(html, "Untrusted native refs", document.Summary.UntrustedNativeReferenceRows);
+        AppendMetric(html, "Reference integrity blockers", document.Summary.ReferenceIntegrityBlockingRowCount);
         AppendMetric(html, "Blocker rows", document.Summary.BlockingRowCount);
         html.AppendLine("</div>");
 
@@ -242,7 +266,7 @@ th { background: #f3f3f3; }
         html.AppendLine("</tbody></table>");
 
         html.AppendLine("<h2>Components</h2>");
-        html.AppendLine("<table><thead><tr><th>Scenario</th><th>Component</th><th>Visual</th><th>Native quality</th><th>Review</th><th>Inspection</th><th>Metrics</th><th>Triptych preview</th><th>Crops</th><th>Remaining blocker</th></tr></thead><tbody>");
+        html.AppendLine("<table><thead><tr><th>Scenario</th><th>Component</th><th>Visual</th><th>Native quality</th><th>Native reference</th><th>Bounds source</th><th>Review</th><th>Inspection</th><th>Metrics</th><th>Triptych preview</th><th>Crops</th><th>Remaining blocker</th></tr></thead><tbody>");
         foreach (var row in document.Rows)
         {
             html.AppendLine("<tr>");
@@ -250,12 +274,14 @@ th { background: #f3f3f3; }
             html.AppendLine($"<td>{Escape(row.Component)}{TargetSuffix(row.Target)}</td>");
             html.AppendLine($"<td>{Escape(row.VisualGrade)}</td>");
             html.AppendLine($"<td>{Escape(row.NativeQualityGrade)}</td>");
+            html.AppendLine($"<td class=\"{StatusClass(row.NativeReferenceStatus)}\">{Escape(row.NativeReferenceStatus)}</td>");
+            html.AppendLine($"<td>{Escape(row.NativeReferenceBoundsSource)}</td>");
             html.AppendLine($"<td class=\"{StatusClass(row.ReviewStatus)}\">{Escape(row.ReviewStatus)}</td>");
             html.AppendLine($"<td>{Escape(row.InspectionStatus)}</td>");
             html.AppendLine($"<td class=\"metrics\">{MetricSummary(row)}</td>");
             html.AppendLine($"<td>{TriptychPreview(row)}</td>");
             html.AppendLine($"<td>{CropLinks(row)}</td>");
-            html.AppendLine($"<td class=\"blocker\">{Escape(row.RemainingBlocker)}</td>");
+            html.AppendLine($"<td class=\"blocker\">{Escape(row.RemainingBlocker)}<br>{Escape(row.NativeReferenceIntegrityBlockerReason)}</td>");
             html.AppendLine("</tr>");
         }
         html.AppendLine("</tbody></table>");

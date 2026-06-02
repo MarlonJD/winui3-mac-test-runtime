@@ -1,5 +1,5 @@
 ﻿{
-  "schemaVersion": "0.2",
+  "schemaVersion": "0.3",
   "generatedAt": "1970-01-01T00:00:00+00:00",
   "scenarioName": "component-commands-menus-light",
   "evidencePath": "component-evidence.json",
@@ -31,6 +31,9 @@
       "changedPixelPercentage": 1.171156,
       "meanAbsoluteError": 1.165465,
       "rootMeanSquaredError": 14.126214,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps."
     },
@@ -52,6 +55,9 @@
       "changedPixelPercentage": 10.00601,
       "meanAbsoluteError": 10.10607,
       "rootMeanSquaredError": 41.553787,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps."
     },
@@ -73,6 +79,9 @@
       "changedPixelPercentage": 12.131944,
       "meanAbsoluteError": 10.944896,
       "rootMeanSquaredError": 42.789653,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps."
     },
@@ -94,6 +103,9 @@
       "changedPixelPercentage": 48.046875,
       "meanAbsoluteError": 49.494141,
       "rootMeanSquaredError": 89.29076,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate."
     },
@@ -115,6 +127,9 @@
       "changedPixelPercentage": 28.712121,
       "meanAbsoluteError": 22.368324,
       "rootMeanSquaredError": 61.268294,
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
       "inspectionStatus": "missing",
       "notes": "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
     },
@@ -136,6 +151,9 @@
       "changedPixelPercentage": 22.417535,
       "meanAbsoluteError": 14.847493,
       "rootMeanSquaredError": 49.75135,
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
       "inspectionStatus": "missing",
       "notes": "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
     },
@@ -157,6 +175,9 @@
       "changedPixelPercentage": 85.514323,
       "meanAbsoluteError": 9.52832,
       "rootMeanSquaredError": 32.290097,
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
       "inspectionStatus": "missing",
       "notes": "MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps."
     },
@@ -178,6 +199,9 @@
       "changedPixelPercentage": 22.42268,
       "meanAbsoluteError": 14.880759,
       "rootMeanSquaredError": 49.893855,
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
       "inspectionStatus": "missing",
       "notes": "Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps."
     }

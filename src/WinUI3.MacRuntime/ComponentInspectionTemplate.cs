@@ -40,7 +40,7 @@ public static class ComponentInspectionTemplate
             crop?.PixelDiffPath
         }.Where(path => !string.IsNullOrWhiteSpace(path)).Select(path => path!).ToArray();
 
-        return new ComponentInspectionRow(
+        var row = new ComponentInspectionRow(
             Component: component.Component,
             Target: component.Target,
             VisualGrade: TodoFinalGrade,
@@ -51,6 +51,17 @@ public static class ComponentInspectionTemplate
             ComparisonArtifactPaths: comparisonArtifactPaths,
             AcceptedGaps: Array.Empty<string>(),
             ToleranceReason: null,
-            Notes: "TODO: inspect native, macOS, and diff crops before choosing final grades.");
+            Notes: "TODO: inspect native, macOS, and diff crops before choosing final grades.")
+        {
+            NativeReferenceReadiness = crop?.NativeReferenceReadiness.Status ??
+                crop?.NativeReferenceReadinessStatus ??
+                "missing-native-reference-crop",
+            NativeReferenceBoundsSource = crop?.NativeReferenceBoundsSource ?? "missing",
+            NativeReferenceIntegrityBlockerReason = crop?.NativeReferenceIntegrityBlockerReason ??
+                crop?.NativeReferenceReadinessReason ??
+                "Native reference crop integrity is not proven."
+        };
+
+        return row;
     }
 }

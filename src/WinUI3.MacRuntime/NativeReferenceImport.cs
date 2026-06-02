@@ -21,8 +21,10 @@ public sealed record NativeReferenceImportItem(
     string SourceDirectory,
     string ReferenceImagePath,
     string ReferenceMetadataPath,
+    string? ReferenceTargetsPath,
     string ImportedReferenceImagePath,
     string ImportedReferenceMetadataPath,
+    string? ImportedReferenceTargetsPath,
     string? ReferenceSource,
     string? WorkflowRunId,
     string? CommitSha,
@@ -123,8 +125,7 @@ public static class NativeReferenceImporter
         }
 
         Directory.CreateDirectory(output);
-        var expectedComponentScenarios = Directory
-            .EnumerateFiles(Path.Combine(repository, "fixtures", "ComponentParityLab.WinUI", "scenarios"), "*.json", SearchOption.TopDirectoryOnly)
+        var expectedComponentScenarios = ExpectedPublicScenarioPaths(repository)
             .Select(path => RelativePath(repository, path))
             .OrderBy(path => path, StringComparer.Ordinal)
             .ToArray();
@@ -136,6 +137,7 @@ public static class NativeReferenceImporter
         {
             var sourceDirectory = Path.GetDirectoryName(metadataPath)!;
             var imagePath = Path.Combine(sourceDirectory, "windows-reference.png");
+            var targetsPath = Path.Combine(sourceDirectory, "native-reference-targets.json");
             if (!File.Exists(imagePath))
             {
                 problems.Add($"Missing windows-reference.png beside {RelativePath(source, metadataPath)}.");
@@ -163,15 +165,49 @@ public static class NativeReferenceImporter
             var scenarioName = string.IsNullOrWhiteSpace(provenance.ScenarioName)
                 ? Path.GetFileName(sourceDirectory)
                 : provenance.ScenarioName!;
-            var itemProblems = ValidateProvenance(provenance, scenarioPath, scenarioName, repository);
+            var itemProblems = ValidateProvenance(provenance, scenarioPath, scenarioName, repository).ToList();
+            NativeReferenceTargetDocument? targets = null;
+            if (File.Exists(targetsPath))
+            {
+                try
+                {
+                    targets = JsonSerializer.Deserialize<NativeReferenceTargetDocument>(File.ReadAllText(targetsPath), JsonDefaults.Options);
+                }
+                catch (JsonException exception)
+                {
+                    itemProblems.Add($"Could not parse native-reference-targets.json: {exception.Message}");
+                }
+
+                if (targets is not null)
+                {
+                    itemProblems.AddRange(ValidateTargets(targets, scenarioName, scenarioPath, repository));
+                    provenance = provenance with
+                    {
+                        NativeReferenceTargetsPath = "native-reference-targets.json"
+                    };
+                }
+            }
+            else if (string.Equals(provenance.ReferenceSource, "native-winui", StringComparison.Ordinal) &&
+                IsNativeTargetRequiredScenarioPath(scenarioPath))
+            {
+                itemProblems.Add("native-reference-targets.json is missing; public component references require Windows native element bounds.");
+            }
+
             problems.AddRange(itemProblems.Select(problem => $"{scenarioName}: {problem}"));
 
             var importedDirectory = Path.Combine(output, SafeName(scenarioName));
             Directory.CreateDirectory(importedDirectory);
             var importedImagePath = Path.Combine(importedDirectory, "windows-reference.png");
             var importedMetadataPath = Path.Combine(importedDirectory, "windows-reference.json");
+            var importedTargetsPath = File.Exists(targetsPath)
+                ? Path.Combine(importedDirectory, "native-reference-targets.json")
+                : null;
             File.Copy(imagePath, importedImagePath, overwrite: true);
-            File.Copy(metadataPath, importedMetadataPath, overwrite: true);
+            File.WriteAllText(importedMetadataPath, JsonSerializer.Serialize(provenance, JsonDefaults.Options));
+            if (importedTargetsPath is not null)
+            {
+                File.Copy(targetsPath, importedTargetsPath, overwrite: true);
+            }
 
             items.Add(new NativeReferenceImportItem(
                 ScenarioName: scenarioName,
@@ -180,8 +216,10 @@ public static class NativeReferenceImporter
                 SourceDirectory: RelativePath(source, sourceDirectory),
                 ReferenceImagePath: RelativePath(source, imagePath),
                 ReferenceMetadataPath: RelativePath(source, metadataPath),
+                ReferenceTargetsPath: File.Exists(targetsPath) ? RelativePath(source, targetsPath) : null,
                 ImportedReferenceImagePath: RelativePath(output, importedImagePath),
                 ImportedReferenceMetadataPath: RelativePath(output, importedMetadataPath),
+                ImportedReferenceTargetsPath: importedTargetsPath is null ? null : RelativePath(output, importedTargetsPath),
                 ReferenceSource: provenance.ReferenceSource,
                 WorkflowRunId: provenance.WorkflowRunId,
                 CommitSha: provenance.CommitSha,
@@ -200,7 +238,7 @@ public static class NativeReferenceImporter
             .ToArray();
         if (missingComponentScenarios.Length > 0)
         {
-            problems.Add($"Missing native references for {missingComponentScenarios.Length} component parity scenario(s).");
+            problems.Add($"Missing native references for {missingComponentScenarios.Length} public component scenario(s).");
         }
 
         var document = new NativeReferenceImportDocument(
@@ -296,6 +334,124 @@ public static class NativeReferenceImporter
         }
 
         return problems;
+    }
+
+    private static IReadOnlyList<string> ValidateTargets(
+        NativeReferenceTargetDocument targets,
+        string scenarioName,
+        string? scenarioPath,
+        string repositoryRoot)
+    {
+        var problems = new List<string>();
+        if (!string.Equals(targets.ReferenceSource, "native-winui-element-bounds", StringComparison.Ordinal))
+        {
+            problems.Add($"native-reference-targets.json referenceSource is '{targets.ReferenceSource ?? "missing"}', expected native-winui-element-bounds.");
+        }
+
+        if (!string.Equals(targets.CoordinateSpace, "client-area", StringComparison.Ordinal))
+        {
+            problems.Add($"native-reference-targets.json coordinateSpace is '{targets.CoordinateSpace ?? "missing"}', expected client-area.");
+        }
+
+        if (!string.Equals(targets.ScenarioName, scenarioName, StringComparison.Ordinal))
+        {
+            problems.Add($"native-reference-targets.json scenarioName '{targets.ScenarioName}' does not match import directory '{scenarioName}'.");
+        }
+
+        if (!string.IsNullOrWhiteSpace(scenarioPath) &&
+            !string.IsNullOrWhiteSpace(targets.ScenarioPath) &&
+            !string.Equals(NormalizeRelativePath(targets.ScenarioPath), scenarioPath, StringComparison.Ordinal))
+        {
+            problems.Add($"native-reference-targets.json scenarioPath '{targets.ScenarioPath}' does not match reference provenance '{scenarioPath}'.");
+        }
+
+        var expectedTargets = IsNativeTargetRequiredScenarioPath(scenarioPath)
+            ? ExpectedScenarioTargets(repositoryRoot, scenarioPath!).ToArray()
+            : Array.Empty<string>();
+        if (expectedTargets.Length > 0 && targets.Targets.Count == 0)
+        {
+            problems.Add("native-reference-targets.json contains no target bounds.");
+        }
+
+        foreach (var target in targets.Targets)
+        {
+            if (string.IsNullOrWhiteSpace(target.Target))
+            {
+                problems.Add("native-reference-targets.json contains a target with no identity.");
+            }
+
+            if (target.Bounds.Width <= 0 || target.Bounds.Height <= 0)
+            {
+                problems.Add($"native-reference-targets.json target '{target.Target}' has non-positive bounds.");
+            }
+        }
+
+        if (expectedTargets.Length > 0)
+        {
+            var exportedTargets = targets.Targets
+                .Select(target => target.Target)
+                .Where(target => !string.IsNullOrWhiteSpace(target))
+                .ToHashSet(StringComparer.Ordinal);
+            foreach (var expectedTarget in expectedTargets)
+            {
+                if (!exportedTargets.Contains(expectedTarget))
+                {
+                    problems.Add($"native-reference-targets.json is missing required public row target '{expectedTarget}'.");
+                }
+            }
+        }
+
+        return problems;
+    }
+
+    private static IEnumerable<string> ExpectedPublicScenarioPaths(string repositoryRoot)
+    {
+        foreach (var relativeDirectory in new[]
+        {
+            Path.Combine("fixtures", "ComponentParityLab.WinUI", "scenarios"),
+            Path.Combine("fixtures", "PublicAdminWorkbench.WinUI", "scenarios")
+        })
+        {
+            var directory = Path.Combine(repositoryRoot, relativeDirectory);
+            if (!Directory.Exists(directory))
+            {
+                continue;
+            }
+
+            foreach (var path in Directory.EnumerateFiles(directory, "*.json", SearchOption.TopDirectoryOnly))
+            {
+                yield return path;
+            }
+        }
+    }
+
+    private static IReadOnlyList<string> ExpectedScenarioTargets(string repositoryRoot, string scenarioPath)
+    {
+        var fullPath = Path.Combine(repositoryRoot, scenarioPath);
+        using var document = JsonDocument.Parse(File.ReadAllText(fullPath));
+        if (!document.RootElement.TryGetProperty("requirements", out var requirements) ||
+            requirements.ValueKind != JsonValueKind.Array)
+        {
+            return Array.Empty<string>();
+        }
+
+        return requirements
+            .EnumerateArray()
+            .Select(requirement => requirement.TryGetProperty("target", out var target) && target.ValueKind == JsonValueKind.String
+                ? target.GetString()
+                : null)
+            .Where(target => !string.IsNullOrWhiteSpace(target))
+            .Select(target => target!)
+            .Distinct(StringComparer.Ordinal)
+            .OrderBy(target => target, StringComparer.Ordinal)
+            .ToArray();
+    }
+
+    private static bool IsNativeTargetRequiredScenarioPath(string? scenarioPath)
+    {
+        return !string.IsNullOrWhiteSpace(scenarioPath) &&
+            (scenarioPath.StartsWith("fixtures/ComponentParityLab.WinUI/scenarios/", StringComparison.Ordinal) ||
+                scenarioPath.StartsWith("fixtures/PublicAdminWorkbench.WinUI/scenarios/", StringComparison.Ordinal));
     }
 
     private static string SafeName(string value)

@@ -17,7 +17,12 @@ public sealed record ComponentInspectionRow(
     IReadOnlyList<string>? ComparisonArtifactPaths,
     IReadOnlyList<string>? AcceptedGaps,
     string? ToleranceReason,
-    string Notes);
+    string Notes)
+{
+    public string NativeReferenceReadiness { get; init; } = "missing-native-reference-crop";
+    public string NativeReferenceBoundsSource { get; init; } = "missing";
+    public string NativeReferenceIntegrityBlockerReason { get; init; } = "Native reference crop integrity is not proven.";
+}
 
 public static class ComponentInspectionApplier
 {
@@ -127,6 +132,13 @@ public static class ComponentInspectionApplier
 
         var provenance = crop.NativeReferenceProvenance
             ?? throw new InvalidOperationException($"{component.Component} is missing native reference provenance.");
+        if (crop.NativeReferenceReadinessStatus is not ("ready" or "verified") ||
+            !crop.NativeReferenceBoundsValidForPromotion ||
+            crop.NativeReferenceBounds is null)
+        {
+            throw new InvalidOperationException($"{component.Component} nativeReferenceReadiness must be ready or verified before final visual/native-quality grades can be applied.");
+        }
+
         if (string.IsNullOrWhiteSpace(provenance.WorkflowRunId) ||
             provenance.WorkflowRunId != row.NativeReferenceRunId)
         {

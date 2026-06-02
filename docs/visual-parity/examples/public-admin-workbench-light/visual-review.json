@@ -1,5 +1,5 @@
 ﻿{
-  "schemaVersion": "0.2",
+  "schemaVersion": "0.3",
   "generatedAt": "1970-01-01T00:00:00+00:00",
   "scenarioName": "public-admin-workbench-light",
   "evidencePath": "component-evidence.json",
@@ -31,6 +31,9 @@
       "changedPixelPercentage": 99.988381,
       "meanAbsoluteError": 9.678085,
       "rootMeanSquaredError": 36.397928,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "The skia-v2 renderer approximates the WinUI NavigationView pane and selection chrome; native animation, compact behavior, and full keyboarding remain gaps."
     },
@@ -52,6 +55,9 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 16.598214,
       "rootMeanSquaredError": 44.847134,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Selected item visuals are simplified and not pixel-perfect Fluent output."
     },
@@ -73,6 +79,9 @@
       "changedPixelPercentage": 99.985755,
       "meanAbsoluteError": 10.611297,
       "rootMeanSquaredError": 40.031751,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Back stack and transition animations are not modeled."
     },
@@ -94,6 +103,9 @@
       "changedPixelPercentage": 99.92488,
       "meanAbsoluteError": 21.471304,
       "rootMeanSquaredError": 57.149158,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "TextBox chrome is approximated; caret, selection, and native validation visuals remain gaps."
     },
@@ -115,6 +127,9 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 8.622129,
       "rootMeanSquaredError": 37.120001,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "CommandBar chrome is approximated; overflow, pointer states, and native spacing remain gaps."
     },
@@ -136,6 +151,9 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 12.754006,
       "rootMeanSquaredError": 42.487668,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "AppBarButton label and icon chrome are approximated; native overflow and focus behavior remain gaps."
     },
@@ -157,6 +175,9 @@
       "changedPixelPercentage": 99.880457,
       "meanAbsoluteError": 22.251282,
       "rootMeanSquaredError": 49.443882,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "InfoBar severity chrome is approximated; close button and action area are not modeled."
     },
@@ -178,6 +199,9 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 14.858811,
       "rootMeanSquaredError": 44.458694,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "ListView item containers and selection chrome are simplified; virtualization and templates remain gaps."
     },
@@ -199,6 +223,9 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 16.641372,
       "rootMeanSquaredError": 49.754651,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
     }

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.1",
+  "schemaVersion": "0.2",
   "rows": [
     {
       "component": "Button",
@@ -15,7 +15,10 @@
         "components/button-primaryactionbutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "ToggleButton",
@@ -31,7 +34,10 @@
         "components/togglebutton-pinnedtogglebutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "CheckBox",
@@ -47,7 +53,10 @@
         "components/checkbox-enabledcheckbox/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "RadioButton",
@@ -63,7 +72,10 @@
         "components/radiobutton-highpriorityradiobutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "ComboBox",
@@ -79,7 +91,10 @@
         "components/combobox-statuscombobox/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "RepeatButton",
@@ -95,7 +110,10 @@
         "components/repeatbutton-diagnosticrepeatbutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "HyperlinkButton",
@@ -111,7 +129,10 @@
         "components/hyperlinkbutton-diagnostichyperlinkbutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "DropDownButton",
@@ -127,7 +148,10 @@
         "components/dropdownbutton-diagnosticdropdownbutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "SplitButton",
@@ -143,7 +167,10 @@
         "components/splitbutton-diagnosticsplitbutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "ToggleSplitButton",
@@ -159,7 +186,10 @@
         "components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "Slider",
@@ -175,7 +205,10 @@
         "components/slider-diagnosticslider/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "ToggleSwitch",
@@ -191,7 +224,10 @@
         "components/toggleswitch-diagnostictoggleswitch/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "RatingControl",
@@ -207,7 +243,10 @@
         "components/ratingcontrol-diagnosticratingcontrol/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     }
   ]
 }

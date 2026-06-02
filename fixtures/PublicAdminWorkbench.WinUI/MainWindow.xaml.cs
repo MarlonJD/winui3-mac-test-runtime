@@ -29,14 +29,30 @@ public sealed partial class MainWindow : Window
 #endif
         SelectStartupRoute(launchOptions.StartupRoute);
         ApplyScenarioState(launchOptions.ScenarioName);
+#if WINDOWS
+        RootNavigation.Loaded += OnRootNavigationLoaded;
+#endif
     }
 
     public void ApplyLaunchBounds()
     {
 #if WINDOWS
         ResizeClientArea(launchOptions.ViewportWidth, launchOptions.ViewportHeight);
+        ScheduleNativeReferenceTargetExport();
 #endif
     }
+
+#if WINDOWS
+    private void OnRootNavigationLoaded(object sender, RoutedEventArgs args)
+    {
+        ScheduleNativeReferenceTargetExport();
+    }
+
+    private void ScheduleNativeReferenceTargetExport()
+    {
+        NativeReferenceTargetExporter.ExportIfRequested(RootNavigation, launchOptions);
+    }
+#endif
 
     private void OnNavigationSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {

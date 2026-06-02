@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.1",
+  "schemaVersion": "0.2",
   "rows": [
     {
       "component": "CommandBar",
@@ -15,7 +15,10 @@
         "components/commandbar-primarycommandbar/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "AppBarButton",
@@ -31,7 +34,10 @@
         "components/appbarbutton-savecommandbutton/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "CommandBar.Content",
@@ -47,7 +53,10 @@
         "components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "AppBarButton.Icon",
@@ -63,7 +72,10 @@
         "components/appbarbutton-icon-savecommandicon/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
       "component": "CommandBarFlyout",
@@ -79,7 +91,10 @@
         "components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
     },
     {
       "component": "MenuFlyout",
@@ -95,7 +110,10 @@
         "components/menuflyout-diagnosticmenuflyout/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
     },
     {
       "component": "MenuBar",
@@ -111,7 +129,10 @@
         "components/menubar-diagnosticmenubar/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
     },
     {
       "component": "Context menu pattern",
@@ -127,7 +148,10 @@
         "components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png"
       ],
       "acceptedGaps": [],
-      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
     }
   ]
 }

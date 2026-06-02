@@ -22,7 +22,11 @@ public sealed record ComponentQualityTotals(
     int MissingNativeReferenceProvenance,
     int MissingComponentDiffs,
     int MissingInspectionNotes,
-    int BlockingRowCount);
+    int BlockingRowCount,
+    IReadOnlyDictionary<string, int> NativeReferenceReadinessCounts,
+    int InvalidNativeReferenceRows,
+    int UntrustedNativeReferenceRows,
+    int ReferenceIntegrityBlockingRowCount);
 
 public sealed record ComponentQualityScenario(
     string ScenarioName,
@@ -43,7 +47,16 @@ public sealed record ComponentQualityRow(
     string TargetGrade,
     IReadOnlyList<string> RequiredStates,
     IReadOnlyList<string> RequiredScenarios,
-    string RemainingBlocker);
+    string RemainingBlocker,
+    bool NativeReferenceCropExists,
+    bool NativeReferenceCropValid,
+    bool NativeReferenceHasWindowsNativeElementBounds,
+    bool NativeReferenceDiagnosticOrPlaceholder,
+    string NativeReferenceReadiness,
+    string NativeReferenceBoundsSource,
+    string NativeReferenceStatus,
+    string NativeReferenceRequiredAction,
+    string NativeReferenceIntegrityBlockerReason);
 
 public sealed record ComponentQualityBlocker(
     string ScenarioName,
@@ -87,12 +100,17 @@ public static class ComponentQualityDashboard
         var blockers = new List<ComponentQualityBlocker>();
         var visualGradeCounts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         var nativeQualityGradeCounts = new SortedDictionary<string, int>(StringComparer.Ordinal);
+        var nativeReferenceReadinessCounts = new SortedDictionary<string, int>(StringComparer.Ordinal);
+        var readinessOverrides = LoadNativeReferenceReadiness(repositoryRoot);
         var componentCount = 0;
         var missingMacRuntimeCrops = 0;
         var missingNativeReferenceCrops = 0;
         var missingNativeReferenceProvenance = 0;
         var missingComponentDiffs = 0;
         var missingInspectionNotes = 0;
+        var invalidNativeReferenceRows = 0;
+        var untrustedNativeReferenceRows = 0;
+        var referenceIntegrityBlockingRows = 0;
 
         foreach (var evidenceFile in evidenceFiles)
         {
@@ -109,14 +127,32 @@ public static class ComponentQualityDashboard
                 var nativeQualityGrade = ReadString(component, "nativeQualityGrade") ?? "missing";
                 Increment(visualGradeCounts, visualGrade);
                 Increment(nativeQualityGradeCounts, nativeQualityGrade);
-
-                var reasons = BlockingReasons(component, visualGrade, nativeQualityGrade);
+                var componentName = ReadString(component, "component") ?? "unknown";
+                var target = ReadString(component, "target");
                 var scenarioPath = RelativePath(repositoryRoot, evidenceFile);
+                var nativeReadiness = NativeReferenceReadinessFor(component, scenarioName, componentName, target, readinessOverrides);
+                Increment(nativeReferenceReadinessCounts, nativeReadiness.Status);
+                if (!nativeReadiness.ValidForPromotion)
+                {
+                    invalidNativeReferenceRows++;
+                }
+
+                if (!nativeReadiness.TrustedForPromotion)
+                {
+                    untrustedNativeReferenceRows++;
+                }
+
+                if (nativeReadiness.BlocksPromotion)
+                {
+                    referenceIntegrityBlockingRows++;
+                }
+
+                var reasons = BlockingReasons(component, visualGrade, nativeQualityGrade, nativeReadiness);
                 rows.Add(new ComponentQualityRow(
                     scenarioName,
                     scenarioPath,
-                    ReadString(component, "component") ?? "unknown",
-                    ReadString(component, "target"),
+                    componentName,
+                    target,
                     OwnerFamilyForScenario(scenarioName),
                     ReadString(component, "catalogStatus") ?? "unknown",
                     visualGrade,
@@ -124,7 +160,16 @@ public static class ComponentQualityDashboard
                     "good-or-production-ready",
                     RequiredStatesForScenario(scenarioName),
                     new[] { scenarioName },
-                    reasons.Count == 0 ? "none" : string.Join(" ", reasons)));
+                    reasons.Count == 0 ? "none" : string.Join(" ", reasons),
+                    nativeReadiness.CropExists,
+                    nativeReadiness.ValidForPromotion,
+                    nativeReadiness.HasWindowsNativeElementBounds,
+                    nativeReadiness.IsDiagnosticOrPlaceholder,
+                    nativeReadiness.Status,
+                    nativeReadiness.BoundsSource,
+                    nativeReadiness.Status,
+                    nativeReadiness.RequiredAction,
+                    nativeReadiness.IntegrityBlockerReason));
                 if (!HasMacRuntimeCrop(component))
                 {
                     missingMacRuntimeCrops++;
@@ -185,7 +230,11 @@ public static class ComponentQualityDashboard
             missingNativeReferenceProvenance,
             missingComponentDiffs,
             missingInspectionNotes,
-            blockers.Count);
+            blockers.Count,
+            nativeReferenceReadinessCounts,
+            invalidNativeReferenceRows,
+            untrustedNativeReferenceRows,
+            referenceIntegrityBlockingRows);
 
         return new ComponentQualityDashboardDocument(
             ArtifactSchemas.ComponentQualityDashboard,
@@ -198,7 +247,11 @@ public static class ComponentQualityDashboard
             blockers.Count == 0 ? "passed" : "blocked");
     }
 
-    private static IReadOnlyList<string> BlockingReasons(JsonElement component, string visualGrade, string nativeQualityGrade)
+    private static IReadOnlyList<string> BlockingReasons(
+        JsonElement component,
+        string visualGrade,
+        string nativeQualityGrade,
+        NativeReferenceReadiness nativeReadiness)
     {
         var reasons = new List<string>();
 
@@ -227,6 +280,11 @@ public static class ComponentQualityDashboard
             reasons.Add("Missing native WinUI reference provenance.");
         }
 
+        if (nativeReadiness.BlocksPromotion)
+        {
+            reasons.Add($"Native reference status is '{nativeReadiness.Status}': {nativeReadiness.Reason}");
+        }
+
         if (!HasComponentDiff(component))
         {
             reasons.Add("Missing component-level diff metrics.");
@@ -238,6 +296,81 @@ public static class ComponentQualityDashboard
         }
 
         return reasons;
+    }
+
+    private static NativeReferenceReadiness NativeReferenceReadinessFor(
+        JsonElement component,
+        string scenarioName,
+        string componentName,
+        string? target,
+        IReadOnlyDictionary<string, NativeReferenceReadinessOverride> overrides)
+    {
+        var cropExists = HasNativeReferenceCrop(component);
+        var hasWindowsNativeElementBounds = TryGetCrop(component, out var crop) &&
+            crop.TryGetProperty("nativeReferenceBounds", out var nativeBounds) &&
+            nativeBounds.ValueKind is JsonValueKind.Object &&
+            string.Equals(ReadString(crop, "nativeReferenceBoundsSource"), "windows-native-element-bounds", StringComparison.Ordinal);
+        var boundsSource = TryGetCrop(component, out crop)
+            ? ReadString(crop, "nativeReferenceBoundsSource") ?? "missing"
+            : "missing";
+        var validForPromotion = TryGetCrop(component, out crop) &&
+            crop.TryGetProperty("nativeReferenceBoundsValidForPromotion", out var validProperty) &&
+            validProperty.ValueKind == JsonValueKind.True &&
+            hasWindowsNativeElementBounds;
+        var status = TryGetCrop(component, out crop)
+            ? ReadNativeReferenceReadinessString(crop, "status") ??
+                ReadString(crop, "nativeReferenceReadinessStatus") ??
+                "needs-native-crop-bounds"
+            : "missing-native-reference-crop";
+        var reason = TryGetCrop(component, out crop)
+            ? ReadNativeReferenceReadinessString(crop, "reason") ??
+                ReadString(crop, "nativeReferenceReadinessReason") ??
+                "Native reference crop integrity is not proven."
+            : "No native reference crop is available.";
+        var requiredAction = TryGetCrop(component, out crop)
+            ? ReadNativeReferenceReadinessString(crop, "requiredAction") ??
+                ReadString(crop, "nativeReferenceRequiredAction") ??
+                "Capture Windows native element bounds and regenerate evidence."
+            : "Capture Windows native reference crop evidence.";
+        var integrityBlockerReason = TryGetCrop(component, out crop)
+            ? ReadNativeReferenceReadinessString(crop, "blockerReason") ??
+                ReadString(crop, "nativeReferenceIntegrityBlockerReason") ??
+                reason
+            : "No native reference crop is available.";
+
+        if (overrides.TryGetValue(RowKey(scenarioName, componentName, target), out var readinessOverride))
+        {
+            status = readinessOverride.Status;
+            reason = readinessOverride.Reason;
+            requiredAction = readinessOverride.RequiredAction;
+            integrityBlockerReason = readinessOverride.Reason;
+            validForPromotion = status is "ready" or "verified" && validForPromotion;
+        }
+
+        var diagnosticOrPlaceholder = status.Contains("diagnostic", StringComparison.Ordinal) ||
+            status.Contains("placeholder", StringComparison.Ordinal) ||
+            status.Contains("offscreen", StringComparison.Ordinal) ||
+            status.Contains("state-reference-incomplete", StringComparison.Ordinal) ||
+            status.Contains("native-not-rendered", StringComparison.Ordinal) ||
+            status.Contains("native-unavailable", StringComparison.Ordinal);
+        var readinessAllowsPromotion = status is "ready" or "verified";
+        var trustedForPromotion = cropExists &&
+            validForPromotion &&
+            readinessAllowsPromotion &&
+            hasWindowsNativeElementBounds &&
+            HasNativeReferenceProvenance(component);
+        return new NativeReferenceReadiness(
+            status,
+            cropExists,
+            validForPromotion && readinessAllowsPromotion,
+            trustedForPromotion,
+            hasWindowsNativeElementBounds,
+            diagnosticOrPlaceholder,
+            !validForPromotion || !readinessAllowsPromotion,
+            reason,
+            requiredAction,
+            boundsSource,
+            integrityBlockerReason);
     }
 
     private static bool HasMacRuntimeCrop(JsonElement component)
@@ -304,6 +437,40 @@ public static class ComponentQualityDashboard
             paths.GetArrayLength() > 0;
     }
 
+    private static IReadOnlyDictionary<string, NativeReferenceReadinessOverride> LoadNativeReferenceReadiness(string repositoryRoot)
+    {
+        var path = Path.Combine(repositoryRoot, "docs", "visual-parity", "native-reference-readiness.json");
+        if (!File.Exists(path))
+        {
+            return new Dictionary<string, NativeReferenceReadinessOverride>(StringComparer.Ordinal);
+        }
+
+        using var document = JsonDocument.Parse(File.ReadAllText(path));
+        if (!document.RootElement.TryGetProperty("rows", out var rows) || rows.ValueKind != JsonValueKind.Array)
+        {
+            return new Dictionary<string, NativeReferenceReadinessOverride>(StringComparer.Ordinal);
+        }
+
+        var result = new Dictionary<string, NativeReferenceReadinessOverride>(StringComparer.Ordinal);
+        foreach (var row in rows.EnumerateArray())
+        {
+            var scenarioName = ReadString(row, "scenarioName");
+            var component = ReadString(row, "component");
+            if (string.IsNullOrWhiteSpace(scenarioName) || string.IsNullOrWhiteSpace(component))
+            {
+                continue;
+            }
+
+            var target = ReadString(row, "target");
+            var status = ReadString(row, "nativeReferenceStatus") ?? "needs-native-crop-bounds";
+            var reason = ReadString(row, "reason") ?? "Native reference source readiness is not proven.";
+            var requiredAction = ReadString(row, "requiredAction") ?? "Capture Windows native element bounds and regenerate evidence.";
+            result[RowKey(scenarioName, component, target)] = new NativeReferenceReadinessOverride(status, reason, requiredAction);
+        }
+
+        return result;
+    }
+
     private static bool TryGetCrop(JsonElement component, out JsonElement crop)
     {
         return component.TryGetProperty("crop", out crop) && crop.ValueKind == JsonValueKind.Object;
@@ -316,9 +483,22 @@ public static class ComponentQualityDashboard
             : null;
     }
 
+    private static string? ReadNativeReferenceReadinessString(JsonElement crop, string property)
+    {
+        return crop.TryGetProperty("nativeReferenceReadiness", out var readiness) &&
+            readiness.ValueKind == JsonValueKind.Object
+            ? ReadString(readiness, property)
+            : null;
+    }
+
     private static void Increment(IDictionary<string, int> counts, string value)
     {
         counts[value] = counts.TryGetValue(value, out var current) ? current + 1 : 1;
+    }
+
+    private static string RowKey(string scenarioName, string component, string? target)
+    {
+        return $"{scenarioName}\u001f{component}\u001f{target ?? string.Empty}";
     }
 
     private static string RelativePath(string repositoryRoot, string path)
@@ -385,4 +565,22 @@ public static class ComponentQualityDashboard
 
         return states.Distinct(StringComparer.Ordinal).ToArray();
     }
+
+    private sealed record NativeReferenceReadiness(
+        string Status,
+        bool CropExists,
+        bool ValidForPromotion,
+        bool TrustedForPromotion,
+        bool HasWindowsNativeElementBounds,
+        bool IsDiagnosticOrPlaceholder,
+        bool BlocksPromotion,
+        string Reason,
+        string RequiredAction,
+        string BoundsSource,
+        string IntegrityBlockerReason);
+
+    private sealed record NativeReferenceReadinessOverride(
+        string Status,
+        string Reason,
+        string RequiredAction);
 }

@@ -1,5 +1,5 @@
 ﻿{
-  "schemaVersion": "0.1",
+  "schemaVersion": "0.2",
   "generatedAt": "1970-01-01T00:00:00+00:00",
   "evidenceRoot": "examples",
   "dashboardPath": "component-quality-dashboard.json",
@@ -12,6 +12,9 @@
     "missingMacRuntimeCrops": 0,
     "missingDiffCrops": 0,
     "missingInspectionNotes": 58,
+    "invalidNativeReferenceRows": 58,
+    "untrustedNativeReferenceRows": 58,
+    "referenceIntegrityBlockingRowCount": 58,
     "blockingRowCount": 58
   },
   "scenarios": [
@@ -82,7 +85,12 @@
       "changedPixelPercentage": 31.704905,
       "meanAbsoluteError": 20.246885,
       "rootMeanSquaredError": 56.459676,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -101,7 +109,12 @@
       "changedPixelPercentage": 41.753472,
       "meanAbsoluteError": 36.363715,
       "rootMeanSquaredError": 80.248102,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -120,7 +133,12 @@
       "changedPixelPercentage": 27.994792,
       "meanAbsoluteError": 25.188965,
       "rootMeanSquaredError": 65.72433,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -139,7 +157,12 @@
       "changedPixelPercentage": 27.587891,
       "meanAbsoluteError": 22.225586,
       "rootMeanSquaredError": 60.53893,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -158,7 +181,12 @@
       "changedPixelPercentage": 29.110054,
       "meanAbsoluteError": 16.499236,
       "rootMeanSquaredError": 49.834537,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -177,7 +205,12 @@
       "changedPixelPercentage": 23.58871,
       "meanAbsoluteError": 18.414919,
       "rootMeanSquaredError": 55.168163,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -196,7 +229,12 @@
       "changedPixelPercentage": 23.407452,
       "meanAbsoluteError": 18.555263,
       "rootMeanSquaredError": 54.157524,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -215,7 +253,12 @@
       "changedPixelPercentage": 24.886364,
       "meanAbsoluteError": 19.167898,
       "rootMeanSquaredError": 56.567693,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -234,7 +277,12 @@
       "changedPixelPercentage": 19.98839,
       "meanAbsoluteError": 14.651122,
       "rootMeanSquaredError": 49.524306,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -253,7 +301,12 @@
       "changedPixelPercentage": 36.179022,
       "meanAbsoluteError": 34.554688,
       "rootMeanSquaredError": 78.702345,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -272,7 +325,12 @@
       "changedPixelPercentage": 16.287364,
       "meanAbsoluteError": 14.4665,
       "rootMeanSquaredError": 50.5407,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -291,7 +349,12 @@
       "changedPixelPercentage": 16.16323,
       "meanAbsoluteError": 14.801046,
       "rootMeanSquaredError": 50.67013,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -310,7 +373,12 @@
       "changedPixelPercentage": 20.921266,
       "meanAbsoluteError": 17.81321,
       "rootMeanSquaredError": 55.272606,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -329,7 +397,12 @@
       "changedPixelPercentage": 1.171156,
       "meanAbsoluteError": 1.165465,
       "rootMeanSquaredError": 14.126214,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -348,7 +421,12 @@
       "changedPixelPercentage": 10.00601,
       "meanAbsoluteError": 10.10607,
       "rootMeanSquaredError": 41.553787,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -367,7 +445,12 @@
       "changedPixelPercentage": 12.131944,
       "meanAbsoluteError": 10.944896,
       "rootMeanSquaredError": 42.789653,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -386,7 +469,12 @@
       "changedPixelPercentage": 48.046875,
       "meanAbsoluteError": 49.494141,
       "rootMeanSquaredError": 89.29076,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -405,7 +493,12 @@
       "changedPixelPercentage": 28.712121,
       "meanAbsoluteError": 22.368324,
       "rootMeanSquaredError": 61.268294,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "state-reference-incomplete",
+      "nativeReferenceRequiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027state-reference-incomplete\u0027: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -424,7 +517,12 @@
       "changedPixelPercentage": 22.417535,
       "meanAbsoluteError": 14.847493,
       "rootMeanSquaredError": 49.75135,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "state-reference-incomplete",
+      "nativeReferenceRequiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027state-reference-incomplete\u0027: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -443,7 +541,12 @@
       "changedPixelPercentage": 85.514323,
       "meanAbsoluteError": 9.52832,
       "rootMeanSquaredError": 32.290097,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "state-reference-incomplete",
+      "nativeReferenceRequiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027state-reference-incomplete\u0027: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -462,7 +565,12 @@
       "changedPixelPercentage": 22.42268,
       "meanAbsoluteError": 14.880759,
       "rootMeanSquaredError": 49.893855,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "state-reference-incomplete",
+      "nativeReferenceRequiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027state-reference-incomplete\u0027: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -481,7 +589,12 @@
       "changedPixelPercentage": 26.907563,
       "meanAbsoluteError": 12.95601,
       "rootMeanSquaredError": 47.656298,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -500,7 +613,12 @@
       "changedPixelPercentage": 81.592426,
       "meanAbsoluteError": 14.861781,
       "rootMeanSquaredError": 35.298732,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -519,7 +637,12 @@
       "changedPixelPercentage": 25.807292,
       "meanAbsoluteError": 18.713916,
       "rootMeanSquaredError": 54.413839,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -538,7 +661,12 @@
       "changedPixelPercentage": 25.807292,
       "meanAbsoluteError": 18.713916,
       "rootMeanSquaredError": 54.413839,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -557,7 +685,12 @@
       "changedPixelPercentage": 19.791667,
       "meanAbsoluteError": 15.896267,
       "rootMeanSquaredError": 51.565017,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -576,7 +709,12 @@
       "changedPixelPercentage": 99.939173,
       "meanAbsoluteError": 14.140368,
       "rootMeanSquaredError": 27.951659,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference",
+      "nativeReferenceRequiredAction": "Recapture native evidence after the Windows fixture renders the deterministic SVG image asset.",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference\u0027: The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -595,7 +733,12 @@
       "changedPixelPercentage": 32.193588,
       "meanAbsoluteError": 12.3281,
       "rootMeanSquaredError": 44.834362,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -614,7 +757,12 @@
       "changedPixelPercentage": 67.005479,
       "meanAbsoluteError": 24.986033,
       "rootMeanSquaredError": 63.689726,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -633,7 +781,12 @@
       "changedPixelPercentage": 42.95393,
       "meanAbsoluteError": 27.059451,
       "rootMeanSquaredError": 61.863599,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -652,7 +805,12 @@
       "changedPixelPercentage": 42.95393,
       "meanAbsoluteError": 27.059451,
       "rootMeanSquaredError": 61.863599,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -671,7 +829,12 @@
       "changedPixelPercentage": 46.614583,
       "meanAbsoluteError": 38.814648,
       "rootMeanSquaredError": 80.725796,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -690,7 +853,12 @@
       "changedPixelPercentage": 29.783951,
       "meanAbsoluteError": 16.338252,
       "rootMeanSquaredError": 46.409838,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -709,7 +877,12 @@
       "changedPixelPercentage": 29.783951,
       "meanAbsoluteError": 16.338252,
       "rootMeanSquaredError": 46.409838,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -728,7 +901,12 @@
       "changedPixelPercentage": 31.367458,
       "meanAbsoluteError": 19.807585,
       "rootMeanSquaredError": 52.917531,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -747,7 +925,12 @@
       "changedPixelPercentage": 42.95393,
       "meanAbsoluteError": 27.059451,
       "rootMeanSquaredError": 61.863599,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -766,7 +949,12 @@
       "changedPixelPercentage": 25.807292,
       "meanAbsoluteError": 18.713916,
       "rootMeanSquaredError": 54.413839,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceRequiredAction": "Store reviewed native bounds for the resource target and regenerate evidence.",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027diagnostic-reference-needs-crop-bounds\u0027: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -785,7 +973,12 @@
       "changedPixelPercentage": 20.618207,
       "meanAbsoluteError": 8.461065,
       "rootMeanSquaredError": 36.884039,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -804,7 +997,12 @@
       "changedPixelPercentage": 21.290666,
       "meanAbsoluteError": 16.713068,
       "rootMeanSquaredError": 59.97332,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -823,7 +1021,12 @@
       "changedPixelPercentage": 8.419364,
       "meanAbsoluteError": 5.915737,
       "rootMeanSquaredError": 31.100417,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -842,7 +1045,12 @@
       "changedPixelPercentage": 35.168998,
       "meanAbsoluteError": 16.007293,
       "rootMeanSquaredError": 56.791192,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -861,7 +1069,12 @@
       "changedPixelPercentage": 13.120446,
       "meanAbsoluteError": 10.12749,
       "rootMeanSquaredError": 41.667101,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -880,7 +1093,12 @@
       "changedPixelPercentage": 19.325881,
       "meanAbsoluteError": 24.633003,
       "rootMeanSquaredError": 70.919585,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "native-not-rendered",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "native-not-rendered",
+      "nativeReferenceRequiredAction": "Recapture native evidence after the Windows fixture configures AnimatedIcon with an animated visual source or fallback icon source.",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference does not show a production AnimatedIcon source/frame.",
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027native-not-rendered\u0027: The current Windows reference does not show a production AnimatedIcon source/frame. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -899,7 +1117,12 @@
       "changedPixelPercentage": 15.819007,
       "meanAbsoluteError": 14.257163,
       "rootMeanSquaredError": 50.002466,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -918,7 +1141,12 @@
       "changedPixelPercentage": 22.690763,
       "meanAbsoluteError": 21.062594,
       "rootMeanSquaredError": 60.719634,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "placeholder-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "placeholder-reference",
+      "nativeReferenceRequiredAction": "Recapture native evidence after the Windows fixture enables transport controls and poster content, or keep the row unpromoted.",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content.",
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027placeholder-reference\u0027: The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -937,7 +1165,12 @@
       "changedPixelPercentage": 17.275433,
       "meanAbsoluteError": 15.901177,
       "rootMeanSquaredError": 52.794122,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "placeholder-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "placeholder-reference",
+      "nativeReferenceRequiredAction": "Recapture native evidence after the Windows fixture navigates WebView2 to deterministic inline HTML, or keep the row unpromoted.",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content.",
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027placeholder-reference\u0027: The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -956,7 +1189,12 @@
       "changedPixelPercentage": 13.97977,
       "meanAbsoluteError": 12.372846,
       "rootMeanSquaredError": 45.815156,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "native-unavailable",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "native-unavailable",
+      "nativeReferenceRequiredAction": "Fix the Windows fixture/reference environment so InkToolbar and InkCanvas instantiate and render before promotion.",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls.",
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027native-unavailable\u0027: The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -975,7 +1213,12 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 7.5,
       "rootMeanSquaredError": 8.660254,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "offscreen-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "offscreen-reference",
+      "nativeReferenceRequiredAction": "Capture explicit title-bar/backdrop evidence with visible bounds and native provenance.",
+      "nativeReferenceIntegrityBlockerReason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface.",
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027offscreen-reference\u0027: The current crop is effectively offscreen/height 1 and does not prove the platform surface. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -994,7 +1237,12 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 16.892045,
       "rootMeanSquaredError": 49.810835,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "offscreen-reference",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "offscreen-reference",
+      "nativeReferenceRequiredAction": "Capture explicit title-bar/backdrop evidence with visible bounds and native provenance.",
+      "nativeReferenceIntegrityBlockerReason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface.",
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027offscreen-reference\u0027: The current crop is effectively offscreen/height 1 and does not prove the platform surface. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1013,7 +1261,12 @@
       "changedPixelPercentage": 99.988381,
       "meanAbsoluteError": 9.678085,
       "rootMeanSquaredError": 36.397928,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1032,7 +1285,12 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 16.598214,
       "rootMeanSquaredError": 44.847134,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1051,7 +1309,12 @@
       "changedPixelPercentage": 99.985755,
       "meanAbsoluteError": 10.611297,
       "rootMeanSquaredError": 40.031751,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1070,7 +1333,12 @@
       "changedPixelPercentage": 99.92488,
       "meanAbsoluteError": 21.471304,
       "rootMeanSquaredError": 57.149158,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1089,7 +1357,12 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 8.622129,
       "rootMeanSquaredError": 37.120001,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1108,7 +1381,12 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 12.754006,
       "rootMeanSquaredError": 42.487668,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1127,7 +1405,12 @@
       "changedPixelPercentage": 99.880457,
       "meanAbsoluteError": 22.251282,
       "rootMeanSquaredError": 49.443882,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1146,7 +1429,12 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 14.858811,
       "rootMeanSquaredError": 44.458694,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -1165,7 +1453,12 @@
       "changedPixelPercentage": 100,
       "meanAbsoluteError": 16.641372,
       "rootMeanSquaredError": 49.754651,
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceStatus": "needs-native-crop-bounds",
+      "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027needs-native-crop-bounds\u0027: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing manual screenshot inspection metadata."
     }
   ],
   "htmlPath": "public-visual-review-index.html",

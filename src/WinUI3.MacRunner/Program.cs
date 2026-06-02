@@ -36,6 +36,7 @@ internal static class Cli
             "component-inspection-template" => RunComponentInspectionTemplate(args[1..]),
             "component-inspection-apply" => RunComponentInspectionApply(args[1..]),
             "native-reference-import" => RunNativeReferenceImport(args[1..]),
+            "native-reference-integrity" => RunNativeReferenceIntegrity(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
             "visual-review-index" => RunVisualReviewIndex(args[1..]),
             "xaml" => RunXaml(args[1..]),
@@ -657,6 +658,14 @@ internal static class Cli
         }
     }
 
+    private static int RunNativeReferenceIntegrity(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "native-reference-integrity"));
+        var result = NativeReferenceIntegrityAnnotator.AnnotatePublicEvidence(repositoryRoot);
+        Console.WriteLine($"native-reference-integrity: annotated {result.AnnotatedComponentCount}/{result.ComponentCount} component rows across {result.EvidenceFileCount} evidence files.");
+        return 0;
+    }
+
     private static int RunXaml(string[] args)
     {
         if (args.Length == 0 || args[0] != "compile")
@@ -799,6 +808,7 @@ internal static class Cli
         Console.WriteLine("  component-inspection-template --evidence <component-evidence.json> [--output <path>] [--check]");
         Console.WriteLine("  component-inspection-apply --evidence <component-evidence.json> --inspection <component-inspection.json> [--output <path>] [--check]");
         Console.WriteLine("  native-reference-import --source <windows-reference-screenshots-dir> [--output <dir>]");
+        Console.WriteLine("  native-reference-integrity");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  visual-review-index [--output <dir>] [--check]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");

@@ -28,14 +28,30 @@ public sealed partial class MainWindow : Window
         RootNavigation.RequestedTheme = ToElementTheme(launchOptions.Theme);
 #endif
         NavigateToScenario(launchOptions.ScenarioName);
+#if WINDOWS
+        RootNavigation.Loaded += OnRootNavigationLoaded;
+#endif
     }
 
     public void ApplyLaunchBounds()
     {
 #if WINDOWS
         ResizeClientArea(launchOptions.ViewportWidth, launchOptions.ViewportHeight);
+        ScheduleNativeReferenceTargetExport();
 #endif
     }
+
+#if WINDOWS
+    private void OnRootNavigationLoaded(object sender, RoutedEventArgs args)
+    {
+        ScheduleNativeReferenceTargetExport();
+    }
+
+    private void ScheduleNativeReferenceTargetExport()
+    {
+        NativeReferenceTargetExporter.ExportIfRequested(RootNavigation, launchOptions);
+    }
+#endif
 
     private void OnNavigationSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {

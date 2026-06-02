@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.4",
+  "schemaVersion": "0.5",
   "fixtureName": "public-admin-workbench",
   "scenarioName": "public-admin-workbench-light",
   "components": [
@@ -51,6 +51,7 @@
           "width": 1028,
           "height": 720
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/navigationview-rootnavigation/windows-reference.png",
         "macRuntimePath": "components/navigationview-rootnavigation/mac-runtime.png",
         "pixelDiffPath": "components/navigationview-rootnavigation/pixel-diff.png",
@@ -84,7 +85,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 1028,
+          "height": 720
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
@@ -139,6 +159,7 @@
           "width": 224,
           "height": 40
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/navigationviewitem-queuenavigationitem/windows-reference.png",
         "macRuntimePath": "components/navigationviewitem-queuenavigationitem/mac-runtime.png",
         "pixelDiffPath": "components/navigationviewitem-queuenavigationitem/pixel-diff.png",
@@ -172,7 +193,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 224,
+          "height": 40
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
@@ -227,6 +267,7 @@
           "width": 780,
           "height": 720
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/frame-workbenchframe/windows-reference.png",
         "macRuntimePath": "components/frame-workbenchframe/mac-runtime.png",
         "pixelDiffPath": "components/frame-workbenchframe/pixel-diff.png",
@@ -260,7 +301,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 780,
+          "height": 720
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
@@ -315,6 +375,7 @@
           "width": 208,
           "height": 32
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/textbox-searchbox/windows-reference.png",
         "macRuntimePath": "components/textbox-searchbox/mac-runtime.png",
         "pixelDiffPath": "components/textbox-searchbox/pixel-diff.png",
@@ -348,7 +409,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 208,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
@@ -403,6 +483,7 @@
           "width": 780,
           "height": 48
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/commandbar-decisioncommandbar/windows-reference.png",
         "macRuntimePath": "components/commandbar-decisioncommandbar/mac-runtime.png",
         "pixelDiffPath": "components/commandbar-decisioncommandbar/pixel-diff.png",
@@ -436,7 +517,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 780,
+          "height": 48
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
@@ -491,6 +591,7 @@
           "width": 104,
           "height": 36
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/appbarbutton-approvecommand/windows-reference.png",
         "macRuntimePath": "components/appbarbutton-approvecommand/mac-runtime.png",
         "pixelDiffPath": "components/appbarbutton-approvecommand/pixel-diff.png",
@@ -524,7 +625,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 104,
+          "height": 36
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
@@ -579,6 +699,7 @@
           "width": 780,
           "height": 74
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/infobar-workbenchstatus/windows-reference.png",
         "macRuntimePath": "components/infobar-workbenchstatus/mac-runtime.png",
         "pixelDiffPath": "components/infobar-workbenchstatus/pixel-diff.png",
@@ -612,7 +733,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 780,
+          "height": 74
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
@@ -667,6 +807,7 @@
           "width": 280,
           "height": 160
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/listview-reviewqueuelist/windows-reference.png",
         "macRuntimePath": "components/listview-reviewqueuelist/mac-runtime.png",
         "pixelDiffPath": "components/listview-reviewqueuelist/pixel-diff.png",
@@ -700,7 +841,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 280,
+          "height": 160
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
@@ -755,6 +915,7 @@
           "width": 136,
           "height": 32
         },
+        "nativeReferenceBounds": null,
         "nativeReferencePath": "components/button-completereviewbutton/windows-reference.png",
         "macRuntimePath": "components/button-completereviewbutton/mac-runtime.png",
         "pixelDiffPath": "components/button-completereviewbutton/pixel-diff.png",
@@ -788,7 +949,26 @@
             "height": 720
           },
           "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
-        }
+        },
+        "nativeReferenceReadinessStatus": "needs-native-crop-bounds",
+        "nativeReferenceReadinessReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceRequiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+        "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+        "nativeReferenceBoundsValidForPromotion": false,
+        "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+        "nativeReferenceReadiness": {
+          "status": "needs-native-crop-bounds",
+          "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
+          "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence.",
+          "readyForPromotion": false,
+          "blockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+        },
+        "nativeReferenceCropSize": null,
+        "macRuntimeCropSize": {
+          "width": 136,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": null
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [

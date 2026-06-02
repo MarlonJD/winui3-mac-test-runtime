@@ -1,5 +1,5 @@
 ﻿{
-  "schemaVersion": "0.2",
+  "schemaVersion": "0.3",
   "generatedAt": "1970-01-01T00:00:00+00:00",
   "scenarioName": "component-basic-input-light",
   "evidencePath": "component-evidence.json",
@@ -31,6 +31,9 @@
       "changedPixelPercentage": 31.704905,
       "meanAbsoluteError": 20.246885,
       "rootMeanSquaredError": 56.459676,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
     },
@@ -52,6 +55,9 @@
       "changedPixelPercentage": 41.753472,
       "meanAbsoluteError": 36.363715,
       "rootMeanSquaredError": 80.248102,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps."
     },
@@ -73,6 +79,9 @@
       "changedPixelPercentage": 27.994792,
       "meanAbsoluteError": 25.188965,
       "rootMeanSquaredError": 65.72433,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps."
     },
@@ -94,6 +103,9 @@
       "changedPixelPercentage": 27.587891,
       "meanAbsoluteError": 22.225586,
       "rootMeanSquaredError": 60.53893,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps."
     },
@@ -115,6 +127,9 @@
       "changedPixelPercentage": 29.110054,
       "meanAbsoluteError": 16.499236,
       "rootMeanSquaredError": 49.834537,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps."
     },
@@ -136,6 +151,9 @@
       "changedPixelPercentage": 23.58871,
       "meanAbsoluteError": 18.414919,
       "rootMeanSquaredError": 55.168163,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
     },
@@ -157,6 +175,9 @@
       "changedPixelPercentage": 23.407452,
       "meanAbsoluteError": 18.555263,
       "rootMeanSquaredError": 54.157524,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
     },
@@ -178,6 +199,9 @@
       "changedPixelPercentage": 24.886364,
       "meanAbsoluteError": 19.167898,
       "rootMeanSquaredError": 56.567693,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
     },
@@ -199,6 +223,9 @@
       "changedPixelPercentage": 19.98839,
       "meanAbsoluteError": 14.651122,
       "rootMeanSquaredError": 49.524306,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
     },
@@ -220,6 +247,9 @@
       "changedPixelPercentage": 36.179022,
       "meanAbsoluteError": 34.554688,
       "rootMeanSquaredError": 78.702345,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
     },
@@ -241,6 +271,9 @@
       "changedPixelPercentage": 16.287364,
       "meanAbsoluteError": 14.4665,
       "rootMeanSquaredError": 50.5407,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
     },
@@ -262,6 +295,9 @@
       "changedPixelPercentage": 16.16323,
       "meanAbsoluteError": 14.801046,
       "rootMeanSquaredError": 50.67013,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
     },
@@ -283,6 +319,9 @@
       "changedPixelPercentage": 20.921266,
       "meanAbsoluteError": 17.81321,
       "rootMeanSquaredError": 55.272606,
+      "nativeReferenceReadiness": "needs-native-crop-bounds",
+      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
       "inspectionStatus": "missing",
       "notes": "RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
     }

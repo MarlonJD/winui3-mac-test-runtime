@@ -8,15 +8,15 @@ public static class ArtifactSchemas
 {
     public const string Accessibility = "0.3";
     public const string BindingFailures = "0.1";
-    public const string ComponentEvidence = "0.4";
-    public const string ComponentInspection = "0.1";
-    public const string ComponentQualityDashboard = "0.2";
+    public const string ComponentEvidence = "0.5";
+    public const string ComponentInspection = "0.2";
+    public const string ComponentQualityDashboard = "0.3";
     public const string CorpusInventory = "0.1";
     public const string CorpusSummary = "0.1";
     public const string DoctorReport = "0.1";
     public const string InteractionReport = "0.2";
     public const string InteractionScript = "0.1";
-    public const string NativeReferenceImport = "0.1";
+    public const string NativeReferenceImport = "0.2";
     public const string PixelDiff = "0.1";
     public const string ProjectIngestion = "0.1";
     public const string RunReport = "0.1";
@@ -27,8 +27,8 @@ public static class ArtifactSchemas
     public const string UiTree = "0.1";
     public const string UnsupportedApis = "0.1";
     public const string VisualRun = "0.1";
-    public const string VisualReview = "0.2";
-    public const string VisualReviewIndex = "0.1";
+    public const string VisualReview = "0.3";
+    public const string VisualReviewIndex = "0.2";
     public const string VisualUiTree = "0.2";
 }
 

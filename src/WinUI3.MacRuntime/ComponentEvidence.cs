@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace WinUI3.MacRuntime;
 
 public sealed record ComponentDiffMetrics(
@@ -11,9 +13,44 @@ public sealed record ComponentCropBounds(
     int Width,
     int Height);
 
+public sealed record ComponentCropBoundsDelta(
+    int X,
+    int Y,
+    int Width,
+    int Height);
+
 public sealed record ReferenceImageDimensions(
     int Width,
     int Height);
+
+public sealed record NativeReferenceTargetDocument(
+    string SchemaVersion,
+    string ReferenceSource,
+    string CoordinateSpace,
+    string ScenarioName,
+    string? ScenarioPath,
+    string? FixtureProjectPath,
+    string Theme,
+    VisualViewport? Viewport,
+    double? Scale,
+    NativeReferenceBounds? RootBounds,
+    DateTimeOffset? CapturedAt,
+    IReadOnlyList<NativeReferenceTarget> Targets);
+
+public sealed record NativeReferenceBounds(
+    double X,
+    double Y,
+    double Width,
+    double Height);
+
+public sealed record NativeReferenceTarget(
+    string? Component,
+    string Target,
+    string IdentitySource,
+    string? AutomationId,
+    string? Name,
+    string? ElementType,
+    NativeReferenceBounds Bounds);
 
 public sealed record NativeReferenceProvenance(
     string? ReferenceSource,
@@ -29,11 +66,23 @@ public sealed record NativeReferenceProvenance(
     string? Theme,
     string? CaptureMode,
     ReferenceImageDimensions? Dimensions,
-    string? CapturedAt);
+    string? CapturedAt)
+{
+    public string? NativeReferenceTargetsPath { get; init; }
+}
+
+public sealed record NativeReferenceReadinessEvidence(
+    string Status,
+    string Reason,
+    string RequiredAction,
+    bool ReadyForPromotion,
+    string BlockerReason);
 
 public sealed record ComponentCropEvidence(
     string Status,
     ComponentCropBounds? Bounds,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+    ComponentCropBounds? NativeReferenceBounds,
     string? NativeReferencePath,
     string? MacRuntimePath,
     string? PixelDiffPath,
@@ -45,6 +94,30 @@ public sealed record ComponentCropEvidence(
     string? Message)
 {
     public NativeReferenceProvenance? NativeReferenceProvenance { get; init; }
+    public NativeReferenceTarget? NativeReferenceTarget { get; init; }
+    public string NativeReferenceReadinessStatus { get; init; } = "missing-native-reference-crop";
+    public string NativeReferenceReadinessReason { get; init; } = "No native reference crop is available.";
+    public string NativeReferenceRequiredAction { get; init; } = "Capture a native Windows reference with exported target bounds.";
+    public string NativeReferenceBoundsSource { get; init; } = "missing";
+    public bool NativeReferenceBoundsValidForPromotion { get; init; }
+    public string NativeReferenceIntegrityBlockerReason { get; init; } = "No native reference crop is available.";
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+    public NativeReferenceReadinessEvidence NativeReferenceReadiness { get; init; } = new(
+        "missing-native-reference-crop",
+        "No native reference crop is available.",
+        "Capture a native Windows reference with exported target bounds.",
+        ReadyForPromotion: false,
+        "No native reference crop is available.");
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+    public ReferenceImageDimensions? NativeReferenceCropSize { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+    public ReferenceImageDimensions? MacRuntimeCropSize { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+    public ComponentCropBoundsDelta? NativeReferenceBoundsDelta { get; init; }
 }
 
 public sealed record ComponentInspectionEvidence(

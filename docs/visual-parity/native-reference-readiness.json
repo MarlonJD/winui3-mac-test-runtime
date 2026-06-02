@@ -259,7 +259,7 @@
       "target": "PublicImagePlaceholder",
       "nativeReferenceStatus": "diagnostic-reference",
       "reason": "The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only.",
-      "requiredAction": "Use a deterministic image asset in the Windows fixture and recapture native evidence."
+      "requiredAction": "Recapture native evidence after the Windows fixture renders the deterministic SVG image asset."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -403,7 +403,7 @@
       "target": "DiagnosticAnimatedIcon",
       "nativeReferenceStatus": "native-not-rendered",
       "reason": "The current Windows reference does not show a production AnimatedIcon source/frame.",
-      "requiredAction": "Update the Windows fixture/reference capture so AnimatedIcon renders a real native frame before macOS parity work is promoted."
+      "requiredAction": "Recapture native evidence after the Windows fixture configures AnimatedIcon with an animated visual source or fallback icon source."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -421,7 +421,7 @@
       "target": "DiagnosticMediaPlayerElement",
       "nativeReferenceStatus": "placeholder-reference",
       "reason": "The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content.",
-      "requiredAction": "Capture a Windows reference with the native surface populated, or keep the row unpromoted."
+      "requiredAction": "Recapture native evidence after the Windows fixture enables transport controls and poster content, or keep the row unpromoted."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -430,7 +430,7 @@
       "target": "DiagnosticWebView2",
       "nativeReferenceStatus": "placeholder-reference",
       "reason": "The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content.",
-      "requiredAction": "Capture a Windows reference with the native surface populated, or keep the row unpromoted."
+      "requiredAction": "Recapture native evidence after the Windows fixture navigates WebView2 to deterministic inline HTML, or keep the row unpromoted."
     },
     {
       "scenarioName": "component-layout-media-light",
