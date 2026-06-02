@@ -215,10 +215,11 @@ macOS .NET process.
 
 ## Visual Parity Evidence
 
-Public visual evidence lives in `docs/visual-parity/`. The current checked-in
-public admin and component parity PNG examples are historical visual-review
-fixtures. The latest full native WinUI reference artifact set comes from public
-GitHub Actions run
+Public visual evidence lives in `docs/visual-parity/`. The checked-in PNG
+comparisons are kept in `docs/visual-parity/comparisons.md` as historical
+visual-review fixtures, not as the current production component grade source.
+The latest full native WinUI reference artifact set comes from public GitHub
+Actions run
 [`26792033793`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26792033793)
 on commit `3c929f4`, and the final production gate evidence is recorded in
 `docs/release/final-production-gate.md`. Synthetic `WindowsNativeProbe` output
@@ -230,24 +231,7 @@ call every visible control visually good. Controls that only emit text or
 disappear in macOS screenshots remain `not-rendered` and outside the production
 claim until fresh evidence promotes them.
 
-The current `public-admin-workbench-light` native comparison fails honestly
-against the native WinUI reference:
-
-| Native WinUI Windows reference | macOS runtime | Pixel diff |
-| --- | --- | --- |
-| ![Native WinUI Windows reference](docs/visual-parity/examples/public-admin-workbench-light/windows-reference.png) | ![macOS runtime](docs/visual-parity/examples/public-admin-workbench-light/mac-runtime.png) | ![Pixel diff](docs/visual-parity/examples/public-admin-workbench-light/pixel-diff.png) |
-
-For this scenario, `100.00%` of pixels changed, `0.00%` were byte-identical,
-mean absolute error was `9.72`, and RMS error was `35.87`; changed pixels exceed
-the `45%` threshold. This should be read as **native WinUI reference source of
-truth fixed, macOS visual parity failed**, not as a renderer success. The
-matching parts are the Windows-targeted project ingestion path, selected page,
-text content, and command-click assertion. The visible gaps are still important:
-exact Fluent control chrome, command surfaces, filter box, InfoBar/list/detail
-painters, text metrics, focus visuals, shadows, Mica/Acrylic, and native
-interaction states are not yet pixel-perfect.
-
-### Component Parity Examples
+### Component Parity Evidence
 
 Current component parity status is not read from the checked-in PNG examples.
 It is read from freshly generated `component-evidence.json`, strict scenario
