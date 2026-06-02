@@ -85,11 +85,16 @@ public static class VisualReviewArtifacts
             Summary: summary,
             Rows: rows,
             HtmlPath: htmlPath);
+        var portableDocument = document with
+        {
+            OutputDirectory = ".",
+            HtmlPath = RelativePath(outputRoot, htmlPath)
+        };
 
-        File.WriteAllText(htmlPath, BuildHtml(document), Encoding.UTF8);
+        File.WriteAllText(htmlPath, BuildHtml(portableDocument), Encoding.UTF8);
         File.WriteAllText(
             Path.Combine(outputRoot, "visual-review.json"),
-            JsonSerializer.Serialize(document, JsonDefaults.Options),
+            JsonSerializer.Serialize(portableDocument, JsonDefaults.Options),
             Encoding.UTF8);
 
         return document;

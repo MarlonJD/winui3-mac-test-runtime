@@ -1,0 +1,428 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>component-basic-input-light visual review</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 24px; color: #1f1f1f; background: #fff; }
+h1 { font-size: 24px; margin: 0 0 8px; }
+h2 { font-size: 18px; margin: 0 0 12px; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+.metric { border: 1px solid #d1d1d1; border-radius: 4px; padding: 8px 10px; min-width: 150px; }
+.metric strong { display: block; font-size: 20px; }
+.component { border-top: 1px solid #d1d1d1; padding: 20px 0 24px; }
+.metadata { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; color: #4b4b4b; font-size: 13px; }
+.metadata span { border: 1px solid #ddd; border-radius: 4px; padding: 3px 6px; }
+.triptych { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+figure { margin: 0; border: 1px solid #d1d1d1; border-radius: 4px; background: #fafafa; min-height: 120px; }
+figcaption { font-weight: 600; padding: 8px 10px; border-bottom: 1px solid #d1d1d1; background: #f3f3f3; }
+img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.missing { display: grid; min-height: 96px; place-items: center; color: #7a1f1f; padding: 12px; text-align: center; }
+.notes { margin-top: 10px; color: #3b3b3b; line-height: 1.4; }
+@media (max-width: 760px) { .triptych { grid-template-columns: 1fr; } body { margin: 16px; } }
+</style>
+</head>
+<body>
+<h1>component-basic-input-light visual review</h1>
+<p>Evidence: <code>component-evidence.json</code></p>
+<div class="summary">
+<div class="metric"><strong>13</strong>Components</div>
+<div class="metric"><strong>13</strong>Complete triptychs</div>
+<div class="metric"><strong>0</strong>Missing native crops</div>
+<div class="metric"><strong>0</strong>Missing macOS crops</div>
+<div class="metric"><strong>0</strong>Missing diffs</div>
+<div class="metric"><strong>13</strong>Missing inspections</div>
+</div>
+<section class="component">
+<h2>Button <code>PrimaryActionButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>8,856</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/button-primaryactionbutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/button-primaryactionbutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/button-primaryactionbutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Button chrome is approximated; native pressed, hover, and template visuals remain gaps.</p>
+</section>
+<section class="component">
+<h2>ToggleButton <code>PinnedToggleButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,803</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/togglebutton-pinnedtogglebutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/togglebutton-pinnedtogglebutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/togglebutton-pinnedtogglebutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps.</p>
+</section>
+<section class="component">
+<h2>CheckBox <code>EnabledCheckBox</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,939</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/checkbox-enabledcheckbox/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/checkbox-enabledcheckbox/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/checkbox-enabledcheckbox/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps.</p>
+</section>
+<section class="component">
+<h2>RadioButton <code>HighPriorityRadioButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,644</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/radiobutton-highpriorityradiobutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/radiobutton-highpriorityradiobutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/radiobutton-highpriorityradiobutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps.</p>
+</section>
+<section class="component">
+<h2>ComboBox <code>StatusComboBox</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>17,027</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/combobox-statuscombobox/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/combobox-statuscombobox/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/combobox-statuscombobox/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps.</p>
+</section>
+<section class="component">
+<h2>RepeatButton <code>DiagnosticRepeatButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>63,483</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/repeatbutton-diagnosticrepeatbutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/repeatbutton-diagnosticrepeatbutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/repeatbutton-diagnosticrepeatbutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>HyperlinkButton <code>DiagnosticHyperlinkButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/hyperlinkbutton-diagnostichyperlinkbutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/hyperlinkbutton-diagnostichyperlinkbutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/hyperlinkbutton-diagnostichyperlinkbutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>DropDownButton <code>DiagnosticDropDownButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>59,056</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/dropdownbutton-diagnosticdropdownbutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/dropdownbutton-diagnosticdropdownbutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/dropdownbutton-diagnosticdropdownbutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>SplitButton <code>DiagnosticSplitButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>58,669</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/splitbutton-diagnosticsplitbutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/splitbutton-diagnosticsplitbutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/splitbutton-diagnosticsplitbutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>ToggleSplitButton <code>DiagnosticToggleSplitButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,033</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/togglesplitbutton-diagnostictogglesplitbutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>Slider <code>DiagnosticSlider</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,621</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/slider-diagnosticslider/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/slider-diagnosticslider/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/slider-diagnosticslider/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>ToggleSwitch <code>DiagnosticToggleSwitch</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,381</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/toggleswitch-diagnostictoggleswitch/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/toggleswitch-diagnostictoggleswitch/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/toggleswitch-diagnostictoggleswitch/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>RatingControl <code>DiagnosticRatingControl</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/ratingcontrol-diagnosticratingcontrol/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/ratingcontrol-diagnosticratingcontrol/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/ratingcontrol-diagnosticratingcontrol/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+</body>
+</html>

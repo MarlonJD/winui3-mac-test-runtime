@@ -39,11 +39,13 @@
       "width": 1028,
       "height": 720
     },
-    "capturedAt": "2026-06-01T19:31:04.2512607+00:00"
+    "capturedAt": "2026-06-01T19:31:04.2512607\u002B00:00"
   },
   "runtimeImagePath": "mac-runtime.png",
   "diffImagePath": "pixel-diff.png",
   "componentEvidencePath": "component-evidence.json",
+  "componentCropDirectory": "components",
+  "visualReviewPath": "visual-review.html",
   "thresholds": {
     "changedPixelPercentage": 18,
     "maxChannelDelta": 255,
@@ -54,11 +56,11 @@
     "schemaVersion": "0.1",
     "width": 1028,
     "height": 720,
-    "changedPixelCount": 311386,
-    "changedPixelPercentage": 42.070093,
+    "changedPixelCount": 619405,
+    "changedPixelPercentage": 83.685284,
     "maxChannelDelta": 255,
-    "meanAbsoluteError": 9.917593,
-    "rootMeanSquaredError": 38.839894,
+    "meanAbsoluteError": 17.174471,
+    "rootMeanSquaredError": 49.51031,
     "boundingBox": {
       "x": 0,
       "y": 0,

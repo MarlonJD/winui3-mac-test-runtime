@@ -130,7 +130,8 @@ internal static class VisualArtifacts
                 outputDirectory,
                 settings.Scale,
                 settings.Thresholds,
-                nativeReferenceProvenance);
+                nativeReferenceProvenance,
+                useRelativePaths: true);
             var componentEvidencePath = Path.Combine(outputDirectory, "component-evidence.json");
             await File.WriteAllTextAsync(
                 componentEvidencePath,
@@ -158,15 +159,15 @@ internal static class VisualArtifacts
             Viewport: settings.Viewport,
             Scale: settings.Scale,
             Theme: settings.Theme,
-            ReferenceImagePath: copiedReferencePath,
-            ReferenceMetadataPath: copiedReferenceMetadataPath,
+            ReferenceImagePath: ArtifactPath(outputDirectory, copiedReferencePath),
+            ReferenceMetadataPath: ArtifactPath(outputDirectory, copiedReferenceMetadataPath),
             ReferenceSource: referenceSource,
             ReferenceProvenance: referenceProvenance,
-            RuntimeImagePath: runtimePath,
-            DiffImagePath: diffPath,
-            ComponentEvidencePath: componentEvidence is null ? null : Path.Combine(outputDirectory, "component-evidence.json"),
-            ComponentCropDirectory: componentEvidence is null ? null : Path.Combine(outputDirectory, "components"),
-            VisualReviewPath: visualReviewPath,
+            RuntimeImagePath: ArtifactPath(outputDirectory, runtimePath)!,
+            DiffImagePath: ArtifactPath(outputDirectory, diffPath),
+            ComponentEvidencePath: componentEvidence is null ? null : ArtifactPath(outputDirectory, Path.Combine(outputDirectory, "component-evidence.json")),
+            ComponentCropDirectory: componentEvidence is null ? null : ArtifactPath(outputDirectory, Path.Combine(outputDirectory, "components")),
+            VisualReviewPath: ArtifactPath(outputDirectory, visualReviewPath),
             Thresholds: settings.Thresholds,
             Comparison: comparison,
             UnsupportedVisualFeatures: unsupportedVisualFeatures,
@@ -178,6 +179,16 @@ internal static class VisualArtifacts
             cancellationToken);
 
         return status == "passed";
+    }
+
+    private static string? ArtifactPath(string outputDirectory, string? path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return null;
+        }
+
+        return Path.GetRelativePath(outputDirectory, path).Replace('\\', '/');
     }
 
     private static async Task<JsonElement?> ReadReferenceProvenanceAsync(

@@ -13,7 +13,8 @@ public static class ComponentCropper
         string outputDirectory,
         double scale,
         VisualThresholds scenarioThresholds,
-        NativeReferenceProvenance? nativeReferenceProvenance = null)
+        NativeReferenceProvenance? nativeReferenceProvenance = null,
+        bool useRelativePaths = false)
     {
         ArgumentNullException.ThrowIfNull(evidence);
         ArgumentException.ThrowIfNullOrWhiteSpace(runtimeImagePath);
@@ -28,7 +29,7 @@ public static class ComponentCropper
         var cropEvidence = new Dictionary<string, ComponentCropEvidence>(StringComparer.Ordinal);
         foreach (var component in evidence.Components)
         {
-            var crop = WriteCrop(component, runtime, reference, cropsDirectory, scale, scenarioThresholds, nativeReferenceProvenance);
+            var crop = WriteCrop(component, runtime, reference, outputDirectory, cropsDirectory, scale, scenarioThresholds, nativeReferenceProvenance, useRelativePaths);
             cropEvidence[ComponentEvidenceBuilder.ComponentKey(component.Component, component.Target)] = crop;
         }
 
@@ -64,10 +65,12 @@ public static class ComponentCropper
         ComponentEvidenceEntry component,
         SKBitmap runtime,
         SKBitmap? reference,
+        string outputDirectory,
         string cropsDirectory,
         double scale,
         VisualThresholds scenarioThresholds,
-        NativeReferenceProvenance? nativeReferenceProvenance)
+        NativeReferenceProvenance? nativeReferenceProvenance,
+        bool useRelativePaths)
     {
         var thresholds = component.ComponentThresholds ?? scenarioThresholds;
         var bounds = BoundsFor(component.LayoutRegion, runtime.Width, runtime.Height, scale);
@@ -101,12 +104,12 @@ public static class ComponentCropper
         var blank = IsBlankCrop(runtimeCropPath);
         if (strictClaim && string.Equals(component.VisualGrade, "not-rendered", StringComparison.Ordinal))
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Claimed component is not-rendered.");
+            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Claimed component is not-rendered.", outputDirectory, useRelativePaths);
         }
 
         if (strictClaim && blank)
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Claimed component crop is blank.");
+            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Claimed component crop is blank.", outputDirectory, useRelativePaths);
         }
 
         if (reference is null)
@@ -115,7 +118,7 @@ public static class ComponentCropper
                 Status: strictClaim ? "reference-skipped" : "not-applicable",
                 Bounds: bounds,
                 NativeReferencePath: null,
-                MacRuntimePath: runtimeCropPath,
+                MacRuntimePath: ArtifactPath(outputDirectory, runtimeCropPath, useRelativePaths),
                 PixelDiffPath: null,
                 RuntimeBlank: blank,
                 Thresholds: thresholds,
@@ -131,7 +134,7 @@ public static class ComponentCropper
         var referenceBounds = BoundsFor(component.LayoutRegion, reference.Width, reference.Height, scale);
         if (referenceBounds is null)
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Native reference crop bounds are outside the reference image.");
+            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Native reference crop bounds are outside the reference image.", outputDirectory, useRelativePaths);
         }
 
         var referenceCropPath = Path.Combine(componentDirectory, "windows-reference.png");
@@ -143,9 +146,9 @@ public static class ComponentCropper
         return new ComponentCropEvidence(
             Status: status,
             Bounds: bounds,
-            NativeReferencePath: referenceCropPath,
-            MacRuntimePath: runtimeCropPath,
-            PixelDiffPath: diffPath,
+            NativeReferencePath: ArtifactPath(outputDirectory, referenceCropPath, useRelativePaths),
+            MacRuntimePath: ArtifactPath(outputDirectory, runtimeCropPath, useRelativePaths),
+            PixelDiffPath: ArtifactPath(outputDirectory, diffPath, useRelativePaths),
             RuntimeBlank: blank,
             Thresholds: thresholds,
             ChangedPixelPercentage: diff.ChangedPixelPercentage,
@@ -166,14 +169,16 @@ public static class ComponentCropper
         bool blank,
         VisualThresholds thresholds,
         NativeReferenceProvenance? nativeReferenceProvenance,
-        string message)
+        string message,
+        string outputDirectory,
+        bool useRelativePaths)
     {
         return new ComponentCropEvidence(
             Status: component.CatalogStatus is "supported" or "partial" ? "failed" : "not-applicable",
             Bounds: bounds,
-            NativeReferencePath: referenceCropPath,
-            MacRuntimePath: runtimeCropPath,
-            PixelDiffPath: diffPath,
+            NativeReferencePath: ArtifactPath(outputDirectory, referenceCropPath, useRelativePaths),
+            MacRuntimePath: ArtifactPath(outputDirectory, runtimeCropPath, useRelativePaths),
+            PixelDiffPath: ArtifactPath(outputDirectory, diffPath, useRelativePaths),
             RuntimeBlank: blank,
             Thresholds: thresholds,
             ChangedPixelPercentage: null,
@@ -189,6 +194,18 @@ public static class ComponentCropper
     {
         return SKBitmap.Decode(imagePath)
             ?? throw new InvalidOperationException($"Could not decode image '{imagePath}'.");
+    }
+
+    private static string? ArtifactPath(string outputDirectory, string? path, bool useRelativePaths)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return null;
+        }
+
+        return useRelativePaths
+            ? Path.GetRelativePath(outputDirectory, path).Replace('\\', '/')
+            : path;
     }
 
     private static void WriteCrop(SKBitmap source, ComponentCropBounds bounds, string outputPath)

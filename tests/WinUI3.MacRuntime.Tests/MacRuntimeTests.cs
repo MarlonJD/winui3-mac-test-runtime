@@ -1167,6 +1167,7 @@ public sealed class MacRuntimeTests
         Assert.IsGreaterThan(0, expected.Totals.MissingNativeReferenceProvenance);
         Assert.IsGreaterThan(0, expected.Totals.MissingInspectionNotes);
 
+        var provenanceBlockers = 0;
         foreach (var blocker in expected.Blockers)
         {
             Assert.IsTrue(
@@ -1175,10 +1176,13 @@ public sealed class MacRuntimeTests
             Assert.IsTrue(
                 blocker.Reasons.Any(reason => reason.Contains("manual screenshot inspection", StringComparison.Ordinal)),
                 $"{blocker.ScenarioName}/{blocker.Component} must require manual inspection metadata.");
-            Assert.IsTrue(
-                blocker.Reasons.Any(reason => reason.Contains("reference provenance", StringComparison.Ordinal)),
-                $"{blocker.ScenarioName}/{blocker.Component} must require native reference provenance.");
+            if (blocker.Reasons.Any(reason => reason.Contains("reference provenance", StringComparison.Ordinal)))
+            {
+                provenanceBlockers++;
+            }
         }
+
+        Assert.AreEqual(expected.Totals.MissingNativeReferenceProvenance, provenanceBlockers);
     }
 
     [TestMethod]
@@ -1870,6 +1874,72 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void ComponentCropperCanWriteRelativeArtifactPaths()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-crop-tests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(directory);
+        var runtimeImage = Path.Combine(directory, "mac-runtime.png");
+        var referenceImage = Path.Combine(directory, "windows-reference.png");
+        WritePatternPng(runtimeImage);
+        WritePatternPng(referenceImage);
+        var thresholds = new VisualThresholds();
+        var evidence = new ComponentEvidenceDocument(
+            SchemaVersion: ArtifactSchemas.ComponentEvidence,
+            FixtureName: "crop-test",
+            ScenarioName: "crop-test-light",
+            Components: new[]
+            {
+                new ComponentEvidenceEntry(
+                    Component: "Button",
+                    Kind: "control",
+                    Target: "PrimaryButton",
+                    LayoutRegion: new UiLayoutBox(
+                        X: 0,
+                        Y: 0,
+                        Width: 8,
+                        Height: 8,
+                        DesiredWidth: 8,
+                        DesiredHeight: 8,
+                        Margin: new UiThickness(0, 0, 0, 0),
+                        Padding: new UiThickness(0, 0, 0, 0),
+                        HorizontalAlignment: "stretch",
+                        VerticalAlignment: "stretch",
+                        Visibility: "visible"),
+                    CatalogStatus: "supported",
+                    Presence: "present",
+                    InteractionStatus: "passed",
+                    VisualGrade: "usable",
+                    ComponentThresholds: null,
+                    ChangedPixelPercentage: null,
+                    MeanAbsoluteError: null,
+                    RootMeanSquaredError: null,
+                    Crop: null,
+                    NativeQualityGrade: "not-evaluated",
+                    Inspection: null,
+                    KnownGaps: Array.Empty<string>())
+            },
+            SourceFeatures: Array.Empty<SourceFeatureEvidenceEntry>(),
+            Status: "passed");
+
+        var withCrops = ComponentCropper.WriteCrops(
+            evidence,
+            runtimeImage,
+            referenceImage,
+            directory,
+            scale: 1,
+            thresholds,
+            nativeReferenceProvenance: null,
+            useRelativePaths: true);
+
+        var crop = withCrops.Components[0].Crop ?? throw new AssertFailedException("Expected component crop evidence.");
+        Assert.AreEqual("components/button-primarybutton/windows-reference.png", crop.NativeReferencePath);
+        Assert.AreEqual("components/button-primarybutton/mac-runtime.png", crop.MacRuntimePath);
+        Assert.AreEqual("components/button-primarybutton/pixel-diff.png", crop.PixelDiffPath);
+        var macRuntimePath = crop.MacRuntimePath ?? throw new AssertFailedException("Expected macOS runtime crop path.");
+        Assert.IsTrue(File.Exists(Path.Combine(directory, macRuntimePath)));
+    }
+
+    [TestMethod]
     public void VisualReviewArtifactsWritesSideBySideCropPage()
     {
         var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-review-tests", Guid.NewGuid().ToString("N"));
@@ -1960,6 +2030,8 @@ public sealed class MacRuntimeTests
 
         using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "visual-review.json")));
         Assert.AreEqual(ArtifactSchemas.VisualReview, json.RootElement.GetProperty("schemaVersion").GetString());
+        Assert.AreEqual(".", json.RootElement.GetProperty("outputDirectory").GetString());
+        Assert.AreEqual("visual-review.html", json.RootElement.GetProperty("htmlPath").GetString());
         Assert.AreEqual(1, json.RootElement.GetProperty("rows").GetArrayLength());
         var row = json.RootElement.GetProperty("rows")[0];
         Assert.AreEqual("native-winui", row.GetProperty("referenceSource").GetString());
