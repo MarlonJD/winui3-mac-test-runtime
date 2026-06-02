@@ -262,7 +262,7 @@
         "priority": 1,
         "interactionRequired": true,
         "requiredStates": ["default", "on", "off", "disabled", "focused"],
-        "currentGrade": "not-rendered",
+        "currentGrade": "usable",
         "disposition": "production-ready-diagnostic-exclusion-until-promoted",
         "promotionExitCriteria": "ToggleSwitch facade and XAML ingestion, on/off track-and-knob painter, component evidence, native reference, toggle interaction, accessibility toggle state, docs, and tests."
       },
@@ -273,7 +273,7 @@
         "priority": 2,
         "interactionRequired": true,
         "requiredStates": ["default", "pressed", "focused", "disabled"],
-        "currentGrade": "not-rendered",
+        "currentGrade": "usable",
         "disposition": "production-ready-diagnostic-exclusion-until-promoted",
         "promotionExitCriteria": "Slider facade and XAML ingestion, track/thumb/fill painter, value interaction, accessibility value state, component evidence, native reference, docs, and tests."
       },
@@ -317,7 +317,7 @@
         "priority": 6,
         "interactionRequired": true,
         "requiredStates": ["default", "open-popup", "disabled", "focused"],
-        "currentGrade": "not-rendered",
+        "currentGrade": "usable",
         "disposition": "production-ready-diagnostic-exclusion-until-promoted",
         "promotionExitCriteria": "DropDownButton facade and XAML ingestion, chevron button and menu-open painter, open interaction, accessibility expanded state, component evidence, native reference, docs, and tests."
       },
@@ -328,7 +328,7 @@
         "priority": 7,
         "interactionRequired": true,
         "requiredStates": ["default", "invoked", "open-popup", "disabled"],
-        "currentGrade": "not-rendered",
+        "currentGrade": "usable",
         "disposition": "production-ready-diagnostic-exclusion-until-promoted",
         "promotionExitCriteria": "SplitButton facade and XAML ingestion, primary/secondary split painter, invoke and open interaction, accessibility split state, component evidence, native reference, docs, and tests."
       },
@@ -339,7 +339,7 @@
         "priority": 8,
         "interactionRequired": true,
         "requiredStates": ["default", "checked", "open-popup", "disabled"],
-        "currentGrade": "not-rendered",
+        "currentGrade": "usable",
         "disposition": "production-ready-diagnostic-exclusion-until-promoted",
         "promotionExitCriteria": "ToggleSplitButton facade and XAML ingestion, checked split painter, toggle and open interaction, accessibility checked/expanded state, component evidence, native reference, docs, and tests."
       },
@@ -416,7 +416,7 @@
         "priority": 15,
         "interactionRequired": true,
         "requiredStates": ["default", "hover", "set", "disabled"],
-        "currentGrade": "not-rendered",
+        "currentGrade": "usable",
         "disposition": "production-ready-diagnostic-exclusion-until-promoted",
         "promotionExitCriteria": "RatingControl facade and XAML ingestion, glyph rating painter, set/hover interaction, accessibility rating value, component evidence, native reference, docs, and tests."
       },
@@ -794,13 +794,13 @@
       "component": "DropDownButton",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 1: Basic Input",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-basic-input-light",
+      "interactionCoverage": "static affordance export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "skia-v2 renders button chrome and chevron for static evidence; popup opening, placement, light-dismiss, keyboarding, automation expanded state, and full native template visuals remain gaps."
       ]
     },
     {
@@ -898,13 +898,13 @@
       "component": "HyperlinkButton",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 1: Basic Input",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-basic-input-light",
+      "interactionCoverage": "static link affordance export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "skia-v2 renders visible link text and underline chrome; navigation behavior, visited state, focus visuals, automation invoke state, and full native template visuals remain gaps."
       ]
     },
     {
@@ -1288,26 +1288,26 @@
       "component": "RatingControl",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 1: Basic Input",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-basic-input-light",
+      "interactionCoverage": "state export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "skia-v2 renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
       ]
     },
     {
       "component": "RepeatButton",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 1: Basic Input",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-basic-input-light",
+      "interactionCoverage": "static invoke affordance export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "skia-v2 renders RepeatButton through shared button chrome; repeat timing, pressed cadence, automation invoke cadence, and full native template visuals remain gaps."
       ]
     },
     {
@@ -1418,13 +1418,13 @@
       "component": "Slider",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 1: Basic Input",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-basic-input-light",
+      "interactionCoverage": "state export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "skia-v2 renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, automation range value, and full native template visuals remain gaps."
       ]
     },
     {
@@ -1444,13 +1444,13 @@
       "component": "SplitButton",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 1: Basic Input",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-basic-input-light",
+      "interactionCoverage": "static split affordance export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "skia-v2 renders primary and secondary split chrome; secondary flyout behavior, invoke/open separation, keyboarding, automation split state, and full native template visuals remain gaps."
       ]
     },
     {
@@ -1639,26 +1639,26 @@
       "component": "ToggleSplitButton",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 1: Basic Input",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-basic-input-light",
+      "interactionCoverage": "checked state export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "skia-v2 renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, automation checked/expanded state, and full native template visuals remain gaps."
       ]
     },
     {
       "component": "ToggleSwitch",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 1: Basic Input",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-basic-input-light",
+      "interactionCoverage": "checked state export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "skia-v2 renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation toggle state, and full native template visuals remain gaps."
       ]
     },
     {

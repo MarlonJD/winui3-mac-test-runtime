@@ -107,58 +107,111 @@
     {
       "component": "RepeatButton",
       "target": "DiagnosticRepeatButton",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content"
+      ],
+      "knownGaps": [
+        "RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
+      ]
     },
     {
       "component": "HyperlinkButton",
       "target": "DiagnosticHyperlinkButton",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content"
+      ],
+      "knownGaps": [
+        "HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
+      ]
     },
     {
       "component": "DropDownButton",
       "target": "DiagnosticDropDownButton",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content"
+      ],
+      "knownGaps": [
+        "DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
+      ]
     },
     {
       "component": "SplitButton",
       "target": "DiagnosticSplitButton",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content"
+      ],
+      "knownGaps": [
+        "SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
+      ]
     },
     {
       "component": "ToggleSplitButton",
       "target": "DiagnosticToggleSplitButton",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content",
+        "isChecked"
+      ],
+      "knownGaps": [
+        "ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
+      ]
     },
     {
       "component": "Slider",
       "target": "DiagnosticSlider",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "minimum",
+        "maximum",
+        "value"
+      ],
+      "knownGaps": [
+        "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
+      ]
     },
     {
       "component": "ToggleSwitch",
       "target": "DiagnosticToggleSwitch",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "header",
+        "isOn"
+      ],
+      "knownGaps": [
+        "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
+      ]
     },
     {
       "component": "RatingControl",
       "target": "DiagnosticRatingControl",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "maxRating",
+        "value"
+      ],
+      "knownGaps": [
+        "RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
+      ]
     }
   ]
 }

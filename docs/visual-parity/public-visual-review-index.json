@@ -164,8 +164,8 @@
       "scenarioName": "component-basic-input-light",
       "component": "RepeatButton",
       "target": "DiagnosticRepeatButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -177,14 +177,14 @@
       "changedPixelPercentage": 23.58871,
       "meanAbsoluteError": 18.414919,
       "rootMeanSquaredError": 55.168163,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
       "component": "HyperlinkButton",
       "target": "DiagnosticHyperlinkButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -196,14 +196,14 @@
       "changedPixelPercentage": 23.407452,
       "meanAbsoluteError": 18.555263,
       "rootMeanSquaredError": 54.157524,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
       "component": "DropDownButton",
       "target": "DiagnosticDropDownButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -215,14 +215,14 @@
       "changedPixelPercentage": 24.886364,
       "meanAbsoluteError": 19.167898,
       "rootMeanSquaredError": 56.567693,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
       "component": "SplitButton",
       "target": "DiagnosticSplitButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -234,14 +234,14 @@
       "changedPixelPercentage": 19.98839,
       "meanAbsoluteError": 14.651122,
       "rootMeanSquaredError": 49.524306,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
       "component": "ToggleSplitButton",
       "target": "DiagnosticToggleSplitButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -253,14 +253,14 @@
       "changedPixelPercentage": 36.179022,
       "meanAbsoluteError": 34.554688,
       "rootMeanSquaredError": 78.702345,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
       "component": "Slider",
       "target": "DiagnosticSlider",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -272,14 +272,14 @@
       "changedPixelPercentage": 16.287364,
       "meanAbsoluteError": 14.4665,
       "rootMeanSquaredError": 50.5407,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
       "component": "ToggleSwitch",
       "target": "DiagnosticToggleSwitch",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -291,14 +291,14 @@
       "changedPixelPercentage": 16.16323,
       "meanAbsoluteError": 14.801046,
       "rootMeanSquaredError": 50.67013,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
       "component": "RatingControl",
       "target": "DiagnosticRatingControl",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -310,7 +310,7 @@
       "changedPixelPercentage": 20.921266,
       "meanAbsoluteError": 17.81321,
       "rootMeanSquaredError": 55.272606,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",

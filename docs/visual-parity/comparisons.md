@@ -23,8 +23,8 @@ interaction/accessibility evidence, and native-reference provenance. See
 
 As of the checked-in public component-quality dashboard, the current macOS
 renderer is a usable harness scaffold rather than a high-fidelity WinUI
-renderer. The public evidence set contains 58 component rows: 32 `usable` and
-26 `not-rendered`. All public rows now have native/macOS/diff crop triptychs,
+renderer. The public evidence set contains 58 component rows: 40 `usable` and
+18 `not-rendered`. All public rows now have native/macOS/diff crop triptychs,
 but many controls still have simplified chrome, missing native states, missing
 templates, incomplete popup placement, or diagnostic-only rendering.
 
@@ -54,7 +54,7 @@ Historical checked-in examples:
 | Scenario | Checked-in status | Changed pixels | Threshold | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 99.988381% | 45% | 9.678085 | 36.397928 | 9 `usable` |
-| `component-basic-input-light` | failed | 30.145914% | 18% | 9.611153 | 39.380451 | 5 `usable`, 8 `not-rendered` |
+| `component-basic-input-light` | failed | 30.145914% | 18% | 9.611153 | 39.380451 | 13 `usable`, zero `not-rendered` |
 | `component-commands-menus-light` | failed | 28.441283% | 24% | 7.859141 | 35.183863 | 5 `usable`, 3 `not-rendered` |
 | `component-layout-media-light` | failed | 43.277129% | 24% | 13.470821 | 45.268636 | 13 `usable`, 15 `not-rendered` |
 
@@ -62,7 +62,7 @@ Current inspected local macOS artifacts:
 
 | Scenario | Current status | Component evidence | Interpretation |
 | --- | --- | --- | --- |
-| `component-basic-input-light` / `component-basic-input-checked-light` | passed | Base scenario has 5 `usable`, 8 planned `not-rendered`; checked-state scenario has 3 `usable` | Recognizable controls with improved checked chrome; rich input remains planned. |
+| `component-basic-input-light` / `component-basic-input-checked-light` | failed against native reference for the base light scenario; checked-state smoke remains historical | Base scenario has 13 `usable` rows and zero `not-rendered`; checked-state scenario has 3 `usable` | Recognizable controls with improved static chrome; final native inspection, automation state, and interaction coverage remain incomplete. |
 | `component-commands-menus-light` | passed | 5 `usable`, 3 `not-rendered` | Command and flyout scaffold exists; native menu/command fidelity remains incomplete. |
 | `component-status-pickers-light` / `component-status-pickers-loading-light` / `component-status-pickers-success-light` | passed | Base scenario has 3 `usable`, 7 planned `not-rendered`; loading and success scenarios add 4 `usable` | Status/progress scaffold exists with regenerated success evidence; native animation and close/action areas remain gaps. |
 | `component-layout-media-light` | passed | 13 `usable`, 15 planned/non-goal `not-rendered` | Layout/resource scaffold exists; media, web, ink, and materials remain excluded or planned. |

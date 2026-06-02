@@ -73,7 +73,7 @@ clean-room pages:
 
 | Page | Coverage |
 | --- | --- |
-| Page 1: Basic input | Native Windows fixture controls for `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls; current macOS `skia-v2` evidence is 5 `usable` harness rows and 8 planned `not-rendered` rows, plus 3 usable checked-state rows, with simplified but visible control chrome. |
+| Page 1: Basic input | Native Windows fixture controls for `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, `RepeatButton`, `HyperlinkButton`, `DropDownButton`, `SplitButton`, `ToggleSplitButton`, `Slider`, `ToggleSwitch`, and `RatingControl`; current macOS `skia-v2` light evidence is 13 `usable` harness rows, plus 3 usable checked-state rows, with simplified but visible control chrome. |
 | Page 2: Text and forms | `TextBlock`, native Windows fixture controls for `TextBox` and form labels, and diagnostic rows for rich text, password, number, and autosuggest controls; current macOS `skia-v2` TextBox/form output is usable for smoke testing with approximate input chrome. |
 | Page 3: Collections | Native Windows fixture controls for `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics; current macOS `skia-v2` collection output is usable for basic item rows and selected chrome, with templates and virtualization missing. |
 | Page 4: Dialogs and flyouts | Dialog, flyout, tooltip, teaching tip, and tooltip service coverage; current macOS `skia-v2` output is usable for the partial `ContentDialog`, `Flyout`, and `ToolTip` open-state subset while `TeachingTip` and tooltip service remain planned. |
@@ -105,7 +105,7 @@ Latest inspected native comparison counts:
 
 | Scenario | Native comparison | Component evidence |
 | --- | --- | --- |
-| `component-basic-input-light` / `component-basic-input-checked-light` | Local strict runs passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | Base scenario has 5 `usable`, 8 planned `not-rendered`; checked-state scenario has 3 `usable`. Component targets include layout regions; native chrome remains approximate. |
+| `component-basic-input-light` / `component-basic-input-checked-light` | Native-reference strict visual comparison for the base light scenario is checked in and currently fails the native-quality threshold; checked-state native comparison remains a CI artifact concern. | Base scenario has 13 `usable` rows and zero `not-rendered` rows; checked-state scenario has 3 `usable`. Component targets include layout regions; native chrome remains approximate and not manually promoted. |
 | `component-status-pickers-light` / `component-status-pickers-loading-light` / `component-status-pickers-success-light` | Local strict runs passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | Base scenario has 3 `usable`, 7 planned `not-rendered`; loading and success scenarios add 4 `usable` state rows. Success-state evidence was regenerated with nonblank crops for `InfoBar` and `ProgressBar`. |
 | `component-dialogs-flyouts-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | `ContentDialog`, `Flyout`, and `ToolTip` are `usable` with passed open/dismiss interaction evidence; `TeachingTip` and tooltip service remain planned `not-rendered`. |
 | `component-commands-menus-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | `CommandBarFlyout` and `MenuFlyout` are `usable` with passed open/invoke interaction evidence; `MenuBar` and context menu pattern remain planned `not-rendered`. |
@@ -188,12 +188,16 @@ Latest inspected native comparison counts:
 ## Not Yet Cataloged
 
 Common WinUI controls such as `AutoSuggestBox`, `CalendarDatePicker`,
-`CalendarView`, `ColorPicker`, `DatePicker`, `DropDownButton`, `Expander`,
-`FlipView`, `GridView`, `HyperlinkButton`, `MenuBar`,
-`NumberBox`, `PasswordBox`, `PersonPicture`, `RatingControl`, `RichEditBox`,
-`Slider`, `SplitButton`, `SplitView`, `TabView`, `TeachingTip`, `TimePicker`,
+`CalendarView`, `ColorPicker`, `DatePicker`, `Expander`, `FlipView`,
+`GridView`, `MenuBar`, `NumberBox`, `PasswordBox`, `PersonPicture`,
+`RichEditBox`, `SplitView`, `TabView`, `TeachingTip`, `TimePicker`,
 `TreeView`, and `TwoPaneView` are not part of the current support claim.
 The component parity lab now gives these controls explicit diagnostic rows and
 `not-rendered` evidence entries; strict mode should still treat uncataloged
 runtime usage as a compatibility gap until the feature is added to the API
-catalog and backed by public tests.
+catalog and backed by public tests. `RepeatButton`, `HyperlinkButton`,
+`DropDownButton`, `SplitButton`, `ToggleSplitButton`, `Slider`,
+`ToggleSwitch`, and `RatingControl` have bounded `component-basic-input-light`
+rendering evidence, but remain partial harness rows until native-quality
+inspection, API-level automation evidence, and full interaction coverage are
+complete.

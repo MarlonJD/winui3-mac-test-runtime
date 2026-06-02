@@ -30,9 +30,9 @@ The target remains strict:
   promoted before side-by-side native Windows, macOS, and diff crops are
   manually inspected.
 
-## Current Public Baseline
+## Starting Public Baseline
 
-The current checked-in public dashboard is
+The checked-in public dashboard at the start of this execution plan was
 `docs/visual-parity/component-quality-dashboard.json`.
 
 Totals:
@@ -50,6 +50,27 @@ Totals:
 | Missing component diffs | 0 |
 | Missing inspection notes | 58 |
 | Blocking rows | 58 |
+
+Current progress after the first basic-input evidence pass:
+
+| Metric | Current value |
+| --- | ---: |
+| Scenarios | 4 |
+| Component rows | 58 |
+| `usable` rows | 40 |
+| `not-rendered` rows | 18 |
+| `nativeQualityGrade: not-evaluated` rows | 58 |
+| Missing macOS runtime crops | 0 |
+| Missing native reference crops | 0 |
+| Missing native reference provenance | 0 |
+| Missing component diffs | 0 |
+| Missing inspection notes | 58 |
+| Blocking rows | 58 |
+
+`component-basic-input-light` now has 13 rendered `usable` harness rows and
+zero `not-rendered` rows. Those rows remain blockers because `usable` is not a
+native-quality final grade, `nativeQualityGrade` is still `not-evaluated`, and
+manual screenshot inspection metadata has not been applied.
 
 Scenario breakdown:
 

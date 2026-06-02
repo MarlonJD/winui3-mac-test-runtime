@@ -470,10 +470,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 18,
         "maxChannelDelta": 255,
@@ -528,7 +528,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
       ]
     },
     {
@@ -558,10 +558,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 18,
         "maxChannelDelta": 255,
@@ -616,7 +616,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
       ]
     },
     {
@@ -646,10 +646,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 18,
         "maxChannelDelta": 255,
@@ -704,7 +704,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
       ]
     },
     {
@@ -734,10 +734,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 18,
         "maxChannelDelta": 255,
@@ -792,7 +792,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
       ]
     },
     {
@@ -822,10 +822,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 18,
         "maxChannelDelta": 255,
@@ -880,7 +880,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
       ]
     },
     {
@@ -910,10 +910,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 18,
         "maxChannelDelta": 255,
@@ -968,7 +968,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
       ]
     },
     {
@@ -998,10 +998,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 18,
         "maxChannelDelta": 255,
@@ -1056,7 +1056,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
       ]
     },
     {
@@ -1086,10 +1086,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 18,
         "maxChannelDelta": 255,
@@ -1144,7 +1144,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
       ]
     }
   ],

@@ -6,8 +6,8 @@
     "scenarioCount": 4,
     "componentCount": 58,
     "visualGradeCounts": {
-      "not-rendered": 26,
-      "usable": 32
+      "not-rendered": 18,
+      "usable": 40
     },
     "nativeQualityGradeCounts": {
       "not-evaluated": 58
@@ -146,8 +146,8 @@
       "component": "RepeatButton",
       "target": "DiagnosticRepeatButton",
       "ownerFamily": "Basic input",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -156,7 +156,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -164,8 +164,8 @@
       "component": "HyperlinkButton",
       "target": "DiagnosticHyperlinkButton",
       "ownerFamily": "Basic input",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -174,7 +174,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -182,8 +182,8 @@
       "component": "DropDownButton",
       "target": "DiagnosticDropDownButton",
       "ownerFamily": "Basic input",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -192,7 +192,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -200,8 +200,8 @@
       "component": "SplitButton",
       "target": "DiagnosticSplitButton",
       "ownerFamily": "Basic input",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -210,7 +210,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -218,8 +218,8 @@
       "component": "ToggleSplitButton",
       "target": "DiagnosticToggleSplitButton",
       "ownerFamily": "Basic input",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -228,7 +228,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -236,8 +236,8 @@
       "component": "Slider",
       "target": "DiagnosticSlider",
       "ownerFamily": "Basic input",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -246,7 +246,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -254,8 +254,8 @@
       "component": "ToggleSwitch",
       "target": "DiagnosticToggleSwitch",
       "ownerFamily": "Basic input",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -264,7 +264,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -272,8 +272,8 @@
       "component": "RatingControl",
       "target": "DiagnosticRatingControl",
       "ownerFamily": "Basic input",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -282,7 +282,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -1171,11 +1171,11 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "RepeatButton",
       "target": "DiagnosticRepeatButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1185,11 +1185,11 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "HyperlinkButton",
       "target": "DiagnosticHyperlinkButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1199,11 +1199,11 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "DropDownButton",
       "target": "DiagnosticDropDownButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1213,11 +1213,11 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "SplitButton",
       "target": "DiagnosticSplitButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1227,11 +1227,11 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "ToggleSplitButton",
       "target": "DiagnosticToggleSplitButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1241,11 +1241,11 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "Slider",
       "target": "DiagnosticSlider",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1255,11 +1255,11 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "ToggleSwitch",
       "target": "DiagnosticToggleSwitch",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1269,11 +1269,11 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "RatingControl",
       "target": "DiagnosticRatingControl",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]

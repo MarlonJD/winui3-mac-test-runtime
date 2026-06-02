@@ -86,7 +86,7 @@ inspection. When fresh evidence promotes a component to `usable`, the claim
 applies only to that component's documented harness subset.
 
 The checked-in public component-quality dashboard contains 58 component
-evidence rows: 32 `usable` and 26 `not-rendered`. Those rows all have
+evidence rows: 40 `usable` and 18 `not-rendered`. Those rows all have
 native/macOS/diff crop triptychs, but they do not establish native WinUI visual
 fidelity until final grades and manual inspection metadata are present.
 

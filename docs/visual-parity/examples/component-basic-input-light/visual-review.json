@@ -121,8 +121,8 @@
     {
       "component": "RepeatButton",
       "target": "DiagnosticRepeatButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -137,13 +137,13 @@
       "meanAbsoluteError": 18.414919,
       "rootMeanSquaredError": 55.168163,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
     },
     {
       "component": "HyperlinkButton",
       "target": "DiagnosticHyperlinkButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -158,13 +158,13 @@
       "meanAbsoluteError": 18.555263,
       "rootMeanSquaredError": 54.157524,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
     },
     {
       "component": "DropDownButton",
       "target": "DiagnosticDropDownButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -179,13 +179,13 @@
       "meanAbsoluteError": 19.167898,
       "rootMeanSquaredError": 56.567693,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
     },
     {
       "component": "SplitButton",
       "target": "DiagnosticSplitButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -200,13 +200,13 @@
       "meanAbsoluteError": 14.651122,
       "rootMeanSquaredError": 49.524306,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
     },
     {
       "component": "ToggleSplitButton",
       "target": "DiagnosticToggleSplitButton",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -221,13 +221,13 @@
       "meanAbsoluteError": 34.554688,
       "rootMeanSquaredError": 78.702345,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
     },
     {
       "component": "Slider",
       "target": "DiagnosticSlider",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -242,13 +242,13 @@
       "meanAbsoluteError": 14.4665,
       "rootMeanSquaredError": 50.5407,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
     },
     {
       "component": "ToggleSwitch",
       "target": "DiagnosticToggleSwitch",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -263,13 +263,13 @@
       "meanAbsoluteError": 14.801046,
       "rootMeanSquaredError": 50.67013,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
     },
     {
       "component": "RatingControl",
       "target": "DiagnosticRatingControl",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -284,7 +284,7 @@
       "meanAbsoluteError": 17.81321,
       "rootMeanSquaredError": 55.272606,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
     }
   ],
   "htmlPath": "visual-review.html"
