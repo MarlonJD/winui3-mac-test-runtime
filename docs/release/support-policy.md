@@ -2,19 +2,19 @@
 
 Date: 2026-06-02
 
-This policy defines the production support boundary for the source-level WinUI 3
-macOS compatibility runtime. It is intentionally narrower than arbitrary WinUI
-3 application compatibility.
+This policy defines the support boundary for the source-level WinUI 3 macOS
+compatibility runtime. It is intentionally narrower than arbitrary WinUI 3
+application compatibility and does not claim production visual fidelity.
 
-## Supported Production Scope
+## Supported Harness Scope
 
-The production-ready claim applies only to the documented public source-level
-subset:
+The release-gate-ready support claim applies only to the documented public
+source-level subset:
 
 - clean-room public fixture and corpus projects in `fixtures/corpus.json`;
 - APIs and XAML constructs cataloged as `supported` or `partial` in
   `docs/compatibility/winui-api-compatibility.catalog.json`;
-- production-ring components listed in
+- harness-ring components listed in
   `docs/compatibility/production-component-targets.md` when their scenario
   requirements meet the declared minimum visual grade;
 - deterministic runner artifacts documented in `docs/architecture/artifacts.md`;
@@ -23,18 +23,19 @@ subset:
 - release, benchmark, flake, package, security, and private-name gates recorded
   in CI.
 
-Production support means consumers can use the runtime as a source-level
-compatibility, diagnostics, artifact, interaction, accessibility-export, and
-visual evidence gate for that subset. It does not mean the runtime can execute
-Windows binaries or replace Windows App SDK validation.
+Support means consumers can use the runtime as a source-level compatibility,
+diagnostics, artifact, interaction, accessibility-export, and visual evidence
+gate for that subset. It does not mean the runtime can execute Windows
+binaries, replace Windows App SDK validation, or render native-quality WinUI
+chrome.
 
 ## Unsupported Or Excluded Scope
 
-The following remain excluded from production support until they are explicitly
+The following remain excluded from support until they are explicitly
 promoted through catalog, fixture, renderer, native-reference, and release
 evidence gates:
 
-- arbitrary WinUI 3 apps outside the documented corpus and production-ring
+- arbitrary WinUI 3 apps outside the documented corpus and harness-ring
   scenarios;
 - `.exe`, `.msix`, packaged Windows App SDK execution, Wine-backed execution,
   and real Windows App SDK target execution on macOS;
@@ -52,9 +53,9 @@ versioned artifacts instead of being silently promoted.
 
 ## Compatibility And Versioning
 
-- The package version is `0.1.0-alpha.1`; the production claim is a support
+- The package version is `0.1.0-alpha.1`; the support claim is a harness
   boundary for the documented source-level subset, not a semantic-version
-  guarantee for the broader WinUI 3 ecosystem.
+  guarantee for the broader WinUI 3 ecosystem or renderer fidelity.
 - Additive support for new catalog entries may ship in minor or prerelease
   updates.
 - Removing or weakening a documented supported/partial behavior requires a
@@ -79,7 +80,7 @@ Triage levels:
 
 | Level | Meaning |
 | --- | --- |
-| Production subset regression | A documented supported/partial production-ring behavior regressed with public-safe reproduction artifacts. |
+| Harness subset regression | A documented supported/partial harness-ring behavior regressed with public-safe reproduction artifacts. |
 | Unsupported scope request | The issue touches planned, windows-only, not-supported, or uncataloged behavior. It should be tracked as roadmap or diagnostics work. |
 | Evidence hygiene issue | Provenance, private-name safety, artifact retention, or support-policy evidence is missing or stale. |
 | Downstream-specific issue | The behavior depends on private app source or unsupported app structure. Keep evidence in the downstream repository. |

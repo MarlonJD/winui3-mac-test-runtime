@@ -4,9 +4,10 @@ This guide is for public projects that want source-level WinUI 3 smoke and
 visual checks on macOS. The runtime does not run Windows binaries, `.msix`
 packages, or arbitrary `.exe` files.
 
-The current Level 0 through Level 7 surface is production-ready for the
-documented public source-level subset. Treat the compatibility matrix, support
-policy, and API catalog as the boundary for what can be used locally today.
+The current Level 0 through Level 7 surface is release-gate-ready for the
+documented public source-level harness subset. Treat the compatibility matrix,
+support policy, API catalog, and renderer-fidelity notes as the boundary for
+what can be used locally today.
 
 ## Requirements
 

@@ -5,8 +5,9 @@ projects that accept the compatibility limits. It does not expand the WinUI API
 subset by itself; it records package, CI, troubleshooting, and release evidence
 contracts for the supported public levels.
 
-Level 0 through Level 7 are production-ready for the documented public subset.
-They are not a claim of arbitrary WinUI 3 app compatibility.
+Level 0 through Level 7 are release-gate-ready for the documented public
+harness subset. They are not a claim of arbitrary WinUI 3 app compatibility or
+native-quality visual rendering.
 
 For the broader production readiness assessment, including completed work,
 known gaps, and production blockers, see `docs/release/production-readiness.md`.

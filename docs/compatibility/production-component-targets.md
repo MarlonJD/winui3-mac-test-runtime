@@ -19,8 +19,9 @@ interaction artifacts, and accessibility export.
 - Windows source of truth: public native WinUI fixture runs from
   `windows-native-screenshot.yml`.
 - Fixture content: clean-room, generic component pages and workbench scenarios.
-- Current support claim: production target inventory only. A component is not
-  production-supported until the target grade and evidence gates below are met.
+- Current support claim: harness target inventory only. A component is not
+  supported until the target grade and evidence gates below are met, and that
+  support does not imply native visual fidelity.
 - Private content rule: do not commit private names, private source paths,
   private screenshots, private product data, secrets, copied WinUI Gallery
   content, or proprietary fixture text.
@@ -36,7 +37,7 @@ interaction artifacts, and accessibility export.
 
 ## Evidence Gate
 
-Every production-ring component must have all of the following before its
+Every harness-ring component must have all of the following before its
 production target is considered met:
 
 | Evidence | Requirement |
@@ -66,7 +67,7 @@ production smoke foundation.
 | Workbench | `NavigationView`, `NavigationViewItem`, `NavigationView.MenuItems`, `NavigationView.PaneFooter`, `ListView`, list/details pattern | partial | `public-admin-workbench-light`, `component-navigation-workbench-light`, `component-collections-light` | navigation selection, list selection, detail update | navigation/list roles, selected state, pane footer name | `usable` | smoke workbench flow | skia-v2 renders pane, selected row, list/detail, and footer regions; adaptive layout and keyboarding remain gaps. |
 | Status | `InfoBar`, `ProgressBar`, `ProgressRing` | supported | `component-status-pickers-light`, `public-admin-workbench-light` | state assertion, progress value export, status update | status title/message/severity, progress value, active state | `usable` | smoke loading, warning, error, success | skia-v2 renders InfoBar and progress chrome; close/action areas and native animations remain gaps. |
 | Resources and theme | `StaticResource`, `ThemeResource`, `Style`, `Setter`, simple typography and spacing | supported or partial | `component-layout-media-light`, `component-layout-media-dark`, `component-layout-media-high-contrast` | none beyond strict diagnostics | resource-driven text remains visible in light, dark, and high contrast | `usable` | smoke theme/resource gate | Full dynamic Fluent resource behavior and typed brush object fidelity remain planned. |
-| Artifacts | `tree.json`, `accessibility.json`, `visual-run.json`, `component-evidence.json`, pixel diff artifacts | supported | all production-ring scenarios | deterministic pass/fail details | complete deterministic export for supported controls | n/a | every smoke run | Component-region evidence records target layout boxes so whole-screen thresholds cannot hide missing controls. |
+| Artifacts | `tree.json`, `accessibility.json`, `visual-run.json`, `component-evidence.json`, pixel diff artifacts | supported | all harness-ring scenarios | deterministic pass/fail details | complete deterministic export for supported controls | n/a | every smoke run | Component-region evidence records target layout boxes so whole-screen thresholds cannot hide missing controls. |
 
 ## Ring 1 Targets
 
@@ -77,7 +78,7 @@ production smoke foundation.
 | Dialog decisions | `ContentDialog`, `Flyout`, `TeachingTip`, `ToolTip`, `ToolTipService.SetToolTip` | partial for `ContentDialog`, `Flyout`, and `ToolTip`; planned for `TeachingTip` and tooltip service | `component-dialogs-flyouts-light` | open/dismiss for supported dialog and popup surfaces; primary/secondary action and tooltip target assertion still planned | dialog/popup/tooltip roles and expanded state for supported surfaces; full button relationships still planned | `usable` for supported surfaces when claimed | dialog/flyout decision E2E flow | Native modal behavior, placement, focus trapping, light-dismiss, `TeachingTip`, and `ToolTipService.SetToolTip` remain incomplete. |
 | Templates and collections | `DataTemplate`, `ItemsControl.ItemTemplate`, `ListView.ItemTemplate`, `ItemsRepeater`, `GridView` | planned except partial collection hosts | `component-collections-light` | item generation, list/grid selection, detail update | item roles, selected state, template text names | `usable` when claimed | list/detail E2E flow | Template parsing, container visuals, virtualization, and item chrome are missing. |
 | Theme dictionaries and resources | `XamlControlsResources`, `ResourceDictionary.ThemeDictionaries`, `Color`, `SolidColorBrush`, `CornerRadius` | partial for theme dictionaries, `SolidColorBrush`, and `CornerRadius`; planned for broader color/resource coverage | `component-layout-media-light`, `component-layout-media-dark`, `component-layout-media-high-contrast` | strict missing-resource diagnostics | visible themed text and non-color-only state in light, dark, high contrast | `usable` when claimed | theme/scale E2E flow | Full Fluent resource dictionaries, dynamic invalidation, and complete typed brush/color conversion are incomplete. |
-| Keyboard and accessibility | focus traversal, accelerators, selected/checked/value states | partial | all production-ring scenarios | tab order, accelerator invocation, keyboard selection, focus assertion | Narrator-ready names, roles, state, value, relationships | n/a | every production E2E flow | Focus visuals and broad keyboard routing are incomplete. |
+| Keyboard and accessibility | focus traversal, accelerators, selected/checked/value states | partial | all harness-ring scenarios | tab order, accelerator invocation, keyboard selection, focus assertion | Narrator-ready names, roles, state, value, relationships | n/a | every harness E2E flow | Focus visuals and broad keyboard routing are incomplete. |
 
 ## Ring 2 And Explicit Non-Goals
 
@@ -133,12 +134,13 @@ Run this checklist before every production-target commit:
 
 ## Current Status
 
-This inventory is the production support boundary for the current documented
-source-level subset. Ring 0 and claimed Ring 1 components require public
-scenario evidence, native WinUI provenance, local `skia-v2` artifacts,
+This inventory is the support boundary for the current documented source-level
+harness subset. Ring 0 and claimed Ring 1 components require public scenario
+evidence, native WinUI provenance, local `skia-v2` artifacts,
 interaction/accessibility evidence where applicable, and a minimum `usable`
-visual grade. Planned, unsupported, Windows-only, diagnostic-only, weak, poor,
-or `not-rendered` rows remain outside the production claim.
+harness grade. Planned, unsupported, Windows-only, diagnostic-only, weak, poor,
+or `not-rendered` rows remain outside the support claim and do not imply visual
+fidelity.
 
 State scenario coverage is tracked in
 `docs/compatibility/winui-component-inventory.json` under

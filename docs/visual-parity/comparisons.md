@@ -6,15 +6,27 @@ This file collects every checked-in visual comparison under
 These examples are **historical visual-review fixtures**. They show the native
 WinUI Windows reference, the checked-in macOS runtime render, and the pixel
 diff that was copied into the repository. They are useful for reviewing older
-renderer gaps, but they are not the current production component grade source.
+renderer gaps, but they are not the current support or visual-quality grade
+source.
+They also should not be shown as proof that the current renderer is empty:
+newer local artifacts under `artifacts/winui3-mac` render more component
+scaffolding than these checked-in examples, but still do not reach native WinUI
+visual fidelity.
 
-Current production component status is sourced from fresh
+Current support status is sourced from fresh
 `component-evidence.json`, strict scenario results, catalog status,
 interaction/accessibility evidence, and native-reference provenance. See
 `docs/release/final-production-gate.md`,
 `docs/release/production-evidence-view.md`,
 `docs/compatibility/component-support.md`, and
 `docs/compatibility/production-component-targets.md`.
+
+As of the latest inspected local artifact set, the current macOS renderer is a
+usable harness scaffold rather than a high-fidelity WinUI renderer. The
+`artifacts/winui3-mac` component evidence set contains 138 component rows: 79
+`usable` and 59 `not-rendered`. `usable` rows are recognizable and testable, but
+many controls still have simplified chrome, missing native states, missing
+templates, incomplete popup placement, or diagnostic-only rendering.
 
 ## Provenance
 
@@ -32,12 +44,24 @@ this comparison gallery.
 
 ## Summary
 
+Historical checked-in examples:
+
 | Scenario | Checked-in status | Changed pixels | Threshold | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 100.00% | 45% | 9.72 | 35.87 | n/a |
 | `component-basic-input-light` | failed | 42.07% | 18% | 9.92 | 38.84 | 13 `not-rendered` |
 | `component-commands-menus-light` | failed | 40.68% | 24% | 8.45 | 35.23 | 8 `not-rendered` |
 | `component-layout-media-light` | failed | 45.83% | 24% | 10.48 | 39.27 | 4 `usable`, 24 `not-rendered` |
+
+Current inspected local macOS artifacts:
+
+| Scenario | Current status | Component evidence | Interpretation |
+| --- | --- | --- | --- |
+| `component-basic-input-light` | passed | 5 `usable`, 8 planned `not-rendered` | Recognizable controls with simplified chrome; rich input remains planned. |
+| `component-commands-menus-light` | passed | 5 `usable`, 3 `not-rendered` | Command and flyout scaffold exists; native menu/command fidelity remains incomplete. |
+| `component-status-pickers-light` | passed | 3 `usable`, 7 planned `not-rendered` | Base status/progress scaffold exists; success-state artifact needs regeneration. |
+| `component-layout-media-light` | passed | 13 `usable`, 15 planned/non-goal `not-rendered` | Layout/resource scaffold exists; media, web, ink, and materials remain excluded or planned. |
+| `public-admin-workbench-light` | passed | 9 `usable` | Workbench scaffold is usable for smoke/E2E checks; it is not native-quality parity. |
 
 ## Public Admin Workbench
 

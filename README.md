@@ -6,9 +6,11 @@ The product goal is full source-level WinUI 3 C# and XAML development from
 macOS: developers should be able to build, run, test, inspect, and visually
 validate real WinUI 3 app code locally while public `windows-latest` GitHub
 Actions runs provide the intended behavioral and visual source of truth from
-actual native WinUI fixture apps. The current Level 0 through Level 7 surface is
-production-ready for the documented public source-level subset, not the final
-arbitrary WinUI 3 product scope.
+actual native WinUI fixture apps. The current repository is strongest as a
+source-level compatibility harness, catalog, artifact, and release-gate system.
+The macOS visual renderer is not yet production-fidelity WinUI; current
+`skia-v2` screenshots show usable scaffolding for a narrow public subset and
+many simplified or intentionally `not-rendered` controls.
 
 This repository does not run arbitrary Windows binaries, `.msix` packages, or
 `.exe` files on macOS. The current runtime runs managed .NET assemblies against
@@ -17,14 +19,20 @@ process, and emits structured artifacts for test inspection.
 
 ## Read This First
 
-Production-ready means **production-ready for the documented public
-source-level subset only**.
+Current release readiness means **cataloged source-level harness and evidence
+readiness for the documented public subset only**.
 
 It does **not** mean full WinUI 3 compatibility. The current catalog has 126
 entries: 55 `supported`, 35 `partial`, 31 `planned`, 3 `windows-only`, and 2
 `not supported`. That is intentionally transparent: planned, Windows-only,
 not-supported, and uncataloged APIs must fail or report diagnostics instead of
 silently looking supported.
+
+It also does **not** mean native WinUI visual fidelity. The latest inspected
+local macOS component artifacts include 138 component evidence rows: 79
+`usable` and 59 `not-rendered`. `usable` means recognizable and functionally
+testable, not pixel-matched Fluent chrome. The next project phase is renderer
+fidelity work, not more release-gate expansion.
 
 Use this runtime when your app or fixture stays inside the documented
 `supported` and `partial` subset. Do not use it as evidence that arbitrary WinUI
@@ -33,11 +41,12 @@ Windows binaries, `.msix` packages, or full Fluent pixel parity work on macOS.
 
 ## Production Support Policy
 
-The current production claim is limited to the public sanitized component
-subset documented in `docs/compatibility/production-component-targets.md`.
-That subset is validated by local strict `skia-v2` runs, scripted smoke/E2E
-scenarios, component evidence, and public native WinUI reference screenshots
-from `windows-native-screenshot.yml`.
+The current support claim is limited to the public sanitized component subset
+documented in `docs/compatibility/production-component-targets.md`. That subset
+is validated as a source-level harness by local strict `skia-v2` runs, scripted
+smoke/E2E scenarios, component evidence, and public native WinUI reference
+screenshots from `windows-native-screenshot.yml`. It is not validated as
+production visual fidelity.
 
 The project does not claim arbitrary WinUI 3 app compatibility. APIs outside
 the cataloged subset must remain `planned`, `windows-only`, `not supported`, or
@@ -58,8 +67,9 @@ control honesty, no OS composition claim, gated component-crop drift, native
 reference provenance, release docs, and the private-name scan) and lists the
 external workflow requirements (full native reference capture, full strict
 scenario sweep, and the package dry run with `release-check`). The exact
-support boundary stays source-level WinUI 3 visual readiness for the documented
-public subset, not Windows binary execution or arbitrary WinUI 3 compatibility.
+support boundary stays source-level WinUI 3 harness readiness for the
+documented public subset, not Windows binary execution, arbitrary WinUI 3
+compatibility, or high-fidelity Fluent rendering.
 
 ## Smoke Commands
 
@@ -171,7 +181,7 @@ minimum visual grade, and known gaps. The runner writes
 diagnostic-only components.
 
 `ProductionSmoke.WinUI` is a public Windows-targeted smoke and E2E fixture for
-the production component subset. It exercises launch, navigation, form edits,
+the documented harness component subset. It exercises launch, navigation, form edits,
 combo/list selection, status transitions, command invocation, resource-backed
 theme styling, and managed popup decision actions without private product data.
 
@@ -230,7 +240,8 @@ macOS .NET process.
 
 Public visual evidence lives in `docs/visual-parity/`. The checked-in PNG
 comparisons are kept in `docs/visual-parity/comparisons.md` as historical
-visual-review fixtures, not as the current production component grade source.
+visual-review fixtures, not as the current support or visual-quality grade
+source.
 The latest full native WinUI reference artifact set comes from public GitHub
 Actions run
 [`26792033793`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26792033793)
@@ -239,10 +250,11 @@ on commit `3c929f4`, and the final production gate evidence is recorded in
 remains only as smoke evidence for the harness. Fresh component lab runs publish
 `component-evidence.json`; treat that file as the component-level truth for
 `good`, `usable`, `weak`, `poor`, or `not-rendered` grades. A whole screenshot
-that passes thresholds is necessary smoke evidence, but it is not enough to
-call every visible control visually good. Controls that only emit text or
-disappear in macOS screenshots remain `not-rendered` and outside the production
-claim until fresh evidence promotes them.
+that passes thresholds is smoke evidence, but it is not enough to call every
+visible control visually good. Controls that only emit text, show placeholder
+chrome, or disappear in macOS screenshots remain `not-rendered` or low-fidelity
+and outside any visual fidelity claim until fresh inspected evidence promotes
+them.
 
 ### Component Parity Evidence
 
@@ -253,7 +265,7 @@ results, and the production target inventory:
 - Supported Ring 0 and claimed Ring 1 components must have at least `usable`
   component evidence with target layout regions.
 - Planned, unsupported, Windows-only, diagnostic-only, weak, poor, or
-  `not-rendered` rows remain outside the production claim.
+  `not-rendered` rows remain outside the support claim.
 - The `ClaimedSupportedComponentsAreNeverNotRendered` test prevents supported
   or partial component claims from regressing to `not-rendered`.
 
@@ -264,15 +276,16 @@ the current evidence tables and interpretation notes.
 
 ## Compatibility Status
 
-This runtime is production-ready only for the documented public source-level
+This runtime is release-gate-ready only for the documented public source-level
 subset. The published support surface includes **Level 0: Harness Reliability**,
 **Level 1: Core App And XAML
 Compatibility**, **Level 2: Layout And Controls Foundation**, **Level 3:
 Styling, Resources, And Theme Fidelity**, **Level 4: Data Binding, Commands,
 And State**, **Level 5: Input, Accessibility, And Automation**, **Level 6:
 Windows Reference Visual Compatibility**, and **Level 7: Release And
-Consumption Readiness**. These levels describe the supported public subset;
-they are not a claim of arbitrary WinUI 3 app compatibility.
+Consumption Readiness**. These levels describe the supported harness and
+evidence subset; they are not a claim of arbitrary WinUI 3 app compatibility or
+native-quality visual rendering.
 
 The compatibility catalog in
 `docs/compatibility/winui-api-compatibility.catalog.json` is the public seed for

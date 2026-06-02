@@ -12,8 +12,8 @@ the Microsoft Learn controls inventory and local source-audit gaps to a public
 fixture page, expected catalog status, interaction coverage, visual evidence
 grade, and known gaps.
 
-`production-component-targets.md` is the sanitized production target inventory.
-It maps the first production-ring component families to public clean-room
+`production-component-targets.md` is the sanitized harness target inventory.
+It maps the first harness-ring component families to public clean-room
 fixture scenarios, required interaction and accessibility coverage, target
 visual grades, smoke or E2E targets, and private-content safety checks. It does
 not promote any component grade by itself.
@@ -31,15 +31,17 @@ surfaces.
 The latest checked-in visual evidence uses native WinUI Windows references from
 public workflow runs and local `skia-v2` artifact inspection. The Windows
 references prove the public fixture pages show the intended native controls on
-Windows. Ring 0 macOS output now renders meaningful component chrome and target
-layout regions. Planned, unsupported, Windows-only, or diagnostic-only rows
-remain `not-rendered`.
+Windows. Current Ring 0 macOS output renders recognizable harness scaffolding
+and target layout regions for selected controls, but it is still visibly
+simplified and not native Fluent visual fidelity. Planned, unsupported,
+Windows-only, or diagnostic-only rows remain `not-rendered`.
 
-Production support is restricted to components listed in
+Support claims are restricted to components listed in
 `production-component-targets.md` with public smoke or E2E coverage. A component
-listed below is not production-supported merely because it has a facade type; it
-must also have component evidence, interaction/accessibility evidence where
-applicable, and native WinUI reference provenance.
+listed below is not visually production-supported merely because it has a facade
+type; it must also have component evidence, interaction/accessibility evidence
+where applicable, native WinUI reference provenance, and inspected renderer
+quality. `usable` means suitable for harness testing, not pixel-level parity.
 
 ## Status Model
 
@@ -71,14 +73,14 @@ clean-room pages:
 
 | Page | Coverage |
 | --- | --- |
-| Page 1: Basic input | Native Windows fixture controls for `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls; current macOS `skia-v2` evidence is `usable` for the supported Ring 0 controls. |
-| Page 2: Text and forms | `TextBlock`, native Windows fixture controls for `TextBox` and form labels, and diagnostic rows for rich text, password, number, and autosuggest controls; current macOS `skia-v2` TextBox/form output is `usable` with approximate input chrome. |
-| Page 3: Collections | Native Windows fixture controls for `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics; current macOS `skia-v2` collection output is `usable` for item rows and selection chrome. |
-| Page 4: Dialogs and flyouts | Dialog, flyout, tooltip, teaching tip, and tooltip service coverage; current macOS `skia-v2` output is `usable` for the partial `ContentDialog`, `Flyout`, and `ToolTip` open-state subset while `TeachingTip` and tooltip service remain planned. |
-| Page 5: Commands and menus | Native Windows fixture controls for `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics; current macOS `skia-v2` command output is `usable` for Ring 0 command surfaces and the partial `CommandBarFlyout`/`MenuFlyout` open/invoke subset. |
-| Page 6: Navigation and workbench | Native Windows fixture controls for `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure; current macOS `skia-v2` output is `usable` for the Ring 0 navigation/list-detail subset. |
-| Page 7: Status and pickers | Native Windows fixture controls for `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics; current macOS `skia-v2` output is `usable` for status and progress chrome. |
-| Page 8: Layout, media, visuals | Native Windows fixture controls for `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics; current macOS `skia-v2` layout/media output is `usable` for Ring 0 regions while advanced diagnostics remain `not-rendered`. |
+| Page 1: Basic input | Native Windows fixture controls for `Button`, `ToggleButton`, `CheckBox`, `RadioButton`, `ComboBox`, and diagnostic rows for remaining basic input controls; current macOS `skia-v2` evidence is 5 `usable` harness rows and 8 planned `not-rendered` rows, with simplified control chrome. |
+| Page 2: Text and forms | `TextBlock`, native Windows fixture controls for `TextBox` and form labels, and diagnostic rows for rich text, password, number, and autosuggest controls; current macOS `skia-v2` TextBox/form output is usable for smoke testing with approximate input chrome. |
+| Page 3: Collections | Native Windows fixture controls for `ItemsControl`, `ListView`, item-template diagnostics, and collection control diagnostics; current macOS `skia-v2` collection output is usable for basic item rows and selected chrome, with templates and virtualization missing. |
+| Page 4: Dialogs and flyouts | Dialog, flyout, tooltip, teaching tip, and tooltip service coverage; current macOS `skia-v2` output is usable for the partial `ContentDialog`, `Flyout`, and `ToolTip` open-state subset while `TeachingTip` and tooltip service remain planned. |
+| Page 5: Commands and menus | Native Windows fixture controls for `CommandBar`, `AppBarButton`, icon slot coverage, and menu/flyout diagnostics; current macOS `skia-v2` command output is 5 `usable` harness rows and 3 `not-rendered` rows, with simplified command/flyout chrome. |
+| Page 6: Navigation and workbench | Native Windows fixture controls for `NavigationView`, `NavigationViewItem`, `Frame`, `Page`, menu items, pane footer, and list/details structure; current macOS `skia-v2` output is usable for the Ring 0 navigation/list-detail scaffold. |
+| Page 7: Status and pickers | Native Windows fixture controls for `InfoBar`, `ProgressBar`, `ProgressRing`, and picker/person/status diagnostics; current macOS `skia-v2` base scenario is usable for status/progress smoke testing, while animation, close/action areas, and stale success evidence remain gaps. |
+| Page 8: Layout, media, visuals | Native Windows fixture controls for `ScrollViewer`, `Grid`, `StackPanel`, `Border`, `FontIcon`, `Image`, resources, theme/source diagnostics, media, web, ink, and backdrop diagnostics; current macOS `skia-v2` light evidence is 13 `usable` and 15 planned/non-goal `not-rendered` rows while advanced diagnostics remain `not-rendered`. |
 
 The foundation also tracks downstream source-audit gaps explicitly:
 `SymbolIcon`, `XamlControlsResources`,
@@ -95,20 +97,21 @@ states. These scenarios are listed in
 `winui-component-inventory.json` under `productionStateCoverage`; they provide
 native Windows fixture capture targets. Milestone 2 promotes the supported and
 partial Ring 0 `skia-v2` component output to `usable` only where local artifact
-inspection shows meaningful chrome and `component-evidence.json` records target
-layout regions.
+inspection shows recognizable harness output and `component-evidence.json`
+records target layout regions. Promotion to higher visual quality still
+requires direct renderer work and native reference review.
 
 Latest inspected native comparison counts:
 
 | Scenario | Native comparison | Component evidence |
 | --- | --- | --- |
-| `component-basic-input-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 5 `usable`, 8 planned `not-rendered`, all component targets include layout regions. |
-| `component-status-pickers-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 3 `usable`, 7 planned `not-rendered`, all component targets include layout regions. |
+| `component-basic-input-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 5 `usable`, 8 planned `not-rendered`, all component targets include layout regions; native chrome remains approximate. |
+| `component-status-pickers-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 3 `usable`, 7 planned `not-rendered`, all component targets include layout regions; success-state artifact needs regeneration because it still shows stale supported `not-rendered` rows. |
 | `component-dialogs-flyouts-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | `ContentDialog`, `Flyout`, and `ToolTip` are `usable` with passed open/dismiss interaction evidence; `TeachingTip` and tooltip service remain planned `not-rendered`. |
 | `component-commands-menus-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | `CommandBarFlyout` and `MenuFlyout` are `usable` with passed open/invoke interaction evidence; `MenuBar` and context menu pattern remain planned `not-rendered`. |
 | `component-layout-media-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 13 `usable`, 15 planned/non-goal `not-rendered`, including usable theme dictionary, `ThemeResource`, `SolidColorBrush`, and `CornerRadius` evidence with layout regions. |
 | `component-layout-media-dark` / `component-layout-media-high-contrast` | Local strict runs passed without local Windows reference paths; native reference comparison remains a CI artifact concern. | 6 `usable` resource/layout smoke targets in each theme; `ThemeResource` resolves to theme-specific foreground values. |
-| `public-admin-workbench-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 9 `usable`, no missing component regions. |
+| `public-admin-workbench-light` | Local strict run passed without a local Windows reference path; native reference comparison remains a CI artifact concern. | 9 `usable`, no missing component regions; visually it is a simplified workbench scaffold, not native-quality parity. |
 
 ## Cataloged Controls
 
@@ -189,8 +192,7 @@ Common WinUI controls such as `AutoSuggestBox`, `CalendarDatePicker`,
 `FlipView`, `GridView`, `HyperlinkButton`, `MenuBar`,
 `NumberBox`, `PasswordBox`, `PersonPicture`, `RatingControl`, `RichEditBox`,
 `Slider`, `SplitButton`, `SplitView`, `TabView`, `TeachingTip`, `TimePicker`,
-`TreeView`, and `TwoPaneView` are not part of the current production support
-claim.
+`TreeView`, and `TwoPaneView` are not part of the current support claim.
 The component parity lab now gives these controls explicit diagnostic rows and
 `not-rendered` evidence entries; strict mode should still treat uncataloged
 runtime usage as a compatibility gap until the feature is added to the API

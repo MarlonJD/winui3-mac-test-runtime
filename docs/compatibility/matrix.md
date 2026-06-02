@@ -26,14 +26,15 @@ that is not present in the catalog yet.
 | Level 6: Windows Reference Visual Compatibility | partial | Public `windows-latest` workflow captures native WinUI references for public admin/workbench and component parity lab fixtures, while synthetic `WindowsNativeProbe` output remains smoke-only. Local macOS strict runs pass for Ring 0 component evidence; whole-screenshot native comparison remains CI artifact evidence and does not override component-level grades. |
 | Level 7: Release And Consumption Readiness | supported | Package metadata, pack smoke, consumer quick start, sample consumer CI, release checklist, verification evidence, troubleshooting, and known-gap documentation. |
 
-Levels 0 through 7 are production-ready for the documented public source-level
-subset. They are not the final arbitrary WinUI 3 macOS development scope.
+Levels 0 through 7 are release-gate-ready for the documented public
+source-level harness subset. They are not the final arbitrary WinUI 3 macOS
+development scope and do not claim native-quality visual rendering.
 
 ## Production Compatibility Tiers
 
 | Tier | Claim | Evidence required |
 | --- | --- | --- |
-| Production subset | Public sanitized Ring 0 and required Ring 1 components only. | Catalog status, public fixture coverage, local strict `skia-v2` artifacts, component evidence, scripted interaction/accessibility evidence, and native WinUI reference provenance. |
+| Harness subset | Public sanitized Ring 0 and required Ring 1 components only. | Catalog status, public fixture coverage, local strict `skia-v2` artifacts, component evidence, scripted interaction/accessibility evidence, native WinUI reference provenance, and explicit renderer-fidelity notes. |
 | Experimental | Cataloged controls or features outside the production subset. | May have partial facade or diagnostics coverage, but docs must not present them as production-supported. |
 | Excluded | Windows binaries, packaged apps, compositor/material features, templates, and broad WinUI controls not covered by the production inventory. | Must stay documented as `planned`, `windows-only`, `not supported`, or `unknown` until promoted through the production evidence gates. |
 

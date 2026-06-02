@@ -48,24 +48,25 @@ Lower values are better.
 | `rootMeanSquaredError` | Error metric that penalizes larger color differences more strongly. |
 | `maxChannelDelta` | Largest single-channel color delta. A value of `255` can be caused by one high-contrast edge and does not imply the whole image is unrelated. |
 
-Passing strict comparison means the scenario stayed inside its documented
-thresholds. It is not a claim of arbitrary WinUI 3 pixel-perfect compatibility.
-It also is not a component-quality claim by itself: a whole screenshot can pass
-while an individual `CommandBar`, `InfoBar`, `ListView`, icon, or resource
-feature remains visibly weak or absent. Component lab scenarios must publish
+Passing strict comparison means the scenario stayed inside its documented smoke
+thresholds. It is not a claim of arbitrary WinUI 3 pixel-perfect compatibility
+or production visual fidelity. It also is not a component-quality claim by
+itself: a whole screenshot can pass while an individual `CommandBar`,
+`InfoBar`, `ListView`, icon, or resource feature remains visibly weak,
+simplified, or absent. Component lab scenarios must publish
 `component-evidence.json` and keep visibly weak controls labeled `weak` or
 `poor`; controls that only emit text or disappear in macOS screenshots must be
 labeled `not-rendered` until native WinUI public reference artifacts and
-reviewed macOS output justify a stronger grade. The production subset is
-limited to component rows whose current evidence meets the minimum grade in
-`docs/compatibility/production-component-targets.md`.
+reviewed macOS output justify a stronger grade. The current support subset is
+limited to component rows whose current evidence meets the minimum harness
+grade in `docs/compatibility/production-component-targets.md`.
 
 Component visual grades:
 
 | Grade | Meaning |
 | --- | --- |
 | `good` | Close to Windows with only minor text or edge differences. |
-| `usable` | Recognizable and functionally correct, but native chrome differs. |
+| `usable` | Recognizable and functionally testable, but native chrome differs; this is a harness grade, not a fidelity grade. |
 | `weak` | Structure exists, but important visual details are missing or simplified. |
 | `poor` | Visibly wrong, collapsed, misplaced, or misleading. |
 | `not-rendered` | No meaningful macOS component visual is present yet; this includes diagnostic-only, planned, Windows-only, unsupported, empty, or text-only output. |
@@ -77,12 +78,17 @@ The checked-in PNG comparisons are collected in
 each one records a native WinUI Windows reference, a local macOS runtime render,
 and a pixel diff from the checked-in example set.
 
-Do not read those checked-in comparisons as current production component
-grades. Current production support is determined by fresh scenario
+Do not read those checked-in comparisons as current support component
+grades. Current support status is determined by fresh scenario
 `component-evidence.json`, catalog status, required interactions,
-accessibility export, and native-reference provenance. When fresh evidence
-promotes a component to `usable`, the production claim applies only to that
-component's documented subset.
+accessibility export, native-reference provenance, and manual screenshot
+inspection. When fresh evidence promotes a component to `usable`, the claim
+applies only to that component's documented harness subset.
+
+The latest inspected local macOS artifact set under `artifacts/winui3-mac`
+contains 138 component evidence rows: 79 `usable` and 59 `not-rendered`.
+Those rows show that the renderer supports narrow smoke/E2E scaffolds, but
+they do not establish native WinUI visual fidelity.
 
 Component lab scenario artifacts are produced for:
 `component-basic-input-light`, `component-text-forms-light`,

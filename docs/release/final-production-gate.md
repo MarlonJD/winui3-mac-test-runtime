@@ -1,18 +1,20 @@
-# Final Production Gate Evidence
+# Release Gate Evidence
 
 Date: 2026-06-02
 
-This document is the Sprint 7 handoff record for the full source-level WinUI 3
-production readiness gate. The gate is met for the documented public
-source-level subset and explicitly excludes arbitrary WinUI 3 app execution,
-Windows binaries, broad Fluent visual parity, and uncataloged APIs.
+This document is the Sprint 7 handoff record for the source-level WinUI 3
+release evidence gate. The catalog, diagnostics, artifact generation, and local
+release checks are in place for the documented public source-level subset. The
+macOS renderer itself is not yet production-fidelity WinUI and must not be
+presented as broad Fluent visual parity.
 
 ## Final Verdict
 
-Status: **met for the documented production subset**.
+Status: **release evidence gate met for the documented harness subset;
+production visual fidelity not met**.
 
-The repository can truthfully claim production-ready source-level WinUI 3
-compatibility for the public clean-room subset documented in:
+The repository can truthfully claim a bounded source-level compatibility
+harness for the public clean-room subset documented in:
 
 - `docs/compatibility/matrix.md`;
 - `docs/compatibility/component-support.md`;
@@ -21,7 +23,8 @@ compatibility for the public clean-room subset documented in:
 - `docs/release/support-policy.md`.
 
 The runtime remains a Wine-free source-level compatibility and evidence tool,
-not a Windows emulator or a substitute for native Windows App SDK validation.
+not a Windows emulator, not a substitute for native Windows App SDK validation,
+and not a high-fidelity WinUI renderer yet.
 
 For the single-page evidence summary that combines catalog counts, Ring 0/Ring
 1 status, latest recorded workflow IDs, strict scenario results, and checked-in
@@ -32,7 +35,9 @@ aggregates the deterministic local release requirements into
 `artifacts/production-gates/release-candidate.json` and lists the external
 workflow requirements (full native reference capture, the full strict scenario
 sweep, and the package dry run with `release-check`). The support boundary stays
-source-level WinUI 3 visual readiness for the documented public subset.
+source-level WinUI 3 harness readiness for the documented public subset. Visual
+renderer quality needs a separate renderer-fidelity plan before any stronger
+visual claim.
 
 ## Workflow Evidence
 
@@ -66,18 +71,24 @@ source-level WinUI 3 visual readiness for the documented public subset.
 Component grades are sourced from `component-evidence.json`, not from whole
 screenshot pass/fail alone.
 
-Current production-ring evidence:
+Current inspected renderer evidence:
 
-| Scenario family | Current production grade summary |
+| Scenario family | Current renderer status |
 | --- | --- |
-| Basic input and forms | Supported Ring 0 controls are `usable`; planned rich input rows remain `not-rendered`. |
-| Commands and menus | Supported command surfaces and partial flyout/menu subset are `usable`; menu bar, context menu pattern, split/dropdown buttons remain planned or diagnostic. |
-| Navigation and workbench | Navigation/list-detail production subset is `usable`; adaptive behavior and broader keyboarding remain partial. |
-| Status and progress | `InfoBar`, `ProgressBar`, and `ProgressRing` production subset is `usable`; animation and close/action areas remain gaps. |
-| Layout, media, and resources | Ring 0 layout/resource regions are `usable`; media, web, ink, materials, and advanced visuals remain excluded or planned. |
+| Basic input and forms | 5 `usable`, 8 planned `not-rendered`; controls are recognizable but not native Fluent chrome. |
+| Commands and menus | 5 `usable`, 3 `not-rendered`; command surfaces are simplified and popup/menu behavior remains partial. |
+| Navigation and workbench | Public admin workbench has 9 `usable` rows; adaptive behavior and broader keyboarding remain partial. |
+| Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; animation and close/action areas remain gaps. |
+| Layout, media, and resources | Light scenario has 13 `usable`, 15 planned/non-goal `not-rendered`; dark and high-contrast smoke rows are usable, while media, web, ink, materials, and advanced visuals remain excluded or planned. |
+
+Across the latest inspected `artifacts/winui3-mac` component evidence set,
+there are 138 component rows: 79 `usable` and 59 `not-rendered`. This is enough
+for harness smoke testing and scoped source-level evidence. It is not enough
+for a native-quality WinUI visual claim.
 
 The `ClaimedSupportedComponentsAreNeverNotRendered` test keeps supported or
-partial component claims from regressing to `not-rendered`.
+partial scenario requirements from regressing to `not-rendered`; it does not
+prove that `usable` controls are visually close to native WinUI.
 
 ## Unsupported WinUI 3 Exclusions
 
@@ -128,14 +139,14 @@ Release and security gates:
 | ID | Final status | Resolution |
 | --- | --- | --- |
 | PB-000 | Closed | Native WinUI reference source of truth is preserved and synthetic probe output remains smoke-only. |
-| PB-001 | Closed by production scope | The corpus has zero unknown surfaces; APIs outside the cataloged supported/partial subset are excluded or diagnosed. |
-| PB-002 | Closed by production scope | Production support is limited to components with public scenario evidence and minimum grades; diagnostic controls are excluded. |
-| PB-003 | Closed by production scope | Claimed supported/partial production components require `usable` evidence; weak or absent broader Fluent visuals are excluded. |
-| PB-004 | Closed by production scope | Templates, full visual states, and broader theme dictionaries are explicit planned exclusions. The supported source-level subset is documented. |
-| PB-005 | Closed by production scope | Materials/composition are excluded from the production claim and cataloged as planned or non-goal. |
-| PB-006 | Closed by production scope | Scripted interaction, automation ID, focus/text/list/command actions, and accessibility export are supported for the subset; broad keyboard/pointer behavior remains excluded. |
+| PB-001 | Closed by support scope | The corpus has zero unknown surfaces; APIs outside the cataloged supported/partial subset are excluded or diagnosed. |
+| PB-002 | Closed by support scope | Harness support is limited to components with public scenario evidence and minimum grades; diagnostic controls are excluded. |
+| PB-003 | Closed by support scope | Claimed supported/partial harness components require `usable` evidence; weak or absent broader Fluent visuals are excluded. |
+| PB-004 | Closed by support scope | Templates, full visual states, and broader theme dictionaries are explicit planned exclusions. The supported source-level subset is documented. |
+| PB-005 | Closed by support scope | Materials/composition are excluded from the support claim and cataloged as planned or non-goal. |
+| PB-006 | Closed by support scope | Scripted interaction, automation ID, focus/text/list/command actions, and accessibility export are supported for the subset; broad keyboard/pointer behavior remains excluded. |
 | PB-007 | Closed | The public corpus covers the documented project shapes and ingests with zero unknown surfaces. |
-| PB-008 | Closed | Public clean-room production scenarios have native WinUI reference provenance and component evidence. |
+| PB-008 | Closed | Public clean-room harness scenarios have native WinUI reference provenance and component evidence. |
 | PB-009 | Closed for source-level gate | CI exposes benchmark and flake metrics; trend history remains a release-candidate review item. |
 | PB-010 | Closed for source-level gate | Package dry-run and release-check gates pass; actual publishing remains blocked until signing/provenance evidence is attached. |
 | PB-011 | Closed | Threat model, dependency policy, artifact privacy, safe CI, and supply-chain expectations are documented and gated. |
@@ -143,11 +154,12 @@ Release and security gates:
 
 ## Residual Risks
 
-- The production claim is narrow and must not be marketed as arbitrary WinUI 3
-  app compatibility.
+- The support claim is narrow and must not be marketed as arbitrary WinUI 3 app
+  compatibility or native-quality rendering.
 - Native Windows hosted-runner image changes can cause reference drift; keep run
   IDs and provenance with release notes.
-- Visual parity remains approximate outside the production-ring subset.
+- Visual parity remains approximate across the current renderer and needs a
+  renderer-fidelity recovery pass before any stronger claim.
 - Release publishing needs manual signing/provenance evidence even though the CI
   dry run passes.
 - Performance history is shallow; benchmark artifacts should be trended across

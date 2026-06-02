@@ -9,23 +9,24 @@ public admin and component parity examples are native WinUI fixture captures
 with provenance; `WindowsNativeProbe` remains synthetic smoke-only harness
 evidence.
 
-The current Level 0 through Level 7 support is production-ready for the
-documented public source-level subset. It does not run Windows binaries,
-`.msix` packages, or arbitrary `.exe` files on macOS, and it does not claim
-complete WinUI 3 behavior.
+The current Level 0 through Level 7 support is release-gate-ready for the
+documented public source-level harness subset. It does not run Windows
+binaries, `.msix` packages, or arbitrary `.exe` files on macOS, and it does not
+claim complete WinUI 3 behavior or native-quality visual rendering.
 
 The macOS runtime contract is Wine-free: application code is compiled as managed
 .NET, loaded into a managed macOS process, and exercised through clean-room
 `Microsoft.UI.Xaml` facade types.
 
-## Published Production Subset
+## Published Harness Subset
 
-The current published production claim covers **Levels 0 through 7** as
+The current published support claim covers **Levels 0 through 7** as
 documented in `docs/compatibility/matrix.md`. Level 6 is limited to public
 fixture and corpus categories captured by the `windows-latest` native reference
 workflow. Level 7 covers package, support-policy, security, benchmark, flake,
 and consumer readiness contracts; it does not imply broader WinUI API support
-than the matrix and catalog document.
+than the matrix and catalog document, and it does not imply production visual
+fidelity.
 
 Level claims are cumulative only when the matrix marks the relevant runtime,
 XAML, control, renderer, interaction, accessibility, and artifact behaviors as
@@ -39,10 +40,10 @@ compiled into the facade and XAML packages so diagnostics use the published
 classification.
 
 `docs/compatibility/production-component-targets.md` defines the sanitized
-public production-ring component target. It is a release gate for the current
-production support claim, but a component is production-supported only when its
-scenario evidence meets the documented catalog, interaction, accessibility, and
-visual-grade requirements.
+public harness-ring component target. It is a release gate for the current
+support claim, but a component is supported only when its scenario evidence
+meets the documented catalog, interaction, accessibility, and visual-grade
+requirements. That support does not imply native visual fidelity.
 
 Catalog status values are `supported`, `partial`, `planned`, `windows-only`,
 and `not supported`. Runtime or compiler diagnostics may report `unknown` when
@@ -81,8 +82,8 @@ the construct as an uncataloged compatibility gap.
 
 ## Control And Renderer Contract
 
-Facade controls and `skia-v2` painters are production claims only for the
-documented public subset. The Level 2 public subset is fixture-backed by
+Facade controls and `skia-v2` painters are support claims only for the
+documented public harness subset. The Level 2 public subset is fixture-backed by
 `ControlGallery.MacTest`, `SampleAdminShell.MacTest`, and
 `InteractionBindingApp.MacTest`. When strict visual mode sees a logical tree
 node without a supported painter, it records an unsupported visual feature and
