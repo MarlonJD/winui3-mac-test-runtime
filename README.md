@@ -46,7 +46,10 @@ WinUI provenance, and release documentation.
 
 The production support policy, final gate evidence, and residual risks are
 tracked in `docs/release/support-policy.md` and
-`docs/release/final-production-gate.md`.
+`docs/release/final-production-gate.md`. For the single-page summary of
+catalog counts, Ring 0/Ring 1 status, latest recorded workflow IDs, strict
+scenario results, and checked-in visual examples, see
+`docs/release/production-evidence-view.md`.
 
 ## Smoke Commands
 
