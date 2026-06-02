@@ -68,7 +68,7 @@ Promotion is evidence-backed:
 | `good` | Entry meets the usable bar plus reviewed component-level visual fidelity against native WinUI references across required state/theme scenarios. |
 | production-ready | Entry has a deliberate production disposition: implemented support at the required grade, bounded partial support with exact limits, Windows-only exclusion, diagnostic roadmap exclusion, or explicit non-goal exclusion. |
 
-## Phase 2-5 Gate Status
+## Phase 2-6 Gate Status
 
 | Phase | Current status | Evidence gate |
 | --- | --- | --- |
@@ -76,6 +76,7 @@ Promotion is evidence-backed:
 | Phase 3: Fluent token and theme foundation | Implemented | `skia-v2` painters use a centralized token layer for light, dark, high contrast, typography, fills, strokes, status colors, focus, selected chrome, disabled surfaces, radius, and popup elevation. |
 | Phase 4: Ring 0 Windows chrome completion | Implemented for the documented source-level subset | Ring 0 strict scenarios cover shell, layout, text, commands, forms, workbench, status/progress, resources/theme, state scenarios, and artifacts; claimed supported/partial rows require at least `usable`. |
 | Phase 5: Ring 1 E2E visual completion | Implemented for claimed subsets | Open-popup, selected collection, and layout/theme scenarios cover claimed `MenuFlyout`, `CommandBarFlyout`, `ContentDialog`, `Flyout`, `ToolTip`, collection hosts, theme dictionaries, `SolidColorBrush`, and `CornerRadius`; rich input, templates, broader keyboarding, advanced collections, `TeachingTip`, and `MenuBar` remain planned diagnostics. |
+| Phase 6: All-126 catalog closure | Implemented | `docs/compatibility/all-catalog-readiness-audit.json` accounts for all 126 entries with a per-entry production disposition, owner phase, primary blocker, evidence profile, and release gate; `winui3-mac-runner catalog-audit --check` fails on drift and the audit agrees with the inventory buckets. |
 
 ## Catalog Snapshot
 
@@ -117,9 +118,14 @@ provenance, and release documentation.
 
 ## All-Catalog Readiness Audit
 
-The machine-readable audit is in
-`docs/compatibility/visual-readiness-inventory.json`. It accounts for all
-**126/126** entries and leaves **0** entries without a production disposition.
+The bucket-level audit is in
+`docs/compatibility/visual-readiness-inventory.json` and the per-entry audit is
+in `docs/compatibility/all-catalog-readiness-audit.json` (summarized in
+`docs/compatibility/all-catalog-readiness-audit.md`). Both account for all
+**126/126** entries and leave **0** entries without a production disposition. The
+per-entry audit is generated deterministically from the catalog and verified
+with `winui3-mac-runner catalog-audit --check`; every entry carries a
+disposition, owner phase, primary blocker, evidence profile, and release gate.
 
 | Production disposition | Count | Evidence requirement |
 | --- | ---: | --- |

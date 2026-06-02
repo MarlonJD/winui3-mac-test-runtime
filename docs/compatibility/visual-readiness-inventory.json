@@ -73,6 +73,16 @@
         "collections selected and layout/media light, dark, and high-contrast scenarios remain strict",
         "rich form input, templates, broader keyboarding, advanced collection controls, TeachingTip, and MenuBar remain planned or diagnostic until real support is implemented"
       ]
+    },
+    {
+      "phase": "Phase 6",
+      "name": "All-126 catalog closure",
+      "status": "implemented",
+      "evidence": [
+        "docs/compatibility/all-catalog-readiness-audit.json accounts for all 126 entries with a per-entry production disposition, owner phase, primary blocker, evidence profile, and release gate",
+        "the audit is derived deterministically from the catalog and verified with 'winui3-mac-runner catalog-audit --check'",
+        "per-entry dispositions, blockers, and counts agree with this inventory's allCatalogReadinessAudit buckets and leave zero entries unassigned"
+      ]
     }
   ],
   "promotionRules": [

@@ -529,7 +529,123 @@ public sealed class MacRuntimeTests
             .Select(entry => RequireNonEmptyString(entry, "phase"))
             .OrderBy(phase => phase, StringComparer.Ordinal)
             .ToArray();
-        CollectionAssert.AreEqual(new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5" }, phases);
+        CollectionAssert.AreEqual(
+            new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6" },
+            phases);
+    }
+
+    [TestMethod]
+    public void CompatibilityCatalogReadinessAuditAccountsForEveryEntry()
+    {
+        var catalog = CompatibilityCatalog.Current;
+        var statusCounts = CountBy(catalog.Entries, entry => entry.Status);
+        var audit = CatalogReadinessAudit.Build(catalog);
+
+        Assert.AreEqual(catalog.Entries.Count, audit.AccountedEntries);
+        Assert.HasCount(catalog.Entries.Count, audit.Entries);
+        Assert.AreEqual(0, audit.UnassignedDispositionCount);
+
+        var knownDispositions = new[]
+        {
+            CatalogReadinessAudit.DispositionSourceLevelImplementation,
+            CatalogReadinessAudit.DispositionBoundedImplementation,
+            CatalogReadinessAudit.DispositionDiagnosticExclusion,
+            CatalogReadinessAudit.DispositionWindowsOnlyExclusion,
+            CatalogReadinessAudit.DispositionNonGoalExclusion,
+        };
+
+        foreach (var entry in audit.Entries)
+        {
+            CollectionAssert.Contains(knownDispositions, entry.Disposition, $"{entry.Id} has an unknown disposition.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(entry.OwnerPhase), $"{entry.Id} has no owner phase.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(entry.PrimaryBlocker), $"{entry.Id} has no primary blocker.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(entry.EvidenceProfile), $"{entry.Id} has no evidence profile.");
+            Assert.IsFalse(string.IsNullOrWhiteSpace(entry.ReleaseGate), $"{entry.Id} has no release gate.");
+        }
+
+        Assert.AreEqual(catalog.Entries.Count, audit.DispositionCounts.Values.Sum());
+        Assert.AreEqual(catalog.Entries.Count, audit.OwnerPhaseCounts.Values.Sum());
+        Assert.AreEqual(catalog.Entries.Count, audit.BlockerCounts.Values.Sum());
+
+        // Each disposition tracks its catalog status count one-to-one.
+        Assert.AreEqual(
+            statusCounts[CompatibilityStatuses.Supported],
+            audit.DispositionCounts[CatalogReadinessAudit.DispositionSourceLevelImplementation]);
+        Assert.AreEqual(
+            statusCounts[CompatibilityStatuses.Partial],
+            audit.DispositionCounts[CatalogReadinessAudit.DispositionBoundedImplementation]);
+        Assert.AreEqual(
+            statusCounts[CompatibilityStatuses.Planned],
+            audit.DispositionCounts[CatalogReadinessAudit.DispositionDiagnosticExclusion]);
+        Assert.AreEqual(
+            statusCounts[CompatibilityStatuses.WindowsOnly],
+            audit.DispositionCounts[CatalogReadinessAudit.DispositionWindowsOnlyExclusion]);
+        Assert.AreEqual(
+            statusCounts[CompatibilityStatuses.NotSupported],
+            audit.DispositionCounts[CatalogReadinessAudit.DispositionNonGoalExclusion]);
+    }
+
+    [TestMethod]
+    public void CompatibilityCatalogReadinessAuditMatchesInventoryBuckets()
+    {
+        var audit = CatalogReadinessAudit.Build(CompatibilityCatalog.Current);
+
+        var auditBuckets = audit.Entries
+            .GroupBy(entry => (entry.Kind, entry.Status))
+            .ToDictionary(
+                group => $"{group.Key.Kind}|{group.Key.Status}",
+                group => (
+                    Count: group.Count(),
+                    Disposition: group.Select(entry => entry.Disposition).Distinct(StringComparer.Ordinal).Single(),
+                    Blocker: group.Select(entry => entry.PrimaryBlocker).Distinct(StringComparer.Ordinal).Single()),
+                StringComparer.Ordinal);
+
+        using var document = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/compatibility/visual-readiness-inventory.json")));
+        var inventoryBuckets = document.RootElement.GetProperty("allCatalogReadinessAudit").GetProperty("auditBuckets");
+
+        var matched = 0;
+        foreach (var bucket in inventoryBuckets.EnumerateArray())
+        {
+            var key = $"{RequireNonEmptyString(bucket, "kind")}|{RequireNonEmptyString(bucket, "status")}";
+            Assert.IsTrue(auditBuckets.TryGetValue(key, out var expected), $"Inventory bucket '{key}' is missing from the per-entry audit.");
+            Assert.AreEqual(expected.Count, bucket.GetProperty("count").GetInt32(), $"Bucket '{key}' count mismatch.");
+            Assert.AreEqual(expected.Disposition, RequireNonEmptyString(bucket, "disposition"), $"Bucket '{key}' disposition mismatch.");
+            Assert.AreEqual(expected.Blocker, RequireNonEmptyString(bucket, "primaryBlocker"), $"Bucket '{key}' blocker mismatch.");
+            matched++;
+        }
+
+        Assert.AreEqual(auditBuckets.Count, matched, "Every per-entry audit bucket must be represented in the inventory.");
+    }
+
+    [TestMethod]
+    public void CompatibilityCatalogReadinessAuditFileIsUpToDate()
+    {
+        var audit = CatalogReadinessAudit.Build(CompatibilityCatalog.Current);
+        var expected = JsonSerializer.Serialize(audit, JsonDefaults.Options);
+        var actual = File.ReadAllText(RepositoryPath("docs/compatibility/all-catalog-readiness-audit.json"));
+
+        Assert.AreEqual(
+            NormalizeArtifact(expected),
+            NormalizeArtifact(actual),
+            "docs/compatibility/all-catalog-readiness-audit.json is out of date. Regenerate with 'winui3-mac-runner catalog-audit'.");
+    }
+
+    [TestMethod]
+    public void CompatibilityCatalogReadinessAuditDocPublishesMatchingTotals()
+    {
+        var audit = CatalogReadinessAudit.Build(CompatibilityCatalog.Current);
+        var text = File.ReadAllText(RepositoryPath("docs/compatibility/all-catalog-readiness-audit.md"));
+
+        Assert.IsTrue(
+            ContainsCatalogTotal(text, audit.AccountedEntries),
+            "all-catalog-readiness-audit.md must publish the 126/126 catalog total.");
+
+        foreach (var (disposition, count) in audit.DispositionCounts)
+        {
+            Assert.IsTrue(
+                Regex.IsMatch(text, $@"\|\s*{count}\s*\|", RegexOptions.CultureInvariant),
+                $"all-catalog-readiness-audit.md must publish the {disposition} count {count}.");
+        }
     }
 
     [TestMethod]
@@ -1498,6 +1614,11 @@ public sealed class MacRuntimeTests
 
         return Regex.IsMatch(text, $@"\|\s*`{escapedStatus}`\s*\|\s*{count}\s*\|", RegexOptions.CultureInvariant) ||
             Regex.IsMatch(text, $@"\b{count}\s+`{escapedStatus}`", RegexOptions.CultureInvariant);
+    }
+
+    private static string NormalizeArtifact(string text)
+    {
+        return text.Replace("\r\n", "\n", StringComparison.Ordinal).Trim();
     }
 
     private static string RepositoryPath(string relativePath)

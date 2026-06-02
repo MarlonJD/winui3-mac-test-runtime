@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Globalization;
+using WinUI3.MacCompatibility;
 using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRuntime;
 using WinUI3.MacXaml;
@@ -29,6 +30,7 @@ internal static class Cli
             "ingest" => RunIngest(args[1..]),
             "benchmark" => await ProductionGatesCommand.RunBenchmarkAsync(args[1..]),
             "release-check" => await ProductionGatesCommand.RunReleaseCheckAsync(args[1..]),
+            "catalog-audit" => RunCatalogAudit(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
         };
@@ -341,6 +343,52 @@ internal static class Cli
         return new string(chars);
     }
 
+    private static int RunCatalogAudit(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "catalog-audit"));
+        var defaultPath = Path.Combine(repositoryRoot, "docs", "compatibility", "all-catalog-readiness-audit.json");
+        var outputPath = Path.GetFullPath(ReadOption(args, "--output") ?? defaultPath);
+        var check = HasOption(args, "--check");
+
+        var audit = CatalogReadinessAudit.BuildFromCurrentCatalog();
+        var json = JsonSerializer.Serialize(audit, JsonDefaults.Options);
+
+        Console.WriteLine($"catalog-audit: {audit.AccountedEntries} entries accounted, {audit.UnassignedDispositionCount} unassigned.");
+        foreach (var disposition in audit.DispositionCounts)
+        {
+            Console.WriteLine($"  disposition {disposition.Key}: {disposition.Value}");
+        }
+
+        if (audit.UnassignedDispositionCount != 0)
+        {
+            Console.Error.WriteLine($"catalog-audit failed: {audit.UnassignedDispositionCount} catalog entries have no production disposition.");
+            return 1;
+        }
+
+        if (check)
+        {
+            if (!File.Exists(outputPath))
+            {
+                Console.Error.WriteLine($"catalog-audit --check failed: missing {outputPath}. Regenerate with 'winui3-mac-runner catalog-audit'.");
+                return 1;
+            }
+
+            if (NormalizeJson(File.ReadAllText(outputPath)) != NormalizeJson(json))
+            {
+                Console.Error.WriteLine($"catalog-audit --check failed: {outputPath} is out of date. Regenerate with 'winui3-mac-runner catalog-audit'.");
+                return 1;
+            }
+
+            Console.WriteLine($"catalog-audit --check passed: {outputPath} is up to date.");
+            return 0;
+        }
+
+        Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+        File.WriteAllText(outputPath, json);
+        Console.WriteLine($"all-catalog-readiness-audit.json: {outputPath}");
+        return 0;
+    }
+
     private static int RunXaml(string[] args)
     {
         if (args.Length == 0 || args[0] != "compile")
@@ -456,6 +504,7 @@ internal static class Cli
         Console.WriteLine("      [--strict-visual] [--reference <path>] [--diff-output <dir>]");
         Console.WriteLine("  benchmark [--output <path>] [--iterations <count>]");
         Console.WriteLine("  release-check [--package-dir <dir>] [--output <path>]");
+        Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
         Console.WriteLine("      [--check] [--write-baseline]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");

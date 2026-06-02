@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Compile Include="..\Shared\CompatibilityCatalog.cs" Link="CompatibilityCatalog.cs" />
+    <Compile Include="..\Shared\CatalogReadinessAudit.cs" Link="CatalogReadinessAudit.cs" />
     <EmbeddedResource Include="..\..\docs\compatibility\winui-api-compatibility.catalog.json" LogicalName="WinUI3.MacCompatibility.winui-api-compatibility.catalog.json" />
   </ItemGroup>
 
