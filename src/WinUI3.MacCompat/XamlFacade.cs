@@ -63,6 +63,14 @@ public class FrameworkElement : UIElement
 
     public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Stretch;
 
+    public double Width { get; set; } = double.NaN;
+
+    public double Height { get; set; } = double.NaN;
+
+    public double MinWidth { get; set; }
+
+    public double MinHeight { get; set; }
+
     public object? Background { get; set; }
 
     public object? Foreground { get; set; }

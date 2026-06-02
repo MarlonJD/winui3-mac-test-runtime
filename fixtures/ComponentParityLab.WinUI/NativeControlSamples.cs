@@ -1,8 +1,8 @@
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
 
 #if WINDOWS
 using Microsoft.UI;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
 using System.Reflection;
@@ -61,6 +61,15 @@ internal static class NativeControlSamples
             Set(control, "MaxRating", 5);
             Set(control, "Value", 4.0);
         });
+#else
+        repeatButtonHost.Content = Labeled("RepeatButton", new Microsoft.UI.Xaml.Controls.Primitives.RepeatButton { Content = "Repeat action" });
+        hyperlinkButtonHost.Content = Labeled("HyperlinkButton", new HyperlinkButton { Content = "Open public link" });
+        dropDownButtonHost.Content = Labeled("DropDownButton", new DropDownButton { Content = "Choose action" });
+        splitButtonHost.Content = Labeled("SplitButton", new SplitButton { Content = "Split action" });
+        toggleSplitButtonHost.Content = Labeled("ToggleSplitButton", new ToggleSplitButton { Content = "Toggle split", IsChecked = true });
+        sliderHost.Content = Labeled("Slider", new Slider { Minimum = 0, Maximum = 100, Value = 64 });
+        toggleSwitchHost.Content = Labeled("ToggleSwitch", new ToggleSwitch { Header = "Enabled", IsOn = true });
+        ratingControlHost.Content = Labeled("RatingControl", new RatingControl { MaxRating = 5, Value = 4 });
 #endif
     }
 
@@ -389,6 +398,28 @@ internal static class NativeControlSamples
 #endif
     }
 
+    private static StackPanel Labeled(string label, UIElement element)
+    {
+        if (element is FrameworkElement frameworkElement)
+        {
+            frameworkElement.MinWidth = Math.Max(frameworkElement.MinWidth, 120);
+        }
+
+        var panel = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 8
+        };
+        panel.Children.Add(new TextBlock
+        {
+            Text = label,
+            Width = 180,
+            VerticalAlignment = VerticalAlignment.Center
+        });
+        panel.Children.Add(element);
+        return panel;
+    }
+
 #if WINDOWS
     private static void SetNativeControl(
         ContentControl host,
@@ -416,28 +447,6 @@ internal static class NativeControlSamples
     private static void SetNativeElement(ContentControl host, string label, UIElement element)
     {
         host.Content = Labeled(label, element);
-    }
-
-    private static StackPanel Labeled(string label, UIElement element)
-    {
-        if (element is FrameworkElement frameworkElement)
-        {
-            frameworkElement.MinWidth = Math.Max(frameworkElement.MinWidth, 120);
-        }
-
-        var panel = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            Spacing = 8
-        };
-        panel.Children.Add(new TextBlock
-        {
-            Text = label,
-            Width = 180,
-            VerticalAlignment = VerticalAlignment.Center
-        });
-        panel.Children.Add(element);
-        return panel;
     }
 
     private static void SetUnavailable(ContentControl host, string label)

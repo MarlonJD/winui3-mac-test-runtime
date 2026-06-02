@@ -258,6 +258,19 @@ public static class UiTreeBuilder
                 properties["content"] = toggleButton.Content is UIElement ? null : toggleButton.Content?.ToString();
                 AddChild(toggleButton.Content, children);
                 break;
+            case Slider slider:
+                properties["minimum"] = slider.Minimum;
+                properties["maximum"] = slider.Maximum;
+                properties["value"] = slider.Value;
+                break;
+            case ToggleSwitch toggleSwitch:
+                properties["header"] = toggleSwitch.Header?.ToString();
+                properties["isOn"] = toggleSwitch.IsOn;
+                break;
+            case RatingControl ratingControl:
+                properties["maxRating"] = ratingControl.MaxRating;
+                properties["value"] = ratingControl.Value;
+                break;
             case TextBlock textBlock:
                 properties["text"] = textBlock.Text;
                 break;

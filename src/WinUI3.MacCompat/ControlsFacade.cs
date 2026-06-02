@@ -109,6 +109,23 @@ public class ToggleButton : Button
     public bool? IsChecked { get; set; }
 }
 
+public class HyperlinkButton : Button
+{
+    public Uri? NavigateUri { get; set; }
+}
+
+public class DropDownButton : Button
+{
+}
+
+public class SplitButton : Button
+{
+}
+
+public class ToggleSplitButton : ToggleButton
+{
+}
+
 public class CheckBox : ToggleButton
 {
 }
@@ -126,6 +143,29 @@ public class TextBlock : FrameworkElement
 public class TextBox : Control
 {
     public string? Text { get; set; }
+}
+
+public class Slider : Control
+{
+    public double Minimum { get; set; }
+
+    public double Maximum { get; set; } = 100;
+
+    public double Value { get; set; }
+}
+
+public class ToggleSwitch : Control
+{
+    public object? Header { get; set; }
+
+    public bool IsOn { get; set; }
+}
+
+public class RatingControl : Control
+{
+    public int MaxRating { get; set; } = 5;
+
+    public double Value { get; set; }
 }
 
 public class Image : Control

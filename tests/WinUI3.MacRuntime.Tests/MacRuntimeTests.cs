@@ -1660,12 +1660,18 @@ public sealed class MacRuntimeTests
                     comboBox,
                     new ProgressBar { Name = "LoadingProgressBar", IsIndeterminate = true },
                     new ProgressRing { Name = "LoadingProgressRing", IsActive = true },
+                    new Slider { Name = "VolumeSlider", Minimum = 0, Maximum = 100, Value = 64 },
+                    new ToggleSwitch { Name = "EnabledToggleSwitch", Header = "Enabled", IsOn = true },
+                    new RatingControl { Name = "QualityRatingControl", MaxRating = 5, Value = 4 },
+                    new DropDownButton { Name = "ChoiceDropDownButton", Content = "Choose" },
+                    new SplitButton { Name = "ChoiceSplitButton", Content = "Split" },
+                    new ToggleSplitButton { Name = "PinnedToggleSplitButton", Content = "Toggle split", IsChecked = true },
                     new InfoBar { Name = "StatusInfoBar", Title = "Complete", Message = "Done", Severity = InfoBarSeverity.Success }
                 }
             }
         });
         var theme = SkiaV2Theme.For("light");
-        var settings = new VisualRunSettings(null, "chrome", "skia-v2", new VisualViewport(640, 480), 1, "light", true, new VisualThresholds());
+        var settings = new VisualRunSettings(null, "chrome", "skia-v2", new VisualViewport(640, 760), 1, "light", true, new VisualThresholds());
         var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
         var options = new SnapshotRenderOptions("skia-v2", "chrome", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
 
@@ -1678,6 +1684,10 @@ public sealed class MacRuntimeTests
         var combo = RequireNode(arranged.Root, "StatusComboBox").Layout!;
         var progressBar = RequireNode(arranged.Root, "LoadingProgressBar").Layout!;
         var progressRing = RequireNode(arranged.Root, "LoadingProgressRing").Layout!;
+        var slider = RequireNode(arranged.Root, "VolumeSlider").Layout!;
+        var toggleSwitch = RequireNode(arranged.Root, "EnabledToggleSwitch").Layout!;
+        var rating = RequireNode(arranged.Root, "QualityRatingControl").Layout!;
+        var toggleSplit = RequireNode(arranged.Root, "PinnedToggleSplitButton").Layout!;
         var infoBar = RequireNode(arranged.Root, "StatusInfoBar").Layout!;
 
         Assert.IsGreaterThan(100, CountExactPixels(bitmap, new SKRect((float)toggle.X, (float)toggle.Y, (float)(toggle.X + toggle.Width), (float)(toggle.Y + toggle.Height)), theme.Accent));
@@ -1686,6 +1696,10 @@ public sealed class MacRuntimeTests
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)(combo.X + combo.Width - 28), (float)combo.Y + 14, (float)(combo.X + combo.Width - 8), (float)combo.Y + 26), theme.TextSecondary));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)progressBar.X, (float)(progressBar.Y + progressBar.Height / 2 - 3), (float)(progressBar.X + progressBar.Width), (float)(progressBar.Y + progressBar.Height / 2 + 3)), theme.Accent));
         Assert.IsGreaterThan(10, CountExactPixels(bitmap, new SKRect((float)progressRing.X, (float)progressRing.Y, (float)(progressRing.X + progressRing.Width), (float)(progressRing.Y + progressRing.Height)), theme.Accent));
+        Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)slider.X, (float)slider.Y, (float)(slider.X + slider.Width), (float)(slider.Y + slider.Height)), theme.Accent));
+        Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)toggleSwitch.X, (float)toggleSwitch.Y, (float)(toggleSwitch.X + toggleSwitch.Width), (float)(toggleSwitch.Y + toggleSwitch.Height)), theme.Accent));
+        Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)rating.X, (float)rating.Y, (float)(rating.X + rating.Width), (float)(rating.Y + rating.Height)), theme.Accent));
+        Assert.IsGreaterThan(40, CountExactPixels(bitmap, new SKRect((float)toggleSplit.X, (float)toggleSplit.Y, (float)(toggleSplit.X + toggleSplit.Width), (float)(toggleSplit.Y + toggleSplit.Height)), theme.Accent));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 12, (float)infoBar.Y + 14, (float)infoBar.X + 36, (float)infoBar.Y + 38), theme.Success));
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 16, (float)infoBar.Y + 18, (float)infoBar.X + 32, (float)infoBar.Y + 34), theme.Surface));
     }

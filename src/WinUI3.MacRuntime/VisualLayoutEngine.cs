@@ -27,11 +27,19 @@ public static class VisualLayoutEngine
         "ItemsControl",
         "TextBlock",
         "Button",
+        "RepeatButton",
+        "HyperlinkButton",
+        "DropDownButton",
+        "SplitButton",
+        "ToggleSplitButton",
         "AppBarButton",
         "ToggleButton",
         "CheckBox",
         "RadioButton",
         "TextBox",
+        "Slider",
+        "ToggleSwitch",
+        "RatingControl",
         "ComboBox",
         "Frame",
         "NavigationView",
@@ -112,7 +120,7 @@ public static class VisualLayoutEngine
             "CommandBar" => ArrangeCommandBar(node, rect, unsupported),
             "CommandBarFlyout" => ArrangeCommandBar(node, rect, unsupported),
             "AppBarButton" => ArrangeAppBarButton(node, rect, unsupported, visibility),
-            "Button" => ArrangeButton(node, rect, unsupported, visibility),
+            "Button" or "RepeatButton" or "HyperlinkButton" or "DropDownButton" or "SplitButton" or "ToggleSplitButton" => ArrangeButton(node, rect, unsupported, visibility),
             "Flyout" or "ContentDialog" or "TeachingTip" or "ToolTip" => ArrangeSingleSlot(node, Inset(rect, 0), unsupported, PaddingFor(node), visibility),
             "Border" or "ScrollViewer" or "ContentControl" => ArrangeSingleSlot(node, Inset(rect, 0), unsupported, PaddingFor(node), visibility),
             "Grid" => ArrangeGrid(node, rect, unsupported, visibility),
@@ -355,8 +363,11 @@ public static class VisualLayoutEngine
         return SimpleType(node) switch
         {
             "TextBlock" or "String" => 28,
-            "Button" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 40,
+            "Button" or "RepeatButton" or "HyperlinkButton" or "DropDownButton" or "SplitButton" or "ToggleSplitButton" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 40,
             "TextBox" => 36,
+            "Slider" => 40,
+            "ToggleSwitch" => 44,
+            "RatingControl" => 40,
             "FontIcon" => 24,
             "Image" => 96,
             "ProgressBar" => 28,
@@ -369,7 +380,8 @@ public static class VisualLayoutEngine
             "Flyout" or "ToolTip" or "TeachingTip" => 72,
             "Border" => Math.Min(86, fallback),
             "ListView" or "ItemsControl" => Math.Max(64, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
-            "ScrollViewer" or "ContentControl" => Math.Min(120, Math.Max(64, fallback)),
+            "ScrollViewer" => Math.Min(120, Math.Max(64, fallback)),
+            "ContentControl" => EstimateContentControlHeight(node, fallback),
             "StackPanel" => EstimateStackHeight(node, fallback),
             "Grid" => EstimateGridHeight(node, fallback),
             "Frame" => Math.Min(Math.Max(64, fallback), fallback),
@@ -416,6 +428,16 @@ public static class VisualLayoutEngine
         }
 
         return Math.Min(fallback, node.Children.Max(child => EstimateHeight(child, fallback)));
+    }
+
+    private static double EstimateContentControlHeight(UiNode node, double fallback)
+    {
+        if (node.Children.Count == 0)
+        {
+            return Math.Min(120, Math.Max(64, fallback));
+        }
+
+        return Math.Min(fallback, Math.Max(1, node.Children.Max(child => EstimateHeight(child, fallback))));
     }
 
     private static LayoutRect Inset(LayoutRect rect, UiThickness thickness)
