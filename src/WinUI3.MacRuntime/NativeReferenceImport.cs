@@ -180,7 +180,7 @@ public static class NativeReferenceImporter
 
                 if (targets is not null)
                 {
-                    itemProblems.AddRange(ValidateTargets(targets, scenarioName, scenarioPath, repository));
+                    itemProblems.AddRange(ValidateTargets(targets, provenance, scenarioName, scenarioPath, repository));
                     provenance = provenance with
                     {
                         NativeReferenceTargetsPath = "native-reference-targets.json"
@@ -338,6 +338,7 @@ public static class NativeReferenceImporter
 
     private static IReadOnlyList<string> ValidateTargets(
         NativeReferenceTargetDocument targets,
+        NativeReferenceProvenance provenance,
         string scenarioName,
         string? scenarioPath,
         string repositoryRoot)
@@ -365,38 +366,82 @@ public static class NativeReferenceImporter
             problems.Add($"native-reference-targets.json scenarioPath '{targets.ScenarioPath}' does not match reference provenance '{scenarioPath}'.");
         }
 
-        var expectedTargets = IsNativeTargetRequiredScenarioPath(scenarioPath)
+        var expectedTargets = IsExpectedPublicScenarioPath(repositoryRoot, scenarioPath)
             ? ExpectedScenarioTargets(repositoryRoot, scenarioPath!).ToArray()
-            : Array.Empty<string>();
+            : Array.Empty<ExpectedNativeReferenceTarget>();
         if (expectedTargets.Length > 0 && targets.Targets.Count == 0)
         {
             problems.Add("native-reference-targets.json contains no target bounds.");
         }
 
-        foreach (var target in targets.Targets)
+        var captureBounds = CaptureBounds(targets, provenance);
+        if (expectedTargets.Length > 0 && captureBounds is null)
         {
-            if (string.IsNullOrWhiteSpace(target.Target))
-            {
-                problems.Add("native-reference-targets.json contains a target with no identity.");
-            }
-
-            if (target.Bounds.Width <= 0 || target.Bounds.Height <= 0)
-            {
-                problems.Add($"native-reference-targets.json target '{target.Target}' has non-positive bounds.");
-            }
+            problems.Add("native-reference-targets.json must include root bounds, viewport, or screenshot dimensions so target bounds can be validated inside the client area.");
         }
 
         if (expectedTargets.Length > 0)
         {
-            var exportedTargets = targets.Targets
-                .Select(target => target.Target)
-                .Where(target => !string.IsNullOrWhiteSpace(target))
-                .ToHashSet(StringComparer.Ordinal);
             foreach (var expectedTarget in expectedTargets)
             {
-                if (!exportedTargets.Contains(expectedTarget))
+                var matches = targets.Targets
+                    .Where(target => string.Equals(target.Target, expectedTarget.Target, StringComparison.Ordinal))
+                    .ToArray();
+                if (matches.Length == 0)
                 {
-                    problems.Add($"native-reference-targets.json is missing required public row target '{expectedTarget}'.");
+                    problems.Add($"native-reference-targets.json is missing required public row target '{expectedTarget.Target}'.");
+                    continue;
+                }
+
+                var exactMatches = matches
+                    .Where(target => string.Equals(target.Component, expectedTarget.Component, StringComparison.Ordinal))
+                    .ToArray();
+                var selectedMatches = exactMatches;
+                if (exactMatches.Length > 1)
+                {
+                    problems.Add($"native-reference-targets.json target '{expectedTarget.Target}' for component '{expectedTarget.Component}' maps ambiguously to {exactMatches.Length} native elements.");
+                }
+
+                if (exactMatches.Length == 0)
+                {
+                    var sharedTarget = expectedTargets.Count(target => string.Equals(target.Target, expectedTarget.Target, StringComparison.Ordinal)) > 1;
+                    if (sharedTarget && matches.Length == 1)
+                    {
+                        selectedMatches = matches;
+                    }
+                    else
+                    {
+                        var missingComponentIdentity = matches
+                            .Where(match => string.IsNullOrWhiteSpace(match.Component))
+                            .ToArray();
+                        foreach (var _ in missingComponentIdentity)
+                        {
+                            problems.Add($"native-reference-targets.json target '{expectedTarget.Target}' is missing component identity for expected component '{expectedTarget.Component}'.");
+                        }
+
+                        foreach (var match in matches.Where(match => !string.IsNullOrWhiteSpace(match.Component)))
+                        {
+                            problems.Add($"native-reference-targets.json target '{expectedTarget.Target}' component '{match.Component}' does not match expected public row component '{expectedTarget.Component}'.");
+                        }
+                    }
+                }
+
+                foreach (var match in selectedMatches)
+                {
+                    if (string.IsNullOrWhiteSpace(match.Target))
+                    {
+                        problems.Add("native-reference-targets.json contains a target with no identity.");
+                    }
+
+                    if (match.Bounds.Width <= 0 || match.Bounds.Height <= 0)
+                    {
+                        problems.Add($"native-reference-targets.json target '{match.Target}' has non-positive bounds.");
+                    }
+
+                    if (captureBounds is not null && !IsInside(match.Bounds, captureBounds))
+                    {
+                        problems.Add($"native-reference-targets.json target '{match.Target}' has bounds outside the captured client area.");
+                    }
                 }
             }
         }
@@ -406,6 +451,18 @@ public static class NativeReferenceImporter
 
     private static IEnumerable<string> ExpectedPublicScenarioPaths(string repositoryRoot)
     {
+        var scenarioNames = PublicEvidenceDiscovery
+            .FindCanonicalEvidenceFiles(repositoryRoot)
+            .Select(path =>
+            {
+                using var document = JsonDocument.Parse(File.ReadAllText(path));
+                return document.RootElement.TryGetProperty("scenarioName", out var scenarioName) &&
+                    scenarioName.ValueKind == JsonValueKind.String
+                        ? scenarioName.GetString()
+                        : null;
+            })
+            .Where(name => !string.IsNullOrWhiteSpace(name))
+            .ToHashSet(StringComparer.Ordinal);
         foreach (var relativeDirectory in new[]
         {
             Path.Combine("fixtures", "ComponentParityLab.WinUI", "scenarios"),
@@ -420,31 +477,79 @@ public static class NativeReferenceImporter
 
             foreach (var path in Directory.EnumerateFiles(directory, "*.json", SearchOption.TopDirectoryOnly))
             {
-                yield return path;
+                if (scenarioNames.Contains(Path.GetFileNameWithoutExtension(path)))
+                {
+                    yield return path;
+                }
             }
         }
     }
 
-    private static IReadOnlyList<string> ExpectedScenarioTargets(string repositoryRoot, string scenarioPath)
+    private static IReadOnlyList<ExpectedNativeReferenceTarget> ExpectedScenarioTargets(string repositoryRoot, string scenarioPath)
     {
         var fullPath = Path.Combine(repositoryRoot, scenarioPath);
         using var document = JsonDocument.Parse(File.ReadAllText(fullPath));
         if (!document.RootElement.TryGetProperty("requirements", out var requirements) ||
             requirements.ValueKind != JsonValueKind.Array)
         {
-            return Array.Empty<string>();
+            return Array.Empty<ExpectedNativeReferenceTarget>();
         }
 
         return requirements
             .EnumerateArray()
-            .Select(requirement => requirement.TryGetProperty("target", out var target) && target.ValueKind == JsonValueKind.String
-                ? target.GetString()
-                : null)
-            .Where(target => !string.IsNullOrWhiteSpace(target))
+            .Select(requirement =>
+            {
+                var component = requirement.TryGetProperty("component", out var componentProperty) &&
+                    componentProperty.ValueKind == JsonValueKind.String
+                        ? componentProperty.GetString()
+                        : null;
+                var target = requirement.TryGetProperty("target", out var targetProperty) &&
+                    targetProperty.ValueKind == JsonValueKind.String
+                        ? targetProperty.GetString()
+                        : null;
+                return string.IsNullOrWhiteSpace(component) || string.IsNullOrWhiteSpace(target)
+                    ? null
+                    : new ExpectedNativeReferenceTarget(component!, target!);
+            })
+            .Where(target => target is not null)
             .Select(target => target!)
-            .Distinct(StringComparer.Ordinal)
-            .OrderBy(target => target, StringComparer.Ordinal)
+            .Distinct()
+            .OrderBy(target => target.Target, StringComparer.Ordinal)
+            .ThenBy(target => target.Component, StringComparer.Ordinal)
             .ToArray();
+    }
+
+    private static NativeReferenceBounds? CaptureBounds(
+        NativeReferenceTargetDocument targets,
+        NativeReferenceProvenance provenance)
+    {
+        if (targets.RootBounds is { Width: > 0, Height: > 0 } rootBounds)
+        {
+            return rootBounds;
+        }
+
+        if (provenance.Dimensions is { Width: > 0, Height: > 0 } dimensions)
+        {
+            return new NativeReferenceBounds(0, 0, dimensions.Width, dimensions.Height);
+        }
+
+        if (targets.Viewport is { Width: > 0, Height: > 0 } targetViewport)
+        {
+            return new NativeReferenceBounds(0, 0, targetViewport.Width, targetViewport.Height);
+        }
+
+        return provenance.Viewport is { Width: > 0, Height: > 0 } provenanceViewport
+            ? new NativeReferenceBounds(0, 0, provenanceViewport.Width, provenanceViewport.Height)
+            : null;
+    }
+
+    private static bool IsInside(NativeReferenceBounds targetBounds, NativeReferenceBounds captureBounds)
+    {
+        const double Epsilon = 0.01;
+        return targetBounds.X + Epsilon >= captureBounds.X &&
+            targetBounds.Y + Epsilon >= captureBounds.Y &&
+            targetBounds.X + targetBounds.Width <= captureBounds.X + captureBounds.Width + Epsilon &&
+            targetBounds.Y + targetBounds.Height <= captureBounds.Y + captureBounds.Height + Epsilon;
     }
 
     private static bool IsNativeTargetRequiredScenarioPath(string? scenarioPath)
@@ -452,6 +557,14 @@ public static class NativeReferenceImporter
         return !string.IsNullOrWhiteSpace(scenarioPath) &&
             (scenarioPath.StartsWith("fixtures/ComponentParityLab.WinUI/scenarios/", StringComparison.Ordinal) ||
                 scenarioPath.StartsWith("fixtures/PublicAdminWorkbench.WinUI/scenarios/", StringComparison.Ordinal));
+    }
+
+    private static bool IsExpectedPublicScenarioPath(string repositoryRoot, string? scenarioPath)
+    {
+        return !string.IsNullOrWhiteSpace(scenarioPath) &&
+            ExpectedPublicScenarioPaths(repositoryRoot)
+                .Select(path => RelativePath(repositoryRoot, path))
+                .Contains(scenarioPath, StringComparer.Ordinal);
     }
 
     private static string SafeName(string value)
@@ -516,4 +629,8 @@ public static class NativeReferenceImporter
     {
         return Path.GetRelativePath(root, path).Replace('\\', '/');
     }
+
+    private sealed record ExpectedNativeReferenceTarget(
+        string Component,
+        string Target);
 }

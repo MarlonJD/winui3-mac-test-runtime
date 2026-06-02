@@ -8,17 +8,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/scrollviewer-layoutscrollviewer/windows-reference.png",
-        "components/scrollviewer-layoutscrollviewer/mac-runtime.png",
-        "components/scrollviewer-layoutscrollviewer/pixel-diff.png"
+        "components/scrollviewer-layoutscrollviewer/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 771x719; macOS crop is 772x720. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "Grid",
@@ -27,17 +26,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/grid-layoutresourcegrid/windows-reference.png",
-        "components/grid-layoutresourcegrid/mac-runtime.png",
-        "components/grid-layoutresourcegrid/pixel-diff.png"
+        "components/grid-layoutresourcegrid/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 723x68; macOS crop is 724x96. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "StackPanel",
@@ -46,17 +44,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/stackpanel-layoutnestedstack/windows-reference.png",
-        "components/stackpanel-layoutnestedstack/mac-runtime.png",
-        "components/stackpanel-layoutnestedstack/pixel-diff.png"
+        "components/stackpanel-layoutnestedstack/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x96. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "Border",
@@ -65,17 +62,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/border-layoutborder/windows-reference.png",
-        "components/border-layoutborder/mac-runtime.png",
-        "components/border-layoutborder/pixel-diff.png"
+        "components/border-layoutborder/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x96. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "FontIcon",
@@ -84,17 +80,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/fonticon-layoutfonticon/windows-reference.png",
-        "components/fonticon-layoutfonticon/mac-runtime.png",
-        "components/fonticon-layoutfonticon/pixel-diff.png"
+        "components/fonticon-layoutfonticon/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 160x18; macOS crop is 24x24. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "Image",
@@ -103,16 +98,14 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
-        "components/image-publicimageplaceholder/windows-reference.png",
-        "components/image-publicimageplaceholder/mac-runtime.png",
-        "components/image-publicimageplaceholder/pixel-diff.png"
+        "components/image-publicimageplaceholder/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "missing",
       "nativeReferenceIntegrityBlockerReason": "The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only."
     },
     {
@@ -122,17 +115,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/symbolicon-diagnosticsymbolicon/windows-reference.png",
-        "components/symbolicon-diagnosticsymbolicon/mac-runtime.png",
-        "components/symbolicon-diagnosticsymbolicon/pixel-diff.png"
+        "components/symbolicon-diagnosticsymbolicon/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 308x35; macOS crop is 308x32. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "XamlControlsResources",
@@ -141,16 +133,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png",
-        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png",
-        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/pixel-diff.png"
+        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -160,16 +151,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/resourcedictionary-themedictionaries-themeresourcetext/windows-reference.png",
-        "components/resourcedictionary-themedictionaries-themeresourcetext/mac-runtime.png",
-        "components/resourcedictionary-themedictionaries-themeresourcetext/pixel-diff.png"
+        "components/resourcedictionary-themedictionaries-themeresourcetext/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -179,16 +169,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/themeresource-themeresourcetext/windows-reference.png",
-        "components/themeresource-themeresourcetext/mac-runtime.png",
-        "components/themeresource-themeresourcetext/pixel-diff.png"
+        "components/themeresource-themeresourcetext/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -198,16 +187,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/staticresource-staticresourcetext/windows-reference.png",
-        "components/staticresource-staticresourcetext/mac-runtime.png",
-        "components/staticresource-staticresourcetext/pixel-diff.png"
+        "components/staticresource-staticresourcetext/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -217,16 +205,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/style-layoutmediatitle/windows-reference.png",
-        "components/style-layoutmediatitle/mac-runtime.png",
-        "components/style-layoutmediatitle/pixel-diff.png"
+        "components/style-layoutmediatitle/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -236,16 +223,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/setter-layoutmediatitle/windows-reference.png",
-        "components/setter-layoutmediatitle/mac-runtime.png",
-        "components/setter-layoutmediatitle/pixel-diff.png"
+        "components/setter-layoutmediatitle/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -255,16 +241,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/color-diagnosticcolor/windows-reference.png",
-        "components/color-diagnosticcolor/mac-runtime.png",
-        "components/color-diagnosticcolor/pixel-diff.png"
+        "components/color-diagnosticcolor/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -274,16 +259,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/solidcolorbrush-themeresourcetext/windows-reference.png",
-        "components/solidcolorbrush-themeresourcetext/mac-runtime.png",
-        "components/solidcolorbrush-themeresourcetext/pixel-diff.png"
+        "components/solidcolorbrush-themeresourcetext/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -293,16 +277,15 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/cornerradius-layoutborder/windows-reference.png",
-        "components/cornerradius-layoutborder/mac-runtime.png",
-        "components/cornerradius-layoutborder/pixel-diff.png"
+        "components/cornerradius-layoutborder/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
       "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
     },
     {
@@ -312,17 +295,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/expander-diagnosticexpander/windows-reference.png",
-        "components/expander-diagnosticexpander/mac-runtime.png",
-        "components/expander-diagnosticexpander/pixel-diff.png"
+        "components/expander-diagnosticexpander/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 376x100; macOS crop is 448x92. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "Annotated scrollbar",
@@ -331,17 +313,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/annotated-scrollbar-diagnosticannotatedscrollbar/windows-reference.png",
-        "components/annotated-scrollbar-diagnosticannotatedscrollbar/mac-runtime.png",
-        "components/annotated-scrollbar-diagnosticannotatedscrollbar/pixel-diff.png"
+        "components/annotated-scrollbar-diagnosticannotatedscrollbar/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 308x100; macOS crop is 286x92. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "SemanticZoom",
@@ -350,17 +331,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/semanticzoom-diagnosticsemanticzoom/windows-reference.png",
-        "components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png",
-        "components/semanticzoom-diagnosticsemanticzoom/pixel-diff.png"
+        "components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 468x96; macOS crop is 448x96. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "SplitView",
@@ -369,16 +349,14 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
-        "components/splitview-diagnosticsplitview/windows-reference.png",
-        "components/splitview-diagnosticsplitview/mac-runtime.png",
-        "components/splitview-diagnosticsplitview/pixel-diff.png"
+        "components/splitview-diagnosticsplitview/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "missing",
       "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
     },
     {
@@ -388,7 +366,7 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/twopaneview-diagnostictwopaneview/windows-reference.png",
         "components/twopaneview-diagnostictwopaneview/mac-runtime.png",
@@ -396,9 +374,9 @@
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "ready",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "none"
     },
     {
       "component": "AnimatedIcon",
@@ -407,16 +385,14 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
-        "components/animatedicon-diagnosticanimatedicon/windows-reference.png",
-        "components/animatedicon-diagnosticanimatedicon/mac-runtime.png",
-        "components/animatedicon-diagnosticanimatedicon/pixel-diff.png"
+        "components/animatedicon-diagnosticanimatedicon/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "native-not-rendered",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "missing",
       "nativeReferenceIntegrityBlockerReason": "The current Windows reference does not show a production AnimatedIcon source/frame."
     },
     {
@@ -426,17 +402,16 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
         "components/shapes-diagnosticshapes/windows-reference.png",
-        "components/shapes-diagnosticshapes/mac-runtime.png",
-        "components/shapes-diagnosticshapes/pixel-diff.png"
+        "components/shapes-diagnosticshapes/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
-      "nativeReferenceReadiness": "needs-native-crop-bounds",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
-      "nativeReferenceIntegrityBlockerReason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds."
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 326x80; macOS crop is 349x24. Phase -1 does not normalize crop sizes."
     },
     {
       "component": "MediaPlayerElement",
@@ -445,16 +420,14 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
-        "components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png",
-        "components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png",
-        "components/mediaplayerelement-diagnosticmediaplayerelement/pixel-diff.png"
+        "components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "placeholder-reference",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "missing",
       "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content."
     },
     {
@@ -464,16 +437,14 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
-        "components/webview2-diagnosticwebview2/windows-reference.png",
-        "components/webview2-diagnosticwebview2/mac-runtime.png",
-        "components/webview2-diagnosticwebview2/pixel-diff.png"
+        "components/webview2-diagnosticwebview2/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "placeholder-reference",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "missing",
       "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content."
     },
     {
@@ -483,16 +454,14 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
-        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png",
-        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png",
-        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/pixel-diff.png"
+        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "native-unavailable",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "missing",
       "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls."
     },
     {
@@ -502,16 +471,14 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
-        "components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png",
-        "components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png",
-        "components/title-bar-customization-diagnostictitlebarcustomization/pixel-diff.png"
+        "components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "offscreen-reference",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "missing",
       "nativeReferenceIntegrityBlockerReason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface."
     },
     {
@@ -521,16 +488,14 @@
       "nativeQualityGrade": "TODO-good-or-production-ready",
       "inspectedBy": "TODO-reviewer",
       "inspectedDate": "TODO-YYYY-MM-DD",
-      "nativeReferenceRunId": "26777029415",
+      "nativeReferenceRunId": "26851935580",
       "comparisonArtifactPaths": [
-        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png",
-        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png",
-        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/pixel-diff.png"
+        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png"
       ],
       "acceptedGaps": [],
       "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades.",
       "nativeReferenceReadiness": "offscreen-reference",
-      "nativeReferenceBoundsSource": "mac-runtime-layout-bounds",
+      "nativeReferenceBoundsSource": "missing",
       "nativeReferenceIntegrityBlockerReason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface."
     }
   ]

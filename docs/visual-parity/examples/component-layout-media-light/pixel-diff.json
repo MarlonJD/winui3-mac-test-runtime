@@ -5,8 +5,8 @@
   "changedPixelCount": 331805,
   "changedPixelPercentage": 44.828821,
   "maxChannelDelta": 255,
-  "meanAbsoluteError": 13.06852,
-  "rootMeanSquaredError": 44.114842,
+  "meanAbsoluteError": 13.068515,
+  "rootMeanSquaredError": 44.11484,
   "boundingBox": {
     "x": 0,
     "y": 0,

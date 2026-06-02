@@ -88,12 +88,7 @@ public static class ComponentQualityDashboard
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(repositoryRoot);
 
-        var evidenceRoot = Path.Combine(repositoryRoot, "docs", "visual-parity", "examples");
-        var evidenceFiles = Directory.Exists(evidenceRoot)
-            ? Directory.EnumerateFiles(evidenceRoot, "component-evidence.json", SearchOption.AllDirectories)
-                .OrderBy(path => path, StringComparer.Ordinal)
-                .ToArray()
-            : Array.Empty<string>();
+        var evidenceFiles = PublicEvidenceDiscovery.FindCanonicalEvidenceFiles(repositoryRoot);
 
         var scenarios = new List<ComponentQualityScenario>();
         var rows = new List<ComponentQualityRow>();
@@ -221,7 +216,7 @@ public static class ComponentQualityDashboard
         }
 
         var totals = new ComponentQualityTotals(
-            evidenceFiles.Length,
+            evidenceFiles.Count,
             componentCount,
             visualGradeCounts,
             nativeQualityGradeCounts,
@@ -239,7 +234,7 @@ public static class ComponentQualityDashboard
         return new ComponentQualityDashboardDocument(
             ArtifactSchemas.ComponentQualityDashboard,
             DateTimeOffset.UnixEpoch,
-            RelativePath(repositoryRoot, evidenceRoot),
+            RelativePath(repositoryRoot, Path.Combine(repositoryRoot, "docs", "visual-parity", "examples")),
             totals,
             scenarios,
             rows,

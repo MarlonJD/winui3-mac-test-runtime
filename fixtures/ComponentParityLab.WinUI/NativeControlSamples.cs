@@ -462,8 +462,8 @@ internal static class NativeControlSamples
         {
             Width = 220,
             Height = 34,
-            CornerRadius = new CornerRadius(6),
-            Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 250, 250, 250)),
+            CornerRadius = Radius(6),
+            Background = "#FAFAFA",
             Child = new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center }
         };
     }
@@ -480,22 +480,21 @@ internal static class NativeControlSamples
                 {
                     Width = 40,
                     Height = 20,
-                    CornerRadius = new CornerRadius(4),
-                    Background = new SolidColorBrush(ParseColor(color))
+                    CornerRadius = Radius(4),
+                    Background = color
                 },
                 new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center }
             }
         };
     }
 
-    private static Windows.UI.Color ParseColor(string hex)
+    private static object Radius(double value)
     {
-        var value = hex.TrimStart('#');
-        return Windows.UI.Color.FromArgb(
-            255,
-            Convert.ToByte(value[0..2], 16),
-            Convert.ToByte(value[2..4], 16),
-            Convert.ToByte(value[4..6], 16));
+#if WINDOWS
+        return new CornerRadius(value);
+#else
+        return value;
+#endif
     }
 
 #if WINDOWS

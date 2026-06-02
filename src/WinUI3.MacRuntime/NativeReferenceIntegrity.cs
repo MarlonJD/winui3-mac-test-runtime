@@ -14,12 +14,7 @@ public static class NativeReferenceIntegrityAnnotator
         ArgumentException.ThrowIfNullOrWhiteSpace(repositoryRoot);
 
         var root = Path.GetFullPath(repositoryRoot);
-        var evidenceRoot = Path.Combine(root, "docs", "visual-parity", "examples");
-        var evidenceFiles = Directory.Exists(evidenceRoot)
-            ? Directory.EnumerateFiles(evidenceRoot, "component-evidence.json", SearchOption.AllDirectories)
-                .OrderBy(path => path, StringComparer.Ordinal)
-                .ToArray()
-            : Array.Empty<string>();
+        var evidenceFiles = PublicEvidenceDiscovery.FindCanonicalEvidenceFiles(root);
         var readiness = LoadReadiness(root);
         var componentCount = 0;
         var annotatedCount = 0;
@@ -57,7 +52,7 @@ public static class NativeReferenceIntegrityAnnotator
         }
 
         return new NativeReferenceIntegrityAnnotationResult(
-            evidenceFiles.Length,
+            evidenceFiles.Count,
             componentCount,
             annotatedCount);
     }
@@ -98,10 +93,21 @@ public static class NativeReferenceIntegrityAnnotator
 
         if (!string.IsNullOrWhiteSpace(crop.NativeReferencePath))
         {
-            var status = readinessOverride?.Status ?? "needs-native-crop-bounds";
-            var reason = readinessOverride?.Reason ??
+            var hasWindowsNativeBounds = crop.NativeReferenceBounds is not null &&
+                string.Equals(crop.NativeReferenceBoundsSource, "windows-native-element-bounds", StringComparison.Ordinal);
+            var useCropReadiness = hasWindowsNativeBounds &&
+                !string.IsNullOrWhiteSpace(crop.NativeReferenceReadinessStatus) &&
+                !IsSemanticReadinessOverride(readinessOverride?.Status);
+            var status = useCropReadiness
+                ? crop.NativeReferenceReadinessStatus
+                : readinessOverride?.Status ?? "needs-native-crop-bounds";
+            var reason = useCropReadiness
+                ? crop.NativeReferenceReadinessReason
+                : readinessOverride?.Reason ??
                 "Current native crop is legacy evidence without Windows native element bounds.";
-            var requiredAction = readinessOverride?.RequiredAction ??
+            var requiredAction = useCropReadiness
+                ? crop.NativeReferenceRequiredAction
+                : readinessOverride?.RequiredAction ??
                 "Re-run the Windows native reference workflow with native-reference-targets.json and regenerate component evidence.";
             return crop with
             {
@@ -196,6 +202,18 @@ public static class NativeReferenceIntegrityAnnotator
         }
 
         return result;
+    }
+
+    private static bool IsSemanticReadinessOverride(string? status)
+    {
+        return status is
+            "diagnostic-reference" or
+            "diagnostic-reference-needs-crop-bounds" or
+            "native-not-rendered" or
+            "native-unavailable" or
+            "offscreen-reference" or
+            "placeholder-reference" or
+            "state-reference-incomplete";
     }
 
     private static string? ReadString(JsonElement element, string property)

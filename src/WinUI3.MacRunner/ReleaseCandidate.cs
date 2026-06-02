@@ -302,6 +302,15 @@ internal static class ReleaseCandidateCommand
             return Fail("native-reference-readiness", $"Missing {path}.");
         }
 
+        var expected = NativeReferenceReadinessBuilder.BuildFromPublicEvidence(repositoryRoot);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonDefaults.Options);
+        if (NormalizeJson(File.ReadAllText(path)) != NormalizeJson(expectedJson))
+        {
+            return Fail(
+                "native-reference-readiness",
+                "native-reference-readiness.json is out of date. Run 'winui3-mac-runner native-reference-readiness'.");
+        }
+
         using var document = JsonDocument.Parse(File.ReadAllText(path));
         var rows = document.RootElement.GetProperty("rows").EnumerateArray().ToArray();
         var rowKeys = rows

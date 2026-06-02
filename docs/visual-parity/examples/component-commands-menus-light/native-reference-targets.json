@@ -1,0 +1,1201 @@
+{
+  "schemaVersion": "0.1",
+  "referenceSource": "native-winui-element-bounds",
+  "coordinateSpace": "client-area",
+  "scenarioName": "component-commands-menus-light",
+  "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+  "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+  "theme": "light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1,
+  "rootBounds": {
+    "x": 0,
+    "y": 0,
+    "width": 1028,
+    "height": 720
+  },
+  "capturedAt": "2026-06-02T22:36:15.5738510\u002B00:00",
+  "targets": [
+    {
+      "component": null,
+      "target": "AppBarButtonInnerBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "AppBarButtonInnerBorder",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 822,
+        "y": 56,
+        "width": 64,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 64,
+        "height": 36
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "Background",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Background",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 812,
+        "y": 199,
+        "width": 41,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 41,
+        "height": 32
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "BasicInputNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "BasicInputNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ButtonHolderGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ButtonHolderGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 4,
+        "width": 56,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 56,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "CollectionsNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CollectionsNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 124,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "CommandStateText",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CommandStateText",
+      "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
+      "bounds": {
+        "x": 281,
+        "y": 108,
+        "width": 36.83203125,
+        "height": 18.62109375
+      },
+      "actualSize": {
+        "width": 36.83203125,
+        "height": 18.62109375
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "CommandsMenusRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CommandsMenusRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "bounds": {
+        "x": 257,
+        "y": 1,
+        "width": 771,
+        "height": 719
+      },
+      "actualSize": {
+        "width": 771,
+        "height": 719
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "CommandsMenusTitle",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CommandsMenusTitle",
+      "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
+      "bounds": {
+        "x": 281,
+        "y": 21,
+        "width": 190.6474609375,
+        "height": 18.62109375
+      },
+      "actualSize": {
+        "width": 190.6474609375,
+        "height": 18.62109375
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "CommandsNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CommandsNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 204,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "Content",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Content",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "bounds": {
+        "x": 846,
+        "y": 66,
+        "width": 16,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 20
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ContentButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 812,
+        "y": 199,
+        "width": 41,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 41,
+        "height": 32
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ContentControl",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentControl",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 473,
+        "y": 137,
+        "width": 151,
+        "height": 19
+      },
+      "actualSize": {
+        "width": 151,
+        "height": 19
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ContentGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 4,
+        "y": 46,
+        "width": 234,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 234,
+        "height": 36
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ContentPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "bounds": {
+        "x": 52,
+        "y": 6,
+        "width": 4,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 4,
+        "height": 36
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ContentRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 812,
+        "y": 199,
+        "width": 41,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 41,
+        "height": 32
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ContentViewbox",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentViewbox",
+      "elementType": "Microsoft.UI.Xaml.Controls.Viewbox",
+      "bounds": {
+        "x": 846,
+        "y": 66,
+        "width": 16,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 16,
+        "height": 16
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": "CommandBar.Content",
+      "target": "DiagnosticCommandBarContent",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DiagnosticCommandBarContent",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 281,
+        "y": 137,
+        "width": 459,
+        "height": 48
+      },
+      "actualSize": {
+        "width": 459,
+        "height": 48
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DiagnosticCommandBarFlyout",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 754,
+        "y": 137,
+        "width": 352,
+        "height": 48
+      },
+      "actualSize": {
+        "width": 352,
+        "height": 48
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": "Context menu pattern",
+      "target": "DiagnosticContextMenuPattern",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DiagnosticContextMenuPattern",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 281,
+        "y": 245,
+        "width": 723,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 723,
+        "height": 32
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DiagnosticMenuBar",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 620,
+        "y": 195,
+        "width": 308,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 308,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DiagnosticMenuFlyout",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 281,
+        "y": 195,
+        "width": 325,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 325,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "DialogsNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DialogsNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 164,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "EllipsisIcon",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "EllipsisIcon",
+      "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
+      "bounds": {
+        "x": 968,
+        "y": 73,
+        "width": 20,
+        "height": 3
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 3
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "FooterContentBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "FooterContentBorder",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 0,
+        "y": 633,
+        "width": 256,
+        "height": 79
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 79
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "HCPaneBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HCPaneBorder",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 254,
+        "y": 1,
+        "width": 1,
+        "height": 718
+      },
+      "actualSize": {
+        "width": 1,
+        "height": 718
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "Icon",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Icon",
+      "elementType": "Microsoft.UI.Xaml.Controls.AnimatedIcon",
+      "bounds": {
+        "x": 20,
+        "y": 16,
+        "width": 16,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 16,
+        "height": 16
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "IconColumn",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "IconColumn",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 4,
+        "y": 46,
+        "width": 8,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 8,
+        "height": 36
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ItemsContainerGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ItemsContainerGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 672
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 672
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "LabFrame",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "LabFrame",
+      "elementType": "Microsoft.UI.Xaml.Controls.Frame",
+      "bounds": {
+        "x": 257,
+        "y": 1,
+        "width": 771,
+        "height": 719
+      },
+      "actualSize": {
+        "width": 771,
+        "height": 719
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "LabPaneFooter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "LabPaneFooter",
+      "elementType": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "bounds": {
+        "x": 0,
+        "y": 633,
+        "width": 256,
+        "height": 79
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 79
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "LayoutMediaNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "LayoutMediaNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 324,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "LayoutRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "LayoutRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 4,
+        "y": 6,
+        "width": 48,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 48,
+        "height": 36
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "MenuItemsHost",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "MenuItemsHost",
+      "elementType": "Microsoft.UI.Xaml.Controls.ItemsRepeater",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 589
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 589
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "MenuItemsScrollViewer",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "MenuItemsScrollViewer",
+      "elementType": "Microsoft.UI.Xaml.Controls.ScrollViewer",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 589
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 589
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "MoreButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "MoreButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 956,
+        "y": 50,
+        "width": 48,
+        "height": 48
+      },
+      "actualSize": {
+        "width": 48,
+        "height": 48
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "NVIRootGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "NVIRootGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "NavigationViewItemPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "NavigationViewItemPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "NavigationWorkbenchNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "NavigationWorkbenchNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 244,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "OverflowPopup",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "OverflowPopup",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.Popup",
+      "bounds": {
+        "x": 469,
+        "y": 137,
+        "width": 271,
+        "height": 64
+      },
+      "actualSize": {
+        "width": 271,
+        "height": 64
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "PaneContentGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneContentGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 4,
+        "width": 256,
+        "height": 712
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 712
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "PaneFooterTitle",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneFooterTitle",
+      "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
+      "bounds": {
+        "x": 12,
+        "y": 641,
+        "width": 80.130859375,
+        "height": 18.62109375
+      },
+      "actualSize": {
+        "width": 80.130859375,
+        "height": 18.62109375
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "PaneHeaderContentBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneHeaderContentBorder",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 40,
+        "y": 4,
+        "width": 216,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 216,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "PaneRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 256,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 720
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "PaneToggleButtonGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneToggleButtonGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 56,
+        "height": 48
+      },
+      "actualSize": {
+        "width": 56,
+        "height": 48
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "PresenterContentRootGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PresenterContentRootGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 4,
+        "y": 46,
+        "width": 248,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 248,
+        "height": 36
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PrimaryCommandBar",
+      "elementType": "Microsoft.UI.Xaml.Controls.CommandBar",
+      "bounds": {
+        "x": 281,
+        "y": 50,
+        "width": 723,
+        "height": 48
+      },
+      "actualSize": {
+        "width": 723,
+        "height": 48
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "PrimaryItemsControl",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PrimaryItemsControl",
+      "elementType": "Microsoft.UI.Xaml.Controls.ItemsControl",
+      "bounds": {
+        "x": 624,
+        "y": 137,
+        "width": 68,
+        "height": 64
+      },
+      "actualSize": {
+        "width": 68,
+        "height": 64
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "RefreshCommandButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RefreshCommandButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.AppBarButton",
+      "bounds": {
+        "x": 888,
+        "y": 50,
+        "width": 68,
+        "height": 64
+      },
+      "actualSize": {
+        "width": 68,
+        "height": 64
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "RefreshCommandIcon",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RefreshCommandIcon",
+      "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
+      "bounds": {
+        "x": 914,
+        "y": 66,
+        "width": 16,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 20
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ResetLabButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ResetLabButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 12,
+        "y": 668,
+        "width": 93,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 93,
+        "height": 32
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "Root",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Root",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 820,
+        "y": 50,
+        "width": 68,
+        "height": 64
+      },
+      "actualSize": {
+        "width": 68,
+        "height": 64
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "RootGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RootGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1028,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 1028,
+        "height": 720
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "RootNavigation",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RootNavigation",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationView",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1028,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 1028,
+        "height": 720
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "RootSplitView",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RootSplitView",
+      "elementType": "Microsoft.UI.Xaml.Controls.SplitView",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1028,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 1028,
+        "height": 720
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SaveCommandButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.AppBarButton",
+      "bounds": {
+        "x": 820,
+        "y": 50,
+        "width": 68,
+        "height": 64
+      },
+      "actualSize": {
+        "width": 68,
+        "height": 64
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": "AppBarButton.Icon",
+      "target": "SaveCommandIcon",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SaveCommandIcon",
+      "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
+      "bounds": {
+        "x": 846,
+        "y": 66,
+        "width": 16,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 20
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ScrollContentPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ScrollContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.ScrollContentPresenter",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 589
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 589
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "SelectionIndicator",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SelectionIndicator",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 4,
+        "y": 56,
+        "width": 3,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 3,
+        "height": 16
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "ShadowCaster",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ShadowCaster",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 256,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 720
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "StatusPickersNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "StatusPickersNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 284,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "TextFormsNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "TextFormsNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 84,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible"
+    },
+    {
+      "component": null,
+      "target": "TogglePaneButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "TogglePaneButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 0,
+        "y": 4,
+        "width": 56,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 56,
+        "height": 40
+      },
+      "visibility": "Visible"
+    }
+  ]
+}

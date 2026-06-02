@@ -67,10 +67,10 @@ public static class ComponentCropper
         var y = (int)Math.Floor(bounds.Y * scale);
         var right = (int)Math.Ceiling((bounds.X + bounds.Width) * scale);
         var bottom = (int)Math.Ceiling((bounds.Y + bounds.Height) * scale);
-        x = Math.Clamp(x, 0, Math.Max(0, imageWidth - 1));
-        y = Math.Clamp(y, 0, Math.Max(0, imageHeight - 1));
-        right = Math.Clamp(right, x + 1, imageWidth);
-        bottom = Math.Clamp(bottom, y + 1, imageHeight);
+        if (x < 0 || y < 0 || right > imageWidth || bottom > imageHeight)
+        {
+            return null;
+        }
 
         return new ComponentCropBounds(x, y, right - x, bottom - y);
     }

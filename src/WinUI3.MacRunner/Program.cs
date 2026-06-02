@@ -36,6 +36,7 @@ internal static class Cli
             "component-inspection-template" => RunComponentInspectionTemplate(args[1..]),
             "component-inspection-apply" => RunComponentInspectionApply(args[1..]),
             "native-reference-import" => RunNativeReferenceImport(args[1..]),
+            "native-reference-readiness" => RunNativeReferenceReadiness(args[1..]),
             "native-reference-integrity" => RunNativeReferenceIntegrity(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
             "visual-review-index" => RunVisualReviewIndex(args[1..]),
@@ -242,7 +243,7 @@ internal static class Cli
                 scaleOption,
                 themeOption,
                 strictVisual,
-                referencePath,
+                resolvedReferencePath,
                 diffOutputOption);
             var outputDirectory = explicitOutputDirectory
                 ?? DefaultOutputDirectory(visualSettings);
@@ -666,6 +667,37 @@ internal static class Cli
         return 0;
     }
 
+    private static int RunNativeReferenceReadiness(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "native-reference-readiness"));
+        var outputPath = Path.Combine(repositoryRoot, "docs", "visual-parity", "native-reference-readiness.json");
+        var document = NativeReferenceReadinessBuilder.BuildFromPublicEvidence(repositoryRoot);
+        var json = JsonSerializer.Serialize(document, JsonDefaults.Options);
+        if (args.Contains("--check", StringComparer.Ordinal))
+        {
+            if (!File.Exists(outputPath))
+            {
+                Console.Error.WriteLine($"native-reference-readiness --check failed: missing {outputPath}.");
+                return 1;
+            }
+
+            if (NormalizeJson(File.ReadAllText(outputPath)) != NormalizeJson(json))
+            {
+                Console.Error.WriteLine($"native-reference-readiness --check failed: {outputPath} is out of date.");
+                return 1;
+            }
+
+            Console.WriteLine($"native-reference-readiness --check passed: {outputPath} is up to date.");
+            return 0;
+        }
+
+        Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+        File.WriteAllText(outputPath, json);
+        Console.WriteLine($"native-reference-readiness.json: {outputPath}");
+        Console.WriteLine($"native-reference-readiness: {document.Totals.ReadyRowCount} ready rows, {document.Totals.BlockingRowCount} blocker rows.");
+        return 0;
+    }
+
     private static int RunXaml(string[] args)
     {
         if (args.Length == 0 || args[0] != "compile")
@@ -808,6 +840,7 @@ internal static class Cli
         Console.WriteLine("  component-inspection-template --evidence <component-evidence.json> [--output <path>] [--check]");
         Console.WriteLine("  component-inspection-apply --evidence <component-evidence.json> --inspection <component-inspection.json> [--output <path>] [--check]");
         Console.WriteLine("  native-reference-import --source <windows-reference-screenshots-dir> [--output <dir>]");
+        Console.WriteLine("  native-reference-readiness [--check]");
         Console.WriteLine("  native-reference-integrity");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  visual-review-index [--output <dir>] [--check]");
