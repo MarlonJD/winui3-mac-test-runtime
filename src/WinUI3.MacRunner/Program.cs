@@ -33,6 +33,7 @@ internal static class Cli
             "release-candidate" => await ReleaseCandidateCommand.RunAsync(args[1..]),
             "catalog-audit" => RunCatalogAudit(args[1..]),
             "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
+            "component-inspection-apply" => RunComponentInspectionApply(args[1..]),
             "native-reference-import" => RunNativeReferenceImport(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
             "visual-review-index" => RunVisualReviewIndex(args[1..]),
@@ -524,6 +525,51 @@ internal static class Cli
         return document.Status == "passed" ? 0 : 1;
     }
 
+    private static int RunComponentInspectionApply(string[] args)
+    {
+        var evidencePath = ReadOption(args, "--evidence");
+        var inspectionPath = ReadOption(args, "--inspection");
+        var outputPath = ReadOption(args, "--output");
+        var check = HasOption(args, "--check");
+
+        if (string.IsNullOrWhiteSpace(evidencePath))
+        {
+            Console.Error.WriteLine("Missing required option: --evidence <component-evidence.json>.");
+            return 2;
+        }
+
+        if (string.IsNullOrWhiteSpace(inspectionPath))
+        {
+            Console.Error.WriteLine("Missing required option: --inspection <component-inspection.json>.");
+            return 2;
+        }
+
+        try
+        {
+            var resolvedEvidencePath = Path.GetFullPath(evidencePath);
+            var applied = ComponentInspectionApplier.Apply(resolvedEvidencePath, Path.GetFullPath(inspectionPath));
+            var json = JsonSerializer.Serialize(applied, JsonDefaults.Options);
+            var resolvedOutputPath = Path.GetFullPath(outputPath ?? resolvedEvidencePath);
+            Console.WriteLine($"component-inspection-apply: {applied.Components.Count(component => component.Inspection is not null)} inspected component row(s).");
+
+            if (check)
+            {
+                Console.WriteLine("component-inspection-apply --check passed.");
+                return 0;
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(resolvedOutputPath)!);
+            File.WriteAllText(resolvedOutputPath, json);
+            Console.WriteLine($"component-evidence.json: {resolvedOutputPath}");
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"component-inspection-apply failed: {ex.Message}");
+            return 1;
+        }
+    }
+
     private static int RunNativeReferenceImport(string[] args)
     {
         var sourceRoot = ReadOption(args, "--source");
@@ -696,6 +742,7 @@ internal static class Cli
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");
+        Console.WriteLine("  component-inspection-apply --evidence <component-evidence.json> --inspection <component-inspection.json> [--output <path>] [--check]");
         Console.WriteLine("  native-reference-import --source <windows-reference-screenshots-dir> [--output <dir>]");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  visual-review-index [--output <dir>] [--check]");

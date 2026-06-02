@@ -17,6 +17,7 @@ a new schema version and documentation update.
 | `accessibility.json` | `0.3` |
 | `binding-failures.json` | `0.1` |
 | `visual/component-evidence.json` | `0.4` |
+| `component-inspection.json` | `0.1` |
 | `docs/visual-parity/component-quality-dashboard.json` | `0.2` |
 | `docs/visual-parity/public-visual-review-index.json` | `0.1` |
 | `native-reference-import.json` | `0.1` |
@@ -81,6 +82,14 @@ a new schema version and documentation update.
   grade, effective per-component thresholds, target layout region, crop paths,
   blank-crop status, native reference provenance, known gaps, and optional
   reference or crop diff metrics.
+- `component-inspection.json`: reviewer-supplied manifest consumed by
+  `component-inspection-apply`. Each row must name the component and target,
+  final `visualGrade`, final `nativeQualityGrade`, reviewer, inspection date,
+  native reference run ID, notes, optional accepted gaps, optional tolerance
+  reason, and optional comparison artifact paths. The apply command validates
+  final grades, crop triptychs, component diff metrics, native reference
+  provenance, run ID consistency, and artifact paths before it writes updated
+  component evidence.
 - `visual/visual-review.html` and `visual/visual-review.json`: manual review
   artifacts generated from component evidence. Each component row places the
   native WinUI crop, macOS runtime crop, and pixel diff crop side by side when

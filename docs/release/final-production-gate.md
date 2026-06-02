@@ -108,6 +108,12 @@ The `VisualReviewIndexMatchesPublicEvidence` test keeps
 checked-in public review crops so manual inspection has a complete, portable
 queue before any native-quality promotion.
 
+`component-inspection-apply` is the only local command path for applying manual
+review results to component evidence. It validates final grades, reviewer
+metadata, native reference run ID consistency, crop triptychs, component diff
+metrics, and artifact paths before writing updated evidence; non-final grades
+such as `usable` are rejected.
+
 ## Unsupported WinUI 3 Exclusions
 
 Production support excludes:

@@ -1216,6 +1216,77 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void ComponentInspectionApplierAppliesReviewedFinalGrades()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-inspection-tests", Guid.NewGuid().ToString("N"));
+        var componentDirectory = Path.Combine(directory, "components", "button-primarybutton");
+        Directory.CreateDirectory(componentDirectory);
+        WritePatternPng(Path.Combine(componentDirectory, "windows-reference.png"));
+        WritePatternPng(Path.Combine(componentDirectory, "mac-runtime.png"));
+        WritePatternPng(Path.Combine(componentDirectory, "pixel-diff.png"));
+        var evidence = TestInspectableEvidence();
+        var inspection = new ComponentInspectionDocument(
+            SchemaVersion: ArtifactSchemas.ComponentInspection,
+            Rows: new[]
+            {
+                new ComponentInspectionRow(
+                    Component: "Button",
+                    Target: "PrimaryButton",
+                    VisualGrade: "good",
+                    NativeQualityGrade: "good",
+                    InspectedBy: "manual-reviewer",
+                    InspectedDate: "2026-06-02",
+                    NativeReferenceRunId: "26777029415",
+                    ComparisonArtifactPaths: null,
+                    AcceptedGaps: new[] { "Glyph antialiasing differs within accepted tolerance." },
+                    ToleranceReason: "macOS font rasterization differs from Windows.",
+                    Notes: "Native, macOS, and diff crops were manually inspected.")
+            });
+
+        var updated = ComponentInspectionApplier.Apply(evidence, inspection, directory);
+
+        var component = updated.Components[0];
+        Assert.AreEqual("good", component.VisualGrade);
+        Assert.AreEqual("good", component.NativeQualityGrade);
+        Assert.IsNotNull(component.Inspection);
+        Assert.AreEqual("manual-reviewer", component.Inspection.InspectedBy);
+        Assert.AreEqual("26777029415", component.Inspection.NativeReferenceRunId);
+        Assert.HasCount(3, component.Inspection.ComparisonArtifactPaths);
+    }
+
+    [TestMethod]
+    public void ComponentInspectionApplierRejectsNonFinalGrades()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-inspection-tests", Guid.NewGuid().ToString("N"));
+        var componentDirectory = Path.Combine(directory, "components", "button-primarybutton");
+        Directory.CreateDirectory(componentDirectory);
+        WritePatternPng(Path.Combine(componentDirectory, "windows-reference.png"));
+        WritePatternPng(Path.Combine(componentDirectory, "mac-runtime.png"));
+        WritePatternPng(Path.Combine(componentDirectory, "pixel-diff.png"));
+        var inspection = new ComponentInspectionDocument(
+            SchemaVersion: ArtifactSchemas.ComponentInspection,
+            Rows: new[]
+            {
+                new ComponentInspectionRow(
+                    Component: "Button",
+                    Target: "PrimaryButton",
+                    VisualGrade: "usable",
+                    NativeQualityGrade: "good",
+                    InspectedBy: "manual-reviewer",
+                    InspectedDate: "2026-06-02",
+                    NativeReferenceRunId: "26777029415",
+                    ComparisonArtifactPaths: null,
+                    AcceptedGaps: Array.Empty<string>(),
+                    ToleranceReason: null,
+                    Notes: "Native, macOS, and diff crops were manually inspected.")
+            });
+
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
+            ComponentInspectionApplier.Apply(TestInspectableEvidence(), inspection, directory));
+        StringAssert.Contains(exception.Message, "visualGrade must be good or production-ready");
+    }
+
+    [TestMethod]
     public void ReleaseCandidateArtifactGatesAreAccountedFor()
     {
         // Mirrors the deterministic local checks of 'winui3-mac-runner
@@ -2134,6 +2205,67 @@ public sealed class MacRuntimeTests
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
         using var stream = File.Create(path);
         data.SaveTo(stream);
+    }
+
+    private static ComponentEvidenceDocument TestInspectableEvidence()
+    {
+        var thresholds = new VisualThresholds
+        {
+            ChangedPixelPercentage = 5,
+            MeanAbsoluteError = 2,
+            RootMeanSquaredError = 4
+        };
+        return new ComponentEvidenceDocument(
+            SchemaVersion: ArtifactSchemas.ComponentEvidence,
+            FixtureName: "inspection-test",
+            ScenarioName: "inspection-test-light",
+            Components: new[]
+            {
+                new ComponentEvidenceEntry(
+                    Component: "Button",
+                    Kind: "control",
+                    Target: "PrimaryButton",
+                    LayoutRegion: new UiLayoutBox(
+                        X: 0,
+                        Y: 0,
+                        Width: 8,
+                        Height: 8,
+                        DesiredWidth: 8,
+                        DesiredHeight: 8,
+                        Margin: new UiThickness(0, 0, 0, 0),
+                        Padding: new UiThickness(0, 0, 0, 0),
+                        HorizontalAlignment: "stretch",
+                        VerticalAlignment: "stretch",
+                        Visibility: "visible"),
+                    CatalogStatus: "supported",
+                    Presence: "present",
+                    InteractionStatus: "passed",
+                    VisualGrade: "usable",
+                    ComponentThresholds: thresholds,
+                    ChangedPixelPercentage: 1.25,
+                    MeanAbsoluteError: 0.5,
+                    RootMeanSquaredError: 0.75,
+                    Crop: new ComponentCropEvidence(
+                        Status: "passed",
+                        Bounds: new ComponentCropBounds(0, 0, 8, 8),
+                        NativeReferencePath: "components/button-primarybutton/windows-reference.png",
+                        MacRuntimePath: "components/button-primarybutton/mac-runtime.png",
+                        PixelDiffPath: "components/button-primarybutton/pixel-diff.png",
+                        RuntimeBlank: false,
+                        Thresholds: thresholds,
+                        ChangedPixelPercentage: 1.25,
+                        MeanAbsoluteError: 0.5,
+                        RootMeanSquaredError: 0.75,
+                        Message: "Component crop passed.")
+                    {
+                        NativeReferenceProvenance = TestNativeReferenceProvenance()
+                    },
+                    NativeQualityGrade: "not-evaluated",
+                    Inspection: null,
+                    KnownGaps: Array.Empty<string>())
+            },
+            SourceFeatures: Array.Empty<SourceFeatureEvidenceEntry>(),
+            Status: "passed");
     }
 
     private static NativeReferenceProvenance TestNativeReferenceProvenance()

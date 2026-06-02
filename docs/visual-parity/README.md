@@ -105,6 +105,16 @@ each row to its scenario review page plus native reference, macOS runtime, and
 pixel diff crops, and repeats the dashboard blocker so manual inspection can
 work row by row without promoting claims prematurely.
 
+Manual inspection is applied through
+`winui3-mac-runner component-inspection-apply --evidence <component-evidence.json>
+--inspection <component-inspection.json>`. The inspection manifest must provide
+`good` or `production-ready` for both `visualGrade` and `nativeQualityGrade`,
+reviewer/date/run ID/notes, and either explicit comparison artifact paths or
+the existing crop triptych paths. The command rejects non-final grades,
+missing crop evidence, missing component diff metrics, missing native
+provenance, mismatched native reference run IDs, and nonexistent artifact
+paths.
+
 Component lab scenario artifacts are produced for every checked-in
 `fixtures/ComponentParityLab.WinUI/scenarios/*.json` file. This includes the
 base family pages plus focused, disabled, checked, selected, open-popup,
@@ -135,10 +145,14 @@ When a visual scenario or renderer behavior changes:
 6. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, and
    `visual-run.json`; inspect `component-evidence.json` for component lab
    scenarios, and inspect reference provenance when the reference supplies it.
-7. Run `winui3-mac-runner component-quality-dashboard` and
+7. For manually reviewed rows only, create a `component-inspection.json` file
+   and run `winui3-mac-runner component-inspection-apply --check --evidence
+   <component-evidence.json> --inspection <component-inspection.json>` before
+   writing any grade changes.
+8. Run `winui3-mac-runner component-quality-dashboard` and
    `winui3-mac-runner visual-review-index`; inspect the updated row blockers
    and crop links before promoting any claim.
-8. Update the relevant example folder only when the artifact is public and does
+9. Update the relevant example folder only when the artifact is public and does
    not contain private names, private screenshots, secrets, or proprietary
    fixture content. Production visual examples must come from native WinUI
    reference provenance; synthetic probe examples must remain labeled as smoke
