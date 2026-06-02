@@ -33,6 +33,7 @@ internal static class Cli
             "release-candidate" => await ReleaseCandidateCommand.RunAsync(args[1..]),
             "catalog-audit" => RunCatalogAudit(args[1..]),
             "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
+            "visual-review" => await RunVisualReviewAsync(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
         };
@@ -428,6 +429,54 @@ internal static class Cli
         return dashboard.Status == "passed" ? 0 : 1;
     }
 
+    private static async Task<int> RunVisualReviewAsync(string[] args)
+    {
+        var scenarioPath = ReadOption(args, "--scenario");
+        var evidencePath = ReadOption(args, "--evidence");
+        var referenceDirectory = ReadOption(args, "--reference");
+        var outputDirectory = ReadOption(args, "--output");
+
+        if (string.IsNullOrWhiteSpace(evidencePath) && string.IsNullOrWhiteSpace(scenarioPath))
+        {
+            Console.Error.WriteLine("Missing required option: --scenario <path> or --evidence <component-evidence.json>.");
+            return 2;
+        }
+
+        try
+        {
+            var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "visual-review"));
+            VisualScenario? scenario = null;
+            if (!string.IsNullOrWhiteSpace(scenarioPath))
+            {
+                scenario = await VisualScenario.LoadAsync(scenarioPath);
+            }
+
+            var resolvedEvidencePath = !string.IsNullOrWhiteSpace(evidencePath)
+                ? Path.GetFullPath(evidencePath)
+                : FindComponentEvidence(repositoryRoot, scenario!, referenceDirectory);
+            if (resolvedEvidencePath is null)
+            {
+                Console.Error.WriteLine(
+                    "visual-review failed: component-evidence.json was not found. Run 'winui3-mac-runner run --renderer skia-v2 --strict-visual --scenario <path> --reference <windows-reference.png>' first, or pass --evidence.");
+                return 1;
+            }
+
+            var reviewOutputDirectory = outputDirectory is null
+                ? Path.GetDirectoryName(resolvedEvidencePath)!
+                : Path.GetFullPath(outputDirectory);
+            var review = VisualReviewArtifacts.Write(resolvedEvidencePath, reviewOutputDirectory);
+            Console.WriteLine($"visual-review: {review.Summary.ComponentCount} components, {review.Summary.CompleteTriptychCount} complete crop triptychs.");
+            Console.WriteLine($"visual-review.html: {review.HtmlPath}");
+            Console.WriteLine($"visual-review.json: {Path.Combine(reviewOutputDirectory, "visual-review.json")}");
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+            return 1;
+        }
+    }
+
     private static int RunXaml(string[] args)
     {
         if (args.Length == 0 || args[0] != "compile")
@@ -525,6 +574,27 @@ internal static class Cli
         return values;
     }
 
+    private static string? FindComponentEvidence(
+        string repositoryRoot,
+        VisualScenario scenario,
+        string? referenceDirectory)
+    {
+        var candidates = new List<string>();
+        if (!string.IsNullOrWhiteSpace(referenceDirectory))
+        {
+            var referenceRoot = Path.GetFullPath(referenceDirectory);
+            candidates.Add(Path.Combine(referenceRoot, "component-evidence.json"));
+            candidates.Add(Path.Combine(referenceRoot, "visual", "component-evidence.json"));
+            candidates.Add(Path.Combine(referenceRoot, scenario.Name, "component-evidence.json"));
+            candidates.Add(Path.Combine(referenceRoot, scenario.Name, "visual", "component-evidence.json"));
+        }
+
+        candidates.Add(Path.Combine(repositoryRoot, "docs", "visual-parity", "examples", scenario.Name, "component-evidence.json"));
+        candidates.Add(Path.Combine(repositoryRoot, "artifacts", "winui3-mac", scenario.Name, "visual", "component-evidence.json"));
+
+        return candidates.FirstOrDefault(File.Exists);
+    }
+
     private static int UnknownCommand(string command)
     {
         Console.Error.WriteLine($"Unknown command: {command}");
@@ -546,6 +616,7 @@ internal static class Cli
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");
+        Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
         Console.WriteLine("      [--check] [--write-baseline]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");

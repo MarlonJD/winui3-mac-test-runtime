@@ -22,6 +22,7 @@ internal sealed record VisualRunReport(
     string? DiffImagePath,
     string? ComponentEvidencePath,
     string? ComponentCropDirectory,
+    string? VisualReviewPath,
     VisualThresholds Thresholds,
     object? Comparison,
     IReadOnlyList<UnsupportedApiEntry> UnsupportedVisualFeatures,
@@ -111,6 +112,7 @@ internal static class VisualArtifacts
             .ToArray();
 
         ComponentEvidenceDocument? componentEvidence = null;
+        string? visualReviewPath = null;
         if (settings.Scenario is not null &&
             (settings.Scenario.Requirements.Count > 0 || settings.Scenario.SourceFeatures.Count > 0))
         {
@@ -131,6 +133,7 @@ internal static class VisualArtifacts
                 componentEvidencePath,
                 JsonSerializer.Serialize(componentEvidence, JsonDefaults.Options),
                 cancellationToken);
+            visualReviewPath = VisualReviewArtifacts.Write(componentEvidencePath, outputDirectory).HtmlPath;
         }
 
         var diffFailed = comparison is PixelDiffResult { Status: "failed" };
@@ -160,6 +163,7 @@ internal static class VisualArtifacts
             DiffImagePath: diffPath,
             ComponentEvidencePath: componentEvidence is null ? null : Path.Combine(outputDirectory, "component-evidence.json"),
             ComponentCropDirectory: componentEvidence is null ? null : Path.Combine(outputDirectory, "components"),
+            VisualReviewPath: visualReviewPath,
             Thresholds: settings.Thresholds,
             Comparison: comparison,
             UnsupportedVisualFeatures: unsupportedVisualFeatures,

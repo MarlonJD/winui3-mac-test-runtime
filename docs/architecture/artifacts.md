@@ -65,11 +65,17 @@ a new schema version and documentation update.
 - `visual/visual-run.json`: scenario name, fixture name, runner OS, renderer,
   viewport, scale, theme, threshold configuration, unsupported visual features,
   reference/runtime/diff paths, component crop directory, copied reference
-  provenance, comparison metrics, and pass/fail status.
+  provenance, visual review page path, comparison metrics, and pass/fail
+  status.
 - `visual/component-evidence.json`: component parity lab evidence with
   component/source-feature catalog status, presence, interaction status, visual
   grade, effective per-component thresholds, target layout region, crop paths,
   blank-crop status, known gaps, and optional reference or crop diff metrics.
+- `visual/visual-review.html` and `visual/visual-review.json`: manual review
+  artifacts generated from component evidence. Each component row places the
+  native WinUI crop, macOS runtime crop, and pixel diff crop side by side when
+  those crops exist, and records missing crop or inspection metadata without
+  promoting the row.
 - `visual/windows-reference.png`: copy of the Windows-hosted reference
   screenshot captured by the public workflow or supplied with `--reference`.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not
@@ -97,8 +103,10 @@ and thresholds.
 `--renderer skia-v2` enables the stricter path. The runner exports deterministic
 layout rectangles into `tree.json`, writes `mac-runtime.png`, records
 unsupported visual features in `unsupported-apis.json`, and writes
-`visual-run.json`. When `--reference` is supplied, it also copies the reference
-to `windows-reference.png` and writes pixel diff artifacts.
+`visual-run.json`. When component evidence is available, it also writes
+`visual-review.html` and `visual-review.json` for manual crop inspection. When
+`--reference` is supplied, it also copies the reference to
+`windows-reference.png` and writes pixel diff artifacts.
 
 When `--project` points at a Windows-targeted WinUI source project, the runner
 does not mutate or build the original Windows project. It writes a compat shadow

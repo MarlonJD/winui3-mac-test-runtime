@@ -236,6 +236,9 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
 - `visual/component-evidence.json`: component-level catalog status, presence,
   interaction status, visual grade, known gaps, and optional diff metrics when a
   reference-backed comparison supplies them.
+- `visual/visual-review.html` and `visual/visual-review.json`: component
+  review output that places native WinUI, macOS runtime, and diff crops
+  side by side for manual inspection when crop artifacts exist.
 - `visual/windows-reference.png`, `visual/mac-runtime.png`,
   `visual/pixel-diff.png`, and `visual/pixel-diff.json`: comparison artifacts
   when a Windows reference PNG is provided.

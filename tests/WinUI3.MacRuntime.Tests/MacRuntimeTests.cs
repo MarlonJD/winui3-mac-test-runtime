@@ -1694,6 +1694,95 @@ public sealed class MacRuntimeTests
         Assert.AreEqual(5, crop.Thresholds.ChangedPixelPercentage);
     }
 
+    [TestMethod]
+    public void VisualReviewArtifactsWritesSideBySideCropPage()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-review-tests", Guid.NewGuid().ToString("N"));
+        var cropsDirectory = Path.Combine(directory, "components", "button-primaryactionbutton");
+        Directory.CreateDirectory(cropsDirectory);
+        var nativeCrop = Path.Combine(cropsDirectory, "windows-reference.png");
+        var runtimeCrop = Path.Combine(cropsDirectory, "mac-runtime.png");
+        var diffCrop = Path.Combine(cropsDirectory, "pixel-diff.png");
+        WriteSolidPng(nativeCrop, new SKColor(250, 250, 250), width: 16, height: 12);
+        WritePatternPng(runtimeCrop);
+        WriteSolidPng(diffCrop, new SKColor(255, 0, 0), width: 16, height: 12);
+
+        var thresholds = new VisualThresholds
+        {
+            ChangedPixelPercentage = 5,
+            MeanAbsoluteError = 2,
+            RootMeanSquaredError = 4
+        };
+        var evidence = new ComponentEvidenceDocument(
+            SchemaVersion: ArtifactSchemas.ComponentEvidence,
+            FixtureName: "review-test",
+            ScenarioName: "review-test-light",
+            Components: new[]
+            {
+                new ComponentEvidenceEntry(
+                    Component: "Button",
+                    Kind: "control",
+                    Target: "PrimaryActionButton",
+                    LayoutRegion: new UiLayoutBox(
+                        X: 0,
+                        Y: 0,
+                        Width: 16,
+                        Height: 12,
+                        DesiredWidth: 16,
+                        DesiredHeight: 12,
+                        Margin: new UiThickness(0, 0, 0, 0),
+                        Padding: new UiThickness(0, 0, 0, 0),
+                        HorizontalAlignment: "stretch",
+                        VerticalAlignment: "stretch",
+                        Visibility: "visible"),
+                    CatalogStatus: "supported",
+                    Presence: "present",
+                    InteractionStatus: "passed",
+                    VisualGrade: "good",
+                    ComponentThresholds: thresholds,
+                    ChangedPixelPercentage: 1.25,
+                    MeanAbsoluteError: 0.5,
+                    RootMeanSquaredError: 0.75,
+                    Crop: new ComponentCropEvidence(
+                        Status: "passed",
+                        Bounds: new ComponentCropBounds(0, 0, 16, 12),
+                        NativeReferencePath: nativeCrop,
+                        MacRuntimePath: runtimeCrop,
+                        PixelDiffPath: diffCrop,
+                        RuntimeBlank: false,
+                        Thresholds: thresholds,
+                        ChangedPixelPercentage: 1.25,
+                        MeanAbsoluteError: 0.5,
+                        RootMeanSquaredError: 0.75,
+                        Message: "Component crop passed."),
+                    NativeQualityGrade: "good",
+                    Inspection: null,
+                    KnownGaps: new[] { "Manual inspection is pending for the generated crop triptych." })
+            },
+            SourceFeatures: Array.Empty<SourceFeatureEvidenceEntry>(),
+            Status: "passed");
+        var evidencePath = Path.Combine(directory, "component-evidence.json");
+        File.WriteAllText(evidencePath, JsonSerializer.Serialize(evidence, JsonDefaults.Options));
+
+        var review = VisualReviewArtifacts.Write(evidencePath, directory);
+
+        Assert.AreEqual(1, review.Summary.ComponentCount);
+        Assert.AreEqual(1, review.Summary.CompleteTriptychCount);
+        Assert.AreEqual(1, review.Summary.MissingInspectionNotes);
+        Assert.IsTrue(File.Exists(Path.Combine(directory, "visual-review.html")));
+        Assert.IsTrue(File.Exists(Path.Combine(directory, "visual-review.json")));
+
+        var html = File.ReadAllText(Path.Combine(directory, "visual-review.html"));
+        StringAssert.Contains(html, "Native WinUI reference");
+        StringAssert.Contains(html, "macOS runtime");
+        StringAssert.Contains(html, "Pixel diff");
+        StringAssert.Contains(html, "ready-for-manual-inspection");
+
+        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "visual-review.json")));
+        Assert.AreEqual(ArtifactSchemas.VisualReview, json.RootElement.GetProperty("schemaVersion").GetString());
+        Assert.AreEqual(1, json.RootElement.GetProperty("rows").GetArrayLength());
+    }
+
     private static async Task<byte[]> Sha256Async(string path)
     {
         await using var stream = File.OpenRead(path);
