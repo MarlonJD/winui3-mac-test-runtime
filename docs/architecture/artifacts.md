@@ -98,9 +98,10 @@ a new schema version and documentation update.
 - `docs/visual-parity/public-visual-review-index.html` and
   `docs/visual-parity/public-visual-review-index.json`: generated public
   inspection queue for checked-in component evidence. It links each public row
-  to its native, macOS, and diff crops plus the scenario visual review page, and
-  carries the current component-quality dashboard blocker without promoting the
-  row.
+  to its native, macOS, and diff crops plus the scenario visual review page,
+  embeds compact native/macOS/diff crop previews with component diff metrics,
+  and carries the current component-quality dashboard blocker without promoting
+  the row.
 - `visual/windows-reference.png`: copy of the Windows-hosted reference
   screenshot captured by the public workflow or supplied with `--reference`.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not

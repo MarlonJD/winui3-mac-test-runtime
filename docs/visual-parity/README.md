@@ -102,8 +102,9 @@ inspection metadata.
 `public-visual-review-index.html` and `public-visual-review-index.json` are the
 checked-in generated inspection queue for those public rows. The index links
 each row to its scenario review page plus native reference, macOS runtime, and
-pixel diff crops, and repeats the dashboard blocker so manual inspection can
-work row by row without promoting claims prematurely.
+pixel diff crops, embeds compact native/macOS/diff crop previews with component
+diff metrics, and repeats the dashboard blocker so manual inspection can work
+row by row without promoting claims prematurely.
 
 Manual inspection is applied through
 `winui3-mac-runner component-inspection-apply --evidence <component-evidence.json>

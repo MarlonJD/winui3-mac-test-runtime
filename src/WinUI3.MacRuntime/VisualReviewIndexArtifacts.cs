@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -51,6 +52,9 @@ public sealed record VisualReviewIndexRow(
     string? NativeReferenceCropPath,
     string? MacRuntimeCropPath,
     string? PixelDiffPath,
+    double? ChangedPixelPercentage,
+    double? MeanAbsoluteError,
+    double? RootMeanSquaredError,
     string RemainingBlocker);
 
 public static class VisualReviewIndexArtifacts
@@ -130,6 +134,9 @@ public static class VisualReviewIndexArtifacts
                     NativeReferenceCropPath: ReviewCropPath(outputRoot, scenarioDirectory, row.NativeReferenceCropPath),
                     MacRuntimeCropPath: ReviewCropPath(outputRoot, scenarioDirectory, row.MacRuntimeCropPath),
                     PixelDiffPath: ReviewCropPath(outputRoot, scenarioDirectory, row.PixelDiffPath),
+                    ChangedPixelPercentage: row.ChangedPixelPercentage,
+                    MeanAbsoluteError: row.MeanAbsoluteError,
+                    RootMeanSquaredError: row.RootMeanSquaredError,
                     RemainingBlocker: blockerMap.TryGetValue(RowKey(scenario.ScenarioName, row.Component, row.Target), out var blocker)
                         ? blocker
                         : "none"));
@@ -193,6 +200,11 @@ th { background: #f3f3f3; }
 .blocked { color: #7a1f1f; font-weight: 600; }
 .ready { color: #0f6c0f; font-weight: 600; }
 .blocker { max-width: 420px; line-height: 1.35; }
+.metrics { white-space: nowrap; }
+.triptych-preview { display: grid; grid-template-columns: repeat(3, 84px); gap: 6px; min-width: 270px; }
+.triptych-preview figure { margin: 0; border: 1px solid #d1d1d1; background: #fafafa; }
+.triptych-preview figcaption { padding: 3px 4px; font-size: 11px; font-weight: 600; background: #f3f3f3; border-bottom: 1px solid #d1d1d1; }
+.triptych-preview img { display: block; width: 84px; height: 52px; object-fit: contain; background: #fff; }
 @media (max-width: 900px) { body { margin: 16px; } table { font-size: 12px; } }
 </style>
 """);
@@ -225,7 +237,7 @@ th { background: #f3f3f3; }
         html.AppendLine("</tbody></table>");
 
         html.AppendLine("<h2>Components</h2>");
-        html.AppendLine("<table><thead><tr><th>Scenario</th><th>Component</th><th>Visual</th><th>Native quality</th><th>Review</th><th>Inspection</th><th>Crops</th><th>Remaining blocker</th></tr></thead><tbody>");
+        html.AppendLine("<table><thead><tr><th>Scenario</th><th>Component</th><th>Visual</th><th>Native quality</th><th>Review</th><th>Inspection</th><th>Metrics</th><th>Triptych preview</th><th>Crops</th><th>Remaining blocker</th></tr></thead><tbody>");
         foreach (var row in document.Rows)
         {
             html.AppendLine("<tr>");
@@ -235,6 +247,8 @@ th { background: #f3f3f3; }
             html.AppendLine($"<td>{Escape(row.NativeQualityGrade)}</td>");
             html.AppendLine($"<td class=\"{StatusClass(row.ReviewStatus)}\">{Escape(row.ReviewStatus)}</td>");
             html.AppendLine($"<td>{Escape(row.InspectionStatus)}</td>");
+            html.AppendLine($"<td class=\"metrics\">{MetricSummary(row)}</td>");
+            html.AppendLine($"<td>{TriptychPreview(row)}</td>");
             html.AppendLine($"<td>{CropLinks(row)}</td>");
             html.AppendLine($"<td class=\"blocker\">{Escape(row.RemainingBlocker)}</td>");
             html.AppendLine("</tr>");
@@ -281,6 +295,50 @@ th { background: #f3f3f3; }
         AddLink(links, "diff", row.PixelDiffPath);
         AddLink(links, "review", row.ReviewHtmlPath);
         return links.Count == 0 ? "missing" : string.Join(" | ", links);
+    }
+
+    private static string MetricSummary(VisualReviewIndexRow row)
+    {
+        var metrics = new List<string>();
+        AddMetric(metrics, "changed", row.ChangedPixelPercentage, suffix: "%");
+        AddMetric(metrics, "MAE", row.MeanAbsoluteError);
+        AddMetric(metrics, "RMS", row.RootMeanSquaredError);
+        return metrics.Count == 0 ? "missing" : string.Join("<br>", metrics);
+    }
+
+    private static void AddMetric(List<string> metrics, string label, double? value, string suffix = "")
+    {
+        if (value is { } metric)
+        {
+            metrics.Add($"{Escape(label)}: {metric.ToString("0.###", CultureInfo.InvariantCulture)}{Escape(suffix)}");
+        }
+    }
+
+    private static string TriptychPreview(VisualReviewIndexRow row)
+    {
+        var html = new StringBuilder();
+        html.AppendLine("<div class=\"triptych-preview\">");
+        AppendPreviewFigure(html, "native", row.NativeReferenceCropPath);
+        AppendPreviewFigure(html, "macOS", row.MacRuntimeCropPath);
+        AppendPreviewFigure(html, "diff", row.PixelDiffPath);
+        html.AppendLine("</div>");
+        return html.ToString();
+    }
+
+    private static void AppendPreviewFigure(StringBuilder html, string label, string? path)
+    {
+        html.AppendLine("<figure>");
+        html.AppendLine($"<figcaption>{Escape(label)}</figcaption>");
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            html.AppendLine("<span>missing</span>");
+        }
+        else
+        {
+            html.AppendLine($"<a href=\"{Escape(path)}\"><img alt=\"{Escape(label)} crop\" src=\"{Escape(path)}\"></a>");
+        }
+
+        html.AppendLine("</figure>");
     }
 
     private static void AddLink(List<string> links, string label, string? path)
