@@ -488,10 +488,10 @@ internal static class NativeControlSamples
         };
     }
 
-    private static Color ParseColor(string hex)
+    private static Windows.UI.Color ParseColor(string hex)
     {
         var value = hex.TrimStart('#');
-        return Color.FromArgb(
+        return Windows.UI.Color.FromArgb(
             255,
             Convert.ToByte(value[0..2], 16),
             Convert.ToByte(value[2..4], 16),
