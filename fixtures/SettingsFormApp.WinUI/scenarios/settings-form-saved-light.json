@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "settings-form",
+  "name": "settings-form-saved-light",
+  "viewport": {
+    "width": 900,
+    "height": 680
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 35.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 20.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": [
+    {
+      "type": "typeText",
+      "target": "DisplayNameTextBox",
+      "parameter": "Public reviewer"
+    },
+    {
+      "type": "click",
+      "target": "SaveButton"
+    },
+    {
+      "type": "assertProperty",
+      "target": "SaveStatus",
+      "key": "Title",
+      "parameter": "Saved"
+    }
+  ]
+}

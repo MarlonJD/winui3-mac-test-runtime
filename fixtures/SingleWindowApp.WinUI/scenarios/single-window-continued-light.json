@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "0.1",
+  "fixtureName": "single-window",
+  "name": "single-window-continued-light",
+  "viewport": {
+    "width": 900,
+    "height": 560
+  },
+  "scale": 1.0,
+  "theme": "light",
+  "strictVisual": true,
+  "thresholds": {
+    "changedPixelPercentage": 35.0,
+    "maxChannelDelta": 255,
+    "meanAbsoluteError": 20.0,
+    "rootMeanSquaredError": 48.0
+  },
+  "interactions": [
+    {
+      "type": "click",
+      "target": "PrimaryButton"
+    },
+    {
+      "type": "assertProperty",
+      "target": "HeadingText",
+      "key": "Text",
+      "parameter": "Continued"
+    }
+  ]
+}

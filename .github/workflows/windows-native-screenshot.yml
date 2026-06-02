@@ -14,6 +14,9 @@ on:
       - "fixtures/PublicAdminWorkbench.WinUI/**"
       - "fixtures/ComponentParityLab.WinUI/**"
       - "fixtures/ProductionSmoke.WinUI/**"
+      - "fixtures/SingleWindowApp.WinUI/**"
+      - "fixtures/SettingsFormApp.WinUI/**"
+      - "fixtures/ResourceCatalogApp.WinUI/**"
       - "docs/compatibility/winui-component-inventory.json"
 
 jobs:
@@ -74,6 +77,21 @@ jobs:
           }
 
           msbuild fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj /restore /p:Configuration=Release /bl:"$diagnosticRoot/ProductionSmoke.WinUI.binlog"
+          if ($LASTEXITCODE -ne 0 -and $status -eq 0) {
+            $status = $LASTEXITCODE
+          }
+
+          msbuild fixtures/SingleWindowApp.WinUI/SingleWindowApp.WinUI.csproj /restore /p:Configuration=Release /bl:"$diagnosticRoot/SingleWindowApp.WinUI.binlog"
+          if ($LASTEXITCODE -ne 0 -and $status -eq 0) {
+            $status = $LASTEXITCODE
+          }
+
+          msbuild fixtures/SettingsFormApp.WinUI/SettingsFormApp.WinUI.csproj /restore /p:Configuration=Release /bl:"$diagnosticRoot/SettingsFormApp.WinUI.binlog"
+          if ($LASTEXITCODE -ne 0 -and $status -eq 0) {
+            $status = $LASTEXITCODE
+          }
+
+          msbuild fixtures/ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj /restore /p:Configuration=Release /bl:"$diagnosticRoot/ResourceCatalogApp.WinUI.binlog"
           if ($LASTEXITCODE -ne 0 -and $status -eq 0) {
             $status = $LASTEXITCODE
           }
@@ -261,6 +279,36 @@ jobs:
               Path = "fixtures/ProductionSmoke.WinUI/scenarios/production-e2e-workbench-light.json"
               FixtureProject = "fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj"
               FixtureExecutable = "fixtures/ProductionSmoke.WinUI/bin/Release/net8.0-windows10.0.19041.0/ProductionSmoke.WinUI.exe"
+            },
+            @{
+              Name = "single-window-continued-light"
+              Path = "fixtures/SingleWindowApp.WinUI/scenarios/single-window-continued-light.json"
+              FixtureProject = "fixtures/SingleWindowApp.WinUI/SingleWindowApp.WinUI.csproj"
+              FixtureExecutable = "fixtures/SingleWindowApp.WinUI/bin/Release/net8.0-windows10.0.19041.0/SingleWindowApp.WinUI.exe"
+            },
+            @{
+              Name = "settings-form-saved-light"
+              Path = "fixtures/SettingsFormApp.WinUI/scenarios/settings-form-saved-light.json"
+              FixtureProject = "fixtures/SettingsFormApp.WinUI/SettingsFormApp.WinUI.csproj"
+              FixtureExecutable = "fixtures/SettingsFormApp.WinUI/bin/Release/net8.0-windows10.0.19041.0/SettingsFormApp.WinUI.exe"
+            },
+            @{
+              Name = "resource-catalog-light"
+              Path = "fixtures/ResourceCatalogApp.WinUI/scenarios/resource-catalog-light.json"
+              FixtureProject = "fixtures/ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj"
+              FixtureExecutable = "fixtures/ResourceCatalogApp.WinUI/bin/Release/net8.0-windows10.0.19041.0/ResourceCatalogApp.WinUI.exe"
+            },
+            @{
+              Name = "resource-catalog-dark"
+              Path = "fixtures/ResourceCatalogApp.WinUI/scenarios/resource-catalog-dark.json"
+              FixtureProject = "fixtures/ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj"
+              FixtureExecutable = "fixtures/ResourceCatalogApp.WinUI/bin/Release/net8.0-windows10.0.19041.0/ResourceCatalogApp.WinUI.exe"
+            },
+            @{
+              Name = "resource-catalog-high-contrast"
+              Path = "fixtures/ResourceCatalogApp.WinUI/scenarios/resource-catalog-high-contrast.json"
+              FixtureProject = "fixtures/ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj"
+              FixtureExecutable = "fixtures/ResourceCatalogApp.WinUI/bin/Release/net8.0-windows10.0.19041.0/ResourceCatalogApp.WinUI.exe"
             }
           )
 
@@ -351,6 +399,21 @@ jobs:
             Select-Object FullName, Length |
             Format-Table -AutoSize |
             Tee-Object (Join-Path $diagnosticRoot "production-smoke-output-files.txt")
+
+          Get-ChildItem fixtures/SingleWindowApp.WinUI/bin/Release -Recurse -File -ErrorAction SilentlyContinue |
+            Select-Object FullName, Length |
+            Format-Table -AutoSize |
+            Tee-Object (Join-Path $diagnosticRoot "single-window-output-files.txt")
+
+          Get-ChildItem fixtures/SettingsFormApp.WinUI/bin/Release -Recurse -File -ErrorAction SilentlyContinue |
+            Select-Object FullName, Length |
+            Format-Table -AutoSize |
+            Tee-Object (Join-Path $diagnosticRoot "settings-form-output-files.txt")
+
+          Get-ChildItem fixtures/ResourceCatalogApp.WinUI/bin/Release -Recurse -File -ErrorAction SilentlyContinue |
+            Select-Object FullName, Length |
+            Format-Table -AutoSize |
+            Tee-Object (Join-Path $diagnosticRoot "resource-catalog-output-files.txt")
 
       - name: Upload native WinUI launch diagnostics
         if: failure()
