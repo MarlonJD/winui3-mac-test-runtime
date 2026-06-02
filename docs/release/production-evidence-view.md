@@ -2,8 +2,9 @@
 
 Date: 2026-06-02
 
-This page is the single current production evidence view for the documented
-public source-level WinUI 3 subset. It summarizes the catalog counts, production
+This page is the running visual readiness dashboard and the single current
+production evidence view for the documented public source-level WinUI 3 subset.
+It summarizes catalog counts, all-catalog production dispositions, production
 Ring 0 and Ring 1 status, latest recorded workflow evidence, strict scenario
 results, and checked-in visual examples without expanding the support claim.
 
@@ -23,6 +24,7 @@ composition, media, WebView2, or platform integration.
 | macOS renderer evidence | Local `skia-v2` strict scenario artifacts and component evidence. |
 | Component grade source | `component-evidence.json`, not whole-screenshot pass/fail alone. |
 | Support boundary | Public sanitized Ring 0 and claimed Ring 1 components with required evidence. |
+| Visual readiness inventory | `docs/compatibility/visual-readiness-inventory.json`. |
 
 Primary source documents:
 
@@ -30,8 +32,41 @@ Primary source documents:
 - `docs/compatibility/matrix.md`
 - `docs/compatibility/component-support.md`
 - `docs/compatibility/production-component-targets.md`
+- `docs/compatibility/visual-readiness-inventory.json`
 - `docs/compatibility/contracts.md`
 - `docs/release/support-policy.md`
+
+## Visual Readiness Dashboard
+
+The target outcome is **126/126 production-ready catalog dispositions** for
+source-level WinUI 3 visual readiness. Locally executable entries must reach
+implemented or bounded support with tests, fixtures, native WinUI reference
+evidence when visual, macOS artifacts, interaction/accessibility evidence where
+applicable, and docs. Windows-only and explicit non-goal entries must reach
+production-ready exclusion handling with deterministic diagnostics, Windows
+validation evidence where applicable, support-policy wording, and no misleading
+local macOS support claim.
+
+| Family | Target grade | Current grade | Latest run ID | Next blocker |
+| --- | --- | --- | --- | --- |
+| App shell | production-ready | usable | `26792033793` | Native window chrome and full lifecycle remain outside the local macOS support claim. |
+| Core layout | production-ready | usable | `26792033793` | Broader WinUI layout behavior remains partial; current claim is the deterministic source-level subset. |
+| Text and forms | production-ready | usable | `26792033793` | Advanced input, caret, selection, and validation visuals require later promotion. |
+| Commands and menus | production-ready | usable for supported command and partial flyout subset; `not-rendered` for planned controls | `26792033793` | MenuBar, context menus, split/dropdown buttons, disabled item behavior, and broad keyboarding remain planned diagnostics. |
+| Navigation and workbench | production-ready | usable | `26792033793` | Adaptive behavior, broad keyboard routing, and richer collection templates remain partial or planned. |
+| Status and progress | production-ready | usable | `26792033793` | Animation, close/action areas, and full severity chrome need later evidence-backed promotion. |
+| Dialogs, flyouts, and tooltips | production-ready | usable for supported popup subset; `not-rendered` for planned surfaces | `26792033793` | Modal focus trapping, placement, TeachingTip, tooltip service, and full action relationships remain planned or partial. |
+| Resources, theme, and visual states | production-ready | usable for simple resources and theme dictionaries; diagnostic or `not-rendered` for broad Fluent states | `26792033793` | Full Fluent dictionaries, dynamic invalidation, pointer states, and template visual states require Phase 2+ evidence. |
+| Materials, composition, media, and platform integration | production-ready exclusion | exclusion target defined; no local macOS visual support claim | `26792033793` | Mica, Acrylic, compositor effects, media, WebView2, launcher, packaged apps, and binaries remain explicit exclusions or roadmap diagnostics. |
+
+Promotion is evidence-backed:
+
+| Grade | Promotion rule |
+| --- | --- |
+| `not-rendered` | Entry is absent, text-only when chrome is required, catalog-only, or diagnostic-only. It cannot be claimed production-ready local macOS support. |
+| `usable` | Entry renders meaningful WinUI-like output for the documented subset and has catalog status, public scenario, macOS artifact, component evidence, required interaction/accessibility evidence, docs, and native WinUI reference when visual. |
+| `good` | Entry meets the usable bar plus reviewed component-level visual fidelity against native WinUI references across required state/theme scenarios. |
+| production-ready | Entry has a deliberate production disposition: implemented support at the required grade, bounded partial support with exact limits, Windows-only exclusion, diagnostic roadmap exclusion, or explicit non-goal exclusion. |
 
 ## Catalog Snapshot
 
@@ -49,9 +84,67 @@ and placeholder facade runtime diagnostics.
 
 Total catalog entries: **126**.
 
+Kind counts from the same catalog:
+
+| Kind | Count |
+| --- | ---: |
+| `api` | 48 |
+| `fluent-resource` | 4 |
+| `project-item` | 3 |
+| `project-property` | 4 |
+| `visual-state` | 5 |
+| `xaml-attached-property` | 4 |
+| `xaml-directive` | 5 |
+| `xaml-element` | 34 |
+| `xaml-event` | 3 |
+| `xaml-markup` | 1 |
+| `xaml-property` | 5 |
+| `xaml-property-element` | 3 |
+| `xaml-resource` | 7 |
+
 Unknown public API usage remains outside the production claim until it receives
 a catalog entry, fixture coverage, macOS artifact evidence, native WinUI
 provenance, and release documentation.
+
+## All-Catalog Readiness Audit
+
+The machine-readable audit is in
+`docs/compatibility/visual-readiness-inventory.json`. It accounts for all
+**126/126** entries and leaves **0** entries without a production disposition.
+
+| Production disposition | Count | Evidence requirement |
+| --- | ---: | --- |
+| Source-level production implementation | 55 | Tests, fixtures, macOS artifacts, native WinUI reference when visual, interaction/accessibility evidence where applicable, and docs. |
+| Bounded source-level production implementation | 35 | Same evidence bar as supported entries, plus exact partial boundary wording and diagnostics for missing behavior. |
+| Production-ready diagnostic exclusion until promoted | 31 | Deterministic diagnostics, docs, owner or roadmap treatment, and promotion exit criteria. |
+| Production-ready Windows-only exclusion | 3 | Deterministic exclusion, Windows validation evidence where applicable, support-policy wording, and no local macOS support claim. |
+| Production-ready non-goal exclusion | 2 | Deterministic non-goal diagnostics and support-policy wording. |
+
+| Primary blocker | Catalog entries | Current treatment |
+| --- | ---: | --- |
+| PB-001 | 14 | Planned API entries remain cataloged roadmap diagnostics until promoted. |
+| PB-002 | 28 | Source-level nonvisual or parser/project/resource entries need implementation or bounded support evidence. |
+| PB-003 | 62 | Visual API, element, resource, and state entries need component evidence so `not-rendered`, weak, or poor rows are not hidden. |
+| PB-004 | 8 | Theme resources, visual states, and template property elements need state/theme/template evidence before promotion. |
+| PB-012 | 14 | Planned, Windows-only, and non-goal entries need precise support-policy and exclusion handling. |
+
+## Production Blocker Visual Mapping
+
+| Blocker | Visual readiness treatment |
+| --- | --- |
+| PB-000 | Require `referenceSource: native-winui` for every promoted visual scenario; synthetic probes remain smoke-only. |
+| PB-001 | Keep catalog/docs count gates aligned with the JSON source of truth and keep unknowns diagnostic. |
+| PB-002 | Promote only cataloged source-level surfaces with exact support boundaries and fixture evidence. |
+| PB-003 | Prevent weak, poor, or `not-rendered` visual rows from being hidden by whole-screen passes. |
+| PB-004 | Require state/theme/template coverage before promoting visual states or template-backed controls. |
+| PB-005 | Treat materials and composition as deterministic approximations or exclusions until native-reference-backed. |
+| PB-006 | Require interaction and accessibility artifacts for interactive or semantic visual promotions. |
+| PB-007 | Use clean-room public fixtures and corpus entries only. |
+| PB-008 | Track native provenance and component evidence for every promoted visual family. |
+| PB-009 | Add visual gates without loosening thresholds or hiding flake. |
+| PB-010 | Carry visual readiness artifacts into release evidence before publication. |
+| PB-011 | Keep private-name and artifact privacy rules mandatory for every new fixture or visual artifact. |
+| PB-012 | Keep support policy and dashboard wording synchronized with every promotion or exclusion. |
 
 ## Workflow Evidence
 

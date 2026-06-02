@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using WinUI3.MacCompatibility;
 using WinUI3.MacCompat.Diagnostics;
@@ -411,6 +412,100 @@ public sealed class MacRuntimeTests
         Assert.IsTrue(catalog.Entries.Any(entry => entry.Kind == "fluent-resource"));
         Assert.IsTrue(catalog.Entries.Any(entry => entry.Kind == "project-property"));
         Assert.IsTrue(catalog.Entries.Any(entry => entry.Kind == "visual-state"));
+    }
+
+    [TestMethod]
+    public void CompatibilityCatalogDocsPublishMatchingCounts()
+    {
+        var catalog = CompatibilityCatalog.Current;
+        var expectedStatusCounts = CountBy(catalog.Entries, entry => entry.Status);
+        var documents = new[]
+        {
+            "README.md",
+            "docs/compatibility/matrix.md",
+            "docs/compatibility/api-catalog.md",
+            "docs/release/production-evidence-view.md"
+        };
+
+        foreach (var document in documents)
+        {
+            var text = File.ReadAllText(RepositoryPath(document));
+
+            Assert.IsTrue(
+                ContainsCatalogTotal(text, catalog.Entries.Count),
+                $"{document} must publish the catalog total from winui-api-compatibility.catalog.json.");
+
+            foreach (var (status, count) in expectedStatusCounts)
+            {
+                Assert.IsTrue(
+                    ContainsCatalogStatusCount(text, status, count),
+                    $"{document} must publish {count} '{status}' catalog entries.");
+            }
+        }
+    }
+
+    [TestMethod]
+    public void CompatibilityCatalogVisualReadinessInventoryAccountsForEveryEntry()
+    {
+        var catalog = CompatibilityCatalog.Current;
+        var expectedStatusCounts = CountBy(catalog.Entries, entry => entry.Status);
+        var expectedKindCounts = CountBy(catalog.Entries, entry => entry.Kind);
+        var expectedBucketCounts = catalog.Entries
+            .GroupBy(entry => (entry.Kind, entry.Status))
+            .ToDictionary(group => $"{group.Key.Kind}|{group.Key.Status}", group => group.Count(), StringComparer.Ordinal);
+
+        using var document = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/compatibility/visual-readiness-inventory.json")));
+        var root = document.RootElement;
+
+        Assert.AreEqual("0.1", root.GetProperty("schemaVersion").GetString());
+        var snapshot = root.GetProperty("catalogSnapshot");
+        Assert.AreEqual(catalog.Entries.Count, snapshot.GetProperty("total").GetInt32());
+        AssertCountsEqual(expectedStatusCounts, snapshot.GetProperty("statusCounts"), "status");
+        AssertCountsEqual(expectedKindCounts, snapshot.GetProperty("kindCounts"), "kind");
+
+        var audit = root.GetProperty("allCatalogReadinessAudit");
+        Assert.AreEqual(catalog.Entries.Count, audit.GetProperty("accountedEntries").GetInt32());
+        Assert.AreEqual(0, audit.GetProperty("unassignedDispositionCount").GetInt32());
+        Assert.AreEqual(catalog.Entries.Count, SumObjectCounts(audit.GetProperty("dispositionCounts")));
+
+        var actualBucketCounts = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (var bucket in audit.GetProperty("auditBuckets").EnumerateArray())
+        {
+            var kind = RequireNonEmptyString(bucket, "kind");
+            var status = RequireNonEmptyString(bucket, "status");
+            var count = bucket.GetProperty("count").GetInt32();
+
+            Assert.IsGreaterThan(0, count);
+            Assert.IsTrue(expectedKindCounts.ContainsKey(kind), $"Unknown audit kind '{kind}'.");
+            Assert.IsTrue(expectedStatusCounts.ContainsKey(status), $"Unknown audit status '{status}'.");
+            _ = RequireNonEmptyString(bucket, "disposition");
+            _ = RequireNonEmptyString(bucket, "primaryBlocker");
+            _ = RequireNonEmptyString(bucket, "evidenceProfile");
+
+            actualBucketCounts[$"{kind}|{status}"] = count;
+        }
+
+        CollectionAssert.AreEquivalent(
+            expectedBucketCounts.OrderBy(pair => pair.Key, StringComparer.Ordinal).ToArray(),
+            actualBucketCounts.OrderBy(pair => pair.Key, StringComparer.Ordinal).ToArray());
+        Assert.AreEqual(catalog.Entries.Count, actualBucketCounts.Values.Sum());
+
+        var blockerIds = root.GetProperty("productionBlockerMapping")
+            .EnumerateArray()
+            .Select(entry => RequireNonEmptyString(entry, "id"))
+            .OrderBy(id => id, StringComparer.Ordinal)
+            .ToArray();
+        CollectionAssert.AreEqual(
+            Enumerable.Range(0, 13).Select(index => $"PB-{index:000}").ToArray(),
+            blockerIds);
+
+        var promotionGrades = root.GetProperty("promotionRules")
+            .EnumerateArray()
+            .Select(entry => RequireNonEmptyString(entry, "grade"))
+            .ToArray();
+        CollectionAssert.AreEqual(
+            new[] { "not-rendered", "usable", "good", "production-ready" },
+            promotionGrades);
     }
 
     [TestMethod]
@@ -1160,6 +1255,78 @@ public sealed class MacRuntimeTests
 
         Assert.AreEqual(schemaVersion, document.RootElement.GetProperty("schemaVersion").GetString());
         Assert.IsGreaterThanOrEqualTo(minimumItemCount, document.RootElement.GetProperty(itemsProperty).GetArrayLength());
+    }
+
+    private static Dictionary<string, int> CountBy(
+        IEnumerable<CompatibilityCatalogEntry> entries,
+        Func<CompatibilityCatalogEntry, string> selector)
+    {
+        return entries
+            .GroupBy(selector, StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group.Count(), StringComparer.Ordinal);
+    }
+
+    private static void AssertCountsEqual(
+        IReadOnlyDictionary<string, int> expected,
+        JsonElement actual,
+        string label)
+    {
+        var actualCounts = actual.EnumerateObject()
+            .ToDictionary(property => property.Name, property => property.Value.GetInt32(), StringComparer.Ordinal);
+
+        CollectionAssert.AreEquivalent(
+            expected.OrderBy(pair => pair.Key, StringComparer.Ordinal).ToArray(),
+            actualCounts.OrderBy(pair => pair.Key, StringComparer.Ordinal).ToArray(),
+            $"Visual readiness inventory {label} counts must match the compatibility catalog.");
+    }
+
+    private static int SumObjectCounts(JsonElement element)
+    {
+        return element.EnumerateObject().Sum(property => property.Value.GetInt32());
+    }
+
+    private static string RequireNonEmptyString(JsonElement element, string propertyName)
+    {
+        var value = element.GetProperty(propertyName).GetString();
+
+        Assert.IsFalse(string.IsNullOrWhiteSpace(value), $"Expected '{propertyName}' to be set.");
+        return value;
+    }
+
+    private static bool ContainsCatalogTotal(string text, int total)
+    {
+        return Regex.IsMatch(text, $@"\b{total}\s+entries\b", RegexOptions.CultureInvariant) ||
+            Regex.IsMatch(text, $@"Total catalog entries:\s+\*\*{total}\*\*", RegexOptions.CultureInvariant) ||
+            Regex.IsMatch(text, $@"\*\*{total}/{total}\*\*", RegexOptions.CultureInvariant);
+    }
+
+    private static bool ContainsCatalogStatusCount(string text, string status, int count)
+    {
+        var escapedStatus = Regex.Escape(status);
+
+        return Regex.IsMatch(text, $@"\|\s*`{escapedStatus}`\s*\|\s*{count}\s*\|", RegexOptions.CultureInvariant) ||
+            Regex.IsMatch(text, $@"\b{count}\s+`{escapedStatus}`", RegexOptions.CultureInvariant);
+    }
+
+    private static string RepositoryPath(string relativePath)
+    {
+        return Path.Combine(RepositoryRoot(), relativePath);
+    }
+
+    private static string RepositoryRoot()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null)
+        {
+            if (File.Exists(Path.Combine(directory.FullName, "WinUI3.MacTestRuntime.sln")))
+            {
+                return directory.FullName;
+            }
+
+            directory = directory.Parent;
+        }
+
+        throw new InvalidOperationException("Could not locate repository root.");
     }
 
     private sealed record MutableState(string Title);

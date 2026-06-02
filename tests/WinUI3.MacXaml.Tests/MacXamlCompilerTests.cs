@@ -1,3 +1,4 @@
+using WinUI3.MacCompatibility;
 using WinUI3.MacXaml;
 
 namespace WinUI3.MacXaml.Tests;
@@ -5,6 +6,18 @@ namespace WinUI3.MacXaml.Tests;
 [TestClass]
 public sealed class MacXamlCompilerTests
 {
+    [TestMethod]
+    public void CompatibilityCatalogClassifiesXamlConstructsUsedByCompiler()
+    {
+        var catalog = CompatibilityCatalog.Current;
+
+        Assert.AreEqual(CompatibilityStatuses.Supported, catalog.FindXamlElement("Button")?.Status);
+        Assert.AreEqual(CompatibilityStatuses.Planned, catalog.FindXamlElement("DataTemplate")?.Status);
+        Assert.AreEqual(CompatibilityStatuses.Supported, catalog.FindXamlAttachedProperty("AutomationProperties.AutomationId")?.Status);
+        Assert.AreEqual(CompatibilityStatuses.Planned, catalog.FindXamlDirective("x:Bind")?.Status);
+        Assert.AreEqual(CompatibilityStatuses.Planned, catalog.FindXamlPropertyElement("ItemsControl", "ItemTemplate")?.Status);
+    }
+
     [TestMethod]
     public void CompileTextGeneratesNamedControlsAndEventHookups()
     {

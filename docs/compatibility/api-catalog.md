@@ -39,7 +39,7 @@ The `0.1` catalog has 126 entries:
 | `project-item` | 3 |
 | `project-property` | 4 |
 | `visual-state` | 5 |
-| `xaml-attached-property` | 3 |
+| `xaml-attached-property` | 4 |
 | `xaml-directive` | 5 |
 | `xaml-element` | 34 |
 | `xaml-event` | 3 |
