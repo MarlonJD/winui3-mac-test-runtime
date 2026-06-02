@@ -46,9 +46,9 @@ suite.
 | --- | --- | --- | --- | --- | --- |
 | `production-smoke` | navigation shell (forms, commands, lists, theme dictionaries) | production-subset | clean-room | Evidence corpus owner | Ingests with zero blocking diagnostics, zero unknown surface, native WinUI reference scenarios; advances PB-007/PB-008. |
 | `public-admin-workbench` | navigation shell (command surfaces, review list, `x:Uid`) | production-subset | clean-room | Evidence corpus owner | Ingests with zero blocking diagnostics, zero unknown surface, native WinUI reference scenarios; advances PB-007/PB-008. |
-| `single-window` | single window, no navigation shell | production-subset | clean-room | Project ingestion owner | Ingests with zero blocking diagnostics and zero unknown surface; advances PB-007. |
-| `settings-form` | MVVM settings form (two-way `{Binding}`, `INotifyPropertyChanged`) | production-subset | clean-room | Project ingestion owner | Ingests cleanly and two-way binding resolves against the view model; advances PB-007. |
-| `resource-catalog` | resource-heavy, packaging-like (merged + theme dictionaries, styles, assets) | production-subset | clean-room | Compatibility catalog owner | Ingests cleanly with merged/theme dictionaries, static/theme resources, styles, and assets classified; advances PB-001/PB-007. |
+| `single-window` | single window, no navigation shell | production-subset | clean-room | Project ingestion owner | Ingests with zero blocking diagnostics, zero unknown surface, and native WinUI reference scenario; advances PB-007/PB-008. |
+| `settings-form` | MVVM settings form (two-way `{Binding}`, `INotifyPropertyChanged`) | production-subset | clean-room | Project ingestion owner | Ingests cleanly, two-way binding resolves against the view model, and native WinUI reference scenario is captured; advances PB-007/PB-008. |
+| `resource-catalog` | resource-heavy, packaging-like (merged + theme dictionaries, styles, assets) | production-subset | clean-room | Compatibility catalog owner | Ingests cleanly with merged/theme dictionaries, static/theme resources, styles, assets classified, and native WinUI light/dark/high-contrast references; advances PB-001/PB-007/PB-008. |
 
 ## Project-Shape Coverage
 
@@ -115,4 +115,7 @@ explicit unsupported exclusion, then refresh the baseline.
 - **PB-007** (project ingestion shapes): the corpus validates a documented set
   of public WinUI 3 project shapes with structured ingestion output.
 - **PB-008** (public evidence corpus): the corpus is the representative
-  clean-room public surface that fixture-only evidence lacked.
+  clean-room public surface that fixture-only evidence lacked. Public GitHub
+  Actions run `26790967052` captured native WinUI references for every current
+  corpus app scenario, including the single-window, settings-form, and
+  resource-catalog scenarios added after the initial corpus ingestion work.

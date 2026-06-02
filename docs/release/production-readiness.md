@@ -285,7 +285,12 @@ Required evidence:
 
 Missing evidence:
 
-- Native Windows captures of the actual public WinUI fixture projects.
+- No missing native-reference evidence for the current clean-room fixture and
+  corpus scenario set. Public run `26790967052` captures actual public WinUI
+  fixture projects, including single-window, settings-form, resource-catalog,
+  production smoke, public admin, and component parity lab scenarios.
+- The remaining alpha caveat is visual quality, not reference provenance:
+  macOS comparisons still expose weak or missing Fluent/component rendering.
 
 ### Beta Gate
 

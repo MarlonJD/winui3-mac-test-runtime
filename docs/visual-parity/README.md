@@ -9,12 +9,17 @@ and threshold failure checks are produced locally on a developer Mac with
 
 The latest full native reference artifact set was captured by public GitHub
 Actions run
-[`26785240127`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26785240127)
-on commit `61b6ad3`. It includes `public-admin-workbench-light`,
+[`26790967052`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26790967052)
+on commit `6d2fc9c`. It includes `public-admin-workbench-light`,
 `public-admin-workbench-deferred-light`, all light Ring 0 and Ring 1 component
 lab scenarios, `production-smoke-light`, and
-`production-e2e-workbench-light`; every `windows-reference.json` records
-`referenceSource: native-winui`, `titleMatched: true`, and viewport `1028x720`.
+`production-e2e-workbench-light`. It also includes native WinUI corpus
+references for `single-window-continued-light`, `settings-form-saved-light`,
+`resource-catalog-light`, `resource-catalog-dark`, and
+`resource-catalog-high-contrast`. Every downloaded `windows-reference.json`
+records `referenceSource: native-winui`, `titleMatched: true`, the workflow run
+ID, commit SHA, runner image, viewport, theme, title, capture mode, and image
+dimensions.
 
 The checked-in public admin workbench and component parity lab examples come
 from native WinUI public fixture references captured by public GitHub Actions
@@ -75,6 +80,13 @@ Component lab scenario artifacts are produced for:
 Each artifact folder includes `component-evidence.json` alongside
 `visual-run.json` when the native reference is compared locally against the
 macOS runtime.
+
+Native Windows reference artifacts are also produced for the public application
+corpus scenarios: `public-admin-workbench-light`,
+`public-admin-workbench-deferred-light`, `production-smoke-light`,
+`production-e2e-workbench-light`, `single-window-continued-light`,
+`settings-form-saved-light`, `resource-catalog-light`,
+`resource-catalog-dark`, and `resource-catalog-high-contrast`.
 
 ## Public Admin Workbench Example
 
