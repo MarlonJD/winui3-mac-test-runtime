@@ -103,17 +103,26 @@
     {
       "component": "SymbolIcon",
       "target": "DiagnosticSymbolIcon",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "symbol"
+      ],
+      "knownGaps": [
+        "SymbolIcon exports and renders a static Fluent glyph diagnostic; exact Segoe Fluent Icons metrics and state variants remain partial."
+      ]
     },
     {
       "component": "XamlControlsResources",
       "kind": "resource",
       "target": "DiagnosticXamlControlsResources",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "XamlControlsResources is represented as a bounded Fluent resource bootstrap diagnostic; the real WinUI resource dictionary is not loaded."
+      ]
     },
     {
       "component": "ResourceDictionary.ThemeDictionaries",
@@ -177,9 +186,15 @@
       "component": "Color",
       "kind": "resource",
       "target": "DiagnosticColor",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "background"
+      ],
+      "knownGaps": [
+        "Color resources are represented as deterministic swatch tokens for renderer evidence; full typed color object fidelity remains planned."
+      ]
     },
     {
       "component": "SolidColorBrush",
@@ -300,18 +315,18 @@
       "feature": "SymbolIcon",
       "kind": "icon",
       "target": "DiagnosticSymbolIcon",
-      "expectedStatus": "planned",
+      "expectedStatus": "partial",
       "knownGaps": [
-        "SymbolIcon is tracked as diagnostic-only before facade and painter support are added."
+        "SymbolIcon is rendered as a static glyph diagnostic; exact icon font metrics and state variants remain partial."
       ]
     },
     {
       "feature": "XamlControlsResources",
       "kind": "resource",
       "target": "DiagnosticXamlControlsResources",
-      "expectedStatus": "planned",
+      "expectedStatus": "partial",
       "knownGaps": [
-        "The fixture includes a bootstrap marker, but Fluent resource dictionaries are not modeled yet."
+        "The fixture includes a bounded bootstrap marker, but the full Fluent resource dictionary is not loaded."
       ]
     },
     {
@@ -363,27 +378,27 @@
       "feature": "Color",
       "kind": "resource",
       "target": "DiagnosticColor",
-      "expectedStatus": "planned",
+      "expectedStatus": "partial",
       "knownGaps": [
-        "Color resources are represented in the fixture but not converted to typed colors."
+        "Color resources render deterministic swatches for public evidence; full typed color object fidelity remains planned."
       ]
     },
     {
       "feature": "SolidColorBrush",
       "kind": "resource",
       "target": "DiagnosticSolidColorBrush",
-      "expectedStatus": "planned",
+      "expectedStatus": "partial",
       "knownGaps": [
-        "SolidColorBrush resources are represented in the fixture but not converted to typed brushes."
+        "SolidColorBrush resources render deterministic swatches for public evidence; full brush object fidelity remains planned."
       ]
     },
     {
       "feature": "CornerRadius",
       "kind": "resource",
       "target": "DiagnosticCornerRadius",
-      "expectedStatus": "planned",
+      "expectedStatus": "partial",
       "knownGaps": [
-        "CornerRadius resources are represented in the fixture but not applied to control geometry."
+        "CornerRadius resources are applied to bounded renderer geometry; full WinUI corner resource behavior remains partial."
       ]
     },
     {

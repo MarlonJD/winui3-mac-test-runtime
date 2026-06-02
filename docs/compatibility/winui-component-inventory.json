@@ -638,13 +638,13 @@
       "component": "Color",
       "kind": "pattern",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "resource diagnostic",
+      "fixtureCoverage": "component-layout-media-light",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "Color resources are not converted to typed colors yet."
+        "Color resources render deterministic swatches for public evidence; full typed color object fidelity remains planned."
       ]
     },
     {
@@ -1522,13 +1522,13 @@
       "component": "SymbolIcon",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 8: Layout, Media, Visuals",
-      "fixtureCoverage": "diagnostic row",
+      "fixtureCoverage": "component-layout-media-light",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "Tracked as a source-audit gap before facade and painter support."
+        "SymbolIcon exports and renders a static Fluent glyph diagnostic; exact Segoe Fluent Icons metrics and state variants remain partial."
       ]
     },
     {
@@ -1743,13 +1743,13 @@
       "component": "XamlControlsResources",
       "kind": "pattern",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "App.xaml bootstrap and Page 8 diagnostics",
-      "fixtureCoverage": "bootstrap marker plus diagnostic row",
+      "fixtureCoverage": "component-layout-media-light",
       "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "The lab marks the dependency but does not model full Fluent resource dictionaries yet."
+        "XamlControlsResources is represented as a bounded Fluent resource bootstrap diagnostic; the real WinUI resource dictionary is not loaded."
       ]
     }
   ]

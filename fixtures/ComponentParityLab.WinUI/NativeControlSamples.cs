@@ -414,10 +414,10 @@ internal static class NativeControlSamples
         SetNativeElement(systemBackdropHost, "Window.SystemBackdrop / MicaBackdrop", ResourcePreview("MicaBackdrop assigned"));
 #else
         symbolIconHost.Content = Labeled("SymbolIcon", new Microsoft.UI.Xaml.Controls.SymbolIcon { Symbol = Symbol.Link });
-        xamlControlsResourcesHost.Content = Labeled("XamlControlsResources", new TextBlock { Text = "XamlControlsResources loaded" });
+        xamlControlsResourcesHost.Content = Labeled("XamlControlsResources", MacResourcePreview("XamlControlsResources loaded"));
         themeDictionariesHost.Content = Labeled("ResourceDictionary.ThemeDictionaries", new TextBlock { Text = "Theme dictionary sample" });
-        colorHost.Content = Labeled("Color", new TextBlock { Text = "Color resource" });
-        solidColorBrushHost.Content = Labeled("SolidColorBrush", new TextBlock { Text = "Brush resource" });
+        colorHost.Content = Labeled("Color", MacColorSwatch("Color resource", "#1E90FF"));
+        solidColorBrushHost.Content = Labeled("SolidColorBrush", MacColorSwatch("Brush resource", "#2E8B57"));
         cornerRadiusHost.Content = Labeled("CornerRadius", new Border { CornerRadius = 10, Child = new TextBlock { Text = "Rounded border" } });
         expanderHost.Content = Labeled("Expander", new StackPanel { Spacing = 4, Children = { new TextBlock { Text = "More details" }, new TextBlock { Text = "Expanded public content" } } });
         annotatedScrollBarHost.Content = Labeled("AnnotatedScrollBar", new TextBlock { Text = "Annotated scrollbar" });
@@ -454,6 +454,38 @@ internal static class NativeControlSamples
         });
         panel.Children.Add(element);
         return panel;
+    }
+
+    private static UIElement MacResourcePreview(string text)
+    {
+        return new Border
+        {
+            Width = 220,
+            Height = 34,
+            CornerRadius = 6,
+            Background = "#FAFAFA",
+            Child = new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center }
+        };
+    }
+
+    private static UIElement MacColorSwatch(string text, string color)
+    {
+        return new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            Spacing = 8,
+            Children =
+            {
+                new Border
+                {
+                    Width = 40,
+                    Height = 20,
+                    CornerRadius = 4,
+                    Background = color
+                },
+                new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center }
+            }
+        };
     }
 
 #if WINDOWS

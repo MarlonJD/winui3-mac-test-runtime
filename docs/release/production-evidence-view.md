@@ -46,7 +46,7 @@ interaction/accessibility evidence where applicable, and docs. That is a
 release-evidence result, not a renderer-fidelity result.
 
 The checked-in public component-quality dashboard contains 58 component rows:
-43 `usable` and 15 `not-rendered`. Those rows now have native/macOS/diff crop
+46 `usable` and 12 `not-rendered`. Those rows now have native/macOS/diff crop
 triptychs for manual inspection, but large areas of WinUI chrome, templates,
 states, and advanced controls still need direct renderer work before any
 native-quality claim.
@@ -212,7 +212,7 @@ Current inspected renderer component summaries:
 | Commands and menus | 8 `usable`, zero `not-rendered`; command surfaces, content-slot, MenuBar, context target, and popups are simplified. |
 | Navigation and workbench | Workbench/list-detail scaffold is `usable`; adaptive behavior and broader keyboarding remain partial. |
 | Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; loading and success state scenarios add 4 `usable` rows. Animation and close/action areas remain gaps. |
-| Layout, media, and resources | Light layout/media scenario has 13 `usable`, 15 planned/non-goal `not-rendered`; media, web, ink, materials, and advanced visuals remain excluded or planned. |
+| Layout, media, and resources | Light layout/media scenario has 16 `usable`, 12 planned/non-goal `not-rendered`; media, web, ink, materials, and advanced visuals remain excluded or planned. |
 
 The `ClaimedSupportedComponentsAreNeverNotRendered` test protects the claim by
 failing if a scenario requirement marked `supported` or `partial` regresses to
@@ -262,8 +262,8 @@ visual-review fixtures, not the current production grade source.
 | --- | --- | --- |
 | `public-admin-workbench-light` | Whole-image comparison fails with 99.988381% changed pixels over a 45% threshold. | Current public artifacts show 9 `usable` workbench scaffold rows, not native-quality parity. |
 | `component-basic-input-light` | Whole-image comparison fails with 30.145914% changed pixels over an 18% threshold. | Current public artifacts show 13 `usable` rows and zero `not-rendered` rows; native control chrome remains approximate and not manually promoted. |
-| `component-commands-menus-light` | Whole-image comparison fails with 28.441283% changed pixels over a 24% threshold. | Current public artifacts show 8 `usable` rows and zero `not-rendered` rows; command/flyout/MenuBar surfaces remain simplified and not manually promoted. |
-| `component-layout-media-light` | Whole-image comparison fails with 43.277129% changed pixels over a 24% threshold. | Current public artifacts show 13 `usable` and 15 planned/non-goal `not-rendered` rows; advanced layout, media, web, ink, and materials remain outside the claim. |
+| `component-commands-menus-light` | Whole-image comparison fails with 28.866596% changed pixels over a 24% threshold. | Current public artifacts show 8 `usable` rows and zero `not-rendered` rows; command/flyout/MenuBar surfaces remain simplified and not manually promoted. |
+| `component-layout-media-light` | Whole-image comparison fails with 44.096276% changed pixels over a 24% threshold. | Current public artifacts show 16 `usable` and 12 planned/non-goal `not-rendered` rows; advanced layout, media, web, ink, and materials remain outside the claim. |
 
 Fresh support status is determined by catalog status, strict scenario
 results, `component-evidence.json`, interaction evidence, accessibility export,

@@ -51,14 +51,15 @@ Totals:
 | Missing inspection notes | 58 |
 | Blocking rows | 58 |
 
-Current progress after the basic-input and commands/menus evidence passes:
+Current progress after the basic-input, commands/menus, and layout/resource/icon
+evidence passes:
 
 | Metric | Current value |
 | --- | ---: |
 | Scenarios | 4 |
 | Component rows | 58 |
-| `usable` rows | 43 |
-| `not-rendered` rows | 15 |
+| `usable` rows | 46 |
+| `not-rendered` rows | 12 |
 | `nativeQualityGrade: not-evaluated` rows | 58 |
 | Missing macOS runtime crops | 0 |
 | Missing native reference crops | 0 |
@@ -77,6 +78,12 @@ zero `not-rendered` rows. `CommandBar.Content`, `MenuBar`, and the context menu
 target are partial static evidence only; submenu/context popup behavior,
 keyboard automation, final native inspection, and `nativeQualityGrade`
 promotion remain incomplete.
+
+`component-layout-media-light` now has 16 rendered `usable` harness rows and
+12 `not-rendered` rows. `SymbolIcon`, `XamlControlsResources`, and `Color`
+are partial static diagnostics only; exact icon metrics, full Fluent resource
+dictionaries, typed color behavior, final native inspection, and
+`nativeQualityGrade` promotion remain incomplete.
 
 Scenario breakdown:
 

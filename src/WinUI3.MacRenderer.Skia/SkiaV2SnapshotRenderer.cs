@@ -93,7 +93,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                 break;
             case "Border":
                 var borderRadius = ReadFloat(node, "cornerRadius", 8);
-                DrawRoundRect(canvas, paint, Rect(node), borderRadius, theme.Surface);
+                DrawRoundRect(canvas, paint, Rect(node), borderRadius, ReadColor(node, "background", theme.Surface));
                 DrawRoundRectStroke(canvas, paint, Rect(node), borderRadius, theme.Stroke);
                 RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
                 break;

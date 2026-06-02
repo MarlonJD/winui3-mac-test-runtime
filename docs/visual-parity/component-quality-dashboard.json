@@ -6,8 +6,8 @@
     "scenarioCount": 4,
     "componentCount": 58,
     "visualGradeCounts": {
-      "not-rendered": 15,
-      "usable": 43
+      "not-rendered": 12,
+      "usable": 46
     },
     "nativeQualityGradeCounts": {
       "not-evaluated": 58
@@ -542,8 +542,8 @@
       "component": "SymbolIcon",
       "target": "DiagnosticSymbolIcon",
       "ownerFamily": "Layout, media, visuals, and platform",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -552,7 +552,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -560,8 +560,8 @@
       "component": "XamlControlsResources",
       "target": "DiagnosticXamlControlsResources",
       "ownerFamily": "Layout, media, visuals, and platform",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -570,7 +570,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -668,8 +668,8 @@
       "component": "Color",
       "target": "DiagnosticColor",
       "ownerFamily": "Layout, media, visuals, and platform",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -678,7 +678,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -1479,11 +1479,11 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "SymbolIcon",
       "target": "DiagnosticSymbolIcon",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1493,11 +1493,11 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "XamlControlsResources",
       "target": "DiagnosticXamlControlsResources",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1577,11 +1577,11 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Color",
       "target": "DiagnosticColor",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]

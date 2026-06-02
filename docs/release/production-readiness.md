@@ -139,8 +139,8 @@ Latest inspected native comparison status for checked-in historical examples:
 | --- | --- | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 99.988381% / threshold 45% | 9.678085 | 36.397928 | 9 `usable`; not a visual-fidelity pass. |
 | `component-basic-input-light` | failed | 30.145914% / threshold 18% | 9.611153 | 39.380451 | 13 `usable`, zero `not-rendered`; not a visual-fidelity pass. |
-| `component-commands-menus-light` | failed | 28.441283% / threshold 24% | 7.859141 | 35.183863 | 8 `usable`, zero `not-rendered`; not a visual-fidelity pass. |
-| `component-layout-media-light` | failed | 43.277129% / threshold 24% | 13.470821 | 45.268636 | 13 `usable`, 15 `not-rendered`; not a visual-fidelity pass. |
+| `component-commands-menus-light` | failed | 28.866596% / threshold 24% | 7.884937 | 35.151692 | 8 `usable`, zero `not-rendered`; not a visual-fidelity pass. |
+| `component-layout-media-light` | failed | 44.096276% / threshold 24% | 13.65914 | 45.554856 | 16 `usable`, 12 `not-rendered`; not a visual-fidelity pass. |
 
 Current harness component status is sourced from fresh
 `component-evidence.json` artifacts and the

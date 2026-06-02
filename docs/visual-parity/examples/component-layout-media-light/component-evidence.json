@@ -40,9 +40,9 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 24.841321,
-      "meanAbsoluteError": 13.491717,
-      "rootMeanSquaredError": 49.075976,
+      "changedPixelPercentage": 25.932103,
+      "meanAbsoluteError": 13.742483,
+      "rootMeanSquaredError": 49.427394,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -61,9 +61,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 24.841321,
-        "meanAbsoluteError": 13.491717,
-        "rootMeanSquaredError": 49.075976,
+        "changedPixelPercentage": 25.932103,
+        "meanAbsoluteError": 13.742483,
+        "rootMeanSquaredError": 49.427394,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -558,10 +558,10 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 24,
         "maxChannelDelta": 255,
@@ -616,7 +616,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "SymbolIcon exports and renders a static Fluent glyph diagnostic; exact Segoe Fluent Icons metrics and state variants remain partial."
       ]
     },
     {
@@ -626,10 +626,10 @@
       "layoutRegion": {
         "x": 602,
         "y": 160,
-        "width": 390,
-        "height": 24,
-        "desiredWidth": 390,
-        "desiredHeight": 24,
+        "width": 408,
+        "height": 34,
+        "desiredWidth": 408,
+        "desiredHeight": 34,
         "margin": {
           "left": 0,
           "top": 0,
@@ -646,26 +646,26 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 24,
         "maxChannelDelta": 255,
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 39.594017,
-      "meanAbsoluteError": 27.695246,
-      "rootMeanSquaredError": 69.285706,
+      "changedPixelPercentage": 67.005479,
+      "meanAbsoluteError": 24.986033,
+      "rootMeanSquaredError": 63.689726,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 602,
           "y": 160,
-          "width": 390,
-          "height": 24
+          "width": 408,
+          "height": 34
         },
         "nativeReferencePath": "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png",
         "macRuntimePath": "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png",
@@ -677,9 +677,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 39.594017,
-        "meanAbsoluteError": 27.695246,
-        "rootMeanSquaredError": 69.285706,
+        "changedPixelPercentage": 67.005479,
+        "meanAbsoluteError": 24.986033,
+        "rootMeanSquaredError": 63.689726,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -704,7 +704,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "XamlControlsResources is represented as a bounded Fluent resource bootstrap diagnostic; the real WinUI resource dictionary is not loaded."
       ]
     },
     {
@@ -1153,10 +1153,10 @@
       "target": "DiagnosticColor",
       "layoutRegion": {
         "x": 648,
-        "y": 202,
-        "width": 308,
+        "y": 204,
+        "width": 337,
         "height": 24,
-        "desiredWidth": 308,
+        "desiredWidth": 337,
         "desiredHeight": 24,
         "margin": {
           "left": 0,
@@ -1174,25 +1174,25 @@
         "verticalAlignment": "Stretch",
         "visibility": "Visible"
       },
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
+      "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 24,
         "maxChannelDelta": 255,
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 22.808442,
-      "meanAbsoluteError": 13.95857,
-      "rootMeanSquaredError": 42.608263,
+      "changedPixelPercentage": 31.367458,
+      "meanAbsoluteError": 19.807585,
+      "rootMeanSquaredError": 52.917531,
       "crop": {
-        "status": "passed",
+        "status": "failed",
         "bounds": {
           "x": 648,
-          "y": 202,
-          "width": 308,
+          "y": 204,
+          "width": 337,
           "height": 24
         },
         "nativeReferencePath": "components/color-diagnosticcolor/windows-reference.png",
@@ -1205,9 +1205,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 22.808442,
-        "meanAbsoluteError": 13.95857,
-        "rootMeanSquaredError": 42.608263,
+        "changedPixelPercentage": 31.367458,
+        "meanAbsoluteError": 19.807585,
+        "rootMeanSquaredError": 52.917531,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -1232,7 +1232,7 @@
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "Color resources are represented as deterministic swatch tokens for renderer evidence; full typed color object fidelity remains planned."
       ]
     },
     {
@@ -1415,7 +1415,7 @@
       "target": "DiagnosticExpander",
       "layoutRegion": {
         "x": 280,
-        "y": 332,
+        "y": 334,
         "width": 354,
         "height": 52,
         "desiredWidth": 354,
@@ -1446,14 +1446,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 34.734898,
-      "meanAbsoluteError": 14.137834,
-      "rootMeanSquaredError": 48.163696,
+      "changedPixelPercentage": 32.942199,
+      "meanAbsoluteError": 13.967528,
+      "rootMeanSquaredError": 47.986807,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 332,
+          "y": 334,
           "width": 354,
           "height": 52
         },
@@ -1467,9 +1467,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 34.734898,
-        "meanAbsoluteError": 14.137834,
-        "rootMeanSquaredError": 48.163696,
+        "changedPixelPercentage": 32.942199,
+        "meanAbsoluteError": 13.967528,
+        "rootMeanSquaredError": 47.986807,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -1503,7 +1503,7 @@
       "target": "DiagnosticAnnotatedScrollbar",
       "layoutRegion": {
         "x": 648,
-        "y": 332,
+        "y": 334,
         "width": 325,
         "height": 24,
         "desiredWidth": 325,
@@ -1541,7 +1541,7 @@
         "status": "failed",
         "bounds": {
           "x": 648,
-          "y": 332,
+          "y": 334,
           "width": 325,
           "height": 24
         },
@@ -1591,7 +1591,7 @@
       "target": "DiagnosticSemanticZoom",
       "layoutRegion": {
         "x": 280,
-        "y": 394,
+        "y": 396,
         "width": 308,
         "height": 52,
         "desiredWidth": 308,
@@ -1622,14 +1622,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 12.812188,
-      "meanAbsoluteError": 12.24833,
-      "rootMeanSquaredError": 46.337748,
+      "changedPixelPercentage": 12.306444,
+      "meanAbsoluteError": 11.678009,
+      "rootMeanSquaredError": 45.1975,
       "crop": {
         "status": "passed",
         "bounds": {
           "x": 280,
-          "y": 394,
+          "y": 396,
           "width": 308,
           "height": 52
         },
@@ -1643,9 +1643,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 12.812188,
-        "meanAbsoluteError": 12.24833,
-        "rootMeanSquaredError": 46.337748,
+        "changedPixelPercentage": 12.306444,
+        "meanAbsoluteError": 11.678009,
+        "rootMeanSquaredError": 45.1975,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -1679,7 +1679,7 @@
       "target": "DiagnosticSplitView",
       "layoutRegion": {
         "x": 602,
-        "y": 394,
+        "y": 396,
         "width": 308,
         "height": 24,
         "desiredWidth": 308,
@@ -1710,14 +1710,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 13.555195,
-      "meanAbsoluteError": 12.494318,
-      "rootMeanSquaredError": 46.749918,
+      "changedPixelPercentage": 14.123377,
+      "meanAbsoluteError": 13.122869,
+      "rootMeanSquaredError": 47.96355,
       "crop": {
         "status": "passed",
         "bounds": {
           "x": 602,
-          "y": 394,
+          "y": 396,
           "width": 308,
           "height": 24
         },
@@ -1731,9 +1731,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 13.555195,
-        "meanAbsoluteError": 12.494318,
-        "rootMeanSquaredError": 46.749918,
+        "changedPixelPercentage": 14.123377,
+        "meanAbsoluteError": 13.122869,
+        "rootMeanSquaredError": 47.96355,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -1767,7 +1767,7 @@
       "target": "DiagnosticTwoPaneView",
       "layoutRegion": {
         "x": 280,
-        "y": 456,
+        "y": 458,
         "width": 308,
         "height": 24,
         "desiredWidth": 308,
@@ -1805,7 +1805,7 @@
         "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 456,
+          "y": 458,
           "width": 308,
           "height": 24
         },
@@ -1855,7 +1855,7 @@
       "target": "DiagnosticAnimatedIcon",
       "layoutRegion": {
         "x": 602,
-        "y": 456,
+        "y": 458,
         "width": 308,
         "height": 24,
         "desiredWidth": 308,
@@ -1893,7 +1893,7 @@
         "status": "failed",
         "bounds": {
           "x": 602,
-          "y": 456,
+          "y": 458,
           "width": 308,
           "height": 24
         },
@@ -1943,7 +1943,7 @@
       "target": "DiagnosticShapes",
       "layoutRegion": {
         "x": 280,
-        "y": 490,
+        "y": 492,
         "width": 349,
         "height": 24,
         "desiredWidth": 349,
@@ -1974,14 +1974,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 17.58596,
-      "meanAbsoluteError": 16.07029,
-      "rootMeanSquaredError": 53.034257,
+      "changedPixelPercentage": 18.230659,
+      "meanAbsoluteError": 16.450304,
+      "rootMeanSquaredError": 53.405204,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 490,
+          "y": 492,
           "width": 349,
           "height": 24
         },
@@ -1995,9 +1995,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 17.58596,
-        "meanAbsoluteError": 16.07029,
-        "rootMeanSquaredError": 53.034257,
+        "changedPixelPercentage": 18.230659,
+        "meanAbsoluteError": 16.450304,
+        "rootMeanSquaredError": 53.405204,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -2031,7 +2031,7 @@
       "target": "DiagnosticMediaPlayerElement",
       "layoutRegion": {
         "x": 643,
-        "y": 490,
+        "y": 492,
         "width": 332,
         "height": 24,
         "desiredWidth": 332,
@@ -2062,14 +2062,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 24.535643,
-      "meanAbsoluteError": 22.798099,
-      "rootMeanSquaredError": 62.998099,
+      "changedPixelPercentage": 23.368474,
+      "meanAbsoluteError": 21.767131,
+      "rootMeanSquaredError": 61.69808,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 643,
-          "y": 490,
+          "y": 492,
           "width": 332,
           "height": 24
         },
@@ -2083,9 +2083,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 24.535643,
-        "meanAbsoluteError": 22.798099,
-        "rootMeanSquaredError": 62.998099,
+        "changedPixelPercentage": 23.368474,
+        "meanAbsoluteError": 21.767131,
+        "rootMeanSquaredError": 61.69808,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -2119,7 +2119,7 @@
       "target": "DiagnosticWebView2",
       "layoutRegion": {
         "x": 280,
-        "y": 524,
+        "y": 526,
         "width": 308,
         "height": 24,
         "desiredWidth": 308,
@@ -2157,7 +2157,7 @@
         "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 524,
+          "y": 526,
           "width": 308,
           "height": 24
         },
@@ -2207,7 +2207,7 @@
       "target": "DiagnosticInkControls",
       "layoutRegion": {
         "x": 602,
-        "y": 524,
+        "y": 526,
         "width": 308,
         "height": 52,
         "desiredWidth": 308,
@@ -2245,7 +2245,7 @@
         "status": "passed",
         "bounds": {
           "x": 602,
-          "y": 524,
+          "y": 526,
           "width": 308,
           "height": 52
         },
@@ -2295,7 +2295,7 @@
       "target": "DiagnosticTitleBarCustomization",
       "layoutRegion": {
         "x": 280,
-        "y": 586,
+        "y": 588,
         "width": 426,
         "height": 24,
         "desiredWidth": 426,
@@ -2326,14 +2326,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 26.066119,
-      "meanAbsoluteError": 23.712466,
-      "rootMeanSquaredError": 64.037891,
+      "changedPixelPercentage": 25.75313,
+      "meanAbsoluteError": 23.206573,
+      "rootMeanSquaredError": 63.385823,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 586,
+          "y": 588,
           "width": 426,
           "height": 24
         },
@@ -2347,9 +2347,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 26.066119,
-        "meanAbsoluteError": 23.712466,
-        "rootMeanSquaredError": 64.037891,
+        "changedPixelPercentage": 25.75313,
+        "meanAbsoluteError": 23.206573,
+        "rootMeanSquaredError": 63.385823,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -2383,7 +2383,7 @@
       "target": "DiagnosticSystemBackdrop",
       "layoutRegion": {
         "x": 720,
-        "y": 586,
+        "y": 588,
         "width": 340,
         "height": 24,
         "desiredWidth": 340,
@@ -2414,14 +2414,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 34.293831,
-      "meanAbsoluteError": 38.423803,
-      "rootMeanSquaredError": 86.719054,
+      "changedPixelPercentage": 34.00974,
+      "meanAbsoluteError": 38.117593,
+      "rootMeanSquaredError": 86.423366,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 720,
-          "y": 586,
+          "y": 588,
           "width": 308,
           "height": 24
         },
@@ -2435,9 +2435,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 34.293831,
-        "meanAbsoluteError": 38.423803,
-        "rootMeanSquaredError": 86.719054,
+        "changedPixelPercentage": 34.00974,
+        "meanAbsoluteError": 38.117593,
+        "rootMeanSquaredError": 86.423366,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -2471,20 +2471,20 @@
       "feature": "SymbolIcon",
       "kind": "icon",
       "target": "DiagnosticSymbolIcon",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "knownGaps": [
-        "SymbolIcon is tracked as diagnostic-only before facade and painter support are added."
+        "SymbolIcon is rendered as a static glyph diagnostic; exact icon font metrics and state variants remain partial."
       ]
     },
     {
       "feature": "XamlControlsResources",
       "kind": "resource",
       "target": "DiagnosticXamlControlsResources",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "knownGaps": [
-        "The fixture includes a bootstrap marker, but Fluent resource dictionaries are not modeled yet."
+        "The fixture includes a bounded bootstrap marker, but the full Fluent resource dictionary is not loaded."
       ]
     },
     {
@@ -2541,30 +2541,30 @@
       "feature": "Color",
       "kind": "resource",
       "target": "DiagnosticColor",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "knownGaps": [
-        "Color resources are represented in the fixture but not converted to typed colors."
+        "Color resources render deterministic swatches for public evidence; full typed color object fidelity remains planned."
       ]
     },
     {
       "feature": "SolidColorBrush",
       "kind": "resource",
       "target": "DiagnosticSolidColorBrush",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "knownGaps": [
-        "SolidColorBrush resources are represented in the fixture but not converted to typed brushes."
+        "SolidColorBrush resources render deterministic swatches for public evidence; full brush object fidelity remains planned."
       ]
     },
     {
       "feature": "CornerRadius",
       "kind": "resource",
       "target": "DiagnosticCornerRadius",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "presence": "present",
       "knownGaps": [
-        "CornerRadius resources are represented in the fixture but not applied to control geometry."
+        "CornerRadius resources are applied to bounded renderer geometry; full WinUI corner resource behavior remains partial."
       ]
     },
     {

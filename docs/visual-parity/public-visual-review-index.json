@@ -478,9 +478,9 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/scrollviewer-layoutscrollviewer/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/scrollviewer-layoutscrollviewer/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/scrollviewer-layoutscrollviewer/pixel-diff.png",
-      "changedPixelPercentage": 24.841321,
-      "meanAbsoluteError": 13.491717,
-      "rootMeanSquaredError": 49.075976,
+      "changedPixelPercentage": 25.932103,
+      "meanAbsoluteError": 13.742483,
+      "rootMeanSquaredError": 49.427394,
       "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -582,8 +582,8 @@
       "scenarioName": "component-layout-media-light",
       "component": "SymbolIcon",
       "target": "DiagnosticSymbolIcon",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -595,14 +595,14 @@
       "changedPixelPercentage": 32.193588,
       "meanAbsoluteError": 12.3281,
       "rootMeanSquaredError": 44.834362,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
       "component": "XamlControlsResources",
       "target": "DiagnosticXamlControlsResources",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
       "cropStatus": "failed",
@@ -611,10 +611,10 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/xamlcontrolsresources-diagnosticxamlcontrolsresources/pixel-diff.png",
-      "changedPixelPercentage": 39.594017,
-      "meanAbsoluteError": 27.695246,
-      "rootMeanSquaredError": 69.285706,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "changedPixelPercentage": 67.005479,
+      "meanAbsoluteError": 24.986033,
+      "rootMeanSquaredError": 63.689726,
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -715,20 +715,20 @@
       "scenarioName": "component-layout-media-light",
       "component": "Color",
       "target": "DiagnosticColor",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reviewStatus": "ready-for-manual-inspection",
-      "cropStatus": "passed",
+      "cropStatus": "failed",
       "inspectionStatus": "missing",
       "reviewHtmlPath": "examples/component-layout-media-light/visual-review.html",
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/color-diagnosticcolor/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/color-diagnosticcolor/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/color-diagnosticcolor/pixel-diff.png",
-      "changedPixelPercentage": 22.808442,
-      "meanAbsoluteError": 13.95857,
-      "rootMeanSquaredError": 42.608263,
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "changedPixelPercentage": 31.367458,
+      "meanAbsoluteError": 19.807585,
+      "rootMeanSquaredError": 52.917531,
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -782,9 +782,9 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/expander-diagnosticexpander/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/expander-diagnosticexpander/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/expander-diagnosticexpander/pixel-diff.png",
-      "changedPixelPercentage": 34.734898,
-      "meanAbsoluteError": 14.137834,
-      "rootMeanSquaredError": 48.163696,
+      "changedPixelPercentage": 32.942199,
+      "meanAbsoluteError": 13.967528,
+      "rootMeanSquaredError": 47.986807,
       "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -820,9 +820,9 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/semanticzoom-diagnosticsemanticzoom/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/semanticzoom-diagnosticsemanticzoom/pixel-diff.png",
-      "changedPixelPercentage": 12.812188,
-      "meanAbsoluteError": 12.24833,
-      "rootMeanSquaredError": 46.337748,
+      "changedPixelPercentage": 12.306444,
+      "meanAbsoluteError": 11.678009,
+      "rootMeanSquaredError": 45.1975,
       "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -839,9 +839,9 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/splitview-diagnosticsplitview/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/splitview-diagnosticsplitview/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/splitview-diagnosticsplitview/pixel-diff.png",
-      "changedPixelPercentage": 13.555195,
-      "meanAbsoluteError": 12.494318,
-      "rootMeanSquaredError": 46.749918,
+      "changedPixelPercentage": 14.123377,
+      "meanAbsoluteError": 13.122869,
+      "rootMeanSquaredError": 47.96355,
       "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -896,9 +896,9 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/shapes-diagnosticshapes/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/shapes-diagnosticshapes/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/shapes-diagnosticshapes/pixel-diff.png",
-      "changedPixelPercentage": 17.58596,
-      "meanAbsoluteError": 16.07029,
-      "rootMeanSquaredError": 53.034257,
+      "changedPixelPercentage": 18.230659,
+      "meanAbsoluteError": 16.450304,
+      "rootMeanSquaredError": 53.405204,
       "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -915,9 +915,9 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/pixel-diff.png",
-      "changedPixelPercentage": 24.535643,
-      "meanAbsoluteError": 22.798099,
-      "rootMeanSquaredError": 62.998099,
+      "changedPixelPercentage": 23.368474,
+      "meanAbsoluteError": 21.767131,
+      "rootMeanSquaredError": 61.69808,
       "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -972,9 +972,9 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/pixel-diff.png",
-      "changedPixelPercentage": 26.066119,
-      "meanAbsoluteError": 23.712466,
-      "rootMeanSquaredError": 64.037891,
+      "changedPixelPercentage": 25.75313,
+      "meanAbsoluteError": 23.206573,
+      "rootMeanSquaredError": 63.385823,
       "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -991,9 +991,9 @@
       "nativeReferenceCropPath": "examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png",
       "macRuntimeCropPath": "examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png",
       "pixelDiffPath": "examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/pixel-diff.png",
-      "changedPixelPercentage": 34.293831,
-      "meanAbsoluteError": 38.423803,
-      "rootMeanSquaredError": 86.719054,
+      "changedPixelPercentage": 34.00974,
+      "meanAbsoluteError": 38.117593,
+      "rootMeanSquaredError": 86.423366,
       "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
