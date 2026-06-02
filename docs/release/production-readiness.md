@@ -135,7 +135,7 @@ Latest inspected native comparison status for checked-in historical examples:
 | --- | --- | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 99.988381% / threshold 45% | 9.678085 | 36.397928 | 9 `usable`; not a visual-fidelity pass. |
 | `component-basic-input-light` | failed | 30.145914% / threshold 18% | 9.611153 | 39.380451 | 5 `usable`, 8 `not-rendered`; not a visual-fidelity pass. |
-| `component-commands-menus-light` | failed | 29.068985% / threshold 24% | 7.981799 | 35.372973 | 5 `usable`, 3 `not-rendered`; not a visual-fidelity pass. |
+| `component-commands-menus-light` | failed | 28.441283% / threshold 24% | 7.859141 | 35.183863 | 5 `usable`, 3 `not-rendered`; not a visual-fidelity pass. |
 | `component-layout-media-light` | failed | 43.277129% / threshold 24% | 13.470821 | 45.268636 | 13 `usable`, 15 `not-rendered`; not a visual-fidelity pass. |
 
 Current harness component status is sourced from fresh

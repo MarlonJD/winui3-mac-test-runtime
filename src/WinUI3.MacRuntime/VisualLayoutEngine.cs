@@ -284,6 +284,28 @@ public static class VisualLayoutEngine
         LayoutRect rect,
         ICollection<UnsupportedVisualFeature> unsupported)
     {
+        if (SimpleType(node) == "CommandBar")
+        {
+            const double commandWidth = 104;
+            const double commandHeight = 32;
+            const double commandSpacing = 64;
+            const double overflowReserve = 40;
+            var startX = rect.X + rect.Width - overflowReserve - node.Children.Count * commandSpacing;
+            var commandY = rect.Y + Math.Max(0, (rect.Height - commandHeight) / 2);
+            var commandChildren = new List<UiNode>(node.Children.Count);
+            for (var index = 0; index < node.Children.Count; index++)
+            {
+                var childX = startX + index * commandSpacing;
+                var arrangedChild = ArrangeNode(
+                    node.Children[index],
+                    new LayoutRect(childX, commandY, commandWidth, commandHeight),
+                    unsupported);
+                commandChildren.Add(WithProperty(arrangedChild, "commandBarCompact", true));
+            }
+
+            return WithLayout(node, rect, EmptyThickness, EmptyThickness, ReadString(node, "visibility") ?? "Visible", commandChildren);
+        }
+
         var x = rect.X + 8;
         var arranged = new List<UiNode>(node.Children.Count);
         foreach (var child in node.Children)
@@ -355,6 +377,15 @@ public static class VisualLayoutEngine
             Visibility: visibility);
 
         return node with { Children = children, Layout = layout };
+    }
+
+    private static UiNode WithProperty(UiNode node, string key, object? value)
+    {
+        var properties = new Dictionary<string, object?>(node.Properties, StringComparer.Ordinal)
+        {
+            [key] = value
+        };
+        return node with { Properties = properties };
     }
 
     private static double EstimateHeight(UiNode node, double fallback)

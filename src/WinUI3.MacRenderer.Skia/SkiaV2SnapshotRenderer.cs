@@ -403,9 +403,15 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true) && ReadBool(node, "commandCanExecute", fallback: true);
+        if (rect.Width <= 40 || ReadBool(node, "commandBarCompact", fallback: false))
+        {
+            DrawAppBarIcon(canvas, paint, iconFont, node, new SKRect(rect.Left + 9, rect.Top + 8, rect.Left + 23, rect.Top + 22), enabled ? theme.TextPrimary : theme.TextDisabled);
+            return;
+        }
+
         var foreground = enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled;
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled));
-        DrawText(canvas, paint, iconFont, FindFirstGlyph(node) ?? "*", rect.Left + 12, rect.Top + 21, enabled ? theme.Accent : theme.TextDisabled);
+        DrawAppBarIcon(canvas, paint, iconFont, node, new SKRect(rect.Left + 12, rect.Top + 8, rect.Left + 26, rect.Top + 22), enabled ? theme.Accent : theme.TextDisabled);
         DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 21, foreground);
     }
 
@@ -642,8 +648,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
         RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
+        DrawEllipsisIcon(canvas, paint, new SKRect(rect.Right - 31, rect.Top + 8, rect.Right - 13, rect.Top + 22), theme.TextPrimary);
     }
 
     private static void RenderCommandBarFlyout(
@@ -812,6 +818,50 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var icon = Flatten(node).FirstOrDefault(child => SimpleType(child) == "FontIcon");
         return icon is null ? null : ReadString(icon, "glyph");
+    }
+
+    private static void DrawAppBarIcon(SKCanvas canvas, SKPaint paint, SKFont iconFont, UiNode node, SKRect rect, SKColor color)
+    {
+        var label = ReadString(node, "label") ?? ReadControlLabel(node, string.Empty);
+        if (label.Contains("Save", StringComparison.OrdinalIgnoreCase))
+        {
+            DrawSaveIcon(canvas, paint, rect, color);
+            return;
+        }
+
+        if (label.Contains("Refresh", StringComparison.OrdinalIgnoreCase))
+        {
+            DrawRefreshIcon(canvas, paint, rect, color);
+            return;
+        }
+
+        DrawText(canvas, paint, iconFont, FindFirstGlyph(node) ?? "*", rect.Left, rect.Bottom, color);
+    }
+
+    private static void DrawSaveIcon(SKCanvas canvas, SKPaint paint, SKRect rect, SKColor color)
+    {
+        var body = new SKRect(rect.Left + 2, rect.Top + 3, rect.Right - 2, rect.Bottom - 2);
+        DrawRoundRectStroke(canvas, paint, body, 1, color, 1.1f);
+        DrawLine(canvas, paint, body.Left + 3, body.Top + 1, body.Left + 8, body.Top + 1, color);
+        DrawLine(canvas, paint, body.Left + 3, body.Bottom - 3, body.Right - 3, body.Bottom - 3, color);
+    }
+
+    private static void DrawRefreshIcon(SKCanvas canvas, SKPaint paint, SKRect rect, SKColor color)
+    {
+        DrawArc(canvas, paint, new SKRect(rect.Left + 1, rect.Top + 1, rect.Right - 1, rect.Bottom - 1), -45, 285, color, 1.2f);
+        using var path = new SKPath();
+        path.MoveTo(rect.Right - 2, rect.Top + 5);
+        path.LineTo(rect.Right - 2, rect.Top + 1);
+        path.LineTo(rect.Right - 6, rect.Top + 2);
+        DrawPathStroke(canvas, paint, path, color, 1.2f);
+    }
+
+    private static void DrawEllipsisIcon(SKCanvas canvas, SKPaint paint, SKRect rect, SKColor color)
+    {
+        var centerY = rect.Top + rect.Height / 2;
+        DrawCircle(canvas, paint, rect.Left + 4, centerY, 1.5f, color);
+        DrawCircle(canvas, paint, rect.Left + 9, centerY, 1.5f, color);
+        DrawCircle(canvas, paint, rect.Left + 14, centerY, 1.5f, color);
     }
 
     private static bool ShouldRenderLayoutSurface(UiNode node)

@@ -326,9 +326,9 @@
       "nativeReferenceCropPath": "examples/component-commands-menus-light/components/commandbar-primarycommandbar/windows-reference.png",
       "macRuntimeCropPath": "examples/component-commands-menus-light/components/commandbar-primarycommandbar/mac-runtime.png",
       "pixelDiffPath": "examples/component-commands-menus-light/components/commandbar-primarycommandbar/pixel-diff.png",
-      "changedPixelPercentage": 10.223872,
-      "meanAbsoluteError": 3.35972,
-      "rootMeanSquaredError": 21.870291,
+      "changedPixelPercentage": 1.171156,
+      "meanAbsoluteError": 1.165465,
+      "rootMeanSquaredError": 14.126214,
       "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -345,9 +345,9 @@
       "nativeReferenceCropPath": "examples/component-commands-menus-light/components/appbarbutton-savecommandbutton/windows-reference.png",
       "macRuntimeCropPath": "examples/component-commands-menus-light/components/appbarbutton-savecommandbutton/mac-runtime.png",
       "pixelDiffPath": "examples/component-commands-menus-light/components/appbarbutton-savecommandbutton/pixel-diff.png",
-      "changedPixelPercentage": 15.384615,
-      "meanAbsoluteError": 7.934095,
-      "rootMeanSquaredError": 35.243692,
+      "changedPixelPercentage": 10.00601,
+      "meanAbsoluteError": 10.10607,
+      "rootMeanSquaredError": 41.553787,
       "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
@@ -383,9 +383,9 @@
       "nativeReferenceCropPath": "examples/component-commands-menus-light/components/appbarbutton-icon-savecommandicon/windows-reference.png",
       "macRuntimeCropPath": "examples/component-commands-menus-light/components/appbarbutton-icon-savecommandicon/mac-runtime.png",
       "pixelDiffPath": "examples/component-commands-menus-light/components/appbarbutton-icon-savecommandicon/pixel-diff.png",
-      "changedPixelPercentage": 29.296875,
-      "meanAbsoluteError": 24.322266,
-      "rootMeanSquaredError": 63.496494,
+      "changedPixelPercentage": 48.046875,
+      "meanAbsoluteError": 49.494141,
+      "rootMeanSquaredError": 89.29076,
       "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {

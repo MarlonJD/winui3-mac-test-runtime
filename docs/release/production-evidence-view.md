@@ -262,7 +262,7 @@ visual-review fixtures, not the current production grade source.
 | --- | --- | --- |
 | `public-admin-workbench-light` | Whole-image comparison fails with 99.988381% changed pixels over a 45% threshold. | Current public artifacts show 9 `usable` workbench scaffold rows, not native-quality parity. |
 | `component-basic-input-light` | Whole-image comparison fails with 30.145914% changed pixels over an 18% threshold. | Current public artifacts show 5 `usable` and 8 planned `not-rendered` rows; native control chrome remains approximate. |
-| `component-commands-menus-light` | Whole-image comparison fails with 29.068985% changed pixels over a 24% threshold. | Current public artifacts show 5 `usable` and 3 `not-rendered` rows; command/flyout surfaces remain simplified. |
+| `component-commands-menus-light` | Whole-image comparison fails with 28.441283% changed pixels over a 24% threshold. | Current public artifacts show 5 `usable` and 3 `not-rendered` rows; command/flyout surfaces remain simplified. |
 | `component-layout-media-light` | Whole-image comparison fails with 43.277129% changed pixels over a 24% threshold. | Current public artifacts show 13 `usable` and 15 planned/non-goal `not-rendered` rows; advanced layout, media, web, ink, and materials remain outside the claim. |
 
 Fresh support status is determined by catalog status, strict scenario
