@@ -234,6 +234,23 @@ public static class UiTreeBuilder
             case MenuFlyoutItem menuFlyoutItem:
                 properties["text"] = menuFlyoutItem.Text;
                 break;
+            case MenuBar menuBar:
+                properties["itemCount"] = menuBar.Items.Count;
+                foreach (var item in menuBar.Items)
+                {
+                    AddChild(item, children);
+                }
+
+                break;
+            case MenuBarItem menuBarItem:
+                properties["title"] = menuBarItem.Title;
+                properties["itemCount"] = menuBarItem.Items.Count;
+                foreach (var item in menuBarItem.Items)
+                {
+                    AddChild(item, children);
+                }
+
+                break;
             case NavigationView navigationView:
                 properties["menuItemCount"] = navigationView.MenuItems.Count;
                 properties["paneDisplayMode"] = navigationView.PaneDisplayMode;

@@ -46,7 +46,7 @@ interaction/accessibility evidence where applicable, and docs. That is a
 release-evidence result, not a renderer-fidelity result.
 
 The checked-in public component-quality dashboard contains 58 component rows:
-40 `usable` and 18 `not-rendered`. Those rows now have native/macOS/diff crop
+43 `usable` and 15 `not-rendered`. Those rows now have native/macOS/diff crop
 triptychs for manual inspection, but large areas of WinUI chrome, templates,
 states, and advanced controls still need direct renderer work before any
 native-quality claim.
@@ -56,7 +56,7 @@ native-quality claim.
 | App shell | renderer-fidelity target | usable scaffold | `26792033793` | Native window chrome and full lifecycle remain outside the local macOS support claim. |
 | Core layout | renderer-fidelity target | usable scaffold | `26792033793` | Broader WinUI layout behavior remains partial; exact sizing, clipping, and scroll behavior need renderer work. |
 | Text and forms | renderer-fidelity target | usable scaffold | `26792033793` | Caret, selection, validation visuals, rich input, and native field states require direct implementation. |
-| Commands and menus | renderer-fidelity target | usable scaffold for supported command, split/dropdown button chrome, and partial flyout subset; `not-rendered` for planned menu/context controls | `26792033793` | MenuBar, context menus, disabled item behavior, popup placement, light-dismiss, and keyboarding remain planned diagnostics. |
+| Commands and menus | renderer-fidelity target | usable scaffold for supported command, content-slot, MenuBar, context target, split/dropdown button chrome, and partial flyout subset | `26792033793` | Native menu popup behavior, disabled item behavior, placement, light-dismiss, keyboarding, and final inspection remain incomplete. |
 | Navigation and workbench | renderer-fidelity target | usable scaffold | `26792033793` | Adaptive behavior, broad keyboard routing, richer collection templates, and native list/detail chrome remain partial or planned. |
 | Status and progress | renderer-fidelity target | usable scaffold in base, loading, and success scenarios | `26792033793` | Animation, close/action areas, and full native severity chrome need follow-up. |
 | Dialogs, flyouts, and tooltips | renderer-fidelity target | usable scaffold for supported popup subset; `not-rendered` for planned surfaces | `26792033793` | Modal focus trapping, placement, TeachingTip, tooltip service, and full action relationships remain planned or partial. |
@@ -79,7 +79,7 @@ Promotion is evidence-backed:
 | Phase 2: Component crop and reference tooling | Implemented | `component-evidence.json` carries crop metadata, native reference provenance, and effective per-component thresholds; `visual-run.json` points to the crop directory and generated visual review page; `visual-review.html` places native, macOS, and diff crops side by side with reference source/run/commit provenance; strict visual fails claimed supported/partial rows with missing, blank, `not-rendered`, or over-threshold crops. |
 | Phase 3: Fluent token and theme foundation | Implemented | `skia-v2` painters use a centralized token layer for light, dark, high contrast, typography, fills, strokes, status colors, focus, selected chrome, disabled surfaces, radius, and popup elevation. |
 | Phase 4: Ring 0 Windows chrome completion | Implemented for the documented source-level subset | Ring 0 strict scenarios cover shell, layout, text, commands, forms, workbench, status/progress, resources/theme, state scenarios, and artifacts; claimed supported/partial rows require at least `usable`. |
-| Phase 5: Ring 1 E2E visual completion | Implemented for claimed subsets | Open-popup, selected collection, and layout/theme scenarios cover claimed `MenuFlyout`, `CommandBarFlyout`, `ContentDialog`, `Flyout`, `ToolTip`, collection hosts, theme dictionaries, `SolidColorBrush`, and `CornerRadius`; rich input, templates, broader keyboarding, advanced collections, `TeachingTip`, and `MenuBar` remain planned diagnostics. |
+| Phase 5: Ring 1 E2E visual completion | Implemented for claimed subsets | Open-popup, selected collection, and layout/theme scenarios cover claimed `MenuFlyout`, `CommandBarFlyout`, `MenuBar` static chrome, context-menu target export, `ContentDialog`, `Flyout`, `ToolTip`, collection hosts, theme dictionaries, `SolidColorBrush`, and `CornerRadius`; rich input, templates, broader keyboarding, advanced collections, `TeachingTip`, and menu popup behavior remain planned diagnostics. |
 | Phase 6: All-126 catalog closure | Implemented | `docs/compatibility/all-catalog-readiness-audit.json` accounts for all 126 entries with a per-entry production disposition, owner phase, primary blocker, evidence profile, and release gate; `winui3-mac-runner catalog-audit --check` fails on drift and the audit agrees with the inventory buckets. |
 | Phase 7: Broader WinUI control inventory | Inventory and gate implemented; controls pending promotion | `docs/compatibility/winui-component-inventory.json` `broaderControlInventory` enumerates 20 prioritized public WinUI controls with target family, required states, priority, and promotion exit criteria (`docs/compatibility/broader-control-inventory.md`); the honesty gate keeps every control `not-rendered` until it carries matching catalog status, visual evidence, and interaction coverage. |
 | Phase 8: Materials, motion, and high-fidelity polish | Registry, motion/contrast rules, and drift dashboard implemented; surfaces pending promotion | `docs/compatibility/material-motion-approximations.json` documents every Mica, Acrylic, backdrop, shadow, transform, compositor, and motion surface as a deterministic approximation target or explicit exclusion with reduced-motion, high-contrast, and provenance rules and no OS composition claim; `docs/visual-parity/visual-drift-dashboard.json` gates component-crop drift and keeps whole-screen drift informational with values read from the checked-in pixel-diff artifacts. |
@@ -209,7 +209,7 @@ Current inspected renderer component summaries:
 | Scenario family | Renderer evidence summary |
 | --- | --- |
 | Basic input and forms | Base scenario has 13 `usable` rows and zero `not-rendered`; checked-state scenario adds 3 `usable` rows. Controls are recognizable but not native Fluent chrome. |
-| Commands and menus | 5 `usable`, 3 `not-rendered`; command surfaces and popups are simplified. |
+| Commands and menus | 8 `usable`, zero `not-rendered`; command surfaces, content-slot, MenuBar, context target, and popups are simplified. |
 | Navigation and workbench | Workbench/list-detail scaffold is `usable`; adaptive behavior and broader keyboarding remain partial. |
 | Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; loading and success state scenarios add 4 `usable` rows. Animation and close/action areas remain gaps. |
 | Layout, media, and resources | Light layout/media scenario has 13 `usable`, 15 planned/non-goal `not-rendered`; media, web, ink, materials, and advanced visuals remain excluded or planned. |
@@ -245,7 +245,7 @@ the support claim.
 
 | Family | Current status | Claim boundary |
 | --- | --- | --- |
-| Menus and flyouts | Partial | `MenuFlyout` and `CommandBarFlyout` open/invoke subset is usable when claimed; `MenuBar`, context menu pattern, disabled item behavior, split/dropdown buttons, native placement, and broad keyboarding remain incomplete. |
+| Menus and flyouts | Partial | `MenuFlyout` and `CommandBarFlyout` open/invoke subset, static `MenuBar` chrome, context-menu target export, and split/dropdown button chrome are usable when claimed; disabled item behavior, menu popup behavior, native placement, light-dismiss, and broad keyboarding remain incomplete. |
 | Rich form input | Planned | `PasswordBox`, `NumberBox`, `AutoSuggestBox`, `Slider`, and `ToggleSwitch` are diagnostic rows only. |
 | Dialog decisions | Partial | `ContentDialog`, `Flyout`, and `ToolTip` open-state subset is usable when claimed; `TeachingTip`, tooltip service, modal focus trapping, placement, and full action relationships remain incomplete. |
 | Templates and collections | Planned except partial hosts | Collection hosts have subset evidence; `DataTemplate`, item templates, `ItemsRepeater`, `GridView`, virtualization, and template visuals remain missing. |
@@ -262,7 +262,7 @@ visual-review fixtures, not the current production grade source.
 | --- | --- | --- |
 | `public-admin-workbench-light` | Whole-image comparison fails with 99.988381% changed pixels over a 45% threshold. | Current public artifacts show 9 `usable` workbench scaffold rows, not native-quality parity. |
 | `component-basic-input-light` | Whole-image comparison fails with 30.145914% changed pixels over an 18% threshold. | Current public artifacts show 13 `usable` rows and zero `not-rendered` rows; native control chrome remains approximate and not manually promoted. |
-| `component-commands-menus-light` | Whole-image comparison fails with 28.441283% changed pixels over a 24% threshold. | Current public artifacts show 5 `usable` and 3 `not-rendered` rows; command/flyout surfaces remain simplified. |
+| `component-commands-menus-light` | Whole-image comparison fails with 28.441283% changed pixels over a 24% threshold. | Current public artifacts show 8 `usable` rows and zero `not-rendered` rows; command/flyout/MenuBar surfaces remain simplified and not manually promoted. |
 | `component-layout-media-light` | Whole-image comparison fails with 43.277129% changed pixels over a 24% threshold. | Current public artifacts show 13 `usable` and 15 planned/non-goal `not-rendered` rows; advanced layout, media, web, ink, and materials remain outside the claim. |
 
 Fresh support status is determined by catalog status, strict scenario

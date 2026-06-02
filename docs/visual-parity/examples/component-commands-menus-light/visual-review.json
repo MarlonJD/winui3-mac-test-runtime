@@ -58,8 +58,8 @@
     {
       "component": "CommandBar.Content",
       "target": "DiagnosticCommandBarContent",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "passed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -74,7 +74,7 @@
       "meanAbsoluteError": 10.944896,
       "rootMeanSquaredError": 42.789653,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps."
     },
     {
       "component": "AppBarButton.Icon",
@@ -142,10 +142,10 @@
     {
       "component": "MenuBar",
       "target": "DiagnosticMenuBar",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "cropStatus": "passed",
+      "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
       "nativeReferenceCropPath": "components/menubar-diagnosticmenubar/windows-reference.png",
       "macRuntimeCropPath": "components/menubar-diagnosticmenubar/mac-runtime.png",
@@ -154,17 +154,17 @@
       "nativeReferenceRunId": "26777029415",
       "referenceCommitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
       "referenceScenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
-      "changedPixelPercentage": 3.631944,
-      "meanAbsoluteError": 1.003594,
-      "rootMeanSquaredError": 6.609175,
+      "changedPixelPercentage": 85.514323,
+      "meanAbsoluteError": 9.52832,
+      "rootMeanSquaredError": 32.290097,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps."
     },
     {
       "component": "Context menu pattern",
       "target": "DiagnosticContextMenuPattern",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "cropStatus": "failed",
       "reviewStatus": "ready-for-manual-inspection",
@@ -176,10 +176,10 @@
       "referenceCommitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
       "referenceScenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
       "changedPixelPercentage": 22.42268,
-      "meanAbsoluteError": 14.881846,
-      "rootMeanSquaredError": 49.894285,
+      "meanAbsoluteError": 14.880759,
+      "rootMeanSquaredError": 49.893855,
       "inspectionStatus": "missing",
-      "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
+      "notes": "Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps."
     }
   ],
   "htmlPath": "visual-review.html"

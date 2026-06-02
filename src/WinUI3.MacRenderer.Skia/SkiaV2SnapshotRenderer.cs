@@ -112,6 +112,12 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             case "MenuFlyout":
                 RenderMenuFlyout(canvas, node, theme, paint, bodyFont, smallFont);
                 break;
+            case "MenuBar":
+                RenderMenuBar(canvas, node, theme, paint, bodyFont);
+                break;
+            case "MenuBarItem":
+                RenderMenuBarItem(canvas, node, theme, paint, bodyFont);
+                break;
             case "MenuFlyoutItem":
                 DrawText(canvas, paint, bodyFont, ReadString(node, "text") ?? ReadControlLabel(node, "Menu item"), (float)node.Layout.X, (float)node.Layout.Y + 19, theme.TextPrimary);
                 break;
@@ -694,6 +700,28 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             {
                 DrawLine(canvas, paint, rect.Left + 12, (float)child.Layout.Y + 31, rect.Right - 12, (float)child.Layout.Y + 31, theme.Stroke);
             }
+        }
+    }
+
+    private static void RenderMenuBar(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont)
+    {
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, theme.Surface);
+        DrawRoundRectStroke(canvas, paint, rect, theme.ControlCornerRadius, theme.SubtleStroke);
+        foreach (var child in node.Children)
+        {
+            RenderMenuBarItem(canvas, child, theme, paint, bodyFont);
+        }
+    }
+
+    private static void RenderMenuBarItem(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont)
+    {
+        var rect = Rect(node);
+        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, theme.SubtleSurface);
+        DrawText(canvas, paint, bodyFont, ReadString(node, "title") ?? ReadControlLabel(node, "Menu"), rect.Left + 12, rect.Top + 19, theme.TextPrimary);
+        if (ReadFloat(node, "itemCount", node.Children.Count) > 0)
+        {
+            FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 18, rect.Top + 11, theme.TextSecondary);
         }
     }
 

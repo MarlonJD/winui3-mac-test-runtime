@@ -350,6 +350,15 @@ public class MenuFlyoutItem : Control
     }
 }
 
+public class MenuBar : ItemsControl
+{
+}
+
+public class MenuBarItem : ItemsControl
+{
+    public string? Title { get; set; }
+}
+
 public class StackPanel : FrameworkElement
 {
     public Orientation Orientation { get; set; } = Orientation.Vertical;

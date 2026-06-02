@@ -69,9 +69,9 @@
       "name": "Ring 1 E2E visual completion",
       "status": "implemented for claimed subsets",
       "evidence": [
-        "strict open-popup scenarios cover MenuFlyout, CommandBarFlyout, ContentDialog, Flyout, and ToolTip",
+        "strict open-popup scenarios cover MenuFlyout, CommandBarFlyout, ContentDialog, Flyout, and ToolTip; component-commands-menus-light covers static MenuBar chrome and context-menu target export",
         "collections selected and layout/media light, dark, and high-contrast scenarios remain strict",
-        "rich form input, templates, broader keyboarding, advanced collection controls, TeachingTip, and MenuBar remain planned or diagnostic until real support is implemented"
+        "rich form input, templates, broader keyboarding, advanced collection controls, TeachingTip, MenuBar submenu behavior, and context-menu popup behavior remain planned or diagnostic until real support is implemented"
       ]
     },
     {
@@ -181,9 +181,9 @@
       "requiredStates": ["default", "disabled", "open-popup", "invoked"],
       "requiredScenarios": ["component-commands-menus-light", "component-commands-menus-disabled-light", "component-commands-menus-open-popup-light"],
       "targetGrade": "renderer-fidelity target",
-      "currentGrade": "usable scaffold for supported command and partial flyout subset; not-rendered for planned controls",
+      "currentGrade": "usable scaffold for supported command, partial flyout subset, static MenuBar chrome, and context-menu target export",
       "latestRunId": "26792033793",
-      "nextBlocker": "MenuBar, context menus, split/dropdown buttons, disabled item behavior, and broad keyboarding remain planned diagnostics.",
+      "nextBlocker": "MenuBar submenu behavior, context-menu popup behavior, split/dropdown popup behavior, disabled item behavior, and broad keyboarding remain incomplete.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "interaction", "accessibility", "docs"]
     },
     {

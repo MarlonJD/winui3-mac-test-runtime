@@ -148,6 +148,16 @@ public static class AccessibilityTreeBuilder
             return "menuitem";
         }
 
+        if (typeName.EndsWith(".MenuBar", StringComparison.Ordinal))
+        {
+            return "menubar";
+        }
+
+        if (typeName.EndsWith(".MenuBarItem", StringComparison.Ordinal))
+        {
+            return "menuitem";
+        }
+
         if (typeName.EndsWith(".CommandBar", StringComparison.Ordinal))
         {
             return "toolbar";

@@ -243,6 +243,21 @@ internal static class NativeControlSamples
         SetNativeElement(contextMenuPatternHost, "Context menu pattern", ButtonWithContextMenu());
 #else
         commandBarContentHost.Content = new TextBlock { Text = "CommandBar.Content", Width = 120, Height = 120 };
+        menuBarHost.Content = new MenuBar
+        {
+            Items =
+            {
+                new MenuBarItem
+                {
+                    Title = "File",
+                    Items =
+                    {
+                        new MenuFlyoutItem { Text = "Open" },
+                        new MenuFlyoutItem { Text = "Save" }
+                    }
+                }
+            }
+        };
 #endif
     }
 

@@ -83,13 +83,13 @@ Current inspected renderer evidence:
 | Scenario family | Current renderer status |
 | --- | --- |
 | Basic input and forms | Base scenario has 13 `usable` rows and zero `not-rendered`; checked-state scenario adds 3 `usable` rows. Controls are recognizable but not native Fluent chrome. |
-| Commands and menus | 5 `usable`, 3 `not-rendered`; command surfaces are simplified and popup/menu behavior remains partial. |
+| Commands and menus | 8 `usable`, zero `not-rendered`; command surfaces, content-slot, MenuBar, and context target are simplified and popup/menu behavior remains partial. |
 | Navigation and workbench | Public admin workbench has 9 `usable` rows; adaptive behavior and broader keyboarding remain partial. |
 | Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; loading and success state scenarios add 4 `usable` rows. Animation and close/action areas remain gaps. |
 | Layout, media, and resources | Light scenario has 13 `usable`, 15 planned/non-goal `not-rendered`; dark and high-contrast smoke rows are usable, while media, web, ink, materials, and advanced visuals remain excluded or planned. |
 
 Across the checked-in public component-quality dashboard, there are 58
-component rows: 40 `usable` and 18 `not-rendered`. The rows have
+component rows: 43 `usable` and 15 `not-rendered`. The rows have
 native/macOS/diff crop triptychs, which is enough for manual inspection
 queuing. It is not enough for a native-quality WinUI visual claim.
 

@@ -6,8 +6,8 @@
     "scenarioCount": 4,
     "componentCount": 58,
     "visualGradeCounts": {
-      "not-rendered": 18,
-      "usable": 40
+      "not-rendered": 15,
+      "usable": 43
     },
     "nativeQualityGradeCounts": {
       "not-evaluated": 58
@@ -326,8 +326,8 @@
       "component": "CommandBar.Content",
       "target": "DiagnosticCommandBarContent",
       "ownerFamily": "Commands and menus",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -336,7 +336,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -398,8 +398,8 @@
       "component": "MenuBar",
       "target": "DiagnosticMenuBar",
       "ownerFamily": "Commands and menus",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -408,7 +408,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -416,8 +416,8 @@
       "component": "Context menu pattern",
       "target": "DiagnosticContextMenuPattern",
       "ownerFamily": "Commands and menus",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "targetGrade": "good-or-production-ready",
       "requiredStates": [
@@ -426,7 +426,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -1311,11 +1311,11 @@
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "CommandBar.Content",
       "target": "DiagnosticCommandBarContent",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1367,11 +1367,11 @@
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "MenuBar",
       "target": "DiagnosticMenuBar",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1381,11 +1381,11 @@
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "Context menu pattern",
       "target": "DiagnosticContextMenuPattern",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]

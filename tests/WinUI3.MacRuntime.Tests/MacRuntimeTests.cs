@@ -1817,6 +1817,21 @@ public sealed class MacRuntimeTests
                     new DropDownButton { Name = "ChoiceDropDownButton", Content = "Choose" },
                     new SplitButton { Name = "ChoiceSplitButton", Content = "Split" },
                     new ToggleSplitButton { Name = "PinnedToggleSplitButton", Content = "Toggle split", IsChecked = true },
+                    new MenuBar
+                    {
+                        Name = "PrimaryMenuBar",
+                        Items =
+                        {
+                            new MenuBarItem
+                            {
+                                Title = "File",
+                                Items =
+                                {
+                                    new MenuFlyoutItem { Text = "Open" }
+                                }
+                            }
+                        }
+                    },
                     new InfoBar { Name = "StatusInfoBar", Title = "Complete", Message = "Done", Severity = InfoBarSeverity.Success }
                 }
             }
@@ -1840,6 +1855,7 @@ public sealed class MacRuntimeTests
         var rating = RequireNode(arranged.Root, "QualityRatingControl").Layout!;
         var symbol = RequireNode(arranged.Root, "LinkSymbolIcon").Layout!;
         var toggleSplit = RequireNode(arranged.Root, "PinnedToggleSplitButton").Layout!;
+        var menuBar = RequireNode(arranged.Root, "PrimaryMenuBar").Layout!;
         var infoBar = RequireNode(arranged.Root, "StatusInfoBar").Layout!;
 
         Assert.IsGreaterThan(100, CountExactPixels(bitmap, new SKRect((float)toggle.X, (float)toggle.Y, (float)(toggle.X + toggle.Width), (float)(toggle.Y + toggle.Height)), theme.Accent));
@@ -1853,6 +1869,7 @@ public sealed class MacRuntimeTests
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)rating.X, (float)rating.Y, (float)(rating.X + rating.Width), (float)(rating.Y + rating.Height)), theme.Accent));
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)symbol.X, (float)symbol.Y, (float)(symbol.X + symbol.Width), (float)(symbol.Y + symbol.Height)), theme.Accent));
         Assert.IsGreaterThan(40, CountExactPixels(bitmap, new SKRect((float)toggleSplit.X, (float)toggleSplit.Y, (float)(toggleSplit.X + toggleSplit.Width), (float)(toggleSplit.Y + toggleSplit.Height)), theme.Accent));
+        Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)menuBar.X, (float)menuBar.Y, (float)(menuBar.X + menuBar.Width), (float)(menuBar.Y + menuBar.Height)), theme.SubtleSurface));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 12, (float)infoBar.Y + 14, (float)infoBar.X + 36, (float)infoBar.Y + 38), theme.Success));
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 16, (float)infoBar.Y + 18, (float)infoBar.X + 32, (float)infoBar.Y + 34), theme.Surface));
     }

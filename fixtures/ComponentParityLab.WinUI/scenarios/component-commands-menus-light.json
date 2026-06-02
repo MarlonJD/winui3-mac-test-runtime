@@ -82,9 +82,15 @@
       "component": "CommandBar.Content",
       "kind": "xaml-property-slot",
       "target": "DiagnosticCommandBarContent",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "content"
+      ],
+      "knownGaps": [
+        "CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps."
+      ]
     },
     {
       "component": "AppBarButton.Icon",
@@ -129,17 +135,29 @@
     {
       "component": "MenuBar",
       "target": "DiagnosticMenuBar",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "items"
+      ],
+      "knownGaps": [
+        "MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps."
+      ]
     },
     {
       "component": "Context menu pattern",
       "kind": "pattern",
       "target": "DiagnosticContextMenuPattern",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "contextFlyout"
+      ],
+      "knownGaps": [
+        "Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps."
+      ]
     }
   ],
   "sourceFeatures": [
@@ -147,9 +165,9 @@
       "feature": "CommandBar.Content",
       "kind": "xaml-property-slot",
       "target": "DiagnosticCommandBarContent",
-      "expectedStatus": "planned",
+      "expectedStatus": "partial",
       "knownGaps": [
-        "Content slot support is tracked before compiler and renderer support are added."
+        "Content slot source support is visible for simple inline content; overflow integration and full native layout remain gaps."
       ]
     },
     {

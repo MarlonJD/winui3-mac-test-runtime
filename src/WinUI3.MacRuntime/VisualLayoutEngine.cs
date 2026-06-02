@@ -54,6 +54,8 @@ public static class VisualLayoutEngine
         "Flyout",
         "MenuFlyout",
         "MenuFlyoutItem",
+        "MenuBar",
+        "MenuBarItem",
         "ContentDialog",
         "TeachingTip",
         "ToolTip",
@@ -118,6 +120,7 @@ public static class VisualLayoutEngine
             "NavigationView" => ArrangeNavigationView(node, rect, unsupported),
             "StackPanel" => ArrangeStackPanel(node, rect, unsupported),
             "ListView" or "ItemsControl" or "MenuFlyout" => ArrangeListView(node, rect, unsupported),
+            "MenuBar" => ArrangeMenuBar(node, rect, unsupported, visibility),
             "CommandBar" => ArrangeCommandBar(node, rect, unsupported),
             "CommandBarFlyout" => ArrangeCommandBar(node, rect, unsupported),
             "AppBarButton" => ArrangeAppBarButton(node, rect, unsupported, visibility),
@@ -279,6 +282,24 @@ public static class VisualLayoutEngine
         return WithLayout(node, rect, EmptyThickness, EmptyThickness, ReadString(node, "visibility") ?? "Visible", arranged);
     }
 
+    private static UiNode ArrangeMenuBar(
+        UiNode node,
+        LayoutRect rect,
+        ICollection<UnsupportedVisualFeature> unsupported,
+        string visibility)
+    {
+        var itemWidth = Math.Max(64, rect.Width / Math.Max(1, node.Children.Count));
+        var x = rect.X + 4;
+        var arranged = new List<UiNode>(node.Children.Count);
+        foreach (var child in node.Children)
+        {
+            arranged.Add(ArrangeNode(child, new LayoutRect(x, rect.Y + 4, Math.Min(itemWidth, rect.Width - 8), 28), unsupported));
+            x += itemWidth;
+        }
+
+        return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, arranged);
+    }
+
     private static UiNode ArrangeCommandBar(
         UiNode node,
         LayoutRect rect,
@@ -407,6 +428,8 @@ public static class VisualLayoutEngine
             "CommandBar" => 48,
             "CommandBarFlyout" => 54,
             "MenuFlyout" => Math.Max(72, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
+            "MenuBar" => 32,
+            "MenuBarItem" => 28,
             "ContentDialog" => 128,
             "Flyout" or "ToolTip" or "TeachingTip" => 72,
             "Border" => Math.Min(86, fallback),
@@ -444,6 +467,8 @@ public static class VisualLayoutEngine
             "Image" => Math.Min(fallback, 128),
             "InfoBar" => Math.Min(fallback, Math.Max(280, fallback)),
             "CommandBar" or "CommandBarFlyout" or "MenuFlyout" or "ContentDialog" or "Flyout" or "ToolTip" or "TeachingTip" => fallback,
+            "MenuBar" => Math.Min(fallback, Math.Max(96, node.Children.Sum(child => EstimateWidth(child, fallback)) + 8)),
+            "MenuBarItem" => Math.Min(fallback, Math.Max(64, EstimateTextWidth(ReadString(node, "title") ?? "Menu") + 28)),
             "Border" or "ScrollViewer" or "Frame" or "Page" or "Window" or "Grid" => fallback,
             "ContentControl" => EstimateContentControlWidth(node, fallback),
             "StackPanel" => EstimateStackWidth(node, fallback),

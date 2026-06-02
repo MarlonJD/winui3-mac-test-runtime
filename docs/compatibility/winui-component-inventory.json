@@ -350,7 +350,7 @@
         "priority": 9,
         "interactionRequired": true,
         "requiredStates": ["default", "open-popup", "invoked", "disabled"],
-        "currentGrade": "not-rendered",
+        "currentGrade": "usable",
         "disposition": "production-ready-diagnostic-exclusion-until-promoted",
         "promotionExitCriteria": "MenuBar facade and XAML ingestion, top-level menu and submenu painter, open/invoke interaction, accessibility menu structure, component evidence, native reference, docs, and tests."
       },
@@ -690,13 +690,13 @@
       "component": "CommandBar.Content",
       "kind": "pattern",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 5: Commands And Menus",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-commands-menus-light",
+      "interactionCoverage": "static content slot export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "Content slot source support is tracked but not implemented."
+        "skia-v2 renders simple inline CommandBar.Content evidence; full layout negotiation, overflow integration, and native template visuals remain gaps."
       ]
     },
     {
@@ -742,13 +742,13 @@
       "component": "Context menu pattern",
       "kind": "pattern",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 5: Commands And Menus",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-commands-menus-light",
+      "interactionCoverage": "static context target export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "Context menu semantics and visuals are not implemented."
+        "ContextFlyout metadata and visible command target are exported; right-click dispatch, popup placement, keyboarding, automation expanded state, and full native context-menu visuals remain gaps."
       ]
     },
     {
@@ -1080,13 +1080,13 @@
       "component": "MenuBar",
       "kind": "control",
       "winuiAvailability": "stable",
-      "catalogStatus": "planned",
+      "catalogStatus": "partial",
       "demoPage": "Page 5: Commands And Menus",
-      "fixtureCoverage": "diagnostic row",
-      "interactionCoverage": "none",
-      "visualEvidence": "not-rendered",
+      "fixtureCoverage": "component-commands-menus-light",
+      "interactionCoverage": "static menu item export",
+      "visualEvidence": "usable",
       "knownGaps": [
-        "No facade, compiler, or painter support is claimed yet."
+        "MenuBar facade, tree export, and skia-v2 top-level menu chrome are present for static evidence; submenu opening, command invocation, keyboarding, automation menu state, and full native template visuals remain gaps."
       ]
     },
     {

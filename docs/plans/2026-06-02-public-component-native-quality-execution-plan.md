@@ -51,14 +51,14 @@ Totals:
 | Missing inspection notes | 58 |
 | Blocking rows | 58 |
 
-Current progress after the first basic-input evidence pass:
+Current progress after the basic-input and commands/menus evidence passes:
 
 | Metric | Current value |
 | --- | ---: |
 | Scenarios | 4 |
 | Component rows | 58 |
-| `usable` rows | 40 |
-| `not-rendered` rows | 18 |
+| `usable` rows | 43 |
+| `not-rendered` rows | 15 |
 | `nativeQualityGrade: not-evaluated` rows | 58 |
 | Missing macOS runtime crops | 0 |
 | Missing native reference crops | 0 |
@@ -71,6 +71,12 @@ Current progress after the first basic-input evidence pass:
 zero `not-rendered` rows. Those rows remain blockers because `usable` is not a
 native-quality final grade, `nativeQualityGrade` is still `not-evaluated`, and
 manual screenshot inspection metadata has not been applied.
+
+`component-commands-menus-light` now has 8 rendered `usable` harness rows and
+zero `not-rendered` rows. `CommandBar.Content`, `MenuBar`, and the context menu
+target are partial static evidence only; submenu/context popup behavior,
+keyboard automation, final native inspection, and `nativeQualityGrade`
+promotion remain incomplete.
 
 Scenario breakdown:
 
