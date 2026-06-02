@@ -29,8 +29,8 @@ not-supported, and uncataloged APIs must fail or report diagnostics instead of
 silently looking supported.
 
 It also does **not** mean native WinUI visual fidelity. The latest inspected
-local macOS component artifacts include 138 component evidence rows: 79
-`usable` and 59 `not-rendered`. `usable` means recognizable and functionally
+local macOS component artifacts include 143 component evidence rows: 86
+`usable` and 57 `not-rendered`. `usable` means recognizable and functionally
 testable, not pixel-matched Fluent chrome. The next project phase is renderer
 fidelity work, not more release-gate expansion.
 

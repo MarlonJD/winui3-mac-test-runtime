@@ -75,14 +75,14 @@ Current inspected renderer evidence:
 
 | Scenario family | Current renderer status |
 | --- | --- |
-| Basic input and forms | 5 `usable`, 8 planned `not-rendered`; controls are recognizable but not native Fluent chrome. |
+| Basic input and forms | Base scenario has 5 `usable`, 8 planned `not-rendered`; checked-state scenario adds 3 `usable` rows. Controls are recognizable but not native Fluent chrome. |
 | Commands and menus | 5 `usable`, 3 `not-rendered`; command surfaces are simplified and popup/menu behavior remains partial. |
 | Navigation and workbench | Public admin workbench has 9 `usable` rows; adaptive behavior and broader keyboarding remain partial. |
-| Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; animation and close/action areas remain gaps. |
+| Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; loading and success state scenarios add 4 `usable` rows. Animation and close/action areas remain gaps. |
 | Layout, media, and resources | Light scenario has 13 `usable`, 15 planned/non-goal `not-rendered`; dark and high-contrast smoke rows are usable, while media, web, ink, materials, and advanced visuals remain excluded or planned. |
 
 Across the latest inspected `artifacts/winui3-mac` component evidence set,
-there are 138 component rows: 79 `usable` and 59 `not-rendered`. This is enough
+there are 143 component rows: 86 `usable` and 57 `not-rendered`. This is enough
 for harness smoke testing and scoped source-level evidence. It is not enough
 for a native-quality WinUI visual claim.
 

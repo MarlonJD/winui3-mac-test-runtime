@@ -46,7 +46,7 @@ interaction/accessibility evidence where applicable, and docs. That is a
 release-evidence result, not a renderer-fidelity result.
 
 The latest inspected local macOS component artifacts under `artifacts/winui3-mac`
-contain 138 component rows: 79 `usable` and 59 `not-rendered`. These numbers
+contain 143 component rows: 86 `usable` and 57 `not-rendered`. These numbers
 show that the renderer can support smoke/E2E harness workflows for a narrow
 subset, but large areas of WinUI chrome, templates, states, and advanced
 controls still need direct renderer work.
@@ -58,7 +58,7 @@ controls still need direct renderer work.
 | Text and forms | renderer-fidelity target | usable scaffold | `26792033793` | Caret, selection, validation visuals, rich input, and native field states require direct implementation. |
 | Commands and menus | renderer-fidelity target | usable scaffold for supported command and partial flyout subset; `not-rendered` for planned controls | `26792033793` | MenuBar, context menus, split/dropdown buttons, disabled item behavior, placement, and keyboarding remain planned diagnostics. |
 | Navigation and workbench | renderer-fidelity target | usable scaffold | `26792033793` | Adaptive behavior, broad keyboard routing, richer collection templates, and native list/detail chrome remain partial or planned. |
-| Status and progress | renderer-fidelity target | usable scaffold in base scenario; stale success artifact still shows not-rendered rows | `26792033793` | Animation, close/action areas, full severity chrome, and regenerated success evidence need follow-up. |
+| Status and progress | renderer-fidelity target | usable scaffold in base, loading, and success scenarios | `26792033793` | Animation, close/action areas, and full native severity chrome need follow-up. |
 | Dialogs, flyouts, and tooltips | renderer-fidelity target | usable scaffold for supported popup subset; `not-rendered` for planned surfaces | `26792033793` | Modal focus trapping, placement, TeachingTip, tooltip service, and full action relationships remain planned or partial. |
 | Resources, theme, and visual states | renderer-fidelity target | usable for simple resources and theme dictionaries; diagnostic or `not-rendered` for broad Fluent states | `26792033793` | Full Fluent dictionaries, dynamic invalidation, pointer states, and template visual states require renderer and resource work. |
 | Materials, composition, media, and platform integration | production-ready exclusion | exclusion target defined; no local macOS visual support claim | `26792033793` | Mica, Acrylic, compositor effects, media, WebView2, launcher, packaged apps, and binaries remain explicit exclusions or roadmap diagnostics. |
@@ -208,10 +208,10 @@ Current inspected renderer component summaries:
 
 | Scenario family | Renderer evidence summary |
 | --- | --- |
-| Basic input and forms | 5 `usable`, 8 planned `not-rendered`; controls are recognizable but not native Fluent chrome. |
+| Basic input and forms | Base scenario has 5 `usable`, 8 planned `not-rendered`; checked-state scenario adds 3 `usable` rows. Controls are recognizable but not native Fluent chrome. |
 | Commands and menus | 5 `usable`, 3 `not-rendered`; command surfaces and popups are simplified. |
 | Navigation and workbench | Workbench/list-detail scaffold is `usable`; adaptive behavior and broader keyboarding remain partial. |
-| Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; animation and close/action areas remain gaps. |
+| Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; loading and success state scenarios add 4 `usable` rows. Animation and close/action areas remain gaps. |
 | Layout, media, and resources | Light layout/media scenario has 13 `usable`, 15 planned/non-goal `not-rendered`; media, web, ink, materials, and advanced visuals remain excluded or planned. |
 
 The `ClaimedSupportedComponentsAreNeverNotRendered` test protects the claim by
@@ -233,7 +233,7 @@ harness grade. This does not mean the component visually matches native WinUI.
 | Basic commands | `Button`, `AppBarButton`, `CommandBar` | Met for harness subset | Click and command invocation evidence exists; overflow, pointer states, icons, and exact native spacing remain gaps. |
 | Forms | `TextBox`, `ComboBox`, `CheckBox`, `RadioButton` | Met for harness subset | Focus, text entry, item selection, and checked-state evidence exists; popup, caret, selection, and validation visuals remain gaps. |
 | Workbench | `NavigationView`, `NavigationViewItem`, menu/footer, `ListView`, list/details | Met for subset | Navigation and list/detail evidence exists; adaptive layout and keyboarding remain gaps. |
-| Status | `InfoBar`, `ProgressBar`, `ProgressRing` | Met for base harness subset | Status and progress chrome are visible in the base scenario; close/action areas, native animations, and stale success-state evidence remain gaps. |
+| Status | `InfoBar`, `ProgressBar`, `ProgressRing` | Met for harness subset | Status and progress chrome are visible in base, loading, and success scenarios; close/action areas and native animations remain gaps. |
 | Resources and theme | `StaticResource`, `ThemeResource`, `Style`, `Setter`, simple typography/spacing | Met for subset | Light, dark, and high-contrast strict scenarios pass for the clean-room subset; dynamic Fluent resource behavior remains planned. |
 | Artifacts | `tree.json`, `accessibility.json`, `visual-run.json`, `component-evidence.json`, pixel diff artifacts | Met for subset | Versioned artifacts preserve deterministic evidence for supported controls. |
 

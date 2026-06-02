@@ -1493,6 +1493,56 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsFluentControlChrome()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "chrome");
+        var comboBox = new ComboBox { Name = "StatusComboBox", PlaceholderText = "Status" };
+        comboBox.Items.Add("Closed");
+        comboBox.SelectedIndex = 0;
+
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Control chrome",
+            Content = new StackPanel
+            {
+                Children =
+                {
+                    new ToggleButton { Name = "PinnedToggleButton", Content = "Pinned", IsChecked = true },
+                    new CheckBox { Name = "EnabledCheckBox", Content = "Enabled", IsChecked = true },
+                    comboBox,
+                    new ProgressBar { Name = "LoadingProgressBar", IsIndeterminate = true },
+                    new ProgressRing { Name = "LoadingProgressRing", IsActive = true },
+                    new InfoBar { Name = "StatusInfoBar", Title = "Complete", Message = "Done", Severity = InfoBarSeverity.Success }
+                }
+            }
+        });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "chrome", "skia-v2", new VisualViewport(640, 480), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "chrome", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var toggle = RequireNode(arranged.Root, "PinnedToggleButton").Layout!;
+        var checkBox = RequireNode(arranged.Root, "EnabledCheckBox").Layout!;
+        var combo = RequireNode(arranged.Root, "StatusComboBox").Layout!;
+        var progressBar = RequireNode(arranged.Root, "LoadingProgressBar").Layout!;
+        var progressRing = RequireNode(arranged.Root, "LoadingProgressRing").Layout!;
+        var infoBar = RequireNode(arranged.Root, "StatusInfoBar").Layout!;
+
+        Assert.IsGreaterThan(100, CountExactPixels(bitmap, new SKRect((float)toggle.X, (float)toggle.Y, (float)(toggle.X + toggle.Width), (float)(toggle.Y + toggle.Height)), theme.Accent));
+        Assert.IsGreaterThan(50, CountExactPixels(bitmap, new SKRect((float)checkBox.X + 2, (float)checkBox.Y + 9, (float)checkBox.X + 22, (float)checkBox.Y + 29), theme.Accent));
+        Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)checkBox.X + 2, (float)checkBox.Y + 9, (float)checkBox.X + 22, (float)checkBox.Y + 29), theme.Surface));
+        Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)(combo.X + combo.Width - 28), (float)combo.Y + 14, (float)(combo.X + combo.Width - 8), (float)combo.Y + 26), theme.TextSecondary));
+        Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)progressBar.X, (float)(progressBar.Y + progressBar.Height / 2 - 3), (float)(progressBar.X + progressBar.Width), (float)(progressBar.Y + progressBar.Height / 2 + 3)), theme.Accent));
+        Assert.IsGreaterThan(10, CountExactPixels(bitmap, new SKRect((float)progressRing.X, (float)progressRing.Y, (float)(progressRing.X + progressRing.Width), (float)(progressRing.Y + progressRing.Height)), theme.Accent));
+        Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 12, (float)infoBar.Y + 14, (float)infoBar.X + 36, (float)infoBar.Y + 38), theme.Success));
+        Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 16, (float)infoBar.Y + 18, (float)infoBar.X + 32, (float)infoBar.Y + 34), theme.Surface));
+    }
+
+    [TestMethod]
     public void PixelDiffReportsThresholdFailure()
     {
         var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-pixel-diff-tests", Guid.NewGuid().ToString("N"));
@@ -1852,6 +1902,65 @@ public sealed class MacRuntimeTests
         }
 
         throw new InvalidOperationException("Could not locate repository root.");
+    }
+
+    private static UiNode RequireNode(UiNode root, string name)
+    {
+        if (string.Equals(root.Name, name, StringComparison.Ordinal))
+        {
+            return root;
+        }
+
+        foreach (var child in root.Children)
+        {
+            var found = FindNode(child, name);
+            if (found is not null)
+            {
+                return found;
+            }
+        }
+
+        throw new AssertFailedException($"Expected arranged tree to contain '{name}'.");
+    }
+
+    private static UiNode? FindNode(UiNode root, string name)
+    {
+        if (string.Equals(root.Name, name, StringComparison.Ordinal))
+        {
+            return root;
+        }
+
+        foreach (var child in root.Children)
+        {
+            var found = FindNode(child, name);
+            if (found is not null)
+            {
+                return found;
+            }
+        }
+
+        return null;
+    }
+
+    private static int CountExactPixels(SKBitmap bitmap, SKRect rect, SKColor color)
+    {
+        var left = Math.Clamp((int)Math.Floor(rect.Left), 0, bitmap.Width);
+        var top = Math.Clamp((int)Math.Floor(rect.Top), 0, bitmap.Height);
+        var right = Math.Clamp((int)Math.Ceiling(rect.Right), left, bitmap.Width);
+        var bottom = Math.Clamp((int)Math.Ceiling(rect.Bottom), top, bitmap.Height);
+        var count = 0;
+        for (var y = top; y < bottom; y++)
+        {
+            for (var x = left; x < right; x++)
+            {
+                if (bitmap.GetPixel(x, y) == color)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 
     private sealed record MutableState(string Title);

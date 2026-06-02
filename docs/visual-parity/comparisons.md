@@ -23,8 +23,8 @@ interaction/accessibility evidence, and native-reference provenance. See
 
 As of the latest inspected local artifact set, the current macOS renderer is a
 usable harness scaffold rather than a high-fidelity WinUI renderer. The
-`artifacts/winui3-mac` component evidence set contains 138 component rows: 79
-`usable` and 59 `not-rendered`. `usable` rows are recognizable and testable, but
+`artifacts/winui3-mac` component evidence set contains 143 component rows: 86
+`usable` and 57 `not-rendered`. `usable` rows are recognizable and testable, but
 many controls still have simplified chrome, missing native states, missing
 templates, incomplete popup placement, or diagnostic-only rendering.
 
@@ -57,9 +57,9 @@ Current inspected local macOS artifacts:
 
 | Scenario | Current status | Component evidence | Interpretation |
 | --- | --- | --- | --- |
-| `component-basic-input-light` | passed | 5 `usable`, 8 planned `not-rendered` | Recognizable controls with simplified chrome; rich input remains planned. |
+| `component-basic-input-light` / `component-basic-input-checked-light` | passed | Base scenario has 5 `usable`, 8 planned `not-rendered`; checked-state scenario has 3 `usable` | Recognizable controls with improved checked chrome; rich input remains planned. |
 | `component-commands-menus-light` | passed | 5 `usable`, 3 `not-rendered` | Command and flyout scaffold exists; native menu/command fidelity remains incomplete. |
-| `component-status-pickers-light` | passed | 3 `usable`, 7 planned `not-rendered` | Base status/progress scaffold exists; success-state artifact needs regeneration. |
+| `component-status-pickers-light` / `component-status-pickers-loading-light` / `component-status-pickers-success-light` | passed | Base scenario has 3 `usable`, 7 planned `not-rendered`; loading and success scenarios add 4 `usable` | Status/progress scaffold exists with regenerated success evidence; native animation and close/action areas remain gaps. |
 | `component-layout-media-light` | passed | 13 `usable`, 15 planned/non-goal `not-rendered` | Layout/resource scaffold exists; media, web, ink, and materials remain excluded or planned. |
 | `public-admin-workbench-light` | passed | 9 `usable` | Workbench scaffold is usable for smoke/E2E checks; it is not native-quality parity. |
 

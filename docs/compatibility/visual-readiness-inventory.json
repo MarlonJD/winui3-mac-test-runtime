@@ -203,9 +203,9 @@
       "requiredStates": ["loading", "success", "warning", "error", "disabled"],
       "requiredScenarios": ["component-status-pickers-light", "component-status-pickers-loading-light", "component-status-pickers-success-light", "component-status-pickers-error-light"],
       "targetGrade": "renderer-fidelity target",
-      "currentGrade": "usable scaffold in base scenario; stale success artifact still shows not-rendered rows",
+      "currentGrade": "usable scaffold in base, loading, and success scenarios",
       "latestRunId": "26792033793",
-      "nextBlocker": "Animation, close/action areas, full severity chrome, and regenerated success evidence need follow-up.",
+      "nextBlocker": "Animation, close/action areas, and full native severity chrome need follow-up.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "accessibility", "docs"]
     },
     {

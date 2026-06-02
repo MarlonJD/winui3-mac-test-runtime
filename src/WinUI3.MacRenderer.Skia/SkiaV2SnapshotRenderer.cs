@@ -411,9 +411,11 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var checkedState = ReadBool(node, "isChecked", fallback: false);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
-        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, !enabled ? theme.DisabledSurface : checkedState ? theme.AccentSoft : theme.Surface);
+        var fill = !enabled ? theme.DisabledSurface : checkedState ? theme.Accent : theme.Surface;
+        var text = !enabled ? theme.TextDisabled : checkedState ? theme.Surface : theme.TextPrimary;
+        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, fill);
         DrawRoundRectStroke(canvas, paint, rect, theme.ControlCornerRadius, checkedState && enabled ? theme.Accent : theme.Stroke);
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Toggle"), rect.Left + 14, rect.Top + 25, !enabled ? theme.TextDisabled : checkedState ? theme.Accent : theme.TextPrimary);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Toggle"), rect.Left + 14, rect.Top + 25, text);
     }
 
     private static void RenderCheckBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -423,10 +425,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var box = new SKRect(rect.Left + 2, rect.Top + 9, rect.Left + 22, rect.Top + 29);
         DrawRoundRect(canvas, paint, box, 3, !enabled ? theme.DisabledSurface : checkedState ? theme.Accent : theme.Surface);
-        DrawRoundRectStroke(canvas, paint, box, 3, theme.Stroke);
+        DrawRoundRectStroke(canvas, paint, box, 3, checkedState && enabled ? theme.Accent : theme.Stroke);
         if (checkedState)
         {
-            DrawText(canvas, paint, font, "x", box.Left + 6, box.Bottom - 4, theme.Surface);
+            DrawCheckMark(canvas, paint, box, enabled ? theme.Surface : theme.TextDisabled);
         }
 
         DrawText(canvas, paint, font, ReadControlLabel(node, "Check box"), rect.Left + 32, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
@@ -465,7 +467,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         DrawRoundRectStroke(canvas, paint, rect, theme.ControlCornerRadius, theme.Stroke);
         var text = ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select";
         DrawText(canvas, paint, font, text, rect.Left + 10, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
-        DrawText(canvas, paint, font, "v", rect.Right - 22, rect.Top + 25, enabled ? theme.TextSecondary : theme.TextDisabled);
+        DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 18, enabled ? theme.TextSecondary : theme.TextDisabled);
     }
 
     private static void RenderListView(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
@@ -506,21 +508,33 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     private static void RenderProgressBar(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint)
     {
         var rect = Rect(node);
+        var isIndeterminate = ReadBool(node, "isIndeterminate", fallback: false);
         var min = ReadFloat(node, "minimum", 0);
         var max = Math.Max(min + 1, ReadFloat(node, "maximum", 100));
         var value = Math.Clamp(ReadFloat(node, "value", min), min, max);
         var progress = (value - min) / (max - min);
-        var track = new SKRect(rect.Left, rect.Top + 9, rect.Right, rect.Bottom - 9);
-        DrawRoundRect(canvas, paint, track, 4, theme.DisabledSurface);
-        DrawRoundRect(canvas, paint, new SKRect(track.Left, track.Top, track.Left + track.Width * progress, track.Bottom), 4, theme.Accent);
+        var center = rect.Top + rect.Height / 2;
+        var track = new SKRect(rect.Left, center - 2, rect.Right, center + 2);
+        DrawRoundRect(canvas, paint, track, 2, theme.DisabledSurface);
+        if (isIndeterminate)
+        {
+            var segmentWidth = Math.Max(28, track.Width * 0.28f);
+            DrawRoundRect(canvas, paint, new SKRect(track.Left + 8, track.Top, track.Left + 8 + segmentWidth, track.Bottom), 2, theme.Accent);
+            DrawRoundRect(canvas, paint, new SKRect(track.Right - segmentWidth - 8, track.Top, track.Right - 8, track.Bottom), 2, theme.AccentSoft);
+            return;
+        }
+
+        DrawRoundRect(canvas, paint, new SKRect(track.Left, track.Top, track.Left + track.Width * progress, track.Bottom), 2, theme.Accent);
     }
 
     private static void RenderProgressRing(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint)
     {
         var rect = Rect(node);
         var radius = Math.Min(rect.Width, rect.Height) / 2 - 4;
-        DrawCircleStroke(canvas, paint, rect.Left + rect.Width / 2, rect.Top + rect.Height / 2, radius, theme.Accent);
-        DrawCircle(canvas, paint, rect.Left + rect.Width / 2 + radius, rect.Top + rect.Height / 2, 3, theme.Accent);
+        var centerX = rect.Left + rect.Width / 2;
+        var centerY = rect.Top + rect.Height / 2;
+        DrawCircleStroke(canvas, paint, centerX, centerY, radius, theme.DisabledSurface, 2);
+        DrawArc(canvas, paint, new SKRect(centerX - radius, centerY - radius, centerX + radius, centerY + radius), -80, 285, theme.Accent, 3);
     }
 
     private static void RenderInfoBar(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
@@ -542,8 +556,18 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
         DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
         DrawRoundRect(canvas, paint, new SKRect(rect.Left, rect.Top, rect.Left + 5, rect.Bottom), 2, accent);
-        DrawText(canvas, paint, bodyFont, ReadString(node, "title") ?? severity, rect.Left + 18, rect.Top + 27, theme.TextPrimary);
-        DrawText(canvas, paint, smallFont, ReadString(node, "message") ?? string.Empty, rect.Left + 18, rect.Top + 50, theme.TextSecondary);
+        DrawCircle(canvas, paint, rect.Left + 24, rect.Top + 26, 8, accent);
+        if (severity == "Success")
+        {
+            DrawCheckMark(canvas, paint, new SKRect(rect.Left + 17, rect.Top + 19, rect.Left + 31, rect.Top + 33), theme.Surface);
+        }
+        else
+        {
+            DrawText(canvas, paint, smallFont, SeverityGlyph(severity), rect.Left + 21, rect.Top + 31, theme.Surface);
+        }
+
+        DrawText(canvas, paint, bodyFont, ReadString(node, "title") ?? severity, rect.Left + 42, rect.Top + 27, theme.TextPrimary);
+        DrawText(canvas, paint, smallFont, ReadString(node, "message") ?? string.Empty, rect.Left + 42, rect.Top + 50, theme.TextSecondary);
     }
 
     private static void RenderCommandBar(
@@ -850,10 +874,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         canvas.DrawCircle(x, y, radius, paint);
     }
 
-    private static void DrawCircleStroke(SKCanvas canvas, SKPaint paint, float x, float y, float radius, SKColor color)
+    private static void DrawCircleStroke(SKCanvas canvas, SKPaint paint, float x, float y, float radius, SKColor color, float strokeWidth = 2)
     {
         paint.Style = SKPaintStyle.Stroke;
-        paint.StrokeWidth = 2;
+        paint.StrokeWidth = strokeWidth;
         paint.Color = color;
         canvas.DrawCircle(x, y, radius, paint);
         paint.Style = SKPaintStyle.Fill;
@@ -864,6 +888,58 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         paint.Style = SKPaintStyle.Fill;
         paint.Color = color;
         canvas.DrawText(text, x, y, SKTextAlign.Left, font, paint);
+    }
+
+    private static void DrawCheckMark(SKCanvas canvas, SKPaint paint, SKRect box, SKColor color)
+    {
+        using var path = new SKPath();
+        path.MoveTo(box.Left + 5, box.Top + 11);
+        path.LineTo(box.Left + 9, box.Top + 15);
+        path.LineTo(box.Right - 5, box.Top + 6);
+        DrawPathStroke(canvas, paint, path, color, 2.2f);
+    }
+
+    private static void DrawChevronDown(SKCanvas canvas, SKPaint paint, float x, float y, SKColor color)
+    {
+        using var path = new SKPath();
+        path.MoveTo(x, y);
+        path.LineTo(x + 5, y + 5);
+        path.LineTo(x + 10, y);
+        DrawPathStroke(canvas, paint, path, color, 1.6f);
+    }
+
+    private static void DrawArc(SKCanvas canvas, SKPaint paint, SKRect rect, float startAngle, float sweepAngle, SKColor color, float strokeWidth)
+    {
+        paint.Style = SKPaintStyle.Stroke;
+        paint.StrokeWidth = strokeWidth;
+        paint.StrokeCap = SKStrokeCap.Round;
+        paint.Color = color;
+        canvas.DrawArc(rect, startAngle, sweepAngle, false, paint);
+        paint.StrokeCap = SKStrokeCap.Butt;
+        paint.Style = SKPaintStyle.Fill;
+    }
+
+    private static void DrawPathStroke(SKCanvas canvas, SKPaint paint, SKPath path, SKColor color, float strokeWidth)
+    {
+        paint.Style = SKPaintStyle.Stroke;
+        paint.StrokeWidth = strokeWidth;
+        paint.StrokeCap = SKStrokeCap.Round;
+        paint.StrokeJoin = SKStrokeJoin.Round;
+        paint.Color = color;
+        canvas.DrawPath(path, paint);
+        paint.StrokeCap = SKStrokeCap.Butt;
+        paint.StrokeJoin = SKStrokeJoin.Miter;
+        paint.Style = SKPaintStyle.Fill;
+    }
+
+    private static string SeverityGlyph(string severity)
+    {
+        return severity switch
+        {
+            "Warning" => "!",
+            "Error" => "!",
+            _ => "i"
+        };
     }
 
     private static void DrawPopupShadow(SKCanvas canvas, SKPaint paint, SKRect rect, SkiaV2Theme theme)

@@ -86,7 +86,7 @@ inspection. When fresh evidence promotes a component to `usable`, the claim
 applies only to that component's documented harness subset.
 
 The latest inspected local macOS artifact set under `artifacts/winui3-mac`
-contains 138 component evidence rows: 79 `usable` and 59 `not-rendered`.
+contains 143 component evidence rows: 86 `usable` and 57 `not-rendered`.
 Those rows show that the renderer supports narrow smoke/E2E scaffolds, but
 they do not establish native WinUI visual fidelity.
 
