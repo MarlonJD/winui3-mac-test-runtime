@@ -98,11 +98,10 @@ component rows still lack native-quality completion evidence, including macOS
 component crops, native WinUI reference crops, component diff metrics, and
 native reference provenance, plus manual screenshot inspection metadata.
 
-Component lab scenario artifacts are produced for:
-`component-basic-input-light`, `component-text-forms-light`,
-`component-collections-light`, `component-dialogs-flyouts-light`,
-`component-commands-menus-light`, `component-navigation-workbench-light`,
-`component-status-pickers-light`, and `component-layout-media-light`.
+Component lab scenario artifacts are produced for every checked-in
+`fixtures/ComponentParityLab.WinUI/scenarios/*.json` file. This includes the
+base family pages plus focused, disabled, checked, selected, open-popup,
+loading, error, success, invalid, dark, and high-contrast state scenarios.
 
 Native Windows reference artifacts are also produced for the public application
 corpus scenarios: `public-admin-workbench-light`,

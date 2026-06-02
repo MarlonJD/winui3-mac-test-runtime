@@ -153,7 +153,7 @@ Local verification gates run for the component parity foundation:
 - `winui3-mac-runner` Tiny fixture smoke, default renderer.
 - `winui3-mac-runner` Tiny fixture smoke, `--renderer skia`.
 - `skia-v2` strict visual scenarios for existing fixture categories.
-- All eight component parity lab scenarios.
+- Every checked-in component parity lab scenario.
 - `dotnet build tools/WindowsWindowCapture/WindowsWindowCapture.csproj
   --configuration Release`
 - `dotnet build fixtures/WindowsNativeProbe/WindowsNativeProbe.csproj

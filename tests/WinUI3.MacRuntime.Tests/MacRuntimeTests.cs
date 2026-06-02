@@ -1213,6 +1213,26 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void WindowsNativeReferenceWorkflowCoversEveryComponentParityScenario()
+    {
+        var workflow = File.ReadAllText(RepositoryPath(".github/workflows/windows-native-screenshot.yml"));
+        var scenarioRoot = RepositoryPath("fixtures/ComponentParityLab.WinUI/scenarios");
+        var componentScenarioPaths = Directory.EnumerateFiles(scenarioRoot, "*.json", SearchOption.TopDirectoryOnly)
+            .Select(path => Path.GetRelativePath(RepositoryRoot(), path).Replace('\\', '/'))
+            .OrderBy(path => path, StringComparer.Ordinal)
+            .ToArray();
+
+        Assert.IsGreaterThan(0, componentScenarioPaths.Length);
+        foreach (var scenarioPath in componentScenarioPaths)
+        {
+            StringAssert.Contains(
+                workflow,
+                $"Path = \"{scenarioPath}\"",
+                $"windows-native-screenshot.yml must capture native WinUI references for {scenarioPath}.");
+        }
+    }
+
+    [TestMethod]
     public async Task ProductionStateCoverageReferencesExistingScenarios()
     {
         var repositoryRoot = FindRepositoryRoot();

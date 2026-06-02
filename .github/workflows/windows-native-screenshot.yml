@@ -269,6 +269,18 @@ jobs:
               FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
             },
             @{
+              Name = "component-layout-media-dark"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-dark.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
+              Name = "component-layout-media-high-contrast"
+              Path = "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-high-contrast.json"
+              FixtureProject = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj"
+              FixtureExecutable = "fixtures/ComponentParityLab.WinUI/bin/Release/net8.0-windows10.0.19041.0/ComponentParityLab.WinUI.exe"
+            },
+            @{
               Name = "production-smoke-light"
               Path = "fixtures/ProductionSmoke.WinUI/scenarios/production-smoke-light.json"
               FixtureProject = "fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj"
