@@ -67,9 +67,6 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         {
             case "Window":
                 DrawRect(canvas, paint, Rect(node), theme.AppBackground);
-                DrawRect(canvas, paint, new SKRect(0, 0, (float)node.Layout.Width, 48), theme.Surface);
-                DrawLine(canvas, paint, 0, 48, (float)node.Layout.Width, 48, theme.Stroke);
-                DrawText(canvas, paint, bodyFont, ReadString(node, "title") ?? "Window", 24, 31, theme.TextPrimary);
                 RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
                 break;
             case "NavigationView":
@@ -208,9 +205,11 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         var paneWidth = Math.Clamp(ReadFloat(node, "openPaneLength", 248), 220, 320);
-        DrawRect(canvas, paint, new SKRect(rect.Left, rect.Top + 48, rect.Left + paneWidth, rect.Bottom), theme.PaneBackground);
-        DrawLine(canvas, paint, rect.Left + paneWidth, rect.Top + 48, rect.Left + paneWidth, rect.Bottom, theme.Stroke);
-        DrawText(canvas, paint, bodyFont, "Navigation", rect.Left + 20, rect.Top + 82, theme.TextSecondary);
+        DrawRect(canvas, paint, new SKRect(rect.Left, rect.Top, rect.Left + paneWidth, rect.Bottom), theme.PaneBackground);
+        DrawLine(canvas, paint, rect.Left + paneWidth, rect.Top, rect.Left + paneWidth, rect.Bottom, theme.Stroke);
+        DrawLine(canvas, paint, rect.Left + 20, rect.Top + 20, rect.Left + 31, rect.Top + 20, theme.TextPrimary);
+        DrawLine(canvas, paint, rect.Left + 20, rect.Top + 24, rect.Left + 31, rect.Top + 24, theme.TextPrimary);
+        DrawLine(canvas, paint, rect.Left + 20, rect.Top + 28, rect.Left + 31, rect.Top + 28, theme.TextPrimary);
 
         var selectedItem = ReadString(node, "selectedItem");
         foreach (var child in node.Children.Where(child => SimpleType(child) == "NavigationViewItem"))
@@ -252,12 +251,11 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var row = Rect(node);
         if (selected)
         {
-            DrawRoundRect(canvas, paint, row, 8, theme.AccentSoft);
+            DrawRoundRect(canvas, paint, row, 4, theme.AccentSoft);
             DrawRoundRect(canvas, paint, new SKRect(row.Left, row.Top + 7, row.Left + 4, row.Bottom - 7), 2, theme.Accent);
         }
 
-        DrawCircle(canvas, paint, row.Left + 14, row.Top + 20, 5, selected ? theme.Accent : theme.TextSecondary);
-        DrawText(canvas, paint, bodyFont, ReadControlLabel(node, ToTitle(ReadString(node, "tag") ?? node.Name ?? "Item")), row.Left + 30, row.Top + 26, selected ? theme.Accent : theme.TextPrimary);
+        DrawText(canvas, paint, bodyFont, ReadControlLabel(node, ToTitle(ReadString(node, "tag") ?? node.Name ?? "Item")), row.Left + 16, row.Top + 26, theme.TextPrimary);
     }
 
     private static void RenderGrid(
@@ -275,12 +273,6 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         if (isRoot)
         {
             DrawRect(canvas, paint, rect, theme.AppBackground);
-        }
-        else if (ShouldRenderLayoutSurface(node))
-        {
-            DrawRoundRect(canvas, paint, rect, 8, theme.SubtleSurface);
-            DrawRoundRectStroke(canvas, paint, rect, 8, theme.SubtleStroke);
-            DrawGridColumnSeparators(canvas, node, theme, paint, rect);
         }
 
         RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
@@ -327,10 +319,6 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         {
             DrawRect(canvas, paint, Rect(node), theme.AppBackground);
         }
-        else if (ShouldRenderLayoutSurface(node))
-        {
-            DrawRoundRectStroke(canvas, paint, Rect(node), 8, theme.SubtleStroke);
-        }
 
         RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
     }
@@ -351,21 +339,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(footer);
         DrawLine(canvas, paint, rect.Left, rect.Top - 16, rect.Right, rect.Top - 16, theme.Stroke);
 
-        var displayName = FindByName(footer, "AccountDisplayNameTextBlock");
-        var username = FindByName(footer, "AccountUsernameTextBlock");
-        var logout = FindByName(footer, "LogoutButton");
-        var accountRect = new SKRect(rect.Left, rect.Top, rect.Right, rect.Top + 74);
-        DrawRoundRect(canvas, paint, accountRect, 10, theme.Surface);
-        DrawRoundRect(canvas, paint, new SKRect(rect.Left + 12, rect.Top + 17, rect.Left + 48, rect.Top + 53), 18, theme.AccentSoft);
-        DrawText(canvas, paint, bodyFont, ReadText(displayName) ?? "Demo Admin", rect.Left + 62, rect.Top + 31, theme.TextPrimary);
-        DrawText(canvas, paint, smallFont, ReadText(username) ?? "@demo", rect.Left + 62, rect.Top + 52, theme.TextSecondary);
-
-        if (logout is not null)
+        foreach (var child in footer.Children)
         {
-            var button = new SKRect(rect.Left, rect.Top + 90, rect.Right, rect.Top + 130);
-            DrawRoundRect(canvas, paint, button, 8, theme.Surface);
-            DrawRoundRectStroke(canvas, paint, button, 8, theme.Stroke);
-            DrawText(canvas, paint, bodyFont, ReadControlLabel(logout, "Sign out"), button.Left + 14, button.Top + 26, theme.TextPrimary);
+            RenderNode(canvas, child, theme, paint, bodyFont, bodyFont, smallFont, bodyFont);
         }
     }
 

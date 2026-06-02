@@ -133,10 +133,10 @@ Latest inspected native comparison status for checked-in historical examples:
 
 | Scenario | Status | Changed pixels | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | --- |
-| `public-admin-workbench-light` | failed | 100.00% / threshold 45% | 9.72 | 35.87 | n/a |
-| `component-basic-input-light` | failed | 83.69% / threshold 18% | 17.17 | 49.51 | 5 `usable`, 8 `not-rendered`; not a visual-fidelity pass. |
-| `component-commands-menus-light` | failed | 77.02% / threshold 24% | 10.48 | 35.50 | 5 `usable`, 3 `not-rendered`; not a visual-fidelity pass. |
-| `component-layout-media-light` | failed | 90.39% / threshold 24% | 12.32 | 38.03 | 13 `usable`, 15 `not-rendered`; not a visual-fidelity pass. |
+| `public-admin-workbench-light` | failed | 99.997568% / threshold 45% | 9.856516 | 35.618082 | 9 `usable`; not a visual-fidelity pass. |
+| `component-basic-input-light` | failed | 97.289775% / threshold 18% | 14.071332 | 41.797751 | 5 `usable`, 8 `not-rendered`; not a visual-fidelity pass. |
+| `component-commands-menus-light` | failed | 90.257107% / threshold 24% | 10.8692 | 34.838439 | 5 `usable`, 3 `not-rendered`; not a visual-fidelity pass. |
+| `component-layout-media-light` | failed | 98.064878% / threshold 24% | 12.613214 | 37.572689 | 13 `usable`, 15 `not-rendered`; not a visual-fidelity pass. |
 
 Current harness component status is sourced from fresh
 `component-evidence.json` artifacts and the

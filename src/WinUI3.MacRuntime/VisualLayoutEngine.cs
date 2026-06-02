@@ -158,11 +158,8 @@ public static class VisualLayoutEngine
         ICollection<UnsupportedVisualFeature> unsupported,
         string visibility)
     {
-        var childRect = SimpleType(node) == "Window" && !ContainsType(node, "NavigationView")
-            ? new LayoutRect(rect.X, rect.Y + 48, rect.Width, Math.Max(1, rect.Height - 48))
-            : rect;
         var children = node.Children
-            .Select(child => ArrangeNode(child, childRect, unsupported))
+            .Select(child => ArrangeNode(child, rect, unsupported))
             .ToArray();
         return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, children);
     }
@@ -187,14 +184,12 @@ public static class VisualLayoutEngine
         ICollection<UnsupportedVisualFeature> unsupported)
     {
         var paneWidth = Math.Clamp(ReadDouble(node, "openPaneLength", 248), 220, 320);
-        const double titleBarHeight = 48;
-        var menuTop = rect.Y + titleBarHeight + 58;
-        var footerTop = rect.Y + rect.Height - 154;
+        var menuTop = rect.Y + 48;
         var contentRect = new LayoutRect(
-            rect.X + paneWidth + 32,
-            rect.Y + titleBarHeight + 36,
-            Math.Max(1, rect.Width - paneWidth - 64),
-            Math.Max(1, rect.Height - titleBarHeight - 68));
+            rect.X + paneWidth,
+            rect.Y,
+            Math.Max(1, rect.Width - paneWidth),
+            Math.Max(1, rect.Height));
 
         var itemIndex = 0;
         var children = new List<UiNode>();
@@ -211,7 +206,9 @@ public static class VisualLayoutEngine
 
             if (childType == "StackPanel")
             {
-                children.Add(ArrangeNode(child, new LayoutRect(rect.X + 14, footerTop, paneWidth - 28, 130), unsupported));
+                var footerHeight = Math.Clamp(EstimateHeight(child, 130), 48, 130);
+                var footerTop = rect.Y + rect.Height - footerHeight - 12;
+                children.Add(ArrangeNode(child, new LayoutRect(rect.X + 12, footerTop, paneWidth - 24, footerHeight), unsupported));
                 continue;
             }
 
@@ -243,9 +240,9 @@ public static class VisualLayoutEngine
         {
             var x = content.X;
             var availableWidth = Math.Max(1, content.Width - Math.Max(0, visibleChildren.Length - 1) * spacing);
-            var width = visibleChildren.Length == 0 ? availableWidth : availableWidth / visibleChildren.Length;
             foreach (var child in visibleChildren)
             {
+                var width = Math.Min(availableWidth, EstimateWidth(child, availableWidth));
                 arranged.Add(ArrangeNode(child, new LayoutRect(x, content.Y, width, EstimateHeight(child, content.Height)), unsupported));
                 x += width + spacing;
             }
@@ -256,7 +253,8 @@ public static class VisualLayoutEngine
             foreach (var child in visibleChildren)
             {
                 var height = Math.Min(content.Height, EstimateHeight(child, content.Height));
-                arranged.Add(ArrangeNode(child, new LayoutRect(content.X, y, content.Width, height), unsupported));
+                var width = Math.Min(content.Width, EstimateWidth(child, content.Width));
+                arranged.Add(ArrangeNode(child, new LayoutRect(content.X, y, width, height), unsupported));
                 y += height + spacing;
             }
         }
@@ -360,7 +358,7 @@ public static class VisualLayoutEngine
 
     private static double EstimateHeight(UiNode node, double fallback)
     {
-        return SimpleType(node) switch
+        var natural = SimpleType(node) switch
         {
             "TextBlock" or "String" => 28,
             "Button" or "RepeatButton" or "HyperlinkButton" or "DropDownButton" or "SplitButton" or "ToggleSplitButton" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 40,
@@ -387,6 +385,100 @@ public static class VisualLayoutEngine
             "Frame" => Math.Min(Math.Max(64, fallback), fallback),
             _ => Math.Min(Math.Max(40, fallback), fallback)
         };
+        return ApplyHeightConstraints(node, fallback, natural);
+    }
+
+    private static double EstimateWidth(UiNode node, double fallback)
+    {
+        var natural = SimpleType(node) switch
+        {
+            "TextBlock" or "String" => Math.Min(fallback, Math.Max(24, EstimateTextWidth(ReadText(node) ?? node.Name ?? string.Empty))),
+            "Button" or "RepeatButton" or "ToggleButton" => Math.Min(fallback, Math.Max(64, EstimateTextWidth(ReadControlText(node, "Button")) + 28)),
+            "HyperlinkButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadControlText(node, "Link")) + 8)),
+            "DropDownButton" or "SplitButton" => Math.Min(fallback, Math.Max(124, EstimateTextWidth(ReadControlText(node, "Action")) + 48)),
+            "ToggleSplitButton" => Math.Min(fallback, Math.Max(158, EstimateTextWidth(ReadControlText(node, "Toggle")) + 58)),
+            "AppBarButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadString(node, "label") ?? ReadControlText(node, "Command")) + 42)),
+            "CheckBox" or "RadioButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadControlText(node, "Option")) + 34)),
+            "ComboBox" => Math.Min(fallback, Math.Max(92, EstimateTextWidth(ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select") + 48)),
+            "TextBox" => Math.Min(fallback, Math.Max(180, EstimateTextWidth(ReadText(node) ?? string.Empty) + 28)),
+            "Slider" => Math.Min(fallback, 180),
+            "ToggleSwitch" => Math.Min(fallback, Math.Max(120, EstimateTextWidth(ReadString(node, "header") ?? string.Empty) + 74)),
+            "RatingControl" => Math.Min(fallback, Math.Max(112, ReadDouble(node, "maxRating", 5) * 22)),
+            "ProgressBar" => Math.Min(fallback, 180),
+            "ProgressRing" => Math.Min(fallback, 32),
+            "FontIcon" => Math.Min(fallback, 24),
+            "Image" => Math.Min(fallback, 128),
+            "InfoBar" => Math.Min(fallback, Math.Max(280, fallback)),
+            "CommandBar" or "CommandBarFlyout" or "MenuFlyout" or "ContentDialog" or "Flyout" or "ToolTip" or "TeachingTip" => fallback,
+            "Border" or "ScrollViewer" or "Frame" or "Page" or "Window" or "Grid" => fallback,
+            "ContentControl" => EstimateContentControlWidth(node, fallback),
+            "StackPanel" => EstimateStackWidth(node, fallback),
+            "ListView" or "ItemsControl" => fallback,
+            _ => Math.Min(Math.Max(40, fallback), fallback)
+        };
+        return ApplyWidthConstraints(node, fallback, natural);
+    }
+
+    private static double ApplyWidthConstraints(UiNode node, double fallback, double natural)
+    {
+        var explicitWidth = ReadDouble(node, "width", double.NaN);
+        if (!double.IsNaN(explicitWidth) && explicitWidth > 0)
+        {
+            return Math.Min(fallback, explicitWidth);
+        }
+
+        var minWidth = ReadDouble(node, "minWidth", 0);
+        return Math.Min(fallback, Math.Max(minWidth, natural));
+    }
+
+    private static double ApplyHeightConstraints(UiNode node, double fallback, double natural)
+    {
+        var explicitHeight = ReadDouble(node, "height", double.NaN);
+        if (!double.IsNaN(explicitHeight) && explicitHeight > 0)
+        {
+            return Math.Min(fallback, explicitHeight);
+        }
+
+        var minHeight = ReadDouble(node, "minHeight", 0);
+        return Math.Min(fallback, Math.Max(minHeight, natural));
+    }
+
+    private static double EstimateStackWidth(UiNode node, double fallback)
+    {
+        var padding = PaddingFor(node);
+        var horizontalPadding = padding.Left + padding.Right;
+        if (node.Children.Count == 0)
+        {
+            return Math.Min(fallback, horizontalPadding);
+        }
+
+        var available = Math.Max(1, fallback - horizontalPadding);
+        var spacing = ReadDouble(node, "spacing", 0);
+        double content = string.Equals(ReadString(node, "orientation"), "Horizontal", StringComparison.Ordinal)
+            ? node.Children.Sum(child => EstimateWidth(child, available)) + Math.Max(0, node.Children.Count - 1) * spacing
+            : node.Children.Max(child => EstimateWidth(child, available));
+
+        return Math.Min(fallback, content + horizontalPadding);
+    }
+
+    private static double EstimateContentControlWidth(UiNode node, double fallback)
+    {
+        if (node.Children.Count == 0)
+        {
+            return Math.Min(120, Math.Max(64, fallback));
+        }
+
+        return Math.Min(fallback, Math.Max(1, node.Children.Max(child => EstimateWidth(child, fallback))));
+    }
+
+    private static double EstimateTextWidth(string text)
+    {
+        return Math.Ceiling(text.Length * 7.2);
+    }
+
+    private static string ReadControlText(UiNode node, string fallback)
+    {
+        return ReadString(node, "content") ?? ReadText(node) ?? node.Name ?? fallback;
     }
 
     // A panel stacked inside another panel must size to its content along the
@@ -506,6 +598,11 @@ public static class VisualLayoutEngine
     private static string? ReadString(UiNode node, string key)
     {
         return node.Properties.TryGetValue(key, out var value) ? value?.ToString() : null;
+    }
+
+    private static string? ReadText(UiNode node)
+    {
+        return ReadString(node, "text") ?? ReadString(node, "content");
     }
 
     private static double[] ResolveColumnWidths(UiNode node, double availableWidth, double spacing, int minimumColumnCount)

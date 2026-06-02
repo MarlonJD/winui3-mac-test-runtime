@@ -85,15 +85,15 @@ accessibility export, native-reference provenance, and manual screenshot
 inspection. When fresh evidence promotes a component to `usable`, the claim
 applies only to that component's documented harness subset.
 
-The checked-in public component-quality dashboard contains 49 component
-evidence rows: 23 `usable` and 26 `not-rendered`. Those rows all have
+The checked-in public component-quality dashboard contains 58 component
+evidence rows: 32 `usable` and 26 `not-rendered`. Those rows all have
 native/macOS/diff crop triptychs, but they do not establish native WinUI visual
 fidelity until final grades and manual inspection metadata are present.
 
 `component-quality-dashboard.json` is the checked-in generated quality gate for
 the public example evidence. It lists every checked-in component row, its
 current grade, native-quality target, owner family, required scenario, and
-remaining blocker. The current dashboard is blocked: 49/49 checked-in public
+remaining blocker. The current dashboard is blocked: 58/58 checked-in public
 component rows have native/macOS/diff crop evidence and native WinUI reference
 provenance, but still lack native-quality completion evidence: final visual
 grades, `nativeQualityGrade` good or production-ready, and manual screenshot

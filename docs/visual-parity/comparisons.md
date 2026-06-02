@@ -23,16 +23,15 @@ interaction/accessibility evidence, and native-reference provenance. See
 
 As of the checked-in public component-quality dashboard, the current macOS
 renderer is a usable harness scaffold rather than a high-fidelity WinUI
-renderer. The public evidence set contains 49 component rows: 23 `usable` and
+renderer. The public evidence set contains 58 component rows: 32 `usable` and
 26 `not-rendered`. All public rows now have native/macOS/diff crop triptychs,
 but many controls still have simplified chrome, missing native states, missing
 templates, incomplete popup placement, or diagnostic-only rendering.
 
 The generated dashboard at `docs/visual-parity/component-quality-dashboard.json`
-is the current checked-in component-quality gate. It is blocked with 49/49
-public example rows below the native-quality target because the rows lack
-complete crop, native reference crop, component diff, and manual inspection
-metadata.
+is the current checked-in component-quality gate. It is blocked with 58/58
+public example rows below the native-quality target because the rows lack final
+native-quality grades and manual inspection metadata.
 
 ## Provenance
 
@@ -54,10 +53,10 @@ Historical checked-in examples:
 
 | Scenario | Checked-in status | Changed pixels | Threshold | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `public-admin-workbench-light` | failed | 100.00% | 45% | 9.72 | 35.87 | n/a |
-| `component-basic-input-light` | failed | 83.69% | 18% | 17.17 | 49.51 | 5 `usable`, 8 `not-rendered` |
-| `component-commands-menus-light` | failed | 77.02% | 24% | 10.48 | 35.50 | 5 `usable`, 3 `not-rendered` |
-| `component-layout-media-light` | failed | 90.39% | 24% | 12.32 | 38.03 | 13 `usable`, 15 `not-rendered` |
+| `public-admin-workbench-light` | failed | 99.997568% | 45% | 9.856516 | 35.618082 | 9 `usable` |
+| `component-basic-input-light` | failed | 97.289775% | 18% | 14.071332 | 41.797751 | 5 `usable`, 8 `not-rendered` |
+| `component-commands-menus-light` | failed | 90.257107% | 24% | 10.8692 | 34.838439 | 5 `usable`, 3 `not-rendered` |
+| `component-layout-media-light` | failed | 98.064878% | 24% | 12.613214 | 37.572689 | 13 `usable`, 15 `not-rendered` |
 
 Current inspected local macOS artifacts:
 

@@ -3,21 +3,21 @@
   "generatedAt": "1970-01-01T00:00:00+00:00",
   "evidenceRoot": "docs/visual-parity/examples",
   "totals": {
-    "scenarioCount": 3,
-    "componentCount": 49,
+    "scenarioCount": 4,
+    "componentCount": 58,
     "visualGradeCounts": {
       "not-rendered": 26,
-      "usable": 23
+      "usable": 32
     },
     "nativeQualityGradeCounts": {
-      "not-evaluated": 49
+      "not-evaluated": 58
     },
     "missingMacRuntimeCrops": 0,
     "missingNativeReferenceCrops": 0,
     "missingNativeReferenceProvenance": 0,
     "missingComponentDiffs": 0,
-    "missingInspectionNotes": 49,
-    "blockingRowCount": 49
+    "missingInspectionNotes": 58,
+    "blockingRowCount": 58
   },
   "scenarios": [
     {
@@ -39,6 +39,13 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "componentCount": 28,
       "blockingRowCount": 28,
+      "status": "blocked"
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "componentCount": 9,
+      "blockingRowCount": 9,
       "status": "blocked"
     }
   ],
@@ -924,6 +931,168 @@
         "component-layout-media-light"
       ],
       "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "NavigationView",
+      "target": "RootNavigation",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "NavigationViewItem",
+      "target": "QueueNavigationItem",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "Frame",
+      "target": "WorkbenchFrame",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "TextBox",
+      "target": "SearchBox",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "CommandBar",
+      "target": "DecisionCommandBar",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "AppBarButton",
+      "target": "ApproveCommand",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "InfoBar",
+      "target": "WorkbenchStatus",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "ListView",
+      "target": "ReviewQueueList",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "Button",
+      "target": "CompleteReviewButton",
+      "ownerFamily": "Navigation and workbench",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "public-admin-workbench-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata."
     }
   ],
   "blockers": [
@@ -1609,6 +1778,132 @@
       "nativeQualityGrade": "not-evaluated",
       "reasons": [
         "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "NavigationView",
+      "target": "RootNavigation",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "NavigationViewItem",
+      "target": "QueueNavigationItem",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "Frame",
+      "target": "WorkbenchFrame",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "TextBox",
+      "target": "SearchBox",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "CommandBar",
+      "target": "DecisionCommandBar",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "AppBarButton",
+      "target": "ApproveCommand",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "InfoBar",
+      "target": "WorkbenchStatus",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "ListView",
+      "target": "ReviewQueueList",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "Button",
+      "target": "CompleteReviewButton",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
         "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
         "Missing manual screenshot inspection metadata."
       ]

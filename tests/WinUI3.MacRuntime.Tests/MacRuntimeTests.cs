@@ -1204,15 +1204,15 @@ public sealed class MacRuntimeTests
             NormalizeArtifact(actualHtml),
             "docs/visual-parity/public-visual-review-index.html is out of date. Regenerate with 'winui3-mac-runner visual-review-index'.");
 
-        Assert.AreEqual(49, expected.Summary.ComponentCount);
-        Assert.AreEqual(49, expected.Summary.CompleteTriptychCount);
+        Assert.AreEqual(58, expected.Summary.ComponentCount);
+        Assert.AreEqual(58, expected.Summary.CompleteTriptychCount);
         Assert.AreEqual(0, expected.Summary.MissingReviewFiles);
         Assert.AreEqual(0, expected.Summary.MissingNativeReferenceCrops);
         Assert.AreEqual(0, expected.Summary.MissingMacRuntimeCrops);
         Assert.AreEqual(0, expected.Summary.MissingDiffCrops);
-        Assert.AreEqual(49, expected.Summary.MissingInspectionNotes);
-        Assert.AreEqual(49, expected.Summary.BlockingRowCount);
-        Assert.HasCount(49, expected.Rows);
+        Assert.AreEqual(58, expected.Summary.MissingInspectionNotes);
+        Assert.AreEqual(58, expected.Summary.BlockingRowCount);
+        Assert.HasCount(58, expected.Rows);
     }
 
     [TestMethod]
@@ -1693,10 +1693,10 @@ public sealed class MacRuntimeTests
         Assert.HasCount(0, unsupported);
         var stack = arranged.Root.Children[0];
         Assert.IsNotNull(stack.Layout);
-        Assert.AreEqual(48, stack.Layout!.Y);
+        Assert.AreEqual(0, stack.Layout!.Y);
         Assert.AreEqual(800, stack.Layout.Width);
         Assert.AreEqual(28, stack.Children[0].Layout!.Height);
-        Assert.AreEqual(84, stack.Children[1].Layout!.Y);
+        Assert.AreEqual(36, stack.Children[1].Layout!.Y);
     }
 
     [TestMethod]

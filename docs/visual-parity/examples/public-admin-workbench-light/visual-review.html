@@ -1,0 +1,308 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>public-admin-workbench-light visual review</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 24px; color: #1f1f1f; background: #fff; }
+h1 { font-size: 24px; margin: 0 0 8px; }
+h2 { font-size: 18px; margin: 0 0 12px; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+.metric { border: 1px solid #d1d1d1; border-radius: 4px; padding: 8px 10px; min-width: 150px; }
+.metric strong { display: block; font-size: 20px; }
+.component { border-top: 1px solid #d1d1d1; padding: 20px 0 24px; }
+.metadata { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; color: #4b4b4b; font-size: 13px; }
+.metadata span { border: 1px solid #ddd; border-radius: 4px; padding: 3px 6px; }
+.triptych { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+figure { margin: 0; border: 1px solid #d1d1d1; border-radius: 4px; background: #fafafa; min-height: 120px; }
+figcaption { font-weight: 600; padding: 8px 10px; border-bottom: 1px solid #d1d1d1; background: #f3f3f3; }
+img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.missing { display: grid; min-height: 96px; place-items: center; color: #7a1f1f; padding: 12px; text-align: center; }
+.notes { margin-top: 10px; color: #3b3b3b; line-height: 1.4; }
+@media (max-width: 760px) { .triptych { grid-template-columns: 1fr; } body { margin: 16px; } }
+</style>
+</head>
+<body>
+<h1>public-admin-workbench-light visual review</h1>
+<p>Evidence: <code>component-evidence.json</code></p>
+<div class="summary">
+<div class="metric"><strong>9</strong>Components</div>
+<div class="metric"><strong>9</strong>Complete triptychs</div>
+<div class="metric"><strong>0</strong>Missing native crops</div>
+<div class="metric"><strong>0</strong>Missing macOS crops</div>
+<div class="metric"><strong>0</strong>Missing diffs</div>
+<div class="metric"><strong>9</strong>Missing inspections</div>
+</div>
+<section class="component">
+<h2>NavigationView <code>RootNavigation</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,998</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/navigationview-rootnavigation/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/navigationview-rootnavigation/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/navigationview-rootnavigation/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">The skia-v2 renderer approximates the WinUI NavigationView pane and selection chrome; native animation, compact behavior, and full keyboarding remain gaps.</p>
+</section>
+<section class="component">
+<h2>NavigationViewItem <code>QueueNavigationItem</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/navigationviewitem-queuenavigationitem/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/navigationviewitem-queuenavigationitem/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/navigationviewitem-queuenavigationitem/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Selected item visuals are simplified and not pixel-perfect Fluent output.</p>
+</section>
+<section class="component">
+<h2>Frame <code>WorkbenchFrame</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,997</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/frame-workbenchframe/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/frame-workbenchframe/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/frame-workbenchframe/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Back stack and transition animations are not modeled.</p>
+</section>
+<section class="component">
+<h2>TextBox <code>SearchBox</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,973</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/textbox-searchbox/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/textbox-searchbox/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/textbox-searchbox/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">TextBox chrome is approximated; caret, selection, and native validation visuals remain gaps.</p>
+</section>
+<section class="component">
+<h2>CommandBar <code>DecisionCommandBar</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/commandbar-decisioncommandbar/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/commandbar-decisioncommandbar/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/commandbar-decisioncommandbar/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">CommandBar chrome is approximated; overflow, pointer states, and native spacing remain gaps.</p>
+</section>
+<section class="component">
+<h2>AppBarButton <code>ApproveCommand</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/appbarbutton-approvecommand/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/appbarbutton-approvecommand/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/appbarbutton-approvecommand/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">AppBarButton label and icon chrome are approximated; native overflow and focus behavior remain gaps.</p>
+</section>
+<section class="component">
+<h2>InfoBar <code>WorkbenchStatus</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>99,986</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/infobar-workbenchstatus/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/infobar-workbenchstatus/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/infobar-workbenchstatus/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">InfoBar severity chrome is approximated; close button and action area are not modeled.</p>
+</section>
+<section class="component">
+<h2>ListView <code>ReviewQueueList</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/listview-reviewqueuelist/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/listview-reviewqueuelist/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/listview-reviewqueuelist/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">ListView item containers and selection chrome are simplified; virtualization and templates remain gaps.</p>
+</section>
+<section class="component">
+<h2>Button <code>CompleteReviewButton</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/button-completereviewbutton/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/button-completereviewbutton/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/button-completereviewbutton/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Button chrome is approximated; native pressed, hover, and template visuals remain gaps.</p>
+</section>
+</body>
+</html>

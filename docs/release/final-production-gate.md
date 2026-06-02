@@ -40,9 +40,9 @@ renderer quality needs a separate renderer-fidelity plan before any stronger
 visual claim.
 
 The current release-candidate gate is intentionally blocked by
-`docs/visual-parity/component-quality-dashboard.json`: 49/49 checked-in public
-component rows are below the native-quality target because they lack complete
-component crop, native reference crop, diff, and manual inspection evidence.
+`docs/visual-parity/component-quality-dashboard.json`: 58/58 checked-in public
+component rows are below the native-quality target because they lack final
+native-quality grades and manual inspection evidence.
 This blocker prevents the existing harness-grade rows from being mistaken for
 native-quality WinUI visual readiness.
 
@@ -88,8 +88,8 @@ Current inspected renderer evidence:
 | Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; loading and success state scenarios add 4 `usable` rows. Animation and close/action areas remain gaps. |
 | Layout, media, and resources | Light scenario has 13 `usable`, 15 planned/non-goal `not-rendered`; dark and high-contrast smoke rows are usable, while media, web, ink, materials, and advanced visuals remain excluded or planned. |
 
-Across the checked-in public component-quality dashboard, there are 49
-component rows: 23 `usable` and 26 `not-rendered`. The rows have
+Across the checked-in public component-quality dashboard, there are 58
+component rows: 32 `usable` and 26 `not-rendered`. The rows have
 native/macOS/diff crop triptychs, which is enough for manual inspection
 queuing. It is not enough for a native-quality WinUI visual claim.
 

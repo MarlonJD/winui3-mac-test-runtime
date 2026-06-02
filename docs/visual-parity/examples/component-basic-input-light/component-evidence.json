@@ -8,11 +8,11 @@
       "kind": "control",
       "target": "PrimaryActionButton",
       "layoutRegion": {
-        "x": 312,
-        "y": 142,
-        "width": 660,
+        "x": 280,
+        "y": 58,
+        "width": 158,
         "height": 40,
-        "desiredWidth": 660,
+        "desiredWidth": 158,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -40,15 +40,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 8.856061,
-      "meanAbsoluteError": 3.961752,
-      "rootMeanSquaredError": 23.81782,
+      "changedPixelPercentage": 32.547468,
+      "meanAbsoluteError": 25.471123,
+      "rootMeanSquaredError": 65.062828,
       "crop": {
-        "status": "passed",
+        "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 142,
-          "width": 660,
+          "x": 280,
+          "y": 58,
+          "width": 158,
           "height": 40
         },
         "nativeReferencePath": "components/button-primaryactionbutton/windows-reference.png",
@@ -61,9 +61,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 8.856061,
-        "meanAbsoluteError": 3.961752,
-        "rootMeanSquaredError": 23.81782,
+        "changedPixelPercentage": 32.547468,
+        "meanAbsoluteError": 25.471123,
+        "rootMeanSquaredError": 65.062828,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -96,11 +96,11 @@
       "kind": "control",
       "target": "PinnedToggleButton",
       "layoutRegion": {
-        "x": 312,
-        "y": 192,
-        "width": 660,
+        "x": 280,
+        "y": 108,
+        "width": 72,
         "height": 40,
-        "desiredWidth": 660,
+        "desiredWidth": 72,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -128,15 +128,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 99.80303,
-      "meanAbsoluteError": 102.082225,
-      "rootMeanSquaredError": 134.689952,
+      "changedPixelPercentage": 98.368056,
+      "meanAbsoluteError": 62.358247,
+      "rootMeanSquaredError": 98.871695,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 192,
-          "width": 660,
+          "x": 280,
+          "y": 108,
+          "width": 72,
           "height": 40
         },
         "nativeReferencePath": "components/togglebutton-pinnedtogglebutton/windows-reference.png",
@@ -149,9 +149,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 99.80303,
-        "meanAbsoluteError": 102.082225,
-        "rootMeanSquaredError": 134.689952,
+        "changedPixelPercentage": 98.368056,
+        "meanAbsoluteError": 62.358247,
+        "rootMeanSquaredError": 98.871695,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -184,11 +184,11 @@
       "kind": "control",
       "target": "EnabledCheckBox",
       "layoutRegion": {
-        "x": 312,
-        "y": 242,
-        "width": 660,
+        "x": 280,
+        "y": 158,
+        "width": 96,
         "height": 40,
-        "desiredWidth": 660,
+        "desiredWidth": 96,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -216,15 +216,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 99.939394,
-      "meanAbsoluteError": 8.581354,
-      "rootMeanSquaredError": 25.609459,
+      "changedPixelPercentage": 99.583333,
+      "meanAbsoluteError": 32.174479,
+      "rootMeanSquaredError": 68.88575,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 242,
-          "width": 660,
+          "x": 280,
+          "y": 158,
+          "width": 96,
           "height": 40
         },
         "nativeReferencePath": "components/checkbox-enabledcheckbox/windows-reference.png",
@@ -237,9 +237,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 99.939394,
-        "meanAbsoluteError": 8.581354,
-        "rootMeanSquaredError": 25.609459,
+        "changedPixelPercentage": 99.583333,
+        "meanAbsoluteError": 32.174479,
+        "rootMeanSquaredError": 68.88575,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -272,11 +272,11 @@
       "kind": "control",
       "target": "HighPriorityRadioButton",
       "layoutRegion": {
-        "x": 312,
-        "y": 292,
-        "width": 660,
+        "x": 280,
+        "y": 208,
+        "width": 128,
         "height": 40,
-        "desiredWidth": 660,
+        "desiredWidth": 128,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -304,15 +304,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 99.643939,
-      "meanAbsoluteError": 11.866089,
-      "rootMeanSquaredError": 34.512664,
+      "changedPixelPercentage": 97.753906,
+      "meanAbsoluteError": 18.127051,
+      "rootMeanSquaredError": 48.05859,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 292,
-          "width": 660,
+          "x": 280,
+          "y": 208,
+          "width": 128,
           "height": 40
         },
         "nativeReferencePath": "components/radiobutton-highpriorityradiobutton/windows-reference.png",
@@ -325,9 +325,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 99.643939,
-        "meanAbsoluteError": 11.866089,
-        "rootMeanSquaredError": 34.512664,
+        "changedPixelPercentage": 97.753906,
+        "meanAbsoluteError": 18.127051,
+        "rootMeanSquaredError": 48.05859,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -360,11 +360,11 @@
       "kind": "control",
       "target": "StatusComboBox",
       "layoutRegion": {
-        "x": 312,
-        "y": 342,
-        "width": 660,
+        "x": 280,
+        "y": 258,
+        "width": 92,
         "height": 40,
-        "desiredWidth": 660,
+        "desiredWidth": 92,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -392,15 +392,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 17.026515,
-      "meanAbsoluteError": 12.200152,
-      "rootMeanSquaredError": 45.349886,
+      "changedPixelPercentage": 26.059783,
+      "meanAbsoluteError": 18.382948,
+      "rootMeanSquaredError": 54.283003,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 342,
-          "width": 660,
+          "x": 280,
+          "y": 258,
+          "width": 92,
           "height": 40
         },
         "nativeReferencePath": "components/combobox-statuscombobox/windows-reference.png",
@@ -413,9 +413,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 17.026515,
-        "meanAbsoluteError": 12.200152,
-        "rootMeanSquaredError": 45.349886,
+        "changedPixelPercentage": 26.059783,
+        "meanAbsoluteError": 18.382948,
+        "rootMeanSquaredError": 54.283003,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -448,11 +448,11 @@
       "kind": "control",
       "target": "DiagnosticRepeatButton",
       "layoutRegion": {
-        "x": 312,
-        "y": 430,
-        "width": 323,
+        "x": 280,
+        "y": 346,
+        "width": 310,
         "height": 40,
-        "desiredWidth": 323,
+        "desiredWidth": 310,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -480,15 +480,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 63.482972,
-      "meanAbsoluteError": 17.65387,
-      "rootMeanSquaredError": 51.027937,
+      "changedPixelPercentage": 82.41129,
+      "meanAbsoluteError": 32.201512,
+      "rootMeanSquaredError": 72.680565,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 430,
-          "width": 323,
+          "x": 280,
+          "y": 346,
+          "width": 310,
           "height": 40
         },
         "nativeReferencePath": "components/repeatbutton-diagnosticrepeatbutton/windows-reference.png",
@@ -501,9 +501,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 63.482972,
-        "meanAbsoluteError": 17.65387,
-        "rootMeanSquaredError": 51.027937,
+        "changedPixelPercentage": 82.41129,
+        "meanAbsoluteError": 32.201512,
+        "rootMeanSquaredError": 72.680565,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -536,11 +536,11 @@
       "kind": "control",
       "target": "DiagnosticHyperlinkButton",
       "layoutRegion": {
-        "x": 649,
-        "y": 430,
-        "width": 323,
+        "x": 604,
+        "y": 346,
+        "width": 312,
         "height": 40,
-        "desiredWidth": 323,
+        "desiredWidth": 312,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -569,14 +569,14 @@
         "rootMeanSquaredError": 48
       },
       "changedPixelPercentage": 100,
-      "meanAbsoluteError": 17.39553,
-      "rootMeanSquaredError": 45.916489,
+      "meanAbsoluteError": 16.9872,
+      "rootMeanSquaredError": 44.665278,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 649,
-          "y": 430,
-          "width": 323,
+          "x": 604,
+          "y": 346,
+          "width": 312,
           "height": 40
         },
         "nativeReferencePath": "components/hyperlinkbutton-diagnostichyperlinkbutton/windows-reference.png",
@@ -590,8 +590,8 @@
           "rootMeanSquaredError": 48
         },
         "changedPixelPercentage": 100,
-        "meanAbsoluteError": 17.39553,
-        "rootMeanSquaredError": 45.916489,
+        "meanAbsoluteError": 16.9872,
+        "rootMeanSquaredError": 44.665278,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -624,11 +624,11 @@
       "kind": "control",
       "target": "DiagnosticDropDownButton",
       "layoutRegion": {
-        "x": 312,
-        "y": 480,
-        "width": 323,
+        "x": 280,
+        "y": 396,
+        "width": 330,
         "height": 40,
-        "desiredWidth": 323,
+        "desiredWidth": 330,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -656,15 +656,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 59.055728,
-      "meanAbsoluteError": 12.10209,
-      "rootMeanSquaredError": 40.099231,
+      "changedPixelPercentage": 72.227273,
+      "meanAbsoluteError": 22.293598,
+      "rootMeanSquaredError": 59.42297,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 480,
-          "width": 323,
+          "x": 280,
+          "y": 396,
+          "width": 330,
           "height": 40
         },
         "nativeReferencePath": "components/dropdownbutton-diagnosticdropdownbutton/windows-reference.png",
@@ -677,9 +677,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 59.055728,
-        "meanAbsoluteError": 12.10209,
-        "rootMeanSquaredError": 40.099231,
+        "changedPixelPercentage": 72.227273,
+        "meanAbsoluteError": 22.293598,
+        "rootMeanSquaredError": 59.42297,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -712,8 +712,8 @@
       "kind": "control",
       "target": "DiagnosticSplitButton",
       "layoutRegion": {
-        "x": 649,
-        "y": 480,
+        "x": 624,
+        "y": 396,
         "width": 323,
         "height": 40,
         "desiredWidth": 323,
@@ -744,14 +744,14 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 58.668731,
-      "meanAbsoluteError": 9.893305,
-      "rootMeanSquaredError": 34.823134,
+      "changedPixelPercentage": 68.862229,
+      "meanAbsoluteError": 15.983456,
+      "rootMeanSquaredError": 47.153638,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 649,
-          "y": 480,
+          "x": 624,
+          "y": 396,
           "width": 323,
           "height": 40
         },
@@ -765,9 +765,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 58.668731,
-        "meanAbsoluteError": 9.893305,
-        "rootMeanSquaredError": 34.823134,
+        "changedPixelPercentage": 68.862229,
+        "meanAbsoluteError": 15.983456,
+        "rootMeanSquaredError": 47.153638,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -800,11 +800,11 @@
       "kind": "control",
       "target": "DiagnosticToggleSplitButton",
       "layoutRegion": {
-        "x": 312,
-        "y": 530,
-        "width": 323,
+        "x": 280,
+        "y": 446,
+        "width": 346,
         "height": 40,
-        "desiredWidth": 323,
+        "desiredWidth": 346,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -832,15 +832,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 99.032508,
-      "meanAbsoluteError": 55.349923,
-      "rootMeanSquaredError": 96.493471,
+      "changedPixelPercentage": 99.241329,
+      "meanAbsoluteError": 50.817467,
+      "rootMeanSquaredError": 91.375379,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 530,
-          "width": 323,
+          "x": 280,
+          "y": 446,
+          "width": 346,
           "height": 40
         },
         "nativeReferencePath": "components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png",
@@ -853,9 +853,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 99.032508,
-        "meanAbsoluteError": 55.349923,
-        "rootMeanSquaredError": 96.493471,
+        "changedPixelPercentage": 99.241329,
+        "meanAbsoluteError": 50.817467,
+        "rootMeanSquaredError": 91.375379,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -888,11 +888,11 @@
       "kind": "control",
       "target": "DiagnosticSlider",
       "layoutRegion": {
-        "x": 649,
-        "y": 530,
-        "width": 323,
+        "x": 640,
+        "y": 446,
+        "width": 368,
         "height": 40,
-        "desiredWidth": 323,
+        "desiredWidth": 368,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -920,15 +920,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 99.620743,
-      "meanAbsoluteError": 10.431908,
-      "rootMeanSquaredError": 31.834825,
+      "changedPixelPercentage": 99.66712,
+      "meanAbsoluteError": 10.167357,
+      "rootMeanSquaredError": 31.093115,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 649,
-          "y": 530,
-          "width": 323,
+          "x": 640,
+          "y": 446,
+          "width": 368,
           "height": 40
         },
         "nativeReferencePath": "components/slider-diagnosticslider/windows-reference.png",
@@ -941,9 +941,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 99.620743,
-        "meanAbsoluteError": 10.431908,
-        "rootMeanSquaredError": 31.834825,
+        "changedPixelPercentage": 99.66712,
+        "meanAbsoluteError": 10.167357,
+        "rootMeanSquaredError": 31.093115,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -976,11 +976,11 @@
       "kind": "control",
       "target": "DiagnosticToggleSwitch",
       "layoutRegion": {
-        "x": 312,
-        "y": 580,
-        "width": 323,
+        "x": 280,
+        "y": 496,
+        "width": 313,
         "height": 44,
-        "desiredWidth": 323,
+        "desiredWidth": 313,
         "desiredHeight": 44,
         "margin": {
           "left": 0,
@@ -1008,15 +1008,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 99.380805,
-      "meanAbsoluteError": 16.534021,
-      "rootMeanSquaredError": 45.909625,
+      "changedPixelPercentage": 99.361022,
+      "meanAbsoluteError": 16.904044,
+      "rootMeanSquaredError": 46.623518,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 312,
-          "y": 580,
-          "width": 323,
+          "x": 280,
+          "y": 496,
+          "width": 313,
           "height": 44
         },
         "nativeReferencePath": "components/toggleswitch-diagnostictoggleswitch/windows-reference.png",
@@ -1029,9 +1029,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 99.380805,
-        "meanAbsoluteError": 16.534021,
-        "rootMeanSquaredError": 45.909625,
+        "changedPixelPercentage": 99.361022,
+        "meanAbsoluteError": 16.904044,
+        "rootMeanSquaredError": 46.623518,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -1064,11 +1064,11 @@
       "kind": "control",
       "target": "DiagnosticRatingControl",
       "layoutRegion": {
-        "x": 649,
-        "y": 580,
-        "width": 323,
+        "x": 607,
+        "y": 496,
+        "width": 308,
         "height": 40,
-        "desiredWidth": 323,
+        "desiredWidth": 308,
         "desiredHeight": 40,
         "margin": {
           "left": 0,
@@ -1097,14 +1097,14 @@
         "rootMeanSquaredError": 48
       },
       "changedPixelPercentage": 100,
-      "meanAbsoluteError": 12.382179,
-      "rootMeanSquaredError": 36.248684,
+      "meanAbsoluteError": 12.740929,
+      "rootMeanSquaredError": 37.128357,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 649,
-          "y": 580,
-          "width": 323,
+          "x": 607,
+          "y": 496,
+          "width": 308,
           "height": 40
         },
         "nativeReferencePath": "components/ratingcontrol-diagnosticratingcontrol/windows-reference.png",
@@ -1118,8 +1118,8 @@
           "rootMeanSquaredError": 48
         },
         "changedPixelPercentage": 100,
-        "meanAbsoluteError": 12.382179,
-        "rootMeanSquaredError": 36.248684,
+        "meanAbsoluteError": 12.740929,
+        "rootMeanSquaredError": 37.128357,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",

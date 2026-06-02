@@ -65,6 +65,26 @@ public static class UiTreeBuilder
             properties["horizontalAlignment"] = frameworkElement.HorizontalAlignment.ToString();
             properties["verticalAlignment"] = frameworkElement.VerticalAlignment.ToString();
             properties["isFocused"] = frameworkElement.IsFocused;
+            if (!double.IsNaN(frameworkElement.Width))
+            {
+                properties["width"] = frameworkElement.Width;
+            }
+
+            if (!double.IsNaN(frameworkElement.Height))
+            {
+                properties["height"] = frameworkElement.Height;
+            }
+
+            if (frameworkElement.MinWidth > 0)
+            {
+                properties["minWidth"] = frameworkElement.MinWidth;
+            }
+
+            if (frameworkElement.MinHeight > 0)
+            {
+                properties["minHeight"] = frameworkElement.MinHeight;
+            }
+
             if (Grid.GetColumn(frameworkElement) is var gridColumn and > 0)
             {
                 properties["gridColumn"] = gridColumn;

@@ -39,10 +39,13 @@
       "width": 1028,
       "height": 720
     },
-    "capturedAt": "2026-06-01T19:31:02.7042774+00:00"
+    "capturedAt": "2026-06-01T19:31:02.7042774\u002B00:00"
   },
   "runtimeImagePath": "mac-runtime.png",
   "diffImagePath": "pixel-diff.png",
+  "componentEvidencePath": "component-evidence.json",
+  "componentCropDirectory": "components",
+  "visualReviewPath": "visual-review.html",
   "thresholds": {
     "changedPixelPercentage": 45,
     "maxChannelDelta": 255,
@@ -53,11 +56,11 @@
     "schemaVersion": "0.1",
     "width": 1028,
     "height": 720,
-    "changedPixelCount": 740160,
-    "changedPixelPercentage": 100,
+    "changedPixelCount": 740142,
+    "changedPixelPercentage": 99.997568,
     "maxChannelDelta": 255,
-    "meanAbsoluteError": 9.722603,
-    "rootMeanSquaredError": 35.874995,
+    "meanAbsoluteError": 9.856516,
+    "rootMeanSquaredError": 35.618082,
     "boundingBox": {
       "x": 0,
       "y": 0,
@@ -73,6 +76,5 @@
     "status": "failed"
   },
   "unsupportedVisualFeatures": [],
-  "status": "failed",
-  "componentEvidencePath": null
+  "status": "failed"
 }

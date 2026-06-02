@@ -45,8 +45,8 @@ tests, fixtures, native WinUI reference evidence when visual, macOS artifacts,
 interaction/accessibility evidence where applicable, and docs. That is a
 release-evidence result, not a renderer-fidelity result.
 
-The checked-in public component-quality dashboard contains 49 component rows:
-23 `usable` and 26 `not-rendered`. Those rows now have native/macOS/diff crop
+The checked-in public component-quality dashboard contains 58 component rows:
+32 `usable` and 26 `not-rendered`. Those rows now have native/macOS/diff crop
 triptychs for manual inspection, but large areas of WinUI chrome, templates,
 states, and advanced controls still need direct renderer work before any
 native-quality claim.
@@ -260,10 +260,10 @@ visual-review fixtures, not the current production grade source.
 
 | Example | Checked-in comparison status | Current interpretation |
 | --- | --- | --- |
-| `public-admin-workbench-light` | Historical whole-image comparison failed with 100.00% changed pixels. | Current local artifacts show a usable scaffold for the workbench, not native-quality parity. |
-| `component-basic-input-light` | Whole-image comparison fails with 83.69% changed pixels over an 18% threshold. | Current public artifacts show 5 `usable` and 8 planned `not-rendered` rows; native control chrome remains approximate. |
-| `component-commands-menus-light` | Whole-image comparison fails with 77.02% changed pixels over a 24% threshold. | Current public artifacts show 5 `usable` and 3 `not-rendered` rows; command/flyout surfaces remain simplified. |
-| `component-layout-media-light` | Whole-image comparison fails with 90.39% changed pixels over a 24% threshold. | Current public artifacts show 13 `usable` and 15 planned/non-goal `not-rendered` rows; advanced layout, media, web, ink, and materials remain outside the claim. |
+| `public-admin-workbench-light` | Whole-image comparison fails with 99.997568% changed pixels over a 45% threshold. | Current public artifacts show 9 `usable` workbench scaffold rows, not native-quality parity. |
+| `component-basic-input-light` | Whole-image comparison fails with 97.289775% changed pixels over an 18% threshold. | Current public artifacts show 5 `usable` and 8 planned `not-rendered` rows; native control chrome remains approximate. |
+| `component-commands-menus-light` | Whole-image comparison fails with 90.257107% changed pixels over a 24% threshold. | Current public artifacts show 5 `usable` and 3 `not-rendered` rows; command/flyout surfaces remain simplified. |
+| `component-layout-media-light` | Whole-image comparison fails with 98.064878% changed pixels over a 24% threshold. | Current public artifacts show 13 `usable` and 15 planned/non-goal `not-rendered` rows; advanced layout, media, web, ink, and materials remain outside the claim. |
 
 Fresh support status is determined by catalog status, strict scenario
 results, `component-evidence.json`, interaction evidence, accessibility export,
@@ -272,7 +272,7 @@ must not be used to promote or demote current component grades by themselves;
 manual screenshot inspection remains required before claiming visual quality.
 
 The generated `docs/visual-parity/component-quality-dashboard.json` is the
-current public component-quality gate. It is blocked with 49/49 checked-in
+current public component-quality gate. It is blocked with 58/58 checked-in
 public component rows below the native-quality target. The public rows now have
 macOS component crops, native WinUI reference crops, component diffs, and native
 reference provenance; they remain blocked because final visual grades,
