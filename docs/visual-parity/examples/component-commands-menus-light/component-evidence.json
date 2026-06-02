@@ -9,7 +9,7 @@
       "target": "PrimaryCommandBar",
       "layoutRegion": {
         "x": 280,
-        "y": 58,
+        "y": 54,
         "width": 724,
         "height": 48,
         "desiredWidth": 724,
@@ -40,14 +40,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 10.315953,
-      "meanAbsoluteError": 3.484325,
-      "rootMeanSquaredError": 21.245874,
+      "changedPixelPercentage": 10.223872,
+      "meanAbsoluteError": 3.35972,
+      "rootMeanSquaredError": 21.870291,
       "crop": {
         "status": "passed",
         "bounds": {
           "x": 280,
-          "y": 58,
+          "y": 54,
           "width": 724,
           "height": 48
         },
@@ -61,9 +61,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 10.315953,
-        "meanAbsoluteError": 3.484325,
-        "rootMeanSquaredError": 21.245874,
+        "changedPixelPercentage": 10.223872,
+        "meanAbsoluteError": 3.35972,
+        "rootMeanSquaredError": 21.870291,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -97,7 +97,7 @@
       "target": "SaveCommandButton",
       "layoutRegion": {
         "x": 288,
-        "y": 64,
+        "y": 60,
         "width": 104,
         "height": 36,
         "desiredWidth": 104,
@@ -129,13 +129,13 @@
         "rootMeanSquaredError": 48
       },
       "changedPixelPercentage": 15.384615,
-      "meanAbsoluteError": 7.725761,
-      "rootMeanSquaredError": 33.375741,
+      "meanAbsoluteError": 7.934095,
+      "rootMeanSquaredError": 35.243692,
       "crop": {
         "status": "passed",
         "bounds": {
           "x": 288,
-          "y": 64,
+          "y": 60,
           "width": 104,
           "height": 36
         },
@@ -150,8 +150,8 @@
           "rootMeanSquaredError": 48
         },
         "changedPixelPercentage": 15.384615,
-        "meanAbsoluteError": 7.725761,
-        "rootMeanSquaredError": 33.375741,
+        "meanAbsoluteError": 7.934095,
+        "rootMeanSquaredError": 35.243692,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -185,7 +185,7 @@
       "target": "DiagnosticCommandBarContent",
       "layoutRegion": {
         "x": 280,
-        "y": 154,
+        "y": 146,
         "width": 120,
         "height": 120,
         "desiredWidth": 120,
@@ -216,14 +216,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 100,
-      "meanAbsoluteError": 13.358698,
-      "rootMeanSquaredError": 38.73028,
+      "changedPixelPercentage": 8.736111,
+      "meanAbsoluteError": 8.691771,
+      "rootMeanSquaredError": 38.524232,
       "crop": {
-        "status": "failed",
+        "status": "passed",
         "bounds": {
           "x": 280,
-          "y": 154,
+          "y": 146,
           "width": 120,
           "height": 120
         },
@@ -237,9 +237,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 100,
-        "meanAbsoluteError": 13.358698,
-        "rootMeanSquaredError": 38.73028,
+        "changedPixelPercentage": 8.736111,
+        "meanAbsoluteError": 8.691771,
+        "rootMeanSquaredError": 38.524232,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -273,7 +273,7 @@
       "target": "SaveCommandIcon",
       "layoutRegion": {
         "x": 298,
-        "y": 74,
+        "y": 70,
         "width": 16,
         "height": 16,
         "desiredWidth": 16,
@@ -305,13 +305,13 @@
         "rootMeanSquaredError": 48
       },
       "changedPixelPercentage": 29.296875,
-      "meanAbsoluteError": 21.379883,
-      "rootMeanSquaredError": 56.780184,
+      "meanAbsoluteError": 24.322266,
+      "rootMeanSquaredError": 63.496494,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 298,
-          "y": 74,
+          "y": 70,
           "width": 16,
           "height": 16
         },
@@ -326,8 +326,8 @@
           "rootMeanSquaredError": 48
         },
         "changedPixelPercentage": 29.296875,
-        "meanAbsoluteError": 21.379883,
-        "rootMeanSquaredError": 56.780184,
+        "meanAbsoluteError": 24.322266,
+        "rootMeanSquaredError": 63.496494,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -361,11 +361,11 @@
       "target": "DiagnosticCommandBarFlyout",
       "layoutRegion": {
         "x": 414,
-        "y": 154,
+        "y": 146,
         "width": 165,
-        "height": 40,
+        "height": 32,
         "desiredWidth": 165,
-        "desiredHeight": 40,
+        "desiredHeight": 32,
         "margin": {
           "left": 0,
           "top": 0,
@@ -392,16 +392,16 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 19.348485,
-      "meanAbsoluteError": 13.004659,
-      "rootMeanSquaredError": 45.501948,
+      "changedPixelPercentage": 28.712121,
+      "meanAbsoluteError": 22.368324,
+      "rootMeanSquaredError": 61.268294,
       "crop": {
-        "status": "passed",
+        "status": "failed",
         "bounds": {
           "x": 414,
-          "y": 154,
+          "y": 146,
           "width": 165,
-          "height": 40
+          "height": 32
         },
         "nativeReferencePath": "components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png",
         "macRuntimePath": "components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png",
@@ -413,9 +413,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 19.348485,
-        "meanAbsoluteError": 13.004659,
-        "rootMeanSquaredError": 45.501948,
+        "changedPixelPercentage": 28.712121,
+        "meanAbsoluteError": 22.368324,
+        "rootMeanSquaredError": 61.268294,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -449,11 +449,11 @@
       "target": "DiagnosticMenuFlyout",
       "layoutRegion": {
         "x": 280,
-        "y": 284,
+        "y": 276,
         "width": 144,
-        "height": 40,
+        "height": 32,
         "desiredWidth": 144,
-        "desiredHeight": 40,
+        "desiredHeight": 32,
         "margin": {
           "left": 0,
           "top": 0,
@@ -480,16 +480,16 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 18.28125,
-      "meanAbsoluteError": 11.61697,
-      "rootMeanSquaredError": 42.667362,
+      "changedPixelPercentage": 22.417535,
+      "meanAbsoluteError": 14.847493,
+      "rootMeanSquaredError": 49.75135,
       "crop": {
-        "status": "passed",
+        "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 284,
+          "y": 276,
           "width": 144,
-          "height": 40
+          "height": 32
         },
         "nativeReferencePath": "components/menuflyout-diagnosticmenuflyout/windows-reference.png",
         "macRuntimePath": "components/menuflyout-diagnosticmenuflyout/mac-runtime.png",
@@ -501,9 +501,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 18.28125,
-        "meanAbsoluteError": 11.61697,
-        "rootMeanSquaredError": 42.667362,
+        "changedPixelPercentage": 22.417535,
+        "meanAbsoluteError": 14.847493,
+        "rootMeanSquaredError": 49.75135,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -537,7 +537,7 @@
       "target": "DiagnosticMenuBar",
       "layoutRegion": {
         "x": 438,
-        "y": 284,
+        "y": 276,
         "width": 120,
         "height": 120,
         "desiredWidth": 120,
@@ -568,14 +568,14 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 89.854167,
-      "meanAbsoluteError": 5.200573,
-      "rootMeanSquaredError": 8.436979,
+      "changedPixelPercentage": 3.631944,
+      "meanAbsoluteError": 1.003594,
+      "rootMeanSquaredError": 6.609175,
       "crop": {
-        "status": "failed",
+        "status": "passed",
         "bounds": {
           "x": 438,
-          "y": 284,
+          "y": 276,
           "width": 120,
           "height": 120
         },
@@ -589,9 +589,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 89.854167,
-        "meanAbsoluteError": 5.200573,
-        "rootMeanSquaredError": 8.436979,
+        "changedPixelPercentage": 3.631944,
+        "meanAbsoluteError": 1.003594,
+        "rootMeanSquaredError": 6.609175,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -625,11 +625,11 @@
       "target": "DiagnosticContextMenuPattern",
       "layoutRegion": {
         "x": 280,
-        "y": 414,
+        "y": 406,
         "width": 194,
-        "height": 40,
+        "height": 32,
         "desiredWidth": 194,
-        "desiredHeight": 40,
+        "desiredHeight": 32,
         "margin": {
           "left": 0,
           "top": 0,
@@ -656,16 +656,16 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 18.18299,
-      "meanAbsoluteError": 11.622874,
-      "rootMeanSquaredError": 42.788072,
+      "changedPixelPercentage": 22.42268,
+      "meanAbsoluteError": 14.881846,
+      "rootMeanSquaredError": 49.894285,
       "crop": {
-        "status": "passed",
+        "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 414,
+          "y": 406,
           "width": 194,
-          "height": 40
+          "height": 32
         },
         "nativeReferencePath": "components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png",
         "macRuntimePath": "components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png",
@@ -677,9 +677,9 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 18.18299,
-        "meanAbsoluteError": 11.622874,
-        "rootMeanSquaredError": 42.788072,
+        "changedPixelPercentage": 22.42268,
+        "meanAbsoluteError": 14.881846,
+        "rootMeanSquaredError": 49.894285,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",

@@ -40,9 +40,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.997568,
-      "meanAbsoluteError": 9.856516,
-      "rootMeanSquaredError": 35.618082,
+      "changedPixelPercentage": 99.988381,
+      "meanAbsoluteError": 9.678085,
+      "rootMeanSquaredError": 36.397928,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -61,9 +61,9 @@
           "meanAbsoluteError": 34,
           "rootMeanSquaredError": 64
         },
-        "changedPixelPercentage": 99.997568,
-        "meanAbsoluteError": 9.856516,
-        "rootMeanSquaredError": 35.618082,
+        "changedPixelPercentage": 99.988381,
+        "meanAbsoluteError": 9.678085,
+        "rootMeanSquaredError": 36.397928,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
@@ -129,8 +129,8 @@
         "rootMeanSquaredError": 64
       },
       "changedPixelPercentage": 100,
-      "meanAbsoluteError": 16.342606,
-      "rootMeanSquaredError": 43.602626,
+      "meanAbsoluteError": 16.598214,
+      "rootMeanSquaredError": 44.847134,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -150,8 +150,8 @@
           "rootMeanSquaredError": 64
         },
         "changedPixelPercentage": 100,
-        "meanAbsoluteError": 16.342606,
-        "rootMeanSquaredError": 43.602626,
+        "meanAbsoluteError": 16.598214,
+        "rootMeanSquaredError": 44.847134,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
@@ -216,9 +216,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.996973,
-      "meanAbsoluteError": 10.94196,
-      "rootMeanSquaredError": 39.262133,
+      "changedPixelPercentage": 99.985755,
+      "meanAbsoluteError": 10.611297,
+      "rootMeanSquaredError": 40.031751,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -237,9 +237,9 @@
           "meanAbsoluteError": 34,
           "rootMeanSquaredError": 64
         },
-        "changedPixelPercentage": 99.996973,
-        "meanAbsoluteError": 10.94196,
-        "rootMeanSquaredError": 39.262133,
+        "changedPixelPercentage": 99.985755,
+        "meanAbsoluteError": 10.611297,
+        "rootMeanSquaredError": 40.031751,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
@@ -273,11 +273,11 @@
       "target": "SearchBox",
       "layoutRegion": {
         "x": 248,
-        "y": 42,
+        "y": 38,
         "width": 208,
-        "height": 36,
+        "height": 32,
         "desiredWidth": 208,
-        "desiredHeight": 36,
+        "desiredHeight": 32,
         "margin": {
           "left": 0,
           "top": 0,
@@ -304,16 +304,16 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.973291,
-      "meanAbsoluteError": 21.494091,
-      "rootMeanSquaredError": 56.853525,
+      "changedPixelPercentage": 99.92488,
+      "meanAbsoluteError": 21.471304,
+      "rootMeanSquaredError": 57.149158,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 248,
-          "y": 42,
+          "y": 38,
           "width": 208,
-          "height": 36
+          "height": 32
         },
         "nativeReferencePath": "components/textbox-searchbox/windows-reference.png",
         "macRuntimePath": "components/textbox-searchbox/mac-runtime.png",
@@ -325,9 +325,9 @@
           "meanAbsoluteError": 34,
           "rootMeanSquaredError": 64
         },
-        "changedPixelPercentage": 99.973291,
-        "meanAbsoluteError": 21.494091,
-        "rootMeanSquaredError": 56.853525,
+        "changedPixelPercentage": 99.92488,
+        "meanAbsoluteError": 21.471304,
+        "rootMeanSquaredError": 57.149158,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
@@ -361,7 +361,7 @@
       "target": "DecisionCommandBar",
       "layoutRegion": {
         "x": 248,
-        "y": 92,
+        "y": 84,
         "width": 780,
         "height": 48,
         "desiredWidth": 780,
@@ -393,13 +393,13 @@
         "rootMeanSquaredError": 64
       },
       "changedPixelPercentage": 100,
-      "meanAbsoluteError": 8.715525,
-      "rootMeanSquaredError": 36.687094,
+      "meanAbsoluteError": 8.622129,
+      "rootMeanSquaredError": 37.120001,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 248,
-          "y": 92,
+          "y": 84,
           "width": 780,
           "height": 48
         },
@@ -414,8 +414,8 @@
           "rootMeanSquaredError": 64
         },
         "changedPixelPercentage": 100,
-        "meanAbsoluteError": 8.715525,
-        "rootMeanSquaredError": 36.687094,
+        "meanAbsoluteError": 8.622129,
+        "rootMeanSquaredError": 37.120001,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
@@ -449,7 +449,7 @@
       "target": "ApproveCommand",
       "layoutRegion": {
         "x": 256,
-        "y": 98,
+        "y": 90,
         "width": 104,
         "height": 36,
         "desiredWidth": 104,
@@ -481,13 +481,13 @@
         "rootMeanSquaredError": 64
       },
       "changedPixelPercentage": 100,
-      "meanAbsoluteError": 12.395166,
-      "rootMeanSquaredError": 40.317321,
+      "meanAbsoluteError": 12.754006,
+      "rootMeanSquaredError": 42.487668,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 256,
-          "y": 98,
+          "y": 90,
           "width": 104,
           "height": 36
         },
@@ -502,8 +502,8 @@
           "rootMeanSquaredError": 64
         },
         "changedPixelPercentage": 100,
-        "meanAbsoluteError": 12.395166,
-        "rootMeanSquaredError": 40.317321,
+        "meanAbsoluteError": 12.754006,
+        "rootMeanSquaredError": 42.487668,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
@@ -537,7 +537,7 @@
       "target": "WorkbenchStatus",
       "layoutRegion": {
         "x": 248,
-        "y": 154,
+        "y": 146,
         "width": 780,
         "height": 74,
         "desiredWidth": 780,
@@ -568,14 +568,14 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.98614,
-      "meanAbsoluteError": 22.209109,
-      "rootMeanSquaredError": 51.191026,
+      "changedPixelPercentage": 99.880457,
+      "meanAbsoluteError": 22.251282,
+      "rootMeanSquaredError": 49.443882,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 248,
-          "y": 154,
+          "y": 146,
           "width": 780,
           "height": 74
         },
@@ -589,9 +589,9 @@
           "meanAbsoluteError": 34,
           "rootMeanSquaredError": 64
         },
-        "changedPixelPercentage": 99.98614,
-        "meanAbsoluteError": 22.209109,
-        "rootMeanSquaredError": 51.191026,
+        "changedPixelPercentage": 99.880457,
+        "meanAbsoluteError": 22.251282,
+        "rootMeanSquaredError": 49.443882,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
@@ -625,11 +625,11 @@
       "target": "ReviewQueueList",
       "layoutRegion": {
         "x": 248,
-        "y": 242,
+        "y": 234,
         "width": 280,
-        "height": 184,
+        "height": 160,
         "desiredWidth": 280,
-        "desiredHeight": 184,
+        "desiredHeight": 160,
         "margin": {
           "left": 0,
           "top": 0,
@@ -657,15 +657,15 @@
         "rootMeanSquaredError": 64
       },
       "changedPixelPercentage": 100,
-      "meanAbsoluteError": 12.152713,
-      "rootMeanSquaredError": 38.223514,
+      "meanAbsoluteError": 14.858811,
+      "rootMeanSquaredError": 44.458694,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 248,
-          "y": 242,
+          "y": 234,
           "width": 280,
-          "height": 184
+          "height": 160
         },
         "nativeReferencePath": "components/listview-reviewqueuelist/windows-reference.png",
         "macRuntimePath": "components/listview-reviewqueuelist/mac-runtime.png",
@@ -678,8 +678,8 @@
           "rootMeanSquaredError": 64
         },
         "changedPixelPercentage": 100,
-        "meanAbsoluteError": 12.152713,
-        "rootMeanSquaredError": 38.223514,
+        "meanAbsoluteError": 14.858811,
+        "rootMeanSquaredError": 44.458694,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
@@ -713,11 +713,11 @@
       "target": "CompleteReviewButton",
       "layoutRegion": {
         "x": 552,
-        "y": 386,
+        "y": 362,
         "width": 136,
-        "height": 40,
+        "height": 32,
         "desiredWidth": 136,
-        "desiredHeight": 40,
+        "desiredHeight": 32,
         "margin": {
           "left": 0,
           "top": 0,
@@ -745,15 +745,15 @@
         "rootMeanSquaredError": 64
       },
       "changedPixelPercentage": 100,
-      "meanAbsoluteError": 13.469623,
-      "rootMeanSquaredError": 42.62843,
+      "meanAbsoluteError": 16.641372,
+      "rootMeanSquaredError": 49.754651,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 552,
-          "y": 386,
+          "y": 362,
           "width": 136,
-          "height": 40
+          "height": 32
         },
         "nativeReferencePath": "components/button-completereviewbutton/windows-reference.png",
         "macRuntimePath": "components/button-completereviewbutton/mac-runtime.png",
@@ -766,8 +766,8 @@
           "rootMeanSquaredError": 64
         },
         "changedPixelPercentage": 100,
-        "meanAbsoluteError": 13.469623,
-        "rootMeanSquaredError": 42.62843,
+        "meanAbsoluteError": 16.641372,
+        "rootMeanSquaredError": 49.754651,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",

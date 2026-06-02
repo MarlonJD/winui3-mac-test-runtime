@@ -53,10 +53,10 @@ Historical checked-in examples:
 
 | Scenario | Checked-in status | Changed pixels | Threshold | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `public-admin-workbench-light` | failed | 99.997568% | 45% | 9.856516 | 35.618082 | 9 `usable` |
-| `component-basic-input-light` | failed | 97.801827% | 18% | 12.898079 | 38.810345 | 5 `usable`, 8 `not-rendered` |
-| `component-commands-menus-light` | failed | 90.257107% | 24% | 10.8692 | 34.838439 | 5 `usable`, 3 `not-rendered` |
-| `component-layout-media-light` | failed | 98.064878% | 24% | 12.613214 | 37.572689 | 13 `usable`, 15 `not-rendered` |
+| `public-admin-workbench-light` | failed | 99.988381% | 45% | 9.678085 | 36.397928 | 9 `usable` |
+| `component-basic-input-light` | failed | 30.275211% | 18% | 9.752598 | 39.722722 | 5 `usable`, 8 `not-rendered` |
+| `component-commands-menus-light` | failed | 28.995082% | 24% | 7.931894 | 35.264121 | 5 `usable`, 3 `not-rendered` |
+| `component-layout-media-light` | failed | 39.647779% | 24% | 10.119964 | 38.187626 | 13 `usable`, 15 `not-rendered` |
 
 Current inspected local macOS artifacts:
 

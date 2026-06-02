@@ -19,7 +19,7 @@
       },
       "wholeScreenDrift": {
         "gated": false,
-        "changedPixelPercentage": 97.801827,
+        "changedPixelPercentage": 30.275211,
         "threshold": 18,
         "status": "informational-over-threshold",
         "note": "Superseded by component evidence; cross-platform rasterization difference."
@@ -37,7 +37,7 @@
       },
       "wholeScreenDrift": {
         "gated": false,
-        "changedPixelPercentage": 90.257107,
+        "changedPixelPercentage": 28.995082,
         "threshold": 24,
         "status": "informational-over-threshold",
         "note": "Superseded by component evidence; cross-platform rasterization difference."
@@ -55,7 +55,7 @@
       },
       "wholeScreenDrift": {
         "gated": false,
-        "changedPixelPercentage": 98.064878,
+        "changedPixelPercentage": 39.647779,
         "threshold": 24,
         "status": "informational-over-threshold",
         "note": "Superseded by component evidence; cross-platform rasterization difference."
@@ -73,7 +73,7 @@
       },
       "wholeScreenDrift": {
         "gated": false,
-        "changedPixelPercentage": 99.997568,
+        "changedPixelPercentage": 99.988381,
         "threshold": 45,
         "status": "informational-over-threshold",
         "note": "Historical whole-image comparison; superseded by component evidence for the documented workbench subset."
