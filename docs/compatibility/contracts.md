@@ -164,6 +164,17 @@ tree. It covers role, element name, automation ID, label, help text, focus
 state, focusable state, enabled state, checked state, selection state, expanded
 state, value, and child relationships for the documented control subset.
 
+FlaUI 5.0 + FlaUI.UIA3 is the production target for native Windows UI
+automation validation because it exercises the real Windows UI Automation tree
+of native WinUI apps. The macOS runtime does not currently expose a native UIA
+provider. Its production automation direction is a repo-owned
+FlaUI.UIA3-compatible semantic contract over runner artifacts and adapters:
+stable automation IDs, names, control types or roles, bounding rectangles,
+state/value export, action dispatch, and full-window or element screenshot
+capture. Until API-level adapter tests exist, consumers must treat
+`tree.json`, `accessibility.json`, `interactions.json`, and PNG artifacts as the
+automation boundary rather than a full FlaUI/UIA support claim.
+
 ## Binding And State Contract
 
 The supported MVVM subset includes one-way and two-way bindings for public
@@ -201,4 +212,7 @@ Package metadata, consumer quick-start documentation, sample public CI, release
 checklists, package smoke commands, known-gap notes, and visual workflow
 evidence are part of the Level 7 contract. Consumers should treat the
 compatibility matrix and API catalog as the API boundary and the artifact
-schema documentation as the automation boundary.
+schema documentation as the current automation boundary. FlaUI 5.0 +
+FlaUI.UIA3 support must be documented as either native Windows validation, a
+macOS-compatible adapter, or both, and cannot be claimed broadly without
+API-level evidence for the stated mode.

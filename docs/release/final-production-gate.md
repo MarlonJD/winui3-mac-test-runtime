@@ -168,7 +168,7 @@ Release and security gates:
 | PB-003 | Closed by support scope | Claimed supported/partial harness components require `usable` evidence; weak or absent broader Fluent visuals are excluded. |
 | PB-004 | Closed by support scope | Templates, full visual states, and broader theme dictionaries are explicit planned exclusions. The supported source-level subset is documented. |
 | PB-005 | Closed by support scope | Materials/composition are excluded from the support claim and cataloged as planned or non-goal. |
-| PB-006 | Closed by support scope | Scripted interaction, automation ID, focus/text/list/command actions, and accessibility export are supported for the subset; broad keyboard/pointer behavior remains excluded. |
+| PB-006 | Closed by support scope | Scripted interaction, automation ID, focus/text/list/command actions, and accessibility export are supported for the subset. FlaUI 5.0 + FlaUI.UIA3 is now the native Windows automation target, with macOS FlaUI-compatible adapter work required before any full UIA/FlaUI support claim. Broad keyboard/pointer behavior remains excluded. |
 | PB-007 | Closed | The public corpus covers the documented project shapes and ingests with zero unknown surfaces. |
 | PB-008 | Closed | Public clean-room harness scenarios have native WinUI reference provenance and component evidence. |
 | PB-009 | Closed for source-level gate | CI exposes benchmark and flake metrics; trend history remains a release-candidate review item. |

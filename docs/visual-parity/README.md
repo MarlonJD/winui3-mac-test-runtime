@@ -117,6 +117,13 @@ missing crop evidence, missing component diff metrics, missing native
 provenance, mismatched native reference run IDs, and nonexistent artifact
 paths.
 
+Interactive rows also need automation evidence before they can be treated as
+production-ready. The project target is FlaUI 5.0 + FlaUI.UIA3 on native
+Windows reference runs plus a repo-owned FlaUI.UIA3-compatible macOS adapter
+over runner artifacts. Until that adapter has API-level tests, the checked-in
+automation boundary remains `tree.json`, `accessibility.json`,
+`interactions.json`, screenshots, crops, and diffs.
+
 Reviewer starter manifests are generated with
 `winui3-mac-runner component-inspection-template --evidence
 <component-evidence.json>`. The generated template intentionally contains

@@ -66,6 +66,11 @@ a new schema version and documentation update.
   `click`, `focus`, `typeText`, `selectItem`, `assertProperty`,
   `selectNavigation`, `navigateFrame`, `invokeAccelerator`, `openPopup`,
   `dismissPopup`, and `invokeMenuItem`.
+- UI automation evidence currently comes from `tree.json`,
+  `accessibility.json`, `interactions.json`, screenshots, component crops, and
+  pixel diffs. FlaUI 5.0 + FlaUI.UIA3 is the native Windows validation target,
+  while macOS support requires a repo-owned FlaUI.UIA3-compatible adapter over
+  these artifacts before any full FlaUI/UIA claim can be made.
 - `snapshot.json`: renderer metadata for the deterministic snapshot.
 - `screenshots/snapshot.svg`: nonblank deterministic visual representation of
   the logical tree from the default SVG renderer.

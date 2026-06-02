@@ -29,6 +29,14 @@ gate for that subset. It does not mean the runtime can execute Windows
 binaries, replace Windows App SDK validation, or render native-quality WinUI
 chrome.
 
+UI automation and screenshot capture are production goals for this project.
+The supported automation direction is FlaUI 5.0 + FlaUI.UIA3 for native Windows
+reference validation and a repo-owned FlaUI.UIA3-compatible semantic adapter
+over macOS runtime artifacts for local evidence. The current alpha does not
+claim a native UIA provider on macOS or arbitrary FlaUI compatibility; it
+claims only the documented runner interaction scripts and deterministic
+automation/accessibility artifacts for the supported subset.
+
 ## Unsupported Or Excluded Scope
 
 The following remain excluded from support until they are explicitly
@@ -45,6 +53,8 @@ evidence gates:
   animation parity, and broad Fluent interaction-state parity;
 - full templates, visual states, dynamic resources, virtualization, advanced
   text input, IME, WebView2, media, ink, and platform integration APIs;
+- arbitrary FlaUI/UIA automation beyond the documented supported subset and
+  any macOS FlaUI provider claim before API-level adapter tests exist;
 - private product screenshots, private repositories, private app names, secrets,
   customer data, or proprietary workflow evidence.
 

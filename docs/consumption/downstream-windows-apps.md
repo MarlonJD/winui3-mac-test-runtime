@@ -218,11 +218,15 @@ Run tests in four tiers.
 | Fast app tests | macOS or Windows | Normal app logic, view models, services. | App repository `dotnet test` or platform test command. |
 | macOS compat smoke | macOS | Prove the public fixture builds and launches through the compatibility runtime. | `winui3-mac-runner doctor` and `winui3-mac-runner run --project ...`. |
 | strict macOS visual | macOS | Prove supported controls, interactions, bindings, accessibility export, and renderer diagnostics are stable. | `winui3-mac-runner run --renderer skia-v2 --scenario ... --strict-visual`. |
+| Windows UI automation reference | Windows | Drive the real native WinUI app through FlaUI 5.0 + FlaUI.UIA3, capture element state and screenshots, and use that as the automation source of truth. | FlaUI 5.0 + `FlaUI.UIA3` tests against the native app. |
+| macOS automation adapter | macOS | Drive the compatibility runtime through the same semantic contract: automation ID, name, role/control type, bounds, state/value, action dispatch, and screenshot or crop capture. | Planned repo-owned FlaUI.UIA3-compatible adapter over runner artifacts. |
 | Windows reference parity | Windows plus macOS | Capture a native WinUI Windows reference from the actual app, render macOS runtime, compare PNGs, and upload reviewable artifacts. | Windows screenshot capture job plus macOS diff job. |
 
 The Windows reference tier should be the source of truth for visual claims only
 when it captures the actual native WinUI app under test. The macOS tier catches
 regressions quickly, but it cannot prove native Windows behavior by itself.
+Likewise, current macOS artifacts are an automation boundary, not proof of full
+FlaUI/UIA provider compatibility until the adapter has API-level tests.
 
 ## Pull Request Gate For A Downstream App
 

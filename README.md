@@ -28,17 +28,18 @@ entries: 55 `supported`, 35 `partial`, 31 `planned`, 3 `windows-only`, and 2
 not-supported, and uncataloged APIs must fail or report diagnostics instead of
 silently looking supported.
 
-It also does **not** mean native WinUI visual fidelity. The latest inspected
-local macOS component artifacts include 143 component evidence rows: 86
-`usable` and 57 `not-rendered`. `usable` means recognizable and functionally
-testable, not pixel-matched Fluent chrome. The next project phase is renderer
-fidelity work, not more release-gate expansion.
+It also does **not** mean native WinUI visual fidelity. The checked-in public
+component-quality dashboard currently tracks 58 public component rows: 32
+`usable`, 26 `not-rendered`, and 58 blocker rows. `usable` means recognizable
+and functionally testable, not pixel-matched Fluent chrome. The next project
+phase is renderer fidelity, automation evidence, and manual inspection work,
+not more release-gate expansion.
 
 The checked-in public component-quality dashboard at
 `docs/visual-parity/component-quality-dashboard.json` is currently blocked:
-49/49 checked-in public component rows are missing native-quality evidence
-such as component crops, native reference crops, native reference provenance,
-component diffs, and manual inspection metadata.
+58/58 checked-in public component rows have native/macOS/diff crop evidence and
+native WinUI reference provenance, but still lack final native-quality grades
+and manual inspection metadata.
 
 Use this runtime when your app or fixture stays inside the documented
 `supported` and `partial` subset. Do not use it as evidence that arbitrary WinUI
@@ -77,6 +78,24 @@ reference capture, full strict scenario sweep, and the package dry run with
 native-quality evidence. The exact support boundary stays source-level WinUI 3
 harness readiness for the documented public subset, not Windows binary
 execution, arbitrary WinUI 3 compatibility, or high-fidelity Fluent rendering.
+
+## UI Automation Strategy
+
+UI automation and screenshot capture are core project goals. The production
+direction is a two-layer contract:
+
+- Windows reference validation uses FlaUI 5.0 + FlaUI.UIA3 against real native
+  WinUI apps whenever Windows UI Automation is available.
+- The macOS runtime will expose the same semantic automation contract through
+  repo-owned artifacts and adapters: stable automation IDs, names, control
+  types or roles, bounding rectangles, state/value export, action dispatch, and
+  full-window or element screenshot capture.
+
+The current alpha supports runner-owned scripted interactions and deterministic
+`tree.json`, `accessibility.json`, `interactions.json`, screenshot, crop, and
+diff artifacts. It does not yet claim full FlaUI/UIA provider compatibility on
+macOS. JSON accessibility export is useful evidence, but it is not by itself a
+replacement for FlaUI 5.0 + FlaUI.UIA3 API-level automation tests.
 
 ## Smoke Commands
 

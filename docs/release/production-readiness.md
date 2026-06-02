@@ -74,6 +74,10 @@ the current support boundary.
 - Scripted interactions for click, focus, text entry, item selection, property
   assertions, navigation selection, and command invocation.
 - Deterministic accessibility export for the supported logical tree subset.
+- FlaUI 5.0 + FlaUI.UIA3 native Windows automation is the production target for
+  validating real WinUI apps. macOS automation must use the same semantic
+  contract through a repo-owned adapter before any full FlaUI/UIA support claim
+  is made.
 
 ### Visual Evidence
 

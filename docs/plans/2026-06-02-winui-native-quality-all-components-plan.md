@@ -29,9 +29,14 @@ If a row cannot be made visually WinUI-quality on macOS with the project
 runtime, the plan is not complete; that row must either receive a real
 platform-backed implementation or the product goal must be explicitly changed.
 
-## Current Baseline
+## Historical Baseline
 
-Latest inspected local macOS evidence:
+This was the broad all-components baseline when the plan was written. The
+current public-dashboard execution baseline is maintained in
+`docs/plans/2026-06-02-public-component-native-quality-execution-plan.md` and
+`docs/visual-parity/component-quality-dashboard.json`.
+
+Original inspected local macOS evidence:
 
 - 143 component evidence rows.
 - 86 `usable` rows.

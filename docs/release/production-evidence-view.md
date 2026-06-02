@@ -250,7 +250,7 @@ the support claim.
 | Dialog decisions | Partial | `ContentDialog`, `Flyout`, and `ToolTip` open-state subset is usable when claimed; `TeachingTip`, tooltip service, modal focus trapping, placement, and full action relationships remain incomplete. |
 | Templates and collections | Planned except partial hosts | Collection hosts have subset evidence; `DataTemplate`, item templates, `ItemsRepeater`, `GridView`, virtualization, and template visuals remain missing. |
 | Theme dictionaries and resources | Partial | Theme dictionaries, `SolidColorBrush`, and `CornerRadius` have subset evidence; full Fluent dictionaries, dynamic invalidation, and typed resource fidelity remain incomplete. |
-| Keyboard and accessibility | Partial | Deterministic accessibility export exists for the subset; broad focus traversal, accelerator routing, keyboard selection, and focus visuals remain incomplete. |
+| Keyboard, accessibility, and UI automation | Partial | Deterministic accessibility export and runner interaction scripts exist for the subset. FlaUI 5.0 + FlaUI.UIA3 is the native Windows automation target, and a repo-owned FlaUI.UIA3-compatible macOS adapter is now a production goal. Broad focus traversal, accelerator routing, keyboard selection, focus visuals, and full UIA/FlaUI provider compatibility remain incomplete. |
 
 ## Checked-In Visual Examples
 
