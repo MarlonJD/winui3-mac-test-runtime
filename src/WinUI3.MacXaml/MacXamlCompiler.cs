@@ -105,6 +105,7 @@ public sealed class MacXamlCompiler
 
     private static readonly HashSet<string> SupportedAttachedProperties = new(StringComparer.Ordinal)
     {
+        "AutomationProperties.AutomationId",
         "AutomationProperties.Name",
         "AutomationProperties.HelpText",
         "Grid.Column"
@@ -452,7 +453,7 @@ public sealed class MacXamlCompiler
                 }
 
                 if (SupportedAttachedProperties.Contains(localName) &&
-                    localName is "AutomationProperties.Name" or "AutomationProperties.HelpText")
+                    localName is "AutomationProperties.AutomationId" or "AutomationProperties.Name" or "AutomationProperties.HelpText")
                 {
                     properties[localName] = attribute.Value;
                     continue;
@@ -967,6 +968,12 @@ public sealed class MacXamlCompiler
                 if (property.Key == "AutomationProperties.Name")
                 {
                     source.AppendLine($"        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName({model.VariableName}, {Literal(property.Value)});");
+                    continue;
+                }
+
+                if (property.Key == "AutomationProperties.AutomationId")
+                {
+                    source.AppendLine($"        Microsoft.UI.Xaml.Automation.AutomationProperties.SetAutomationId({model.VariableName}, {Literal(property.Value)});");
                     continue;
                 }
 

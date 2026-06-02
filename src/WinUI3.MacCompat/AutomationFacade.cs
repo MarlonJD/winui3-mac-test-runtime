@@ -30,10 +30,24 @@ public static class AutomationProperties
         return Metadata.TryGetValue(element, out var metadata) ? metadata.HelpText : null;
     }
 
+    public static void SetAutomationId(DependencyObject element, string? value)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+        Metadata.GetOrCreateValue(element).AutomationId = value;
+    }
+
+    public static string? GetAutomationId(DependencyObject element)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+        return Metadata.TryGetValue(element, out var metadata) ? metadata.AutomationId : null;
+    }
+
     private sealed class AutomationMetadata
     {
         public string? Name { get; set; }
 
         public string? HelpText { get; set; }
+
+        public string? AutomationId { get; set; }
     }
 }

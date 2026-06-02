@@ -162,7 +162,7 @@ Latest inspected native comparison counts:
 | `ApplicationDefinition` | supported | `App.xaml` compiles through the local XAML compiler. | Complex application resources remain limited. |
 | `Page` item | supported | Window/Page XAML files compile through the local XAML compiler. | Unsupported elements fail with catalog diagnostics. |
 | `x:Class`, `x:Name`, `x:Uid` | supported | Generates partial classes, named fields, and localization metadata. | `x:Bind` remains planned. |
-| `AutomationProperties.Name`, `AutomationProperties.HelpText` | supported | Exported to tree/accessibility artifacts. | Broader automation peers are not modeled. |
+| `AutomationProperties.Name`, `AutomationProperties.HelpText`, `AutomationProperties.AutomationId` | supported | Exported to tree/accessibility artifacts; automation IDs are accepted by interaction selectors. | Broader automation peers are not modeled. |
 | `StaticResource`, `ThemeResource`, `Style.Setter` | partial/supported subset | Simple resource lookup, active light/dark/high-contrast theme dictionary lookup, supported style setters, and resource-backed `Border.CornerRadius` work with strict missing-resource diagnostics. | Full Fluent theme dictionaries, template resources, typed brush objects, and dynamic resource invalidation are planned. |
 | `Control.Template` | planned | Cataloged for diagnostics. | Real templates are not implemented. |
 | `VisualStateManager.VisualStateGroups` | planned | Cataloged for diagnostics. | Full state groups, transitions, and reduced-motion behavior are not implemented. |

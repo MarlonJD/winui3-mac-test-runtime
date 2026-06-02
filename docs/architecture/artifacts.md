@@ -14,13 +14,13 @@ a new schema version and documentation update.
 | --- | --- |
 | `run.json` | `0.1` |
 | `tree.json` | `0.1`; `0.2` when `skia-v2` layout metadata is exported |
-| `accessibility.json` | `0.2` |
+| `accessibility.json` | `0.3` |
 | `binding-failures.json` | `0.1` |
 | `visual/component-evidence.json` | `0.1` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
 | `project-ingestion.json` | `0.1` |
-| `interactions.json` | `0.1` |
+| `interactions.json` | `0.2` |
 | `snapshot.json` | `0.1`; `0.2` for `skia-v2` PNG snapshots |
 | `visual/visual-run.json` | `0.1` |
 | `visual/windows-reference.json` | `0.2` |
@@ -31,7 +31,8 @@ a new schema version and documentation update.
 - `run.json`: run metadata, host details, Wine optionality, and artifact paths.
 - `tree.json`: logical UI tree with stable type names, element names, selected
   state, visibility, focus state, and important content properties.
-- `accessibility.json`: role/name/label tree derived from the logical tree.
+- `accessibility.json`: role/name/automation ID/label/help/focus/focusable/
+  enabled/checked/selected/expanded/value tree derived from the logical tree.
 - `binding-failures.json`: binding paths that could not be resolved or applied,
   written as `{ "schemaVersion": "0.1", "failures": [...] }`.
 - `resource-failures.json`: static or theme resources that could not be
@@ -48,10 +49,12 @@ a new schema version and documentation update.
   features, unsupported project features, and blocking XAML diagnostics.
 - `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
   and unsupported API reports.
-- `interactions.json`: emitted when `--script` is provided; records every
-  scripted action and its result. Supported action types are `click`, `focus`,
-  `typeText`, `selectItem`, `assertProperty`, `selectNavigation`,
-  `navigateFrame`, and `invokeAccelerator`.
+- `interactions.json`: emitted when `--script` or scenario interactions are
+  provided; records every scripted action, semantic selector kind, target type,
+  expected/actual values, and observed target state. Supported action types are
+  `click`, `focus`, `typeText`, `selectItem`, `assertProperty`,
+  `selectNavigation`, `navigateFrame`, `invokeAccelerator`, `openPopup`,
+  `dismissPopup`, and `invokeMenuItem`.
 - `snapshot.json`: renderer metadata for the deterministic snapshot.
 - `screenshots/snapshot.svg`: nonblank deterministic visual representation of
   the logical tree from the default SVG renderer.

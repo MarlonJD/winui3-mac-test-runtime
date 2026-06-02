@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation;
 using Microsoft.UI.Xaml.Controls;
 
 namespace WinUI3.MacRuntime;
@@ -13,6 +14,40 @@ public static class ElementQuery
         return Traverse(root).FirstOrDefault(element =>
             element is FrameworkElement frameworkElement &&
             frameworkElement.Name == name);
+    }
+
+    public static object? FindByAutomationId(object root, string automationId)
+    {
+        ArgumentNullException.ThrowIfNull(root);
+        ArgumentException.ThrowIfNullOrWhiteSpace(automationId);
+
+        return Traverse(root).FirstOrDefault(element =>
+            element is FrameworkElement frameworkElement &&
+            AutomationProperties.GetAutomationId(frameworkElement) == automationId);
+    }
+
+    public static ElementQueryResult FindBySelector(object root, string selector)
+    {
+        ArgumentNullException.ThrowIfNull(root);
+        ArgumentException.ThrowIfNullOrWhiteSpace(selector);
+
+        if (selector.StartsWith("name=", StringComparison.Ordinal))
+        {
+            return new ElementQueryResult(selector, "name", FindByName(root, selector["name=".Length..]));
+        }
+
+        if (selector.StartsWith("automationId=", StringComparison.Ordinal))
+        {
+            return new ElementQueryResult(selector, "automationId", FindByAutomationId(root, selector["automationId=".Length..]));
+        }
+
+        var byName = FindByName(root, selector);
+        if (byName is not null)
+        {
+            return new ElementQueryResult(selector, "name", byName);
+        }
+
+        return new ElementQueryResult(selector, "automationId", FindByAutomationId(root, selector));
     }
 
     public static IReadOnlyList<object> Traverse(object root)
@@ -67,3 +102,8 @@ public static class ElementQuery
         }
     }
 }
+
+public sealed record ElementQueryResult(
+    string Selector,
+    string SelectorKind,
+    object? Element);

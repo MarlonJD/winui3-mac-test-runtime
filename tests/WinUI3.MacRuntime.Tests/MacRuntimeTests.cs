@@ -151,6 +151,7 @@ public sealed class MacRuntimeTests
     {
         var state = new MutableObservableState("Initial");
         var searchBox = new TextBox { Name = "SearchBox" };
+        AutomationProperties.SetAutomationId(searchBox, "settings-search-box");
         BindingOperations.SetBinding(searchBox, nameof(TextBox.Text), new Binding(nameof(MutableObservableState.Title), BindingMode.TwoWay));
         var listView = new ListView { Name = "TaskList" };
         listView.Items.Add("Review queue");
@@ -164,14 +165,40 @@ public sealed class MacRuntimeTests
         var report = new InteractionScriptRunner(new TypeResolver(Array.Empty<Type>()))
             .Run(window, new InteractionScript(new[]
             {
-                new InteractionAction("typeText", "SearchBox", null, null, null, "Closed tasks"),
+                new InteractionAction("typeText", "automationId=settings-search-box", null, null, null, "Closed tasks"),
                 new InteractionAction("selectItem", "TaskList", null, null, null, "Archive completed task"),
                 new InteractionAction("assertProperty", "SearchBox", "Text", null, null, "Closed tasks")
             }));
 
         Assert.IsTrue(report.Steps.All(step => step.Status == "passed"));
+        Assert.AreEqual("automationId", report.Steps[0].SelectorKind);
+        Assert.AreEqual("TextBox", report.Steps[0].TargetType);
+        Assert.AreEqual("settings-search-box", report.Steps[0].ObservedState?["automationId"]);
         Assert.AreEqual("Closed tasks", state.Title);
         Assert.AreEqual("Archive completed task", listView.SelectedItem);
+    }
+
+    [TestMethod]
+    public void InteractionScriptFailureReportsSelectorAndObservedState()
+    {
+        var textBlock = new TextBlock { Name = "StatusText", Text = "Waiting" };
+        AutomationProperties.SetAutomationId(textBlock, "status-output");
+        var window = new Window { Content = textBlock };
+
+        var report = new InteractionScriptRunner(new TypeResolver(Array.Empty<Type>()))
+            .Run(window, new InteractionScript(new[]
+            {
+                new InteractionAction("assertProperty", "status-output", "Text", null, null, "Done")
+            }));
+
+        var step = report.Steps.Single();
+        Assert.AreEqual("failed", step.Status);
+        Assert.AreEqual("status-output", step.Selector);
+        Assert.AreEqual("automationId", step.SelectorKind);
+        Assert.AreEqual("TextBlock", step.TargetType);
+        Assert.AreEqual("Done", step.Expected);
+        Assert.AreEqual("Waiting", step.Actual);
+        Assert.AreEqual("Waiting", step.ObservedState?["text"]);
     }
 
     [TestMethod]
@@ -227,6 +254,7 @@ public sealed class MacRuntimeTests
     public void AccessibilityTreeUsesAutomationNamesAndFocusState()
     {
         var button = new Button { Name = "PrimaryButton", Content = "Continue" };
+        AutomationProperties.SetAutomationId(button, "primary-action");
         AutomationProperties.SetName(button, "Primary action");
         AutomationProperties.SetHelpText(button, "Runs the primary action");
         button.Focus(FocusState.Programmatic);
@@ -236,9 +264,11 @@ public sealed class MacRuntimeTests
 
         var node = accessibility.Root.Children[0];
         Assert.AreEqual("button", node.Role);
+        Assert.AreEqual("primary-action", node.AutomationId);
         Assert.AreEqual("Primary action", node.Label);
         Assert.AreEqual("Runs the primary action", node.HelpText);
         Assert.IsTrue(node.IsFocused);
+        Assert.IsTrue(node.IsFocusable.GetValueOrDefault());
     }
 
     [TestMethod]

@@ -42,11 +42,11 @@ WinUI 3 macOS development scope.
 `docs/compatibility/winui-api-compatibility.catalog.json` is the deterministic
 catalog seed used by docs, XAML diagnostics, project ingestion, corpus
 inventory, and placeholder facade runtime diagnostics. The current `0.1` catalog
-contains 125 entries:
+contains 126 entries:
 
 | Status | Count |
 | --- | ---: |
-| `supported` | 54 |
+| `supported` | 55 |
 | `partial` | 35 |
 | `planned` | 31 |
 | `windows-only` | 3 |
@@ -73,17 +73,17 @@ See `component-support.md` for a readable component-by-component support table.
 | Wine-free managed host | supported | Runs facade-backed .NET assemblies on macOS. |
 | Windows executable loading | not supported | Binary `.exe` compatibility is out of scope. |
 | `run.json` and `tree.json` | supported | Emitted for every runner invocation. |
-| `accessibility.json` | supported | Role/name/label/help/focus/enabled/checked/selected/value approximation from the logical tree. |
+| `accessibility.json` | supported | Role/name/automation ID/label/help/focus/focusable/enabled/checked/selected/expanded/value approximation from the logical tree. |
 | `binding-failures.json` | supported | Versioned envelope captures unresolved paths and non-writable targets. |
 | `resource-failures.json` | supported | Versioned envelope captures unresolved static and theme resources. |
 | `unsupported-apis.json` | supported | Versioned envelope captures clean-room placeholder facade APIs that were touched, with catalog statuses such as `planned`, `windows-only`, `not supported`, or `unknown`. |
 | `component-evidence.json` | supported | Versioned component lab evidence captures catalog status, presence, interaction status, visual grade, target layout region, known gaps, and optional reference diff metrics. It is the source of truth for marking planned, unsupported, text-only, or absent macOS component output as `not-rendered`. |
 | `project-ingestion.json` | supported | Versioned envelope for Windows-targeted WinUI compat shadow builds, including source files, excluded Windows-only items, catalog statuses, unsupported project features, and XAML diagnostics. |
 | `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unavailable API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
-| Scripted click/focus actions | supported | Name-based interaction script actions. |
+| Scripted click/focus actions | supported | Name-based and automation ID-based interaction script actions. |
 | Scripted text entry, item selection, and assertions | supported | `typeText`, `selectItem`, and `assertProperty` actions emit deterministic pass/fail results. |
 | Scripted popup actions | partial | `openPopup`, `dismissPopup`, and `invokeMenuItem` support the documented `Button.Flyout`, `MenuFlyout`, `CommandBarFlyout`, `ContentDialog`, `Flyout`, and `ToolTip` smoke subset. |
-| Versioned interaction scripts | supported | Script input accepts `schemaVersion: 0.1`; reports emit `schemaVersion: 0.1`. |
+| Versioned interaction scripts | supported | Script input accepts `schemaVersion: 0.1`; reports emit `schemaVersion: 0.2` with selector kind, target type, expected/actual values, and observed state. |
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
 | Snapshot output | partial | Deterministic SVG fallback and Skia-backed PNG output are available for the supported tree subset. |
 | Scenario JSON visual runs | supported | `--scenario`, `--viewport`, `--scale`, `--theme`, `--strict-visual`, `--reference`, and `--diff-output` drive the strict path. |
@@ -107,6 +107,7 @@ See `component-support.md` for a readable component-by-component support table.
 | `Style` resources and `Setter` values | supported | Applies supported setter properties from resource dictionaries; unsupported templates remain out of scope. |
 | `AutomationProperties.Name` | supported | Exported into `tree.json` and `accessibility.json`. |
 | `AutomationProperties.HelpText` | supported | Exported into `tree.json` and `accessibility.json`. |
+| `AutomationProperties.AutomationId` | supported | Exported into `tree.json` and `accessibility.json`; accepted as an interaction selector. |
 | `Grid.Column` | supported | Supported attached property for public fixture layout metadata. |
 | `{Binding Path}` | supported | One-way and two-way refresh through `BindingOperations`; both `{Binding Title}` and `{Binding Path=Title, Mode=TwoWay}` forms are accepted for supported properties. |
 | Unsupported elements and properties | supported | Unsupported elements, properties, property elements, directives, attached properties, and events fail compilation with stable diagnostics. |

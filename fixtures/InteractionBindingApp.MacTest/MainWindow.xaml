@@ -5,7 +5,7 @@
     Title="Interaction Binding App">
   <StackPanel x:Name="RootStack" Spacing="8">
     <TextBlock x:Name="TitleText" Text="{Binding Title}" AutomationProperties.Name="Current title" />
-    <TextBox x:Name="SearchBox" Text="{Binding Path=SearchText, Mode=TwoWay}" AutomationProperties.Name="Task filter" />
+    <TextBox x:Name="SearchBox" Text="{Binding Path=SearchText, Mode=TwoWay}" AutomationProperties.AutomationId="task-filter" AutomationProperties.Name="Task filter" />
     <Button x:Name="RefreshButton" Content="{Binding ButtonLabel}" Command="{Binding RefreshCommand}" AutomationProperties.Name="Refresh data" AutomationProperties.HelpText="Updates the bound title" />
     <ListView x:Name="TaskList" Items="{Binding Tasks}" />
     <Image x:Name="PreviewImage" Source="placeholder://operations-chart" />

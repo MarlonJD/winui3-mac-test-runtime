@@ -79,6 +79,12 @@ public static class UiTreeBuilder
                 properties["automationName"] = automationName;
             }
 
+            var automationId = AutomationProperties.GetAutomationId(frameworkElement);
+            if (!string.IsNullOrWhiteSpace(automationId))
+            {
+                properties["automationId"] = automationId;
+            }
+
             var automationHelpText = AutomationProperties.GetHelpText(frameworkElement);
             if (!string.IsNullOrWhiteSpace(automationHelpText))
             {
@@ -94,6 +100,7 @@ public static class UiTreeBuilder
         if (element is Control control)
         {
             properties["isEnabled"] = control.IsEnabled;
+            properties["isFocusable"] = control.IsEnabled;
         }
 
         switch (element)

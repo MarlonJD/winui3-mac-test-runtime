@@ -18,11 +18,11 @@
   "interactions": [
     {
       "type": "focus",
-      "target": "SearchBox"
+      "target": "automationId=task-filter"
     },
     {
       "type": "typeText",
-      "target": "SearchBox",
+      "target": "automationId=task-filter",
       "parameter": "Closed tasks"
     },
     {

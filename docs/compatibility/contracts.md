@@ -149,12 +149,14 @@ results. Supported actions are listed in the matrix and exported as
 `interactions.json` when a script or scenario interactions are supplied. The
 public action subset includes click, focus, text entry, item selection, property
 assertions, navigation selection, frame navigation, and keyboard accelerator
-invocation.
+invocation. Targets resolve by element name or `AutomationProperties.AutomationId`,
+and each step records selector kind, target type, expected and actual values,
+and observed target state so failures can be triaged semantically.
 
 Accessibility export is a deterministic approximation derived from the logical
-tree. It covers role, element name, label, help text, focus state, enabled
-state, checked state, selection state, value, and child relationships for the
-documented control subset.
+tree. It covers role, element name, automation ID, label, help text, focus
+state, focusable state, enabled state, checked state, selection state, expanded
+state, value, and child relationships for the documented control subset.
 
 ## Binding And State Contract
 

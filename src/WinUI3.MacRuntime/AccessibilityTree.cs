@@ -8,9 +8,11 @@ public sealed record AccessibilityDocument(
 public sealed record AccessibilityNode(
     string Role,
     string? Name,
+    string? AutomationId,
     string? Label,
     string? HelpText,
     bool IsFocused,
+    bool? IsFocusable,
     bool? IsEnabled,
     bool? IsChecked,
     bool? IsSelected,
@@ -37,9 +39,11 @@ public static class AccessibilityTreeBuilder
         return new AccessibilityNode(
             Role: MapRole(node.Type),
             Name: node.Name,
+            AutomationId: ReadString(node.Properties, "automationId"),
             Label: label,
             HelpText: ReadString(node.Properties, "automationHelpText"),
             IsFocused: ReadBool(node.Properties, "isFocused"),
+            IsFocusable: ReadNullableBool(node.Properties, "isFocusable"),
             IsEnabled: ReadNullableBool(node.Properties, "isEnabled"),
             IsChecked: ReadNullableBool(node.Properties, "isChecked"),
             IsSelected: ReadString(node.Properties, "selectedItem") is not null || ReadString(node.Properties, "selectedIndex") is not null
