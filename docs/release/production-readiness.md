@@ -134,9 +134,9 @@ Latest inspected native comparison status for checked-in historical examples:
 | Scenario | Status | Changed pixels | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 100.00% / threshold 45% | 9.72 | 35.87 | n/a |
-| `component-basic-input-light` | historical failed example | 42.07% / threshold 18% | 9.92 | 38.84 | Superseded by current component evidence for harness status; not a visual-fidelity pass. |
-| `component-commands-menus-light` | historical failed example | 40.68% / threshold 24% | 8.45 | 35.23 | Superseded by current component evidence for harness status; not a visual-fidelity pass. |
-| `component-layout-media-light` | historical failed example | 45.83% / threshold 24% | 10.48 | 39.27 | Superseded by current component evidence for harness status; not a visual-fidelity pass. |
+| `component-basic-input-light` | failed | 83.69% / threshold 18% | 17.17 | 49.51 | 5 `usable`, 8 `not-rendered`; not a visual-fidelity pass. |
+| `component-commands-menus-light` | failed | 77.02% / threshold 24% | 10.48 | 35.50 | 5 `usable`, 3 `not-rendered`; not a visual-fidelity pass. |
+| `component-layout-media-light` | failed | 90.39% / threshold 24% | 12.32 | 38.03 | 13 `usable`, 15 `not-rendered`; not a visual-fidelity pass. |
 
 Current harness component status is sourced from fresh
 `component-evidence.json` artifacts and the

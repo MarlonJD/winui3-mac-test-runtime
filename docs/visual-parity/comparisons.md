@@ -21,11 +21,11 @@ interaction/accessibility evidence, and native-reference provenance. See
 `docs/compatibility/component-support.md`, and
 `docs/compatibility/production-component-targets.md`.
 
-As of the latest inspected local artifact set, the current macOS renderer is a
-usable harness scaffold rather than a high-fidelity WinUI renderer. The
-`artifacts/winui3-mac` component evidence set contains 143 component rows: 86
-`usable` and 57 `not-rendered`. `usable` rows are recognizable and testable, but
-many controls still have simplified chrome, missing native states, missing
+As of the checked-in public component-quality dashboard, the current macOS
+renderer is a usable harness scaffold rather than a high-fidelity WinUI
+renderer. The public evidence set contains 49 component rows: 23 `usable` and
+26 `not-rendered`. All public rows now have native/macOS/diff crop triptychs,
+but many controls still have simplified chrome, missing native states, missing
 templates, incomplete popup placement, or diagnostic-only rendering.
 
 The generated dashboard at `docs/visual-parity/component-quality-dashboard.json`
@@ -55,9 +55,9 @@ Historical checked-in examples:
 | Scenario | Checked-in status | Changed pixels | Threshold | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 100.00% | 45% | 9.72 | 35.87 | n/a |
-| `component-basic-input-light` | failed | 42.07% | 18% | 9.92 | 38.84 | 13 `not-rendered` |
-| `component-commands-menus-light` | failed | 40.68% | 24% | 8.45 | 35.23 | 8 `not-rendered` |
-| `component-layout-media-light` | failed | 45.83% | 24% | 10.48 | 39.27 | 4 `usable`, 24 `not-rendered` |
+| `component-basic-input-light` | failed | 83.69% | 18% | 17.17 | 49.51 | 5 `usable`, 8 `not-rendered` |
+| `component-commands-menus-light` | failed | 77.02% | 24% | 10.48 | 35.50 | 5 `usable`, 3 `not-rendered` |
+| `component-layout-media-light` | failed | 90.39% | 24% | 12.32 | 38.03 | 13 `usable`, 15 `not-rendered` |
 
 Current inspected local macOS artifacts:
 

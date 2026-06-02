@@ -18,6 +18,7 @@ a new schema version and documentation update.
 | `binding-failures.json` | `0.1` |
 | `visual/component-evidence.json` | `0.4` |
 | `docs/visual-parity/component-quality-dashboard.json` | `0.2` |
+| `docs/visual-parity/public-visual-review-index.json` | `0.1` |
 | `native-reference-import.json` | `0.1` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
@@ -85,6 +86,12 @@ a new schema version and documentation update.
   native WinUI crop, macOS runtime crop, and pixel diff crop side by side when
   those crops exist, shows native reference source/run/commit provenance, and
   records missing crop or inspection metadata without promoting the row.
+- `docs/visual-parity/public-visual-review-index.html` and
+  `docs/visual-parity/public-visual-review-index.json`: generated public
+  inspection queue for checked-in component evidence. It links each public row
+  to its native, macOS, and diff crops plus the scenario visual review page, and
+  carries the current component-quality dashboard blocker without promoting the
+  row.
 - `visual/windows-reference.png`: copy of the Windows-hosted reference
   screenshot captured by the public workflow or supplied with `--reference`.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not

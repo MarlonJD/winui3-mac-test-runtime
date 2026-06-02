@@ -85,18 +85,25 @@ accessibility export, native-reference provenance, and manual screenshot
 inspection. When fresh evidence promotes a component to `usable`, the claim
 applies only to that component's documented harness subset.
 
-The latest inspected local macOS artifact set under `artifacts/winui3-mac`
-contains 143 component evidence rows: 86 `usable` and 57 `not-rendered`.
-Those rows show that the renderer supports narrow smoke/E2E scaffolds, but
-they do not establish native WinUI visual fidelity.
+The checked-in public component-quality dashboard contains 49 component
+evidence rows: 23 `usable` and 26 `not-rendered`. Those rows all have
+native/macOS/diff crop triptychs, but they do not establish native WinUI visual
+fidelity until final grades and manual inspection metadata are present.
 
 `component-quality-dashboard.json` is the checked-in generated quality gate for
 the public example evidence. It lists every checked-in component row, its
 current grade, native-quality target, owner family, required scenario, and
 remaining blocker. The current dashboard is blocked: 49/49 checked-in public
-component rows still lack native-quality completion evidence, including macOS
-component crops, native WinUI reference crops, component diff metrics, and
-native reference provenance, plus manual screenshot inspection metadata.
+component rows have native/macOS/diff crop evidence and native WinUI reference
+provenance, but still lack native-quality completion evidence: final visual
+grades, `nativeQualityGrade` good or production-ready, and manual screenshot
+inspection metadata.
+
+`public-visual-review-index.html` and `public-visual-review-index.json` are the
+checked-in generated inspection queue for those public rows. The index links
+each row to its scenario review page plus native reference, macOS runtime, and
+pixel diff crops, and repeats the dashboard blocker so manual inspection can
+work row by row without promoting claims prematurely.
 
 Component lab scenario artifacts are produced for every checked-in
 `fixtures/ComponentParityLab.WinUI/scenarios/*.json` file. This includes the
@@ -128,8 +135,9 @@ When a visual scenario or renderer behavior changes:
 6. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, and
    `visual-run.json`; inspect `component-evidence.json` for component lab
    scenarios, and inspect reference provenance when the reference supplies it.
-7. Run `winui3-mac-runner component-quality-dashboard` and inspect the updated
-   row blockers before promoting any claim.
+7. Run `winui3-mac-runner component-quality-dashboard` and
+   `winui3-mac-runner visual-review-index`; inspect the updated row blockers
+   and crop links before promoting any claim.
 8. Update the relevant example folder only when the artifact is public and does
    not contain private names, private screenshots, secrets, or proprietary
    fixture content. Production visual examples must come from native WinUI

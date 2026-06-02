@@ -27,6 +27,7 @@ public static class ArtifactSchemas
     public const string UnsupportedApis = "0.1";
     public const string VisualRun = "0.1";
     public const string VisualReview = "0.2";
+    public const string VisualReviewIndex = "0.1";
     public const string VisualUiTree = "0.2";
 }
 

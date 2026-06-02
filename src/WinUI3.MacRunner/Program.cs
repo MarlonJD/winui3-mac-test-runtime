@@ -35,6 +35,7 @@ internal static class Cli
             "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
             "native-reference-import" => RunNativeReferenceImport(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
+            "visual-review-index" => RunVisualReviewIndex(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
         };
@@ -484,6 +485,45 @@ internal static class Cli
         }
     }
 
+    private static int RunVisualReviewIndex(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "visual-review-index"));
+        var outputDirectory = Path.GetFullPath(ReadOption(args, "--output") ?? Path.Combine(repositoryRoot, "docs", "visual-parity"));
+        var check = HasOption(args, "--check");
+        var document = VisualReviewIndexArtifacts.Build(repositoryRoot, outputDirectory);
+        var jsonPath = Path.Combine(outputDirectory, VisualReviewIndexArtifacts.JsonFileName);
+        var htmlPath = Path.Combine(outputDirectory, VisualReviewIndexArtifacts.HtmlFileName);
+        var json = JsonSerializer.Serialize(document, JsonDefaults.Options);
+        var html = VisualReviewIndexArtifacts.BuildHtml(document);
+
+        Console.WriteLine(
+            $"visual-review-index: {document.Summary.ComponentCount} rows, {document.Summary.CompleteTriptychCount} complete triptychs, {document.Summary.BlockingRowCount} blocker rows.");
+
+        if (check)
+        {
+            if (!File.Exists(jsonPath) || !File.Exists(htmlPath))
+            {
+                Console.Error.WriteLine($"visual-review-index --check failed: missing {jsonPath} or {htmlPath}. Regenerate with 'winui3-mac-runner visual-review-index'.");
+                return 1;
+            }
+
+            if (NormalizeJson(File.ReadAllText(jsonPath)) != NormalizeJson(json) ||
+                NormalizeJson(File.ReadAllText(htmlPath)) != NormalizeJson(html))
+            {
+                Console.Error.WriteLine($"visual-review-index --check failed: {jsonPath} or {htmlPath} is out of date. Regenerate with 'winui3-mac-runner visual-review-index'.");
+                return 1;
+            }
+
+            Console.WriteLine($"visual-review-index --check passed: {jsonPath} and {htmlPath} are up to date.");
+            return 0;
+        }
+
+        VisualReviewIndexArtifacts.Write(repositoryRoot, outputDirectory);
+        Console.WriteLine($"visual-review-index.html: {htmlPath}");
+        Console.WriteLine($"visual-review-index.json: {jsonPath}");
+        return document.Status == "passed" ? 0 : 1;
+    }
+
     private static int RunNativeReferenceImport(string[] args)
     {
         var sourceRoot = ReadOption(args, "--source");
@@ -658,6 +698,7 @@ internal static class Cli
         Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");
         Console.WriteLine("  native-reference-import --source <windows-reference-screenshots-dir> [--output <dir>]");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
+        Console.WriteLine("  visual-review-index [--output <dir>] [--check]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
         Console.WriteLine("      [--check] [--write-baseline]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");

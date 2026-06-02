@@ -88,10 +88,10 @@ Current inspected renderer evidence:
 | Status and progress | Base status picker scenario has 3 `usable`, 7 planned `not-rendered`; loading and success state scenarios add 4 `usable` rows. Animation and close/action areas remain gaps. |
 | Layout, media, and resources | Light scenario has 13 `usable`, 15 planned/non-goal `not-rendered`; dark and high-contrast smoke rows are usable, while media, web, ink, materials, and advanced visuals remain excluded or planned. |
 
-Across the latest inspected `artifacts/winui3-mac` component evidence set,
-there are 143 component rows: 86 `usable` and 57 `not-rendered`. This is enough
-for harness smoke testing and scoped source-level evidence. It is not enough
-for a native-quality WinUI visual claim.
+Across the checked-in public component-quality dashboard, there are 49
+component rows: 23 `usable` and 26 `not-rendered`. The rows have
+native/macOS/diff crop triptychs, which is enough for manual inspection
+queuing. It is not enough for a native-quality WinUI visual claim.
 
 The `ClaimedSupportedComponentsAreNeverNotRendered` test keeps supported or
 partial scenario requirements from regressing to `not-rendered`; it does not
@@ -101,6 +101,12 @@ The `ComponentQualityDashboardMatchesPublicEvidence` test keeps
 `docs/visual-parity/component-quality-dashboard.json` synchronized with the
 checked-in public component evidence and requires missing native-quality
 evidence to remain visible as release blockers.
+
+The `VisualReviewIndexMatchesPublicEvidence` test keeps
+`docs/visual-parity/public-visual-review-index.html` and
+`docs/visual-parity/public-visual-review-index.json` synchronized with the
+checked-in public review crops so manual inspection has a complete, portable
+queue before any native-quality promotion.
 
 ## Unsupported WinUI 3 Exclusions
 

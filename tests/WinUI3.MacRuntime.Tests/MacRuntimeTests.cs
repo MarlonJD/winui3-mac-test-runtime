@@ -1188,6 +1188,34 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void VisualReviewIndexMatchesPublicEvidence()
+    {
+        var outputDirectory = RepositoryPath("docs/visual-parity");
+        var expected = VisualReviewIndexArtifacts.Build(RepositoryRoot(), outputDirectory);
+        var actualJson = File.ReadAllText(RepositoryPath("docs/visual-parity/public-visual-review-index.json"));
+        var actualHtml = File.ReadAllText(RepositoryPath("docs/visual-parity/public-visual-review-index.html"));
+
+        Assert.AreEqual(
+            NormalizeArtifact(JsonSerializer.Serialize(expected, JsonDefaults.Options)),
+            NormalizeArtifact(actualJson),
+            "docs/visual-parity/public-visual-review-index.json is out of date. Regenerate with 'winui3-mac-runner visual-review-index'.");
+        Assert.AreEqual(
+            NormalizeArtifact(VisualReviewIndexArtifacts.BuildHtml(expected)),
+            NormalizeArtifact(actualHtml),
+            "docs/visual-parity/public-visual-review-index.html is out of date. Regenerate with 'winui3-mac-runner visual-review-index'.");
+
+        Assert.AreEqual(49, expected.Summary.ComponentCount);
+        Assert.AreEqual(49, expected.Summary.CompleteTriptychCount);
+        Assert.AreEqual(0, expected.Summary.MissingReviewFiles);
+        Assert.AreEqual(0, expected.Summary.MissingNativeReferenceCrops);
+        Assert.AreEqual(0, expected.Summary.MissingMacRuntimeCrops);
+        Assert.AreEqual(0, expected.Summary.MissingDiffCrops);
+        Assert.AreEqual(49, expected.Summary.MissingInspectionNotes);
+        Assert.AreEqual(49, expected.Summary.BlockingRowCount);
+        Assert.HasCount(49, expected.Rows);
+    }
+
+    [TestMethod]
     public void ReleaseCandidateArtifactGatesAreAccountedFor()
     {
         // Mirrors the deterministic local checks of 'winui3-mac-runner

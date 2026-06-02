@@ -1,0 +1,556 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public visual review index</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 24px; color: #1f1f1f; background: #fff; }
+h1 { font-size: 24px; margin: 0 0 8px; }
+h2 { font-size: 18px; margin: 28px 0 12px; }
+a { color: #005a9e; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+.metric { border: 1px solid #d1d1d1; border-radius: 4px; padding: 8px 10px; min-width: 150px; }
+.metric strong { display: block; font-size: 20px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { border: 1px solid #d1d1d1; padding: 7px 8px; vertical-align: top; text-align: left; }
+th { background: #f3f3f3; }
+.blocked { color: #7a1f1f; font-weight: 600; }
+.ready { color: #0f6c0f; font-weight: 600; }
+.blocker { max-width: 420px; line-height: 1.35; }
+@media (max-width: 900px) { body { margin: 16px; } table { font-size: 12px; } }
+</style>
+</head>
+<body>
+<h1>Public visual review index</h1>
+<p>Dashboard: <a href="component-quality-dashboard.json">component-quality-dashboard.json</a></p>
+<div class="summary">
+<div class="metric"><strong>3</strong>Scenarios</div>
+<div class="metric"><strong>49</strong>Components</div>
+<div class="metric"><strong>49</strong>Complete triptychs</div>
+<div class="metric"><strong>0</strong>Missing reviews</div>
+<div class="metric"><strong>49</strong>Missing inspections</div>
+<div class="metric"><strong>49</strong>Blocker rows</div>
+</div>
+<h2>Scenarios</h2>
+<table><thead><tr><th>Scenario</th><th>Review</th><th>Triptychs</th><th>Missing inspections</th><th>Blockers</th><th>Status</th></tr></thead><tbody>
+<tr>
+<td>component-basic-input-light</td>
+<td><a href="examples/component-basic-input-light/visual-review.html">examples/component-basic-input-light/visual-review.html</a></td>
+<td>13/13</td>
+<td>13</td>
+<td>13</td>
+<td class="blocked">blocked</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td><a href="examples/component-commands-menus-light/visual-review.html">examples/component-commands-menus-light/visual-review.html</a></td>
+<td>8/8</td>
+<td>8</td>
+<td>8</td>
+<td class="blocked">blocked</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td><a href="examples/component-layout-media-light/visual-review.html">examples/component-layout-media-light/visual-review.html</a></td>
+<td>28/28</td>
+<td>28</td>
+<td>28</td>
+<td class="blocked">blocked</td>
+</tr>
+</tbody></table>
+<h2>Components</h2>
+<table><thead><tr><th>Scenario</th><th>Component</th><th>Visual</th><th>Native quality</th><th>Review</th><th>Inspection</th><th>Crops</th><th>Remaining blocker</th></tr></thead><tbody>
+<tr>
+<td>component-basic-input-light</td>
+<td>Button <span>(PrimaryActionButton)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/button-primaryactionbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/button-primaryactionbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/button-primaryactionbutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>ToggleButton <span>(PinnedToggleButton)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/togglebutton-pinnedtogglebutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/togglebutton-pinnedtogglebutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/togglebutton-pinnedtogglebutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>CheckBox <span>(EnabledCheckBox)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/checkbox-enabledcheckbox/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/checkbox-enabledcheckbox/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/checkbox-enabledcheckbox/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>RadioButton <span>(HighPriorityRadioButton)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/radiobutton-highpriorityradiobutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/radiobutton-highpriorityradiobutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/radiobutton-highpriorityradiobutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>ComboBox <span>(StatusComboBox)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/combobox-statuscombobox/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/combobox-statuscombobox/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/combobox-statuscombobox/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>RepeatButton <span>(DiagnosticRepeatButton)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/repeatbutton-diagnosticrepeatbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/repeatbutton-diagnosticrepeatbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/repeatbutton-diagnosticrepeatbutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>HyperlinkButton <span>(DiagnosticHyperlinkButton)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/hyperlinkbutton-diagnostichyperlinkbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/hyperlinkbutton-diagnostichyperlinkbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/hyperlinkbutton-diagnostichyperlinkbutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>DropDownButton <span>(DiagnosticDropDownButton)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/dropdownbutton-diagnosticdropdownbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/dropdownbutton-diagnosticdropdownbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/dropdownbutton-diagnosticdropdownbutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>SplitButton <span>(DiagnosticSplitButton)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/splitbutton-diagnosticsplitbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/splitbutton-diagnosticsplitbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/splitbutton-diagnosticsplitbutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>ToggleSplitButton <span>(DiagnosticToggleSplitButton)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>Slider <span>(DiagnosticSlider)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/slider-diagnosticslider/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/slider-diagnosticslider/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/slider-diagnosticslider/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>ToggleSwitch <span>(DiagnosticToggleSwitch)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/toggleswitch-diagnostictoggleswitch/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/toggleswitch-diagnostictoggleswitch/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/toggleswitch-diagnostictoggleswitch/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-basic-input-light</td>
+<td>RatingControl <span>(DiagnosticRatingControl)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-basic-input-light/components/ratingcontrol-diagnosticratingcontrol/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/ratingcontrol-diagnosticratingcontrol/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/ratingcontrol-diagnosticratingcontrol/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td>CommandBar <span>(PrimaryCommandBar)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-commands-menus-light/components/commandbar-primarycommandbar/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/commandbar-primarycommandbar/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/components/commandbar-primarycommandbar/pixel-diff.png">diff</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td>AppBarButton <span>(SaveCommandButton)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-commands-menus-light/components/appbarbutton-savecommandbutton/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/appbarbutton-savecommandbutton/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/components/appbarbutton-savecommandbutton/pixel-diff.png">diff</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td>CommandBar.Content <span>(DiagnosticCommandBarContent)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-commands-menus-light/components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png">diff</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td>AppBarButton.Icon <span>(SaveCommandIcon)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-commands-menus-light/components/appbarbutton-icon-savecommandicon/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/appbarbutton-icon-savecommandicon/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/components/appbarbutton-icon-savecommandicon/pixel-diff.png">diff</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td>CommandBarFlyout <span>(DiagnosticCommandBarFlyout)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-commands-menus-light/components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png">diff</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td>MenuFlyout <span>(DiagnosticMenuFlyout)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-commands-menus-light/components/menuflyout-diagnosticmenuflyout/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/menuflyout-diagnosticmenuflyout/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/components/menuflyout-diagnosticmenuflyout/pixel-diff.png">diff</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td>MenuBar <span>(DiagnosticMenuBar)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-commands-menus-light/components/menubar-diagnosticmenubar/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/menubar-diagnosticmenubar/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/components/menubar-diagnosticmenubar/pixel-diff.png">diff</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-commands-menus-light</td>
+<td>Context menu pattern <span>(DiagnosticContextMenuPattern)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-commands-menus-light/components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png">diff</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>ScrollViewer <span>(LayoutScrollViewer)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/scrollviewer-layoutscrollviewer/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/scrollviewer-layoutscrollviewer/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/scrollviewer-layoutscrollviewer/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Grid <span>(LayoutResourceGrid)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/grid-layoutresourcegrid/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/grid-layoutresourcegrid/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/grid-layoutresourcegrid/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>StackPanel <span>(LayoutNestedStack)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/stackpanel-layoutnestedstack/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/stackpanel-layoutnestedstack/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/stackpanel-layoutnestedstack/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Border <span>(LayoutBorder)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/border-layoutborder/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/border-layoutborder/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/border-layoutborder/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>FontIcon <span>(LayoutFontIcon)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/fonticon-layoutfonticon/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/fonticon-layoutfonticon/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/fonticon-layoutfonticon/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Image <span>(PublicImagePlaceholder)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/image-publicimageplaceholder/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/image-publicimageplaceholder/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/image-publicimageplaceholder/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>SymbolIcon <span>(DiagnosticSymbolIcon)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/symbolicon-diagnosticsymbolicon/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/symbolicon-diagnosticsymbolicon/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/symbolicon-diagnosticsymbolicon/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>XamlControlsResources <span>(DiagnosticXamlControlsResources)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/xamlcontrolsresources-diagnosticxamlcontrolsresources/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>ResourceDictionary.ThemeDictionaries <span>(ThemeResourceText)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/resourcedictionary-themedictionaries-themeresourcetext/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/resourcedictionary-themedictionaries-themeresourcetext/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/resourcedictionary-themedictionaries-themeresourcetext/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>ThemeResource <span>(ThemeResourceText)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/themeresource-themeresourcetext/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/themeresource-themeresourcetext/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/themeresource-themeresourcetext/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>StaticResource <span>(StaticResourceText)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/staticresource-staticresourcetext/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/staticresource-staticresourcetext/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/staticresource-staticresourcetext/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Style <span>(LayoutMediaTitle)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/style-layoutmediatitle/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/style-layoutmediatitle/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/style-layoutmediatitle/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Setter <span>(LayoutMediaTitle)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/setter-layoutmediatitle/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/setter-layoutmediatitle/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/setter-layoutmediatitle/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Color <span>(DiagnosticColor)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/color-diagnosticcolor/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/color-diagnosticcolor/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/color-diagnosticcolor/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>SolidColorBrush <span>(ThemeResourceText)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/solidcolorbrush-themeresourcetext/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/solidcolorbrush-themeresourcetext/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/solidcolorbrush-themeresourcetext/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>CornerRadius <span>(LayoutBorder)</span></td>
+<td>usable</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/cornerradius-layoutborder/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/cornerradius-layoutborder/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/cornerradius-layoutborder/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Expander <span>(DiagnosticExpander)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/expander-diagnosticexpander/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/expander-diagnosticexpander/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/expander-diagnosticexpander/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Annotated scrollbar <span>(DiagnosticAnnotatedScrollbar)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/annotated-scrollbar-diagnosticannotatedscrollbar/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/annotated-scrollbar-diagnosticannotatedscrollbar/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/annotated-scrollbar-diagnosticannotatedscrollbar/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>SemanticZoom <span>(DiagnosticSemanticZoom)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/semanticzoom-diagnosticsemanticzoom/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/semanticzoom-diagnosticsemanticzoom/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>SplitView <span>(DiagnosticSplitView)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/splitview-diagnosticsplitview/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/splitview-diagnosticsplitview/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/splitview-diagnosticsplitview/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>TwoPaneView <span>(DiagnosticTwoPaneView)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>AnimatedIcon <span>(DiagnosticAnimatedIcon)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/animatedicon-diagnosticanimatedicon/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/animatedicon-diagnosticanimatedicon/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/animatedicon-diagnosticanimatedicon/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Shapes <span>(DiagnosticShapes)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/shapes-diagnosticshapes/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/shapes-diagnosticshapes/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/shapes-diagnosticshapes/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>MediaPlayerElement <span>(DiagnosticMediaPlayerElement)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>WebView2 <span>(DiagnosticWebView2)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/webview2-diagnosticwebview2/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/webview2-diagnosticwebview2/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/webview2-diagnosticwebview2/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>InkCanvas / InkToolbar <span>(DiagnosticInkControls)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/inkcanvas-inktoolbar-diagnosticinkcontrols/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Title bar customization <span>(DiagnosticTitleBarCustomization)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+<tr>
+<td>component-layout-media-light</td>
+<td>Window.SystemBackdrop / MicaBackdrop <span>(DiagnosticSystemBackdrop)</span></td>
+<td>not-rendered</td>
+<td>not-evaluated</td>
+<td class="ready">ready-for-manual-inspection</td>
+<td>missing</td>
+<td><a href="examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.</td>
+</tr>
+</tbody></table>
+</body>
+</html>
