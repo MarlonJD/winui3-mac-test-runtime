@@ -463,7 +463,7 @@ internal static class NativeControlSamples
             Width = 220,
             Height = 34,
             CornerRadius = new CornerRadius(6),
-            Background = new SolidColorBrush(Color.FromArgb(255, 250, 250, 250)),
+            Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 250, 250, 250)),
             Child = new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center }
         };
     }
