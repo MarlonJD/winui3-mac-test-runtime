@@ -1163,8 +1163,10 @@ public sealed class MacRuntimeTests
 
         Assert.AreEqual("blocked", expected.Status);
         Assert.AreEqual(expected.Totals.ComponentCount, expected.Totals.BlockingRowCount);
-        Assert.IsGreaterThan(0, expected.Totals.MissingNativeReferenceCrops);
-        Assert.IsGreaterThan(0, expected.Totals.MissingNativeReferenceProvenance);
+        Assert.AreEqual(0, expected.Totals.MissingMacRuntimeCrops);
+        Assert.AreEqual(0, expected.Totals.MissingNativeReferenceCrops);
+        Assert.AreEqual(0, expected.Totals.MissingNativeReferenceProvenance);
+        Assert.AreEqual(0, expected.Totals.MissingComponentDiffs);
         Assert.IsGreaterThan(0, expected.Totals.MissingInspectionNotes);
 
         var provenanceBlockers = 0;

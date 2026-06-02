@@ -1,0 +1,878 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>component-layout-media-light visual review</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 24px; color: #1f1f1f; background: #fff; }
+h1 { font-size: 24px; margin: 0 0 8px; }
+h2 { font-size: 18px; margin: 0 0 12px; }
+.summary { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+.metric { border: 1px solid #d1d1d1; border-radius: 4px; padding: 8px 10px; min-width: 150px; }
+.metric strong { display: block; font-size: 20px; }
+.component { border-top: 1px solid #d1d1d1; padding: 20px 0 24px; }
+.metadata { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; color: #4b4b4b; font-size: 13px; }
+.metadata span { border: 1px solid #ddd; border-radius: 4px; padding: 3px 6px; }
+.triptych { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+figure { margin: 0; border: 1px solid #d1d1d1; border-radius: 4px; background: #fafafa; min-height: 120px; }
+figcaption { font-weight: 600; padding: 8px 10px; border-bottom: 1px solid #d1d1d1; background: #f3f3f3; }
+img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.missing { display: grid; min-height: 96px; place-items: center; color: #7a1f1f; padding: 12px; text-align: center; }
+.notes { margin-top: 10px; color: #3b3b3b; line-height: 1.4; }
+@media (max-width: 760px) { .triptych { grid-template-columns: 1fr; } body { margin: 16px; } }
+</style>
+</head>
+<body>
+<h1>component-layout-media-light visual review</h1>
+<p>Evidence: <code>component-evidence.json</code></p>
+<div class="summary">
+<div class="metric"><strong>28</strong>Components</div>
+<div class="metric"><strong>28</strong>Complete triptychs</div>
+<div class="metric"><strong>0</strong>Missing native crops</div>
+<div class="metric"><strong>0</strong>Missing macOS crops</div>
+<div class="metric"><strong>0</strong>Missing diffs</div>
+<div class="metric"><strong>28</strong>Missing inspections</div>
+</div>
+<section class="component">
+<h2>ScrollViewer <code>LayoutScrollViewer</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>97,143</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/scrollviewer-layoutscrollviewer/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/scrollviewer-layoutscrollviewer/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/scrollviewer-layoutscrollviewer/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">ScrollViewer region and scrollbar affordance are rendered approximately; clipping and scroll physics remain gaps.</p>
+</section>
+<section class="component">
+<h2>Grid <code>LayoutResourceGrid</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>80,715</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/grid-layoutresourcegrid/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/grid-layoutresourcegrid/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/grid-layoutresourcegrid/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Grid surface and column separation are rendered for component evidence; full WinUI layout behavior remains partial.</p>
+</section>
+<section class="component">
+<h2>StackPanel <code>LayoutNestedStack</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>20,449</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/stackpanel-layoutnestedstack/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/stackpanel-layoutnestedstack/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/stackpanel-layoutnestedstack/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">StackPanel child spacing and region evidence are visible; full native layout behavior remains partial.</p>
+</section>
+<section class="component">
+<h2>Border <code>LayoutBorder</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>20,449</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/border-layoutborder/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/border-layoutborder/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/border-layoutborder/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Border surface, stroke, and corner radius are rendered approximately; brush and thickness fidelity remain partial.</p>
+</section>
+<section class="component">
+<h2>FontIcon <code>LayoutFontIcon</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>11,146</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/fonticon-layoutfonticon/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/fonticon-layoutfonticon/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/fonticon-layoutfonticon/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">FontIcon glyph is rendered with the scenario font; exact Segoe MDL2 metrics remain approximate.</p>
+</section>
+<section class="component">
+<h2>Image <code>PublicImagePlaceholder</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/image-publicimageplaceholder/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/image-publicimageplaceholder/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/image-publicimageplaceholder/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Image emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps.</p>
+</section>
+<section class="component">
+<h2>SymbolIcon <code>DiagnosticSymbolIcon</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/symbolicon-diagnosticsymbolicon/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/symbolicon-diagnosticsymbolicon/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/symbolicon-diagnosticsymbolicon/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>XamlControlsResources <code>DiagnosticXamlControlsResources</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/xamlcontrolsresources-diagnosticxamlcontrolsresources/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>ResourceDictionary.ThemeDictionaries <code>ThemeResourceText</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>27,969</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/resourcedictionary-themedictionaries-themeresourcetext/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/resourcedictionary-themedictionaries-themeresourcetext/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/resourcedictionary-themedictionaries-themeresourcetext/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Theme dictionaries are resolved for the active scenario theme in the clean-room resource subset; full dynamic resource invalidation remains planned.</p>
+</section>
+<section class="component">
+<h2>ThemeResource <code>ThemeResourceText</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>27,969</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/themeresource-themeresourcetext/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/themeresource-themeresourcetext/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/themeresource-themeresourcetext/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">ThemeResource lookup is simple and does not model full dynamic theme dictionaries.</p>
+</section>
+<section class="component">
+<h2>StaticResource <code>StaticResourceText</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>27,857</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/staticresource-staticresourcetext/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/staticresource-staticresourcetext/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/staticresource-staticresourcetext/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">StaticResource lookup supports simple local dictionaries only.</p>
+</section>
+<section class="component">
+<h2>Style <code>LayoutMediaTitle</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/style-layoutmediatitle/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/style-layoutmediatitle/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/style-layoutmediatitle/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Only supported setter properties are applied.</p>
+</section>
+<section class="component">
+<h2>Setter <code>LayoutMediaTitle</code></h2>
+<div class="metadata">
+<span>catalog: <strong>supported</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/setter-layoutmediatitle/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/setter-layoutmediatitle/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/setter-layoutmediatitle/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Setter support is limited to simple values on supported facade properties.</p>
+</section>
+<section class="component">
+<h2>Color <code>DiagnosticColor</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/color-diagnosticcolor/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/color-diagnosticcolor/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/color-diagnosticcolor/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>SolidColorBrush <code>ThemeResourceText</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>27,969</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/solidcolorbrush-themeresourcetext/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/solidcolorbrush-themeresourcetext/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/solidcolorbrush-themeresourcetext/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">SolidColorBrush resources are reduced to deterministic color strings for renderer evidence; full brush object fidelity remains planned.</p>
+</section>
+<section class="component">
+<h2>CornerRadius <code>LayoutBorder</code></h2>
+<div class="metadata">
+<span>catalog: <strong>partial</strong></span>
+<span>visual: <strong>usable</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>passed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>20,449</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/cornerradius-layoutborder/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/cornerradius-layoutborder/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/cornerradius-layoutborder/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Manual inspection is pending.</p>
+</section>
+<section class="component">
+<h2>Expander <code>DiagnosticExpander</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/expander-diagnosticexpander/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/expander-diagnosticexpander/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/expander-diagnosticexpander/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>Annotated scrollbar <code>DiagnosticAnnotatedScrollbar</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/annotated-scrollbar-diagnosticannotatedscrollbar/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/annotated-scrollbar-diagnosticannotatedscrollbar/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/annotated-scrollbar-diagnosticannotatedscrollbar/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>SemanticZoom <code>DiagnosticSemanticZoom</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/semanticzoom-diagnosticsemanticzoom/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/semanticzoom-diagnosticsemanticzoom/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>SplitView <code>DiagnosticSplitView</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/splitview-diagnosticsplitview/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/splitview-diagnosticsplitview/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/splitview-diagnosticsplitview/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>TwoPaneView <code>DiagnosticTwoPaneView</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/twopaneview-diagnostictwopaneview/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/twopaneview-diagnostictwopaneview/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/twopaneview-diagnostictwopaneview/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>AnimatedIcon <code>DiagnosticAnimatedIcon</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/animatedicon-diagnosticanimatedicon/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/animatedicon-diagnosticanimatedicon/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/animatedicon-diagnosticanimatedicon/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>Shapes <code>DiagnosticShapes</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/shapes-diagnosticshapes/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/shapes-diagnosticshapes/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/shapes-diagnosticshapes/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>MediaPlayerElement <code>DiagnosticMediaPlayerElement</code></h2>
+<div class="metadata">
+<span>catalog: <strong>not supported</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/mediaplayerelement-diagnosticmediaplayerelement/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>WebView2 <code>DiagnosticWebView2</code></h2>
+<div class="metadata">
+<span>catalog: <strong>not supported</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/webview2-diagnosticwebview2/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/webview2-diagnosticwebview2/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/webview2-diagnosticwebview2/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>InkCanvas / InkToolbar <code>DiagnosticInkControls</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/inkcanvas-inktoolbar-diagnosticinkcontrols/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>Title bar customization <code>DiagnosticTitleBarCustomization</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/title-bar-customization-diagnostictitlebarcustomization/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+<section class="component">
+<h2>Window.SystemBackdrop / MicaBackdrop <code>DiagnosticSystemBackdrop</code></h2>
+<div class="metadata">
+<span>catalog: <strong>planned</strong></span>
+<span>visual: <strong>not-rendered</strong></span>
+<span>native quality: <strong>not-evaluated</strong></span>
+<span>crop: <strong>failed</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>missing</strong></span>
+<span>reference source: <strong>native-winui</strong></span>
+<span>reference run: <strong>26777029415</strong></span>
+<span>reference commit: <strong>95e8d7d</strong></span>
+<span>changed pixels: <strong>100</strong></span>
+</div>
+<div class="triptych">
+<figure>
+<figcaption>Native WinUI reference</figcaption>
+<img alt="Native WinUI reference crop" src="components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png">
+</figure>
+<figure>
+<figcaption>macOS runtime</figcaption>
+<img alt="macOS runtime crop" src="components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png">
+</figure>
+<figure>
+<figcaption>Pixel diff</figcaption>
+<img alt="Pixel diff crop" src="components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/pixel-diff.png">
+</figure>
+</div>
+<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+</section>
+</body>
+</html>

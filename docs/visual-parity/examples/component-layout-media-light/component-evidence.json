@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.1",
+  "schemaVersion": "0.4",
   "fixtureName": "component-parity-lab",
   "scenarioName": "component-layout-media-light",
   "components": [
@@ -7,103 +7,614 @@
       "component": "ScrollViewer",
       "kind": "control",
       "target": "LayoutScrollViewer",
+      "layoutRegion": {
+        "x": 288,
+        "y": 84,
+        "width": 708,
+        "height": 604,
+        "desiredWidth": 708,
+        "desiredHeight": 604,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 97.142637,
+      "meanAbsoluteError": 9.251898,
+      "rootMeanSquaredError": 26.58167,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 288,
+          "y": 84,
+          "width": 708,
+          "height": 604
+        },
+        "nativeReferencePath": "components/scrollviewer-layoutscrollviewer/windows-reference.png",
+        "macRuntimePath": "components/scrollviewer-layoutscrollviewer/mac-runtime.png",
+        "pixelDiffPath": "components/scrollviewer-layoutscrollviewer/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 97.142637,
+        "meanAbsoluteError": 9.251898,
+        "rootMeanSquaredError": 26.58167,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently emits only child text; native WinUI scrollbars, clipping, and scrolling chrome are not rendered in the screenshot."
+        "ScrollViewer region and scrollbar affordance are rendered approximately; clipping and scroll physics remain gaps."
       ]
     },
     {
       "component": "Grid",
       "kind": "control",
       "target": "LayoutResourceGrid",
+      "layoutRegion": {
+        "x": 312,
+        "y": 142,
+        "width": 660,
+        "height": 96,
+        "desiredWidth": 660,
+        "desiredHeight": 96,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 80.714962,
+      "meanAbsoluteError": 18.374369,
+      "rootMeanSquaredError": 44.543895,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 142,
+          "width": 660,
+          "height": 96
+        },
+        "nativeReferencePath": "components/grid-layoutresourcegrid/windows-reference.png",
+        "macRuntimePath": "components/grid-layoutresourcegrid/mac-runtime.png",
+        "pixelDiffPath": "components/grid-layoutresourcegrid/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 80.714962,
+        "meanAbsoluteError": 18.374369,
+        "rootMeanSquaredError": 44.543895,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently emits only child text; native WinUI Grid layout shape and column separation are not visibly rendered."
+        "Grid surface and column separation are rendered for component evidence; full WinUI layout behavior remains partial."
       ]
     },
     {
       "component": "StackPanel",
       "kind": "control",
       "target": "LayoutNestedStack",
+      "layoutRegion": {
+        "x": 312,
+        "y": 142,
+        "width": 160,
+        "height": 96,
+        "desiredWidth": 160,
+        "desiredHeight": 96,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 20.449219,
+      "meanAbsoluteError": 14.412012,
+      "rootMeanSquaredError": 47.526185,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 312,
+          "y": 142,
+          "width": 160,
+          "height": 96
+        },
+        "nativeReferencePath": "components/stackpanel-layoutnestedstack/windows-reference.png",
+        "macRuntimePath": "components/stackpanel-layoutnestedstack/mac-runtime.png",
+        "pixelDiffPath": "components/stackpanel-layoutnestedstack/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 20.449219,
+        "meanAbsoluteError": 14.412012,
+        "rootMeanSquaredError": 47.526185,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently emits only child text; native WinUI StackPanel spacing/layout shape is not sufficient visual evidence."
+        "StackPanel child spacing and region evidence are visible; full native layout behavior remains partial."
       ]
     },
     {
       "component": "Border",
       "kind": "control",
       "target": "LayoutBorder",
+      "layoutRegion": {
+        "x": 312,
+        "y": 142,
+        "width": 160,
+        "height": 96,
+        "desiredWidth": 160,
+        "desiredHeight": 96,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 20.449219,
+      "meanAbsoluteError": 14.412012,
+      "rootMeanSquaredError": 47.526185,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 312,
+          "y": 142,
+          "width": 160,
+          "height": 96
+        },
+        "nativeReferencePath": "components/border-layoutborder/windows-reference.png",
+        "macRuntimePath": "components/border-layoutborder/mac-runtime.png",
+        "pixelDiffPath": "components/border-layoutborder/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 20.449219,
+        "meanAbsoluteError": 14.412012,
+        "rootMeanSquaredError": 47.526185,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently does not render the Border surface, corner radius, border thickness, brush, or background in the screenshot."
+        "Border surface, stroke, and corner radius are rendered approximately; brush and thickness fidelity remain partial."
       ]
     },
     {
       "component": "FontIcon",
       "kind": "control",
       "target": "LayoutFontIcon",
+      "layoutRegion": {
+        "x": 312,
+        "y": 210,
+        "width": 160,
+        "height": 24,
+        "desiredWidth": 160,
+        "desiredHeight": 24,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 11.145833,
+      "meanAbsoluteError": 10.281641,
+      "rootMeanSquaredError": 41.118593,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 312,
+          "y": 210,
+          "width": 160,
+          "height": 24
+        },
+        "nativeReferencePath": "components/fonticon-layoutfonticon/windows-reference.png",
+        "macRuntimePath": "components/fonticon-layoutfonticon/mac-runtime.png",
+        "pixelDiffPath": "components/fonticon-layoutfonticon/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 11.145833,
+        "meanAbsoluteError": 10.281641,
+        "rootMeanSquaredError": 41.118593,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently does not render the FontIcon glyph in the screenshot."
+        "FontIcon glyph is rendered with the scenario font; exact Segoe MDL2 metrics remain approximate."
       ]
     },
     {
       "component": "Image",
       "kind": "control",
       "target": "PublicImagePlaceholder",
+      "layoutRegion": {
+        "x": 488,
+        "y": 142,
+        "width": 484,
+        "height": 96,
+        "desiredWidth": 484,
+        "desiredHeight": 96,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 19.26661,
+      "rootMeanSquaredError": 42.480146,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 488,
+          "y": 142,
+          "width": 484,
+          "height": 96
+        },
+        "nativeReferencePath": "components/image-publicimageplaceholder/windows-reference.png",
+        "macRuntimePath": "components/image-publicimageplaceholder/mac-runtime.png",
+        "pixelDiffPath": "components/image-publicimageplaceholder/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 19.26661,
+        "rootMeanSquaredError": 42.480146,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "The macOS runtime currently does not render the Image source or a visible image placeholder in the screenshot."
+        "Image emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps."
       ]
     },
     {
       "component": "SymbolIcon",
       "kind": "control",
       "target": "DiagnosticSymbolIcon",
+      "layoutRegion": {
+        "x": 312,
+        "y": 248,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 6.84237,
+      "rootMeanSquaredError": 21.680748,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 248,
+          "width": 323,
+          "height": 120
+        },
+        "nativeReferencePath": "components/symbolicon-diagnosticsymbolicon/windows-reference.png",
+        "macRuntimePath": "components/symbolicon-diagnosticsymbolicon/mac-runtime.png",
+        "pixelDiffPath": "components/symbolicon-diagnosticsymbolicon/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 6.84237,
+        "rootMeanSquaredError": 21.680748,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -112,13 +623,86 @@
       "component": "XamlControlsResources",
       "kind": "resource",
       "target": "DiagnosticXamlControlsResources",
+      "layoutRegion": {
+        "x": 649,
+        "y": 248,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 7.111874,
+      "rootMeanSquaredError": 19.238283,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 248,
+          "width": 323,
+          "height": 120
+        },
+        "nativeReferencePath": "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png",
+        "macRuntimePath": "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png",
+        "pixelDiffPath": "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 7.111874,
+        "rootMeanSquaredError": 19.238283,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -126,29 +710,175 @@
     {
       "component": "ResourceDictionary.ThemeDictionaries",
       "kind": "resource",
-      "target": "DiagnosticThemeDictionaries",
-      "catalogStatus": "planned",
+      "target": "ThemeResourceText",
+      "layoutRegion": {
+        "x": 312,
+        "y": 176,
+        "width": 160,
+        "height": 28,
+        "desiredWidth": 160,
+        "desiredHeight": 28,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 27.96875,
+      "meanAbsoluteError": 18.947489,
+      "rootMeanSquaredError": 53.40118,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 176,
+          "width": 160,
+          "height": 28
+        },
+        "nativeReferencePath": "components/resourcedictionary-themedictionaries-themeresourcetext/windows-reference.png",
+        "macRuntimePath": "components/resourcedictionary-themedictionaries-themeresourcetext/mac-runtime.png",
+        "pixelDiffPath": "components/resourcedictionary-themedictionaries-themeresourcetext/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 27.96875,
+        "meanAbsoluteError": 18.947489,
+        "rootMeanSquaredError": 53.40118,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "Theme dictionaries are resolved for the active scenario theme in the clean-room resource subset; full dynamic resource invalidation remains planned."
       ]
     },
     {
       "component": "ThemeResource",
       "kind": "resource",
       "target": "ThemeResourceText",
+      "layoutRegion": {
+        "x": 312,
+        "y": 176,
+        "width": 160,
+        "height": 28,
+        "desiredWidth": 160,
+        "desiredHeight": 28,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "usable",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 27.96875,
+      "meanAbsoluteError": 18.947489,
+      "rootMeanSquaredError": 53.40118,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 176,
+          "width": 160,
+          "height": 28
+        },
+        "nativeReferencePath": "components/themeresource-themeresourcetext/windows-reference.png",
+        "macRuntimePath": "components/themeresource-themeresourcetext/mac-runtime.png",
+        "pixelDiffPath": "components/themeresource-themeresourcetext/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 27.96875,
+        "meanAbsoluteError": 18.947489,
+        "rootMeanSquaredError": 53.40118,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "ThemeResource lookup is simple and does not model full dynamic theme dictionaries."
       ]
@@ -157,13 +887,86 @@
       "component": "StaticResource",
       "kind": "resource",
       "target": "StaticResourceText",
+      "layoutRegion": {
+        "x": 312,
+        "y": 142,
+        "width": 160,
+        "height": 28,
+        "desiredWidth": 160,
+        "desiredHeight": 28,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "usable",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 27.857143,
+      "meanAbsoluteError": 20.88577,
+      "rootMeanSquaredError": 58.316989,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 142,
+          "width": 160,
+          "height": 28
+        },
+        "nativeReferencePath": "components/staticresource-staticresourcetext/windows-reference.png",
+        "macRuntimePath": "components/staticresource-staticresourcetext/mac-runtime.png",
+        "pixelDiffPath": "components/staticresource-staticresourcetext/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 27.857143,
+        "meanAbsoluteError": 20.88577,
+        "rootMeanSquaredError": 58.316989,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "StaticResource lookup supports simple local dictionaries only."
       ]
@@ -172,13 +975,86 @@
       "component": "Style",
       "kind": "resource",
       "target": "LayoutMediaTitle",
+      "layoutRegion": {
+        "x": 312,
+        "y": 104,
+        "width": 660,
+        "height": 28,
+        "desiredWidth": 660,
+        "desiredHeight": 28,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "usable",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 8.81572,
+      "rootMeanSquaredError": 25.296669,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 104,
+          "width": 660,
+          "height": 28
+        },
+        "nativeReferencePath": "components/style-layoutmediatitle/windows-reference.png",
+        "macRuntimePath": "components/style-layoutmediatitle/mac-runtime.png",
+        "pixelDiffPath": "components/style-layoutmediatitle/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 8.81572,
+        "rootMeanSquaredError": 25.296669,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Only supported setter properties are applied."
       ]
@@ -187,13 +1063,86 @@
       "component": "Setter",
       "kind": "resource",
       "target": "LayoutMediaTitle",
+      "layoutRegion": {
+        "x": 312,
+        "y": 104,
+        "width": 660,
+        "height": 28,
+        "desiredWidth": 660,
+        "desiredHeight": 28,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "usable",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 8.81572,
+      "rootMeanSquaredError": 25.296669,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 104,
+          "width": 660,
+          "height": 28
+        },
+        "nativeReferencePath": "components/setter-layoutmediatitle/windows-reference.png",
+        "macRuntimePath": "components/setter-layoutmediatitle/mac-runtime.png",
+        "pixelDiffPath": "components/setter-layoutmediatitle/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 8.81572,
+        "rootMeanSquaredError": 25.296669,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Setter support is limited to simple values on supported facade properties."
       ]
@@ -202,13 +1151,86 @@
       "component": "Color",
       "kind": "resource",
       "target": "DiagnosticColor",
+      "layoutRegion": {
+        "x": 649,
+        "y": 378,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 6.708101,
+      "rootMeanSquaredError": 18.216657,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 378,
+          "width": 323,
+          "height": 120
+        },
+        "nativeReferencePath": "components/color-diagnosticcolor/windows-reference.png",
+        "macRuntimePath": "components/color-diagnosticcolor/mac-runtime.png",
+        "pixelDiffPath": "components/color-diagnosticcolor/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 6.708101,
+        "rootMeanSquaredError": 18.216657,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -216,44 +1238,261 @@
     {
       "component": "SolidColorBrush",
       "kind": "resource",
-      "target": "DiagnosticSolidColorBrush",
-      "catalogStatus": "planned",
+      "target": "ThemeResourceText",
+      "layoutRegion": {
+        "x": 312,
+        "y": 176,
+        "width": 160,
+        "height": 28,
+        "desiredWidth": 160,
+        "desiredHeight": 28,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 27.96875,
+      "meanAbsoluteError": 18.947489,
+      "rootMeanSquaredError": 53.40118,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 176,
+          "width": 160,
+          "height": 28
+        },
+        "nativeReferencePath": "components/solidcolorbrush-themeresourcetext/windows-reference.png",
+        "macRuntimePath": "components/solidcolorbrush-themeresourcetext/mac-runtime.png",
+        "pixelDiffPath": "components/solidcolorbrush-themeresourcetext/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 27.96875,
+        "meanAbsoluteError": 18.947489,
+        "rootMeanSquaredError": 53.40118,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
+        "SolidColorBrush resources are reduced to deterministic color strings for renderer evidence; full brush object fidelity remains planned."
       ]
     },
     {
       "component": "CornerRadius",
       "kind": "resource",
-      "target": "DiagnosticCornerRadius",
-      "catalogStatus": "planned",
+      "target": "LayoutBorder",
+      "layoutRegion": {
+        "x": 312,
+        "y": 142,
+        "width": 160,
+        "height": 96,
+        "desiredWidth": 160,
+        "desiredHeight": 96,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
       "presence": "present",
       "interactionStatus": "not-applicable",
-      "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
-      "knownGaps": [
-        "Diagnostic-only inventory row; no renderer support is claimed yet."
-      ]
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 20.449219,
+      "meanAbsoluteError": 14.412012,
+      "rootMeanSquaredError": 47.526185,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 312,
+          "y": 142,
+          "width": 160,
+          "height": 96
+        },
+        "nativeReferencePath": "components/cornerradius-layoutborder/windows-reference.png",
+        "macRuntimePath": "components/cornerradius-layoutborder/mac-runtime.png",
+        "pixelDiffPath": "components/cornerradius-layoutborder/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 20.449219,
+        "meanAbsoluteError": 14.412012,
+        "rootMeanSquaredError": 47.526185,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": []
     },
     {
       "component": "Expander",
       "kind": "control",
       "target": "DiagnosticExpander",
+      "layoutRegion": {
+        "x": 312,
+        "y": 638,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5.679246,
+      "rootMeanSquaredError": 11.493932,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 638,
+          "width": 323,
+          "height": 82
+        },
+        "nativeReferencePath": "components/expander-diagnosticexpander/windows-reference.png",
+        "macRuntimePath": "components/expander-diagnosticexpander/mac-runtime.png",
+        "pixelDiffPath": "components/expander-diagnosticexpander/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5.679246,
+        "rootMeanSquaredError": 11.493932,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -262,13 +1501,86 @@
       "component": "Annotated scrollbar",
       "kind": "pattern",
       "target": "DiagnosticAnnotatedScrollbar",
+      "layoutRegion": {
+        "x": 649,
+        "y": 638,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 9.310287,
+      "rootMeanSquaredError": 27.416136,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 638,
+          "width": 323,
+          "height": 82
+        },
+        "nativeReferencePath": "components/annotated-scrollbar-diagnosticannotatedscrollbar/windows-reference.png",
+        "macRuntimePath": "components/annotated-scrollbar-diagnosticannotatedscrollbar/mac-runtime.png",
+        "pixelDiffPath": "components/annotated-scrollbar-diagnosticannotatedscrollbar/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 9.310287,
+        "rootMeanSquaredError": 27.416136,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -277,13 +1589,86 @@
       "component": "SemanticZoom",
       "kind": "control",
       "target": "DiagnosticSemanticZoom",
+      "layoutRegion": {
+        "x": 312,
+        "y": 768,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/semanticzoom-diagnosticsemanticzoom/windows-reference.png",
+        "macRuntimePath": "components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png",
+        "pixelDiffPath": "components/semanticzoom-diagnosticsemanticzoom/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -292,13 +1677,86 @@
       "component": "SplitView",
       "kind": "control",
       "target": "DiagnosticSplitView",
+      "layoutRegion": {
+        "x": 649,
+        "y": 768,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/splitview-diagnosticsplitview/windows-reference.png",
+        "macRuntimePath": "components/splitview-diagnosticsplitview/mac-runtime.png",
+        "pixelDiffPath": "components/splitview-diagnosticsplitview/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -307,13 +1765,86 @@
       "component": "TwoPaneView",
       "kind": "control",
       "target": "DiagnosticTwoPaneView",
+      "layoutRegion": {
+        "x": 312,
+        "y": 898,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/twopaneview-diagnostictwopaneview/windows-reference.png",
+        "macRuntimePath": "components/twopaneview-diagnostictwopaneview/mac-runtime.png",
+        "pixelDiffPath": "components/twopaneview-diagnostictwopaneview/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -322,13 +1853,86 @@
       "component": "AnimatedIcon",
       "kind": "control",
       "target": "DiagnosticAnimatedIcon",
+      "layoutRegion": {
+        "x": 649,
+        "y": 898,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/animatedicon-diagnosticanimatedicon/windows-reference.png",
+        "macRuntimePath": "components/animatedicon-diagnosticanimatedicon/mac-runtime.png",
+        "pixelDiffPath": "components/animatedicon-diagnosticanimatedicon/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -337,13 +1941,86 @@
       "component": "Shapes",
       "kind": "control",
       "target": "DiagnosticShapes",
+      "layoutRegion": {
+        "x": 312,
+        "y": 1028,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/shapes-diagnosticshapes/windows-reference.png",
+        "macRuntimePath": "components/shapes-diagnosticshapes/mac-runtime.png",
+        "pixelDiffPath": "components/shapes-diagnosticshapes/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -352,13 +2029,86 @@
       "component": "MediaPlayerElement",
       "kind": "control",
       "target": "DiagnosticMediaPlayerElement",
+      "layoutRegion": {
+        "x": 649,
+        "y": 1028,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "not supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png",
+        "macRuntimePath": "components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png",
+        "pixelDiffPath": "components/mediaplayerelement-diagnosticmediaplayerelement/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -367,13 +2117,86 @@
       "component": "WebView2",
       "kind": "control",
       "target": "DiagnosticWebView2",
+      "layoutRegion": {
+        "x": 312,
+        "y": 1158,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "not supported",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/webview2-diagnosticwebview2/windows-reference.png",
+        "macRuntimePath": "components/webview2-diagnosticwebview2/mac-runtime.png",
+        "pixelDiffPath": "components/webview2-diagnosticwebview2/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -382,13 +2205,86 @@
       "component": "InkCanvas / InkToolbar",
       "kind": "control",
       "target": "DiagnosticInkControls",
+      "layoutRegion": {
+        "x": 649,
+        "y": 1158,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png",
+        "macRuntimePath": "components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png",
+        "pixelDiffPath": "components/inkcanvas-inktoolbar-diagnosticinkcontrols/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -397,13 +2293,86 @@
       "component": "Title bar customization",
       "kind": "platform-api",
       "target": "DiagnosticTitleBarCustomization",
+      "layoutRegion": {
+        "x": 312,
+        "y": 1288,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 312,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png",
+        "macRuntimePath": "components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png",
+        "pixelDiffPath": "components/title-bar-customization-diagnostictitlebarcustomization/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -412,13 +2381,86 @@
       "component": "Window.SystemBackdrop / MicaBackdrop",
       "kind": "material",
       "target": "DiagnosticSystemBackdrop",
+      "layoutRegion": {
+        "x": 649,
+        "y": 1288,
+        "width": 323,
+        "height": 120,
+        "desiredWidth": 323,
+        "desiredHeight": 120,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
       "catalogStatus": "planned",
       "presence": "present",
       "interactionStatus": "not-applicable",
       "visualGrade": "not-rendered",
-      "changedPixelPercentage": 45.830631,
-      "meanAbsoluteError": 10.481517,
-      "rootMeanSquaredError": 39.266825,
+      "componentThresholds": {
+        "changedPixelPercentage": 24,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 16,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 5,
+      "rootMeanSquaredError": 5.87367,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 649,
+          "y": 719,
+          "width": 323,
+          "height": 1
+        },
+        "nativeReferencePath": "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png",
+        "macRuntimePath": "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png",
+        "pixelDiffPath": "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/pixel-diff.png",
+        "runtimeBlank": true,
+        "thresholds": {
+          "changedPixelPercentage": 24,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 16,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 5,
+        "rootMeanSquaredError": 5.87367,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+          "scenarioName": "component-layout-media-light",
+          "commitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+          "workflowRunId": "26777029415",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-01T19:31:15.5383584\u002B00:00"
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Diagnostic-only inventory row; no renderer support is claimed yet."
       ]
@@ -448,11 +2490,11 @@
     {
       "feature": "ResourceDictionary.ThemeDictionaries",
       "kind": "resource",
-      "target": "DiagnosticThemeDictionaries",
-      "catalogStatus": "planned",
+      "target": "ThemeResourceText",
+      "catalogStatus": "partial",
       "presence": "present",
       "knownGaps": [
-        "Theme dictionaries are detected as source coverage, not fully resolved by theme."
+        "Theme dictionaries resolve active light, dark, and high-contrast scenario resources for the clean-room subset; dynamic invalidation remains planned."
       ]
     },
     {
@@ -462,7 +2504,7 @@
       "catalogStatus": "partial",
       "presence": "present",
       "knownGaps": [
-        "ThemeResource currently resolves through a simple dictionary lookup."
+        "ThemeResource resolves through the active scenario theme dictionary for the clean-room subset."
       ]
     },
     {
@@ -536,5 +2578,5 @@
       ]
     }
   ],
-  "status": "passed"
+  "status": "failed"
 }
