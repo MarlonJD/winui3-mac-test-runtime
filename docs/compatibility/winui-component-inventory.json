@@ -241,6 +241,242 @@
       ]
     }
   ],
+  "broaderControlInventory": {
+    "phase": "Phase 7",
+    "description": "Prioritized broader public WinUI 3 control promotion plan beyond the documented production subset. Each control stays a planned diagnostic row in 'entries' until it passes the same evidence gate used for Ring 0 and Ring 1 promotion. This inventory is a roadmap, not a local macOS support claim.",
+    "promotionGate": "facade behavior, XAML ingestion, layout, painter, component evidence, native WinUI reference, interaction evidence where applicable, accessibility export, docs, and tests, with no claimed not-rendered, poor, or weak rows.",
+    "validFamilies": [
+      "text-forms",
+      "basic-input",
+      "commands-menus",
+      "navigation-workbench",
+      "status-pickers",
+      "dialogs-flyouts",
+      "layout-media"
+    ],
+    "controls": [
+      {
+        "control": "ToggleSwitch",
+        "namespace": "Microsoft.UI.Xaml.Controls.ToggleSwitch",
+        "targetFamily": "text-forms",
+        "priority": 1,
+        "interactionRequired": true,
+        "requiredStates": ["default", "on", "off", "disabled", "focused"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "ToggleSwitch facade and XAML ingestion, on/off track-and-knob painter, component evidence, native reference, toggle interaction, accessibility toggle state, docs, and tests."
+      },
+      {
+        "control": "Slider",
+        "namespace": "Microsoft.UI.Xaml.Controls.Slider",
+        "targetFamily": "basic-input",
+        "priority": 2,
+        "interactionRequired": true,
+        "requiredStates": ["default", "pressed", "focused", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "Slider facade and XAML ingestion, track/thumb/fill painter, value interaction, accessibility value state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "PasswordBox",
+        "namespace": "Microsoft.UI.Xaml.Controls.PasswordBox",
+        "targetFamily": "text-forms",
+        "priority": 3,
+        "interactionRequired": true,
+        "requiredStates": ["default", "focused", "reveal", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "PasswordBox facade and XAML ingestion, masked-text painter and reveal affordance, focus interaction, accessibility protected-text state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "NumberBox",
+        "namespace": "Microsoft.UI.Xaml.Controls.NumberBox",
+        "targetFamily": "text-forms",
+        "priority": 4,
+        "interactionRequired": true,
+        "requiredStates": ["default", "focused", "spin", "invalid", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "NumberBox facade and XAML ingestion, value field and spin-button painter, increment/validation interaction, accessibility value state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "AutoSuggestBox",
+        "namespace": "Microsoft.UI.Xaml.Controls.AutoSuggestBox",
+        "targetFamily": "text-forms",
+        "priority": 5,
+        "interactionRequired": true,
+        "requiredStates": ["default", "focused", "suggestions-open", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "AutoSuggestBox facade and XAML ingestion, text field and suggestion-list painter, suggestion open/select interaction, accessibility list state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "DropDownButton",
+        "namespace": "Microsoft.UI.Xaml.Controls.DropDownButton",
+        "targetFamily": "commands-menus",
+        "priority": 6,
+        "interactionRequired": true,
+        "requiredStates": ["default", "open-popup", "disabled", "focused"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "DropDownButton facade and XAML ingestion, chevron button and menu-open painter, open interaction, accessibility expanded state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "SplitButton",
+        "namespace": "Microsoft.UI.Xaml.Controls.SplitButton",
+        "targetFamily": "commands-menus",
+        "priority": 7,
+        "interactionRequired": true,
+        "requiredStates": ["default", "invoked", "open-popup", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "SplitButton facade and XAML ingestion, primary/secondary split painter, invoke and open interaction, accessibility split state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "ToggleSplitButton",
+        "namespace": "Microsoft.UI.Xaml.Controls.ToggleSplitButton",
+        "targetFamily": "commands-menus",
+        "priority": 8,
+        "interactionRequired": true,
+        "requiredStates": ["default", "checked", "open-popup", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "ToggleSplitButton facade and XAML ingestion, checked split painter, toggle and open interaction, accessibility checked/expanded state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "MenuBar",
+        "namespace": "Microsoft.UI.Xaml.Controls.MenuBar",
+        "targetFamily": "commands-menus",
+        "priority": 9,
+        "interactionRequired": true,
+        "requiredStates": ["default", "open-popup", "invoked", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "MenuBar facade and XAML ingestion, top-level menu and submenu painter, open/invoke interaction, accessibility menu structure, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "Expander",
+        "namespace": "Microsoft.UI.Xaml.Controls.Expander",
+        "targetFamily": "layout-media",
+        "priority": 10,
+        "interactionRequired": true,
+        "requiredStates": ["collapsed", "expanded", "focused", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "Expander facade and XAML ingestion, header/chevron and expanded-content painter, expand/collapse interaction, accessibility expanded state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "TabView",
+        "namespace": "Microsoft.UI.Xaml.Controls.TabView",
+        "targetFamily": "navigation-workbench",
+        "priority": 11,
+        "interactionRequired": true,
+        "requiredStates": ["default", "selected", "hover", "add-close"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "TabView facade and XAML ingestion, tab strip and selected-tab painter, select/add/close interaction, accessibility tab selection, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "TreeView",
+        "namespace": "Microsoft.UI.Xaml.Controls.TreeView",
+        "targetFamily": "navigation-workbench",
+        "priority": 12,
+        "interactionRequired": true,
+        "requiredStates": ["default", "selected", "expanded", "focused"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "TreeView facade and XAML ingestion, indented node and expander painter, expand/select interaction, accessibility tree structure, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "GridView",
+        "namespace": "Microsoft.UI.Xaml.Controls.GridView",
+        "targetFamily": "navigation-workbench",
+        "priority": 13,
+        "interactionRequired": true,
+        "requiredStates": ["default", "selected", "focused", "empty"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "GridView facade and XAML ingestion, wrapped item-grid and selected-item painter, selection interaction, accessibility grid selection, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "TeachingTip",
+        "namespace": "Microsoft.UI.Xaml.Controls.TeachingTip",
+        "targetFamily": "dialogs-flyouts",
+        "priority": 14,
+        "interactionRequired": true,
+        "requiredStates": ["default", "open-popup", "dismissed"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "TeachingTip facade and XAML ingestion, callout/tail and content painter, open/dismiss interaction, accessibility teaching content, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "RatingControl",
+        "namespace": "Microsoft.UI.Xaml.Controls.RatingControl",
+        "targetFamily": "status-pickers",
+        "priority": 15,
+        "interactionRequired": true,
+        "requiredStates": ["default", "hover", "set", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "RatingControl facade and XAML ingestion, glyph rating painter, set/hover interaction, accessibility rating value, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "PersonPicture",
+        "namespace": "Microsoft.UI.Xaml.Controls.PersonPicture",
+        "targetFamily": "status-pickers",
+        "priority": 16,
+        "interactionRequired": false,
+        "requiredStates": ["initials", "image", "group"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "PersonPicture facade and XAML ingestion, circular initials/image painter, accessibility person name, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "CalendarView",
+        "namespace": "Microsoft.UI.Xaml.Controls.CalendarView",
+        "targetFamily": "status-pickers",
+        "priority": 17,
+        "interactionRequired": true,
+        "requiredStates": ["default", "selected", "focused", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "CalendarView facade and XAML ingestion, month grid and selected-day painter, day-selection interaction, accessibility date state, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "DatePicker",
+        "namespace": "Microsoft.UI.Xaml.Controls.DatePicker",
+        "targetFamily": "status-pickers",
+        "priority": 18,
+        "interactionRequired": true,
+        "requiredStates": ["default", "open-popup", "selected", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "DatePicker facade and XAML ingestion, field and spinner-flyout painter, open/select interaction, accessibility date value, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "TimePicker",
+        "namespace": "Microsoft.UI.Xaml.Controls.TimePicker",
+        "targetFamily": "status-pickers",
+        "priority": 19,
+        "interactionRequired": true,
+        "requiredStates": ["default", "open-popup", "selected", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "TimePicker facade and XAML ingestion, field and spinner-flyout painter, open/select interaction, accessibility time value, component evidence, native reference, docs, and tests."
+      },
+      {
+        "control": "ColorPicker",
+        "namespace": "Microsoft.UI.Xaml.Controls.ColorPicker",
+        "targetFamily": "status-pickers",
+        "priority": 20,
+        "interactionRequired": true,
+        "requiredStates": ["default", "focused", "disabled"],
+        "currentGrade": "not-rendered",
+        "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+        "promotionExitCriteria": "ColorPicker facade and XAML ingestion, spectrum/sliders/preview painter, channel interaction, accessibility color value, component evidence, native reference, docs, and tests."
+      }
+    ]
+  },
   "entries": [
     {
       "component": "AnimatedIcon",

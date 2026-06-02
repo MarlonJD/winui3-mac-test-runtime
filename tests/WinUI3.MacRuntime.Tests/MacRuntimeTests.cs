@@ -530,7 +530,7 @@ public sealed class MacRuntimeTests
             .OrderBy(phase => phase, StringComparer.Ordinal)
             .ToArray();
         CollectionAssert.AreEqual(
-            new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6" },
+            new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7" },
             phases);
     }
 
@@ -957,6 +957,90 @@ public sealed class MacRuntimeTests
                     $"Inventory is missing scenario requirement '{requirement.Component}' from {Path.GetFileName(scenarioPath)}.");
             }
         }
+    }
+
+    [TestMethod]
+    public async Task BroaderControlInventoryTracksPrioritizedControlsHonestly()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var inventoryPath = Path.Combine(repositoryRoot, "docs", "compatibility", "winui-component-inventory.json");
+        using var inventory = JsonDocument.Parse(await File.ReadAllTextAsync(inventoryPath));
+        var root = inventory.RootElement;
+
+        var entries = root.GetProperty("entries")
+            .EnumerateArray()
+            .ToDictionary(entry => entry.GetProperty("component").GetString()!, entry => entry, StringComparer.Ordinal);
+
+        var broader = root.GetProperty("broaderControlInventory");
+        Assert.AreEqual("Phase 7", broader.GetProperty("phase").GetString());
+
+        var validFamilies = broader.GetProperty("validFamilies")
+            .EnumerateArray()
+            .Select(family => family.GetString()!)
+            .ToArray();
+
+        var expectedControls = new[]
+        {
+            "AutoSuggestBox", "PasswordBox", "NumberBox", "Slider", "ToggleSwitch", "DropDownButton",
+            "SplitButton", "ToggleSplitButton", "MenuBar", "TeachingTip", "Expander", "TabView", "TreeView",
+            "GridView", "CalendarView", "DatePicker", "TimePicker", "ColorPicker", "RatingControl", "PersonPicture",
+        };
+
+        var knownGrades = new[] { "not-rendered", "usable", "good", "production-ready" };
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        var priorities = new HashSet<int>();
+
+        foreach (var control in broader.GetProperty("controls").EnumerateArray())
+        {
+            var name = RequireNonEmptyString(control, "control");
+            Assert.IsTrue(seen.Add(name), $"Broader inventory lists '{name}' more than once.");
+
+            CollectionAssert.Contains(validFamilies, RequireNonEmptyString(control, "targetFamily"), $"{name} targets an unknown family.");
+            _ = RequireNonEmptyString(control, "disposition");
+            _ = RequireNonEmptyString(control, "promotionExitCriteria");
+            Assert.IsGreaterThan(0, control.GetProperty("requiredStates").GetArrayLength(), $"{name} must declare required states.");
+            Assert.IsTrue(priorities.Add(control.GetProperty("priority").GetInt32()), $"{name} reuses a priority value.");
+
+            var grade = RequireNonEmptyString(control, "currentGrade");
+            CollectionAssert.Contains(knownGrades, grade, $"{name} has an unknown current grade.");
+
+            Assert.IsTrue(entries.TryGetValue(name, out var entry), $"{name} is missing a tracking row in 'entries'.");
+
+            // Honesty gate: a control may claim a rendered grade only when its
+            // tracking row carries the matching catalog status, visual evidence,
+            // and (when required) interaction coverage. Otherwise it must stay
+            // not-rendered so the roadmap cannot hide a false support claim.
+            if (grade == "not-rendered")
+            {
+                Assert.AreEqual(
+                    "not-rendered",
+                    entry.GetProperty("visualEvidence").GetString(),
+                    $"{name} is not-rendered in the plan but claims visual evidence in 'entries'.");
+            }
+            else
+            {
+                var status = entry.GetProperty("catalogStatus").GetString();
+                Assert.IsTrue(
+                    status is CompatibilityStatuses.Supported or CompatibilityStatuses.Partial,
+                    $"{name} claims grade '{grade}' but its catalog status is '{status}'.");
+                Assert.AreNotEqual(
+                    "not-rendered",
+                    entry.GetProperty("visualEvidence").GetString(),
+                    $"{name} claims grade '{grade}' without visual evidence.");
+                if (control.GetProperty("interactionRequired").GetBoolean())
+                {
+                    Assert.AreNotEqual(
+                        "none",
+                        entry.GetProperty("interactionCoverage").GetString(),
+                        $"{name} requires interaction evidence before claiming grade '{grade}'.");
+                }
+            }
+        }
+
+        CollectionAssert.AreEquivalent(
+            expectedControls,
+            seen.ToArray(),
+            "The broader control inventory must track exactly the prioritized Phase 7 controls.");
     }
 
     [TestMethod]

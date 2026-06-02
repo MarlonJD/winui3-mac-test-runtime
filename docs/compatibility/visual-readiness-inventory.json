@@ -83,6 +83,16 @@
         "the audit is derived deterministically from the catalog and verified with 'winui3-mac-runner catalog-audit --check'",
         "per-entry dispositions, blockers, and counts agree with this inventory's allCatalogReadinessAudit buckets and leave zero entries unassigned"
       ]
+    },
+    {
+      "phase": "Phase 7",
+      "name": "Broader WinUI control inventory",
+      "status": "inventory and promotion gate implemented; controls remain planned diagnostics pending evidence-gated promotion",
+      "evidence": [
+        "docs/compatibility/winui-component-inventory.json broaderControlInventory enumerates 20 prioritized public WinUI controls with target family, required states, priority, disposition, and promotion exit criteria",
+        "every prioritized control is tracked as a planned not-rendered diagnostic row in entries with no false local support claim",
+        "the broader-control honesty gate fails if any control claims a rendered grade without matching catalog status, visual evidence, and interaction coverage"
+      ]
     }
   ],
   "promotionRules": [
