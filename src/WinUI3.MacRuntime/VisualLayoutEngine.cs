@@ -360,12 +360,12 @@ public static class VisualLayoutEngine
     {
         var natural = SimpleType(node) switch
         {
-            "TextBlock" or "String" => 28,
-            "Button" or "RepeatButton" or "HyperlinkButton" or "DropDownButton" or "SplitButton" or "ToggleSplitButton" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 40,
-            "TextBox" => 36,
-            "Slider" => 40,
+            "TextBlock" or "String" => 24,
+            "Button" or "RepeatButton" or "HyperlinkButton" or "DropDownButton" or "SplitButton" or "ToggleSplitButton" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 32,
+            "TextBox" => 32,
+            "Slider" => 32,
             "ToggleSwitch" => 44,
-            "RatingControl" => 40,
+            "RatingControl" => 32,
             "FontIcon" => 24,
             "Image" => 96,
             "ProgressBar" => 28,

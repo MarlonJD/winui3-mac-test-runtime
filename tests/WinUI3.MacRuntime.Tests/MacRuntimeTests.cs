@@ -1695,8 +1695,8 @@ public sealed class MacRuntimeTests
         Assert.IsNotNull(stack.Layout);
         Assert.AreEqual(0, stack.Layout!.Y);
         Assert.AreEqual(800, stack.Layout.Width);
-        Assert.AreEqual(28, stack.Children[0].Layout!.Height);
-        Assert.AreEqual(36, stack.Children[1].Layout!.Y);
+        Assert.AreEqual(24, stack.Children[0].Layout!.Height);
+        Assert.AreEqual(32, stack.Children[1].Layout!.Y);
     }
 
     [TestMethod]

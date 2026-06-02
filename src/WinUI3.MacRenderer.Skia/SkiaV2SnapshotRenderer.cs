@@ -392,7 +392,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var state = new FluentControlState(IsEnabled: enabled, IsFocused: focused);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, state);
         var colors = FluentDrawingPrimitives.ControlColors(theme, state);
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Button"), rect.Left + 14, rect.Top + 25, enabled ? ReadColor(node, "foreground", colors.Text) : colors.Text);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Button"), rect.Left + 14, rect.Top + 21, enabled ? ReadColor(node, "foreground", colors.Text) : colors.Text);
         RenderChildren(canvas, node, theme, paint, font, font, font, font);
     }
 
@@ -402,8 +402,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true) && ReadBool(node, "commandCanExecute", fallback: true);
         var foreground = enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled;
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled));
-        DrawText(canvas, paint, iconFont, FindFirstGlyph(node) ?? "*", rect.Left + 12, rect.Top + 25, enabled ? theme.Accent : theme.TextDisabled);
-        DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 25, foreground);
+        DrawText(canvas, paint, iconFont, FindFirstGlyph(node) ?? "*", rect.Left + 12, rect.Top + 21, enabled ? theme.Accent : theme.TextDisabled);
+        DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 21, foreground);
     }
 
     private static void RenderToggleButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -413,7 +413,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var state = new FluentControlState(IsEnabled: enabled, IsChecked: checkedState);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, state, accentWhenChecked: true);
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Toggle"), rect.Left + 14, rect.Top + 25, FluentDrawingPrimitives.ControlColors(theme, state, accentWhenChecked: true).Text);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Toggle"), rect.Left + 14, rect.Top + 21, FluentDrawingPrimitives.ControlColors(theme, state, accentWhenChecked: true).Text);
     }
 
     private static void RenderHyperlinkButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -421,8 +421,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var color = enabled ? theme.Accent : theme.TextDisabled;
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Link"), rect.Left + 4, rect.Top + 25, color);
-        DrawLine(canvas, paint, rect.Left + 4, rect.Top + 29, Math.Min(rect.Right - 4, rect.Left + 118), rect.Top + 29, color);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Link"), rect.Left + 4, rect.Top + 21, color);
+        DrawLine(canvas, paint, rect.Left + 4, rect.Top + 25, Math.Min(rect.Right - 4, rect.Left + 118), rect.Top + 25, color);
     }
 
     private static void RenderDropDownButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -430,8 +430,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled));
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Drop down"), rect.Left + 14, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
-        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 18, enabled ? theme.TextSecondary : theme.TextDisabled);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Drop down"), rect.Left + 14, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
+        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 14, enabled ? theme.TextSecondary : theme.TextDisabled);
     }
 
     private static void RenderSplitButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font, bool isToggle)
@@ -442,10 +442,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var state = new FluentControlState(IsEnabled: enabled, IsChecked: checkedState);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, state, accentWhenChecked: isToggle);
         var colors = FluentDrawingPrimitives.ControlColors(theme, state, accentWhenChecked: isToggle);
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Split"), rect.Left + 14, rect.Top + 25, colors.Text);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Split"), rect.Left + 14, rect.Top + 21, colors.Text);
         var separatorX = rect.Right - 34;
         DrawLine(canvas, paint, separatorX, rect.Top + 6, separatorX, rect.Bottom - 6, checkedState && enabled ? theme.Surface : theme.Stroke);
-        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 18, colors.Text);
+        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 14, colors.Text);
     }
 
     private static void RenderCheckBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -453,9 +453,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var checkedState = ReadBool(node, "isChecked", fallback: false);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
-        var box = new SKRect(rect.Left + 2, rect.Top + 9, rect.Left + 22, rect.Top + 29);
+        var box = new SKRect(rect.Left + 2, rect.Top + 6, rect.Left + 22, rect.Top + 26);
         FluentDrawingPrimitives.DrawCheckBox(canvas, paint, box, theme, new FluentControlState(IsEnabled: enabled, IsChecked: checkedState));
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Check box"), rect.Left + 32, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Check box"), rect.Left + 32, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
     private static void RenderRadioButton(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -463,8 +463,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var checkedState = ReadBool(node, "isChecked", fallback: false);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
-        FluentDrawingPrimitives.DrawRadioButton(canvas, paint, rect.Left + 12, rect.Top + 20, theme, new FluentControlState(IsEnabled: enabled, IsChecked: checkedState));
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Option"), rect.Left + 32, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
+        FluentDrawingPrimitives.DrawRadioButton(canvas, paint, rect.Left + 12, rect.Top + 16, theme, new FluentControlState(IsEnabled: enabled, IsChecked: checkedState));
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Option"), rect.Left + 32, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
     private static void RenderTextBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -473,7 +473,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var focused = ReadBool(node, "isFocused", fallback: false);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
-        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 10, rect.Top + 24, enabled ? theme.TextPrimary : theme.TextDisabled);
+        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 10, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
     private static void RenderComboBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -482,8 +482,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled));
         var text = ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select";
-        DrawText(canvas, paint, font, text, rect.Left + 10, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
-        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 18, enabled ? theme.TextSecondary : theme.TextDisabled);
+        DrawText(canvas, paint, font, text, rect.Left + 10, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
+        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 14, enabled ? theme.TextSecondary : theme.TextDisabled);
     }
 
     private static void RenderSlider(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint)
@@ -503,9 +503,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
-        DrawText(canvas, paint, font, ReadString(node, "header") ?? string.Empty, rect.Left, rect.Top + 26, enabled ? theme.TextPrimary : theme.TextDisabled);
-        var track = new SKRect(rect.Right - 54, rect.Top + 9, rect.Right - 6, rect.Top + 29);
+        DrawText(canvas, paint, font, ReadString(node, "header") ?? string.Empty, rect.Left, rect.Top + 15, enabled ? theme.TextPrimary : theme.TextDisabled);
+        var track = new SKRect(rect.Left, rect.Top + 22, rect.Left + 48, rect.Top + 42);
         FluentDrawingPrimitives.DrawToggleSwitch(canvas, paint, track, theme, ReadBool(node, "isOn", fallback: false), enabled);
+        DrawText(canvas, paint, font, ReadBool(node, "isOn", fallback: false) ? "On" : "Off", rect.Left + 58, rect.Top + 37, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
     private static void RenderRatingControl(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint)
