@@ -12,6 +12,7 @@ Current production component status is sourced from fresh
 `component-evidence.json`, strict scenario results, catalog status,
 interaction/accessibility evidence, and native-reference provenance. See
 `docs/release/final-production-gate.md`,
+`docs/release/production-evidence-view.md`,
 `docs/compatibility/component-support.md`, and
 `docs/compatibility/production-component-targets.md`.
 

@@ -23,6 +23,10 @@ compatibility for the public clean-room subset documented in:
 The runtime remains a Wine-free source-level compatibility and evidence tool,
 not a Windows emulator or a substitute for native Windows App SDK validation.
 
+For the single-page evidence summary that combines catalog counts, Ring 0/Ring
+1 status, latest recorded workflow IDs, strict scenario results, and checked-in
+visual examples, see `docs/release/production-evidence-view.md`.
+
 ## Workflow Evidence
 
 | Gate | Evidence |

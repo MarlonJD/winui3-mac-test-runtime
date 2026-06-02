@@ -7,6 +7,11 @@ public WinUI fixture projects. The matching macOS runtime render, pixel diff,
 and threshold failure checks are produced locally on a developer Mac with
 `winui3-mac-runner` when a visual scenario needs review.
 
+For the current single-page production evidence summary, including catalog
+counts, Ring 0/Ring 1 status, latest recorded workflow IDs, strict scenario
+results, and checked-in visual examples, see
+`docs/release/production-evidence-view.md`.
+
 The latest full native reference artifact set was captured by public GitHub
 Actions run
 [`26792033793`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26792033793)
