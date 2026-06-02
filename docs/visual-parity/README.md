@@ -9,8 +9,8 @@ and threshold failure checks are produced locally on a developer Mac with
 
 The latest full native reference artifact set was captured by public GitHub
 Actions run
-[`26791576394`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26791576394)
-on commit `cd814a4`. It includes `public-admin-workbench-light`,
+[`26792033793`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26792033793)
+on commit `3c929f4`. It includes `public-admin-workbench-light`,
 `public-admin-workbench-deferred-light`, all light Ring 0 and Ring 1 component
 lab scenarios, `production-smoke-light`, and
 `production-e2e-workbench-light`. It also includes native WinUI corpus

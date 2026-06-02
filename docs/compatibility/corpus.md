@@ -116,6 +116,6 @@ explicit unsupported exclusion, then refresh the baseline.
   of public WinUI 3 project shapes with structured ingestion output.
 - **PB-008** (public evidence corpus): the corpus is the representative
   clean-room public surface that fixture-only evidence lacked. Public GitHub
-  Actions run `26791576394` captured native WinUI references for every current
+  Actions run `26792033793` captured native WinUI references for every current
   corpus app scenario, including the single-window, settings-form, and
   resource-catalog scenarios added after the initial corpus ingestion work.

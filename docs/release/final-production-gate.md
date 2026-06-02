@@ -27,8 +27,10 @@ not a Windows emulator or a substitute for native Windows App SDK validation.
 
 | Gate | Evidence |
 | --- | --- |
+| Final Sprint 7 CI | Run `26792033784`, commit `3c929f4`, passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
+| Final full native WinUI reference workflow | Run `26792033793`, commit `3c929f4`, captures public native fixture references and synthetic probe smoke artifacts. |
 | Sprint 6 CI | Run `26791576401`, commit `cd814a4`, passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
-| Latest full native WinUI reference workflow | Run `26791576394`, commit `cd814a4`, captures public native fixture references and synthetic probe smoke artifacts. |
+| Sprint 6 native WinUI reference workflow | Run `26791576394`, commit `cd814a4`, captured public native fixture references and synthetic probe smoke artifacts. |
 | Prior corpus native reference set | Run `26790967052`, commit `6d2fc9c`, captured native references for public admin, component lab, production smoke, single-window, settings-form, and resource-catalog scenarios. |
 | Prior Sprint 5 CI | Run `26791199828`, commit `3e54a99`, passed after native reference evidence docs were updated. |
 | Sprint 7 local strict sweep | 36 public scenarios passed locally with `--renderer skia-v2 --strict-visual`. |
