@@ -11,7 +11,7 @@ Owner subtree: root `docs/plans`, `docs/compatibility`, `docs/release`,
 
 Make `winui3-mac-test-runtime` visually ready for source-level WinUI 3
 application development by making the macOS runtime output look and behave like
-native Windows WinUI for every claimed support tier.
+native Windows WinUI for every cataloged support surface.
 
 The target user-facing result is: when a supported WinUI 3 source app or public
 fixture is run through the macOS runtime, the visible shell, controls,
@@ -22,6 +22,15 @@ and are backed by native Windows reference artifacts.
 This is not a plan to execute Windows binaries, `.msix` packages, DirectX,
 WebView2, or OS-only Windows integrations on macOS. It is a source-level visual
 readiness plan with strict evidence gates.
+
+The completion bar is the full current catalog: all **126** catalog entries
+must reach a production-ready outcome. For locally executable source-level
+surfaces, that means implemented support with tests, public fixture coverage,
+native reference evidence, macOS artifacts, interaction/accessibility evidence
+where applicable, and docs. For Windows-only or explicit non-goal surfaces, that
+means production-ready exclusion: deterministic diagnostics, Windows validation
+evidence where applicable, support-policy wording, and no misleading local
+macOS support claim.
 
 ## Current-State Audit
 
@@ -73,17 +82,46 @@ production-subset claim.
 | PB-011: security and supply chain | Closed | Keep private-name scan and artifact privacy rules mandatory for every new fixture or checked-in visual artifact. |
 | PB-012: support policy and triage | Closed | Update support policy and production evidence view whenever a status is promoted or excluded. |
 
+## All-Catalog Production Readiness Mandate
+
+The 126 entries are the required production readiness scope. They are catalog
+entries, not all visual controls: the catalog includes APIs, XAML elements,
+XAML properties/directives/events/resources, Fluent resources, visual states,
+project items, and project properties. The release candidate gate must account
+for every one of them.
+
+| Kind | Count | Production-ready requirement |
+| --- | ---: | --- |
+| `api` | 48 | Runtime facade behavior or explicit diagnostic/exclusion, with tests and docs. |
+| `xaml-element` | 34 | XAML ingestion, facade/runtime behavior, renderer evidence where visual, or explicit diagnostic/exclusion. |
+| `xaml-resource` | 7 | Resource lookup/theme behavior or deterministic missing/unsupported diagnostics. |
+| `xaml-directive` | 5 | Compiler support or explicit compiler diagnostic with catalog status. |
+| `xaml-property` | 5 | Property parsing/application or explicit diagnostic with catalog status. |
+| `visual-state` | 5 | Rendered/interacted state evidence or explicit planned diagnostic. |
+| `fluent-resource` | 4 | Theme token mapping or explicit unsupported Fluent resource diagnostic. |
+| `project-property` | 4 | Project ingestion support or fail-fast project diagnostic. |
+| `xaml-attached-property` | 4 | Attached property parsing/application or explicit diagnostic. |
+| `xaml-event` | 3 | Event hookup support or explicit diagnostic. |
+| `project-item` | 3 | Project ingestion/build behavior or Windows-only exclusion. |
+| `xaml-property-element` | 3 | Collection/property-element parsing or explicit diagnostic. |
+| `xaml-markup` | 1 | Markup extension support or explicit diagnostic. |
+
+Production-ready does not mean every entry must become local macOS rendered
+support if the product scope says it is Windows-only or an explicit non-goal.
+It does mean every entry must have a deliberate, test-backed production
+disposition and no unknown or silent behavior.
+
 ## Catalog Status Plan
 
 The current catalog snapshot is **126 entries**:
 
 | Status | Count | Plan treatment |
 | --- | ---: | --- |
-| `supported` | 55 | Must never regress to `not-rendered`; for visual readiness, each claimed visual component needs component crop evidence, native provenance, interaction/accessibility evidence where applicable, and target grade. |
-| `partial` | 35 | Must keep the exact supported subset documented; promote only the implemented subset and keep missing states/properties visible as known gaps or diagnostics. |
-| `planned` | 31 | Do not silently render as supported. Each item needs either a later phase implementation path or an explicit diagnostic/non-production entry in the readiness dashboard. |
-| `windows-only` | 3 | Keep excluded from macOS execution. Use Windows workflow evidence where relevant, but do not claim local macOS runtime support. |
-| `not supported` | 2 | Keep explicit non-goals unless a future product decision changes the contract and adds full catalog, fixture, runtime, docs, and release evidence. |
+| `supported` | 55 | Must become production-ready for the documented behavior: tests, fixtures, native provenance when visual, macOS evidence, interaction/accessibility evidence where applicable, docs, and no `not-rendered` visual claim. |
+| `partial` | 35 | Must either graduate the required subset to production-ready with exact boundaries, or be split so implemented behavior is supported and missing behavior is planned/diagnostic. No vague partials in the final gate. |
+| `planned` | 31 | Must be resolved before the all-126 gate: implement and promote, or mark as production-ready exclusion with explicit diagnostics, docs, owner, and future milestone. No planned item can remain ambiguous. |
+| `windows-only` | 3 | Must have production-ready Windows-only handling: excluded from macOS execution, validated or documented through Windows workflow evidence where applicable, and protected from local support claims. |
+| `not supported` | 2 | Must have production-ready non-goal handling: explicit docs, deterministic diagnostics, tests proving fail-fast behavior, and no hidden renderer/runtime fallback. |
 
 Phase 1 must add an automated docs/test gate so README, compatibility matrix,
 API catalog docs, production evidence view, and the JSON catalog cannot drift on
@@ -316,7 +354,38 @@ Verification:
 - Strict layout/media light/dark/high-contrast scenarios.
 - Interaction and accessibility artifact tests for claimed Ring 1 flows.
 
-### Phase 6: Broader WinUI Control Inventory
+### Phase 6: All-126 Catalog Closure
+
+Goal: drive every catalog entry to a production-ready support or exclusion
+outcome.
+
+Steps:
+
+- Build an all-catalog readiness audit from
+  `docs/compatibility/winui-api-compatibility.catalog.json`.
+- For each of the 126 entries, record kind, status, production disposition,
+  owner phase, required fixtures/tests/artifacts, current blocker, and release
+  gate.
+- Promote `supported` entries only when their implementation, docs, and
+  evidence are complete.
+- Split vague `partial` entries into exact supported subset plus explicit
+  missing behavior, or promote the whole entry when complete.
+- Resolve every `planned` entry into either implemented support or
+  production-ready exclusion with diagnostics and docs.
+- Preserve `windows-only` and `not supported` entries as production-ready
+  exclusions unless a future product decision changes the non-goals.
+
+Verification:
+
+- All-catalog readiness audit reports 126/126 entries with a production
+  disposition.
+- No catalog entry is `unknown` in corpus or fixture ingestion.
+- No `planned`, `windows-only`, or `not supported` entry can be touched without
+  a deterministic diagnostic or documented Windows-only/non-goal path.
+- `dotnet test --filter CompatibilityCatalog`
+- `git diff --check`
+
+### Phase 7: Broader WinUI Control Inventory
 
 Goal: move beyond production subset toward full public WinUI visual readiness.
 
@@ -340,7 +409,7 @@ Verification:
 - Component evidence audit with no claimed `not-rendered`, `poor`, or `weak`
   rows.
 
-### Phase 7: Materials, Motion, And High-Fidelity Polish
+### Phase 8: Materials, Motion, And High-Fidelity Polish
 
 Goal: close the highest-visibility Windows UI differences.
 
@@ -361,13 +430,15 @@ Verification:
 - Artifact provenance audit for all promoted material/motion claims.
 - Release-check and production evidence view update.
 
-### Phase 8: Release Candidate Gate
+### Phase 9: Release Candidate Gate
 
 Goal: make "ready" a release decision, not a subjective screenshot review.
 
 Steps:
 
 - Add a release candidate visual gate that requires:
+  - 126/126 catalog entries have a production-ready support, Windows-only, or
+    non-goal disposition;
   - catalog/docs count consistency;
   - zero unknown production surfaces;
   - zero claimed `not-rendered`, `poor`, or `weak` rows;
@@ -467,8 +538,17 @@ README, matrix, api-catalog, and production evidence view match
 `docs/compatibility/winui-api-compatibility.catalog.json`, include explicit
 PB-000 through PB-012 visual readiness mapping, keep the catalog snapshot at
 `126 = 55 supported / 35 partial / 31 planned / 3 windows-only / 2 not
-supported`, and define promotion rules for `not-rendered` -> `usable` -> `good`
--> production-ready.
+supported`, add an all-catalog readiness audit that accounts for all 126
+entries by kind/status/disposition/blocker/evidence, and define promotion rules
+for `not-rendered` -> `usable` -> `good` -> production-ready.
+
+The implementation target is 126/126 production-ready outcomes. Locally
+executable source-level entries need implementation, tests, fixtures, native
+reference evidence when visual, macOS artifacts, interaction/accessibility
+evidence where applicable, and docs. Windows-only and explicit non-goal entries
+must have production-ready exclusion handling: deterministic diagnostics,
+Windows validation evidence where applicable, support-policy wording, and no
+misleading local macOS support claim.
 
 Keep the support claim precise: source-level WinUI 3 visual readiness, not
 Windows binary or arbitrary full WinUI compatibility. Follow the repository
@@ -483,5 +563,7 @@ Verification for Phase 1:
 - manual review of `docs/release/production-evidence-view.md`
 - confirm the visual readiness inventory and docs count gate describe the same
   catalog totals as `winui-api-compatibility.catalog.json`
+- confirm the all-catalog readiness audit accounts for 126/126 entries and
+  leaves no entry without a production disposition
 
 When complete, commit with a Conventional Commit message and push immediately.
