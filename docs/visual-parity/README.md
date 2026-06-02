@@ -117,14 +117,17 @@ When a visual scenario or renderer behavior changes:
 1. Run the local strict scenario without a reference.
 2. Trigger `windows-native-screenshot.yml` on the public repository.
 3. Download the `windows-reference-screenshots` artifact.
-4. Re-run the matching local strict scenario with `--reference` and
+4. Run `winui3-mac-runner native-reference-import --source <downloaded-dir>`
+   to normalize the artifact, validate `native-winui` provenance, and confirm
+   every checked-in component parity lab scenario has a reference.
+5. Re-run the matching local strict scenario with `--reference` and
    `--diff-output`.
-5. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, and
+6. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, and
    `visual-run.json`; inspect `component-evidence.json` for component lab
    scenarios, and inspect reference provenance when the reference supplies it.
-6. Run `winui3-mac-runner component-quality-dashboard` and inspect the updated
+7. Run `winui3-mac-runner component-quality-dashboard` and inspect the updated
    row blockers before promoting any claim.
-7. Update the relevant example folder only when the artifact is public and does
+8. Update the relevant example folder only when the artifact is public and does
    not contain private names, private screenshots, secrets, or proprietary
    fixture content. Production visual examples must come from native WinUI
    reference provenance; synthetic probe examples must remain labeled as smoke

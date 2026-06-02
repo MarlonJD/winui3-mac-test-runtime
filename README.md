@@ -210,6 +210,15 @@ PATH="$PWD/tools:$PATH" winui3-mac-runner run \
   --diff-output ./artifacts/windows-native-screenshot/shell-light
 ```
 
+After downloading the public `windows-reference-screenshots` workflow artifact,
+normalize and validate the native references before local review:
+
+```sh
+PATH="$PWD/tools:$PATH" winui3-mac-runner native-reference-import \
+  --source ./artifacts/windows-reference-screenshots \
+  --output ./artifacts/native-reference-import
+```
+
 The runner writes artifacts to `artifacts/winui3-mac/` by default:
 
 - `run.json`: runtime, Wine dependency, project, assembly, and status metadata.

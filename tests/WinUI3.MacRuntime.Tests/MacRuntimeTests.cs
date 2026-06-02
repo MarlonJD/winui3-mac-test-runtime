@@ -1233,6 +1233,61 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task NativeReferenceImporterNormalizesCompleteComponentReferenceArtifact()
+    {
+        var sourceRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-native-reference-import-source", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-native-reference-import-output", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(sourceRoot);
+        var scenarioRoot = RepositoryPath("fixtures/ComponentParityLab.WinUI/scenarios");
+        var scenarioPaths = Directory.EnumerateFiles(scenarioRoot, "*.json", SearchOption.TopDirectoryOnly)
+            .OrderBy(path => path, StringComparer.Ordinal)
+            .ToArray();
+
+        foreach (var scenarioPath in scenarioPaths)
+        {
+            var scenario = await VisualScenario.LoadAsync(scenarioPath);
+            var artifactDirectory = Path.Combine(sourceRoot, scenario.Name);
+            Directory.CreateDirectory(artifactDirectory);
+            WriteSolidPng(Path.Combine(artifactDirectory, "windows-reference.png"), new SKColor(250, 250, 250), scenario.Viewport.Width, scenario.Viewport.Height);
+            var relativeScenarioPath = Path.GetRelativePath(RepositoryRoot(), scenarioPath).Replace('\\', '/');
+            var provenance = new NativeReferenceProvenance(
+                ReferenceSource: "native-winui",
+                FixtureProjectPath: "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+                ScenarioPath: relativeScenarioPath,
+                ScenarioName: scenario.Name,
+                CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+                WorkflowRunId: "26777029415",
+                RunnerImage: "win25 20260525.149.1",
+                WindowsAppSdkVersion: null,
+                Viewport: scenario.Viewport,
+                Scale: scenario.Scale,
+                Theme: scenario.Theme,
+                CaptureMode: "client-area",
+                Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
+                CapturedAt: "2026-06-01T19:31:04.2512607+00:00");
+            File.WriteAllText(
+                Path.Combine(artifactDirectory, "windows-reference.json"),
+                JsonSerializer.Serialize(provenance, JsonDefaults.Options));
+        }
+
+        var import = NativeReferenceImporter.Import(RepositoryRoot(), sourceRoot, outputRoot);
+
+        Assert.AreEqual("passed", import.Status);
+        Assert.HasCount(import.ExpectedComponentScenarioCount, scenarioPaths);
+        Assert.AreEqual(scenarioPaths.Length, import.ImportedReferenceCount);
+        Assert.HasCount(0, import.MissingComponentScenarioPaths);
+        Assert.HasCount(0, import.Problems);
+        Assert.IsTrue(File.Exists(Path.Combine(outputRoot, "native-reference-import.json")));
+        foreach (var item in import.Items)
+        {
+            Assert.AreEqual("imported", item.Status);
+            Assert.AreEqual("native-winui", item.ReferenceSource);
+            Assert.IsTrue(File.Exists(Path.Combine(outputRoot, item.ImportedReferenceImagePath)));
+            Assert.IsTrue(File.Exists(Path.Combine(outputRoot, item.ImportedReferenceMetadataPath)));
+        }
+    }
+
+    [TestMethod]
     public async Task ProductionStateCoverageReferencesExistingScenarios()
     {
         var repositoryRoot = FindRepositoryRoot();

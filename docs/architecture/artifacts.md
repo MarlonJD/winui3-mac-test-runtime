@@ -18,6 +18,7 @@ a new schema version and documentation update.
 | `binding-failures.json` | `0.1` |
 | `visual/component-evidence.json` | `0.4` |
 | `docs/visual-parity/component-quality-dashboard.json` | `0.2` |
+| `native-reference-import.json` | `0.1` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
 | `project-ingestion.json` | `0.1` |
@@ -51,6 +52,11 @@ a new schema version and documentation update.
   features, unsupported project features, and blocking XAML diagnostics.
 - `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
   and unsupported API reports.
+- `native-reference-import.json`: normalized import manifest for downloaded
+  `windows-reference-screenshots` artifacts. It records every imported native
+  reference, copied reference paths, provenance, missing component parity
+  scenarios, and validation problems before local review runs use those
+  references.
 - `interactions.json`: emitted when `--script` or scenario interactions are
   provided; records every scripted action, semantic selector kind, target type,
   expected/actual values, and observed target state. Supported action types are

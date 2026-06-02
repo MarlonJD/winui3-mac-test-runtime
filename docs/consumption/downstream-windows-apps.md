@@ -244,13 +244,15 @@ Release or visual-change gate:
 1. Run the PR gate.
 2. Run the Windows reference workflow.
 3. Download the `windows-reference-screenshots` artifact.
-4. Run the matching local macOS strict scenario with `--reference` and
+4. Run `winui3-mac-runner native-reference-import --source <downloaded-dir>` to
+   validate and normalize downloaded references before review.
+5. Run the matching local macOS strict scenario with `--reference` and
    `--diff-output`.
-5. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`,
+6. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`,
    `visual-run.json`, and, when available, `component-evidence.json` and
    reference provenance.
-6. Record visible gaps as `good`, `usable`, `weak`, `poor`, or `not-rendered`.
-7. Do not claim visual parity for weak or poor components.
+7. Record visible gaps as `good`, `usable`, `weak`, `poor`, or `not-rendered`.
+8. Do not claim visual parity for weak or poor components.
 
 ## GitHub Actions Shape
 

@@ -15,6 +15,7 @@ public static class ArtifactSchemas
     public const string DoctorReport = "0.1";
     public const string InteractionReport = "0.2";
     public const string InteractionScript = "0.1";
+    public const string NativeReferenceImport = "0.1";
     public const string PixelDiff = "0.1";
     public const string ProjectIngestion = "0.1";
     public const string RunReport = "0.1";

@@ -33,6 +33,7 @@ internal static class Cli
             "release-candidate" => await ReleaseCandidateCommand.RunAsync(args[1..]),
             "catalog-audit" => RunCatalogAudit(args[1..]),
             "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
+            "native-reference-import" => RunNativeReferenceImport(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
@@ -477,6 +478,39 @@ internal static class Cli
         }
     }
 
+    private static int RunNativeReferenceImport(string[] args)
+    {
+        var sourceRoot = ReadOption(args, "--source");
+        if (sourceRoot is null)
+        {
+            Console.Error.WriteLine("Missing required option: --source <windows-reference-screenshots-dir>.");
+            return 2;
+        }
+
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "native-reference-import"));
+        var outputRoot = Path.GetFullPath(ReadOption(args, "--output") ?? Path.Combine(repositoryRoot, "artifacts", "native-reference-import"));
+        try
+        {
+            var import = NativeReferenceImporter.Import(repositoryRoot, sourceRoot, outputRoot);
+            Console.WriteLine($"native-reference-import: {import.ImportedReferenceCount} references imported, {import.MissingComponentScenarioPaths.Count} component scenario references missing.");
+            Console.WriteLine($"native-reference-import.json: {Path.Combine(outputRoot, "native-reference-import.json")}");
+            if (import.Problems.Count > 0)
+            {
+                foreach (var problem in import.Problems)
+                {
+                    Console.Error.WriteLine($"native-reference-import: {problem}");
+                }
+            }
+
+            return import.Status == "passed" ? 0 : 1;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine(ex.Message);
+            return 1;
+        }
+    }
+
     private static int RunXaml(string[] args)
     {
         if (args.Length == 0 || args[0] != "compile")
@@ -616,6 +650,7 @@ internal static class Cli
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");
+        Console.WriteLine("  native-reference-import --source <windows-reference-screenshots-dir> [--output <dir>]");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
         Console.WriteLine("      [--check] [--write-baseline]");
