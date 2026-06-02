@@ -913,7 +913,10 @@ public sealed class MacRuntimeTests
 
         Assert.AreEqual("passed", evidence.Components[0].InteractionStatus);
         Assert.IsNotNull(evidence.Components[0].ComponentThresholds);
+        Assert.AreEqual("not-evaluated", evidence.Components[0].NativeQualityGrade);
+        Assert.IsNull(evidence.Components[0].Inspection);
         Assert.AreEqual("not-rendered", evidence.Components[1].VisualGrade);
+        Assert.AreEqual("not-evaluated", evidence.Components[1].NativeQualityGrade);
         Assert.HasCount(1, evidence.SourceFeatures);
         Assert.AreEqual("present", evidence.SourceFeatures[0].Presence);
     }
@@ -1126,17 +1129,51 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
-    public void ReleaseCandidateArtifactGatesAreSatisfied()
+    public void ComponentQualityDashboardMatchesPublicEvidence()
+    {
+        var expected = ComponentQualityDashboard.BuildFromPublicEvidence(RepositoryRoot());
+        var actual = File.ReadAllText(RepositoryPath("docs/visual-parity/component-quality-dashboard.json"));
+
+        Assert.AreEqual(
+            NormalizeArtifact(JsonSerializer.Serialize(expected, JsonDefaults.Options)),
+            NormalizeArtifact(actual),
+            "docs/visual-parity/component-quality-dashboard.json is out of date. Regenerate with 'winui3-mac-runner component-quality-dashboard'.");
+
+        Assert.AreEqual("blocked", expected.Status);
+        Assert.AreEqual(expected.Totals.ComponentCount, expected.Totals.BlockingRowCount);
+        Assert.IsGreaterThan(0, expected.Totals.MissingNativeReferenceCrops);
+        Assert.IsGreaterThan(0, expected.Totals.MissingInspectionNotes);
+
+        foreach (var blocker in expected.Blockers)
+        {
+            Assert.IsTrue(
+                blocker.Reasons.Any(reason => reason.Contains("nativeQualityGrade", StringComparison.Ordinal)),
+                $"{blocker.ScenarioName}/{blocker.Component} must explain the missing native-quality grade.");
+            Assert.IsTrue(
+                blocker.Reasons.Any(reason => reason.Contains("manual screenshot inspection", StringComparison.Ordinal)),
+                $"{blocker.ScenarioName}/{blocker.Component} must require manual inspection metadata.");
+        }
+    }
+
+    [TestMethod]
+    public void ReleaseCandidateArtifactGatesAreAccountedFor()
     {
         // Mirrors the deterministic local checks of 'winui3-mac-runner
-        // release-candidate' so the checked-in artifacts stay release-candidate
-        // ready. CI adds native reference capture, the full strict sweep, and the
-        // package dry run.
+        // release-candidate'. The current component-quality dashboard is expected
+        // to block release until native reference crops and manual inspections
+        // exist for every public component row. CI adds native reference capture,
+        // the full strict sweep, and the package dry run.
 
         // Zero unknown production surfaces in the committed corpus inventory.
         using (var corpus = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/compatibility/corpus-unknown-apis.json"))))
         {
             Assert.AreEqual(0, corpus.RootElement.GetProperty("entries").GetArrayLength(), "Corpus inventory must report zero unknown public surfaces.");
+        }
+
+        using (var dashboard = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/visual-parity/component-quality-dashboard.json"))))
+        {
+            Assert.AreEqual("blocked", dashboard.RootElement.GetProperty("status").GetString());
+            Assert.IsGreaterThan(0, dashboard.RootElement.GetProperty("totals").GetProperty("blockingRowCount").GetInt32());
         }
 
         // Native provenance for every checked-in visual reference.

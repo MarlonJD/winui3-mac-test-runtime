@@ -39,6 +39,13 @@ source-level WinUI 3 harness readiness for the documented public subset. Visual
 renderer quality needs a separate renderer-fidelity plan before any stronger
 visual claim.
 
+The current release-candidate gate is intentionally blocked by
+`docs/visual-parity/component-quality-dashboard.json`: 49/49 checked-in public
+component rows are below the native-quality target because they lack complete
+component crop, native reference crop, diff, and manual inspection evidence.
+This blocker prevents the existing harness-grade rows from being mistaken for
+native-quality WinUI visual readiness.
+
 ## Workflow Evidence
 
 | Gate | Evidence |
@@ -89,6 +96,11 @@ for a native-quality WinUI visual claim.
 The `ClaimedSupportedComponentsAreNeverNotRendered` test keeps supported or
 partial scenario requirements from regressing to `not-rendered`; it does not
 prove that `usable` controls are visually close to native WinUI.
+
+The `ComponentQualityDashboardMatchesPublicEvidence` test keeps
+`docs/visual-parity/component-quality-dashboard.json` synchronized with the
+checked-in public component evidence and requires missing native-quality
+evidence to remain visible as release blockers.
 
 ## Unsupported WinUI 3 Exclusions
 

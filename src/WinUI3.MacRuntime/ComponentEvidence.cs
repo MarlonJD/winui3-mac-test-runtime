@@ -24,6 +24,15 @@ public sealed record ComponentCropEvidence(
     double? RootMeanSquaredError,
     string? Message);
 
+public sealed record ComponentInspectionEvidence(
+    string InspectedBy,
+    string InspectedDate,
+    string NativeReferenceRunId,
+    IReadOnlyList<string> ComparisonArtifactPaths,
+    IReadOnlyList<string> AcceptedGaps,
+    string? ToleranceReason,
+    string Notes);
+
 public sealed record ComponentEvidenceDocument(
     string SchemaVersion,
     string FixtureName,
@@ -46,6 +55,8 @@ public sealed record ComponentEvidenceEntry(
     double? MeanAbsoluteError,
     double? RootMeanSquaredError,
     ComponentCropEvidence? Crop,
+    string NativeQualityGrade,
+    ComponentInspectionEvidence? Inspection,
     IReadOnlyList<string> KnownGaps);
 
 public sealed record SourceFeatureEvidenceEntry(
@@ -64,7 +75,8 @@ public static class ComponentEvidenceBuilder
         ["poor"] = 1,
         ["weak"] = 2,
         ["usable"] = 3,
-        ["good"] = 4
+        ["good"] = 4,
+        ["production-ready"] = 5
     };
 
     public static ComponentEvidenceDocument Build(
@@ -125,6 +137,8 @@ public static class ComponentEvidenceBuilder
             metrics?.MeanAbsoluteError,
             metrics?.RootMeanSquaredError,
             Crop: null,
+            NativeQualityGrade: "not-evaluated",
+            Inspection: null,
             knownGaps);
     }
 

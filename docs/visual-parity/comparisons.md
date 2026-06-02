@@ -28,6 +28,12 @@ usable harness scaffold rather than a high-fidelity WinUI renderer. The
 many controls still have simplified chrome, missing native states, missing
 templates, incomplete popup placement, or diagnostic-only rendering.
 
+The generated dashboard at `docs/visual-parity/component-quality-dashboard.json`
+is the current checked-in component-quality gate. It is blocked with 49/49
+public example rows below the native-quality target because the rows lack
+complete crop, native reference crop, component diff, and manual inspection
+metadata.
+
 ## Provenance
 
 The checked-in comparison examples come from native WinUI public fixture

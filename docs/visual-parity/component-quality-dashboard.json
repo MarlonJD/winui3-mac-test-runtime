@@ -1,0 +1,1764 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "1970-01-01T00:00:00+00:00",
+  "evidenceRoot": "docs/visual-parity/examples",
+  "totals": {
+    "scenarioCount": 3,
+    "componentCount": 49,
+    "visualGradeCounts": {
+      "not-rendered": 45,
+      "usable": 4
+    },
+    "nativeQualityGradeCounts": {
+      "missing": 49
+    },
+    "missingMacRuntimeCrops": 49,
+    "missingNativeReferenceCrops": 49,
+    "missingComponentDiffs": 49,
+    "missingInspectionNotes": 49,
+    "blockingRowCount": 49
+  },
+  "scenarios": [
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "componentCount": 13,
+      "blockingRowCount": 13,
+      "status": "blocked"
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "componentCount": 8,
+      "blockingRowCount": 8,
+      "status": "blocked"
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "componentCount": 28,
+      "blockingRowCount": 28,
+      "status": "blocked"
+    }
+  ],
+  "rows": [
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RepeatButton",
+      "target": "DiagnosticRepeatButton",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "HyperlinkButton",
+      "target": "DiagnosticHyperlinkButton",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "DropDownButton",
+      "target": "DiagnosticDropDownButton",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "SplitButton",
+      "target": "DiagnosticSplitButton",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleSplitButton",
+      "target": "DiagnosticToggleSplitButton",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "Slider",
+      "target": "DiagnosticSlider",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleSwitch",
+      "target": "DiagnosticToggleSwitch",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RatingControl",
+      "target": "DiagnosticRatingControl",
+      "ownerFamily": "Basic input",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-basic-input-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "ownerFamily": "Commands and menus",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-commands-menus-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "ownerFamily": "Commands and menus",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-commands-menus-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBar.Content",
+      "target": "DiagnosticCommandBarContent",
+      "ownerFamily": "Commands and menus",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-commands-menus-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "AppBarButton.Icon",
+      "target": "SaveCommandIcon",
+      "ownerFamily": "Commands and menus",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-commands-menus-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "ownerFamily": "Commands and menus",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-commands-menus-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "ownerFamily": "Commands and menus",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-commands-menus-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "ownerFamily": "Commands and menus",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-commands-menus-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "Context menu pattern",
+      "target": "DiagnosticContextMenuPattern",
+      "ownerFamily": "Commands and menus",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-commands-menus-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ScrollViewer",
+      "target": "LayoutScrollViewer",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Grid",
+      "target": "LayoutResourceGrid",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "StackPanel",
+      "target": "LayoutNestedStack",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Border",
+      "target": "LayoutBorder",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "FontIcon",
+      "target": "LayoutFontIcon",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Image",
+      "target": "PublicImagePlaceholder",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SymbolIcon",
+      "target": "DiagnosticSymbolIcon",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "XamlControlsResources",
+      "target": "DiagnosticXamlControlsResources",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ResourceDictionary.ThemeDictionaries",
+      "target": "DiagnosticThemeDictionaries",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ThemeResource",
+      "target": "ThemeResourceText",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "StaticResource",
+      "target": "StaticResourceText",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Style",
+      "target": "LayoutMediaTitle",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Setter",
+      "target": "LayoutMediaTitle",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Color",
+      "target": "DiagnosticColor",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SolidColorBrush",
+      "target": "DiagnosticSolidColorBrush",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "CornerRadius",
+      "target": "DiagnosticCornerRadius",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Expander",
+      "target": "DiagnosticExpander",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Annotated scrollbar",
+      "target": "DiagnosticAnnotatedScrollbar",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SemanticZoom",
+      "target": "DiagnosticSemanticZoom",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SplitView",
+      "target": "DiagnosticSplitView",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "TwoPaneView",
+      "target": "DiagnosticTwoPaneView",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "AnimatedIcon",
+      "target": "DiagnosticAnimatedIcon",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Shapes",
+      "target": "DiagnosticShapes",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "MediaPlayerElement",
+      "target": "DiagnosticMediaPlayerElement",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "not supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "WebView2",
+      "target": "DiagnosticWebView2",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "not supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "InkCanvas / InkToolbar",
+      "target": "DiagnosticInkControls",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Title bar customization",
+      "target": "DiagnosticTitleBarCustomization",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Window.SystemBackdrop / MicaBackdrop",
+      "target": "DiagnosticSystemBackdrop",
+      "ownerFamily": "Layout, media, visuals, and platform",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "targetGrade": "good-or-production-ready",
+      "requiredStates": [
+        "default"
+      ],
+      "requiredScenarios": [
+        "component-layout-media-light"
+      ],
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+    }
+  ],
+  "blockers": [
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RepeatButton",
+      "target": "DiagnosticRepeatButton",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "HyperlinkButton",
+      "target": "DiagnosticHyperlinkButton",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "DropDownButton",
+      "target": "DiagnosticDropDownButton",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "SplitButton",
+      "target": "DiagnosticSplitButton",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleSplitButton",
+      "target": "DiagnosticToggleSplitButton",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "Slider",
+      "target": "DiagnosticSlider",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleSwitch",
+      "target": "DiagnosticToggleSwitch",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RatingControl",
+      "target": "DiagnosticRatingControl",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBar.Content",
+      "target": "DiagnosticCommandBarContent",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "AppBarButton.Icon",
+      "target": "SaveCommandIcon",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "Context menu pattern",
+      "target": "DiagnosticContextMenuPattern",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ScrollViewer",
+      "target": "LayoutScrollViewer",
+      "catalogStatus": "supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Grid",
+      "target": "LayoutResourceGrid",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "StackPanel",
+      "target": "LayoutNestedStack",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Border",
+      "target": "LayoutBorder",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "FontIcon",
+      "target": "LayoutFontIcon",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Image",
+      "target": "PublicImagePlaceholder",
+      "catalogStatus": "partial",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SymbolIcon",
+      "target": "DiagnosticSymbolIcon",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "XamlControlsResources",
+      "target": "DiagnosticXamlControlsResources",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ResourceDictionary.ThemeDictionaries",
+      "target": "DiagnosticThemeDictionaries",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "ThemeResource",
+      "target": "ThemeResourceText",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "StaticResource",
+      "target": "StaticResourceText",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Style",
+      "target": "LayoutMediaTitle",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Setter",
+      "target": "LayoutMediaTitle",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027usable\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Color",
+      "target": "DiagnosticColor",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SolidColorBrush",
+      "target": "DiagnosticSolidColorBrush",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "CornerRadius",
+      "target": "DiagnosticCornerRadius",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Expander",
+      "target": "DiagnosticExpander",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Annotated scrollbar",
+      "target": "DiagnosticAnnotatedScrollbar",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SemanticZoom",
+      "target": "DiagnosticSemanticZoom",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "SplitView",
+      "target": "DiagnosticSplitView",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "TwoPaneView",
+      "target": "DiagnosticTwoPaneView",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "AnimatedIcon",
+      "target": "DiagnosticAnimatedIcon",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Shapes",
+      "target": "DiagnosticShapes",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "MediaPlayerElement",
+      "target": "DiagnosticMediaPlayerElement",
+      "catalogStatus": "not supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "WebView2",
+      "target": "DiagnosticWebView2",
+      "catalogStatus": "not supported",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "InkCanvas / InkToolbar",
+      "target": "DiagnosticInkControls",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Title bar customization",
+      "target": "DiagnosticTitleBarCustomization",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    },
+    {
+      "scenarioName": "component-layout-media-light",
+      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
+      "component": "Window.SystemBackdrop / MicaBackdrop",
+      "target": "DiagnosticSystemBackdrop",
+      "catalogStatus": "planned",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "missing",
+      "reasons": [
+        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
+        "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
+        "Missing macOS component crop evidence.",
+        "Missing native WinUI reference crop evidence.",
+        "Missing component-level diff metrics.",
+        "Missing manual screenshot inspection metadata."
+      ]
+    }
+  ],
+  "status": "blocked"
+}

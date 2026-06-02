@@ -34,6 +34,12 @@ local macOS component artifacts include 143 component evidence rows: 86
 testable, not pixel-matched Fluent chrome. The next project phase is renderer
 fidelity work, not more release-gate expansion.
 
+The checked-in public component-quality dashboard at
+`docs/visual-parity/component-quality-dashboard.json` is currently blocked:
+49/49 checked-in public component rows are missing native-quality evidence
+such as component crops, native reference crops, component diffs, and manual
+inspection metadata.
+
 Use this runtime when your app or fixture stays inside the documented
 `supported` and `partial` subset. Do not use it as evidence that arbitrary WinUI
 3 apps, templates, visual states, Mica/Acrylic, composition, advanced controls,
@@ -63,13 +69,14 @@ scenario results, and checked-in visual examples, see
 The release decision is gated by `winui3-mac-runner release-candidate`, which
 aggregates the deterministic local release requirements (126/126 catalog
 dispositions, catalog/docs count consistency, zero unknown surfaces, broader-
-control honesty, no OS composition claim, gated component-crop drift, native
-reference provenance, release docs, and the private-name scan) and lists the
-external workflow requirements (full native reference capture, full strict
-scenario sweep, and the package dry run with `release-check`). The exact
-support boundary stays source-level WinUI 3 harness readiness for the
-documented public subset, not Windows binary execution, arbitrary WinUI 3
-compatibility, or high-fidelity Fluent rendering.
+control honesty, no OS composition claim, gated component-crop drift, the
+component-quality dashboard, native reference provenance, release docs, and the
+private-name scan) and lists the external workflow requirements (full native
+reference capture, full strict scenario sweep, and the package dry run with
+`release-check`). The gate remains blocked until every public component row has
+native-quality evidence. The exact support boundary stays source-level WinUI 3
+harness readiness for the documented public subset, not Windows binary
+execution, arbitrary WinUI 3 compatibility, or high-fidelity Fluent rendering.
 
 ## Smoke Commands
 

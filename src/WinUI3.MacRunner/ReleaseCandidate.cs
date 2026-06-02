@@ -29,6 +29,7 @@ internal static class ReleaseCandidateCommand
             CheckBroaderControlHonesty(repositoryRoot),
             CheckNoOsCompositionClaim(repositoryRoot),
             CheckDriftGate(repositoryRoot),
+            CheckComponentQualityDashboard(repositoryRoot),
             CheckNativeProvenancePolicy(repositoryRoot),
             CheckReleaseDocsPresent(repositoryRoot),
         };
@@ -236,6 +237,34 @@ internal static class ReleaseCandidateCommand
         }
 
         return Pass("drift-gate", "Component-crop drift is gated and whole-screen drift is informational.");
+    }
+
+    private static ReleaseCheck CheckComponentQualityDashboard(string repositoryRoot)
+    {
+        var path = Path.Combine(repositoryRoot, "docs", "visual-parity", "component-quality-dashboard.json");
+        if (!File.Exists(path))
+        {
+            return Fail("component-quality-dashboard", $"Missing {path}. Run 'winui3-mac-runner component-quality-dashboard'.");
+        }
+
+        var expected = ComponentQualityDashboard.BuildFromPublicEvidence(repositoryRoot);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonDefaults.Options);
+        if (NormalizeJson(File.ReadAllText(path)) != NormalizeJson(expectedJson))
+        {
+            return Fail("component-quality-dashboard", "component-quality-dashboard.json is out of date. Run 'winui3-mac-runner component-quality-dashboard'.");
+        }
+
+        if (expected.Status != "passed")
+        {
+            return Fail(
+                "component-quality-dashboard",
+                $"{expected.Totals.BlockingRowCount} public component row(s) are not native-quality complete.");
+        }
+
+        return Pass(
+            "component-quality-dashboard",
+            $"All {expected.Totals.ComponentCount} public component rows have native-quality evidence.",
+            ("rows", expected.Totals.ComponentCount.ToString()));
     }
 
     private static ReleaseCheck CheckNativeProvenancePolicy(string repositoryRoot)

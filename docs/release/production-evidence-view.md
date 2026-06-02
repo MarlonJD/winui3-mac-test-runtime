@@ -271,6 +271,12 @@ and native-reference provenance. Historical whole-image comparison failures
 must not be used to promote or demote current component grades by themselves;
 manual screenshot inspection remains required before claiming visual quality.
 
+The generated `docs/visual-parity/component-quality-dashboard.json` is the
+current public component-quality gate. It is blocked with 49/49 checked-in
+public component rows below the native-quality target because those rows lack
+complete macOS component crops, native WinUI reference crops, component diffs,
+and manual inspection metadata.
+
 ## Release Candidate Gate
 
 `winui3-mac-runner release-candidate` turns "ready" into a release decision
@@ -284,6 +290,7 @@ deterministic, locally verifiable requirements:
 - no broader control claims a rendered grade without evidence;
 - no material/motion surface claims real Windows OS composition;
 - component-crop drift is gated and whole-screen drift is informational;
+- the generated component-quality dashboard has zero blocker rows;
 - every checked-in visual reference declares native WinUI provenance;
 - release and support-policy documents are present;
 - the private-name denylist scan is clean.

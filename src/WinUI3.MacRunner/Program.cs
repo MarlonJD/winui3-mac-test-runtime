@@ -32,6 +32,7 @@ internal static class Cli
             "release-check" => await ProductionGatesCommand.RunReleaseCheckAsync(args[1..]),
             "release-candidate" => await ReleaseCandidateCommand.RunAsync(args[1..]),
             "catalog-audit" => RunCatalogAudit(args[1..]),
+            "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
         };
@@ -390,6 +391,43 @@ internal static class Cli
         return 0;
     }
 
+    private static int RunComponentQualityDashboard(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "component-quality-dashboard"));
+        var defaultPath = Path.Combine(repositoryRoot, "docs", "visual-parity", "component-quality-dashboard.json");
+        var outputPath = Path.GetFullPath(ReadOption(args, "--output") ?? defaultPath);
+        var check = HasOption(args, "--check");
+
+        var dashboard = ComponentQualityDashboard.BuildFromPublicEvidence(repositoryRoot);
+        var json = JsonSerializer.Serialize(dashboard, JsonDefaults.Options);
+
+        Console.WriteLine(
+            $"component-quality-dashboard: {dashboard.Totals.ComponentCount} rows, {dashboard.Totals.BlockingRowCount} blocker rows.");
+
+        if (check)
+        {
+            if (!File.Exists(outputPath))
+            {
+                Console.Error.WriteLine($"component-quality-dashboard --check failed: missing {outputPath}. Regenerate with 'winui3-mac-runner component-quality-dashboard'.");
+                return 1;
+            }
+
+            if (NormalizeJson(File.ReadAllText(outputPath)) != NormalizeJson(json))
+            {
+                Console.Error.WriteLine($"component-quality-dashboard --check failed: {outputPath} is out of date. Regenerate with 'winui3-mac-runner component-quality-dashboard'.");
+                return 1;
+            }
+
+            Console.WriteLine($"component-quality-dashboard --check passed: {outputPath} is up to date.");
+            return 0;
+        }
+
+        Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+        File.WriteAllText(outputPath, json);
+        Console.WriteLine($"component-quality-dashboard.json: {outputPath}");
+        return dashboard.Status == "passed" ? 0 : 1;
+    }
+
     private static int RunXaml(string[] args)
     {
         if (args.Length == 0 || args[0] != "compile")
@@ -507,6 +545,7 @@ internal static class Cli
         Console.WriteLine("  release-check [--package-dir <dir>] [--output <path>]");
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
+        Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
         Console.WriteLine("      [--check] [--write-baseline]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");

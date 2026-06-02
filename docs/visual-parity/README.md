@@ -90,6 +90,14 @@ contains 143 component evidence rows: 86 `usable` and 57 `not-rendered`.
 Those rows show that the renderer supports narrow smoke/E2E scaffolds, but
 they do not establish native WinUI visual fidelity.
 
+`component-quality-dashboard.json` is the checked-in generated quality gate for
+the public example evidence. It lists every checked-in component row, its
+current grade, native-quality target, owner family, required scenario, and
+remaining blocker. The current dashboard is blocked: 49/49 checked-in public
+component rows still lack native-quality completion evidence, including macOS
+component crops, native WinUI reference crops, component diff metrics, and
+manual screenshot inspection metadata.
+
 Component lab scenario artifacts are produced for:
 `component-basic-input-light`, `component-text-forms-light`,
 `component-collections-light`, `component-dialogs-flyouts-light`,
@@ -115,7 +123,9 @@ When a visual scenario or renderer behavior changes:
 5. Inspect `windows-reference.png`, `mac-runtime.png`, `pixel-diff.png`, and
    `visual-run.json`; inspect `component-evidence.json` for component lab
    scenarios, and inspect reference provenance when the reference supplies it.
-6. Update the relevant example folder only when the artifact is public and does
+6. Run `winui3-mac-runner component-quality-dashboard` and inspect the updated
+   row blockers before promoting any claim.
+7. Update the relevant example folder only when the artifact is public and does
    not contain private names, private screenshots, secrets, or proprietary
    fixture content. Production visual examples must come from native WinUI
    reference provenance; synthetic probe examples must remain labeled as smoke
