@@ -396,7 +396,7 @@ public static class VisualLayoutEngine
             "Button" or "RepeatButton" or "ToggleButton" => Math.Min(fallback, Math.Max(64, EstimateTextWidth(ReadControlText(node, "Button")) + 28)),
             "HyperlinkButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadControlText(node, "Link")) + 8)),
             "DropDownButton" or "SplitButton" => Math.Min(fallback, Math.Max(124, EstimateTextWidth(ReadControlText(node, "Action")) + 48)),
-            "ToggleSplitButton" => Math.Min(fallback, Math.Max(158, EstimateTextWidth(ReadControlText(node, "Toggle")) + 58)),
+            "ToggleSplitButton" => Math.Min(fallback, Math.Max(120, EstimateTextWidth(ReadControlText(node, "Toggle")) + 42)),
             "AppBarButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadString(node, "label") ?? ReadControlText(node, "Command")) + 42)),
             "CheckBox" or "RadioButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadControlText(node, "Option")) + 34)),
             "ComboBox" => Math.Min(fallback, Math.Max(92, EstimateTextWidth(ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select") + 48)),

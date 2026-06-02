@@ -134,7 +134,7 @@ Latest inspected native comparison status for checked-in historical examples:
 | Scenario | Status | Changed pixels | MAE | RMS | Component evidence |
 | --- | --- | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 99.988381% / threshold 45% | 9.678085 | 36.397928 | 9 `usable`; not a visual-fidelity pass. |
-| `component-basic-input-light` | failed | 30.275211% / threshold 18% | 9.752598 | 39.722722 | 5 `usable`, 8 `not-rendered`; not a visual-fidelity pass. |
+| `component-basic-input-light` | failed | 30.145914% / threshold 18% | 9.611153 | 39.380451 | 5 `usable`, 8 `not-rendered`; not a visual-fidelity pass. |
 | `component-commands-menus-light` | failed | 28.995082% / threshold 24% | 7.931894 | 35.264121 | 5 `usable`, 3 `not-rendered`; not a visual-fidelity pass. |
 | `component-layout-media-light` | failed | 39.647779% / threshold 24% | 10.119964 | 38.187626 | 13 `usable`, 15 `not-rendered`; not a visual-fidelity pass. |
 

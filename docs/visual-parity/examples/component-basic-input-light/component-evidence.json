@@ -802,9 +802,9 @@
       "layoutRegion": {
         "x": 280,
         "y": 382,
-        "width": 346,
+        "width": 317,
         "height": 32,
-        "desiredWidth": 346,
+        "desiredWidth": 317,
         "desiredHeight": 32,
         "margin": {
           "left": 0,
@@ -832,15 +832,15 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 41.203035,
-      "meanAbsoluteError": 40.45886,
-      "rootMeanSquaredError": 85.83484,
+      "changedPixelPercentage": 36.179022,
+      "meanAbsoluteError": 34.554688,
+      "rootMeanSquaredError": 78.702345,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 280,
           "y": 382,
-          "width": 346,
+          "width": 317,
           "height": 32
         },
         "nativeReferencePath": "components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png",
@@ -853,9 +853,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 41.203035,
-        "meanAbsoluteError": 40.45886,
-        "rootMeanSquaredError": 85.83484,
+        "changedPixelPercentage": 36.179022,
+        "meanAbsoluteError": 34.554688,
+        "rootMeanSquaredError": 78.702345,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
@@ -888,7 +888,7 @@
       "kind": "control",
       "target": "DiagnosticSlider",
       "layoutRegion": {
-        "x": 640,
+        "x": 611,
         "y": 382,
         "width": 368,
         "height": 32,
@@ -920,13 +920,13 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 15.871264,
-      "meanAbsoluteError": 14.282269,
-      "rootMeanSquaredError": 50.476259,
+      "changedPixelPercentage": 16.287364,
+      "meanAbsoluteError": 14.4665,
+      "rootMeanSquaredError": 50.5407,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 640,
+          "x": 611,
           "y": 382,
           "width": 368,
           "height": 32
@@ -941,9 +941,9 @@
           "meanAbsoluteError": 12,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 15.871264,
-        "meanAbsoluteError": 14.282269,
-        "rootMeanSquaredError": 50.476259,
+        "changedPixelPercentage": 16.287364,
+        "meanAbsoluteError": 14.4665,
+        "rootMeanSquaredError": 50.5407,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
