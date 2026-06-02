@@ -102,9 +102,10 @@ inspection metadata.
 `public-visual-review-index.html` and `public-visual-review-index.json` are the
 checked-in generated inspection queue for those public rows. The index links
 each row to its scenario review page plus native reference, macOS runtime, and
-pixel diff crops, embeds compact native/macOS/diff crop previews with component
-diff metrics, and repeats the dashboard blocker so manual inspection can work
-row by row without promoting claims prematurely.
+pixel diff crops, links each scenario's `component-inspection-template.json`,
+embeds compact native/macOS/diff crop previews with component diff metrics, and
+repeats the dashboard blocker so manual inspection can work row by row without
+promoting claims prematurely.
 
 Manual inspection is applied through
 `winui3-mac-runner component-inspection-apply --evidence <component-evidence.json>
@@ -115,6 +116,13 @@ the existing crop triptych paths. The command rejects non-final grades,
 missing crop evidence, missing component diff metrics, missing native
 provenance, mismatched native reference run IDs, and nonexistent artifact
 paths.
+
+Reviewer starter manifests are generated with
+`winui3-mac-runner component-inspection-template --evidence
+<component-evidence.json>`. The generated template intentionally contains
+`TODO` final grades and reviewer fields, so it cannot be applied until a manual
+reviewer has inspected the native, macOS, and diff crops and filled in final
+inspection metadata.
 
 Component lab scenario artifacts are produced for every checked-in
 `fixtures/ComponentParityLab.WinUI/scenarios/*.json` file. This includes the

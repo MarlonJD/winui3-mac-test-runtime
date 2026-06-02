@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "0.1",
+  "rows": [
+    {
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/commandbar-primarycommandbar/windows-reference.png",
+        "components/commandbar-primarycommandbar/mac-runtime.png",
+        "components/commandbar-primarycommandbar/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/appbarbutton-savecommandbutton/windows-reference.png",
+        "components/appbarbutton-savecommandbutton/mac-runtime.png",
+        "components/appbarbutton-savecommandbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "CommandBar.Content",
+      "target": "DiagnosticCommandBarContent",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png",
+        "components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png",
+        "components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "AppBarButton.Icon",
+      "target": "SaveCommandIcon",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/appbarbutton-icon-savecommandicon/windows-reference.png",
+        "components/appbarbutton-icon-savecommandicon/mac-runtime.png",
+        "components/appbarbutton-icon-savecommandicon/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png",
+        "components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png",
+        "components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/menuflyout-diagnosticmenuflyout/windows-reference.png",
+        "components/menuflyout-diagnosticmenuflyout/mac-runtime.png",
+        "components/menuflyout-diagnosticmenuflyout/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/menubar-diagnosticmenubar/windows-reference.png",
+        "components/menubar-diagnosticmenubar/mac-runtime.png",
+        "components/menubar-diagnosticmenubar/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Context menu pattern",
+      "target": "DiagnosticContextMenuPattern",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png",
+        "components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png",
+        "components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    }
+  ]
+}

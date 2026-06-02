@@ -1287,6 +1287,27 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void ComponentInspectionTemplatePrefillsEvidenceWithoutPromotingClaims()
+    {
+        var template = ComponentInspectionTemplate.Build(TestInspectableEvidence());
+
+        Assert.HasCount(1, template.Rows);
+        var row = template.Rows[0];
+        Assert.AreEqual("Button", row.Component);
+        Assert.AreEqual("PrimaryButton", row.Target);
+        Assert.AreEqual("TODO-good-or-production-ready", row.VisualGrade);
+        Assert.AreEqual("TODO-good-or-production-ready", row.NativeQualityGrade);
+        Assert.AreEqual("26777029415", row.NativeReferenceRunId);
+        Assert.IsNotNull(row.ComparisonArtifactPaths);
+        Assert.HasCount(3, row.ComparisonArtifactPaths);
+        StringAssert.Contains(row.Notes, "TODO");
+
+        var exception = Assert.ThrowsExactly<InvalidOperationException>(() =>
+            ComponentInspectionApplier.Apply(TestInspectableEvidence(), template, Path.GetTempPath()));
+        StringAssert.Contains(exception.Message, "visualGrade must be good or production-ready");
+    }
+
+    [TestMethod]
     public void ReleaseCandidateArtifactGatesAreAccountedFor()
     {
         // Mirrors the deterministic local checks of 'winui3-mac-runner

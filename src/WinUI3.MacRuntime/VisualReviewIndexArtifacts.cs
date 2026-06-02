@@ -32,6 +32,7 @@ public sealed record VisualReviewIndexScenario(
     string EvidencePath,
     string? ReviewJsonPath,
     string? ReviewHtmlPath,
+    string? InspectionTemplatePath,
     int ComponentCount,
     int CompleteTriptychCount,
     int MissingInspectionNotes,
@@ -88,8 +89,10 @@ public static class VisualReviewIndexArtifacts
             var scenarioDirectory = Path.GetDirectoryName(evidencePath)!;
             var reviewJsonPath = Path.Combine(scenarioDirectory, "visual-review.json");
             var reviewHtmlPath = Path.Combine(scenarioDirectory, "visual-review.html");
+            var inspectionTemplatePath = Path.Combine(scenarioDirectory, ComponentInspectionTemplate.DefaultFileName);
             var reviewJsonExists = File.Exists(reviewJsonPath);
             var reviewHtmlExists = File.Exists(reviewHtmlPath);
+            var inspectionTemplateExists = File.Exists(inspectionTemplatePath);
             VisualReviewDocument? review = null;
             if (reviewJsonExists)
             {
@@ -107,6 +110,7 @@ public static class VisualReviewIndexArtifacts
                 EvidencePath: RelativePath(outputRoot, evidencePath),
                 ReviewJsonPath: reviewJsonExists ? RelativePath(outputRoot, reviewJsonPath) : null,
                 ReviewHtmlPath: reviewHtmlExists ? RelativePath(outputRoot, reviewHtmlPath) : null,
+                InspectionTemplatePath: inspectionTemplateExists ? RelativePath(outputRoot, inspectionTemplatePath) : null,
                 ComponentCount: scenario.ComponentCount,
                 CompleteTriptychCount: review?.Summary.CompleteTriptychCount ?? 0,
                 MissingInspectionNotes: review?.Summary.MissingInspectionNotes ?? scenario.ComponentCount,
@@ -222,12 +226,13 @@ th { background: #f3f3f3; }
         html.AppendLine("</div>");
 
         html.AppendLine("<h2>Scenarios</h2>");
-        html.AppendLine("<table><thead><tr><th>Scenario</th><th>Review</th><th>Triptychs</th><th>Missing inspections</th><th>Blockers</th><th>Status</th></tr></thead><tbody>");
+        html.AppendLine("<table><thead><tr><th>Scenario</th><th>Review</th><th>Inspection template</th><th>Triptychs</th><th>Missing inspections</th><th>Blockers</th><th>Status</th></tr></thead><tbody>");
         foreach (var scenario in document.Scenarios)
         {
             html.AppendLine("<tr>");
             html.AppendLine($"<td>{Escape(scenario.ScenarioName)}</td>");
             html.AppendLine($"<td>{LinkOrMissing(scenario.ReviewHtmlPath)}</td>");
+            html.AppendLine($"<td>{LinkOrMissing(scenario.InspectionTemplatePath)}</td>");
             html.AppendLine($"<td>{scenario.CompleteTriptychCount}/{scenario.ComponentCount}</td>");
             html.AppendLine($"<td>{scenario.MissingInspectionNotes}</td>");
             html.AppendLine($"<td>{scenario.BlockingRowCount}</td>");

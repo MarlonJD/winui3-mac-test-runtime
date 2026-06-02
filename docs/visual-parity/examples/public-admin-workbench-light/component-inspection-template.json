@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "0.1",
+  "rows": [
+    {
+      "component": "NavigationView",
+      "target": "RootNavigation",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/navigationview-rootnavigation/windows-reference.png",
+        "components/navigationview-rootnavigation/mac-runtime.png",
+        "components/navigationview-rootnavigation/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "NavigationViewItem",
+      "target": "QueueNavigationItem",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/navigationviewitem-queuenavigationitem/windows-reference.png",
+        "components/navigationviewitem-queuenavigationitem/mac-runtime.png",
+        "components/navigationviewitem-queuenavigationitem/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Frame",
+      "target": "WorkbenchFrame",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/frame-workbenchframe/windows-reference.png",
+        "components/frame-workbenchframe/mac-runtime.png",
+        "components/frame-workbenchframe/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "TextBox",
+      "target": "SearchBox",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/textbox-searchbox/windows-reference.png",
+        "components/textbox-searchbox/mac-runtime.png",
+        "components/textbox-searchbox/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "CommandBar",
+      "target": "DecisionCommandBar",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/commandbar-decisioncommandbar/windows-reference.png",
+        "components/commandbar-decisioncommandbar/mac-runtime.png",
+        "components/commandbar-decisioncommandbar/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "AppBarButton",
+      "target": "ApproveCommand",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/appbarbutton-approvecommand/windows-reference.png",
+        "components/appbarbutton-approvecommand/mac-runtime.png",
+        "components/appbarbutton-approvecommand/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "InfoBar",
+      "target": "WorkbenchStatus",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/infobar-workbenchstatus/windows-reference.png",
+        "components/infobar-workbenchstatus/mac-runtime.png",
+        "components/infobar-workbenchstatus/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "ListView",
+      "target": "ReviewQueueList",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/listview-reviewqueuelist/windows-reference.png",
+        "components/listview-reviewqueuelist/mac-runtime.png",
+        "components/listview-reviewqueuelist/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Button",
+      "target": "CompleteReviewButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/button-completereviewbutton/windows-reference.png",
+        "components/button-completereviewbutton/mac-runtime.png",
+        "components/button-completereviewbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    }
+  ]
+}

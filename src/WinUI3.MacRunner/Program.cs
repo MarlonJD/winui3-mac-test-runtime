@@ -1,5 +1,5 @@
-using System.Text.Json;
 using System.Globalization;
+using System.Text.Json;
 using WinUI3.MacCompatibility;
 using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRuntime;
@@ -33,6 +33,7 @@ internal static class Cli
             "release-candidate" => await ReleaseCandidateCommand.RunAsync(args[1..]),
             "catalog-audit" => RunCatalogAudit(args[1..]),
             "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
+            "component-inspection-template" => RunComponentInspectionTemplate(args[1..]),
             "component-inspection-apply" => RunComponentInspectionApply(args[1..]),
             "native-reference-import" => RunNativeReferenceImport(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
@@ -570,6 +571,59 @@ internal static class Cli
         }
     }
 
+    private static int RunComponentInspectionTemplate(string[] args)
+    {
+        var evidencePath = ReadOption(args, "--evidence");
+        var outputPath = ReadOption(args, "--output");
+        var check = HasOption(args, "--check");
+
+        if (string.IsNullOrWhiteSpace(evidencePath))
+        {
+            Console.Error.WriteLine("Missing required option: --evidence <component-evidence.json>.");
+            return 2;
+        }
+
+        try
+        {
+            var resolvedEvidencePath = Path.GetFullPath(evidencePath);
+            var document = ComponentInspectionTemplate.Build(resolvedEvidencePath);
+            var json = JsonSerializer.Serialize(document, JsonDefaults.Options);
+            var resolvedOutputPath = Path.GetFullPath(outputPath ?? Path.Combine(
+                Path.GetDirectoryName(resolvedEvidencePath)!,
+                ComponentInspectionTemplate.DefaultFileName));
+
+            Console.WriteLine($"component-inspection-template: {document.Rows.Count} pending inspection row(s).");
+
+            if (check)
+            {
+                if (!File.Exists(resolvedOutputPath))
+                {
+                    Console.Error.WriteLine($"component-inspection-template --check failed: missing {resolvedOutputPath}.");
+                    return 1;
+                }
+
+                if (NormalizeJson(File.ReadAllText(resolvedOutputPath)) != NormalizeJson(json))
+                {
+                    Console.Error.WriteLine($"component-inspection-template --check failed: {resolvedOutputPath} is out of date.");
+                    return 1;
+                }
+
+                Console.WriteLine("component-inspection-template --check passed.");
+                return 0;
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(resolvedOutputPath)!);
+            File.WriteAllText(resolvedOutputPath, json);
+            Console.WriteLine($"component-inspection-template.json: {resolvedOutputPath}");
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"component-inspection-template failed: {ex.Message}");
+            return 1;
+        }
+    }
+
     private static int RunNativeReferenceImport(string[] args)
     {
         var sourceRoot = ReadOption(args, "--source");
@@ -742,6 +796,7 @@ internal static class Cli
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");
+        Console.WriteLine("  component-inspection-template --evidence <component-evidence.json> [--output <path>] [--check]");
         Console.WriteLine("  component-inspection-apply --evidence <component-evidence.json> --inspection <component-inspection.json> [--output <path>] [--check]");
         Console.WriteLine("  native-reference-import --source <windows-reference-screenshots-dir> [--output <dir>]");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");

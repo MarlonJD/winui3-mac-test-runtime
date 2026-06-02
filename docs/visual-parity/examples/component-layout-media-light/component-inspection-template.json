@@ -1,0 +1,453 @@
+{
+  "schemaVersion": "0.1",
+  "rows": [
+    {
+      "component": "ScrollViewer",
+      "target": "LayoutScrollViewer",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/scrollviewer-layoutscrollviewer/windows-reference.png",
+        "components/scrollviewer-layoutscrollviewer/mac-runtime.png",
+        "components/scrollviewer-layoutscrollviewer/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Grid",
+      "target": "LayoutResourceGrid",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/grid-layoutresourcegrid/windows-reference.png",
+        "components/grid-layoutresourcegrid/mac-runtime.png",
+        "components/grid-layoutresourcegrid/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "StackPanel",
+      "target": "LayoutNestedStack",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/stackpanel-layoutnestedstack/windows-reference.png",
+        "components/stackpanel-layoutnestedstack/mac-runtime.png",
+        "components/stackpanel-layoutnestedstack/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Border",
+      "target": "LayoutBorder",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/border-layoutborder/windows-reference.png",
+        "components/border-layoutborder/mac-runtime.png",
+        "components/border-layoutborder/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "FontIcon",
+      "target": "LayoutFontIcon",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/fonticon-layoutfonticon/windows-reference.png",
+        "components/fonticon-layoutfonticon/mac-runtime.png",
+        "components/fonticon-layoutfonticon/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Image",
+      "target": "PublicImagePlaceholder",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/image-publicimageplaceholder/windows-reference.png",
+        "components/image-publicimageplaceholder/mac-runtime.png",
+        "components/image-publicimageplaceholder/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "SymbolIcon",
+      "target": "DiagnosticSymbolIcon",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/symbolicon-diagnosticsymbolicon/windows-reference.png",
+        "components/symbolicon-diagnosticsymbolicon/mac-runtime.png",
+        "components/symbolicon-diagnosticsymbolicon/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "XamlControlsResources",
+      "target": "DiagnosticXamlControlsResources",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png",
+        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png",
+        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "ResourceDictionary.ThemeDictionaries",
+      "target": "ThemeResourceText",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/resourcedictionary-themedictionaries-themeresourcetext/windows-reference.png",
+        "components/resourcedictionary-themedictionaries-themeresourcetext/mac-runtime.png",
+        "components/resourcedictionary-themedictionaries-themeresourcetext/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "ThemeResource",
+      "target": "ThemeResourceText",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/themeresource-themeresourcetext/windows-reference.png",
+        "components/themeresource-themeresourcetext/mac-runtime.png",
+        "components/themeresource-themeresourcetext/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "StaticResource",
+      "target": "StaticResourceText",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/staticresource-staticresourcetext/windows-reference.png",
+        "components/staticresource-staticresourcetext/mac-runtime.png",
+        "components/staticresource-staticresourcetext/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Style",
+      "target": "LayoutMediaTitle",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/style-layoutmediatitle/windows-reference.png",
+        "components/style-layoutmediatitle/mac-runtime.png",
+        "components/style-layoutmediatitle/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Setter",
+      "target": "LayoutMediaTitle",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/setter-layoutmediatitle/windows-reference.png",
+        "components/setter-layoutmediatitle/mac-runtime.png",
+        "components/setter-layoutmediatitle/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Color",
+      "target": "DiagnosticColor",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/color-diagnosticcolor/windows-reference.png",
+        "components/color-diagnosticcolor/mac-runtime.png",
+        "components/color-diagnosticcolor/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "SolidColorBrush",
+      "target": "ThemeResourceText",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/solidcolorbrush-themeresourcetext/windows-reference.png",
+        "components/solidcolorbrush-themeresourcetext/mac-runtime.png",
+        "components/solidcolorbrush-themeresourcetext/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "CornerRadius",
+      "target": "LayoutBorder",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/cornerradius-layoutborder/windows-reference.png",
+        "components/cornerradius-layoutborder/mac-runtime.png",
+        "components/cornerradius-layoutborder/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Expander",
+      "target": "DiagnosticExpander",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/expander-diagnosticexpander/windows-reference.png",
+        "components/expander-diagnosticexpander/mac-runtime.png",
+        "components/expander-diagnosticexpander/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Annotated scrollbar",
+      "target": "DiagnosticAnnotatedScrollbar",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/annotated-scrollbar-diagnosticannotatedscrollbar/windows-reference.png",
+        "components/annotated-scrollbar-diagnosticannotatedscrollbar/mac-runtime.png",
+        "components/annotated-scrollbar-diagnosticannotatedscrollbar/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "SemanticZoom",
+      "target": "DiagnosticSemanticZoom",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/semanticzoom-diagnosticsemanticzoom/windows-reference.png",
+        "components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png",
+        "components/semanticzoom-diagnosticsemanticzoom/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "SplitView",
+      "target": "DiagnosticSplitView",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/splitview-diagnosticsplitview/windows-reference.png",
+        "components/splitview-diagnosticsplitview/mac-runtime.png",
+        "components/splitview-diagnosticsplitview/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "TwoPaneView",
+      "target": "DiagnosticTwoPaneView",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/twopaneview-diagnostictwopaneview/windows-reference.png",
+        "components/twopaneview-diagnostictwopaneview/mac-runtime.png",
+        "components/twopaneview-diagnostictwopaneview/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "AnimatedIcon",
+      "target": "DiagnosticAnimatedIcon",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/animatedicon-diagnosticanimatedicon/windows-reference.png",
+        "components/animatedicon-diagnosticanimatedicon/mac-runtime.png",
+        "components/animatedicon-diagnosticanimatedicon/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Shapes",
+      "target": "DiagnosticShapes",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/shapes-diagnosticshapes/windows-reference.png",
+        "components/shapes-diagnosticshapes/mac-runtime.png",
+        "components/shapes-diagnosticshapes/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "MediaPlayerElement",
+      "target": "DiagnosticMediaPlayerElement",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png",
+        "components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png",
+        "components/mediaplayerelement-diagnosticmediaplayerelement/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "WebView2",
+      "target": "DiagnosticWebView2",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/webview2-diagnosticwebview2/windows-reference.png",
+        "components/webview2-diagnosticwebview2/mac-runtime.png",
+        "components/webview2-diagnosticwebview2/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "InkCanvas / InkToolbar",
+      "target": "DiagnosticInkControls",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png",
+        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png",
+        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Title bar customization",
+      "target": "DiagnosticTitleBarCustomization",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png",
+        "components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png",
+        "components/title-bar-customization-diagnostictitlebarcustomization/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Window.SystemBackdrop / MicaBackdrop",
+      "target": "DiagnosticSystemBackdrop",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png",
+        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png",
+        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    }
+  ]
+}

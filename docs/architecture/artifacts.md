@@ -18,6 +18,7 @@ a new schema version and documentation update.
 | `binding-failures.json` | `0.1` |
 | `visual/component-evidence.json` | `0.4` |
 | `component-inspection.json` | `0.1` |
+| `component-inspection-template.json` | `0.1` |
 | `docs/visual-parity/component-quality-dashboard.json` | `0.2` |
 | `docs/visual-parity/public-visual-review-index.json` | `0.1` |
 | `native-reference-import.json` | `0.1` |
@@ -90,6 +91,12 @@ a new schema version and documentation update.
   final grades, crop triptychs, component diff metrics, native reference
   provenance, run ID consistency, and artifact paths before it writes updated
   component evidence.
+- `component-inspection-template.json`: generated reviewer starting point from
+  `component-inspection-template`. It pre-fills component/target identity,
+  native reference run ID, and comparison artifact paths, but leaves reviewer,
+  date, notes, and final grades as `TODO` placeholders so
+  `component-inspection-apply` rejects the template until manual inspection is
+  complete.
 - `visual/visual-review.html` and `visual/visual-review.json`: manual review
   artifacts generated from component evidence. Each component row places the
   native WinUI crop, macOS runtime crop, and pixel diff crop side by side when
@@ -98,10 +105,10 @@ a new schema version and documentation update.
 - `docs/visual-parity/public-visual-review-index.html` and
   `docs/visual-parity/public-visual-review-index.json`: generated public
   inspection queue for checked-in component evidence. It links each public row
-  to its native, macOS, and diff crops plus the scenario visual review page,
-  embeds compact native/macOS/diff crop previews with component diff metrics,
-  and carries the current component-quality dashboard blocker without promoting
-  the row.
+  to its native, macOS, and diff crops plus the scenario visual review page and
+  inspection template, embeds compact native/macOS/diff crop previews with
+  component diff metrics, and carries the current component-quality dashboard
+  blocker without promoting the row.
 - `visual/windows-reference.png`: copy of the Windows-hosted reference
   screenshot captured by the public workflow or supplied with `--reference`.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not

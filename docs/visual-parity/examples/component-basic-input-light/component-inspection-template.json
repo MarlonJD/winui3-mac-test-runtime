@@ -1,0 +1,213 @@
+{
+  "schemaVersion": "0.1",
+  "rows": [
+    {
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/button-primaryactionbutton/windows-reference.png",
+        "components/button-primaryactionbutton/mac-runtime.png",
+        "components/button-primaryactionbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/togglebutton-pinnedtogglebutton/windows-reference.png",
+        "components/togglebutton-pinnedtogglebutton/mac-runtime.png",
+        "components/togglebutton-pinnedtogglebutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/checkbox-enabledcheckbox/windows-reference.png",
+        "components/checkbox-enabledcheckbox/mac-runtime.png",
+        "components/checkbox-enabledcheckbox/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/radiobutton-highpriorityradiobutton/windows-reference.png",
+        "components/radiobutton-highpriorityradiobutton/mac-runtime.png",
+        "components/radiobutton-highpriorityradiobutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/combobox-statuscombobox/windows-reference.png",
+        "components/combobox-statuscombobox/mac-runtime.png",
+        "components/combobox-statuscombobox/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "RepeatButton",
+      "target": "DiagnosticRepeatButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/repeatbutton-diagnosticrepeatbutton/windows-reference.png",
+        "components/repeatbutton-diagnosticrepeatbutton/mac-runtime.png",
+        "components/repeatbutton-diagnosticrepeatbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "HyperlinkButton",
+      "target": "DiagnosticHyperlinkButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/hyperlinkbutton-diagnostichyperlinkbutton/windows-reference.png",
+        "components/hyperlinkbutton-diagnostichyperlinkbutton/mac-runtime.png",
+        "components/hyperlinkbutton-diagnostichyperlinkbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "DropDownButton",
+      "target": "DiagnosticDropDownButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/dropdownbutton-diagnosticdropdownbutton/windows-reference.png",
+        "components/dropdownbutton-diagnosticdropdownbutton/mac-runtime.png",
+        "components/dropdownbutton-diagnosticdropdownbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "SplitButton",
+      "target": "DiagnosticSplitButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/splitbutton-diagnosticsplitbutton/windows-reference.png",
+        "components/splitbutton-diagnosticsplitbutton/mac-runtime.png",
+        "components/splitbutton-diagnosticsplitbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "ToggleSplitButton",
+      "target": "DiagnosticToggleSplitButton",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png",
+        "components/togglesplitbutton-diagnostictogglesplitbutton/mac-runtime.png",
+        "components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "Slider",
+      "target": "DiagnosticSlider",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/slider-diagnosticslider/windows-reference.png",
+        "components/slider-diagnosticslider/mac-runtime.png",
+        "components/slider-diagnosticslider/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "ToggleSwitch",
+      "target": "DiagnosticToggleSwitch",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/toggleswitch-diagnostictoggleswitch/windows-reference.png",
+        "components/toggleswitch-diagnostictoggleswitch/mac-runtime.png",
+        "components/toggleswitch-diagnostictoggleswitch/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    },
+    {
+      "component": "RatingControl",
+      "target": "DiagnosticRatingControl",
+      "visualGrade": "TODO-good-or-production-ready",
+      "nativeQualityGrade": "TODO-good-or-production-ready",
+      "inspectedBy": "TODO-reviewer",
+      "inspectedDate": "TODO-YYYY-MM-DD",
+      "nativeReferenceRunId": "26777029415",
+      "comparisonArtifactPaths": [
+        "components/ratingcontrol-diagnosticratingcontrol/windows-reference.png",
+        "components/ratingcontrol-diagnosticratingcontrol/mac-runtime.png",
+        "components/ratingcontrol-diagnosticratingcontrol/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "notes": "TODO: inspect native, macOS, and diff crops before choosing final grades."
+    }
+  ]
+}
