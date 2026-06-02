@@ -395,6 +395,25 @@ internal static class NativeControlSamples
         SetNativeElement(inkControlsHost, "InkCanvas / InkToolbar", InkPreview());
         SetNativeElement(titleBarCustomizationHost, "Title bar customization", ResourcePreview("ExtendsContentIntoTitleBar sample"));
         SetNativeElement(systemBackdropHost, "Window.SystemBackdrop / MicaBackdrop", ResourcePreview("MicaBackdrop assigned"));
+#else
+        symbolIconHost.Content = Labeled("SymbolIcon", new Microsoft.UI.Xaml.Controls.SymbolIcon { Symbol = Symbol.Link });
+        xamlControlsResourcesHost.Content = Labeled("XamlControlsResources", new TextBlock { Text = "XamlControlsResources loaded" });
+        themeDictionariesHost.Content = Labeled("ResourceDictionary.ThemeDictionaries", new TextBlock { Text = "Theme dictionary sample" });
+        colorHost.Content = Labeled("Color", new TextBlock { Text = "Color resource" });
+        solidColorBrushHost.Content = Labeled("SolidColorBrush", new TextBlock { Text = "Brush resource" });
+        cornerRadiusHost.Content = Labeled("CornerRadius", new Border { CornerRadius = 10, Child = new TextBlock { Text = "Rounded border" } });
+        expanderHost.Content = Labeled("Expander", new StackPanel { Spacing = 4, Children = { new TextBlock { Text = "More details" }, new TextBlock { Text = "Expanded public content" } } });
+        annotatedScrollBarHost.Content = Labeled("AnnotatedScrollBar", new TextBlock { Text = "Annotated scrollbar" });
+        semanticZoomHost.Content = Labeled("SemanticZoom", new StackPanel { Spacing = 4, Children = { new TextBlock { Text = "Detailed item" }, new TextBlock { Text = "Group" } } });
+        splitViewHost.Content = Labeled("SplitView", new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { new TextBlock { Text = "Pane" }, new TextBlock { Text = "Content" } } });
+        twoPaneViewHost.Content = Labeled("TwoPaneView", new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { new TextBlock { Text = "Pane 1" }, new TextBlock { Text = "Pane 2" } } });
+        animatedIconHost.Content = Labeled("AnimatedIcon", new TextBlock { Text = "Animated icon" });
+        shapesHost.Content = Labeled("Shapes", new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { new TextBlock { Text = "Rectangle" }, new TextBlock { Text = "Ellipse" }, new TextBlock { Text = "Line" } } });
+        mediaPlayerElementHost.Content = Labeled("MediaPlayerElement", new TextBlock { Text = "Media player surface" });
+        webView2Host.Content = Labeled("WebView2", new TextBlock { Text = "WebView2 surface" });
+        inkControlsHost.Content = Labeled("InkCanvas / InkToolbar", new StackPanel { Spacing = 4, Children = { new TextBlock { Text = "InkToolbar" }, new TextBlock { Text = "InkCanvas" } } });
+        titleBarCustomizationHost.Content = Labeled("Title bar customization", new TextBlock { Text = "ExtendsContentIntoTitleBar sample" });
+        systemBackdropHost.Content = Labeled("Window.SystemBackdrop / MicaBackdrop", new TextBlock { Text = "MicaBackdrop assigned" });
 #endif
     }
 

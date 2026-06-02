@@ -55,7 +55,7 @@
       },
       "wholeScreenDrift": {
         "gated": false,
-        "changedPixelPercentage": 39.647779,
+        "changedPixelPercentage": 43.277129,
         "threshold": 24,
         "status": "informational-over-threshold",
         "note": "Superseded by component evidence; cross-platform rasterization difference."

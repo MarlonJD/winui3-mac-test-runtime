@@ -291,6 +291,9 @@ public static class UiTreeBuilder
                 properties["maxRating"] = ratingControl.MaxRating;
                 properties["value"] = ratingControl.Value;
                 break;
+            case SymbolIcon symbolIcon:
+                properties["symbol"] = symbolIcon.Symbol.ToString();
+                break;
             case TextBlock textBlock:
                 properties["text"] = textBlock.Text;
                 break;

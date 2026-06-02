@@ -1700,6 +1700,30 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void VisualLayoutEngineExportsSymbolIconLayout()
+    {
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new StackPanel
+            {
+                Children =
+                {
+                    new SymbolIcon { Name = "LinkIcon", Symbol = Symbol.Link }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "symbol", "skia-v2", new VisualViewport(120, 80), 1, "light", true, new VisualThresholds());
+
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var icon = RequireNode(arranged.Root, "LinkIcon");
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual("Link", icon.Properties["symbol"]);
+        Assert.AreEqual(32, icon.Layout!.Width);
+        Assert.AreEqual(32, icon.Layout.Height);
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineReportsUnsupportedVisualTypes()
     {
         var tree = new UiTreeDocument(
@@ -1768,6 +1792,7 @@ public sealed class MacRuntimeTests
                     new Slider { Name = "VolumeSlider", Minimum = 0, Maximum = 100, Value = 64 },
                     new ToggleSwitch { Name = "EnabledToggleSwitch", Header = "Enabled", IsOn = true },
                     new RatingControl { Name = "QualityRatingControl", MaxRating = 5, Value = 4 },
+                    new SymbolIcon { Name = "LinkSymbolIcon", Symbol = Symbol.Link },
                     new DropDownButton { Name = "ChoiceDropDownButton", Content = "Choose" },
                     new SplitButton { Name = "ChoiceSplitButton", Content = "Split" },
                     new ToggleSplitButton { Name = "PinnedToggleSplitButton", Content = "Toggle split", IsChecked = true },
@@ -1792,6 +1817,7 @@ public sealed class MacRuntimeTests
         var slider = RequireNode(arranged.Root, "VolumeSlider").Layout!;
         var toggleSwitch = RequireNode(arranged.Root, "EnabledToggleSwitch").Layout!;
         var rating = RequireNode(arranged.Root, "QualityRatingControl").Layout!;
+        var symbol = RequireNode(arranged.Root, "LinkSymbolIcon").Layout!;
         var toggleSplit = RequireNode(arranged.Root, "PinnedToggleSplitButton").Layout!;
         var infoBar = RequireNode(arranged.Root, "StatusInfoBar").Layout!;
 
@@ -1804,6 +1830,7 @@ public sealed class MacRuntimeTests
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)slider.X, (float)slider.Y, (float)(slider.X + slider.Width), (float)(slider.Y + slider.Height)), theme.Accent));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)toggleSwitch.X, (float)toggleSwitch.Y, (float)(toggleSwitch.X + toggleSwitch.Width), (float)(toggleSwitch.Y + toggleSwitch.Height)), theme.Accent));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)rating.X, (float)rating.Y, (float)(rating.X + rating.Width), (float)(rating.Y + rating.Height)), theme.Accent));
+        Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)symbol.X, (float)symbol.Y, (float)(symbol.X + symbol.Width), (float)(symbol.Y + symbol.Height)), theme.Accent));
         Assert.IsGreaterThan(40, CountExactPixels(bitmap, new SKRect((float)toggleSplit.X, (float)toggleSplit.Y, (float)(toggleSplit.X + toggleSplit.Width), (float)(toggleSplit.Y + toggleSplit.Height)), theme.Accent));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 12, (float)infoBar.Y + 14, (float)infoBar.X + 36, (float)infoBar.Y + 38), theme.Success));
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 16, (float)infoBar.Y + 18, (float)infoBar.X + 32, (float)infoBar.Y + 34), theme.Surface));

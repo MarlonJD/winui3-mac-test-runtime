@@ -168,6 +168,18 @@ public class RatingControl : Control
     public double Value { get; set; }
 }
 
+public enum Symbol
+{
+    Accept,
+    Find,
+    Link
+}
+
+public class SymbolIcon : Control
+{
+    public Symbol Symbol { get; set; }
+}
+
 public class Image : Control
 {
     public object? Source { get; set; }

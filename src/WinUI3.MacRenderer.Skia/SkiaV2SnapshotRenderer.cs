@@ -184,6 +184,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             case "FontIcon":
                 DrawText(canvas, paint, iconFont, ReadString(node, "glyph") ?? "*", (float)node.Layout.X, (float)node.Layout.Y + 18, theme.Accent);
                 break;
+            case "SymbolIcon":
+                RenderSymbolIcon(canvas, node, theme, paint, iconFont);
+                break;
             case "Image":
                 RenderImagePlaceholder(canvas, node, theme, paint, smallFont);
                 break;
@@ -519,6 +522,12 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             (int)Math.Round(ReadFloat(node, "maxRating", 5)),
             ReadFloat(node, "value", 0),
             ReadBool(node, "isEnabled", fallback: true));
+    }
+
+    private static void RenderSymbolIcon(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
+    {
+        var rect = Rect(node);
+        DrawText(canvas, paint, font, SymbolGlyph(ReadString(node, "symbol")), rect.Left + 4, rect.Top + 21, theme.Accent);
     }
 
     private static void RenderListView(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
@@ -876,6 +885,17 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             " ",
             normalized.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(part =>
                 char.ToUpperInvariant(part[0]) + (part.Length == 1 ? string.Empty : part[1..])));
+    }
+
+    private static string SymbolGlyph(string? symbol)
+    {
+        return symbol switch
+        {
+            "Accept" => "\uE73E",
+            "Find" => "\uE721",
+            "Link" => "\uE71B",
+            _ => "\uE10F"
+        };
     }
 
     private static void DrawRect(SKCanvas canvas, SKPaint paint, SKRect rect, SKColor color)
