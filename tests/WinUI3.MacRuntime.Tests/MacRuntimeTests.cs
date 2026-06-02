@@ -366,6 +366,23 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void SkiaV2ThemeProvidesLightDarkAndHighContrastTokens()
+    {
+        var light = SkiaV2Theme.For("light");
+        var dark = SkiaV2Theme.For("dark");
+        var highContrast = SkiaV2Theme.For("high-contrast");
+
+        Assert.AreNotEqual(light.AppBackground, dark.AppBackground);
+        Assert.AreNotEqual(light.TextPrimary, dark.TextPrimary);
+        Assert.AreEqual(new SKColor(0xff, 0xff, 0xff), highContrast.TextPrimary);
+        Assert.AreEqual(new SKColor(0xff, 0xff, 0xff), highContrast.Stroke);
+        Assert.AreEqual(new SKColor(0x00, 0xff, 0xff), highContrast.Accent);
+        Assert.AreEqual(0, highContrast.PopupShadowOffset);
+        Assert.IsGreaterThan(0, light.ControlCornerRadius);
+        Assert.IsGreaterThan(0, light.FocusStrokeWidth);
+    }
+
+    [TestMethod]
     public void UnsupportedApiRegistryReportsUnsupportedFacadeUse()
     {
         UnsupportedApiRegistry.Clear();
@@ -506,6 +523,13 @@ public sealed class MacRuntimeTests
         CollectionAssert.AreEqual(
             new[] { "not-rendered", "usable", "good", "production-ready" },
             promotionGrades);
+
+        var phases = root.GetProperty("phaseReadinessGates")
+            .EnumerateArray()
+            .Select(entry => RequireNonEmptyString(entry, "phase"))
+            .OrderBy(phase => phase, StringComparer.Ordinal)
+            .ToArray();
+        CollectionAssert.AreEqual(new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5" }, phases);
     }
 
     [TestMethod]
@@ -772,6 +796,7 @@ public sealed class MacRuntimeTests
         }
 
         Assert.AreEqual("passed", evidence.Components[0].InteractionStatus);
+        Assert.IsNotNull(evidence.Components[0].ComponentThresholds);
         Assert.AreEqual("not-rendered", evidence.Components[1].VisualGrade);
         Assert.HasCount(1, evidence.SourceFeatures);
         Assert.AreEqual("present", evidence.SourceFeatures[0].Presence);
@@ -836,6 +861,69 @@ public sealed class MacRuntimeTests
             var scenario = await VisualScenario.LoadAsync(scenarioPath);
             Assert.AreEqual(stateCoverage.GetProperty("scenario").GetString(), scenario.Name);
         }
+    }
+
+    [TestMethod]
+    public async Task PhaseFiveReadinessScenariosKeepClaimedRingZeroAndRingOneUsable()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var requiredScenarios = new[]
+        {
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-checked-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-disabled-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-focused-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-focused-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-invalid-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-selected-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-command-invoked-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-disabled-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-open-popup-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-open-popup-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-loading-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-error-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-success-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-dark.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-high-contrast.json",
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-navigation-workbench-light.json",
+            "fixtures/ProductionSmoke.WinUI/scenarios/production-smoke-light.json",
+            "fixtures/ProductionSmoke.WinUI/scenarios/production-e2e-workbench-light.json",
+            "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
+            "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json"
+        };
+        var claimedStatuses = new[] { CompatibilityStatuses.Supported, CompatibilityStatuses.Partial };
+        var auditedClaimedRequirements = 0;
+
+        foreach (var relativePath in requiredScenarios)
+        {
+            var scenario = await VisualScenario.LoadAsync(Path.Combine(repositoryRoot, relativePath));
+
+            Assert.IsTrue(scenario.StrictVisual, $"{relativePath} must be a strict visual scenario.");
+            foreach (var requirement in scenario.Requirements)
+            {
+                if (claimedStatuses.Contains(requirement.ExpectedStatus))
+                {
+                    auditedClaimedRequirements++;
+                    Assert.IsFalse(string.IsNullOrWhiteSpace(requirement.Target), $"{relativePath} claimed requirement '{requirement.Component}' must target a crop region.");
+                    Assert.IsTrue(
+                        ComponentEvidenceBuilder.MeetsMinimumVisualGrade(requirement.MinimumVisualGrade, "usable"),
+                        $"{relativePath} claimed requirement '{requirement.Component}' must require at least usable visuals.");
+                    Assert.IsTrue(
+                        ComponentEvidenceBuilder.MeetsMinimumVisualGrade(requirement.VisualGrade ?? requirement.MinimumVisualGrade, requirement.MinimumVisualGrade),
+                        $"{relativePath} claimed requirement '{requirement.Component}' must not publish a grade below its minimum.");
+                    continue;
+                }
+
+                if (requirement.ExpectedStatus == CompatibilityStatuses.Planned)
+                {
+                    Assert.AreEqual("not-rendered", requirement.VisualGrade ?? requirement.MinimumVisualGrade);
+                }
+            }
+        }
+
+        Assert.IsGreaterThan(0, auditedClaimedRequirements);
     }
 
     [TestMethod]
@@ -1100,6 +1188,97 @@ public sealed class MacRuntimeTests
         Assert.IsTrue(File.Exists(diff));
     }
 
+    [TestMethod]
+    public void ComponentCropperClampsScaledBounds()
+    {
+        var bounds = ComponentCropper.BoundsFor(
+            new UiLayoutBox(
+                X: 8.25,
+                Y: 6.5,
+                Width: 80,
+                Height: 40,
+                DesiredWidth: 80,
+                DesiredHeight: 40,
+                Margin: new UiThickness(0, 0, 0, 0),
+                Padding: new UiThickness(0, 0, 0, 0),
+                HorizontalAlignment: "Stretch",
+                VerticalAlignment: "Stretch",
+                Visibility: "Visible"),
+            imageWidth: 120,
+            imageHeight: 80,
+            scale: 1.5);
+
+        Assert.IsNotNull(bounds);
+        Assert.IsGreaterThanOrEqualTo(0, bounds.X);
+        Assert.IsGreaterThanOrEqualTo(0, bounds.Y);
+        Assert.IsGreaterThan(0, bounds.Width);
+        Assert.IsGreaterThan(0, bounds.Height);
+        Assert.IsLessThanOrEqualTo(120, bounds.X + bounds.Width);
+        Assert.IsLessThanOrEqualTo(80, bounds.Y + bounds.Height);
+    }
+
+    [TestMethod]
+    public void ComponentCropperDetectsBlankCrops()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-crop-tests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(directory);
+        var blank = Path.Combine(directory, "blank.png");
+        var patterned = Path.Combine(directory, "patterned.png");
+
+        WriteSolidPng(blank, new SKColor(255, 255, 255));
+        WritePatternPng(patterned);
+
+        Assert.IsTrue(ComponentCropper.IsBlankCrop(blank));
+        Assert.IsFalse(ComponentCropper.IsBlankCrop(patterned));
+    }
+
+    [TestMethod]
+    public void ComponentCropperFailsClaimedComponentWithBlankCrop()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-crop-tests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(directory);
+        var runtimeImage = Path.Combine(directory, "mac-runtime.png");
+        WriteSolidPng(runtimeImage, new SKColor(255, 255, 255), width: 240, height: 160);
+        var scenario = new VisualScenario
+        {
+            FixtureName = "crop-test",
+            Name = "crop-test-light",
+            Requirements = new[]
+            {
+                new VisualRequirement
+                {
+                    Component = "Button",
+                    Target = "PrimaryButton",
+                    ExpectedStatus = CompatibilityStatuses.Supported,
+                    MinimumVisualGrade = "usable",
+                    VisualGrade = "usable",
+                    ComponentThresholds = new VisualThresholds
+                    {
+                        ChangedPixelPercentage = 5,
+                        MeanAbsoluteError = 2,
+                        RootMeanSquaredError = 4
+                    }
+                }
+            }
+        };
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new Button { Name = "PrimaryButton", Content = "Continue" }
+        });
+        var settings = new VisualRunSettings(scenario, scenario.Name, "skia-v2", new VisualViewport(240, 160), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var evidence = ComponentEvidenceBuilder.Build(scenario, arranged, interactions: null, metrics: null);
+
+        var withCrops = ComponentCropper.WriteCrops(evidence, runtimeImage, referenceImagePath: null, directory, scale: 1, settings.Thresholds);
+
+        Assert.AreEqual("failed", withCrops.Status);
+        var crop = withCrops.Components[0].Crop ?? throw new AssertFailedException("Expected component crop evidence.");
+        Assert.AreEqual("failed", crop.Status);
+        Assert.IsTrue(crop.RuntimeBlank);
+        Assert.IsTrue(File.Exists(crop.MacRuntimePath));
+        Assert.AreEqual(5, crop.Thresholds.ChangedPixelPercentage);
+    }
+
     private static async Task<byte[]> Sha256Async(string path)
     {
         await using var stream = File.OpenRead(path);
@@ -1144,11 +1323,24 @@ public sealed class MacRuntimeTests
             $"Corpus baseline '{Path.GetFileName(baselinePath)}' drifted; run `ingest --write-baseline` after review.");
     }
 
-    private static void WriteSolidPng(string path, SKColor color)
+    private static void WriteSolidPng(string path, SKColor color, int width = 4, int height = 4)
     {
-        using var bitmap = new SKBitmap(4, 4);
+        using var bitmap = new SKBitmap(width, height);
         using var canvas = new SKCanvas(bitmap);
         canvas.Clear(color);
+        using var image = SKImage.FromBitmap(bitmap);
+        using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
+        using var stream = File.Create(path);
+        data.SaveTo(stream);
+    }
+
+    private static void WritePatternPng(string path)
+    {
+        using var bitmap = new SKBitmap(8, 8);
+        using var canvas = new SKCanvas(bitmap);
+        canvas.Clear(new SKColor(255, 255, 255));
+        using var paint = new SKPaint { Color = new SKColor(37, 98, 217) };
+        canvas.DrawRect(new SKRect(2, 2, 6, 6), paint);
         using var image = SKImage.FromBitmap(bitmap);
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
         using var stream = File.Create(path);

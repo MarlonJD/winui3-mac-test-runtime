@@ -139,6 +139,8 @@ public sealed class VisualRequirement
 
     public string? VisualGrade { get; init; }
 
+    public VisualThresholds? ComponentThresholds { get; init; }
+
     public IReadOnlyList<string> RequiredProperties { get; init; } = Array.Empty<string>();
 
     public IReadOnlyList<string> KnownGaps { get; init; } = Array.Empty<string>();

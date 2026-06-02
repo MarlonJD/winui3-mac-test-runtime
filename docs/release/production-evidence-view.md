@@ -68,6 +68,15 @@ Promotion is evidence-backed:
 | `good` | Entry meets the usable bar plus reviewed component-level visual fidelity against native WinUI references across required state/theme scenarios. |
 | production-ready | Entry has a deliberate production disposition: implemented support at the required grade, bounded partial support with exact limits, Windows-only exclusion, diagnostic roadmap exclusion, or explicit non-goal exclusion. |
 
+## Phase 2-5 Gate Status
+
+| Phase | Current status | Evidence gate |
+| --- | --- | --- |
+| Phase 2: Component crop and reference tooling | Implemented | `component-evidence.json` carries crop metadata and effective per-component thresholds; `visual-run.json` points to the crop directory; strict visual fails claimed supported/partial rows with missing, blank, `not-rendered`, or over-threshold crops. |
+| Phase 3: Fluent token and theme foundation | Implemented | `skia-v2` painters use a centralized token layer for light, dark, high contrast, typography, fills, strokes, status colors, focus, selected chrome, disabled surfaces, radius, and popup elevation. |
+| Phase 4: Ring 0 Windows chrome completion | Implemented for the documented source-level subset | Ring 0 strict scenarios cover shell, layout, text, commands, forms, workbench, status/progress, resources/theme, state scenarios, and artifacts; claimed supported/partial rows require at least `usable`. |
+| Phase 5: Ring 1 E2E visual completion | Implemented for claimed subsets | Open-popup, selected collection, and layout/theme scenarios cover claimed `MenuFlyout`, `CommandBarFlyout`, `ContentDialog`, `Flyout`, `ToolTip`, collection hosts, theme dictionaries, `SolidColorBrush`, and `CornerRadius`; rich input, templates, broader keyboarding, advanced collections, `TeachingTip`, and `MenuBar` remain planned diagnostics. |
+
 ## Catalog Snapshot
 
 `docs/compatibility/winui-api-compatibility.catalog.json` is the deterministic

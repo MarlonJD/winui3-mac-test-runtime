@@ -16,7 +16,7 @@ a new schema version and documentation update.
 | `tree.json` | `0.1`; `0.2` when `skia-v2` layout metadata is exported |
 | `accessibility.json` | `0.3` |
 | `binding-failures.json` | `0.1` |
-| `visual/component-evidence.json` | `0.1` |
+| `visual/component-evidence.json` | `0.2` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
 | `project-ingestion.json` | `0.1` |
@@ -64,12 +64,12 @@ a new schema version and documentation update.
   scenario-driven `skia-v2` renderer.
 - `visual/visual-run.json`: scenario name, fixture name, runner OS, renderer,
   viewport, scale, theme, threshold configuration, unsupported visual features,
-  reference/runtime/diff paths, copied reference provenance, comparison metrics,
-  and pass/fail status.
+  reference/runtime/diff paths, component crop directory, copied reference
+  provenance, comparison metrics, and pass/fail status.
 - `visual/component-evidence.json`: component parity lab evidence with
   component/source-feature catalog status, presence, interaction status, visual
-  grade, known gaps, and optional diff metrics when a reference-backed
-  comparison supplies them.
+  grade, effective per-component thresholds, target layout region, crop paths,
+  blank-crop status, known gaps, and optional reference or crop diff metrics.
 - `visual/windows-reference.png`: copy of the Windows-hosted reference
   screenshot captured by the public workflow or supplied with `--reference`.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not

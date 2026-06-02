@@ -369,10 +369,53 @@ public static class VisualLayoutEngine
             "Flyout" or "ToolTip" or "TeachingTip" => 72,
             "Border" => Math.Min(86, fallback),
             "ListView" or "ItemsControl" => Math.Max(64, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
-            "ScrollViewer" or "ContentControl" => Math.Min(Math.Max(64, fallback), fallback),
+            "ScrollViewer" or "ContentControl" => Math.Min(120, Math.Max(64, fallback)),
+            "StackPanel" => EstimateStackHeight(node, fallback),
+            "Grid" => EstimateGridHeight(node, fallback),
             "Frame" => Math.Min(Math.Max(64, fallback), fallback),
             _ => Math.Min(Math.Max(40, fallback), fallback)
         };
+    }
+
+    // A panel stacked inside another panel must size to its content along the
+    // stacking axis, not claim the whole available height. Returning the full
+    // fallback made the first stacked row consume the column and pushed every
+    // later row out of the viewport, blanking their component crops.
+    private static double EstimateStackHeight(UiNode node, double fallback)
+    {
+        var padding = PaddingFor(node);
+        var verticalPadding = padding.Top + padding.Bottom;
+        if (node.Children.Count == 0)
+        {
+            return Math.Min(fallback, verticalPadding);
+        }
+
+        var available = Math.Max(1, fallback - verticalPadding);
+        double content;
+        if (string.Equals(ReadString(node, "orientation"), "Horizontal", StringComparison.Ordinal))
+        {
+            content = node.Children.Max(child => EstimateHeight(child, available));
+        }
+        else
+        {
+            var spacing = ReadDouble(node, "spacing", 0);
+            content = node.Children.Sum(child => EstimateHeight(child, available))
+                + Math.Max(0, node.Children.Count - 1) * spacing;
+        }
+
+        return Math.Min(fallback, content + verticalPadding);
+    }
+
+    // ArrangeGrid lays children across columns within a single row band, so the
+    // grid's natural height is the tallest child rather than the full fallback.
+    private static double EstimateGridHeight(UiNode node, double fallback)
+    {
+        if (node.Children.Count == 0)
+        {
+            return Math.Min(fallback, 40);
+        }
+
+        return Math.Min(fallback, node.Children.Max(child => EstimateHeight(child, fallback)));
     }
 
     private static LayoutRect Inset(LayoutRect rect, UiThickness thickness)

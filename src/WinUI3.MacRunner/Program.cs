@@ -246,6 +246,10 @@ internal static class Cli
                 var visualPassed = await VisualArtifacts.WriteAsync(result, visualSettings, referencePath, diffOutputDirectory);
                 Console.WriteLine($"visual-run.json: {Path.Combine(Path.GetFullPath(diffOutputDirectory), "visual-run.json")}");
                 Console.WriteLine($"mac-runtime.png: {Path.Combine(Path.GetFullPath(diffOutputDirectory), "mac-runtime.png")}");
+                // Surface the strict-visual gate result explicitly. The base run can
+                // pass while the visual gate fails, so reporting only the run status
+                // above would hide a gate failure that still sets exit code 1.
+                Console.WriteLine($"visual-status: {(visualPassed ? "passed" : "failed")}");
                 if (!visualPassed)
                 {
                     return 1;

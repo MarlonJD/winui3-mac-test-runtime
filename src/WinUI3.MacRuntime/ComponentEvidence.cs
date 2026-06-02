@@ -5,6 +5,25 @@ public sealed record ComponentDiffMetrics(
     double MeanAbsoluteError,
     double RootMeanSquaredError);
 
+public sealed record ComponentCropBounds(
+    int X,
+    int Y,
+    int Width,
+    int Height);
+
+public sealed record ComponentCropEvidence(
+    string Status,
+    ComponentCropBounds? Bounds,
+    string? NativeReferencePath,
+    string? MacRuntimePath,
+    string? PixelDiffPath,
+    bool? RuntimeBlank,
+    VisualThresholds Thresholds,
+    double? ChangedPixelPercentage,
+    double? MeanAbsoluteError,
+    double? RootMeanSquaredError,
+    string? Message);
+
 public sealed record ComponentEvidenceDocument(
     string SchemaVersion,
     string FixtureName,
@@ -22,9 +41,11 @@ public sealed record ComponentEvidenceEntry(
     string Presence,
     string InteractionStatus,
     string VisualGrade,
+    VisualThresholds? ComponentThresholds,
     double? ChangedPixelPercentage,
     double? MeanAbsoluteError,
     double? RootMeanSquaredError,
+    ComponentCropEvidence? Crop,
     IReadOnlyList<string> KnownGaps);
 
 public sealed record SourceFeatureEvidenceEntry(
@@ -56,7 +77,7 @@ public static class ComponentEvidenceBuilder
         ArgumentNullException.ThrowIfNull(tree);
 
         var components = scenario.Requirements
-            .Select(requirement => BuildComponentEvidence(requirement, tree, interactions, metrics))
+            .Select(requirement => BuildComponentEvidence(requirement, tree, interactions, metrics, scenario.Thresholds))
             .ToArray();
         var sourceFeatures = scenario.SourceFeatures
             .Select(requirement => BuildSourceFeatureEvidence(requirement, tree))
@@ -79,7 +100,8 @@ public static class ComponentEvidenceBuilder
         VisualRequirement requirement,
         UiTreeDocument tree,
         InteractionReport? interactions,
-        ComponentDiffMetrics? metrics)
+        ComponentDiffMetrics? metrics,
+        VisualThresholds scenarioThresholds)
     {
         var targetNode = FindByName(tree.Root, requirement.Target);
         var presence = targetNode is null ? "missing" : "present";
@@ -98,10 +120,53 @@ public static class ComponentEvidenceBuilder
             presence,
             interactionStatus,
             grade,
+            requirement.ComponentThresholds ?? scenarioThresholds,
             metrics?.ChangedPixelPercentage,
             metrics?.MeanAbsoluteError,
             metrics?.RootMeanSquaredError,
+            Crop: null,
             knownGaps);
+    }
+
+    public static ComponentEvidenceDocument WithComponentCrops(
+        ComponentEvidenceDocument document,
+        IReadOnlyDictionary<string, ComponentCropEvidence> crops)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+        ArgumentNullException.ThrowIfNull(crops);
+
+        var components = document.Components
+            .Select(component =>
+            {
+                var key = ComponentKey(component.Component, component.Target);
+                if (!crops.TryGetValue(key, out var crop))
+                {
+                    return component;
+                }
+
+                return component with
+                {
+                    Crop = crop,
+                    ChangedPixelPercentage = crop.ChangedPixelPercentage ?? component.ChangedPixelPercentage,
+                    MeanAbsoluteError = crop.MeanAbsoluteError ?? component.MeanAbsoluteError,
+                    RootMeanSquaredError = crop.RootMeanSquaredError ?? component.RootMeanSquaredError
+                };
+            })
+            .ToArray();
+        var status = document.Status == "failed" || components.Any(component => component.Crop?.Status == "failed")
+            ? "failed"
+            : "passed";
+
+        return document with
+        {
+            Components = components,
+            Status = status
+        };
+    }
+
+    public static string ComponentKey(string component, string? target)
+    {
+        return component + "|" + (target ?? string.Empty);
     }
 
     private static SourceFeatureEvidenceEntry BuildSourceFeatureEvidence(

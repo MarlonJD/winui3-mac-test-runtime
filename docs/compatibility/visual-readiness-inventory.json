@@ -33,6 +33,48 @@
     "localExecutableRequirement": "Locally executable source-level entries need implementation, tests, public fixture or source fixture coverage, native WinUI reference evidence when visual, macOS artifacts, interaction and accessibility evidence where applicable, and docs.",
     "exclusionRequirement": "Windows-only and non-goal entries need deterministic diagnostics or exclusions, Windows validation evidence where applicable, support-policy wording, and no misleading macOS support claim."
   },
+  "phaseReadinessGates": [
+    {
+      "phase": "Phase 2",
+      "name": "Component crop and reference tooling",
+      "status": "implemented",
+      "evidence": [
+        "component-evidence.json carries component crop metadata and effective per-component thresholds",
+        "visual-run.json points to the component crop directory",
+        "strict visual status fails when claimed supported or partial component crops are missing, blank, not-rendered, or above crop thresholds"
+      ]
+    },
+    {
+      "phase": "Phase 3",
+      "name": "Fluent token and theme foundation",
+      "status": "implemented",
+      "evidence": [
+        "skia-v2 painters use a centralized light, dark, and high-contrast token layer",
+        "token layer covers typography, fill, stroke, status colors, selected chrome, focus stroke, disabled surfaces, radius, and popup elevation",
+        "unsupported Fluent resources remain catalog diagnostics until mapped"
+      ]
+    },
+    {
+      "phase": "Phase 4",
+      "name": "Ring 0 Windows chrome completion",
+      "status": "implemented for the documented source-level subset",
+      "evidence": [
+        "Ring 0 strict scenarios cover shell, layout, text, commands, forms, workbench, status/progress, resources/theme, and artifacts",
+        "claimed Ring 0 supported or partial requirements require at least usable visual grade",
+        "component crop audit rejects claimed Ring 0 not-rendered rows"
+      ]
+    },
+    {
+      "phase": "Phase 5",
+      "name": "Ring 1 E2E visual completion",
+      "status": "implemented for claimed subsets",
+      "evidence": [
+        "strict open-popup scenarios cover MenuFlyout, CommandBarFlyout, ContentDialog, Flyout, and ToolTip",
+        "collections selected and layout/media light, dark, and high-contrast scenarios remain strict",
+        "rich form input, templates, broader keyboarding, advanced collection controls, TeachingTip, and MenuBar remain planned or diagnostic until real support is implemented"
+      ]
+    }
+  ],
   "promotionRules": [
     {
       "grade": "not-rendered",

@@ -21,6 +21,7 @@ internal sealed record VisualRunReport(
     string RuntimeImagePath,
     string? DiffImagePath,
     string? ComponentEvidencePath,
+    string? ComponentCropDirectory,
     VisualThresholds Thresholds,
     object? Comparison,
     IReadOnlyList<UnsupportedApiEntry> UnsupportedVisualFeatures,
@@ -118,6 +119,13 @@ internal static class VisualArtifacts
                 result.Tree,
                 await ReadInteractionReportAsync(result.InteractionJsonPath, cancellationToken),
                 componentMetrics);
+            componentEvidence = ComponentCropper.WriteCrops(
+                componentEvidence,
+                runtimePath,
+                copiedReferencePath,
+                outputDirectory,
+                settings.Scale,
+                settings.Thresholds);
             var componentEvidencePath = Path.Combine(outputDirectory, "component-evidence.json");
             await File.WriteAllTextAsync(
                 componentEvidencePath,
@@ -151,6 +159,7 @@ internal static class VisualArtifacts
             RuntimeImagePath: runtimePath,
             DiffImagePath: diffPath,
             ComponentEvidencePath: componentEvidence is null ? null : Path.Combine(outputDirectory, "component-evidence.json"),
+            ComponentCropDirectory: componentEvidence is null ? null : Path.Combine(outputDirectory, "components"),
             Thresholds: settings.Thresholds,
             Comparison: comparison,
             UnsupportedVisualFeatures: unsupportedVisualFeatures,

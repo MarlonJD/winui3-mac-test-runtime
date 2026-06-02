@@ -44,7 +44,7 @@ production target is considered met:
 | Public fixture | The component appears in a clean-room public fixture scenario. |
 | Native provenance | `windows-reference.json` records `referenceSource: native-winui`. |
 | macOS renderer evidence | `mac-runtime.png` shows the component with meaningful visual output. |
-| Component evidence | `component-evidence.json` records catalog status, presence, interaction status, visual grade, target layout region, and known gaps. |
+| Component evidence | `component-evidence.json` records catalog status, presence, interaction status, visual grade, effective per-component thresholds, target layout region, crop paths, blank-crop status, and known gaps. |
 | Interaction evidence | `interactions.json` records deterministic pass/fail details for the required action path when the component is interactive. |
 | Accessibility evidence | `accessibility.json` exposes the required role, name, enabled state, selected/checked/value state, and relationships. |
 | Visual grade | Ring 0 and claimed Ring 1 components reach at least `usable` after artifact inspection. |
