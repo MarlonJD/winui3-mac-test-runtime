@@ -96,7 +96,7 @@ current grade, native-quality target, owner family, required scenario, and
 remaining blocker. The current dashboard is blocked: 49/49 checked-in public
 component rows still lack native-quality completion evidence, including macOS
 component crops, native WinUI reference crops, component diff metrics, and
-manual screenshot inspection metadata.
+native reference provenance, plus manual screenshot inspection metadata.
 
 Component lab scenario artifacts are produced for:
 `component-basic-input-light`, `component-text-forms-light`,

@@ -11,6 +11,26 @@ public sealed record ComponentCropBounds(
     int Width,
     int Height);
 
+public sealed record ReferenceImageDimensions(
+    int Width,
+    int Height);
+
+public sealed record NativeReferenceProvenance(
+    string? ReferenceSource,
+    string? FixtureProjectPath,
+    string? ScenarioPath,
+    string? ScenarioName,
+    string? CommitSha,
+    string? WorkflowRunId,
+    string? RunnerImage,
+    string? WindowsAppSdkVersion,
+    VisualViewport? Viewport,
+    double? Scale,
+    string? Theme,
+    string? CaptureMode,
+    ReferenceImageDimensions? Dimensions,
+    string? CapturedAt);
+
 public sealed record ComponentCropEvidence(
     string Status,
     ComponentCropBounds? Bounds,
@@ -22,7 +42,10 @@ public sealed record ComponentCropEvidence(
     double? ChangedPixelPercentage,
     double? MeanAbsoluteError,
     double? RootMeanSquaredError,
-    string? Message);
+    string? Message)
+{
+    public NativeReferenceProvenance? NativeReferenceProvenance { get; init; }
+}
 
 public sealed record ComponentInspectionEvidence(
     string InspectedBy,

@@ -19,6 +19,7 @@ public sealed record ComponentQualityTotals(
     IReadOnlyDictionary<string, int> NativeQualityGradeCounts,
     int MissingMacRuntimeCrops,
     int MissingNativeReferenceCrops,
+    int MissingNativeReferenceProvenance,
     int MissingComponentDiffs,
     int MissingInspectionNotes,
     int BlockingRowCount);
@@ -89,6 +90,7 @@ public static class ComponentQualityDashboard
         var componentCount = 0;
         var missingMacRuntimeCrops = 0;
         var missingNativeReferenceCrops = 0;
+        var missingNativeReferenceProvenance = 0;
         var missingComponentDiffs = 0;
         var missingInspectionNotes = 0;
 
@@ -133,6 +135,11 @@ public static class ComponentQualityDashboard
                     missingNativeReferenceCrops++;
                 }
 
+                if (!HasNativeReferenceProvenance(component))
+                {
+                    missingNativeReferenceProvenance++;
+                }
+
                 if (!HasComponentDiff(component))
                 {
                     missingComponentDiffs++;
@@ -175,6 +182,7 @@ public static class ComponentQualityDashboard
             nativeQualityGradeCounts,
             missingMacRuntimeCrops,
             missingNativeReferenceCrops,
+            missingNativeReferenceProvenance,
             missingComponentDiffs,
             missingInspectionNotes,
             blockers.Count);
@@ -214,6 +222,11 @@ public static class ComponentQualityDashboard
             reasons.Add("Missing native WinUI reference crop evidence.");
         }
 
+        if (!HasNativeReferenceProvenance(component))
+        {
+            reasons.Add("Missing native WinUI reference provenance.");
+        }
+
         if (!HasComponentDiff(component))
         {
             reasons.Add("Missing component-level diff metrics.");
@@ -237,6 +250,29 @@ public static class ComponentQualityDashboard
     {
         return TryGetCrop(component, out var crop) &&
             !string.IsNullOrWhiteSpace(ReadString(crop, "nativeReferencePath"));
+    }
+
+    private static bool HasNativeReferenceProvenance(JsonElement component)
+    {
+        if (!TryGetCrop(component, out var crop) ||
+            !crop.TryGetProperty("nativeReferenceProvenance", out var provenance) ||
+            provenance.ValueKind != JsonValueKind.Object)
+        {
+            return false;
+        }
+
+        return !string.IsNullOrWhiteSpace(ReadString(provenance, "referenceSource")) &&
+            !string.IsNullOrWhiteSpace(ReadString(provenance, "fixtureProjectPath")) &&
+            !string.IsNullOrWhiteSpace(ReadString(provenance, "scenarioPath")) &&
+            !string.IsNullOrWhiteSpace(ReadString(provenance, "commitSha")) &&
+            !string.IsNullOrWhiteSpace(ReadString(provenance, "workflowRunId")) &&
+            !string.IsNullOrWhiteSpace(ReadString(provenance, "runnerImage")) &&
+            !string.IsNullOrWhiteSpace(ReadString(provenance, "theme")) &&
+            !string.IsNullOrWhiteSpace(ReadString(provenance, "captureMode")) &&
+            provenance.TryGetProperty("viewport", out var viewport) &&
+            viewport.ValueKind == JsonValueKind.Object &&
+            provenance.TryGetProperty("scale", out var scale) &&
+            scale.ValueKind == JsonValueKind.Number;
     }
 
     private static bool HasComponentDiff(JsonElement component)

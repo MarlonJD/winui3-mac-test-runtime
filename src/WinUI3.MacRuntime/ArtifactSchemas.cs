@@ -8,8 +8,8 @@ public static class ArtifactSchemas
 {
     public const string Accessibility = "0.3";
     public const string BindingFailures = "0.1";
-    public const string ComponentEvidence = "0.3";
-    public const string ComponentQualityDashboard = "0.1";
+    public const string ComponentEvidence = "0.4";
+    public const string ComponentQualityDashboard = "0.2";
     public const string CorpusInventory = "0.1";
     public const string CorpusSummary = "0.1";
     public const string DoctorReport = "0.1";
@@ -25,7 +25,7 @@ public static class ArtifactSchemas
     public const string UiTree = "0.1";
     public const string UnsupportedApis = "0.1";
     public const string VisualRun = "0.1";
-    public const string VisualReview = "0.1";
+    public const string VisualReview = "0.2";
     public const string VisualUiTree = "0.2";
 }
 

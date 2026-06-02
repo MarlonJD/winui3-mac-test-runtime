@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "0.1",
+  "schemaVersion": "0.2",
   "generatedAt": "1970-01-01T00:00:00+00:00",
   "evidenceRoot": "docs/visual-parity/examples",
   "totals": {
@@ -14,6 +14,7 @@
     },
     "missingMacRuntimeCrops": 49,
     "missingNativeReferenceCrops": 49,
+    "missingNativeReferenceProvenance": 49,
     "missingComponentDiffs": 49,
     "missingInspectionNotes": 49,
     "blockingRowCount": 49
@@ -58,7 +59,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -76,7 +77,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -94,7 +95,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -112,7 +113,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -130,7 +131,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -148,7 +149,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -166,7 +167,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -184,7 +185,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -202,7 +203,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -220,7 +221,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -238,7 +239,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -256,7 +257,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -274,7 +275,7 @@
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -292,7 +293,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -310,7 +311,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -328,7 +329,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -346,7 +347,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -364,7 +365,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -382,7 +383,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -400,7 +401,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -418,7 +419,7 @@
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -436,7 +437,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -454,7 +455,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -472,7 +473,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -490,7 +491,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -508,7 +509,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -526,7 +527,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -544,7 +545,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -562,7 +563,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -580,7 +581,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -598,7 +599,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -616,7 +617,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -634,7 +635,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -652,7 +653,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -670,7 +671,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -688,7 +689,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -706,7 +707,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -724,7 +725,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -742,7 +743,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -760,7 +761,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -778,7 +779,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -796,7 +797,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -814,7 +815,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -832,7 +833,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -850,7 +851,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -868,7 +869,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -886,7 +887,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -904,7 +905,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -922,7 +923,7 @@
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
+      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027missing\u0027, not good or production-ready. Missing macOS component crop evidence. Missing native WinUI reference crop evidence. Missing native WinUI reference provenance. Missing component-level diff metrics. Missing manual screenshot inspection metadata."
     }
   ],
   "blockers": [
@@ -939,6 +940,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -956,6 +958,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -973,6 +976,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -990,6 +994,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1007,6 +1012,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1024,6 +1030,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1041,6 +1048,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1058,6 +1066,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1075,6 +1084,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1092,6 +1102,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1109,6 +1120,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1126,6 +1138,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1143,6 +1156,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1160,6 +1174,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1177,6 +1192,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1194,6 +1210,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1211,6 +1228,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1228,6 +1246,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1245,6 +1264,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1262,6 +1282,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1279,6 +1300,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1296,6 +1318,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1313,6 +1336,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1330,6 +1354,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1347,6 +1372,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1364,6 +1390,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1381,6 +1408,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1398,6 +1426,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1415,6 +1444,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1432,6 +1462,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1449,6 +1480,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1466,6 +1498,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1483,6 +1516,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1500,6 +1534,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1517,6 +1552,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1534,6 +1570,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1551,6 +1588,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1568,6 +1606,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1585,6 +1624,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1602,6 +1642,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1619,6 +1660,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1636,6 +1678,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1653,6 +1696,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1670,6 +1714,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1687,6 +1732,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1704,6 +1750,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1721,6 +1768,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1738,6 +1786,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]
@@ -1755,6 +1804,7 @@
         "nativeQualityGrade is \u0027missing\u0027, not good or production-ready.",
         "Missing macOS component crop evidence.",
         "Missing native WinUI reference crop evidence.",
+        "Missing native WinUI reference provenance.",
         "Missing component-level diff metrics.",
         "Missing manual screenshot inspection metadata."
       ]

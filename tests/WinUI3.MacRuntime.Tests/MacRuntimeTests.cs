@@ -1142,6 +1142,7 @@ public sealed class MacRuntimeTests
         Assert.AreEqual("blocked", expected.Status);
         Assert.AreEqual(expected.Totals.ComponentCount, expected.Totals.BlockingRowCount);
         Assert.IsGreaterThan(0, expected.Totals.MissingNativeReferenceCrops);
+        Assert.IsGreaterThan(0, expected.Totals.MissingNativeReferenceProvenance);
         Assert.IsGreaterThan(0, expected.Totals.MissingInspectionNotes);
 
         foreach (var blocker in expected.Blockers)
@@ -1152,6 +1153,9 @@ public sealed class MacRuntimeTests
             Assert.IsTrue(
                 blocker.Reasons.Any(reason => reason.Contains("manual screenshot inspection", StringComparison.Ordinal)),
                 $"{blocker.ScenarioName}/{blocker.Component} must require manual inspection metadata.");
+            Assert.IsTrue(
+                blocker.Reasons.Any(reason => reason.Contains("reference provenance", StringComparison.Ordinal)),
+                $"{blocker.ScenarioName}/{blocker.Component} must require native reference provenance.");
         }
     }
 
@@ -1695,6 +1699,56 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void ComponentCropperAttachesNativeReferenceProvenance()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-crop-tests", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(directory);
+        var runtimeImage = Path.Combine(directory, "mac-runtime.png");
+        var referenceImage = Path.Combine(directory, "windows-reference.png");
+        WritePatternPng(runtimeImage);
+        WritePatternPng(referenceImage);
+        var scenario = new VisualScenario
+        {
+            FixtureName = "crop-test",
+            Name = "crop-test-light",
+            Requirements = new[]
+            {
+                new VisualRequirement
+                {
+                    Component = "Button",
+                    Target = "PrimaryButton",
+                    ExpectedStatus = CompatibilityStatuses.Supported,
+                    MinimumVisualGrade = "usable",
+                    VisualGrade = "usable"
+                }
+            }
+        };
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new Button { Name = "PrimaryButton", Content = "Continue" }
+        });
+        var settings = new VisualRunSettings(scenario, scenario.Name, "skia-v2", new VisualViewport(240, 160), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var evidence = ComponentEvidenceBuilder.Build(scenario, arranged, interactions: null, metrics: null);
+        var provenance = TestNativeReferenceProvenance();
+
+        var withCrops = ComponentCropper.WriteCrops(
+            evidence,
+            runtimeImage,
+            referenceImage,
+            directory,
+            scale: 1,
+            settings.Thresholds,
+            provenance);
+
+        var crop = withCrops.Components[0].Crop ?? throw new AssertFailedException("Expected component crop evidence.");
+        Assert.IsNotNull(crop.NativeReferenceProvenance);
+        Assert.AreEqual("native-winui", crop.NativeReferenceProvenance.ReferenceSource);
+        Assert.AreEqual("26777029415", crop.NativeReferenceProvenance.WorkflowRunId);
+        Assert.AreEqual("fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json", crop.NativeReferenceProvenance.ScenarioPath);
+    }
+
+    [TestMethod]
     public void VisualReviewArtifactsWritesSideBySideCropPage()
     {
         var directory = Path.Combine(Path.GetTempPath(), "winui3-mac-review-tests", Guid.NewGuid().ToString("N"));
@@ -1754,7 +1808,10 @@ public sealed class MacRuntimeTests
                         ChangedPixelPercentage: 1.25,
                         MeanAbsoluteError: 0.5,
                         RootMeanSquaredError: 0.75,
-                        Message: "Component crop passed."),
+                        Message: "Component crop passed.")
+                    {
+                        NativeReferenceProvenance = TestNativeReferenceProvenance()
+                    },
                     NativeQualityGrade: "good",
                     Inspection: null,
                     KnownGaps: new[] { "Manual inspection is pending for the generated crop triptych." })
@@ -1777,10 +1834,15 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(html, "macOS runtime");
         StringAssert.Contains(html, "Pixel diff");
         StringAssert.Contains(html, "ready-for-manual-inspection");
+        StringAssert.Contains(html, "native-winui");
+        StringAssert.Contains(html, "26777029415");
 
         using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "visual-review.json")));
         Assert.AreEqual(ArtifactSchemas.VisualReview, json.RootElement.GetProperty("schemaVersion").GetString());
         Assert.AreEqual(1, json.RootElement.GetProperty("rows").GetArrayLength());
+        var row = json.RootElement.GetProperty("rows")[0];
+        Assert.AreEqual("native-winui", row.GetProperty("referenceSource").GetString());
+        Assert.AreEqual("26777029415", row.GetProperty("nativeReferenceRunId").GetString());
     }
 
     private static async Task<byte[]> Sha256Async(string path)
@@ -1849,6 +1911,25 @@ public sealed class MacRuntimeTests
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
         using var stream = File.Create(path);
         data.SaveTo(stream);
+    }
+
+    private static NativeReferenceProvenance TestNativeReferenceProvenance()
+    {
+        return new NativeReferenceProvenance(
+            ReferenceSource: "native-winui",
+            FixtureProjectPath: "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            ScenarioPath: "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+            ScenarioName: "component-basic-input-light",
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
+            RunnerImage: "win25 20260525.149.1",
+            WindowsAppSdkVersion: null,
+            Viewport: new VisualViewport(1028, 720),
+            Scale: 1,
+            Theme: "light",
+            CaptureMode: "client-area",
+            Dimensions: new ReferenceImageDimensions(1028, 720),
+            CapturedAt: "2026-06-01T19:31:04.2512607+00:00");
     }
 
     private static async Task WritePublicWindowsWinUIProjectAsync(

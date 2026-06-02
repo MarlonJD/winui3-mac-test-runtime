@@ -33,6 +33,10 @@ public sealed record VisualReviewRow(
     string? NativeReferenceCropPath,
     string? MacRuntimeCropPath,
     string? PixelDiffPath,
+    string ReferenceSource,
+    string NativeReferenceRunId,
+    string ReferenceCommitSha,
+    string ReferenceScenarioPath,
     double? ChangedPixelPercentage,
     double? MeanAbsoluteError,
     double? RootMeanSquaredError,
@@ -114,6 +118,10 @@ public static class VisualReviewArtifacts
             NativeReferenceCropPath: nativeReferencePath,
             MacRuntimeCropPath: macRuntimePath,
             PixelDiffPath: pixelDiffPath,
+            ReferenceSource: component.Crop?.NativeReferenceProvenance?.ReferenceSource ?? "missing",
+            NativeReferenceRunId: component.Crop?.NativeReferenceProvenance?.WorkflowRunId ?? "missing",
+            ReferenceCommitSha: component.Crop?.NativeReferenceProvenance?.CommitSha ?? "missing",
+            ReferenceScenarioPath: component.Crop?.NativeReferenceProvenance?.ScenarioPath ?? "missing",
             ChangedPixelPercentage: component.Crop?.ChangedPixelPercentage ?? component.ChangedPixelPercentage,
             MeanAbsoluteError: component.Crop?.MeanAbsoluteError ?? component.MeanAbsoluteError,
             RootMeanSquaredError: component.Crop?.RootMeanSquaredError ?? component.RootMeanSquaredError,
@@ -201,6 +209,9 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
             AppendMetadata(html, "crop", row.CropStatus);
             AppendMetadata(html, "review", row.ReviewStatus);
             AppendMetadata(html, "inspection", row.InspectionStatus);
+            AppendMetadata(html, "reference source", row.ReferenceSource);
+            AppendMetadata(html, "reference run", row.NativeReferenceRunId);
+            AppendMetadata(html, "reference commit", ShortCommit(row.ReferenceCommitSha));
             if (row.ChangedPixelPercentage is { } changed)
             {
                 AppendMetadata(html, "changed pixels", changed.ToString("0.###"));
@@ -251,6 +262,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
         return string.IsNullOrWhiteSpace(target)
             ? string.Empty
             : $" <code>{Escape(target)}</code>";
+    }
+
+    private static string ShortCommit(string commitSha)
+    {
+        return commitSha.Length >= 7 ? commitSha[..7] : commitSha;
     }
 
     private static string RelativePath(string root, string path)

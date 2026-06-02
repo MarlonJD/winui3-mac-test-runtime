@@ -56,6 +56,7 @@ internal static class VisualArtifacts
         string? copiedReferencePath = null;
         string? copiedReferenceMetadataPath = null;
         JsonElement? referenceProvenance = null;
+        NativeReferenceProvenance? nativeReferenceProvenance = null;
         string? referenceSource = null;
         string? diffPath = null;
         object? comparison;
@@ -77,6 +78,7 @@ internal static class VisualArtifacts
                 copiedReferenceMetadataPath = Path.Combine(outputDirectory, "windows-reference.json");
                 File.Copy(sourceReferenceMetadataPath, copiedReferenceMetadataPath, overwrite: true);
                 referenceProvenance = await ReadReferenceProvenanceAsync(sourceReferenceMetadataPath, cancellationToken);
+                nativeReferenceProvenance = await ReadNativeReferenceProvenanceAsync(sourceReferenceMetadataPath, cancellationToken);
                 referenceSource = ReadReferenceSource(referenceProvenance);
             }
 
@@ -127,7 +129,8 @@ internal static class VisualArtifacts
                 copiedReferencePath,
                 outputDirectory,
                 settings.Scale,
-                settings.Thresholds);
+                settings.Thresholds,
+                nativeReferenceProvenance);
             var componentEvidencePath = Path.Combine(outputDirectory, "component-evidence.json");
             await File.WriteAllTextAsync(
                 componentEvidencePath,
@@ -184,6 +187,17 @@ internal static class VisualArtifacts
         await using var stream = File.OpenRead(metadataPath);
         using var document = await JsonDocument.ParseAsync(stream, cancellationToken: cancellationToken);
         return document.RootElement.Clone();
+    }
+
+    private static async Task<NativeReferenceProvenance?> ReadNativeReferenceProvenanceAsync(
+        string metadataPath,
+        CancellationToken cancellationToken)
+    {
+        await using var stream = File.OpenRead(metadataPath);
+        return await JsonSerializer.DeserializeAsync<NativeReferenceProvenance>(
+            stream,
+            JsonDefaults.Options,
+            cancellationToken);
     }
 
     private static string? ReadReferenceSource(JsonElement? provenance)

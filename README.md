@@ -37,8 +37,8 @@ fidelity work, not more release-gate expansion.
 The checked-in public component-quality dashboard at
 `docs/visual-parity/component-quality-dashboard.json` is currently blocked:
 49/49 checked-in public component rows are missing native-quality evidence
-such as component crops, native reference crops, component diffs, and manual
-inspection metadata.
+such as component crops, native reference crops, native reference provenance,
+component diffs, and manual inspection metadata.
 
 Use this runtime when your app or fixture stays inside the documented
 `supported` and `partial` subset. Do not use it as evidence that arbitrary WinUI
@@ -234,8 +234,9 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
 - `visual/visual-run.json`: scenario metadata, strict visual status,
   unsupported visual features, and pixel comparison summary.
 - `visual/component-evidence.json`: component-level catalog status, presence,
-  interaction status, visual grade, known gaps, and optional diff metrics when a
-  reference-backed comparison supplies them.
+  interaction status, visual grade, known gaps, crop paths, native reference
+  provenance, and optional diff metrics when a reference-backed comparison
+  supplies them.
 - `visual/visual-review.html` and `visual/visual-review.json`: component
   review output that places native WinUI, macOS runtime, and diff crops
   side by side for manual inspection when crop artifacts exist.

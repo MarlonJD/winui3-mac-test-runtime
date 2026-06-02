@@ -99,9 +99,9 @@ reference workflow.
 inventory evidence. It does not promote control support by existing; each lab
 scenario writes `component-evidence.json` with catalog status, presence,
 interaction status, visual grade, effective per-component thresholds, target
-layout region, crop paths, blank-crop status, and known gaps. Planned,
-unsupported, and Windows-only controls must appear as explicit diagnostic rows
-instead of silently passing.
+layout region, crop paths, blank-crop status, native reference provenance, and
+known gaps. Planned, unsupported, and Windows-only controls must appear as
+explicit diagnostic rows instead of silently passing.
 
 SVG and the current Skia renderer remain smoke renderers. `skia-v2` is the
 scenario-driven renderer used for public visual compatibility checks.
@@ -180,10 +180,11 @@ use versioned envelopes:
 - `binding-failures.json`: `{ "schemaVersion": "0.1", "failures": [...] }`
 - `resource-failures.json`: `{ "schemaVersion": "0.1", "failures": [...] }`
 - `unsupported-apis.json`: `{ "schemaVersion": "0.1", "apis": [...] }`
-- `component-evidence.json`: `{ "schemaVersion": "0.2", "components": [...],
+- `component-evidence.json`: `{ "schemaVersion": "0.4", "components": [...],
   "sourceFeatures": [...] }`; component entries include `layoutRegion`,
   `componentThresholds`, and `crop` when the target appears in the arranged
-  visual tree.
+  visual tree. Reference-backed crop entries include native reference
+  provenance copied from `windows-reference.json`.
 - `project-ingestion.json`: `{ "schemaVersion": "0.1", "includedFiles": [...],
   "excludedWindowsOnlyItems": [...], "catalogStatuses": [...],
   "unsupportedFeatures": [...], "xamlDiagnostics": [...] }`

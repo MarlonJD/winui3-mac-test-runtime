@@ -12,7 +12,8 @@ public static class ComponentCropper
         string? referenceImagePath,
         string outputDirectory,
         double scale,
-        VisualThresholds scenarioThresholds)
+        VisualThresholds scenarioThresholds,
+        NativeReferenceProvenance? nativeReferenceProvenance = null)
     {
         ArgumentNullException.ThrowIfNull(evidence);
         ArgumentException.ThrowIfNullOrWhiteSpace(runtimeImagePath);
@@ -27,7 +28,7 @@ public static class ComponentCropper
         var cropEvidence = new Dictionary<string, ComponentCropEvidence>(StringComparer.Ordinal);
         foreach (var component in evidence.Components)
         {
-            var crop = WriteCrop(component, runtime, reference, cropsDirectory, scale, scenarioThresholds);
+            var crop = WriteCrop(component, runtime, reference, cropsDirectory, scale, scenarioThresholds, nativeReferenceProvenance);
             cropEvidence[ComponentEvidenceBuilder.ComponentKey(component.Component, component.Target)] = crop;
         }
 
@@ -65,7 +66,8 @@ public static class ComponentCropper
         SKBitmap? reference,
         string cropsDirectory,
         double scale,
-        VisualThresholds scenarioThresholds)
+        VisualThresholds scenarioThresholds,
+        NativeReferenceProvenance? nativeReferenceProvenance)
     {
         var thresholds = component.ComponentThresholds ?? scenarioThresholds;
         var bounds = BoundsFor(component.LayoutRegion, runtime.Width, runtime.Height, scale);
@@ -85,7 +87,10 @@ public static class ComponentCropper
                 RootMeanSquaredError: null,
                 Message: strictClaim
                     ? "Claimed component is missing a positive target layout region."
-                    : "Diagnostic or excluded component does not require crop evidence.");
+                    : "Diagnostic or excluded component does not require crop evidence.")
+            {
+                NativeReferenceProvenance = nativeReferenceProvenance
+            };
         }
 
         var componentDirectory = Path.Combine(cropsDirectory, SafeName(component.Component, component.Target));
@@ -96,12 +101,12 @@ public static class ComponentCropper
         var blank = IsBlankCrop(runtimeCropPath);
         if (strictClaim && string.Equals(component.VisualGrade, "not-rendered", StringComparison.Ordinal))
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, "Claimed component is not-rendered.");
+            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Claimed component is not-rendered.");
         }
 
         if (strictClaim && blank)
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, "Claimed component crop is blank.");
+            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Claimed component crop is blank.");
         }
 
         if (reference is null)
@@ -117,13 +122,16 @@ public static class ComponentCropper
                 ChangedPixelPercentage: null,
                 MeanAbsoluteError: null,
                 RootMeanSquaredError: null,
-                Message: "No native reference image was provided for component crop comparison.");
+                Message: "No native reference image was provided for component crop comparison.")
+            {
+                NativeReferenceProvenance = nativeReferenceProvenance
+            };
         }
 
         var referenceBounds = BoundsFor(component.LayoutRegion, reference.Width, reference.Height, scale);
         if (referenceBounds is null)
         {
-            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, "Native reference crop bounds are outside the reference image.");
+            return CropFailure(component, bounds, runtimeCropPath, null, null, blank, thresholds, nativeReferenceProvenance, "Native reference crop bounds are outside the reference image.");
         }
 
         var referenceCropPath = Path.Combine(componentDirectory, "windows-reference.png");
@@ -143,7 +151,10 @@ public static class ComponentCropper
             ChangedPixelPercentage: diff.ChangedPixelPercentage,
             MeanAbsoluteError: diff.MeanAbsoluteError,
             RootMeanSquaredError: diff.RootMeanSquaredError,
-            Message: diff.Message);
+            Message: diff.Message)
+        {
+            NativeReferenceProvenance = nativeReferenceProvenance
+        };
     }
 
     private static ComponentCropEvidence CropFailure(
@@ -154,6 +165,7 @@ public static class ComponentCropper
         string? diffPath,
         bool blank,
         VisualThresholds thresholds,
+        NativeReferenceProvenance? nativeReferenceProvenance,
         string message)
     {
         return new ComponentCropEvidence(
@@ -167,7 +179,10 @@ public static class ComponentCropper
             ChangedPixelPercentage: null,
             MeanAbsoluteError: null,
             RootMeanSquaredError: null,
-            Message: message);
+            Message: message)
+        {
+            NativeReferenceProvenance = nativeReferenceProvenance
+        };
     }
 
     private static SKBitmap Decode(string imagePath)

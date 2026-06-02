@@ -16,13 +16,15 @@ a new schema version and documentation update.
 | `tree.json` | `0.1`; `0.2` when `skia-v2` layout metadata is exported |
 | `accessibility.json` | `0.3` |
 | `binding-failures.json` | `0.1` |
-| `visual/component-evidence.json` | `0.2` |
+| `visual/component-evidence.json` | `0.4` |
+| `docs/visual-parity/component-quality-dashboard.json` | `0.2` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
 | `project-ingestion.json` | `0.1` |
 | `interactions.json` | `0.2` |
 | `snapshot.json` | `0.1`; `0.2` for `skia-v2` PNG snapshots |
 | `visual/visual-run.json` | `0.1` |
+| `visual/visual-review.json` | `0.2` |
 | `visual/windows-reference.json` | `0.2` |
 | `visual/pixel-diff.json` | `0.1` |
 
@@ -70,12 +72,13 @@ a new schema version and documentation update.
 - `visual/component-evidence.json`: component parity lab evidence with
   component/source-feature catalog status, presence, interaction status, visual
   grade, effective per-component thresholds, target layout region, crop paths,
-  blank-crop status, known gaps, and optional reference or crop diff metrics.
+  blank-crop status, native reference provenance, known gaps, and optional
+  reference or crop diff metrics.
 - `visual/visual-review.html` and `visual/visual-review.json`: manual review
   artifacts generated from component evidence. Each component row places the
   native WinUI crop, macOS runtime crop, and pixel diff crop side by side when
-  those crops exist, and records missing crop or inspection metadata without
-  promoting the row.
+  those crops exist, shows native reference source/run/commit provenance, and
+  records missing crop or inspection metadata without promoting the row.
 - `visual/windows-reference.png`: copy of the Windows-hosted reference
   screenshot captured by the public workflow or supplied with `--reference`.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not
@@ -129,7 +132,9 @@ lab pages. Today the Windows-side reference executable is
 artifacts are harness smoke evidence, not native WinUI visual parity evidence.
 Each category uploads reviewable `windows-reference.png`, `mac-runtime.png`,
 `pixel-diff.png`, `pixel-diff.json`, `visual-run.json`, and component lab
-`component-evidence.json` artifacts where applicable.
+`component-evidence.json` artifacts where applicable. When a
+`windows-reference.json` metadata file is available, its native reference
+provenance is copied into every generated component crop row.
 
 ## Diagnostics
 
