@@ -241,6 +241,8 @@ internal static class NativeControlSamples
             }
         });
         SetNativeElement(contextMenuPatternHost, "Context menu pattern", ButtonWithContextMenu());
+#else
+        commandBarContentHost.Content = new TextBlock { Text = "CommandBar.Content", Width = 120, Height = 120 };
 #endif
     }
 

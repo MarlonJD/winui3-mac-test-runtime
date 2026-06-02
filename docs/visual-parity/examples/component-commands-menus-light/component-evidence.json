@@ -216,9 +216,9 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 8.736111,
-      "meanAbsoluteError": 8.691771,
-      "rootMeanSquaredError": 38.524232,
+      "changedPixelPercentage": 12.131944,
+      "meanAbsoluteError": 10.944896,
+      "rootMeanSquaredError": 42.789653,
       "crop": {
         "status": "passed",
         "bounds": {
@@ -230,16 +230,16 @@
         "nativeReferencePath": "components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png",
         "macRuntimePath": "components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png",
         "pixelDiffPath": "components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png",
-        "runtimeBlank": true,
+        "runtimeBlank": false,
         "thresholds": {
           "changedPixelPercentage": 24,
           "maxChannelDelta": 255,
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "changedPixelPercentage": 8.736111,
-        "meanAbsoluteError": 8.691771,
-        "rootMeanSquaredError": 38.524232,
+        "changedPixelPercentage": 12.131944,
+        "meanAbsoluteError": 10.944896,
+        "rootMeanSquaredError": 42.789653,
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",

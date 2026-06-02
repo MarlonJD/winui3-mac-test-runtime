@@ -70,9 +70,9 @@
       "nativeReferenceRunId": "26777029415",
       "referenceCommitSha": "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
       "referenceScenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
-      "changedPixelPercentage": 8.736111,
-      "meanAbsoluteError": 8.691771,
-      "rootMeanSquaredError": 38.524232,
+      "changedPixelPercentage": 12.131944,
+      "meanAbsoluteError": 10.944896,
+      "rootMeanSquaredError": 42.789653,
       "inspectionStatus": "missing",
       "notes": "Diagnostic-only inventory row; no renderer support is claimed yet."
     },

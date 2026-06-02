@@ -273,6 +273,8 @@ public class InfoBar : Control
 
 public class CommandBar : Control
 {
+    public object? Content { get; set; }
+
     public IList<object?> PrimaryCommands { get; } = new List<object?>();
 }
 

@@ -55,7 +55,7 @@ Historical checked-in examples:
 | --- | --- | ---: | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 99.988381% | 45% | 9.678085 | 36.397928 | 9 `usable` |
 | `component-basic-input-light` | failed | 30.145914% | 18% | 9.611153 | 39.380451 | 5 `usable`, 8 `not-rendered` |
-| `component-commands-menus-light` | failed | 28.995082% | 24% | 7.931894 | 35.264121 | 5 `usable`, 3 `not-rendered` |
+| `component-commands-menus-light` | failed | 29.068985% | 24% | 7.981799 | 35.372973 | 5 `usable`, 3 `not-rendered` |
 | `component-layout-media-light` | failed | 43.277129% | 24% | 13.470821 | 45.268636 | 13 `usable`, 15 `not-rendered` |
 
 Current inspected local macOS artifacts:

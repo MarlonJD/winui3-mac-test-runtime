@@ -202,6 +202,8 @@ public static class UiTreeBuilder
                 break;
             case CommandBar commandBar:
                 properties["primaryCommandCount"] = commandBar.PrimaryCommands.Count;
+                properties["content"] = commandBar.Content is UIElement ? null : commandBar.Content?.ToString();
+                AddChild(commandBar.Content, children);
                 foreach (var command in commandBar.PrimaryCommands)
                 {
                     AddChild(command, children);
