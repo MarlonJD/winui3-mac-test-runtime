@@ -383,6 +383,28 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void FluentDrawingPrimitivesResolveControlStateColors()
+    {
+        var theme = SkiaV2Theme.For("light");
+
+        var enabled = FluentDrawingPrimitives.ControlColors(theme, new FluentControlState());
+        var disabled = FluentDrawingPrimitives.ControlColors(theme, new FluentControlState(IsEnabled: false));
+        var checkedState = FluentDrawingPrimitives.ControlColors(
+            theme,
+            new FluentControlState(IsChecked: true),
+            accentWhenChecked: true);
+        var selected = FluentDrawingPrimitives.ControlColors(theme, new FluentControlState(IsSelected: true));
+
+        Assert.AreEqual(theme.Surface, enabled.Fill);
+        Assert.AreEqual(theme.DisabledSurface, disabled.Fill);
+        Assert.AreEqual(theme.TextDisabled, disabled.Text);
+        Assert.AreEqual(theme.Accent, checkedState.Fill);
+        Assert.AreEqual(theme.Surface, checkedState.Text);
+        Assert.AreEqual(theme.AccentSoft, selected.Fill);
+        Assert.AreEqual(theme.Accent, selected.Text);
+    }
+
+    [TestMethod]
     public void UnsupportedApiRegistryReportsUnsupportedFacadeUse()
     {
         UnsupportedApiRegistry.Clear();

@@ -389,9 +389,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var focused = ReadBool(node, "isFocused", fallback: false);
-        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, enabled ? theme.Surface : theme.DisabledSurface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.ControlCornerRadius, focused ? theme.Accent : theme.Stroke, focused ? theme.FocusStrokeWidth : theme.StrokeWidth);
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Button"), rect.Left + 14, rect.Top + 25, enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled);
+        var state = new FluentControlState(IsEnabled: enabled, IsFocused: focused);
+        FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, state);
+        var colors = FluentDrawingPrimitives.ControlColors(theme, state);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Button"), rect.Left + 14, rect.Top + 25, enabled ? ReadColor(node, "foreground", colors.Text) : colors.Text);
         RenderChildren(canvas, node, theme, paint, font, font, font, font);
     }
 
@@ -400,8 +401,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true) && ReadBool(node, "commandCanExecute", fallback: true);
         var foreground = enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled;
-        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, enabled ? theme.Surface : theme.DisabledSurface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.ControlCornerRadius, theme.Stroke);
+        FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled));
         DrawText(canvas, paint, iconFont, FindFirstGlyph(node) ?? "*", rect.Left + 12, rect.Top + 25, enabled ? theme.Accent : theme.TextDisabled);
         DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 25, foreground);
     }
@@ -411,11 +411,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var checkedState = ReadBool(node, "isChecked", fallback: false);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
-        var fill = !enabled ? theme.DisabledSurface : checkedState ? theme.Accent : theme.Surface;
-        var text = !enabled ? theme.TextDisabled : checkedState ? theme.Surface : theme.TextPrimary;
-        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, fill);
-        DrawRoundRectStroke(canvas, paint, rect, theme.ControlCornerRadius, checkedState && enabled ? theme.Accent : theme.Stroke);
-        DrawText(canvas, paint, font, ReadControlLabel(node, "Toggle"), rect.Left + 14, rect.Top + 25, text);
+        var state = new FluentControlState(IsEnabled: enabled, IsChecked: checkedState);
+        FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, state, accentWhenChecked: true);
+        DrawText(canvas, paint, font, ReadControlLabel(node, "Toggle"), rect.Left + 14, rect.Top + 25, FluentDrawingPrimitives.ControlColors(theme, state, accentWhenChecked: true).Text);
     }
 
     private static void RenderCheckBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -424,13 +422,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var checkedState = ReadBool(node, "isChecked", fallback: false);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var box = new SKRect(rect.Left + 2, rect.Top + 9, rect.Left + 22, rect.Top + 29);
-        DrawRoundRect(canvas, paint, box, 3, !enabled ? theme.DisabledSurface : checkedState ? theme.Accent : theme.Surface);
-        DrawRoundRectStroke(canvas, paint, box, 3, checkedState && enabled ? theme.Accent : theme.Stroke);
-        if (checkedState)
-        {
-            DrawCheckMark(canvas, paint, box, enabled ? theme.Surface : theme.TextDisabled);
-        }
-
+        FluentDrawingPrimitives.DrawCheckBox(canvas, paint, box, theme, new FluentControlState(IsEnabled: enabled, IsChecked: checkedState));
         DrawText(canvas, paint, font, ReadControlLabel(node, "Check box"), rect.Left + 32, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
@@ -439,13 +431,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var checkedState = ReadBool(node, "isChecked", fallback: false);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
-        DrawCircle(canvas, paint, rect.Left + 12, rect.Top + 20, 10, enabled ? theme.Surface : theme.DisabledSurface);
-        DrawCircleStroke(canvas, paint, rect.Left + 12, rect.Top + 20, 10, theme.Stroke);
-        if (checkedState)
-        {
-            DrawCircle(canvas, paint, rect.Left + 12, rect.Top + 20, 5, enabled ? theme.Accent : theme.TextDisabled);
-        }
-
+        FluentDrawingPrimitives.DrawRadioButton(canvas, paint, rect.Left + 12, rect.Top + 20, theme, new FluentControlState(IsEnabled: enabled, IsChecked: checkedState));
         DrawText(canvas, paint, font, ReadControlLabel(node, "Option"), rect.Left + 32, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
@@ -454,8 +440,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var focused = ReadBool(node, "isFocused", fallback: false);
-        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, enabled ? theme.Surface : theme.DisabledSurface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.ControlCornerRadius, focused ? theme.Accent : theme.Stroke, focused ? theme.FocusStrokeWidth : theme.StrokeWidth);
+        FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
         DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 10, rect.Top + 24, enabled ? theme.TextPrimary : theme.TextDisabled);
     }
 
@@ -463,11 +448,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         var enabled = ReadBool(node, "isEnabled", fallback: true);
-        DrawRoundRect(canvas, paint, rect, theme.ControlCornerRadius, enabled ? theme.Surface : theme.DisabledSurface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.ControlCornerRadius, theme.Stroke);
+        FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled));
         var text = ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select";
         DrawText(canvas, paint, font, text, rect.Left + 10, rect.Top + 25, enabled ? theme.TextPrimary : theme.TextDisabled);
-        DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 18, enabled ? theme.TextSecondary : theme.TextDisabled);
+        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, rect.Right - 23, rect.Top + 18, enabled ? theme.TextSecondary : theme.TextDisabled);
     }
 
     private static void RenderListView(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
@@ -602,9 +586,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         }
 
         var rect = Rect(node);
-        DrawPopupShadow(canvas, paint, rect, theme);
-        DrawRoundRect(canvas, paint, rect, theme.PopupCornerRadius, theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.PopupCornerRadius, theme.Stroke);
+        FluentDrawingPrimitives.DrawPopupSurface(canvas, paint, rect, theme);
         RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
     }
 
@@ -616,9 +598,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         }
 
         var rect = Rect(node);
-        DrawPopupShadow(canvas, paint, rect, theme);
-        DrawRoundRect(canvas, paint, rect, theme.PopupCornerRadius, theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.PopupCornerRadius, theme.Stroke);
+        FluentDrawingPrimitives.DrawPopupSurface(canvas, paint, rect, theme);
         for (var index = 0; index < node.Children.Count; index++)
         {
             var child = node.Children[index];
@@ -643,9 +623,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         }
 
         var rect = Rect(node);
-        DrawPopupShadow(canvas, paint, rect, theme);
-        DrawRoundRect(canvas, paint, rect, theme.PopupCornerRadius + 2, theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.PopupCornerRadius + 2, theme.Stroke);
+        FluentDrawingPrimitives.DrawPopupSurface(canvas, paint, rect, theme, theme.PopupCornerRadius + 2);
         DrawText(canvas, paint, bodyFont, ReadString(node, "title") ?? "Dialog", rect.Left + 18, rect.Top + 28, theme.TextPrimary);
         var content = node.Children.FirstOrDefault();
         DrawText(canvas, paint, smallFont, ReadText(content) ?? ReadString(node, "primaryButtonText") ?? string.Empty, rect.Left + 18, rect.Top + 54, theme.TextSecondary);
@@ -663,9 +641,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         }
 
         var rect = Rect(node);
-        DrawPopupShadow(canvas, paint, rect, theme);
-        DrawRoundRect(canvas, paint, rect, theme.PopupCornerRadius, theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.PopupCornerRadius, theme.Stroke);
+        FluentDrawingPrimitives.DrawPopupSurface(canvas, paint, rect, theme);
         var title = ReadString(node, "title") ?? ReadString(node, "subtitle") ?? SimpleType(node);
         DrawText(canvas, paint, bodyFont, title, rect.Left + 14, rect.Top + 26, theme.TextPrimary);
         var content = node.Children.FirstOrDefault();
@@ -899,15 +875,6 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         DrawPathStroke(canvas, paint, path, color, 2.2f);
     }
 
-    private static void DrawChevronDown(SKCanvas canvas, SKPaint paint, float x, float y, SKColor color)
-    {
-        using var path = new SKPath();
-        path.MoveTo(x, y);
-        path.LineTo(x + 5, y + 5);
-        path.LineTo(x + 10, y);
-        DrawPathStroke(canvas, paint, path, color, 1.6f);
-    }
-
     private static void DrawArc(SKCanvas canvas, SKPaint paint, SKRect rect, float startAngle, float sweepAngle, SKColor color, float strokeWidth)
     {
         paint.Style = SKPaintStyle.Stroke;
@@ -942,22 +909,4 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         };
     }
 
-    private static void DrawPopupShadow(SKCanvas canvas, SKPaint paint, SKRect rect, SkiaV2Theme theme)
-    {
-        if (theme.PopupShadowOffset <= 0)
-        {
-            return;
-        }
-
-        DrawRoundRect(
-            canvas,
-            paint,
-            new SKRect(
-                rect.Left + theme.PopupShadowOffset,
-                rect.Top + theme.PopupShadowOffset,
-                rect.Right + theme.PopupShadowOffset,
-                rect.Bottom + theme.PopupShadowOffset),
-            theme.PopupCornerRadius,
-            theme.PopupShadow);
-    }
 }
