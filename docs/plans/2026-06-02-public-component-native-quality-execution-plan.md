@@ -20,6 +20,10 @@ The target remains strict:
 - every public component row has native WinUI reference crop evidence, macOS
   crop evidence, component diff metrics, native reference provenance, and
   manual inspection metadata;
+- every promoted interactive row has UI automation evidence that can drive the
+  row by stable automation identity and capture screenshots for quality review;
+- FlaUI 5.0 + FlaUI.UIA3 API-driven automation is treated as a production
+  target, not an optional convenience, for the supported public subset;
 - every public component row ends with `visualGrade` and `nativeQualityGrade`
   equal to `good` or `production-ready`;
 - no threshold is loosened, no difficult row is deleted, and no claim is
@@ -77,6 +81,12 @@ work is real rendering quality, manual inspection, and grade promotion.
 - Exact Windows font and icon fidelity may still require a documented font
   strategy. This plan does not treat font mismatch as acceptable without
   explicit inspection notes and accepted-gap rationale.
+- FlaUI 5.0 + FlaUI.UIA3 normally talks to Windows UI Automation. The macOS
+  runtime does not currently expose a native UIA provider, so FlaUI support
+  must be implemented and documented as either native Windows FlaUI validation,
+  a repo-owned FlaUI 5.0 UIA3-compatible adapter over macOS runtime artifacts,
+  or both. The project must not claim broad FlaUI support until API-level tests
+  prove the supported mode.
 
 ## Scope
 
@@ -90,6 +100,10 @@ In scope:
 - Visual review, inspection template, quality dashboard, catalog audit, and
   release evidence synchronization.
 - Manual inspection metadata for each promoted public row.
+- A supported UI automation contract for the public subset, including stable
+  automation IDs, roles/control types, bounding rectangles, state/value export,
+  action dispatch, screenshot capture, and FlaUI 5.0 + FlaUI.UIA3 API-level
+  smoke tests or a documented compatible adapter surface.
 
 Out of scope:
 
@@ -99,6 +113,8 @@ Out of scope:
 - Generic "modern" styling that does not match native WinUI references.
 - Promoting rows based only on whole-screenshot pass/fail status.
 - Large unrelated API expansion not needed by current public dashboard rows.
+- Claiming arbitrary FlaUI or UIA coverage beyond the tested supported subset.
+- Treating JSON accessibility export alone as equivalent to FlaUI automation.
 
 ## Phase Gates
 
@@ -353,7 +369,61 @@ Exit criteria:
 - `public-admin-workbench-light` has zero blockers.
 - Integrated rows do not mask component-level failures.
 
-### Phase 9: State, Theme, And Accessibility Evidence
+### Phase 9: FlaUI 5.0 UIA3 Automation And Screenshot Contract
+
+Goal: make UI automation and screenshot capture a first-class production
+quality gate instead of a side artifact.
+
+Steps:
+
+1. Define the supported FlaUI 5.0 + FlaUI.UIA3 automation mode for this runtime:
+   - native Windows FlaUI validation for real WinUI reference runs;
+   - macOS runner adapter with FlaUI 5.0 UIA3-compatible concepts over
+     `tree.json`, `accessibility.json`, `interactions.json`, and screenshot
+     artifacts;
+   - or both, with separate support claims.
+2. Add a stable automation element contract for the public subset:
+   - automation ID;
+   - name;
+   - control type or role;
+   - bounding rectangle;
+   - enabled/focusable/focused state;
+   - checked/selected/expanded state;
+   - value/range value where applicable;
+   - parent/child relationships.
+3. Add action dispatch required by public E2E flows:
+   - invoke/click;
+   - focus;
+   - text entry;
+   - toggle;
+   - selection;
+   - expand/collapse;
+   - scroll/range changes where applicable.
+4. Add screenshot capture APIs for:
+   - full window;
+   - scenario viewport;
+   - element crop by automation ID;
+   - before/after action capture.
+5. Add API-level automation smoke tests that exercise the intended consumer
+   shape. If direct FlaUI 5.0 + FlaUI.UIA3 cannot run on macOS, add a
+   repo-owned adapter with FlaUI 5.0 UIA3-compatible naming and semantics, and
+   keep the docs explicit about that boundary.
+6. Wire automation and screenshot evidence into release docs and final gates so
+   visual quality can be inspected from automation-driven states, not just
+   static initial screenshots.
+
+Exit criteria:
+
+- A consumer can write supported-subset UI automation against stable automation
+  identities and capture screenshots for quality review.
+- The support claim clearly states whether the tested surface is real
+  FlaUI 5.0 + FlaUI.UIA3, a FlaUI 5.0 UIA3-compatible adapter, or Windows-only
+  FlaUI validation.
+- Interactive rows promoted to `production-ready` include automation evidence
+  for their meaningful actions and states.
+- Docs do not equate accessibility JSON export with full UIA/FlaUI support.
+
+### Phase 10: State, Theme, And Accessibility Evidence
 
 Goal: prevent default-light-only evidence from being mistaken for production
 quality.
@@ -375,7 +445,7 @@ Exit criteria:
 - Rows with only default-state evidence may be `good` only when the inspection
   notes justify that narrower claim.
 
-### Phase 10: Manual Inspection And Grade Application Sweep
+### Phase 11: Manual Inspection And Grade Application Sweep
 
 Goal: convert technical evidence into final dashboard state without overstating
 quality.
@@ -402,7 +472,7 @@ Exit criteria:
 - No public row remains `nativeQualityGrade: not-evaluated`.
 - No row is promoted without a note that ties the grade to visible evidence.
 
-### Phase 11: Documentation Synchronization
+### Phase 12: Documentation Synchronization
 
 Goal: make public claims match generated evidence exactly.
 
@@ -421,7 +491,7 @@ Exit criteria:
 - No doc claims production visual readiness for a row still blocked by the
   dashboard.
 
-### Phase 12: Final Release-Candidate Closure
+### Phase 13: Final Release-Candidate Closure
 
 Goal: close the public dashboard and release gate without local failures.
 
@@ -441,6 +511,8 @@ Exit criteria:
   `usable` final visual rows.
 - Every final row has crop, diff, provenance, native-quality grade, and manual
   inspection notes.
+- Every promoted interactive row has automation evidence and screenshot capture
+  coverage for the supported automation contract.
 - `release-candidate` passes locally, except truly external workflow/package
   checks when documented as external.
 
@@ -457,10 +529,11 @@ Use this order unless current visual evidence shows a lower-risk swap:
 7. Phase 6: Shapes, animated icons, and ink.
 8. Phase 7: Platform-backed visual rows.
 9. Phase 8: Public admin workbench.
-10. Phase 9: State, theme, and accessibility evidence.
-11. Phase 10: Manual inspection and grade application sweep.
-12. Phase 11: Documentation synchronization.
-13. Phase 12: Final release-candidate closure.
+10. Phase 9: FlaUI 5.0 UIA3 automation and screenshot contract.
+11. Phase 10: State, theme, and accessibility evidence.
+12. Phase 11: Manual inspection and grade application sweep.
+13. Phase 12: Documentation synchronization.
+14. Phase 13: Final release-candidate closure.
 
 ## Verification Commands
 
@@ -528,8 +601,11 @@ Expected implementation areas:
 
 - `src/WinUI3.MacRuntime/`
 - `src/WinUI3.MacRunner/`
+- `src/WinUI3.MacCompat/`
 - `tests/WinUI3.MacRuntime.Tests/`
 - `tests/WinUI3.MacXaml.Tests/`
+- future automation adapter or package tests for FlaUI 5.0 UIA3-compatible UI
+  automation, if added by the implementation phase
 - `fixtures/ComponentParityLab.WinUI/`
 - `docs/visual-parity/`
 - `docs/release/`
@@ -545,7 +621,8 @@ without loosening the parent goal in
 Goal: drive `docs/visual-parity/component-quality-dashboard.json` to zero
 public blocker rows while keeping every promoted row backed by native Windows
 reference crops, macOS crops, component diff metrics, native reference
-provenance, and manual inspection metadata.
+provenance, manual inspection metadata, and UI automation/screenshot evidence
+for interactive rows.
 
 Rules:
 
@@ -555,6 +632,10 @@ Rules:
 - Do not mark `usable` as final quality.
 - Promote only to `good` or `production-ready` when the evidence supports it.
 - Build shared Fluent rendering primitives before one-off component painters.
+- Treat FlaUI 5.0 + FlaUI.UIA3 API-driven UI automation and screenshot capture
+  as a core production target for the supported public subset.
+- Do not claim full FlaUI/UIA support until API-level tests prove the documented
+  support mode.
 - Keep docs synchronized with generated evidence.
 
 Work in phase order:
@@ -570,10 +651,11 @@ Work in phase order:
 8. Resolve platform-backed rows: `MediaPlayerElement`, `WebView2`, title bar,
    and Mica/system backdrop.
 9. Promote `public-admin-workbench-light`.
-10. Add state, theme, and accessibility evidence.
-11. Apply manual inspection metadata and final grades.
-12. Synchronize docs.
-13. Close `release-candidate`.
+10. Add the FlaUI 5.0 UIA3 automation and screenshot contract.
+11. Add state, theme, and accessibility evidence.
+12. Apply manual inspection metadata and final grades.
+13. Synchronize docs.
+14. Close `release-candidate`.
 
 After each phase, run:
 
