@@ -68,7 +68,7 @@ Promotion is evidence-backed:
 | `good` | Entry meets the usable bar plus reviewed component-level visual fidelity against native WinUI references across required state/theme scenarios. |
 | production-ready | Entry has a deliberate production disposition: implemented support at the required grade, bounded partial support with exact limits, Windows-only exclusion, diagnostic roadmap exclusion, or explicit non-goal exclusion. |
 
-## Phase 2-8 Gate Status
+## Phase 2-9 Gate Status
 
 | Phase | Current status | Evidence gate |
 | --- | --- | --- |
@@ -79,6 +79,7 @@ Promotion is evidence-backed:
 | Phase 6: All-126 catalog closure | Implemented | `docs/compatibility/all-catalog-readiness-audit.json` accounts for all 126 entries with a per-entry production disposition, owner phase, primary blocker, evidence profile, and release gate; `winui3-mac-runner catalog-audit --check` fails on drift and the audit agrees with the inventory buckets. |
 | Phase 7: Broader WinUI control inventory | Inventory and gate implemented; controls pending promotion | `docs/compatibility/winui-component-inventory.json` `broaderControlInventory` enumerates 20 prioritized public WinUI controls with target family, required states, priority, and promotion exit criteria (`docs/compatibility/broader-control-inventory.md`); the honesty gate keeps every control `not-rendered` until it carries matching catalog status, visual evidence, and interaction coverage. |
 | Phase 8: Materials, motion, and high-fidelity polish | Registry, motion/contrast rules, and drift dashboard implemented; surfaces pending promotion | `docs/compatibility/material-motion-approximations.json` documents every Mica, Acrylic, backdrop, shadow, transform, compositor, and motion surface as a deterministic approximation target or explicit exclusion with reduced-motion, high-contrast, and provenance rules and no OS composition claim; `docs/visual-parity/visual-drift-dashboard.json` gates component-crop drift and keeps whole-screen drift informational with values read from the checked-in pixel-diff artifacts. |
+| Phase 9: Release candidate gate | Implemented | `winui3-mac-runner release-candidate` aggregates the deterministic local release requirements and lists the external workflow requirements; see the Release Candidate Gate section below. |
 
 ## Catalog Snapshot
 
@@ -264,6 +265,35 @@ Fresh production support is determined by catalog status, strict scenario
 results, `component-evidence.json`, interaction evidence, accessibility export,
 and native-reference provenance. Historical whole-image comparison failures
 must not be used to promote or demote current component grades by themselves.
+
+## Release Candidate Gate
+
+`winui3-mac-runner release-candidate` turns "ready" into a release decision
+instead of a subjective screenshot review. It writes
+`artifacts/production-gates/release-candidate.json` and aggregates the
+deterministic, locally verifiable requirements:
+
+- 126/126 catalog entries have a production disposition;
+- catalog and docs counts are consistent;
+- zero unknown public surfaces;
+- no broader control claims a rendered grade without evidence;
+- no material/motion surface claims real Windows OS composition;
+- component-crop drift is gated and whole-screen drift is informational;
+- every checked-in visual reference declares native WinUI provenance;
+- release and support-policy documents are present;
+- the private-name denylist scan is clean.
+
+It also lists the requirements that can only be satisfied with external workflow
+evidence and keeps `releaseAllowed` false until they are confirmed:
+
+- full native WinUI reference capture for every claimed scenario;
+- the full `--renderer skia-v2 --strict-visual` scenario sweep;
+- the package dry run plus `release-check --package-dir`.
+
+The exact support boundary is unchanged: source-level WinUI 3 visual readiness
+for the documented public subset. This is not Windows binary or `.msix`
+execution, arbitrary WinUI 3 compatibility, full Fluent pixel parity, or OS
+composition.
 
 ## Release And Risk Notes
 

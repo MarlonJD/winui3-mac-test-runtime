@@ -103,6 +103,16 @@
         "motion surfaces are captured as deterministic end states, not animation timing",
         "docs/visual-parity/visual-drift-dashboard.json gates component-crop drift and keeps whole-screen drift informational, with whole-screen values read from the checked-in pixel-diff artifacts"
       ]
+    },
+    {
+      "phase": "Phase 9",
+      "name": "Release candidate gate",
+      "status": "implemented",
+      "evidence": [
+        "winui3-mac-runner release-candidate aggregates the deterministic local release requirements (126/126 dispositions, catalog/docs count consistency, zero unknown surfaces, broader-control honesty, no OS composition claim, gated component-crop drift, native reference provenance, release docs, and private-name scan) into artifacts/production-gates/release-candidate.json",
+        "the gate lists the external workflow requirements (full native reference capture, full strict scenario sweep, and package dry run plus release-check) so 'ready' is a release decision, not a screenshot review",
+        "README, support policy, final production gate, and production evidence view state the exact source-level support boundary"
+      ]
     }
   ],
   "promotionRules": [

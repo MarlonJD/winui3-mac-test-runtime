@@ -530,7 +530,7 @@ public sealed class MacRuntimeTests
             .OrderBy(phase => phase, StringComparer.Ordinal)
             .ToArray();
         CollectionAssert.AreEqual(
-            new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7", "Phase 8" },
+            new[] { "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7", "Phase 8", "Phase 9" },
             phases);
     }
 
@@ -1123,6 +1123,52 @@ public sealed class MacRuntimeTests
                 0.000001,
                 $"{name} whole-screen drift must match its pixel-diff artifact.");
         }
+    }
+
+    [TestMethod]
+    public void ReleaseCandidateArtifactGatesAreSatisfied()
+    {
+        // Mirrors the deterministic local checks of 'winui3-mac-runner
+        // release-candidate' so the checked-in artifacts stay release-candidate
+        // ready. CI adds native reference capture, the full strict sweep, and the
+        // package dry run.
+
+        // Zero unknown production surfaces in the committed corpus inventory.
+        using (var corpus = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/compatibility/corpus-unknown-apis.json"))))
+        {
+            Assert.AreEqual(0, corpus.RootElement.GetProperty("entries").GetArrayLength(), "Corpus inventory must report zero unknown public surfaces.");
+        }
+
+        // Native provenance for every checked-in visual reference.
+        var referenceFiles = Directory.EnumerateFiles(
+            RepositoryPath("docs/visual-parity/examples"),
+            "windows-reference.json",
+            SearchOption.AllDirectories).ToArray();
+        Assert.IsGreaterThan(0, referenceFiles.Length);
+        foreach (var referenceFile in referenceFiles)
+        {
+            using var reference = JsonDocument.Parse(File.ReadAllText(referenceFile));
+            Assert.AreEqual(
+                "native-winui",
+                reference.RootElement.GetProperty("referenceSource").GetString(),
+                $"{Path.GetFileName(Path.GetDirectoryName(referenceFile))} must declare native-winui provenance.");
+        }
+
+        // Release and support-policy documents are present and name the gate.
+        string[] requiredDocs =
+        {
+            "docs/release/final-production-gate.md",
+            "docs/release/support-policy.md",
+            "docs/release/level-7-release-readiness.md",
+            "docs/release/production-evidence-view.md",
+        };
+        foreach (var relative in requiredDocs)
+        {
+            Assert.IsTrue(File.Exists(RepositoryPath(relative)), $"Missing release document {relative}.");
+        }
+
+        var evidenceView = File.ReadAllText(RepositoryPath("docs/release/production-evidence-view.md"));
+        StringAssert.Contains(evidenceView, "release-candidate", "The production evidence view must document the release candidate gate.");
     }
 
     [TestMethod]

@@ -51,6 +51,16 @@ catalog counts, Ring 0/Ring 1 status, latest recorded workflow IDs, strict
 scenario results, and checked-in visual examples, see
 `docs/release/production-evidence-view.md`.
 
+The release decision is gated by `winui3-mac-runner release-candidate`, which
+aggregates the deterministic local release requirements (126/126 catalog
+dispositions, catalog/docs count consistency, zero unknown surfaces, broader-
+control honesty, no OS composition claim, gated component-crop drift, native
+reference provenance, release docs, and the private-name scan) and lists the
+external workflow requirements (full native reference capture, full strict
+scenario sweep, and the package dry run with `release-check`). The exact
+support boundary stays source-level WinUI 3 visual readiness for the documented
+public subset, not Windows binary execution or arbitrary WinUI 3 compatibility.
+
 ## Smoke Commands
 
 ```sh

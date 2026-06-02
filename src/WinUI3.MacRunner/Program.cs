@@ -30,6 +30,7 @@ internal static class Cli
             "ingest" => RunIngest(args[1..]),
             "benchmark" => await ProductionGatesCommand.RunBenchmarkAsync(args[1..]),
             "release-check" => await ProductionGatesCommand.RunReleaseCheckAsync(args[1..]),
+            "release-candidate" => await ReleaseCandidateCommand.RunAsync(args[1..]),
             "catalog-audit" => RunCatalogAudit(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
@@ -504,6 +505,7 @@ internal static class Cli
         Console.WriteLine("      [--strict-visual] [--reference <path>] [--diff-output <dir>]");
         Console.WriteLine("  benchmark [--output <path>] [--iterations <count>]");
         Console.WriteLine("  release-check [--package-dir <dir>] [--output <path>]");
+        Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
         Console.WriteLine("      [--check] [--write-baseline]");

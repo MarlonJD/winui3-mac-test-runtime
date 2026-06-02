@@ -88,6 +88,11 @@ Triage levels:
 
 A production-supporting release candidate must have:
 
+- a passing `winui3-mac-runner release-candidate` gate, whose deterministic local
+  checks (126/126 catalog dispositions, catalog/docs count consistency, zero
+  unknown surfaces, broader-control honesty, no OS composition claim, gated
+  component-crop drift, native reference provenance, release docs, and the
+  private-name scan) all pass and whose external requirements are confirmed;
 - passing `dotnet build`, `dotnet test`, corpus ingestion, private-name scan,
   benchmark/flake, package dry-run, and release-check gates;
 - public native WinUI reference workflow evidence for changed production

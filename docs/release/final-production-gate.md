@@ -27,6 +27,13 @@ For the single-page evidence summary that combines catalog counts, Ring 0/Ring
 1 status, latest recorded workflow IDs, strict scenario results, and checked-in
 visual examples, see `docs/release/production-evidence-view.md`.
 
+The release decision is gated by `winui3-mac-runner release-candidate`, which
+aggregates the deterministic local release requirements into
+`artifacts/production-gates/release-candidate.json` and lists the external
+workflow requirements (full native reference capture, the full strict scenario
+sweep, and the package dry run with `release-check`). The support boundary stays
+source-level WinUI 3 visual readiness for the documented public subset.
+
 ## Workflow Evidence
 
 | Gate | Evidence |
