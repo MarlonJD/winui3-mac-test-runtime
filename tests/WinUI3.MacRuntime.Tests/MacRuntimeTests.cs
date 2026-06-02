@@ -827,6 +827,53 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task ClaimedSupportedComponentsAreNeverNotRendered()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var scenarioRoots = new[]
+        {
+            Path.Combine(repositoryRoot, "fixtures", "ComponentParityLab.WinUI", "scenarios"),
+            Path.Combine(repositoryRoot, "fixtures", "ProductionSmoke.WinUI", "scenarios"),
+            Path.Combine(repositoryRoot, "fixtures", "PublicAdminWorkbench.WinUI", "scenarios"),
+            Path.Combine(repositoryRoot, "fixtures", "ResourceCatalogApp.WinUI", "scenarios")
+        };
+        var claimedStatuses = new[] { CompatibilityStatuses.Supported, CompatibilityStatuses.Partial };
+        var audited = 0;
+
+        foreach (var scenarioPath in scenarioRoots
+            .Where(Directory.Exists)
+            .SelectMany(root => Directory.EnumerateFiles(root, "*.json"))
+            .OrderBy(path => path, StringComparer.Ordinal))
+        {
+            var scenario = await VisualScenario.LoadAsync(scenarioPath);
+            var scenarioName = Path.GetFileName(scenarioPath);
+            foreach (var requirement in scenario.Requirements)
+            {
+                if (!claimedStatuses.Contains(requirement.ExpectedStatus))
+                {
+                    continue;
+                }
+
+                audited++;
+                var grade = requirement.VisualGrade ?? requirement.MinimumVisualGrade;
+                Assert.AreNotEqual(
+                    "not-rendered",
+                    grade,
+                    $"{scenarioName} claims supported component '{requirement.Component}/{requirement.Target}' as not-rendered.");
+                Assert.AreNotEqual(
+                    "not-rendered",
+                    requirement.MinimumVisualGrade,
+                    $"{scenarioName} sets a not-rendered minimum for claimed component '{requirement.Component}/{requirement.Target}'.");
+                Assert.IsTrue(
+                    ComponentEvidenceBuilder.MeetsMinimumVisualGrade(grade, requirement.MinimumVisualGrade),
+                    $"{scenarioName} claims '{requirement.Component}/{requirement.Target}' grade '{grade}' below minimum '{requirement.MinimumVisualGrade}'.");
+            }
+        }
+
+        Assert.IsGreaterThan(0, audited, "Expected to audit at least one claimed supported component.");
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineExportsDeterministicLayout()
     {
         var window = new Window

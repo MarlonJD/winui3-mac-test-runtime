@@ -18,6 +18,16 @@ fixture scenarios, required interaction and accessibility coverage, target
 visual grades, smoke or E2E targets, and private-content safety checks. It does
 not promote any component grade by itself.
 
+Component grades are guarded at the claim level by the
+`ClaimedSupportedComponentsAreNeverNotRendered` test, which scans every component
+parity lab and corpus scenario and fails if any requirement that claims a
+`supported` or `partial` component declares a `not-rendered` grade or a grade
+below its declared minimum. This keeps whole-image comparisons from hiding
+component-level regressions. The corpus `resource-catalog` app additionally
+carries light, dark, and high-contrast theme scenarios that emit graded
+`component-evidence.json` for its `TextBlock`, `Border`, and `ThemeResource`
+surfaces.
+
 The latest checked-in visual evidence uses native WinUI Windows references from
 public workflow runs and local `skia-v2` artifact inspection. The Windows
 references prove the public fixture pages show the intended native controls on

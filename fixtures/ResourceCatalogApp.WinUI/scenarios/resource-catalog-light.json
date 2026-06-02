@@ -22,5 +22,52 @@
       "key": "Foreground",
       "parameter": "#2562D9"
     }
+  ],
+  "requirements": [
+    {
+      "component": "TextBlock",
+      "target": "HeadingText",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "Border",
+      "target": "AccentSurface",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable"
+    },
+    {
+      "component": "ThemeResource",
+      "kind": "resource",
+      "target": "AccentText",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "requiredProperties": [
+        "foreground"
+      ]
+    }
+  ],
+  "sourceFeatures": [
+    {
+      "feature": "ThemeResource",
+      "kind": "resource",
+      "target": "AccentText",
+      "expectedStatus": "partial"
+    },
+    {
+      "feature": "StaticResource",
+      "kind": "resource",
+      "target": "AccentSurface",
+      "expectedStatus": "partial"
+    },
+    {
+      "feature": "Style",
+      "kind": "resource",
+      "target": "HeadingText",
+      "expectedStatus": "supported"
+    }
   ]
 }
