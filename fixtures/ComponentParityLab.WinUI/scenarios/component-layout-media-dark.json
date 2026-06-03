@@ -24,7 +24,7 @@
   "requirements": [
     {
       "component": "ScrollViewer",
-      "target": "LayoutScrollViewer",
+      "target": "DiagnosticScrollViewer",
       "expectedStatus": "supported",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable"

@@ -339,6 +339,7 @@ internal static class NativeControlSamples
     }
 
     public static void PopulateLayoutAndMedia(
+        ContentControl scrollViewerHost,
         ContentControl symbolIconHost,
         ContentControl xamlControlsResourcesHost,
         ContentControl themeDictionariesHost,
@@ -360,6 +361,16 @@ internal static class NativeControlSamples
     {
 #if WINDOWS
         const double compactLabelWidth = 96;
+        SetNativeElement(scrollViewerHost, "ScrollViewer", new ScrollViewer
+        {
+            Width = 200,
+            Height = 42,
+            Content = new TextBlock
+            {
+                Text = "ScrollViewer diagnostic content with overflow width",
+                Width = 340
+            }
+        }, compactLabelWidth);
         SetNativeControl(symbolIconHost, "SymbolIcon", ["Microsoft.UI.Xaml.Controls.SymbolIcon"], control =>
         {
             Set(control, "Symbol", EnumValue("Microsoft.UI.Xaml.Controls.Symbol", "Link"));
@@ -375,7 +386,7 @@ internal static class NativeControlSamples
             Set(control, "Content", "Expanded public content");
             Set(control, "IsExpanded", true);
             Set(control, "Width", 220.0);
-            Set(control, "Height", 60.0);
+            Set(control, "Height", 50.0);
         }, compactLabelWidth);
         SetNativeControl(annotatedScrollBarHost, "AnnotatedScrollBar", ["Microsoft.UI.Xaml.Controls.AnnotatedScrollBar"], labelWidth: compactLabelWidth);
         SetNativeControl(semanticZoomHost, "SemanticZoom", ["Microsoft.UI.Xaml.Controls.SemanticZoom"], control =>
@@ -383,7 +394,7 @@ internal static class NativeControlSamples
             Set(control, "ZoomedInView", new ListView { Items = { "Detailed item" } });
             Set(control, "ZoomedOutView", new GridView { Items = { "Group" } });
             Set(control, "Width", 220.0);
-            Set(control, "Height", 56.0);
+            Set(control, "Height", 46.0);
         }, compactLabelWidth);
         SetNativeControl(splitViewHost, "SplitView", ["Microsoft.UI.Xaml.Controls.SplitView"], control =>
         {
@@ -391,14 +402,14 @@ internal static class NativeControlSamples
             Set(control, "Content", new TextBlock { Text = "Content" });
             Set(control, "IsPaneOpen", true);
             Set(control, "Width", 220.0);
-            Set(control, "Height", 56.0);
+            Set(control, "Height", 46.0);
         }, compactLabelWidth);
         SetNativeControl(twoPaneViewHost, "TwoPaneView", ["Microsoft.UI.Xaml.Controls.TwoPaneView"], control =>
         {
             Set(control, "Pane1", new TextBlock { Text = "Pane 1" });
             Set(control, "Pane2", new TextBlock { Text = "Pane 2" });
             Set(control, "Width", 220.0);
-            Set(control, "Height", 48.0);
+            Set(control, "Height", 40.0);
         }, compactLabelWidth);
         SetNativeControl(animatedIconHost, "AnimatedIcon", ["Microsoft.UI.Xaml.Controls.AnimatedIcon"], ConfigureAnimatedIcon, compactLabelWidth);
         SetNativeElement(shapesHost, "Shapes", ShapesPreview(), compactLabelWidth);
@@ -408,6 +419,16 @@ internal static class NativeControlSamples
         SetNativeElement(titleBarCustomizationHost, "Title bar customization", ResourcePreview("ExtendsContentIntoTitleBar sample"), compactLabelWidth);
         SetNativeElement(systemBackdropHost, "Window.SystemBackdrop / MicaBackdrop", ResourcePreview("MicaBackdrop assigned"), compactLabelWidth);
 #else
+        scrollViewerHost.Content = Labeled("ScrollViewer", new ScrollViewer
+        {
+            Width = 200,
+            Height = 42,
+            Content = new TextBlock
+            {
+                Text = "ScrollViewer diagnostic content with overflow width",
+                Width = 340
+            }
+        });
         symbolIconHost.Content = Labeled("SymbolIcon", new Microsoft.UI.Xaml.Controls.SymbolIcon { Symbol = Symbol.Link });
         xamlControlsResourcesHost.Content = Labeled("XamlControlsResources", MacResourcePreview("XamlControlsResources loaded"));
         themeDictionariesHost.Content = Labeled("ResourceDictionary.ThemeDictionaries", new TextBlock { Text = "Theme dictionary sample" });
@@ -489,7 +510,7 @@ internal static class NativeControlSamples
         return new Border
         {
             Width = 200,
-            Height = 92,
+            Height = 74,
             CornerRadius = Radius(8),
             Background = "#F3F7FF",
             Child = new StackPanel
@@ -510,7 +531,7 @@ internal static class NativeControlSamples
         return new Border
         {
             Width = 200,
-            Height = 92,
+            Height = 74,
             CornerRadius = Radius(8),
             Background = "#FFF8E8",
             Child = new StackPanel
@@ -531,7 +552,7 @@ internal static class NativeControlSamples
         return new Border
         {
             Width = 200,
-            Height = 92,
+            Height = 74,
             CornerRadius = Radius(8),
             Background = "#F6F6F6",
             Child = new StackPanel

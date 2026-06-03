@@ -24,8 +24,8 @@
             </Style>
         </ResourceDictionary>
     </Page.Resources>
-    <ScrollViewer x:Name="LayoutScrollViewer" VerticalScrollBarVisibility="Auto">
-        <StackPanel x:Name="LayoutMediaRoot" Padding="24,20,24,24" Spacing="10">
+    <ScrollViewer x:Name="LayoutViewportScrollViewer" VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="LayoutMediaRoot" Padding="24,16,16,16" Spacing="6">
             <TextBlock x:Name="LayoutMediaTitle" Text="Page 8: Layout, media, visuals" Style="{StaticResource LabTextStyle}" />
             <Grid x:Name="LayoutResourceGrid" ColumnDefinitions="280,*" ColumnSpacing="16">
                 <Border
@@ -40,29 +40,32 @@
                 </Border>
                 <Image x:Name="PublicImagePreview" Grid.Column="1" Source="ms-appx:///Assets/PublicPolicyPreview.svg" />
             </Grid>
-            <ContentControl x:Name="DiagnosticMediaPlayerElement" />
-            <ContentControl x:Name="DiagnosticWebView2" />
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticScrollViewer" />
+                <ContentControl x:Name="DiagnosticSymbolIcon" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticMediaPlayerElement" />
+                <ContentControl x:Name="DiagnosticWebView2" />
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticInkControls" />
                 <ContentControl x:Name="DiagnosticShapes" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="14">
-                <ContentControl x:Name="DiagnosticSymbolIcon" />
                 <ContentControl x:Name="DiagnosticXamlControlsResources" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticThemeDictionaries" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticColor" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticSolidColorBrush" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticCornerRadius" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticExpander" />
-                <ContentControl x:Name="DiagnosticAnnotatedScrollbar" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticAnnotatedScrollbar" />
                 <ContentControl x:Name="DiagnosticSemanticZoom" />
                 <ContentControl x:Name="DiagnosticSplitView" />
             </StackPanel>
