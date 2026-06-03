@@ -860,7 +860,7 @@ internal static class NativeControlSamples
         };
     }
 
-    private static UIElement ColorSwatch(string text, Color color)
+    private static UIElement ColorSwatch(string text, Windows.UI.Color color)
     {
         return new StackPanel
         {
