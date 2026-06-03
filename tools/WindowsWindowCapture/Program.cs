@@ -140,7 +140,7 @@ internal static class Program
         var allowProcessFallbackAt = DateTimeOffset.UtcNow + TimeSpan.FromSeconds(Math.Min(5, timeout.TotalSeconds));
         while (DateTimeOffset.UtcNow < stopAt)
         {
-            var window = FindWindowByTitle(title);
+            var window = FindWindowByTitle(title, process.Id);
             if (window is not null)
             {
                 return window;
@@ -183,12 +183,18 @@ internal static class Program
         }
     }
 
-    private static WindowMatch? FindWindowByTitle(string title)
+    private static WindowMatch? FindWindowByTitle(string title, int processId)
     {
         WindowMatch? result = null;
         EnumWindows((window, _) =>
         {
             if (!IsWindowVisible(window))
+            {
+                return true;
+            }
+
+            GetWindowThreadProcessId(window, out var windowProcessId);
+            if (windowProcessId != processId)
             {
                 return true;
             }
@@ -640,6 +646,9 @@ internal static class Program
 
     [DllImport("user32.dll")]
     private static extern bool IsWindowVisible(IntPtr window);
+
+    [DllImport("user32.dll")]
+    private static extern uint GetWindowThreadProcessId(IntPtr window, out int processId);
 
     [DllImport("user32.dll", CharSet = CharSet.Unicode)]
     private static extern int GetWindowText(IntPtr window, StringBuilder text, int maxCount);
