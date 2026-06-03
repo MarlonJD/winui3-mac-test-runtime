@@ -5,19 +5,25 @@
   "scenarioName": "public-admin-workbench-light",
   "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
   "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
+  "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+  "workflowRunId": "26872366140",
   "theme": "light",
   "viewport": {
     "width": 1028,
     "height": 720
   },
   "scale": 1,
+  "dimensions": {
+    "width": 1028,
+    "height": 720
+  },
   "rootBounds": {
     "x": 0,
     "y": 0,
     "width": 1028,
     "height": 720
   },
-  "capturedAt": "2026-06-02T22:35:55.2331572\u002B00:00",
+  "capturedAt": "2026-06-03T08:19:24.8533122\u002B00:00",
   "targets": [
     {
       "component": null,
@@ -33,10 +39,12 @@
         "height": 18.62109375
       },
       "actualSize": {
-        "width": 81.7236328125,
-        "height": 18.62109375
+        "width": 82,
+        "height": 19
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8502078\u002B00:00"
     },
     {
       "component": null,
@@ -55,7 +63,9 @@
         "width": 224,
         "height": 39
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8501571\u002B00:00"
     },
     {
       "component": null,
@@ -71,10 +81,12 @@
         "height": 18.62109375
       },
       "actualSize": {
-        "width": 79.720703125,
-        "height": 18.62109375
+        "width": 80,
+        "height": 19
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8502326\u002B00:00"
     },
     {
       "component": null,
@@ -93,7 +105,9 @@
         "width": 64,
         "height": 36
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8519633\u002B00:00"
     },
     {
       "component": "AppBarButton",
@@ -112,7 +126,9 @@
         "width": 68,
         "height": 64
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8518994\u002B00:00"
     },
     {
       "component": null,
@@ -131,7 +147,9 @@
         "width": 779,
         "height": 32
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8512707\u002B00:00"
     },
     {
       "component": null,
@@ -150,7 +168,9 @@
         "width": 56,
         "height": 40
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8482822\u002B00:00"
     },
     {
       "component": null,
@@ -169,7 +189,9 @@
         "width": 38,
         "height": 38
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8527199\u002B00:00"
     },
     {
       "component": "Button",
@@ -188,7 +210,9 @@
         "width": 475,
         "height": 32
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8532552\u002B00:00"
     },
     {
       "component": null,
@@ -207,7 +231,9 @@
         "width": 20,
         "height": 20
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8520598\u002B00:00"
     },
     {
       "component": null,
@@ -226,7 +252,9 @@
         "width": 777,
         "height": 30
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8512951\u002B00:00"
     },
     {
       "component": null,
@@ -245,7 +273,9 @@
         "width": 226,
         "height": 36
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8490384\u002B00:00"
     },
     {
       "component": null,
@@ -264,7 +294,9 @@
         "width": 4,
         "height": 36
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8484138\u002B00:00"
     },
     {
       "component": null,
@@ -283,7 +315,9 @@
         "width": 68,
         "height": 64
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8519993\u002B00:00"
     },
     {
       "component": null,
@@ -302,7 +336,9 @@
         "width": 16,
         "height": 16
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8520276\u002B00:00"
     },
     {
       "component": "CommandBar",
@@ -321,7 +357,9 @@
         "width": 779,
         "height": 48
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8516371\u002B00:00"
     },
     {
       "component": null,
@@ -340,7 +378,9 @@
         "width": 68,
         "height": 64
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8521200\u002B00:00"
     },
     {
       "component": null,
@@ -359,7 +399,9 @@
         "width": 20,
         "height": 3
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8523781\u002B00:00"
     },
     {
       "component": null,
@@ -378,7 +420,9 @@
         "width": 248,
         "height": 99
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8501232\u002B00:00"
     },
     {
       "component": null,
@@ -397,7 +441,9 @@
         "width": 1,
         "height": 718
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8503619\u002B00:00"
     },
     {
       "component": null,
@@ -416,7 +462,9 @@
         "width": 16,
         "height": 16
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8483766\u002B00:00"
     },
     {
       "component": null,
@@ -435,7 +483,9 @@
         "width": 16,
         "height": 16
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8526123\u002B00:00"
     },
     {
       "component": null,
@@ -454,7 +504,9 @@
         "width": 16,
         "height": 16
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8491093\u002B00:00"
     },
     {
       "component": null,
@@ -473,7 +525,9 @@
         "width": 48,
         "height": 36
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8490787\u002B00:00"
     },
     {
       "component": null,
@@ -492,7 +546,9 @@
         "width": 248,
         "height": 672
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8486783\u002B00:00"
     },
     {
       "component": null,
@@ -511,7 +567,9 @@
         "width": 48,
         "height": 36
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8483425\u002B00:00"
     },
     {
       "component": null,
@@ -530,7 +588,9 @@
         "width": 248,
         "height": 569
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8487833\u002B00:00"
     },
     {
       "component": null,
@@ -549,7 +609,9 @@
         "width": 248,
         "height": 569
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8487071\u002B00:00"
     },
     {
       "component": null,
@@ -565,10 +627,12 @@
         "height": 18.62109375
       },
       "actualSize": {
-        "width": 290.677734375,
-        "height": 18.62109375
+        "width": 291,
+        "height": 19
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8526902\u002B00:00"
     },
     {
       "component": null,
@@ -587,7 +651,9 @@
         "width": 48,
         "height": 48
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8523230\u002B00:00"
     },
     {
       "component": null,
@@ -606,7 +672,9 @@
         "width": 248,
         "height": 40
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8488403\u002B00:00"
     },
     {
       "component": null,
@@ -625,7 +693,9 @@
         "width": 248,
         "height": 40
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8488642\u002B00:00"
     },
     {
       "component": null,
@@ -644,7 +714,9 @@
         "width": 779,
         "height": 64
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8524178\u002B00:00"
     },
     {
       "component": null,
@@ -663,7 +735,9 @@
         "width": 248,
         "height": 40
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8488151\u002B00:00"
     },
     {
       "component": null,
@@ -682,7 +756,9 @@
         "width": 248,
         "height": 712
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8485918\u002B00:00"
     },
     {
       "component": null,
@@ -701,7 +777,9 @@
         "width": 208,
         "height": 40
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8486301\u002B00:00"
     },
     {
       "component": null,
@@ -720,7 +798,9 @@
         "width": 248,
         "height": 720
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8485658\u002B00:00"
     },
     {
       "component": null,
@@ -739,7 +819,9 @@
         "width": 56,
         "height": 48
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8482523\u002B00:00"
     },
     {
       "component": null,
@@ -758,7 +840,9 @@
         "width": 240,
         "height": 36
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8489786\u002B00:00"
     },
     {
       "component": null,
@@ -777,7 +861,9 @@
         "width": 136,
         "height": 64
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8517301\u002B00:00"
     },
     {
       "component": "NavigationViewItem",
@@ -796,7 +882,9 @@
         "width": 248,
         "height": 40
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8493637\u002B00:00"
     },
     {
       "component": null,
@@ -815,7 +903,9 @@
         "width": 224,
         "height": 32
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8502549\u002B00:00"
     },
     {
       "component": null,
@@ -834,7 +924,9 @@
         "width": 248,
         "height": 40
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8496982\u002B00:00"
     },
     {
       "component": "ListView",
@@ -853,7 +945,9 @@
         "width": 280,
         "height": 140
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8529189\u002B00:00"
     },
     {
       "component": null,
@@ -872,7 +966,9 @@
         "width": 68,
         "height": 64
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8519355\u002B00:00"
     },
     {
       "component": null,
@@ -891,7 +987,9 @@
         "width": 1028,
         "height": 720
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8482081\u002B00:00"
     },
     {
       "component": "NavigationView",
@@ -910,7 +1008,9 @@
         "width": 1028,
         "height": 720
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8474188\u002B00:00"
     },
     {
       "component": null,
@@ -929,7 +1029,9 @@
         "width": 1028,
         "height": 720
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8485277\u002B00:00"
     },
     {
       "component": null,
@@ -948,7 +1050,9 @@
         "width": 761,
         "height": 19
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8513515\u002B00:00"
     },
     {
       "component": null,
@@ -967,7 +1071,9 @@
         "width": 280,
         "height": 140
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8529571\u002B00:00"
     },
     {
       "component": "TextBox",
@@ -986,7 +1092,9 @@
         "width": 779,
         "height": 32
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8512384\u002B00:00"
     },
     {
       "component": null,
@@ -1005,7 +1113,9 @@
         "width": 3,
         "height": 16
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8490125\u002B00:00"
     },
     {
       "component": null,
@@ -1024,7 +1134,9 @@
         "width": 248,
         "height": 720
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8533092\u002B00:00"
     },
     {
       "component": null,
@@ -1043,7 +1155,9 @@
         "width": 16,
         "height": 16
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8526337\u002B00:00"
     },
     {
       "component": null,
@@ -1062,7 +1176,9 @@
         "width": 30,
         "height": 48
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8525889\u002B00:00"
     },
     {
       "component": null,
@@ -1078,10 +1194,12 @@
         "height": 18.62109375
       },
       "actualSize": {
-        "width": 62.7880859375,
-        "height": 18.62109375
+        "width": 63,
+        "height": 19
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8526688\u002B00:00"
     },
     {
       "component": null,
@@ -1100,7 +1218,9 @@
         "width": 56,
         "height": 40
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8483179\u002B00:00"
     },
     {
       "component": "Frame",
@@ -1119,7 +1239,9 @@
         "width": 779,
         "height": 719
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8510993\u002B00:00"
     },
     {
       "component": "InfoBar",
@@ -1138,7 +1260,9 @@
         "width": 779,
         "height": 50
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8525314\u002B00:00"
     },
     {
       "component": null,
@@ -1154,10 +1278,12 @@
         "height": 18.62109375
       },
       "actualSize": {
-        "width": 85.3876953125,
-        "height": 18.62109375
+        "width": 85,
+        "height": 19
       },
-      "visibility": "Visible"
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T08:19:24.8511408\u002B00:00"
     }
   ]
 }

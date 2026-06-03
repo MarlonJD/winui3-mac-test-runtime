@@ -20,8 +20,8 @@
     "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
     "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
     "scenarioName": "component-commands-menus-light",
-    "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-    "workflowRunId": "26851935580",
+    "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+    "workflowRunId": "26872366140",
     "runnerImage": "win25 20260525.149.1",
     "viewport": {
       "width": 1028,
@@ -34,7 +34,7 @@
       "width": 1028,
       "height": 720
     },
-    "capturedAt": "2026-06-02T22:36:16.2877169\u002B00:00",
+    "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
     "nativeReferenceTargetsPath": "native-reference-targets.json"
   },
   "runtimeImagePath": "mac-runtime.png",
@@ -52,11 +52,11 @@
     "schemaVersion": "0.1",
     "width": 1028,
     "height": 720,
-    "changedPixelCount": 213659,
-    "changedPixelPercentage": 28.866596,
+    "changedPixelCount": 214074,
+    "changedPixelPercentage": 28.922665,
     "maxChannelDelta": 255,
-    "meanAbsoluteError": 7.884937,
-    "rootMeanSquaredError": 35.151692,
+    "meanAbsoluteError": 7.921195,
+    "rootMeanSquaredError": 35.22379,
     "boundingBox": {
       "x": 0,
       "y": 0,

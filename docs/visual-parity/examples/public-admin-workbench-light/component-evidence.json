@@ -75,8 +75,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -89,7 +89,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -104,7 +104,14 @@
             "y": 0,
             "width": 1028,
             "height": 720
-          }
+          },
+          "actualSize": {
+            "width": 1028,
+            "height": 720
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8474188+00:00"
         },
         "nativeReferenceReadinessStatus": "ready",
         "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
@@ -208,8 +215,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -222,7 +229,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -237,7 +244,14 @@
             "y": 84,
             "width": 248,
             "height": 40
-          }
+          },
+          "actualSize": {
+            "width": 248,
+            "height": 40
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8493637+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 248x40; macOS crop is 224x40. Phase -1 does not normalize crop sizes.",
@@ -341,8 +355,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -355,7 +369,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -370,7 +384,14 @@
             "y": 1,
             "width": 779,
             "height": 719
-          }
+          },
+          "actualSize": {
+            "width": 779,
+            "height": 719
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8510993+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 779x719; macOS crop is 780x720. Phase -1 does not normalize crop sizes.",
@@ -474,8 +495,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -488,7 +509,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -503,7 +524,14 @@
             "y": 34,
             "width": 779,
             "height": 32
-          }
+          },
+          "actualSize": {
+            "width": 779,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8512384+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 779x32; macOS crop is 208x32. Phase -1 does not normalize crop sizes.",
@@ -607,8 +635,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -621,7 +649,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -636,7 +664,14 @@
             "y": 80,
             "width": 779,
             "height": 48
-          }
+          },
+          "actualSize": {
+            "width": 779,
+            "height": 48
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8516371+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 779x48; macOS crop is 780x48. Phase -1 does not normalize crop sizes.",
@@ -740,8 +775,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -754,7 +789,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -769,7 +804,14 @@
             "y": 80,
             "width": 68,
             "height": 64
-          }
+          },
+          "actualSize": {
+            "width": 68,
+            "height": 64
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8518994+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes.",
@@ -873,8 +915,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -887,7 +929,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -902,7 +944,14 @@
             "y": 142,
             "width": 779,
             "height": 50
-          }
+          },
+          "actualSize": {
+            "width": 779,
+            "height": 50
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8525314+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 779x50; macOS crop is 780x74. Phase -1 does not normalize crop sizes.",
@@ -1006,8 +1055,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -1020,7 +1069,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -1035,7 +1084,14 @@
             "y": 206,
             "width": 280,
             "height": 140
-          }
+          },
+          "actualSize": {
+            "width": 280,
+            "height": 140
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8529189+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 280x140; macOS crop is 280x160. Phase -1 does not normalize crop sizes.",
@@ -1139,8 +1195,8 @@
           "fixtureProjectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
           "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json",
           "scenarioName": "public-admin-workbench-light",
-          "commitSha": "2cb86f4277b6d5bacc5aef8316f4bc9946bbbcce",
-          "workflowRunId": "26851935580",
+          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
+          "workflowRunId": "26872366140",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -1153,7 +1209,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-02T22:35:55.901948\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -1168,7 +1224,14 @@
             "y": 314,
             "width": 475,
             "height": 32
-          }
+          },
+          "actualSize": {
+            "width": 475,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T08:19:24.8532552+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 475x32; macOS crop is 136x32. Phase -1 does not normalize crop sizes.",

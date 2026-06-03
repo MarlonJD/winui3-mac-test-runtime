@@ -32,12 +32,12 @@ th { background: #f3f3f3; }
 <div class="summary">
 <div class="metric"><strong>4</strong>Scenarios</div>
 <div class="metric"><strong>58</strong>Components</div>
-<div class="metric"><strong>6</strong>Complete triptychs</div>
+<div class="metric"><strong>3</strong>Complete triptychs</div>
 <div class="metric"><strong>0</strong>Missing reviews</div>
 <div class="metric"><strong>58</strong>Missing inspections</div>
-<div class="metric"><strong>52</strong>Invalid native refs</div>
-<div class="metric"><strong>52</strong>Untrusted native refs</div>
-<div class="metric"><strong>52</strong>Reference integrity blockers</div>
+<div class="metric"><strong>55</strong>Invalid native refs</div>
+<div class="metric"><strong>55</strong>Untrusted native refs</div>
+<div class="metric"><strong>55</strong>Reference integrity blockers</div>
 <div class="metric"><strong>58</strong>Blocker rows</div>
 </div>
 <h2>Scenarios</h2>
@@ -46,7 +46,7 @@ th { background: #f3f3f3; }
 <td>component-basic-input-light</td>
 <td><a href="examples/component-basic-input-light/visual-review.html">examples/component-basic-input-light/visual-review.html</a></td>
 <td><a href="examples/component-basic-input-light/component-inspection-template.json">examples/component-basic-input-light/component-inspection-template.json</a></td>
-<td>3/13</td>
+<td>1/13</td>
 <td>13</td>
 <td>13</td>
 <td class="blocked">blocked</td>
@@ -64,7 +64,7 @@ th { background: #f3f3f3; }
 <td>component-layout-media-light</td>
 <td><a href="examples/component-layout-media-light/visual-review.html">examples/component-layout-media-light/visual-review.html</a></td>
 <td><a href="examples/component-layout-media-light/component-inspection-template.json">examples/component-layout-media-light/component-inspection-template.json</a></td>
-<td>1/28</td>
+<td>0/28</td>
 <td>28</td>
 <td>28</td>
 <td class="blocked">blocked</td>
@@ -86,7 +86,7 @@ th { background: #f3f3f3; }
 <td>Button <span>(PrimaryActionButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -107,14 +107,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/button-primaryactionbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/button-primaryactionbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 142x32; macOS crop is 158x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 142x32; macOS crop is 158x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
 <td>ToggleButton <span>(PinnedToggleButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -135,14 +135,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/togglebutton-pinnedtogglebutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/togglebutton-pinnedtogglebutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 67x32; macOS crop is 72x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 67x32; macOS crop is 72x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
 <td>CheckBox <span>(EnabledCheckBox)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -163,14 +163,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/checkbox-enabledcheckbox/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/checkbox-enabledcheckbox/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 96x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 96x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
 <td>RadioButton <span>(HighPriorityRadioButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -191,7 +191,7 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/radiobutton-highpriorityradiobutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/radiobutton-highpriorityradiobutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 128x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 128x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
@@ -226,7 +226,7 @@ th { background: #f3f3f3; }
 <td>RepeatButton <span>(DiagnosticRepeatButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -247,14 +247,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/repeatbutton-diagnosticrepeatbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/repeatbutton-diagnosticrepeatbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 308x32; macOS crop is 310x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 308x32; macOS crop is 310x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
 <td>HyperlinkButton <span>(DiagnosticHyperlinkButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -275,14 +275,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/hyperlinkbutton-diagnostichyperlinkbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/hyperlinkbutton-diagnostichyperlinkbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 313x32; macOS crop is 312x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 313x32; macOS crop is 312x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
 <td>DropDownButton <span>(DiagnosticDropDownButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -303,14 +303,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/dropdownbutton-diagnosticdropdownbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/dropdownbutton-diagnosticdropdownbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 320x32; macOS crop is 330x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 320x32; macOS crop is 330x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
 <td>SplitButton <span>(DiagnosticSplitButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -331,7 +331,7 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/splitbutton-diagnosticsplitbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/splitbutton-diagnosticsplitbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 315x32; macOS crop is 323x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 315x32; macOS crop is 323x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
@@ -340,9 +340,9 @@ th { background: #f3f3f3; }
 <td>not-evaluated</td>
 <td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
-<td class="ready">ready-for-manual-inspection</td>
+<td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 24.142%<br>MAE: 18.083<br>RMS: 54.456</td>
+<td class="metrics">changed: 30.146%<br>MAE: 9.611<br>RMS: 39.38</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -354,12 +354,12 @@ th { background: #f3f3f3; }
 </figure>
 <figure>
 <figcaption>diff</figcaption>
-<a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png"><img alt="diff crop" src="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png"></a>
+<span>missing</span>
 </figure>
 </div>
 </td>
-<td><a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
+<td><a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/togglesplitbutton-diagnostictogglesplitbutton/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
@@ -368,9 +368,9 @@ th { background: #f3f3f3; }
 <td>not-evaluated</td>
 <td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
-<td class="ready">ready-for-manual-inspection</td>
+<td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 7.413%<br>MAE: 5.253<br>RMS: 27.877</td>
+<td class="metrics">changed: 30.146%<br>MAE: 9.611<br>RMS: 39.38</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -382,19 +382,19 @@ th { background: #f3f3f3; }
 </figure>
 <figure>
 <figcaption>diff</figcaption>
-<a href="examples/component-basic-input-light/components/slider-diagnosticslider/pixel-diff.png"><img alt="diff crop" src="examples/component-basic-input-light/components/slider-diagnosticslider/pixel-diff.png"></a>
+<span>missing</span>
 </figure>
 </div>
 </td>
-<td><a href="examples/component-basic-input-light/components/slider-diagnosticslider/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/slider-diagnosticslider/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/components/slider-diagnosticslider/pixel-diff.png">diff</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
+<td><a href="examples/component-basic-input-light/components/slider-diagnosticslider/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/slider-diagnosticslider/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
 <td>ToggleSwitch <span>(DiagnosticToggleSwitch)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -415,14 +415,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/toggleswitch-diagnostictoggleswitch/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/toggleswitch-diagnostictoggleswitch/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 308x63; macOS crop is 313x44. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 308x63; macOS crop is 313x44. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-basic-input-light</td>
 <td>RatingControl <span>(DiagnosticRatingControl)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -443,18 +443,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-basic-input-light/components/ratingcontrol-diagnosticratingcontrol/windows-reference.png">native</a> | <a href="examples/component-basic-input-light/components/ratingcontrol-diagnosticratingcontrol/mac-runtime.png">macOS</a> | <a href="examples/component-basic-input-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 308x63; macOS crop is 308x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 308x63; macOS crop is 308x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-commands-menus-light</td>
 <td>CommandBar <span>(PrimaryCommandBar)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 28.867%<br>MAE: 7.885<br>RMS: 35.152</td>
+<td class="metrics">changed: 28.923%<br>MAE: 7.921<br>RMS: 35.224</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -471,18 +471,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-commands-menus-light/components/commandbar-primarycommandbar/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/commandbar-primarycommandbar/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 723x48; macOS crop is 724x48. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 723x48; macOS crop is 724x48. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-commands-menus-light</td>
 <td>AppBarButton <span>(SaveCommandButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 28.867%<br>MAE: 7.885<br>RMS: 35.152</td>
+<td class="metrics">changed: 28.923%<br>MAE: 7.921<br>RMS: 35.224</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -499,18 +499,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-commands-menus-light/components/appbarbutton-savecommandbutton/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/appbarbutton-savecommandbutton/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-commands-menus-light</td>
 <td>CommandBar.Content <span>(DiagnosticCommandBarContent)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 28.867%<br>MAE: 7.885<br>RMS: 35.152</td>
+<td class="metrics">changed: 28.923%<br>MAE: 7.921<br>RMS: 35.224</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -527,7 +527,7 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-commands-menus-light/components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 459x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 459x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-commands-menus-light</td>
@@ -562,15 +562,15 @@ th { background: #f3f3f3; }
 <td>CommandBarFlyout <span>(DiagnosticCommandBarFlyout)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">state-reference-incomplete</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 28.867%<br>MAE: 7.885<br>RMS: 35.152</td>
+<td class="metrics">changed: 28.923%<br>MAE: 7.921<br>RMS: 35.224</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-commands-menus-light/components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png"><img alt="native crop" src="examples/component-commands-menus-light/components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -582,19 +582,19 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-commands-menus-light/components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;state-reference-incomplete&#39;: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</td>
+<td><a href="examples/component-commands-menus-light/components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-commands-menus-light</td>
 <td>MenuFlyout <span>(DiagnosticMenuFlyout)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">state-reference-incomplete</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 28.867%<br>MAE: 7.885<br>RMS: 35.152</td>
+<td class="metrics">changed: 28.923%<br>MAE: 7.921<br>RMS: 35.224</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -611,18 +611,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-commands-menus-light/components/menuflyout-diagnosticmenuflyout/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/menuflyout-diagnosticmenuflyout/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;state-reference-incomplete&#39;: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-commands-menus-light</td>
 <td>MenuBar <span>(DiagnosticMenuBar)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">state-reference-incomplete</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 28.867%<br>MAE: 7.885<br>RMS: 35.152</td>
+<td class="metrics">changed: 28.923%<br>MAE: 7.921<br>RMS: 35.224</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -639,18 +639,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-commands-menus-light/components/menubar-diagnosticmenubar/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/menubar-diagnosticmenubar/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;state-reference-incomplete&#39;: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-commands-menus-light</td>
 <td>Context menu pattern <span>(DiagnosticContextMenuPattern)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">state-reference-incomplete</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 28.867%<br>MAE: 7.885<br>RMS: 35.152</td>
+<td class="metrics">changed: 28.923%<br>MAE: 7.921<br>RMS: 35.224</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -667,18 +667,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-commands-menus-light/components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png">native</a> | <a href="examples/component-commands-menus-light/components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png">macOS</a> | <a href="examples/component-commands-menus-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;state-reference-incomplete&#39;: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>ScrollViewer <span>(LayoutScrollViewer)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -695,18 +695,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/scrollviewer-layoutscrollviewer/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/scrollviewer-layoutscrollviewer/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 771x719; macOS crop is 772x720. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 771x719; macOS crop is 772x720. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Grid <span>(LayoutResourceGrid)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -723,18 +723,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/grid-layoutresourcegrid/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/grid-layoutresourcegrid/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 723x68; macOS crop is 724x96. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 723x68; macOS crop is 724x96. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>StackPanel <span>(LayoutNestedStack)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -751,18 +751,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/stackpanel-layoutnestedstack/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/stackpanel-layoutnestedstack/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x96. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x96. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Border <span>(LayoutBorder)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -779,18 +779,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/border-layoutborder/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/border-layoutborder/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x96. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x96. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>FontIcon <span>(LayoutFontIcon)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -807,22 +807,22 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/fonticon-layoutfonticon/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/fonticon-layoutfonticon/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 160x18; macOS crop is 24x24. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 160x18; macOS crop is 24x24. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Image <span>(PublicImagePlaceholder)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-layout-media-light/components/image-publicimageplaceholder/windows-reference.png"><img alt="native crop" src="examples/component-layout-media-light/components/image-publicimageplaceholder/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -834,19 +834,19 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/image-publicimageplaceholder/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;diagnostic-reference&#39;: The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only.</td>
+<td><a href="examples/component-layout-media-light/components/image-publicimageplaceholder/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/image-publicimageplaceholder/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>SymbolIcon <span>(DiagnosticSymbolIcon)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -863,18 +863,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/symbolicon-diagnosticsymbolicon/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/symbolicon-diagnosticsymbolicon/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 308x35; macOS crop is 308x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 308x35; macOS crop is 308x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>XamlControlsResources <span>(DiagnosticXamlControlsResources)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -891,18 +891,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>ResourceDictionary.ThemeDictionaries <span>(ThemeResourceText)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -919,18 +919,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/resourcedictionary-themedictionaries-themeresourcetext/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/resourcedictionary-themedictionaries-themeresourcetext/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>ThemeResource <span>(ThemeResourceText)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -947,18 +947,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/themeresource-themeresourcetext/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/themeresource-themeresourcetext/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>StaticResource <span>(StaticResourceText)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -975,18 +975,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/staticresource-staticresourcetext/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/staticresource-staticresourcetext/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Style <span>(LayoutMediaTitle)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1003,18 +1003,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/style-layoutmediatitle/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/style-layoutmediatitle/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Setter <span>(LayoutMediaTitle)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1031,18 +1031,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/setter-layoutmediatitle/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/setter-layoutmediatitle/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Color <span>(DiagnosticColor)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1059,18 +1059,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/color-diagnosticcolor/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/color-diagnosticcolor/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>SolidColorBrush <span>(ThemeResourceText)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1087,18 +1087,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/solidcolorbrush-themeresourcetext/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/solidcolorbrush-themeresourcetext/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>CornerRadius <span>(LayoutBorder)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">diagnostic-reference-needs-crop-bounds</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1115,18 +1115,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/cornerradius-layoutborder/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/cornerradius-layoutborder/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;diagnostic-reference-needs-crop-bounds&#39;: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Expander <span>(DiagnosticExpander)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1143,18 +1143,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/expander-diagnosticexpander/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/expander-diagnosticexpander/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 376x100; macOS crop is 448x92. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 376x100; macOS crop is 448x92. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Annotated scrollbar <span>(DiagnosticAnnotatedScrollbar)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1171,18 +1171,18 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/annotated-scrollbar-diagnosticannotatedscrollbar/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/annotated-scrollbar-diagnosticannotatedscrollbar/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 308x100; macOS crop is 286x92. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 308x100; macOS crop is 286x92. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>SemanticZoom <span>(DiagnosticSemanticZoom)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1199,22 +1199,22 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/semanticzoom-diagnosticsemanticzoom/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 468x96; macOS crop is 448x96. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 468x96; macOS crop is 448x96. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>SplitView <span>(DiagnosticSplitView)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">needs-native-crop-bounds</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-layout-media-light/components/splitview-diagnosticsplitview/windows-reference.png"><img alt="native crop" src="examples/component-layout-media-light/components/splitview-diagnosticsplitview/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -1226,8 +1226,8 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/splitview-diagnosticsplitview/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;needs-native-crop-bounds&#39;: Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.</td>
+<td><a href="examples/component-layout-media-light/components/splitview-diagnosticsplitview/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/splitview-diagnosticsplitview/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
@@ -1236,9 +1236,9 @@ th { background: #f3f3f3; }
 <td>not-evaluated</td>
 <td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
-<td class="ready">ready-for-manual-inspection</td>
+<td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 7.34%<br>MAE: 4.746<br>RMS: 27.962</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1250,27 +1250,27 @@ th { background: #f3f3f3; }
 </figure>
 <figure>
 <figcaption>diff</figcaption>
-<a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/pixel-diff.png"><img alt="diff crop" src="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/pixel-diff.png"></a>
+<span>missing</span>
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/pixel-diff.png">diff</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
+<td><a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/twopaneview-diagnostictwopaneview/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>AnimatedIcon <span>(DiagnosticAnimatedIcon)</span></td>
 <td>not-rendered</td>
 <td>not-evaluated</td>
-<td class="blocked">native-not-rendered</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-layout-media-light/components/animatedicon-diagnosticanimatedicon/windows-reference.png"><img alt="native crop" src="examples/component-layout-media-light/components/animatedicon-diagnosticanimatedicon/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -1282,19 +1282,19 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/animatedicon-diagnosticanimatedicon/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;native-not-rendered&#39;: The current Windows reference does not show a production AnimatedIcon source/frame. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The current Windows reference does not show a production AnimatedIcon source/frame.</td>
+<td><a href="examples/component-layout-media-light/components/animatedicon-diagnosticanimatedicon/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/animatedicon-diagnosticanimatedicon/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Shapes <span>(DiagnosticShapes)</span></td>
 <td>not-rendered</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
@@ -1311,22 +1311,22 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/component-layout-media-light/components/shapes-diagnosticshapes/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/shapes-diagnosticshapes/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 326x80; macOS crop is 349x24. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 326x80; macOS crop is 349x24. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>MediaPlayerElement <span>(DiagnosticMediaPlayerElement)</span></td>
 <td>not-rendered</td>
 <td>not-evaluated</td>
-<td class="blocked">placeholder-reference</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png"><img alt="native crop" src="examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -1338,23 +1338,23 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;placeholder-reference&#39;: The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content.</td>
+<td><a href="examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>WebView2 <span>(DiagnosticWebView2)</span></td>
 <td>not-rendered</td>
 <td>not-evaluated</td>
-<td class="blocked">placeholder-reference</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-layout-media-light/components/webview2-diagnosticwebview2/windows-reference.png"><img alt="native crop" src="examples/component-layout-media-light/components/webview2-diagnosticwebview2/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -1366,23 +1366,23 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/webview2-diagnosticwebview2/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;placeholder-reference&#39;: The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content.</td>
+<td><a href="examples/component-layout-media-light/components/webview2-diagnosticwebview2/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/webview2-diagnosticwebview2/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>InkCanvas / InkToolbar <span>(DiagnosticInkControls)</span></td>
 <td>not-rendered</td>
 <td>not-evaluated</td>
-<td class="blocked">native-unavailable</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-layout-media-light/components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png"><img alt="native crop" src="examples/component-layout-media-light/components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -1394,23 +1394,23 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;native-unavailable&#39;: The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls.</td>
+<td><a href="examples/component-layout-media-light/components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Title bar customization <span>(DiagnosticTitleBarCustomization)</span></td>
 <td>not-rendered</td>
 <td>not-evaluated</td>
-<td class="blocked">offscreen-reference</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png"><img alt="native crop" src="examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -1422,23 +1422,23 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;offscreen-reference&#39;: The current crop is effectively offscreen/height 1 and does not prove the platform surface. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The current crop is effectively offscreen/height 1 and does not prove the platform surface.</td>
+<td><a href="examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>component-layout-media-light</td>
 <td>Window.SystemBackdrop / MicaBackdrop <span>(DiagnosticSystemBackdrop)</span></td>
 <td>not-rendered</td>
 <td>not-evaluated</td>
-<td class="blocked">offscreen-reference</td>
-<td>missing</td>
+<td class="ready">ready</td>
+<td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
-<td class="metrics">changed: 44.829%<br>MAE: 13.069<br>RMS: 44.115</td>
+<td class="metrics">changed: 39.879%<br>MAE: 10.929<br>RMS: 40.304</td>
 <td><div class="triptych-preview">
 <figure>
 <figcaption>native</figcaption>
-<span>missing</span>
+<a href="examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png"><img alt="native crop" src="examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png"></a>
 </figure>
 <figure>
 <figcaption>macOS</figcaption>
@@ -1450,8 +1450,8 @@ th { background: #f3f3f3; }
 </figure>
 </div>
 </td>
-<td><a href="examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Missing native WinUI reference crop evidence. Native reference status is &#39;offscreen-reference&#39;: The current crop is effectively offscreen/height 1 and does not prove the platform surface. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>The current crop is effectively offscreen/height 1 and does not prove the platform surface.</td>
+<td><a href="examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png">native</a> | <a href="examples/component-layout-media-light/components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png">macOS</a> | <a href="examples/component-layout-media-light/visual-review.html">review</a></td>
+<td class="blocker">visualGrade is &#39;not-rendered&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>public-admin-workbench-light</td>
@@ -1486,7 +1486,7 @@ th { background: #f3f3f3; }
 <td>NavigationViewItem <span>(QueueNavigationItem)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -1507,14 +1507,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/public-admin-workbench-light/components/navigationviewitem-queuenavigationitem/windows-reference.png">native</a> | <a href="examples/public-admin-workbench-light/components/navigationviewitem-queuenavigationitem/mac-runtime.png">macOS</a> | <a href="examples/public-admin-workbench-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 248x40; macOS crop is 224x40. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 248x40; macOS crop is 224x40. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>public-admin-workbench-light</td>
 <td>Frame <span>(WorkbenchFrame)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -1535,14 +1535,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/public-admin-workbench-light/components/frame-workbenchframe/windows-reference.png">native</a> | <a href="examples/public-admin-workbench-light/components/frame-workbenchframe/mac-runtime.png">macOS</a> | <a href="examples/public-admin-workbench-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 779x719; macOS crop is 780x720. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 779x719; macOS crop is 780x720. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>public-admin-workbench-light</td>
 <td>TextBox <span>(SearchBox)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -1563,14 +1563,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/public-admin-workbench-light/components/textbox-searchbox/windows-reference.png">native</a> | <a href="examples/public-admin-workbench-light/components/textbox-searchbox/mac-runtime.png">macOS</a> | <a href="examples/public-admin-workbench-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 779x32; macOS crop is 208x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 779x32; macOS crop is 208x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>public-admin-workbench-light</td>
 <td>CommandBar <span>(DecisionCommandBar)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -1591,14 +1591,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/public-admin-workbench-light/components/commandbar-decisioncommandbar/windows-reference.png">native</a> | <a href="examples/public-admin-workbench-light/components/commandbar-decisioncommandbar/mac-runtime.png">macOS</a> | <a href="examples/public-admin-workbench-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 779x48; macOS crop is 780x48. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 779x48; macOS crop is 780x48. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>public-admin-workbench-light</td>
 <td>AppBarButton <span>(ApproveCommand)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -1619,14 +1619,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/public-admin-workbench-light/components/appbarbutton-approvecommand/windows-reference.png">native</a> | <a href="examples/public-admin-workbench-light/components/appbarbutton-approvecommand/mac-runtime.png">macOS</a> | <a href="examples/public-admin-workbench-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>public-admin-workbench-light</td>
 <td>InfoBar <span>(WorkbenchStatus)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -1647,14 +1647,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/public-admin-workbench-light/components/infobar-workbenchstatus/windows-reference.png">native</a> | <a href="examples/public-admin-workbench-light/components/infobar-workbenchstatus/mac-runtime.png">macOS</a> | <a href="examples/public-admin-workbench-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 779x50; macOS crop is 780x74. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 779x50; macOS crop is 780x74. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>public-admin-workbench-light</td>
 <td>ListView <span>(ReviewQueueList)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -1675,14 +1675,14 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/public-admin-workbench-light/components/listview-reviewqueuelist/windows-reference.png">native</a> | <a href="examples/public-admin-workbench-light/components/listview-reviewqueuelist/mac-runtime.png">macOS</a> | <a href="examples/public-admin-workbench-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 280x140; macOS crop is 280x160. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 280x140; macOS crop is 280x160. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 <tr>
 <td>public-admin-workbench-light</td>
 <td>Button <span>(CompleteReviewButton)</span></td>
 <td>usable</td>
 <td>not-evaluated</td>
-<td class="blocked">native-crop-size-mismatch</td>
+<td class="ready">ready</td>
 <td>windows-native-element-bounds</td>
 <td class="blocked">missing-crop-evidence</td>
 <td>missing</td>
@@ -1703,7 +1703,7 @@ th { background: #f3f3f3; }
 </div>
 </td>
 <td><a href="examples/public-admin-workbench-light/components/button-completereviewbutton/windows-reference.png">native</a> | <a href="examples/public-admin-workbench-light/components/button-completereviewbutton/mac-runtime.png">macOS</a> | <a href="examples/public-admin-workbench-light/visual-review.html">review</a></td>
-<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;native-crop-size-mismatch&#39;: Native and macOS crop dimensions differ. Native crop is 475x32; macOS crop is 136x32. Phase -1 does not normalize crop sizes. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native and macOS crop dimensions differ. Native crop is 475x32; macOS crop is 136x32. Phase -1 does not normalize crop sizes.</td>
+<td class="blocker">visualGrade is &#39;usable&#39;, below the native-quality target. nativeQualityGrade is &#39;not-evaluated&#39;, not good or production-ready. Native reference status is &#39;ready&#39;: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.<br>Native crop uses Windows native element bounds from native-reference-targets.json.</td>
 </tr>
 </tbody></table>
 </body>

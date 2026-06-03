@@ -33,13 +33,10 @@ public sealed partial class CommandsMenusPage : Page
         {
             CommandStateText.Text = "Open menu targets visible";
 #if !WINDOWS
-            _ = DispatcherQueue.TryEnqueue(() =>
-            {
-                SetPopupOpenState(DiagnosticCommandBarFlyout, true);
-                SetPopupOpenState(DiagnosticMenuFlyout, true);
-                SetPopupOpenState(DiagnosticMenuBar, true);
-                SetPopupOpenState(DiagnosticContextMenuPattern, true);
-            });
+            SetPopupOpenState(DiagnosticCommandBarFlyout, true);
+            SetPopupOpenState(DiagnosticMenuFlyout, true);
+            SetPopupOpenState(DiagnosticMenuBar, true);
+            SetPopupOpenState(DiagnosticContextMenuPattern, true);
 #endif
             return;
         }

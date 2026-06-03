@@ -91,13 +91,16 @@ public static class NativeReferenceReadinessBuilder
         {
             var key = RowKey(evidence.ScenarioName, component.Component, component.Target);
             existingRows.TryGetValue(key, out var existingRow);
-            if (existingRow is not null && PreservedSemanticBlockers.Contains(existingRow.NativeReferenceStatus))
+            var currentRow = RowForComponent(evidence.ScenarioName, relativeEvidencePath, component);
+            if (existingRow is not null &&
+                PreservedSemanticBlockers.Contains(existingRow.NativeReferenceStatus) &&
+                !string.Equals(currentRow.NativeReferenceStatus, "ready", StringComparison.Ordinal))
             {
                 yield return existingRow with { EvidencePath = relativeEvidencePath };
                 continue;
             }
 
-            yield return RowForComponent(evidence.ScenarioName, relativeEvidencePath, component);
+            yield return currentRow;
         }
     }
 
@@ -121,11 +124,12 @@ public static class NativeReferenceReadinessBuilder
         var status = crop.NativeReferenceReadiness.Status;
         var reason = crop.NativeReferenceReadiness.Reason;
         var requiredAction = crop.NativeReferenceReadiness.RequiredAction;
-        var hasTrustedNativeBounds = crop.NativeReferenceBounds is not null &&
-            crop.NativeReferenceBoundsValidForPromotion &&
+        var hasTrustedNativeSource = crop.NativeReferenceBounds is not null &&
+            !string.IsNullOrWhiteSpace(crop.NativeReferencePath) &&
             string.Equals(crop.NativeReferenceBoundsSource, "windows-native-element-bounds", StringComparison.Ordinal) &&
-            crop.NativeReferenceProvenance is not null;
-        if (hasTrustedNativeBounds && status is "ready" or "verified")
+            crop.NativeReferenceTarget is not null &&
+            crop.NativeReferenceProvenance is { ReferenceSource: "native-winui" };
+        if (hasTrustedNativeSource)
         {
             status = "ready";
             reason = "Native crop uses Windows native element bounds from native-reference-targets.json.";
