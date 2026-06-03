@@ -103,6 +103,13 @@ placeholder for final quality review:
 - `Window.SystemBackdrop / MicaBackdrop`: the row is effectively outside the
   visible crop area and cannot prove system backdrop or Mica behavior.
 
+Follow-up fixture hardening has started after this audit: the Windows fixture
+now uses a deterministic SVG asset for `Image`, configures `AnimatedIcon` with
+candidate native animated visual sources plus fallback icon source, enables
+`MediaPlayerElement` poster/transport chrome, and navigates `WebView2` to
+deterministic inline HTML. These rows remain not source-ready until the native
+Windows reference workflow is recaptured and inspected.
+
 Current risks:
 
 - Several native crops point at neighboring rows because runtime bounds are used

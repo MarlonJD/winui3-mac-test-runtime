@@ -1,9 +1,10 @@
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 #if WINDOWS
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Shapes;
 using System.Reflection;
 #endif
@@ -397,17 +398,33 @@ internal static class NativeControlSamples
             Set(control, "Width", 300.0);
             Set(control, "Height", 72.0);
         });
-        SetNativeControl(animatedIconHost, "AnimatedIcon", ["Microsoft.UI.Xaml.Controls.AnimatedIcon"]);
+        SetNativeControl(animatedIconHost, "AnimatedIcon", ["Microsoft.UI.Xaml.Controls.AnimatedIcon"], ConfigureAnimatedIcon);
         SetNativeElement(shapesHost, "Shapes", ShapesPreview());
         SetNativeControl(mediaPlayerElementHost, "MediaPlayerElement", ["Microsoft.UI.Xaml.Controls.MediaPlayerElement"], control =>
         {
             Set(control, "Width", 220.0);
             Set(control, "Height", 80.0);
+            Set(control, "PosterSource", new SvgImageSource(new Uri("ms-appx:///Assets/PublicPlaceholder.svg")));
+            Set(control, "AreTransportControlsEnabled", true);
         });
         SetNativeControl(webView2Host, "WebView2", ["Microsoft.UI.Xaml.Controls.WebView2"], control =>
         {
             Set(control, "Width", 220.0);
             Set(control, "Height", 80.0);
+            Invoke(
+                control,
+                "NavigateToString",
+                """
+                <!doctype html>
+                <html>
+                  <body style="margin:0;background:#f3f8ff;font-family:Segoe UI, sans-serif;color:#1a1a1a;">
+                    <div style="padding:10px;border-left:4px solid #0067c0;">
+                      <strong>WebView2</strong><br />
+                      Native HTML content
+                    </div>
+                  </body>
+                </html>
+                """);
         });
         SetNativeElement(inkControlsHost, "InkCanvas / InkToolbar", InkPreview());
         SetNativeElement(titleBarCustomizationHost, "Title bar customization", ResourcePreview("ExtendsContentIntoTitleBar sample"));
@@ -573,6 +590,25 @@ internal static class NativeControlSamples
         }
     }
 
+    private static void Invoke(object target, string methodName, params object?[] args)
+    {
+        var method = target.GetType()
+            .GetMethods(BindingFlags.Instance | BindingFlags.Public)
+            .FirstOrDefault(candidate =>
+                candidate.Name == methodName &&
+                candidate.GetParameters().Length == args.Length);
+        try
+        {
+            method?.Invoke(target, args);
+        }
+        catch (ArgumentException)
+        {
+        }
+        catch (TargetInvocationException)
+        {
+        }
+    }
+
     private static void AddItems(object target, params object[] items)
     {
         foreach (var item in items)
@@ -642,6 +678,28 @@ internal static class NativeControlSamples
         }
 
         return button;
+    }
+
+    private static void ConfigureAnimatedIcon(object control)
+    {
+        Set(control, "Width", 48.0);
+        Set(control, "Height", 48.0);
+        var source = Create(
+            "Microsoft.UI.Xaml.Controls.AnimatedVisuals.AnimatedBackVisualSource",
+            "Microsoft.UI.Xaml.Controls.AnimatedVisuals.AnimatedFindVisualSource",
+            "Microsoft.UI.Xaml.Controls.AnimatedVisuals.AnimatedChevronDownSmallVisualSource",
+            "Microsoft.UI.Xaml.Controls.AnimatedVisuals.AnimatedGlobalNavigationButtonVisualSource");
+        if (source is not null)
+        {
+            Set(control, "Source", source);
+        }
+
+        var fallback = Create("Microsoft.UI.Xaml.Controls.SymbolIconSource");
+        if (fallback is not null)
+        {
+            Set(fallback, "Symbol", EnumValue("Microsoft.UI.Xaml.Controls.Symbol", "Play"));
+            Set(control, "FallbackIconSource", fallback);
+        }
     }
 
     private static object? MenuFlyoutItem(string text)
@@ -802,7 +860,7 @@ internal static class NativeControlSamples
         };
     }
 
-    private static UIElement ColorSwatch(string text, Windows.UI.Color color)
+    private static UIElement ColorSwatch(string text, Color color)
     {
         return new StackPanel
         {

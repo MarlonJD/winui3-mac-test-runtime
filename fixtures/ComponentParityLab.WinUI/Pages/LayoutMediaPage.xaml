@@ -35,7 +35,7 @@
                         <FontIcon x:Name="LayoutFontIcon" Glyph="&#xE8A7;" FontSize="18" />
                     </StackPanel>
                 </Border>
-                <Image x:Name="PublicImagePlaceholder" Grid.Column="1" Source="public-placeholder.png" />
+                <Image x:Name="PublicImagePlaceholder" Grid.Column="1" Width="548" Height="96" Stretch="Fill" Source="ms-appx:///Assets/PublicPlaceholder.svg" />
             </Grid>
             <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticSymbolIcon" />
