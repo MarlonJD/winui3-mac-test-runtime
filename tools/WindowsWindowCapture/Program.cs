@@ -44,16 +44,24 @@ internal static class Program
                     "Refusing to create a native reference from a fallback window.");
             }
 
-            ShowWindow(window.Handle, SwRestore);
-            SetForegroundWindow(window.Handle);
+            var captureWindow = window.Handle;
+            ShowWindow(captureWindow, SwRestore);
+            SetForegroundWindow(captureWindow);
             Thread.Sleep(750);
             if (options.ClientArea && options.Viewport is not null)
             {
-                ResizeClientArea(window.Handle, options.Viewport);
+                captureWindow = ResizeClientArea(
+                    captureWindow,
+                    options.Viewport,
+                    () => WaitForWindow(
+                        options.Title,
+                        process,
+                        TimeSpan.FromSeconds(2),
+                        options.Viewport)?.Handle);
             }
 
             Thread.Sleep(options.SettleDelay);
-            var captureRect = Capture(window.Handle, options.OutputPath, options.ClientArea);
+            var captureRect = Capture(captureWindow, options.OutputPath, options.ClientArea);
             if (!string.IsNullOrWhiteSpace(options.MetadataOutputPath))
             {
                 var workflowRunId = options.WorkflowRunId ?? Environment.GetEnvironmentVariable("GITHUB_RUN_ID");
@@ -396,7 +404,10 @@ internal static class Program
             point.Y + Math.Max(1, clientRect.Bottom - clientRect.Top));
     }
 
-    private static void ResizeClientArea(IntPtr window, CaptureViewport viewport)
+    private static IntPtr ResizeClientArea(
+        IntPtr window,
+        CaptureViewport viewport,
+        Func<IntPtr?> resolveWindow)
     {
         var readBounds = false;
         for (var attempt = 0; attempt < 10; attempt++)
@@ -404,6 +415,12 @@ internal static class Program
             if (!GetClientRect(window, out var clientRect) ||
                 !TryReadWindowRect(window, out var windowRect))
             {
+                var resolvedWindow = resolveWindow();
+                if (resolvedWindow is { } handle && handle != IntPtr.Zero)
+                {
+                    window = handle;
+                }
+
                 Thread.Sleep(150);
                 continue;
             }
@@ -411,7 +428,7 @@ internal static class Program
             readBounds = true;
             if (clientRect.Width == viewport.Width && clientRect.Height == viewport.Height)
             {
-                return;
+                return window;
             }
 
             var nonClientWidth = Math.Max(0, windowRect.Width - clientRect.Width);
