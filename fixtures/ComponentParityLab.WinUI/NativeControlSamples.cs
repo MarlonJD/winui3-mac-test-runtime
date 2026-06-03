@@ -456,6 +456,7 @@ internal static class NativeControlSamples
         return panel;
     }
 
+#if !WINDOWS
     private static UIElement MacResourcePreview(string text)
     {
         return new Border
@@ -488,14 +489,8 @@ internal static class NativeControlSamples
         };
     }
 
-    private static object Radius(double value)
-    {
-#if WINDOWS
-        return new CornerRadius(value);
-#else
-        return value;
+    private static double Radius(double value) => value;
 #endif
-    }
 
 #if WINDOWS
     private static void SetNativeControl(
