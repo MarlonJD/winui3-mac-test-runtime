@@ -1823,16 +1823,58 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
-    public async Task NativeReferenceImporterAcceptsCommandFlyoutLauncherTargets()
+    public async Task NativeReferenceImporterAcceptsCommandMenuDiagnosticTargets()
     {
         await AssertNativeReferenceImporterPassesWithTargetMutationAsync(
             "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
             "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
             targets => targets
-                .Select(target => target.Target is "DiagnosticCommandBarFlyout" or "DiagnosticMenuFlyout"
+                .Select(target => target.Target is "DiagnosticCommandBarFlyout" or "DiagnosticMenuFlyout" or "DiagnosticContextMenuPattern"
                     ? target with { ElementType = "Microsoft.UI.Xaml.Controls.Button" }
-                    : target)
-                .ToArray());
+                    : target.Target is "SaveCommandIcon"
+                        ? target with { ElementType = "Microsoft.UI.Xaml.Controls.FontIcon" }
+                        : target)
+                .ToArray(),
+            "DiagnosticCommandBarFlyout",
+            "DiagnosticMenuFlyout",
+            "DiagnosticContextMenuPattern",
+            "SaveCommandIcon");
+    }
+
+    [TestMethod]
+    public async Task NativeReferenceImporterAcceptsLayoutMediaDiagnosticTargets()
+    {
+        await AssertNativeReferenceImporterPassesWithTargetMutationAsync(
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+            "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            targets => targets
+                .Select(target => target.Target switch
+                {
+                    "DiagnosticAnnotatedScrollbar" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticColor" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticInkControls" => target with { ElementType = "Microsoft.UI.Xaml.Controls.ContentPresenter" },
+                    "DiagnosticShapes" => target with { ElementType = "Microsoft.UI.Xaml.Shapes.Ellipse" },
+                    "DiagnosticSystemBackdrop" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticTitleBarCustomization" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticXamlControlsResources" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "LayoutBorder" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "LayoutMediaTitle" => target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" },
+                    "StaticResourceText" => target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" },
+                    "ThemeResourceText" => target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" },
+                    _ => target
+                })
+                .ToArray(),
+            "DiagnosticAnnotatedScrollbar",
+            "DiagnosticColor",
+            "DiagnosticInkControls",
+            "DiagnosticShapes",
+            "DiagnosticSystemBackdrop",
+            "DiagnosticTitleBarCustomization",
+            "DiagnosticXamlControlsResources",
+            "LayoutBorder",
+            "LayoutMediaTitle",
+            "StaticResourceText",
+            "ThemeResourceText");
     }
 
     [TestMethod]
@@ -3204,7 +3246,8 @@ public sealed class MacRuntimeTests
     private static async Task AssertNativeReferenceImporterPassesWithTargetMutationAsync(
         string scenarioRelativePath,
         string fixtureProjectPath,
-        Func<IReadOnlyList<NativeReferenceTarget>, IReadOnlyList<NativeReferenceTarget>> mutateTargets)
+        Func<IReadOnlyList<NativeReferenceTarget>, IReadOnlyList<NativeReferenceTarget>> mutateTargets,
+        params string[] targetNames)
     {
         var sourceRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-native-reference-import-source", Guid.NewGuid().ToString("N"));
         var outputRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-native-reference-import-output", Guid.NewGuid().ToString("N"));
@@ -3275,16 +3318,14 @@ public sealed class MacRuntimeTests
 
         var import = NativeReferenceImporter.Import(RepositoryRoot(), sourceRoot, outputRoot);
 
-        Assert.IsFalse(
-            import.Problems.Any(problem =>
-                problem.Contains("DiagnosticCommandBarFlyout", StringComparison.Ordinal) &&
-                problem.Contains("not a trustworthy native element", StringComparison.Ordinal)),
-            string.Join(Environment.NewLine, import.Problems));
-        Assert.IsFalse(
-            import.Problems.Any(problem =>
-                problem.Contains("DiagnosticMenuFlyout", StringComparison.Ordinal) &&
-                problem.Contains("not a trustworthy native element", StringComparison.Ordinal)),
-            string.Join(Environment.NewLine, import.Problems));
+        foreach (var targetName in targetNames)
+        {
+            Assert.IsFalse(
+                import.Problems.Any(problem =>
+                    problem.Contains(targetName, StringComparison.Ordinal) &&
+                    problem.Contains("not a trustworthy native element", StringComparison.Ordinal)),
+                string.Join(Environment.NewLine, import.Problems));
+        }
     }
 
     private static void AssertCorpusEntry(

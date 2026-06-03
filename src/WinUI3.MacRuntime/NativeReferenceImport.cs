@@ -636,6 +636,29 @@ public static class NativeReferenceImporter
             return false;
         }
 
+        if (component == "AppBarButton.Icon" && simpleType is "FontIcon" or "SymbolIcon")
+        {
+            return false;
+        }
+
+        var allowDiagnosticComponents = component is
+            "Annotated scrollbar" or
+            "Color" or
+            "CornerRadius" or
+            "ResourceDictionary.ThemeDictionaries" or
+            "Setter" or
+            "SolidColorBrush" or
+            "StaticResource" or
+            "Style" or
+            "ThemeResource" or
+            "Title bar customization" or
+            "Window.SystemBackdrop / MicaBackdrop" or
+            "XamlControlsResources";
+        if (allowDiagnosticComponents && simpleType is "Border" or "ContentPresenter" or "TextBlock")
+        {
+            return false;
+        }
+
         var allowContainerComponents = component is
             "Border" or
             "Grid" or
@@ -648,7 +671,7 @@ public static class NativeReferenceImporter
             "Labels and forms" or
             "Shapes" or
             "InkCanvas / InkToolbar";
-        if (allowContainerComponents && simpleType is "Border" or "Grid" or "StackPanel" or "Button" or "CommandBar")
+        if (allowContainerComponents && simpleType is "Border" or "ContentPresenter" or "Ellipse" or "Grid" or "Line" or "Rectangle" or "StackPanel" or "Button" or "CommandBar")
         {
             return false;
         }

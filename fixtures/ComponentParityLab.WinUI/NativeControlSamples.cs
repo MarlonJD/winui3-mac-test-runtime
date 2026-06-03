@@ -360,57 +360,60 @@ internal static class NativeControlSamples
         ContentControl systemBackdropHost)
     {
 #if WINDOWS
+        const double compactLabelWidth = 96;
         SetNativeControl(symbolIconHost, "SymbolIcon", ["Microsoft.UI.Xaml.Controls.SymbolIcon"], control =>
         {
             Set(control, "Symbol", EnumValue("Microsoft.UI.Xaml.Controls.Symbol", "Link"));
-        });
-        SetNativeElement(xamlControlsResourcesHost, "XamlControlsResources", ResourcePreview("XamlControlsResources loaded"));
-        SetNativeElement(themeDictionariesHost, "ResourceDictionary.ThemeDictionaries", ResourcePreview("Theme dictionary sample"));
-        SetNativeElement(colorHost, "Color", ColorSwatch("Color resource", Colors.DodgerBlue));
-        SetNativeElement(solidColorBrushHost, "SolidColorBrush", ColorSwatch("Brush resource", Colors.SeaGreen));
-        SetNativeElement(cornerRadiusHost, "CornerRadius", CornerRadiusPreview());
+        }, compactLabelWidth);
+        SetNativeElement(xamlControlsResourcesHost, "XamlControlsResources", ResourcePreview("XamlControlsResources loaded"), compactLabelWidth);
+        SetNativeElement(themeDictionariesHost, "ResourceDictionary.ThemeDictionaries", ResourcePreview("Theme dictionary sample"), compactLabelWidth);
+        SetNativeElement(colorHost, "Color", ColorSwatch("Color resource", Colors.DodgerBlue), compactLabelWidth);
+        SetNativeElement(solidColorBrushHost, "SolidColorBrush", ColorSwatch("Brush resource", Colors.SeaGreen), compactLabelWidth);
+        SetNativeElement(cornerRadiusHost, "CornerRadius", CornerRadiusPreview(), compactLabelWidth);
         SetNativeControl(expanderHost, "Expander", ["Microsoft.UI.Xaml.Controls.Expander"], control =>
         {
             Set(control, "Header", "More details");
             Set(control, "Content", "Expanded public content");
             Set(control, "IsExpanded", true);
-        });
-        SetNativeControl(annotatedScrollBarHost, "AnnotatedScrollBar", ["Microsoft.UI.Xaml.Controls.AnnotatedScrollBar"]);
+            Set(control, "Width", 220.0);
+            Set(control, "Height", 60.0);
+        }, compactLabelWidth);
+        SetNativeControl(annotatedScrollBarHost, "AnnotatedScrollBar", ["Microsoft.UI.Xaml.Controls.AnnotatedScrollBar"], labelWidth: compactLabelWidth);
         SetNativeControl(semanticZoomHost, "SemanticZoom", ["Microsoft.UI.Xaml.Controls.SemanticZoom"], control =>
         {
             Set(control, "ZoomedInView", new ListView { Items = { "Detailed item" } });
             Set(control, "ZoomedOutView", new GridView { Items = { "Group" } });
-            Set(control, "Width", 280.0);
-            Set(control, "Height", 96.0);
-        });
+            Set(control, "Width", 220.0);
+            Set(control, "Height", 56.0);
+        }, compactLabelWidth);
         SetNativeControl(splitViewHost, "SplitView", ["Microsoft.UI.Xaml.Controls.SplitView"], control =>
         {
             Set(control, "Pane", new TextBlock { Text = "Pane" });
             Set(control, "Content", new TextBlock { Text = "Content" });
             Set(control, "IsPaneOpen", true);
-            Set(control, "Width", 260.0);
-            Set(control, "Height", 96.0);
-        });
+            Set(control, "Width", 220.0);
+            Set(control, "Height", 56.0);
+        }, compactLabelWidth);
         SetNativeControl(twoPaneViewHost, "TwoPaneView", ["Microsoft.UI.Xaml.Controls.TwoPaneView"], control =>
         {
             Set(control, "Pane1", new TextBlock { Text = "Pane 1" });
             Set(control, "Pane2", new TextBlock { Text = "Pane 2" });
-            Set(control, "Width", 300.0);
-            Set(control, "Height", 72.0);
-        });
-        SetNativeControl(animatedIconHost, "AnimatedIcon", ["Microsoft.UI.Xaml.Controls.AnimatedIcon"], ConfigureAnimatedIcon);
-        SetNativeElement(shapesHost, "Shapes", ShapesPreview());
+            Set(control, "Width", 220.0);
+            Set(control, "Height", 48.0);
+        }, compactLabelWidth);
+        SetNativeControl(animatedIconHost, "AnimatedIcon", ["Microsoft.UI.Xaml.Controls.AnimatedIcon"], ConfigureAnimatedIcon, compactLabelWidth);
+        SetNativeElement(shapesHost, "Shapes", ShapesPreview(), compactLabelWidth);
         SetNativeControl(mediaPlayerElementHost, "MediaPlayerElement", ["Microsoft.UI.Xaml.Controls.MediaPlayerElement"], control =>
         {
-            Set(control, "Width", 220.0);
-            Set(control, "Height", 80.0);
+            Set(control, "Width", 180.0);
+            Set(control, "Height", 48.0);
             Set(control, "PosterSource", new SvgImageSource(new Uri("ms-appx:///Assets/PublicPlaceholder.svg")));
             Set(control, "AreTransportControlsEnabled", true);
-        });
+        }, compactLabelWidth);
         SetNativeControl(webView2Host, "WebView2", ["Microsoft.UI.Xaml.Controls.WebView2"], control =>
         {
-            Set(control, "Width", 220.0);
-            Set(control, "Height", 80.0);
+            Set(control, "Width", 180.0);
+            Set(control, "Height", 48.0);
             Invoke(
                 control,
                 "NavigateToString",
@@ -425,10 +428,10 @@ internal static class NativeControlSamples
                   </body>
                 </html>
                 """);
-        });
-        SetNativeElement(inkControlsHost, "InkCanvas / InkToolbar", InkPreview());
-        SetNativeElement(titleBarCustomizationHost, "Title bar customization", ResourcePreview("ExtendsContentIntoTitleBar sample"));
-        SetNativeElement(systemBackdropHost, "Window.SystemBackdrop / MicaBackdrop", ResourcePreview("MicaBackdrop assigned"));
+        }, compactLabelWidth);
+        SetNativeElement(inkControlsHost, "InkCanvas / InkToolbar", InkPreview(), compactLabelWidth);
+        SetNativeElement(titleBarCustomizationHost, "Title bar customization", ResourcePreview("ExtendsContentIntoTitleBar sample"), compactLabelWidth);
+        SetNativeElement(systemBackdropHost, "Window.SystemBackdrop / MicaBackdrop", ResourcePreview("MicaBackdrop assigned"), compactLabelWidth);
 #else
         symbolIconHost.Content = Labeled("SymbolIcon", new Microsoft.UI.Xaml.Controls.SymbolIcon { Symbol = Symbol.Link });
         xamlControlsResourcesHost.Content = Labeled("XamlControlsResources", MacResourcePreview("XamlControlsResources loaded"));
@@ -514,7 +517,8 @@ internal static class NativeControlSamples
         ContentControl host,
         string label,
         string[] typeNames,
-        Action<object>? configure = null)
+        Action<object>? configure = null,
+        double labelWidth = 180)
     {
         var control = Create(typeNames);
         if (control is null)
@@ -526,7 +530,7 @@ internal static class NativeControlSamples
         configure?.Invoke(control);
         if (control is UIElement element)
         {
-            host.Content = Labeled(label, element);
+            host.Content = Labeled(label, element, labelWidth);
             return;
         }
 

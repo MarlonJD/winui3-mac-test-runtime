@@ -228,7 +228,12 @@ internal static class NativeReferenceTargetExporter
             return 1;
         }
 
-        if (element is Button && component is "CommandBarFlyout" or "MenuFlyout")
+        if (element is Button && component is "CommandBarFlyout" or "Context menu pattern" or "MenuFlyout")
+        {
+            return 2;
+        }
+
+        if (element is Border && component == "CornerRadius")
         {
             return 2;
         }

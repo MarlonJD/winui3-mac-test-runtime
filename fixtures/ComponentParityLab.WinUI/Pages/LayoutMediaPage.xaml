@@ -25,7 +25,7 @@
         </ResourceDictionary>
     </Page.Resources>
     <ScrollViewer x:Name="LayoutScrollViewer" VerticalScrollBarVisibility="Auto">
-        <StackPanel x:Name="LayoutMediaRoot" Padding="24,20,24,24" Spacing="10">
+        <StackPanel x:Name="LayoutMediaRoot" Padding="24,20,24,24" Spacing="6">
             <TextBlock x:Name="LayoutMediaTitle" Text="Page 8: Layout, media, visuals" Style="{StaticResource LabTextStyle}" />
             <Grid x:Name="LayoutResourceGrid" ColumnDefinitions="160,*" ColumnSpacing="16">
                 <Border x:Name="LayoutBorder" CornerRadius="{StaticResource LabCornerRadius}">
@@ -35,7 +35,7 @@
                         <FontIcon x:Name="LayoutFontIcon" Glyph="&#xE8A7;" FontSize="18" />
                     </StackPanel>
                 </Border>
-                <Image x:Name="PublicImagePlaceholder" Grid.Column="1" Width="548" Height="96" Stretch="Fill" Source="ms-appx:///Assets/PublicPlaceholder.svg" />
+                <Image x:Name="PublicImagePlaceholder" Grid.Column="1" Width="420" Height="56" Stretch="Fill" Source="ms-appx:///Assets/PublicPlaceholder.svg" />
             </Grid>
             <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticSymbolIcon" />
