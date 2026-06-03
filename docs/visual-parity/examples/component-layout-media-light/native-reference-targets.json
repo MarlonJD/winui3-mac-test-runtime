@@ -5,8 +5,8 @@
   "scenarioName": "component-layout-media-light",
   "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
   "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
-  "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-  "workflowRunId": "26872366140",
+  "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+  "workflowRunId": "26886291295",
   "theme": "light",
   "viewport": {
     "width": 1028,
@@ -23,28 +23,28 @@
     "width": 1028,
     "height": 720
   },
-  "capturedAt": "2026-06-03T08:20:22.1227644\u002B00:00",
+  "capturedAt": "2026-06-03T13:02:30.4044072\u002B00:00",
   "targets": [
     {
       "component": null,
-      "target": "AppBarButtonInnerBorder",
+      "target": "Arrow",
       "identitySource": "x:Name",
       "automationId": "",
-      "name": "AppBarButtonInnerBorder",
-      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "name": "Arrow",
+      "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
       "bounds": {
-        "x": 659,
-        "y": 421,
-        "width": 30,
-        "height": 30
+        "x": 572,
+        "y": 157,
+        "width": 12,
+        "height": 8
       },
       "actualSize": {
-        "width": 30,
-        "height": 30
+        "width": 12,
+        "height": 8
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1210055\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3962472\u002B00:00"
     },
     {
       "component": null,
@@ -65,7 +65,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0955578\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3844331\u002B00:00"
     },
     {
       "component": null,
@@ -86,28 +86,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0922164\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "CastButton",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "CastButton",
-      "elementType": "Microsoft.UI.Xaml.Controls.AppBarButton",
-      "bounds": {
-        "x": 910,
-        "y": 416,
-        "width": 40,
-        "height": 40
-      },
-      "actualSize": {
-        "width": 40,
-        "height": 40
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1218713\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3811765\u002B00:00"
     },
     {
       "component": null,
@@ -128,7 +107,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0973988\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3862758\u002B00:00"
     },
     {
       "component": null,
@@ -149,28 +128,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0982016\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "Content",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "Content",
-      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
-      "bounds": {
-        "x": 666,
-        "y": 428,
-        "width": 16,
-        "height": 16
-      },
-      "actualSize": {
-        "width": 20,
-        "height": 20
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1211112\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3870980\u002B00:00"
     },
     {
       "component": null,
@@ -191,7 +149,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0963439\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3852418\u002B00:00"
     },
     {
       "component": null,
@@ -212,7 +170,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0935241\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3824965\u002B00:00"
     },
     {
       "component": null,
@@ -222,81 +180,39 @@
       "name": "ContentRoot",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 654,
-        "y": 416,
-        "width": 40,
-        "height": 40
+        "x": 385,
+        "y": 557,
+        "width": 320,
+        "height": 46
       },
       "actualSize": {
-        "width": 40,
-        "height": 40
+        "width": 320,
+        "height": 46
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1210369\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4031843\u002B00:00"
     },
     {
       "component": null,
-      "target": "ContentViewbox",
+      "target": "DeterminateProgressBarIndicator",
       "identitySource": "x:Name",
       "automationId": "",
-      "name": "ContentViewbox",
-      "elementType": "Microsoft.UI.Xaml.Controls.Viewbox",
+      "name": "DeterminateProgressBarIndicator",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
       "bounds": {
-        "x": 666,
-        "y": 428,
-        "width": 16,
-        "height": 16
+        "x": 396,
+        "y": 234,
+        "width": 75,
+        "height": 3
       },
       "actualSize": {
-        "width": 16,
-        "height": 16
+        "width": 75,
+        "height": 3
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1210704\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "ControlPanelGrid",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "ControlPanelGrid",
-      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
-      "bounds": {
-        "x": 653,
-        "y": 412,
-        "width": 296,
-        "height": 48
-      },
-      "actualSize": {
-        "width": 296,
-        "height": 48
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1202412\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "ControlPanel_ControlPanelVisibilityStates_Border",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "ControlPanel_ControlPanelVisibilityStates_Border",
-      "elementType": "Microsoft.UI.Xaml.Controls.Border",
-      "bounds": {
-        "x": 653,
-        "y": 436,
-        "width": 296,
-        "height": 24
-      },
-      "actualSize": {
-        "width": 296,
-        "height": 24
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1202118\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3970292\u002B00:00"
     },
     {
       "component": "AnimatedIcon",
@@ -306,8 +222,8 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.AnimatedIcon",
       "bounds": {
-        "x": 723,
-        "y": 370,
+        "x": 385,
+        "y": 607,
         "width": 120,
         "height": 48
       },
@@ -317,7 +233,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1191811\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4040232\u002B00:00"
     },
     {
       "component": "Annotated scrollbar",
@@ -327,8 +243,8 @@
       "name": "PART_ToolTipRail",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 842,
-        "y": 261,
+        "x": 504,
+        "y": 526,
         "width": 1,
         "height": 3
       },
@@ -338,7 +254,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1171425\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3994163\u002B00:00"
     },
     {
       "component": "Color",
@@ -348,8 +264,8 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 674,
-        "y": 161,
+        "x": 385,
+        "y": 429,
         "width": 40,
         "height": 20
       },
@@ -359,7 +275,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1163957\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3978536\u002B00:00"
     },
     {
       "component": null,
@@ -369,18 +285,18 @@
       "name": "DiagnosticCornerRadius",
       "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
       "bounds": {
-        "x": 539,
-        "y": 202,
+        "x": 281,
+        "y": 453,
         "width": 244,
-        "height": 34
+        "height": 50
       },
       "actualSize": {
         "width": 244,
-        "height": 34
+        "height": 50
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1164908\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3979810\u002B00:00"
     },
     {
       "component": "Expander",
@@ -390,18 +306,18 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.Expander",
       "bounds": {
-        "x": 385,
-        "y": 242,
+        "x": 643,
+        "y": 453,
         "width": 220,
-        "height": 60
+        "height": 50
       },
       "actualSize": {
         "width": 220,
-        "height": 60
+        "height": 50
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1166336\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3988255\u002B00:00"
     },
     {
       "component": "InkCanvas / InkToolbar",
@@ -409,41 +325,62 @@
       "identitySource": "x:Name\u002Bnative-descendant",
       "automationId": "",
       "name": "",
-      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 579,
-        "y": 478,
-        "width": 243,
-        "height": 42
+        "x": 385,
+        "y": 317,
+        "width": 200,
+        "height": 48
       },
       "actualSize": {
-        "width": 243,
-        "height": 42
+        "width": 200,
+        "height": 48
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1225220\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3972619\u002B00:00"
     },
     {
       "component": "MediaPlayerElement",
       "target": "DiagnosticMediaPlayerElement",
       "identitySource": "x:Name\u002Bnative-descendant",
       "automationId": "",
-      "name": "",
-      "elementType": "Microsoft.UI.Xaml.Controls.MediaPlayerElement",
+      "name": "ProgressBarTrack",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
       "bounds": {
-        "x": 641,
-        "y": 424,
-        "width": 180,
-        "height": 48
+        "x": 396,
+        "y": 235,
+        "width": 178,
+        "height": 1
       },
       "actualSize": {
-        "width": 180,
-        "height": 48
+        "width": 178,
+        "height": 1
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1200233\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3968703\u002B00:00"
+    },
+    {
+      "component": "ScrollViewer",
+      "target": "DiagnosticScrollViewer",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.ScrollViewer",
+      "bounds": {
+        "x": 385,
+        "y": 152,
+        "width": 200,
+        "height": 42
+      },
+      "actualSize": {
+        "width": 200,
+        "height": 42
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:02:30.3958690\u002B00:00"
     },
     {
       "component": "SemanticZoom",
@@ -453,18 +390,18 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.SemanticZoom",
       "bounds": {
-        "x": 385,
-        "y": 308,
+        "x": 623,
+        "y": 507,
         "width": 220,
-        "height": 56
+        "height": 46
       },
       "actualSize": {
         "width": 220,
-        "height": 56
+        "height": 46
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1178457\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4023908\u002B00:00"
     },
     {
       "component": "Shapes",
@@ -474,8 +411,8 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Shapes.Ellipse",
       "bounds": {
-        "x": 437,
-        "y": 424,
+        "x": 755,
+        "y": 294,
         "width": 28,
         "height": 28
       },
@@ -485,7 +422,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1192708\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3974292\u002B00:00"
     },
     {
       "component": null,
@@ -495,18 +432,18 @@
       "name": "DiagnosticSolidColorBrush",
       "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
       "bounds": {
-        "x": 281,
-        "y": 202,
+        "x": 538,
+        "y": 429,
         "width": 244,
-        "height": 34
+        "height": 20
       },
       "actualSize": {
         "width": 244,
-        "height": 34
+        "height": 20
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1164448\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3979068\u002B00:00"
     },
     {
       "component": "SplitView",
@@ -516,18 +453,18 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.SplitView",
       "bounds": {
-        "x": 723,
-        "y": 308,
+        "x": 385,
+        "y": 557,
         "width": 220,
-        "height": 56
+        "height": 46
       },
       "actualSize": {
         "width": 220,
-        "height": 56
+        "height": 46
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1184708\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4030300\u002B00:00"
     },
     {
       "component": "SymbolIcon",
@@ -537,8 +474,8 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.SymbolIcon",
       "bounds": {
-        "x": 385,
-        "y": 120,
+        "x": 703,
+        "y": 152,
         "width": 120,
         "height": 20
       },
@@ -548,7 +485,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1161755\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3965926\u002B00:00"
     },
     {
       "component": "Window.SystemBackdrop / MicaBackdrop",
@@ -558,8 +495,8 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 735,
-        "y": 532,
+        "x": 385,
+        "y": 659,
         "width": 162,
         "height": 35
       },
@@ -569,7 +506,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1226756\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4042724\u002B00:00"
     },
     {
       "component": null,
@@ -579,8 +516,8 @@
       "name": "DiagnosticThemeDictionaries",
       "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
       "bounds": {
-        "x": 281,
-        "y": 161,
+        "x": 607,
+        "y": 390,
         "width": 275,
         "height": 35
       },
@@ -590,7 +527,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1163198\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3977169\u002B00:00"
     },
     {
       "component": "Title bar customization",
@@ -600,8 +537,8 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 385,
-        "y": 532,
+        "x": 623,
+        "y": 607,
         "width": 232,
         "height": 35
       },
@@ -611,7 +548,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1226023\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4041432\u002B00:00"
     },
     {
       "component": "TwoPaneView",
@@ -621,18 +558,18 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.TwoPaneView",
       "bounds": {
-        "x": 385,
-        "y": 370,
+        "x": 723,
+        "y": 557,
         "width": 220,
-        "height": 48
+        "height": 40
       },
       "actualSize": {
         "width": 220,
-        "height": 48
+        "height": 40
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1188448\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4036336\u002B00:00"
     },
     {
       "component": "WebView2",
@@ -640,20 +577,20 @@
       "identitySource": "x:Name\u002Bnative-descendant",
       "automationId": "",
       "name": "",
-      "elementType": "Microsoft.UI.Xaml.Controls.WebView2",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 385,
-        "y": 478,
-        "width": 180,
-        "height": 48
+        "x": 703,
+        "y": 198,
+        "width": 200,
+        "height": 92
       },
       "actualSize": {
-        "width": 180,
-        "height": 48
+        "width": 200,
+        "height": 92
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1224386\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3971436\u002B00:00"
     },
     {
       "component": "XamlControlsResources",
@@ -663,8 +600,8 @@
       "name": "",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 623,
-        "y": 120,
+        "x": 385,
+        "y": 390,
         "width": 208,
         "height": 35
       },
@@ -674,7 +611,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1162663\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3976590\u002B00:00"
     },
     {
       "component": null,
@@ -695,28 +632,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0977930\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "EllipsisIcon",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "EllipsisIcon",
-      "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
-      "bounds": {
-        "x": 912,
-        "y": 435,
-        "width": 20,
-        "height": 3
-      },
-      "actualSize": {
-        "width": 20,
-        "height": 3
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1223002\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3866749\u002B00:00"
     },
     {
       "component": null,
@@ -726,8 +642,8 @@
       "name": "ExpandCollapseChevron",
       "elementType": "Microsoft.UI.Xaml.Controls.AnimatedIcon",
       "bounds": {
-        "x": 574,
-        "y": 260,
+        "x": 832,
+        "y": 471,
         "width": 12,
         "height": 12
       },
@@ -737,7 +653,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1169024\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3990453\u002B00:00"
     },
     {
       "component": null,
@@ -747,8 +663,8 @@
       "name": "ExpandCollapseChevronBorder",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 564,
-        "y": 250,
+        "x": 822,
+        "y": 461,
         "width": 32,
         "height": 32
       },
@@ -758,7 +674,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1168706\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3990134\u002B00:00"
     },
     {
       "component": null,
@@ -768,8 +684,8 @@
       "name": "ExpanderContent",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 385,
-        "y": 242,
+        "x": 643,
+        "y": 453,
         "width": 220,
         "height": 48
       },
@@ -779,7 +695,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1169677\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3991210\u002B00:00"
     },
     {
       "component": null,
@@ -789,18 +705,18 @@
       "name": "ExpanderContentClip",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 385,
-        "y": 290,
+        "x": 643,
+        "y": 501,
         "width": 220,
-        "height": 12
+        "height": 2
       },
       "actualSize": {
         "width": 220,
-        "height": 12
+        "height": 2
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1169397\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3990907\u002B00:00"
     },
     {
       "component": null,
@@ -810,8 +726,8 @@
       "name": "ExpanderHeader",
       "elementType": "Microsoft.UI.Xaml.Controls.Primitives.ToggleButton",
       "bounds": {
-        "x": 385,
-        "y": 242,
+        "x": 643,
+        "y": 453,
         "width": 220,
         "height": 48
       },
@@ -821,7 +737,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1167138\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3989216\u002B00:00"
     },
     {
       "component": null,
@@ -831,8 +747,8 @@
       "name": "ExpanderHeader",
       "elementType": "Microsoft.UI.Xaml.Controls.Primitives.ToggleButton",
       "bounds": {
-        "x": 385,
-        "y": 242,
+        "x": 643,
+        "y": 453,
         "width": 220,
         "height": 48
       },
@@ -842,28 +758,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "automation-id",
-      "capturedAt": "2026-06-03T08:20:22.1166893\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "FocusBorder",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "FocusBorder",
-      "elementType": "Microsoft.UI.Xaml.Controls.Border",
-      "bounds": {
-        "x": 661,
-        "y": 399,
-        "width": 280,
-        "height": 32
-      },
-      "actualSize": {
-        "width": 280,
-        "height": 32
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1203525\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3988959\u002B00:00"
     },
     {
       "component": null,
@@ -884,7 +779,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1005745\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3896709\u002B00:00"
     },
     {
       "component": null,
@@ -894,81 +789,18 @@
       "name": "HCPaneBorder",
       "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
       "bounds": {
-        "x": 1041,
-        "y": 308,
+        "x": 703,
+        "y": 557,
         "width": 1,
-        "height": 56
+        "height": 46
       },
       "actualSize": {
         "width": 1,
-        "height": 56
+        "height": 46
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1185603\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "HorizontalTemplate",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "HorizontalTemplate",
-      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
-      "bounds": {
-        "x": 661,
-        "y": 399,
-        "width": 280,
-        "height": 32
-      },
-      "actualSize": {
-        "width": 280,
-        "height": 32
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1204211\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "HorizontalThumb",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "HorizontalThumb",
-      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.Thumb",
-      "bounds": {
-        "x": 661,
-        "y": 406,
-        "width": 18,
-        "height": 18
-      },
-      "actualSize": {
-        "width": 18,
-        "height": 18
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1205015\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "HorizontalTrackRect",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "HorizontalTrackRect",
-      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
-      "bounds": {
-        "x": 661,
-        "y": 413,
-        "width": 280,
-        "height": 4
-      },
-      "actualSize": {
-        "width": 280,
-        "height": 4
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1204522\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4031367\u002B00:00"
     },
     {
       "component": null,
@@ -989,7 +821,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0925998\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3815889\u002B00:00"
     },
     {
       "component": null,
@@ -1010,7 +842,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0963818\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3853008\u002B00:00"
     },
     {
       "component": null,
@@ -1031,7 +863,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0948440\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3838107\u002B00:00"
     },
     {
       "component": null,
@@ -1052,7 +884,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1011311\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3901943\u002B00:00"
     },
     {
       "component": null,
@@ -1073,7 +905,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1006215\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3897165\u002B00:00"
     },
     {
       "component": "CornerRadius",
@@ -1084,17 +916,17 @@
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
         "x": 281,
-        "y": 46,
-        "width": 160,
-        "height": 68
+        "y": 40,
+        "width": 280,
+        "height": 108
       },
       "actualSize": {
-        "width": 160,
-        "height": 68
+        "width": 280,
+        "height": 108
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1159034\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3939413\u002B00:00"
     },
     {
       "component": "FontIcon",
@@ -1105,17 +937,17 @@
       "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
       "bounds": {
         "x": 281,
-        "y": 96,
-        "width": 160,
+        "y": 90,
+        "width": 280,
         "height": 18
       },
       "actualSize": {
-        "width": 160,
+        "width": 280,
         "height": 18
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1160634\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3941057\u002B00:00"
     },
     {
       "component": null,
@@ -1136,7 +968,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0994111\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3883568\u002B00:00"
     },
     {
       "component": null,
@@ -1157,7 +989,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1156580\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3904368\u002B00:00"
     },
     {
       "component": "Setter",
@@ -1168,7 +1000,7 @@
       "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
       "bounds": {
         "x": 281,
-        "y": 21,
+        "y": 17,
         "width": 181.9521484375,
         "height": 18.62109375
       },
@@ -1178,7 +1010,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1157639\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3931605\u002B00:00"
     },
     {
       "component": "StackPanel",
@@ -1189,17 +1021,17 @@
       "elementType": "Microsoft.UI.Xaml.Controls.StackPanel",
       "bounds": {
         "x": 281,
-        "y": 46,
-        "width": 160,
-        "height": 68
+        "y": 40,
+        "width": 280,
+        "height": 108
       },
       "actualSize": {
-        "width": 160,
-        "height": 68
+        "width": 280,
+        "height": 108
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1159550\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3940045\u002B00:00"
     },
     {
       "component": "Grid",
@@ -1210,17 +1042,17 @@
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
         "x": 281,
-        "y": 96,
-        "width": 160,
+        "y": 90,
+        "width": 280,
         "height": 18
       },
       "actualSize": {
-        "width": 160,
+        "width": 280,
         "height": 18
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1158436\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3938379\u002B00:00"
     },
     {
       "component": null,
@@ -1230,39 +1062,39 @@
       "name": "LayoutRoot",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 4,
-        "y": 6,
-        "width": 48,
-        "height": 36
+        "x": 396,
+        "y": 234,
+        "width": 178,
+        "height": 3
       },
       "actualSize": {
-        "width": 48,
-        "height": 36
+        "width": 178,
+        "height": 3
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0923250\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3969328\u002B00:00"
     },
     {
-      "component": "ScrollViewer",
-      "target": "LayoutScrollViewer",
-      "identitySource": "x:Name\u002Bnative-descendant",
+      "component": null,
+      "target": "LayoutViewportScrollViewer",
+      "identitySource": "x:Name",
       "automationId": "",
-      "name": "PART_Pane1ScrollViewer",
+      "name": "LayoutViewportScrollViewer",
       "elementType": "Microsoft.UI.Xaml.Controls.ScrollViewer",
       "bounds": {
-        "x": 385,
-        "y": 370,
-        "width": 220,
-        "height": 48
+        "x": 257,
+        "y": 1,
+        "width": 771,
+        "height": 719
       },
       "actualSize": {
-        "width": 220,
-        "height": 48
+        "width": 771,
+        "height": 719
       },
       "visibility": "Visible",
-      "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-03T08:20:22.1155622\u002B00:00"
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:02:30.3903218\u002B00:00"
     },
     {
       "component": null,
@@ -1272,102 +1104,18 @@
       "name": "LightDismissLayer",
       "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
       "bounds": {
-        "x": 723,
-        "y": 308,
+        "x": 385,
+        "y": 557,
         "width": 320,
-        "height": 56
-      },
-      "actualSize": {
-        "width": 320,
-        "height": 56
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1186304\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "MediaControlsCommandBar",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "MediaControlsCommandBar",
-      "elementType": "Microsoft.UI.Xaml.Controls.CommandBar",
-      "bounds": {
-        "x": 654,
-        "y": 416,
-        "width": 294,
-        "height": 40
-      },
-      "actualSize": {
-        "width": 294,
-        "height": 40
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1207184\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "MediaPlayerPresenter",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "MediaPlayerPresenter",
-      "elementType": "Microsoft.UI.Xaml.Controls.MediaPlayerPresenter",
-      "bounds": {
-        "x": 641,
-        "y": 424,
-        "width": 180,
-        "height": 48
-      },
-      "actualSize": {
-        "width": 180,
-        "height": 48
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1201137\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "MediaTransportControls_Command_Border",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "MediaTransportControls_Command_Border",
-      "elementType": "Microsoft.UI.Xaml.Controls.Border",
-      "bounds": {
-        "x": 654,
-        "y": 413,
-        "width": 294,
         "height": 46
       },
       "actualSize": {
-        "width": 294,
+        "width": 320,
         "height": 46
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1206888\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "MediaTransportControls_Timeline_Grid",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "MediaTransportControls_Timeline_Grid",
-      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
-      "bounds": {
-        "x": 654,
-        "y": 413,
-        "width": 294,
-        "height": 18
-      },
-      "actualSize": {
-        "width": 294,
-        "height": 18
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1202848\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4032339\u002B00:00"
     },
     {
       "component": null,
@@ -1388,7 +1136,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0955201\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3843974\u002B00:00"
     },
     {
       "component": null,
@@ -1409,7 +1157,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0949001\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3838557\u002B00:00"
     },
     {
       "component": null,
@@ -1430,7 +1178,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0955957\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3844695\u002B00:00"
     },
     {
       "component": null,
@@ -1451,7 +1199,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0959198\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3848046\u002B00:00"
     },
     {
       "component": null,
@@ -1472,28 +1220,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0985820\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "OverflowPopup",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "OverflowPopup",
-      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.Popup",
-      "bounds": {
-        "x": 654,
-        "y": 416,
-        "width": 294,
-        "height": 40
-      },
-      "actualSize": {
-        "width": 294,
-        "height": 40
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1223460\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3875637\u002B00:00"
     },
     {
       "component": null,
@@ -1503,8 +1230,8 @@
       "name": "PART_LabelsGrid",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 761,
-        "y": 261,
+        "x": 423,
+        "y": 526,
         "width": 44,
         "height": 3
       },
@@ -1514,7 +1241,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1173519\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3997043\u002B00:00"
     },
     {
       "component": null,
@@ -1524,18 +1251,18 @@
       "name": "PART_Pane1ScrollViewer",
       "elementType": "Microsoft.UI.Xaml.Controls.ScrollViewer",
       "bounds": {
-        "x": 385,
-        "y": 370,
+        "x": 723,
+        "y": 557,
         "width": 220,
-        "height": 48
+        "height": 40
       },
       "actualSize": {
         "width": 220,
-        "height": 48
+        "height": 40
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1189264\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4037167\u002B00:00"
     },
     {
       "component": null,
@@ -1545,8 +1272,8 @@
       "name": "PART_RootGrid",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 723,
-        "y": 242,
+        "x": 385,
+        "y": 507,
         "width": 120,
         "height": 41
       },
@@ -1556,7 +1283,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1171919\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3994678\u002B00:00"
     },
     {
       "component": null,
@@ -1566,8 +1293,8 @@
       "name": "PART_ToolTipRail",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 842,
-        "y": 261,
+        "x": 504,
+        "y": 526,
         "width": 1,
         "height": 3
       },
@@ -1577,7 +1304,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1173796\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3997300\u002B00:00"
     },
     {
       "component": null,
@@ -1587,8 +1314,8 @@
       "name": "PART_VerticalDecrementRepeatButton",
       "elementType": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
       "bounds": {
-        "x": 813,
-        "y": 264,
+        "x": 475,
+        "y": 529,
         "width": 30,
         "height": 19
       },
@@ -1598,7 +1325,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1174466\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3997949\u002B00:00"
     },
     {
       "component": null,
@@ -1608,8 +1335,8 @@
       "name": "PART_VerticalDecrementRepeatIcon",
       "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
       "bounds": {
-        "x": 824,
-        "y": 269,
+        "x": 486,
+        "y": 534,
         "width": 8,
         "height": 8
       },
@@ -1619,7 +1346,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1175404\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3998640\u002B00:00"
     },
     {
       "component": null,
@@ -1629,8 +1356,8 @@
       "name": "PART_VerticalGrid",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 723,
-        "y": 261,
+        "x": 385,
+        "y": 526,
         "width": 120,
         "height": 3
       },
@@ -1640,7 +1367,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1173173\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3996768\u002B00:00"
     },
     {
       "component": null,
@@ -1650,8 +1377,8 @@
       "name": "PART_VerticalIncrementRepeatButton",
       "elementType": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
       "bounds": {
-        "x": 813,
-        "y": 242,
+        "x": 475,
+        "y": 507,
         "width": 30,
         "height": 19
       },
@@ -1661,7 +1388,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1172205\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3995109\u002B00:00"
     },
     {
       "component": null,
@@ -1671,8 +1398,8 @@
       "name": "PART_VerticalIncrementRepeatIcon",
       "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
       "bounds": {
-        "x": 824,
-        "y": 247,
+        "x": 486,
+        "y": 512,
         "width": 8,
         "height": 8
       },
@@ -1682,7 +1409,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1172790\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3996386\u002B00:00"
     },
     {
       "component": null,
@@ -1692,8 +1419,8 @@
       "name": "PART_VerticalThumb",
       "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 813,
-        "y": 261,
+        "x": 475,
+        "y": 526,
         "width": 30,
         "height": 3
       },
@@ -1703,7 +1430,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1174180\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3997682\u002B00:00"
     },
     {
       "component": null,
@@ -1724,7 +1451,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0946826\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3836279\u002B00:00"
     },
     {
       "component": null,
@@ -1745,7 +1472,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1006570\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3897603\u002B00:00"
     },
     {
       "component": null,
@@ -1766,7 +1493,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0947388\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3836954\u002B00:00"
     },
     {
       "component": null,
@@ -1776,18 +1503,18 @@
       "name": "PaneRoot",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 723,
-        "y": 308,
+        "x": 385,
+        "y": 557,
         "width": 320,
-        "height": 56
+        "height": 46
       },
       "actualSize": {
         "width": 320,
-        "height": 56
+        "height": 46
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1185226\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4030891\u002B00:00"
     },
     {
       "component": null,
@@ -1808,49 +1535,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0921604\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "PlayPauseButton",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "PlayPauseButton",
-      "elementType": "Microsoft.UI.Xaml.Controls.AppBarButton",
-      "bounds": {
-        "x": 782,
-        "y": 416,
-        "width": 40,
-        "height": 40
-      },
-      "actualSize": {
-        "width": 40,
-        "height": 40
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1212794\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "PlayPauseSymbol",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "PlayPauseSymbol",
-      "elementType": "Microsoft.UI.Xaml.Controls.FontIcon",
-      "bounds": {
-        "x": 794,
-        "y": 428,
-        "width": 16,
-        "height": 16
-      },
-      "actualSize": {
-        "width": 20,
-        "height": 20
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1215025\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3811381\u002B00:00"
     },
     {
       "component": null,
@@ -1871,70 +1556,70 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0960696\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3849444\u002B00:00"
     },
     {
       "component": null,
-      "target": "PrimaryItemsControl",
+      "target": "ProgressBarRoot",
       "identitySource": "x:Name",
       "automationId": "",
-      "name": "PrimaryItemsControl",
-      "elementType": "Microsoft.UI.Xaml.Controls.ItemsControl",
+      "name": "ProgressBarRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
       "bounds": {
-        "x": 654,
-        "y": 416,
-        "width": 296,
-        "height": 40
+        "x": 396,
+        "y": 234,
+        "width": 178,
+        "height": 3
       },
       "actualSize": {
-        "width": 296,
-        "height": 40
+        "width": 178,
+        "height": 3
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1208802\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3969612\u002B00:00"
     },
     {
       "component": null,
-      "target": "ProgressSlider",
+      "target": "ProgressBarTrack",
       "identitySource": "x:Name",
       "automationId": "",
-      "name": "ProgressSlider",
-      "elementType": "Microsoft.UI.Xaml.Controls.Slider",
+      "name": "ProgressBarTrack",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
       "bounds": {
-        "x": 661,
-        "y": 399,
-        "width": 280,
-        "height": 32
+        "x": 396,
+        "y": 235,
+        "width": 178,
+        "height": 1
       },
       "actualSize": {
-        "width": 280,
-        "height": 32
+        "width": 178,
+        "height": 1
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1203149\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3970005\u002B00:00"
     },
     {
       "component": "Image",
-      "target": "PublicImagePlaceholder",
+      "target": "PublicImagePreview",
       "identitySource": "x:Name",
       "automationId": "",
-      "name": "PublicImagePlaceholder",
+      "name": "PublicImagePreview",
       "elementType": "Microsoft.UI.Xaml.Controls.Image",
       "bounds": {
-        "x": 521,
-        "y": 52,
+        "x": 585,
+        "y": 40,
         "width": 420,
-        "height": 56
+        "height": 108
       },
       "actualSize": {
         "width": 420,
-        "height": 56
+        "height": 108
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1161065\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3941615\u002B00:00"
     },
     {
       "component": null,
@@ -1955,7 +1640,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1006884\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3897910\u002B00:00"
     },
     {
       "component": null,
@@ -1965,18 +1650,18 @@
       "name": "Root",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 654,
-        "y": 416,
-        "width": 40,
-        "height": 40
+        "x": 572,
+        "y": 153,
+        "width": 12,
+        "height": 12
       },
       "actualSize": {
-        "width": 40,
-        "height": 40
+        "width": 12,
+        "height": 12
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1209702\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3962159\u002B00:00"
     },
     {
       "component": null,
@@ -1986,18 +1671,18 @@
       "name": "RootGrid",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 653,
-        "y": 436,
-        "width": 296,
-        "height": 24
+        "x": 723,
+        "y": 557,
+        "width": 220,
+        "height": 40
       },
       "actualSize": {
-        "width": 296,
-        "height": 24
+        "width": 220,
+        "height": 40
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1201749\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4036888\u002B00:00"
     },
     {
       "component": null,
@@ -2018,7 +1703,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0915491\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3805285\u002B00:00"
     },
     {
       "component": null,
@@ -2039,7 +1724,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0945861\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3834705\u002B00:00"
     },
     {
       "component": null,
@@ -2049,18 +1734,18 @@
       "name": "ScrollContentPresenter",
       "elementType": "Microsoft.UI.Xaml.Controls.ScrollContentPresenter",
       "bounds": {
-        "x": 424,
-        "y": 370,
+        "x": 762,
+        "y": 557,
         "width": 181,
-        "height": 48
+        "height": 40
       },
       "actualSize": {
         "width": 181,
-        "height": 48
+        "height": 40
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1190876\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4038812\u002B00:00"
     },
     {
       "component": null,
@@ -2070,18 +1755,18 @@
       "name": "ScrollViewer",
       "elementType": "Microsoft.UI.Xaml.Controls.ScrollViewer",
       "bounds": {
-        "x": 385,
-        "y": 308,
+        "x": 623,
+        "y": 507,
         "width": 220,
-        "height": 56
+        "height": 46
       },
       "actualSize": {
         "width": 220,
-        "height": 56
+        "height": 46
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1179215\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4024633\u002B00:00"
     },
     {
       "component": null,
@@ -2102,28 +1787,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0962789\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "SeparatorRectangle",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "SeparatorRectangle",
-      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
-      "bounds": {
-        "x": 740,
-        "y": 444,
-        "width": 1,
-        "height": 24
-      },
-      "actualSize": {
-        "width": 1,
-        "height": 24
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1212321\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3851524\u002B00:00"
     },
     {
       "component": null,
@@ -2144,49 +1808,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1227602\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "SliderContainer",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "SliderContainer",
-      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
-      "bounds": {
-        "x": 661,
-        "y": 399,
-        "width": 280,
-        "height": 32
-      },
-      "actualSize": {
-        "width": 280,
-        "height": 32
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1203908\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "SliderInnerThumb",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "SliderInnerThumb",
-      "elementType": "Microsoft.UI.Xaml.Shapes.Ellipse",
-      "bounds": {
-        "x": 664,
-        "y": 409,
-        "width": 12,
-        "height": 12
-      },
-      "actualSize": {
-        "width": 12,
-        "height": 12
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1205424\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4044033\u002B00:00"
     },
     {
       "component": "StaticResource",
@@ -2197,7 +1819,7 @@
       "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
       "bounds": {
         "x": 281,
-        "y": 46,
+        "y": 40,
         "width": 146.029296875,
         "height": 18.62109375
       },
@@ -2207,7 +1829,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1159861\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3940368\u002B00:00"
     },
     {
       "component": null,
@@ -2228,7 +1850,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0990369\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3879649\u002B00:00"
     },
     {
       "component": null,
@@ -2249,7 +1871,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0969066\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3858765\u002B00:00"
     },
     {
       "component": "SolidColorBrush",
@@ -2260,7 +1882,7 @@
       "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
       "bounds": {
         "x": 281,
-        "y": 71,
+        "y": 65,
         "width": 124.98828125,
         "height": 18.62109375
       },
@@ -2270,70 +1892,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1160226\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "TimeElapsedElement",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "TimeElapsedElement",
-      "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
-      "bounds": {
-        "x": 661,
-        "y": 413,
-        "width": 38.23828125,
-        "height": 15.9609375
-      },
-      "actualSize": {
-        "width": 38,
-        "height": 16
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1206462\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "TimeTextGrid",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "TimeTextGrid",
-      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
-      "bounds": {
-        "x": 661,
-        "y": 413,
-        "width": 280,
-        "height": 16
-      },
-      "actualSize": {
-        "width": 280,
-        "height": 16
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1206141\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "TimedTextSourcePresenter",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "TimedTextSourcePresenter",
-      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
-      "bounds": {
-        "x": 641,
-        "y": 424,
-        "width": 180,
-        "height": 48
-      },
-      "actualSize": {
-        "width": 180,
-        "height": 48
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1223757\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3940660\u002B00:00"
     },
     {
       "component": null,
@@ -2343,8 +1902,8 @@
       "name": "ToggleButtonGrid",
       "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 385,
-        "y": 242,
+        "x": 643,
+        "y": 453,
         "width": 220,
         "height": 48
       },
@@ -2354,7 +1913,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1167958\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3989505\u002B00:00"
     },
     {
       "component": null,
@@ -2375,91 +1934,154 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.0922864\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3812325\u002B00:00"
     },
     {
       "component": null,
-      "target": "TransportControlsPresenter",
+      "target": "VerticalLargeIncrease",
       "identitySource": "x:Name",
       "automationId": "",
-      "name": "TransportControlsPresenter",
-      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "name": "VerticalLargeIncrease",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
       "bounds": {
-        "x": 641,
-        "y": 424,
-        "width": 180,
-        "height": 48
-      },
-      "actualSize": {
-        "width": 180,
-        "height": 48
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1201420\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "VolumeMuteButton",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "VolumeMuteButton",
-      "elementType": "Microsoft.UI.Xaml.Controls.AppBarButton",
-      "bounds": {
-        "x": 654,
-        "y": 416,
-        "width": 40,
-        "height": 40
-      },
-      "actualSize": {
-        "width": 40,
-        "height": 40
-      },
-      "visibility": "Visible",
-      "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1209297\u002B00:00"
-    },
-    {
-      "component": null,
-      "target": "VolumeMuteSymbol",
-      "identitySource": "x:Name",
-      "automationId": "",
-      "name": "VolumeMuteSymbol",
-      "elementType": "Microsoft.UI.Xaml.Controls.SymbolIcon",
-      "bounds": {
-        "x": 666,
-        "y": 428,
-        "width": 16,
+        "x": 572,
+        "y": 165,
+        "width": 12,
         "height": 16
       },
       "actualSize": {
-        "width": 20,
-        "height": 20
+        "width": 12,
+        "height": 16
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1211461\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3963008\u002B00:00"
     },
     {
       "component": null,
-      "target": "ZoomButton",
+      "target": "VerticalPanningRoot",
       "identitySource": "x:Name",
       "automationId": "",
-      "name": "ZoomButton",
-      "elementType": "Microsoft.UI.Xaml.Controls.AppBarButton",
+      "name": "VerticalPanningRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
       "bounds": {
-        "x": 870,
-        "y": 416,
-        "width": 40,
+        "x": 572,
+        "y": 153,
+        "width": 12,
         "height": 40
       },
       "actualSize": {
-        "width": 40,
+        "width": 12,
         "height": 40
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1216266\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.3964571\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "VerticalRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "VerticalRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 572,
+        "y": 153,
+        "width": 12,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:02:30.3961284\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "VerticalScrollBar",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "VerticalScrollBar",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.ScrollBar",
+      "bounds": {
+        "x": 572,
+        "y": 153,
+        "width": 12,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:02:30.3960236\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "VerticalSmallDecrease",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "VerticalSmallDecrease",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
+      "bounds": {
+        "x": 572,
+        "y": 153,
+        "width": 12,
+        "height": 12
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 12
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:02:30.3961848\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "VerticalSmallIncrease",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "VerticalSmallIncrease",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
+      "bounds": {
+        "x": 572,
+        "y": 181,
+        "width": 12,
+        "height": 12
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 12
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:02:30.3963636\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "VerticalTrackRect",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "VerticalTrackRect",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 572,
+        "y": 153,
+        "width": 12,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:02:30.3961574\u002B00:00"
     },
     {
       "component": null,
@@ -2469,8 +2091,8 @@
       "name": "ZoomOutButton",
       "elementType": "Microsoft.UI.Xaml.Controls.Button",
       "bounds": {
-        "x": 574,
-        "y": 333,
+        "x": 812,
+        "y": 522,
         "width": 12,
         "height": 12
       },
@@ -2480,7 +2102,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1183368\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4028000\u002B00:00"
     },
     {
       "component": null,
@@ -2490,18 +2112,18 @@
       "name": "ZoomedInPresenter",
       "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
       "bounds": {
-        "x": 3347,
-        "y": 2440,
+        "x": 3585,
+        "y": 2644,
         "width": 220,
-        "height": 56
+        "height": 46
       },
       "actualSize": {
         "width": 220,
-        "height": 56
+        "height": 46
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-03T08:20:22.1180109\u002B00:00"
+      "capturedAt": "2026-06-03T13:02:30.4025434\u002B00:00"
     }
   ]
 }

@@ -206,6 +206,7 @@
       "status": "supported",
       "catalogId": "xaml-element:CheckBox",
       "usedBy": [
+        "public-admin-workbench",
         "settings-form"
       ]
     },
@@ -216,6 +217,7 @@
       "catalogId": "xaml-element:ComboBox",
       "usedBy": [
         "production-smoke",
+        "public-admin-workbench",
         "settings-form"
       ]
     },
@@ -226,6 +228,15 @@
       "catalogId": "xaml-element:CommandBar",
       "usedBy": [
         "production-smoke",
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "ContentControl",
+      "status": "supported",
+      "catalogId": "xaml-element:ContentControl",
+      "usedBy": [
         "public-admin-workbench"
       ]
     },
@@ -302,6 +313,24 @@
     },
     {
       "kind": "xaml-element",
+      "construct": "ProgressBar",
+      "status": "supported",
+      "catalogId": "xaml-element:ProgressBar",
+      "usedBy": [
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
+      "construct": "RadioButton",
+      "status": "supported",
+      "catalogId": "xaml-element:RadioButton",
+      "usedBy": [
+        "public-admin-workbench"
+      ]
+    },
+    {
+      "kind": "xaml-element",
       "construct": "ResourceDictionary",
       "status": "partial",
       "catalogId": "xaml-element:ResourceDictionary",
@@ -319,6 +348,7 @@
       "catalogId": "xaml-element:ScrollViewer",
       "usedBy": [
         "production-smoke",
+        "public-admin-workbench",
         "settings-form"
       ]
     },
