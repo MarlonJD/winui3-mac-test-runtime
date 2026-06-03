@@ -287,20 +287,9 @@ internal static class Program
 
     private static Rect GetCaptureRect(IntPtr window)
     {
-        if (DwmGetWindowAttribute(
-                window,
-                DwmwaExtendedFrameBounds,
-                out Rect extendedRect,
-                Marshal.SizeOf<Rect>()) == 0 &&
-            extendedRect.Right > extendedRect.Left &&
-            extendedRect.Bottom > extendedRect.Top)
+        if (TryReadWindowRect(window, out var extendedRect))
         {
             return extendedRect;
-        }
-
-        if (GetWindowRect(window, out var rect))
-        {
-            return rect;
         }
 
         throw new InvalidOperationException("Could not read the target window bounds.");
@@ -332,7 +321,7 @@ internal static class Program
         for (var attempt = 0; attempt < 10; attempt++)
         {
             if (!GetClientRect(window, out var clientRect) ||
-                !GetWindowRect(window, out var windowRect))
+                !TryReadWindowRect(window, out var windowRect))
             {
                 Thread.Sleep(150);
                 continue;
@@ -374,6 +363,22 @@ internal static class Program
         throw new InvalidOperationException(
             "Target client area did not match requested viewport after resizing. " +
             $"Expected {viewport.Width}x{viewport.Height}; actual {finalClientRect.Width}x{finalClientRect.Height}.");
+    }
+
+    private static bool TryReadWindowRect(IntPtr window, out Rect rect)
+    {
+        if (DwmGetWindowAttribute(
+                window,
+                DwmwaExtendedFrameBounds,
+                out rect,
+                Marshal.SizeOf<Rect>()) == 0 &&
+            rect.Right > rect.Left &&
+            rect.Bottom > rect.Top)
+        {
+            return true;
+        }
+
+        return GetWindowRect(window, out rect);
     }
 
     private static void StopProcess(Process process)
