@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 
 #if WINDOWS
 using Microsoft.UI.Xaml.Automation;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using System.Text.Json;
 #endif
@@ -45,9 +46,12 @@ internal static class NativeReferenceTargetExporter
             ScenarioName = launchOptions.ScenarioName,
             ScenarioPath = NormalizePath(launchOptions.ScenarioPath),
             FixtureProjectPath = "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            CommitSha = Environment.GetEnvironmentVariable("GITHUB_SHA"),
+            WorkflowRunId = Environment.GetEnvironmentVariable("GITHUB_RUN_ID"),
             Theme = launchOptions.Theme,
             Viewport = new SizeRecord(launchOptions.ViewportWidth, launchOptions.ViewportHeight),
             Scale = launchOptions.Scale,
+            Dimensions = new SizeRecord((int)Math.Round(root.ActualWidth), (int)Math.Round(root.ActualHeight)),
             RootBounds = new BoundsRecord(0, 0, root.ActualWidth, root.ActualHeight),
             Targets = candidates.Values
                 .OrderBy(candidate => candidate.Export.Target, StringComparer.Ordinal)
@@ -137,15 +141,20 @@ internal static class NativeReferenceTargetExporter
             return;
         }
 
-        var bounds = element
+        scenarioTargets.TryGetValue(target, out var component);
+        var boundsElement = SelectBoundsElement(element, component);
+        var boundsSource = ReferenceEquals(boundsElement, element)
+            ? identitySource
+            : identitySource + "+native-descendant";
+        var bounds = boundsElement
             .TransformToVisual(root)
-            .TransformBounds(new Windows.Foundation.Rect(0, 0, element.ActualWidth, element.ActualHeight));
+            .TransformBounds(new Windows.Foundation.Rect(0, 0, boundsElement.ActualWidth, boundsElement.ActualHeight));
         if (bounds.Width <= 0 || bounds.Height <= 0)
         {
             return;
         }
 
-        scenarioTargets.TryGetValue(target, out var component);
+        var capturedAt = DateTimeOffset.UtcNow;
         var candidate = new TargetCandidate(
             target,
             rank,
@@ -153,13 +162,15 @@ internal static class NativeReferenceTargetExporter
             new TargetRecord(
                 component,
                 target,
-                identitySource,
-                AutomationProperties.GetAutomationId(element),
-                element.Name,
-                element.GetType().FullName ?? element.GetType().Name,
+                boundsSource,
+                AutomationProperties.GetAutomationId(boundsElement),
+                boundsElement.Name,
+                boundsElement.GetType().FullName ?? boundsElement.GetType().Name,
                 new BoundsRecord(bounds.X, bounds.Y, bounds.Width, bounds.Height),
-                new SizeRecord(element.ActualWidth, element.ActualHeight),
-                element.Visibility.ToString()));
+                new SizeRecord((int)Math.Round(boundsElement.ActualWidth), (int)Math.Round(boundsElement.ActualHeight)),
+                boundsElement.Visibility.ToString(),
+                boundsSource,
+                capturedAt.ToString("O")));
 
         if (!candidates.TryGetValue(target, out var existing) ||
             candidate.Rank < existing.Rank ||
@@ -167,6 +178,82 @@ internal static class NativeReferenceTargetExporter
         {
             candidates[target] = candidate;
         }
+    }
+
+    private static FrameworkElement SelectBoundsElement(FrameworkElement element, string? component)
+    {
+        if (string.IsNullOrWhiteSpace(component))
+        {
+            return element;
+        }
+
+        return DescendantsAndSelf(element)
+            .Where(candidate =>
+                candidate.ActualWidth > 0 &&
+                candidate.ActualHeight > 0 &&
+                candidate.Visibility == Visibility.Visible)
+            .OrderBy(candidate => CandidateRank(candidate, component))
+            .ThenBy(candidate => candidate.ActualWidth * candidate.ActualHeight)
+            .FirstOrDefault() ?? element;
+    }
+
+    private static IEnumerable<FrameworkElement> DescendantsAndSelf(DependencyObject node)
+    {
+        if (node is FrameworkElement element)
+        {
+            yield return element;
+        }
+
+        var childCount = VisualTreeHelper.GetChildrenCount(node);
+        for (var index = 0; index < childCount; index++)
+        {
+            foreach (var child in DescendantsAndSelf(VisualTreeHelper.GetChild(node, index)))
+            {
+                yield return child;
+            }
+        }
+    }
+
+    private static int CandidateRank(FrameworkElement element, string component)
+    {
+        var simpleType = element.GetType().Name;
+        if (string.Equals(simpleType, component, StringComparison.Ordinal) ||
+            component.EndsWith("." + simpleType, StringComparison.Ordinal))
+        {
+            return 0;
+        }
+
+        if (component.Contains(simpleType, StringComparison.Ordinal))
+        {
+            return 1;
+        }
+
+        if (element is Button && component is "CommandBarFlyout" or "Context menu pattern" or "MenuFlyout")
+        {
+            return 2;
+        }
+
+        if (element is Border && component == "CornerRadius")
+        {
+            return 2;
+        }
+
+        if (element is TextBlock && !string.Equals(component, "TextBlock", StringComparison.Ordinal))
+        {
+            return 100;
+        }
+
+        if (element is ContentControl && component is not "ContentControl" and not "CommandBar.Content")
+        {
+            return 90;
+        }
+
+        if (element is StackPanel && component is not "StackPanel" and not "Labels and forms")
+        {
+            return 80;
+        }
+
+        return 10;
     }
 
     private static string? ReadString(JsonElement element, string propertyName)
@@ -197,9 +284,12 @@ internal static class NativeReferenceTargetExporter
         public string ScenarioName { get; init; } = string.Empty;
         public string? ScenarioPath { get; init; }
         public string? FixtureProjectPath { get; init; }
+        public string? CommitSha { get; init; }
+        public string? WorkflowRunId { get; init; }
         public string Theme { get; init; } = string.Empty;
         public SizeRecord Viewport { get; init; } = new(0, 0);
         public double Scale { get; init; }
+        public SizeRecord Dimensions { get; init; } = new(0, 0);
         public BoundsRecord RootBounds { get; init; } = new(0, 0, 0, 0);
         public string CapturedAt { get; init; } = DateTimeOffset.UtcNow.ToString("O");
         public List<TargetRecord> Targets { get; init; } = [];
@@ -216,7 +306,9 @@ internal static class NativeReferenceTargetExporter
         string ElementType,
         BoundsRecord Bounds,
         SizeRecord ActualSize,
-        string Visibility);
+        string Visibility,
+        string BoundsSource,
+        string CapturedAt);
 
     private sealed record BoundsRecord(double X, double Y, double Width, double Height);
 

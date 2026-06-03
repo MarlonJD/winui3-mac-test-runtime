@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
+    <Content Include="Assets\PublicPlaceholder.svg" />
     <Page Include="MainWindow.xaml" />
     <Page Include="Pages\BasicInputPage.xaml" />
     <Page Include="Pages\TextFormsPage.xaml" />

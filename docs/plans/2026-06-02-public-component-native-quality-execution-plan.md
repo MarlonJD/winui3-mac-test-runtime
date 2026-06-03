@@ -7,6 +7,9 @@ Owner subtree: `tools/winui3-mac-test-runtime`
 Parent plan:
 `docs/plans/2026-06-02-winui-native-quality-all-components-plan.md`
 
+Phase -1 amendment:
+`docs/plans/2026-06-02-native-reference-integrity-first-amendment.md`
+
 ## Goal
 
 Convert the broad WinUI native-quality all-components plan into small,
@@ -176,6 +179,15 @@ the failure recorded as expected for that phase. Do not weaken the dashboard
 gate to make the release candidate pass early.
 
 ## Implementation Phases
+
+### Phase -1: Native Reference Integrity Gate
+
+This phase is required before Phase 0 and before any renderer/component-quality
+work resumes. No visual row may be promoted until native reference crop
+integrity is proven from Windows native element bounds or an explicitly
+reviewed native crop source. A row with a crop but without trustworthy Windows
+native bounds remains a promotion blocker, and `missingNativeReferenceCrops: 0`
+must not be interpreted as reference readiness.
 
 ### Phase 0: Freeze The Dashboard Contract
 

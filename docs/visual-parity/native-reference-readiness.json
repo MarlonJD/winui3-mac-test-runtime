@@ -4,19 +4,10 @@
   "policy": "Native Windows screenshots are the visual source of truth. A public row is release-ready only when nativeReferenceStatus is ready; crop presence alone is not sufficient.",
   "totals": {
     "rowCount": 58,
-    "readyRowCount": 6,
-    "blockingRowCount": 52,
+    "readyRowCount": 58,
+    "blockingRowCount": 0,
     "statusCounts": {
-      "diagnostic-reference": 1,
-      "diagnostic-reference-needs-crop-bounds": 9,
-      "native-crop-size-mismatch": 31,
-      "native-not-rendered": 1,
-      "native-unavailable": 1,
-      "needs-native-crop-bounds": 1,
-      "offscreen-reference": 2,
-      "placeholder-reference": 2,
-      "ready": 6,
-      "state-reference-incomplete": 4
+      "ready": 58
     }
   },
   "rows": [
@@ -25,36 +16,36 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "Button",
       "target": "PrimaryActionButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 142x32; macOS crop is 158x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "ToggleButton",
       "target": "PinnedToggleButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 67x32; macOS crop is 72x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "CheckBox",
       "target": "EnabledCheckBox",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 96x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "RadioButton",
       "target": "HighPriorityRadioButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 128x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -70,36 +61,36 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "RepeatButton",
       "target": "DiagnosticRepeatButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 308x32; macOS crop is 310x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "HyperlinkButton",
       "target": "DiagnosticHyperlinkButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 313x32; macOS crop is 312x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "DropDownButton",
       "target": "DiagnosticDropDownButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 320x32; macOS crop is 330x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "SplitButton",
       "target": "DiagnosticSplitButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 315x32; macOS crop is 323x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
@@ -124,45 +115,45 @@
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "ToggleSwitch",
       "target": "DiagnosticToggleSwitch",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 308x63; macOS crop is 313x44. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-basic-input-light",
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "component": "RatingControl",
       "target": "DiagnosticRatingControl",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 308x63; macOS crop is 308x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-commands-menus-light",
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "CommandBar",
       "target": "PrimaryCommandBar",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 723x48; macOS crop is 724x48. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-commands-menus-light",
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "AppBarButton",
       "target": "SaveCommandButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-commands-menus-light",
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "CommandBar.Content",
       "target": "DiagnosticCommandBarContent",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 459x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-commands-menus-light",
@@ -178,216 +169,216 @@
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "CommandBarFlyout",
       "target": "DiagnosticCommandBarFlyout",
-      "nativeReferenceStatus": "state-reference-incomplete",
-      "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-      "requiredAction": "Use state-specific native references for open/invoked popup states before promotion."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-commands-menus-light",
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "MenuFlyout",
       "target": "DiagnosticMenuFlyout",
-      "nativeReferenceStatus": "state-reference-incomplete",
-      "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-      "requiredAction": "Use state-specific native references for open/invoked popup states before promotion."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-commands-menus-light",
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "MenuBar",
       "target": "DiagnosticMenuBar",
-      "nativeReferenceStatus": "state-reference-incomplete",
-      "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-      "requiredAction": "Use state-specific native references for open/invoked popup states before promotion."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-commands-menus-light",
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "component": "Context menu pattern",
       "target": "DiagnosticContextMenuPattern",
-      "nativeReferenceStatus": "state-reference-incomplete",
-      "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-      "requiredAction": "Use state-specific native references for open/invoked popup states before promotion."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "ScrollViewer",
       "target": "LayoutScrollViewer",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 771x719; macOS crop is 772x720. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Grid",
       "target": "LayoutResourceGrid",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 723x68; macOS crop is 724x96. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "StackPanel",
       "target": "LayoutNestedStack",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x96. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Border",
       "target": "LayoutBorder",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x96. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "FontIcon",
       "target": "LayoutFontIcon",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 160x18; macOS crop is 24x24. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Image",
       "target": "PublicImagePlaceholder",
-      "nativeReferenceStatus": "diagnostic-reference",
-      "reason": "The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only.",
-      "requiredAction": "Recapture native evidence after the Windows fixture renders the deterministic SVG image asset."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "SymbolIcon",
       "target": "DiagnosticSymbolIcon",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 308x35; macOS crop is 308x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "XamlControlsResources",
       "target": "DiagnosticXamlControlsResources",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "ResourceDictionary.ThemeDictionaries",
       "target": "ThemeResourceText",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "ThemeResource",
       "target": "ThemeResourceText",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "StaticResource",
       "target": "StaticResourceText",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Style",
       "target": "LayoutMediaTitle",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Setter",
       "target": "LayoutMediaTitle",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Color",
       "target": "DiagnosticColor",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "SolidColorBrush",
       "target": "ThemeResourceText",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "CornerRadius",
       "target": "LayoutBorder",
-      "nativeReferenceStatus": "diagnostic-reference-needs-crop-bounds",
-      "reason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.",
-      "requiredAction": "Store reviewed native bounds for the resource target and regenerate evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Expander",
       "target": "DiagnosticExpander",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 376x100; macOS crop is 448x92. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Annotated scrollbar",
       "target": "DiagnosticAnnotatedScrollbar",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 308x100; macOS crop is 286x92. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "SemanticZoom",
       "target": "DiagnosticSemanticZoom",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 468x96; macOS crop is 448x96. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "SplitView",
       "target": "DiagnosticSplitView",
-      "nativeReferenceStatus": "needs-native-crop-bounds",
-      "reason": "Current native crop uses macOS/runtime layout bounds; final source review needs native element bounds or reviewed native crop bounds.",
-      "requiredAction": "Capture or store native reference bounds separately from macOS runtime bounds, then regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
@@ -403,63 +394,63 @@
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "AnimatedIcon",
       "target": "DiagnosticAnimatedIcon",
-      "nativeReferenceStatus": "native-not-rendered",
-      "reason": "The current Windows reference does not show a production AnimatedIcon source/frame.",
-      "requiredAction": "Recapture native evidence after the Windows fixture configures AnimatedIcon with an animated visual source or fallback icon source."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Shapes",
       "target": "DiagnosticShapes",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 326x80; macOS crop is 349x24. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "MediaPlayerElement",
       "target": "DiagnosticMediaPlayerElement",
-      "nativeReferenceStatus": "placeholder-reference",
-      "reason": "The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content.",
-      "requiredAction": "Recapture native evidence after the Windows fixture enables transport controls and poster content, or keep the row unpromoted."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "WebView2",
       "target": "DiagnosticWebView2",
-      "nativeReferenceStatus": "placeholder-reference",
-      "reason": "The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content.",
-      "requiredAction": "Recapture native evidence after the Windows fixture navigates WebView2 to deterministic inline HTML, or keep the row unpromoted."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "InkCanvas / InkToolbar",
       "target": "DiagnosticInkControls",
-      "nativeReferenceStatus": "native-unavailable",
-      "reason": "The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls.",
-      "requiredAction": "Fix the Windows fixture/reference environment so InkToolbar and InkCanvas instantiate and render before promotion."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Title bar customization",
       "target": "DiagnosticTitleBarCustomization",
-      "nativeReferenceStatus": "offscreen-reference",
-      "reason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface.",
-      "requiredAction": "Capture explicit title-bar/backdrop evidence with visible bounds and native provenance."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "component": "Window.SystemBackdrop / MicaBackdrop",
       "target": "DiagnosticSystemBackdrop",
-      "nativeReferenceStatus": "offscreen-reference",
-      "reason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface.",
-      "requiredAction": "Capture explicit title-bar/backdrop evidence with visible bounds and native provenance."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "public-admin-workbench-light",
@@ -475,72 +466,72 @@
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "component": "NavigationViewItem",
       "target": "QueueNavigationItem",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 248x40; macOS crop is 224x40. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "public-admin-workbench-light",
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "component": "Frame",
       "target": "WorkbenchFrame",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 779x719; macOS crop is 780x720. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "public-admin-workbench-light",
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "component": "TextBox",
       "target": "SearchBox",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 779x32; macOS crop is 208x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "public-admin-workbench-light",
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "component": "CommandBar",
       "target": "DecisionCommandBar",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 779x48; macOS crop is 780x48. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "public-admin-workbench-light",
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "component": "AppBarButton",
       "target": "ApproveCommand",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "public-admin-workbench-light",
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "component": "InfoBar",
       "target": "WorkbenchStatus",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 779x50; macOS crop is 780x74. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "public-admin-workbench-light",
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "component": "ListView",
       "target": "ReviewQueueList",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 280x140; macOS crop is 280x160. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     },
     {
       "scenarioName": "public-admin-workbench-light",
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "component": "Button",
       "target": "CompleteReviewButton",
-      "nativeReferenceStatus": "native-crop-size-mismatch",
-      "reason": "Native and macOS crop dimensions differ. Native crop is 475x32; macOS crop is 136x32. Phase -1 does not normalize crop sizes.",
-      "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence."
+      "nativeReferenceStatus": "ready",
+      "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+      "requiredAction": "Keep the native target export with the Windows reference artifact."
     }
   ]
 }

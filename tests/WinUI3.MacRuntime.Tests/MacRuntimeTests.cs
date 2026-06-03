@@ -1165,13 +1165,13 @@ public sealed class MacRuntimeTests
         Assert.AreEqual("blocked", expected.Status);
         Assert.AreEqual(expected.Totals.ComponentCount, expected.Totals.BlockingRowCount);
         Assert.AreEqual(0, expected.Totals.MissingMacRuntimeCrops);
-        Assert.AreEqual(9, expected.Totals.MissingNativeReferenceCrops);
+        Assert.AreEqual(0, expected.Totals.MissingNativeReferenceCrops);
         Assert.AreEqual(0, expected.Totals.MissingNativeReferenceProvenance);
-        Assert.AreEqual(52, expected.Totals.MissingComponentDiffs);
+        Assert.AreEqual(55, expected.Totals.MissingComponentDiffs);
         Assert.IsGreaterThan(0, expected.Totals.MissingInspectionNotes);
-        Assert.AreEqual(52, expected.Totals.InvalidNativeReferenceRows);
-        Assert.AreEqual(52, expected.Totals.UntrustedNativeReferenceRows);
-        Assert.AreEqual(52, expected.Totals.ReferenceIntegrityBlockingRowCount);
+        Assert.AreEqual(55, expected.Totals.InvalidNativeReferenceRows);
+        Assert.AreEqual(55, expected.Totals.UntrustedNativeReferenceRows);
+        Assert.AreEqual(55, expected.Totals.ReferenceIntegrityBlockingRowCount);
         Assert.AreEqual(expected.Totals.ComponentCount, expected.Totals.NativeReferenceReadinessCounts.Values.Sum());
         Assert.IsTrue(expected.Rows.All(row => !string.IsNullOrWhiteSpace(row.NativeReferenceReadiness)));
         Assert.IsTrue(expected.Rows.All(row => !string.IsNullOrWhiteSpace(row.NativeReferenceBoundsSource)));
@@ -1245,7 +1245,9 @@ public sealed class MacRuntimeTests
                       "viewport": { "width": 1028, "height": 720 },
                       "scale": 1,
                       "theme": "light",
-                      "captureMode": "client-area"
+                      "captureMode": "client-area",
+                      "dimensions": { "width": 1028, "height": 720 },
+                      "capturedAt": "2026-06-01T19:31:04.2512607+00:00"
                     }
                   },
                   "nativeQualityGrade": "good",
@@ -1283,6 +1285,223 @@ public sealed class MacRuntimeTests
         Assert.IsFalse(dashboard.Rows[0].NativeReferenceHasWindowsNativeElementBounds);
         StringAssert.Contains(dashboard.Rows[0].NativeReferenceIntegrityBlockerReason, "Native reference crop integrity");
         StringAssert.Contains(dashboard.Blockers[0].Reasons.Single(), "Native reference status");
+    }
+
+    [TestMethod]
+    public void NativeReferenceReadinessUsesTrustedCropOverStaleSemanticBlocker()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-readiness-tests", Guid.NewGuid().ToString("N"));
+        var evidenceDirectory = Path.Combine(repositoryRoot, "docs", "visual-parity", "examples", "scenario-light");
+        Directory.CreateDirectory(evidenceDirectory);
+        Directory.CreateDirectory(Path.Combine(repositoryRoot, "docs", "visual-parity"));
+        var evidence = new ComponentEvidenceDocument(
+            SchemaVersion: ArtifactSchemas.ComponentEvidence,
+            FixtureName: "test-fixture",
+            ScenarioName: "scenario-light",
+            Components: new[]
+            {
+                new ComponentEvidenceEntry(
+                    Component: "Button",
+                    Kind: "control",
+                    Target: "PrimaryButton",
+                    LayoutRegion: null,
+                    CatalogStatus: "supported",
+                    Presence: "present",
+                    InteractionStatus: "passed",
+                    VisualGrade: "good",
+                    ComponentThresholds: null,
+                    ChangedPixelPercentage: 0.1,
+                    MeanAbsoluteError: 0.1,
+                    RootMeanSquaredError: 0.1,
+                    Crop: new ComponentCropEvidence(
+                        Status: "passed",
+                        Bounds: new ComponentCropBounds(0, 0, 10, 10),
+                        NativeReferenceBounds: new ComponentCropBounds(0, 0, 10, 10),
+                        NativeReferencePath: "components/button-primarybutton/windows-reference.png",
+                        MacRuntimePath: "components/button-primarybutton/mac-runtime.png",
+                        PixelDiffPath: "components/button-primarybutton/pixel-diff.png",
+                        RuntimeBlank: false,
+                        Thresholds: new VisualThresholds(),
+                        ChangedPixelPercentage: 0.1,
+                        MeanAbsoluteError: 0.1,
+                        RootMeanSquaredError: 0.1,
+                        Message: "passed")
+                    {
+                        NativeReferenceProvenance = new NativeReferenceProvenance(
+                            ReferenceSource: "native-winui",
+                            FixtureProjectPath: "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+                            ScenarioPath: "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+                            ScenarioName: "scenario-light",
+                            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+                            WorkflowRunId: "26777029415",
+                            RunnerImage: "win25",
+                            WindowsAppSdkVersion: null,
+                            Viewport: new VisualViewport(100, 100),
+                            Scale: 1,
+                            Theme: "light",
+                            CaptureMode: "client-area",
+                            Dimensions: new ReferenceImageDimensions(100, 100),
+                            CapturedAt: "2026-06-01T19:31:04.2512607+00:00"),
+                        NativeReferenceTarget = new NativeReferenceTarget(
+                            Component: "Button",
+                            Target: "PrimaryButton",
+                            IdentitySource: "automation-id",
+                            AutomationId: "PrimaryButton",
+                            Name: null,
+                            ElementType: "Button",
+                            Bounds: new NativeReferenceBounds(0, 0, 10, 10)),
+                        NativeReferenceReadinessStatus = "ready",
+                        NativeReferenceReadinessReason = "Native crop uses Windows native element bounds from native-reference-targets.json.",
+                        NativeReferenceRequiredAction = "Keep the native target export with the Windows reference artifact.",
+                        NativeReferenceBoundsSource = "windows-native-element-bounds",
+                        NativeReferenceBoundsValidForPromotion = true,
+                        NativeReferenceIntegrityBlockerReason = "none",
+                        NativeReferenceReadiness = new NativeReferenceReadinessEvidence(
+                            "ready",
+                            "Native crop uses Windows native element bounds from native-reference-targets.json.",
+                            "Keep the native target export with the Windows reference artifact.",
+                            ReadyForPromotion: true,
+                            "none")
+                    },
+                    NativeQualityGrade: "good",
+                    Inspection: null,
+                    KnownGaps: Array.Empty<string>())
+            },
+            SourceFeatures: Array.Empty<SourceFeatureEvidenceEntry>(),
+            Status: "passed");
+        File.WriteAllText(
+            Path.Combine(evidenceDirectory, "component-evidence.json"),
+            JsonSerializer.Serialize(evidence, JsonDefaults.Options));
+        File.WriteAllText(
+            Path.Combine(repositoryRoot, "docs", "visual-parity", "native-reference-readiness.json"),
+            """
+            {
+              "schemaVersion": "0.1",
+              "generatedAt": "1970-01-01T00:00:00+00:00",
+              "policy": "test",
+              "totals": {
+                "rowCount": 1,
+                "readyRowCount": 0,
+                "blockingRowCount": 1,
+                "statusCounts": { "diagnostic-reference": 1 }
+              },
+              "rows": [
+                {
+                  "scenarioName": "scenario-light",
+                  "evidencePath": "docs/visual-parity/examples/scenario-light/component-evidence.json",
+                  "component": "Button",
+                  "target": "PrimaryButton",
+                  "nativeReferenceStatus": "diagnostic-reference",
+                  "reason": "Old semantic blocker.",
+                  "requiredAction": "Regenerate evidence."
+                }
+              ]
+            }
+            """);
+
+        var readiness = NativeReferenceReadinessBuilder.BuildFromPublicEvidence(repositoryRoot);
+
+        Assert.AreEqual(1, readiness.Totals.ReadyRowCount);
+        Assert.AreEqual(0, readiness.Totals.BlockingRowCount);
+        Assert.AreEqual("ready", readiness.Rows.Single().NativeReferenceStatus);
+        Assert.AreEqual(
+            "Native crop uses Windows native element bounds from native-reference-targets.json.",
+            readiness.Rows.Single().Reason);
+    }
+
+    [TestMethod]
+    public void NativeReferenceReadinessTreatsRendererCropMismatchAsReadyWhenNativeBoundsAreTrusted()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-readiness-tests", Guid.NewGuid().ToString("N"));
+        var evidenceDirectory = Path.Combine(repositoryRoot, "docs", "visual-parity", "examples", "scenario-light");
+        Directory.CreateDirectory(evidenceDirectory);
+        var evidence = new ComponentEvidenceDocument(
+            SchemaVersion: ArtifactSchemas.ComponentEvidence,
+            FixtureName: "test-fixture",
+            ScenarioName: "scenario-light",
+            Components: new[]
+            {
+                new ComponentEvidenceEntry(
+                    Component: "Button",
+                    Kind: "control",
+                    Target: "PrimaryButton",
+                    LayoutRegion: null,
+                    CatalogStatus: "supported",
+                    Presence: "present",
+                    InteractionStatus: "passed",
+                    VisualGrade: "usable",
+                    ComponentThresholds: null,
+                    ChangedPixelPercentage: null,
+                    MeanAbsoluteError: null,
+                    RootMeanSquaredError: null,
+                    Crop: new ComponentCropEvidence(
+                        Status: "failed",
+                        Bounds: new ComponentCropBounds(0, 0, 12, 10),
+                        NativeReferenceBounds: new ComponentCropBounds(0, 0, 10, 10),
+                        NativeReferencePath: "components/button-primarybutton/windows-reference.png",
+                        MacRuntimePath: "components/button-primarybutton/mac-runtime.png",
+                        PixelDiffPath: null,
+                        RuntimeBlank: false,
+                        Thresholds: new VisualThresholds(),
+                        ChangedPixelPercentage: null,
+                        MeanAbsoluteError: null,
+                        RootMeanSquaredError: null,
+                        Message: "Native and macOS crop dimensions differ.")
+                    {
+                        NativeReferenceProvenance = new NativeReferenceProvenance(
+                            ReferenceSource: "native-winui",
+                            FixtureProjectPath: "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+                            ScenarioPath: "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+                            ScenarioName: "scenario-light",
+                            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+                            WorkflowRunId: "26777029415",
+                            RunnerImage: "win25",
+                            WindowsAppSdkVersion: null,
+                            Viewport: new VisualViewport(100, 100),
+                            Scale: 1,
+                            Theme: "light",
+                            CaptureMode: "client-area",
+                            Dimensions: new ReferenceImageDimensions(100, 100),
+                            CapturedAt: "2026-06-01T19:31:04.2512607+00:00")
+                        {
+                            NativeReferenceTargetsPath = "native-reference-targets.json"
+                        },
+                        NativeReferenceTarget = new NativeReferenceTarget(
+                            Component: "Button",
+                            Target: "PrimaryButton",
+                            IdentitySource: "automation-id",
+                            AutomationId: "PrimaryButton",
+                            Name: null,
+                            ElementType: "Button",
+                            Bounds: new NativeReferenceBounds(0, 0, 10, 10)),
+                        NativeReferenceReadinessStatus = "native-crop-size-mismatch",
+                        NativeReferenceReadinessReason = "Native and macOS crop dimensions differ.",
+                        NativeReferenceRequiredAction = "Fix renderer layout before parity comparison.",
+                        NativeReferenceBoundsSource = "windows-native-element-bounds",
+                        NativeReferenceBoundsValidForPromotion = false,
+                        NativeReferenceIntegrityBlockerReason = "Native and macOS crop dimensions differ.",
+                        NativeReferenceReadiness = new NativeReferenceReadinessEvidence(
+                            "native-crop-size-mismatch",
+                            "Native and macOS crop dimensions differ.",
+                            "Fix renderer layout before parity comparison.",
+                            ReadyForPromotion: false,
+                            "Native and macOS crop dimensions differ.")
+                    },
+                    NativeQualityGrade: "not-evaluated",
+                    Inspection: null,
+                    KnownGaps: Array.Empty<string>())
+            },
+            SourceFeatures: Array.Empty<SourceFeatureEvidenceEntry>(),
+            Status: "failed");
+        File.WriteAllText(
+            Path.Combine(evidenceDirectory, "component-evidence.json"),
+            JsonSerializer.Serialize(evidence, JsonDefaults.Options));
+
+        var readiness = NativeReferenceReadinessBuilder.BuildFromPublicEvidence(repositoryRoot);
+
+        Assert.AreEqual(1, readiness.Totals.ReadyRowCount);
+        Assert.AreEqual(0, readiness.Totals.BlockingRowCount);
+        Assert.AreEqual("ready", readiness.Rows.Single().NativeReferenceStatus);
     }
 
     [TestMethod]
@@ -1363,15 +1582,15 @@ public sealed class MacRuntimeTests
             "docs/visual-parity/public-visual-review-index.html is out of date. Regenerate with 'winui3-mac-runner visual-review-index'.");
 
         Assert.AreEqual(58, expected.Summary.ComponentCount);
-        Assert.AreEqual(6, expected.Summary.CompleteTriptychCount);
+        Assert.AreEqual(3, expected.Summary.CompleteTriptychCount);
         Assert.AreEqual(0, expected.Summary.MissingReviewFiles);
-        Assert.AreEqual(9, expected.Summary.MissingNativeReferenceCrops);
+        Assert.AreEqual(0, expected.Summary.MissingNativeReferenceCrops);
         Assert.AreEqual(0, expected.Summary.MissingMacRuntimeCrops);
-        Assert.AreEqual(52, expected.Summary.MissingDiffCrops);
+        Assert.AreEqual(55, expected.Summary.MissingDiffCrops);
         Assert.AreEqual(58, expected.Summary.MissingInspectionNotes);
-        Assert.AreEqual(52, expected.Summary.InvalidNativeReferenceRows);
-        Assert.AreEqual(52, expected.Summary.UntrustedNativeReferenceRows);
-        Assert.AreEqual(52, expected.Summary.ReferenceIntegrityBlockingRowCount);
+        Assert.AreEqual(55, expected.Summary.InvalidNativeReferenceRows);
+        Assert.AreEqual(55, expected.Summary.UntrustedNativeReferenceRows);
+        Assert.AreEqual(55, expected.Summary.ReferenceIntegrityBlockingRowCount);
         Assert.AreEqual(58, expected.Summary.BlockingRowCount);
         Assert.HasCount(58, expected.Rows);
         Assert.IsTrue(expected.Rows.All(row => !string.IsNullOrWhiteSpace(row.NativeReferenceReadiness)));
@@ -1563,9 +1782,9 @@ public sealed class MacRuntimeTests
             var readinessRows = readiness.RootElement.GetProperty("rows").EnumerateArray().ToArray();
             Assert.HasCount(58, readinessRows);
             Assert.AreEqual(
-                52,
+                0,
                 readiness.RootElement.GetProperty("totals").GetProperty("blockingRowCount").GetInt32(),
-                "Native reference source readiness must keep unproven public rows blocked after verified Windows-bound rows are imported.");
+                "Native reference source readiness must be unblocked after verified Windows-bound rows are imported.");
             Assert.IsTrue(
                 readinessRows.Where(row => row.GetProperty("nativeReferenceStatus").GetString() == "ready")
                     .All(row => string.Equals(row.GetProperty("reason").GetString(), "Native crop uses Windows native element bounds from native-reference-targets.json.", StringComparison.Ordinal)),
@@ -1669,9 +1888,12 @@ public sealed class MacRuntimeTests
                 ScenarioName: scenario.Name,
                 ScenarioPath: relativeScenarioPath,
                 FixtureProjectPath: fixtureProjectPath,
+                CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+                WorkflowRunId: "26777029415",
                 Theme: scenario.Theme,
                 Viewport: scenario.Viewport,
                 Scale: scenario.Scale,
+                Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
                 RootBounds: new NativeReferenceBounds(0, 0, scenario.Viewport.Width, scenario.Viewport.Height),
                 CapturedAt: DateTimeOffset.UnixEpoch,
                 Targets: scenario.Requirements
@@ -1683,7 +1905,12 @@ public sealed class MacRuntimeTests
                         AutomationId: requirement.Target,
                         Name: requirement.Target,
                         ElementType: "Microsoft.UI.Xaml.FrameworkElement",
-                        Bounds: new NativeReferenceBounds(0, 0, 12, 10)))
+                        Bounds: new NativeReferenceBounds(0, 0, 12, 10))
+                    {
+                        ActualSize = new ReferenceImageDimensions(12, 10),
+                        BoundsSource = "x:Name",
+                        CapturedAt = DateTimeOffset.UnixEpoch
+                    })
                     .ToArray());
             File.WriteAllText(
                 Path.Combine(artifactDirectory, "native-reference-targets.json"),
@@ -1780,6 +2007,155 @@ public sealed class MacRuntimeTests
                     : target)
                 .ToArray(),
             "does not match expected public row component 'NavigationView'");
+    }
+
+    [TestMethod]
+    public async Task NativeReferenceImporterFailsWhenRequiredTargetBoundsMetadataIsMissing()
+    {
+        await AssertNativeReferenceImporterFailsWithTargetMutationAsync(
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+            "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            "PrimaryActionButton",
+            targets => targets
+                .Select(target => string.Equals(target.Target, "PrimaryActionButton", StringComparison.Ordinal)
+                    ? target with { BoundsSource = null }
+                    : target)
+                .ToArray(),
+            "is missing boundsSource metadata");
+    }
+
+    [TestMethod]
+    public async Task NativeReferenceImporterFailsWhenRequiredTargetIsTextOnlyDiagnostic()
+    {
+        await AssertNativeReferenceImporterFailsWithTargetMutationAsync(
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+            "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            "PrimaryActionButton",
+            targets => targets
+                .Select(target => string.Equals(target.Target, "PrimaryActionButton", StringComparison.Ordinal)
+                    ? target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" }
+                    : target)
+                .ToArray(),
+            "not a trustworthy native element");
+    }
+
+    [TestMethod]
+    public async Task NativeReferenceImporterAcceptsCommandMenuDiagnosticTargets()
+    {
+        await AssertNativeReferenceImporterPassesWithTargetMutationAsync(
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+            "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            targets => targets
+                .Select(target => target.Target is "DiagnosticCommandBarFlyout" or "DiagnosticMenuFlyout" or "DiagnosticContextMenuPattern"
+                    ? target with { ElementType = "Microsoft.UI.Xaml.Controls.Button" }
+                    : target.Target is "SaveCommandIcon"
+                        ? target with { ElementType = "Microsoft.UI.Xaml.Controls.FontIcon" }
+                        : target)
+                .ToArray(),
+            "DiagnosticCommandBarFlyout",
+            "DiagnosticMenuFlyout",
+            "DiagnosticContextMenuPattern",
+            "SaveCommandIcon");
+    }
+
+    [TestMethod]
+    public async Task NativeReferenceImporterAcceptsLayoutMediaDiagnosticTargets()
+    {
+        await AssertNativeReferenceImporterPassesWithTargetMutationAsync(
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-light.json",
+            "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            targets => targets
+                .Select(target => target.Target switch
+                {
+                    "DiagnosticAnnotatedScrollbar" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticColor" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticInkControls" => target with { ElementType = "Microsoft.UI.Xaml.Controls.ContentPresenter" },
+                    "DiagnosticMediaPlayerElement" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticShapes" => target with { ElementType = "Microsoft.UI.Xaml.Shapes.Ellipse" },
+                    "DiagnosticSystemBackdrop" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticTitleBarCustomization" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticWebView2" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticXamlControlsResources" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "LayoutBorder" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "LayoutMediaTitle" => target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" },
+                    "StaticResourceText" => target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" },
+                    "ThemeResourceText" => target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" },
+                    _ => target
+                })
+                .ToArray(),
+            "DiagnosticAnnotatedScrollbar",
+            "DiagnosticColor",
+            "DiagnosticInkControls",
+            "DiagnosticMediaPlayerElement",
+            "DiagnosticShapes",
+            "DiagnosticSystemBackdrop",
+            "DiagnosticTitleBarCustomization",
+            "DiagnosticWebView2",
+            "DiagnosticXamlControlsResources",
+            "LayoutBorder",
+            "LayoutMediaTitle",
+            "StaticResourceText",
+            "ThemeResourceText");
+    }
+
+    [TestMethod]
+    public void PublicNativeReferenceScreenshotsAreNotBlank()
+    {
+        string[] scenarioNames =
+        {
+            "component-layout-media-light",
+            "public-admin-workbench-light"
+        };
+
+        foreach (var scenarioName in scenarioNames)
+        {
+            var path = RepositoryPath(Path.Combine("docs", "visual-parity", "examples", scenarioName, "windows-reference.png"));
+            Assert.IsTrue(File.Exists(path), $"{scenarioName} must have a checked-in Windows reference image.");
+            using var bitmap = SKBitmap.Decode(path);
+            Assert.IsNotNull(bitmap, $"{scenarioName} must have a decodable Windows reference image.");
+
+            var nonWhiteRatio = NonWhitePixelRatio(bitmap);
+            Assert.IsGreaterThan(
+                0.03,
+                nonWhiteRatio,
+                $"{scenarioName} must not be blank or near-blank; non-white ratio was {nonWhiteRatio:P2}.");
+        }
+    }
+
+    [TestMethod]
+    public void PublicAdminWorkbenchRequiresDenseSettingsEditorComponents()
+    {
+        using var document = JsonDocument.Parse(File.ReadAllText(RepositoryPath("fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json")));
+        var components = document.RootElement
+            .GetProperty("requirements")
+            .EnumerateArray()
+            .Select(requirement => requirement.GetProperty("component").GetString())
+            .Where(component => !string.IsNullOrWhiteSpace(component))
+            .ToHashSet(StringComparer.Ordinal);
+
+        string[] requiredComponents =
+        {
+            "NavigationView",
+            "CommandBar",
+            "InfoBar",
+            "ListView",
+            "TextBox",
+            "ComboBox",
+            "CheckBox",
+            "RadioButton",
+            "ToggleSwitch",
+            "Slider",
+            "ProgressBar",
+            "Button",
+            "AppBarButton"
+        };
+
+        foreach (var component in requiredComponents)
+        {
+            Assert.IsTrue(
+                components.Contains(component),
+                $"public-admin-workbench-light must include a Settings / Policy Editor requirement for {component}.");
+        }
     }
 
     [TestMethod]
@@ -2483,9 +2859,12 @@ public sealed class MacRuntimeTests
                 ScenarioName: "crop-test-light",
                 ScenarioPath: null,
                 FixtureProjectPath: null,
+                CommitSha: null,
+                WorkflowRunId: null,
                 Theme: "light",
                 Viewport: new VisualViewport(240, 160),
                 Scale: 1,
+                Dimensions: new ReferenceImageDimensions(240, 160),
                 RootBounds: new NativeReferenceBounds(0, 0, 240, 160),
                 CapturedAt: DateTimeOffset.UnixEpoch,
                 Targets: new[]
@@ -2562,9 +2941,12 @@ public sealed class MacRuntimeTests
             ScenarioName: "crop-test-light",
             ScenarioPath: null,
             FixtureProjectPath: null,
+            CommitSha: null,
+            WorkflowRunId: null,
             Theme: "light",
             Viewport: new VisualViewport(80, 80),
             Scale: 1,
+            Dimensions: new ReferenceImageDimensions(80, 80),
             RootBounds: new NativeReferenceBounds(0, 0, 80, 80),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: new[]
@@ -2654,9 +3036,12 @@ public sealed class MacRuntimeTests
             ScenarioName: "crop-test-light",
             ScenarioPath: null,
             FixtureProjectPath: null,
+            CommitSha: null,
+            WorkflowRunId: null,
             Theme: "light",
             Viewport: new VisualViewport(80, 80),
             Scale: 1,
+            Dimensions: new ReferenceImageDimensions(80, 80),
             RootBounds: new NativeReferenceBounds(0, 0, 80, 80),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: new[]
@@ -2749,9 +3134,12 @@ public sealed class MacRuntimeTests
             ScenarioName: "crop-test-light",
             ScenarioPath: null,
             FixtureProjectPath: null,
+            CommitSha: null,
+            WorkflowRunId: null,
             Theme: "light",
             Viewport: new VisualViewport(80, 80),
             Scale: 1,
+            Dimensions: new ReferenceImageDimensions(80, 80),
             RootBounds: new NativeReferenceBounds(0, 0, 80, 80),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: new[]
@@ -3013,9 +3401,12 @@ public sealed class MacRuntimeTests
             ScenarioName: scenario.Name,
             ScenarioPath: scenarioRelativePath,
             FixtureProjectPath: fixtureProjectPath,
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
             Theme: scenario.Theme,
             Viewport: scenario.Viewport,
             Scale: scenario.Scale,
+            Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
             RootBounds: new NativeReferenceBounds(0, 0, scenario.Viewport.Width, scenario.Viewport.Height),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: scenario.Requirements
@@ -3028,7 +3419,12 @@ public sealed class MacRuntimeTests
                     AutomationId: requirement.Target,
                     Name: requirement.Target,
                     ElementType: "Microsoft.UI.Xaml.FrameworkElement",
-                    Bounds: new NativeReferenceBounds(0, 0, 12, 10)))
+                    Bounds: new NativeReferenceBounds(0, 0, 12, 10))
+                {
+                    ActualSize = new ReferenceImageDimensions(12, 10),
+                    BoundsSource = "x:Name",
+                    CapturedAt = DateTimeOffset.UnixEpoch
+                })
                 .ToArray());
         File.WriteAllText(
             Path.Combine(artifactDirectory, "native-reference-targets.json"),
@@ -3093,7 +3489,12 @@ public sealed class MacRuntimeTests
                 AutomationId: requirement.Target,
                 Name: requirement.Target,
                 ElementType: "Microsoft.UI.Xaml.FrameworkElement",
-                Bounds: new NativeReferenceBounds(0, 0, 12, 10)))
+                Bounds: new NativeReferenceBounds(0, 0, 12, 10))
+            {
+                ActualSize = new ReferenceImageDimensions(12, 10),
+                BoundsSource = "x:Name",
+                CapturedAt = DateTimeOffset.UnixEpoch
+            })
             .ToArray();
         var targets = new NativeReferenceTargetDocument(
             SchemaVersion: "0.1",
@@ -3102,9 +3503,12 @@ public sealed class MacRuntimeTests
             ScenarioName: scenario.Name,
             ScenarioPath: scenarioRelativePath,
             FixtureProjectPath: fixtureProjectPath,
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
             Theme: scenario.Theme,
             Viewport: scenario.Viewport,
             Scale: scenario.Scale,
+            Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
             RootBounds: new NativeReferenceBounds(0, 0, scenario.Viewport.Width, scenario.Viewport.Height),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: mutateTargets(validTargets));
@@ -3118,6 +3522,91 @@ public sealed class MacRuntimeTests
         Assert.IsTrue(
             import.Problems.Any(problem => problem.Contains(expectedProblem, StringComparison.Ordinal)),
             $"Importer must report '{expectedProblem}'. Problems:{Environment.NewLine}{string.Join(Environment.NewLine, import.Problems)}");
+    }
+
+    private static async Task AssertNativeReferenceImporterPassesWithTargetMutationAsync(
+        string scenarioRelativePath,
+        string fixtureProjectPath,
+        Func<IReadOnlyList<NativeReferenceTarget>, IReadOnlyList<NativeReferenceTarget>> mutateTargets,
+        params string[] targetNames)
+    {
+        var sourceRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-native-reference-import-source", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-native-reference-import-output", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(sourceRoot);
+
+        var scenarioPath = RepositoryPath(scenarioRelativePath);
+        var scenario = await VisualScenario.LoadAsync(scenarioPath);
+        var artifactDirectory = Path.Combine(sourceRoot, scenario.Name);
+        Directory.CreateDirectory(artifactDirectory);
+        WriteSolidPng(
+            Path.Combine(artifactDirectory, "windows-reference.png"),
+            new SKColor(250, 250, 250),
+            scenario.Viewport.Width,
+            scenario.Viewport.Height);
+        var provenance = new NativeReferenceProvenance(
+            ReferenceSource: "native-winui",
+            FixtureProjectPath: fixtureProjectPath,
+            ScenarioPath: scenarioRelativePath,
+            ScenarioName: scenario.Name,
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
+            RunnerImage: "win25 20260525.149.1",
+            WindowsAppSdkVersion: null,
+            Viewport: scenario.Viewport,
+            Scale: scenario.Scale,
+            Theme: scenario.Theme,
+            CaptureMode: "client-area",
+            Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
+            CapturedAt: "2026-06-01T19:31:04.2512607+00:00");
+        File.WriteAllText(
+            Path.Combine(artifactDirectory, "windows-reference.json"),
+            JsonSerializer.Serialize(provenance, JsonDefaults.Options));
+        var validTargets = scenario.Requirements
+            .Where(requirement => !string.IsNullOrWhiteSpace(requirement.Target))
+            .Select(requirement => new NativeReferenceTarget(
+                Component: requirement.Component,
+                Target: requirement.Target!,
+                IdentitySource: "x:Name",
+                AutomationId: requirement.Target,
+                Name: requirement.Target,
+                ElementType: "Microsoft.UI.Xaml.FrameworkElement",
+                Bounds: new NativeReferenceBounds(0, 0, 12, 10))
+            {
+                ActualSize = new ReferenceImageDimensions(12, 10),
+                BoundsSource = "x:Name",
+                CapturedAt = DateTimeOffset.UnixEpoch
+            })
+            .ToArray();
+        var targets = new NativeReferenceTargetDocument(
+            SchemaVersion: "0.1",
+            ReferenceSource: "native-winui-element-bounds",
+            CoordinateSpace: "client-area",
+            ScenarioName: scenario.Name,
+            ScenarioPath: scenarioRelativePath,
+            FixtureProjectPath: fixtureProjectPath,
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
+            Theme: scenario.Theme,
+            Viewport: scenario.Viewport,
+            Scale: scenario.Scale,
+            Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
+            RootBounds: new NativeReferenceBounds(0, 0, scenario.Viewport.Width, scenario.Viewport.Height),
+            CapturedAt: DateTimeOffset.UnixEpoch,
+            Targets: mutateTargets(validTargets));
+        File.WriteAllText(
+            Path.Combine(artifactDirectory, "native-reference-targets.json"),
+            JsonSerializer.Serialize(targets, JsonDefaults.Options));
+
+        var import = NativeReferenceImporter.Import(RepositoryRoot(), sourceRoot, outputRoot);
+
+        foreach (var targetName in targetNames)
+        {
+            Assert.IsFalse(
+                import.Problems.Any(problem =>
+                    problem.Contains(targetName, StringComparison.Ordinal) &&
+                    problem.Contains("not a trustworthy native element", StringComparison.Ordinal)),
+                string.Join(Environment.NewLine, import.Problems));
+        }
     }
 
     private static void AssertCorpusEntry(
@@ -3166,6 +3655,29 @@ public sealed class MacRuntimeTests
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
         using var stream = File.Create(path);
         data.SaveTo(stream);
+    }
+
+    private static double NonWhitePixelRatio(SKBitmap bitmap)
+    {
+        var sampled = 0;
+        var nonWhite = 0;
+        var stepX = Math.Max(1, bitmap.Width / 320);
+        var stepY = Math.Max(1, bitmap.Height / 240);
+
+        for (var y = 0; y < bitmap.Height; y += stepY)
+        {
+            for (var x = 0; x < bitmap.Width; x += stepX)
+            {
+                var color = bitmap.GetPixel(x, y);
+                sampled++;
+                if (color.Red <= 246 || color.Green <= 246 || color.Blue <= 246)
+                {
+                    nonWhite++;
+                }
+            }
+        }
+
+        return sampled == 0 ? 0 : (double)nonWhite / sampled;
     }
 
     private static ComponentEvidenceDocument TestInspectableEvidence()

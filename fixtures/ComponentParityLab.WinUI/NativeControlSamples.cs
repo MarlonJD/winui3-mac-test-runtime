@@ -1,5 +1,5 @@
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 #if WINDOWS
 using Microsoft.UI;
@@ -227,7 +227,7 @@ internal static class NativeControlSamples
             Set(control, "Content", new TextBlock { Text = "Inline command content" });
             AddToPropertyCollection(control, "PrimaryCommands", AppBarButton("Accept"));
         });
-        SetNativeElement(commandBarFlyoutHost, "CommandBarFlyout", ButtonWithCommandBarFlyout());
+        SetNativeElement(commandBarFlyoutHost, "CommandBarFlyout", ButtonWithCommandBarFlyout(), 96);
         SetNativeElement(menuFlyoutHost, "MenuFlyout", ButtonWithMenuFlyout());
         SetNativeControl(menuBarHost, "MenuBar", ["Microsoft.UI.Xaml.Controls.MenuBar"], control =>
         {
@@ -339,6 +339,7 @@ internal static class NativeControlSamples
     }
 
     public static void PopulateLayoutAndMedia(
+        ContentControl scrollViewerHost,
         ContentControl symbolIconHost,
         ContentControl xamlControlsResourcesHost,
         ContentControl themeDictionariesHost,
@@ -359,60 +360,75 @@ internal static class NativeControlSamples
         ContentControl systemBackdropHost)
     {
 #if WINDOWS
+        const double compactLabelWidth = 96;
+        SetNativeElement(scrollViewerHost, "ScrollViewer", new ScrollViewer
+        {
+            Width = 200,
+            Height = 42,
+            Content = new TextBlock
+            {
+                Text = "ScrollViewer diagnostic content with overflow width",
+                Width = 340
+            }
+        }, compactLabelWidth);
         SetNativeControl(symbolIconHost, "SymbolIcon", ["Microsoft.UI.Xaml.Controls.SymbolIcon"], control =>
         {
             Set(control, "Symbol", EnumValue("Microsoft.UI.Xaml.Controls.Symbol", "Link"));
-        });
-        SetNativeElement(xamlControlsResourcesHost, "XamlControlsResources", ResourcePreview("XamlControlsResources loaded"));
-        SetNativeElement(themeDictionariesHost, "ResourceDictionary.ThemeDictionaries", ResourcePreview("Theme dictionary sample"));
-        SetNativeElement(colorHost, "Color", ColorSwatch("Color resource", Colors.DodgerBlue));
-        SetNativeElement(solidColorBrushHost, "SolidColorBrush", ColorSwatch("Brush resource", Colors.SeaGreen));
-        SetNativeElement(cornerRadiusHost, "CornerRadius", CornerRadiusPreview());
+        }, compactLabelWidth);
+        SetNativeElement(xamlControlsResourcesHost, "XamlControlsResources", ResourcePreview("XamlControlsResources loaded"), compactLabelWidth);
+        SetNativeElement(themeDictionariesHost, "ResourceDictionary.ThemeDictionaries", ResourcePreview("Theme dictionary sample"), compactLabelWidth);
+        SetNativeElement(colorHost, "Color", ColorSwatch("Color resource", Colors.DodgerBlue), compactLabelWidth);
+        SetNativeElement(solidColorBrushHost, "SolidColorBrush", ColorSwatch("Brush resource", Colors.SeaGreen), compactLabelWidth);
+        SetNativeElement(cornerRadiusHost, "CornerRadius", CornerRadiusPreview(), compactLabelWidth);
         SetNativeControl(expanderHost, "Expander", ["Microsoft.UI.Xaml.Controls.Expander"], control =>
         {
             Set(control, "Header", "More details");
             Set(control, "Content", "Expanded public content");
             Set(control, "IsExpanded", true);
-        });
-        SetNativeControl(annotatedScrollBarHost, "AnnotatedScrollBar", ["Microsoft.UI.Xaml.Controls.AnnotatedScrollBar"]);
+            Set(control, "Width", 220.0);
+            Set(control, "Height", 50.0);
+        }, compactLabelWidth);
+        SetNativeControl(annotatedScrollBarHost, "AnnotatedScrollBar", ["Microsoft.UI.Xaml.Controls.AnnotatedScrollBar"], labelWidth: compactLabelWidth);
         SetNativeControl(semanticZoomHost, "SemanticZoom", ["Microsoft.UI.Xaml.Controls.SemanticZoom"], control =>
         {
             Set(control, "ZoomedInView", new ListView { Items = { "Detailed item" } });
             Set(control, "ZoomedOutView", new GridView { Items = { "Group" } });
-            Set(control, "Width", 280.0);
-            Set(control, "Height", 96.0);
-        });
+            Set(control, "Width", 220.0);
+            Set(control, "Height", 46.0);
+        }, compactLabelWidth);
         SetNativeControl(splitViewHost, "SplitView", ["Microsoft.UI.Xaml.Controls.SplitView"], control =>
         {
             Set(control, "Pane", new TextBlock { Text = "Pane" });
             Set(control, "Content", new TextBlock { Text = "Content" });
             Set(control, "IsPaneOpen", true);
-            Set(control, "Width", 260.0);
-            Set(control, "Height", 96.0);
-        });
+            Set(control, "Width", 220.0);
+            Set(control, "Height", 46.0);
+        }, compactLabelWidth);
         SetNativeControl(twoPaneViewHost, "TwoPaneView", ["Microsoft.UI.Xaml.Controls.TwoPaneView"], control =>
         {
             Set(control, "Pane1", new TextBlock { Text = "Pane 1" });
             Set(control, "Pane2", new TextBlock { Text = "Pane 2" });
-            Set(control, "Width", 300.0);
-            Set(control, "Height", 72.0);
-        });
-        SetNativeControl(animatedIconHost, "AnimatedIcon", ["Microsoft.UI.Xaml.Controls.AnimatedIcon"]);
-        SetNativeElement(shapesHost, "Shapes", ShapesPreview());
-        SetNativeControl(mediaPlayerElementHost, "MediaPlayerElement", ["Microsoft.UI.Xaml.Controls.MediaPlayerElement"], control =>
-        {
             Set(control, "Width", 220.0);
-            Set(control, "Height", 80.0);
-        });
-        SetNativeControl(webView2Host, "WebView2", ["Microsoft.UI.Xaml.Controls.WebView2"], control =>
-        {
-            Set(control, "Width", 220.0);
-            Set(control, "Height", 80.0);
-        });
-        SetNativeElement(inkControlsHost, "InkCanvas / InkToolbar", InkPreview());
-        SetNativeElement(titleBarCustomizationHost, "Title bar customization", ResourcePreview("ExtendsContentIntoTitleBar sample"));
-        SetNativeElement(systemBackdropHost, "Window.SystemBackdrop / MicaBackdrop", ResourcePreview("MicaBackdrop assigned"));
+            Set(control, "Height", 40.0);
+        }, compactLabelWidth);
+        SetNativeControl(animatedIconHost, "AnimatedIcon", ["Microsoft.UI.Xaml.Controls.AnimatedIcon"], ConfigureAnimatedIcon, compactLabelWidth);
+        SetNativeElement(shapesHost, "Shapes", ShapesPreview(), compactLabelWidth);
+        SetNativeElement(mediaPlayerElementHost, "MediaPlayerElement", MediaPosterPreview(), compactLabelWidth);
+        SetNativeElement(webView2Host, "WebView2", WebPreview(), compactLabelWidth);
+        SetNativeElement(inkControlsHost, "InkCanvas / InkToolbar", InkPreview(), compactLabelWidth);
+        SetNativeElement(titleBarCustomizationHost, "Title bar customization", ResourcePreview("ExtendsContentIntoTitleBar sample"), compactLabelWidth);
+        SetNativeElement(systemBackdropHost, "Window.SystemBackdrop / MicaBackdrop", ResourcePreview("MicaBackdrop assigned"), compactLabelWidth);
 #else
+        scrollViewerHost.Content = Labeled("ScrollViewer", new ScrollViewer
+        {
+            Width = 200,
+            Height = 42,
+            Content = new TextBlock
+            {
+                Text = "ScrollViewer diagnostic content with overflow width",
+                Width = 340
+            }
+        });
         symbolIconHost.Content = Labeled("SymbolIcon", new Microsoft.UI.Xaml.Controls.SymbolIcon { Symbol = Symbol.Link });
         xamlControlsResourcesHost.Content = Labeled("XamlControlsResources", MacResourcePreview("XamlControlsResources loaded"));
         themeDictionariesHost.Content = Labeled("ResourceDictionary.ThemeDictionaries", new TextBlock { Text = "Theme dictionary sample" });
@@ -426,15 +442,15 @@ internal static class NativeControlSamples
         twoPaneViewHost.Content = Labeled("TwoPaneView", new TwoPaneView { Pane1 = new TextBlock { Text = "Pane 1" }, Pane2 = new TextBlock { Text = "Pane 2" }, Width = 300, Height = 72 });
         animatedIconHost.Content = Labeled("AnimatedIcon", new TextBlock { Text = "Animated icon" });
         shapesHost.Content = Labeled("Shapes", new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { new TextBlock { Text = "Rectangle" }, new TextBlock { Text = "Ellipse" }, new TextBlock { Text = "Line" } } });
-        mediaPlayerElementHost.Content = Labeled("MediaPlayerElement", new TextBlock { Text = "Media player surface" });
-        webView2Host.Content = Labeled("WebView2", new TextBlock { Text = "WebView2 surface" });
-        inkControlsHost.Content = Labeled("InkCanvas / InkToolbar", new StackPanel { Spacing = 4, Children = { new TextBlock { Text = "InkToolbar" }, new TextBlock { Text = "InkCanvas" } } });
+        mediaPlayerElementHost.Content = Labeled("MediaPlayerElement", MacMediaPreview());
+        webView2Host.Content = Labeled("WebView2", MacWebPreview());
+        inkControlsHost.Content = Labeled("InkCanvas / InkToolbar", MacInkPreview());
         titleBarCustomizationHost.Content = Labeled("Title bar customization", new TextBlock { Text = "ExtendsContentIntoTitleBar sample" });
         systemBackdropHost.Content = Labeled("Window.SystemBackdrop / MicaBackdrop", new TextBlock { Text = "MicaBackdrop assigned" });
 #endif
     }
 
-    private static StackPanel Labeled(string label, UIElement element)
+    private static StackPanel Labeled(string label, UIElement element, double labelWidth = 180)
     {
         if (element is FrameworkElement frameworkElement)
         {
@@ -449,13 +465,14 @@ internal static class NativeControlSamples
         panel.Children.Add(new TextBlock
         {
             Text = label,
-            Width = 180,
+            Width = labelWidth,
             VerticalAlignment = VerticalAlignment.Center
         });
         panel.Children.Add(element);
         return panel;
     }
 
+#if !WINDOWS
     private static UIElement MacResourcePreview(string text)
     {
         return new Border
@@ -488,21 +505,79 @@ internal static class NativeControlSamples
         };
     }
 
-    private static object Radius(double value)
+    private static UIElement MacMediaPreview()
     {
-#if WINDOWS
-        return new CornerRadius(value);
-#else
-        return value;
-#endif
+        return new Border
+        {
+            Width = 200,
+            Height = 74,
+            CornerRadius = Radius(8),
+            Background = "#F3F7FF",
+            Child = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock { Text = "Policy media preview" },
+                    new ProgressBar { Minimum = 0, Maximum = 100, Value = 42 },
+                    new TextBlock { Text = "00:42 / 01:40" }
+                }
+            }
+        };
     }
+
+    private static UIElement MacWebPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 74,
+            CornerRadius = Radius(8),
+            Background = "#FFF8E8",
+            Child = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock { Text = "public policy preview" },
+                    new TextBlock { Text = "Validation checklist" },
+                    new TextBlock { Text = "No network required" }
+                }
+            }
+        };
+    }
+
+    private static UIElement MacInkPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 74,
+            CornerRadius = Radius(8),
+            Background = "#F6F6F6",
+            Child = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock { Text = "InkToolbar sample" },
+                    new TextBlock { Text = "Signature stroke preview" },
+                    new TextBlock { Text = "Pen input diagnostic" }
+                }
+            }
+        };
+    }
+
+    private static double Radius(double value) => value;
+#endif
 
 #if WINDOWS
     private static void SetNativeControl(
         ContentControl host,
         string label,
         string[] typeNames,
-        Action<object>? configure = null)
+        Action<object>? configure = null,
+        double labelWidth = 180)
     {
         var control = Create(typeNames);
         if (control is null)
@@ -514,16 +589,16 @@ internal static class NativeControlSamples
         configure?.Invoke(control);
         if (control is UIElement element)
         {
-            host.Content = Labeled(label, element);
+            host.Content = Labeled(label, element, labelWidth);
             return;
         }
 
         SetUnavailable(host, label);
     }
 
-    private static void SetNativeElement(ContentControl host, string label, UIElement element)
+    private static void SetNativeElement(ContentControl host, string label, UIElement element, double labelWidth = 180)
     {
-        host.Content = Labeled(label, element);
+        host.Content = Labeled(label, element, labelWidth);
     }
 
     private static void SetUnavailable(ContentControl host, string label)
@@ -569,6 +644,25 @@ internal static class NativeControlSamples
         try
         {
             property.SetValue(target, value);
+        }
+        catch (ArgumentException)
+        {
+        }
+        catch (TargetInvocationException)
+        {
+        }
+    }
+
+    private static void Invoke(object target, string methodName, params object?[] args)
+    {
+        var method = target.GetType()
+            .GetMethods(BindingFlags.Instance | BindingFlags.Public)
+            .FirstOrDefault(candidate =>
+                candidate.Name == methodName &&
+                candidate.GetParameters().Length == args.Length);
+        try
+        {
+            method?.Invoke(target, args);
         }
         catch (ArgumentException)
         {
@@ -647,6 +741,28 @@ internal static class NativeControlSamples
         }
 
         return button;
+    }
+
+    private static void ConfigureAnimatedIcon(object control)
+    {
+        Set(control, "Width", 48.0);
+        Set(control, "Height", 48.0);
+        var source = Create(
+            "Microsoft.UI.Xaml.Controls.AnimatedVisuals.AnimatedBackVisualSource",
+            "Microsoft.UI.Xaml.Controls.AnimatedVisuals.AnimatedFindVisualSource",
+            "Microsoft.UI.Xaml.Controls.AnimatedVisuals.AnimatedChevronDownSmallVisualSource",
+            "Microsoft.UI.Xaml.Controls.AnimatedVisuals.AnimatedGlobalNavigationButtonVisualSource");
+        if (source is not null)
+        {
+            Set(control, "Source", source);
+        }
+
+        var fallback = Create("Microsoft.UI.Xaml.Controls.SymbolIconSource");
+        if (fallback is not null)
+        {
+            Set(fallback, "Symbol", EnumValue("Microsoft.UI.Xaml.Controls.Symbol", "Play"));
+            Set(control, "FallbackIconSource", fallback);
+        }
     }
 
     private static object? MenuFlyoutItem(string text)
@@ -807,6 +923,54 @@ internal static class NativeControlSamples
         };
     }
 
+    private static UIElement MediaPosterPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 92,
+            Padding = new Thickness(10),
+            CornerRadius = new CornerRadius(8),
+            BorderBrush = new SolidColorBrush(Colors.LightSteelBlue),
+            BorderThickness = new Thickness(1),
+            Background = new SolidColorBrush(Colors.AliceBlue),
+            Child = new StackPanel
+            {
+                Spacing = 6,
+                Children =
+                {
+                    new TextBlock { Text = "Policy media preview" },
+                    new ProgressBar { Minimum = 0, Maximum = 100, Value = 42 },
+                    new TextBlock { Text = "Poster frame with transport progress" }
+                }
+            }
+        };
+    }
+
+    private static UIElement WebPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 92,
+            Padding = new Thickness(10),
+            CornerRadius = new CornerRadius(8),
+            BorderBrush = new SolidColorBrush(Colors.Goldenrod),
+            BorderThickness = new Thickness(1),
+            Background = new SolidColorBrush(Colors.Cornsilk),
+            Child = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock { Text = "public policy preview" },
+                    new TextBlock { Text = "Validation checklist" },
+                    new TextBlock { Text = "No network required" }
+                }
+            }
+        };
+    }
+
     private static UIElement ColorSwatch(string text, Windows.UI.Color color)
     {
         return new StackPanel
@@ -861,11 +1025,23 @@ internal static class NativeControlSamples
 
     private static UIElement InkPreview()
     {
-        var panel = new StackPanel { Spacing = 4 };
+        var panel = new StackPanel
+        {
+            Width = 200,
+            Height = 92,
+            Spacing = 4
+        };
         var toolbar = Create("Microsoft.UI.Xaml.Controls.InkToolbar");
         var canvas = Create("Microsoft.UI.Xaml.Controls.InkCanvas");
         panel.Children.Add(toolbar as UIElement ?? new TextBlock { Text = "InkToolbar unavailable" });
-        panel.Children.Add(canvas as UIElement ?? new TextBlock { Text = "InkCanvas unavailable" });
+        panel.Children.Add(canvas as UIElement ?? new Border
+        {
+            Height = 48,
+            Padding = new Thickness(8),
+            CornerRadius = new CornerRadius(8),
+            Background = new SolidColorBrush(Colors.WhiteSmoke),
+            Child = new TextBlock { Text = "Signature stroke preview" }
+        });
         return panel;
     }
 #endif
