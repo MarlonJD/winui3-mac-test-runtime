@@ -228,7 +228,7 @@ internal static class NativeControlSamples
             Set(control, "Content", new TextBlock { Text = "Inline command content" });
             AddToPropertyCollection(control, "PrimaryCommands", AppBarButton("Accept"));
         });
-        SetNativeElement(commandBarFlyoutHost, "CommandBarFlyout", ButtonWithCommandBarFlyout());
+        SetNativeElement(commandBarFlyoutHost, "CommandBarFlyout", ButtonWithCommandBarFlyout(), 96);
         SetNativeElement(menuFlyoutHost, "MenuFlyout", ButtonWithMenuFlyout());
         SetNativeControl(menuBarHost, "MenuBar", ["Microsoft.UI.Xaml.Controls.MenuBar"], control =>
         {
@@ -451,7 +451,7 @@ internal static class NativeControlSamples
 #endif
     }
 
-    private static StackPanel Labeled(string label, UIElement element)
+    private static StackPanel Labeled(string label, UIElement element, double labelWidth = 180)
     {
         if (element is FrameworkElement frameworkElement)
         {
@@ -466,7 +466,7 @@ internal static class NativeControlSamples
         panel.Children.Add(new TextBlock
         {
             Text = label,
-            Width = 180,
+            Width = labelWidth,
             VerticalAlignment = VerticalAlignment.Center
         });
         panel.Children.Add(element);
@@ -533,9 +533,9 @@ internal static class NativeControlSamples
         SetUnavailable(host, label);
     }
 
-    private static void SetNativeElement(ContentControl host, string label, UIElement element)
+    private static void SetNativeElement(ContentControl host, string label, UIElement element, double labelWidth = 180)
     {
-        host.Content = Labeled(label, element);
+        host.Content = Labeled(label, element, labelWidth);
     }
 
     private static void SetUnavailable(ContentControl host, string label)

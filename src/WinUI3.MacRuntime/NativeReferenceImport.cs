@@ -642,7 +642,9 @@ public static class NativeReferenceImporter
             "StackPanel" or
             "ScrollViewer" or
             "CommandBar.Content" or
+            "CommandBarFlyout" or
             "Context menu pattern" or
+            "MenuFlyout" or
             "Labels and forms" or
             "Shapes" or
             "InkCanvas / InkToolbar";

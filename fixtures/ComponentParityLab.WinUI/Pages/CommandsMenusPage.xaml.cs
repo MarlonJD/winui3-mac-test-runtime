@@ -32,6 +32,7 @@ public sealed partial class CommandsMenusPage : Page
         if (scenarioName.Contains("open-popup", StringComparison.OrdinalIgnoreCase))
         {
             CommandStateText.Text = "Open menu targets visible";
+#if !WINDOWS
             _ = DispatcherQueue.TryEnqueue(() =>
             {
                 SetPopupOpenState(DiagnosticCommandBarFlyout, true);
@@ -39,6 +40,7 @@ public sealed partial class CommandsMenusPage : Page
                 SetPopupOpenState(DiagnosticMenuBar, true);
                 SetPopupOpenState(DiagnosticContextMenuPattern, true);
             });
+#endif
             return;
         }
 

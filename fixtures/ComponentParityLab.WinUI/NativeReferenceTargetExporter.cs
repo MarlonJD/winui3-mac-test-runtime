@@ -228,6 +228,11 @@ internal static class NativeReferenceTargetExporter
             return 1;
         }
 
+        if (element is Button && component is "CommandBarFlyout" or "MenuFlyout")
+        {
+            return 2;
+        }
+
         if (element is TextBlock && !string.Equals(component, "TextBlock", StringComparison.Ordinal))
         {
             return 100;

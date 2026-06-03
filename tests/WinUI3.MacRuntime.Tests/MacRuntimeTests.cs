@@ -1823,6 +1823,19 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task NativeReferenceImporterAcceptsCommandFlyoutLauncherTargets()
+    {
+        await AssertNativeReferenceImporterPassesWithTargetMutationAsync(
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
+            "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            targets => targets
+                .Select(target => target.Target is "DiagnosticCommandBarFlyout" or "DiagnosticMenuFlyout"
+                    ? target with { ElementType = "Microsoft.UI.Xaml.Controls.Button" }
+                    : target)
+                .ToArray());
+    }
+
+    [TestMethod]
     public async Task ProductionStateCoverageReferencesExistingScenarios()
     {
         var repositoryRoot = FindRepositoryRoot();
@@ -3186,6 +3199,92 @@ public sealed class MacRuntimeTests
         Assert.IsTrue(
             import.Problems.Any(problem => problem.Contains(expectedProblem, StringComparison.Ordinal)),
             $"Importer must report '{expectedProblem}'. Problems:{Environment.NewLine}{string.Join(Environment.NewLine, import.Problems)}");
+    }
+
+    private static async Task AssertNativeReferenceImporterPassesWithTargetMutationAsync(
+        string scenarioRelativePath,
+        string fixtureProjectPath,
+        Func<IReadOnlyList<NativeReferenceTarget>, IReadOnlyList<NativeReferenceTarget>> mutateTargets)
+    {
+        var sourceRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-native-reference-import-source", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-native-reference-import-output", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(sourceRoot);
+
+        var scenarioPath = RepositoryPath(scenarioRelativePath);
+        var scenario = await VisualScenario.LoadAsync(scenarioPath);
+        var artifactDirectory = Path.Combine(sourceRoot, scenario.Name);
+        Directory.CreateDirectory(artifactDirectory);
+        WriteSolidPng(
+            Path.Combine(artifactDirectory, "windows-reference.png"),
+            new SKColor(250, 250, 250),
+            scenario.Viewport.Width,
+            scenario.Viewport.Height);
+        var provenance = new NativeReferenceProvenance(
+            ReferenceSource: "native-winui",
+            FixtureProjectPath: fixtureProjectPath,
+            ScenarioPath: scenarioRelativePath,
+            ScenarioName: scenario.Name,
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
+            RunnerImage: "win25 20260525.149.1",
+            WindowsAppSdkVersion: null,
+            Viewport: scenario.Viewport,
+            Scale: scenario.Scale,
+            Theme: scenario.Theme,
+            CaptureMode: "client-area",
+            Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
+            CapturedAt: "2026-06-01T19:31:04.2512607+00:00");
+        File.WriteAllText(
+            Path.Combine(artifactDirectory, "windows-reference.json"),
+            JsonSerializer.Serialize(provenance, JsonDefaults.Options));
+        var validTargets = scenario.Requirements
+            .Where(requirement => !string.IsNullOrWhiteSpace(requirement.Target))
+            .Select(requirement => new NativeReferenceTarget(
+                Component: requirement.Component,
+                Target: requirement.Target!,
+                IdentitySource: "x:Name",
+                AutomationId: requirement.Target,
+                Name: requirement.Target,
+                ElementType: "Microsoft.UI.Xaml.FrameworkElement",
+                Bounds: new NativeReferenceBounds(0, 0, 12, 10))
+            {
+                ActualSize = new ReferenceImageDimensions(12, 10),
+                BoundsSource = "x:Name",
+                CapturedAt = DateTimeOffset.UnixEpoch
+            })
+            .ToArray();
+        var targets = new NativeReferenceTargetDocument(
+            SchemaVersion: "0.1",
+            ReferenceSource: "native-winui-element-bounds",
+            CoordinateSpace: "client-area",
+            ScenarioName: scenario.Name,
+            ScenarioPath: scenarioRelativePath,
+            FixtureProjectPath: fixtureProjectPath,
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
+            Theme: scenario.Theme,
+            Viewport: scenario.Viewport,
+            Scale: scenario.Scale,
+            Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
+            RootBounds: new NativeReferenceBounds(0, 0, scenario.Viewport.Width, scenario.Viewport.Height),
+            CapturedAt: DateTimeOffset.UnixEpoch,
+            Targets: mutateTargets(validTargets));
+        File.WriteAllText(
+            Path.Combine(artifactDirectory, "native-reference-targets.json"),
+            JsonSerializer.Serialize(targets, JsonDefaults.Options));
+
+        var import = NativeReferenceImporter.Import(RepositoryRoot(), sourceRoot, outputRoot);
+
+        Assert.IsFalse(
+            import.Problems.Any(problem =>
+                problem.Contains("DiagnosticCommandBarFlyout", StringComparison.Ordinal) &&
+                problem.Contains("not a trustworthy native element", StringComparison.Ordinal)),
+            string.Join(Environment.NewLine, import.Problems));
+        Assert.IsFalse(
+            import.Problems.Any(problem =>
+                problem.Contains("DiagnosticMenuFlyout", StringComparison.Ordinal) &&
+                problem.Contains("not a trustworthy native element", StringComparison.Ordinal)),
+            string.Join(Environment.NewLine, import.Problems));
     }
 
     private static void AssertCorpusEntry(
