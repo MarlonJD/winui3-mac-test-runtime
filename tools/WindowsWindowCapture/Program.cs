@@ -24,7 +24,11 @@ internal static class Program
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(options.OutputPath))!);
 
             using var process = StartProcess(options);
-            var window = WaitForWindow(options.Title, process, options.Timeout);
+            var window = WaitForWindow(
+                options.Title,
+                process,
+                options.Timeout,
+                options.ClientArea ? options.Viewport : null);
             if (window is null)
             {
                 return Fail(
@@ -134,14 +138,18 @@ internal static class Program
         return process;
     }
 
-    private static WindowMatch? WaitForWindow(string title, Process process, TimeSpan timeout)
+    private static WindowMatch? WaitForWindow(
+        string title,
+        Process process,
+        TimeSpan timeout,
+        CaptureViewport? expectedClientSize)
     {
         var stopAt = DateTimeOffset.UtcNow + timeout;
         var allowProcessFallbackAt = DateTimeOffset.UtcNow + TimeSpan.FromSeconds(Math.Min(5, timeout.TotalSeconds));
         var launchedAt = ReadProcessStartTime(process);
         while (DateTimeOffset.UtcNow < stopAt)
         {
-            var window = FindWindowByTitle(title, launchedAt);
+            var window = FindWindowByTitle(title, launchedAt, expectedClientSize);
             if (window is not null)
             {
                 return window;
@@ -197,7 +205,10 @@ internal static class Program
         }
     }
 
-    private static WindowMatch? FindWindowByTitle(string title, DateTimeOffset? launchedAt)
+    private static WindowMatch? FindWindowByTitle(
+        string title,
+        DateTimeOffset? launchedAt,
+        CaptureViewport? expectedClientSize)
     {
         WindowMatch? result = null;
         EnumWindows((window, _) =>
@@ -214,7 +225,7 @@ internal static class Program
             }
 
             if (!WindowStartedAfterLaunch(window, launchedAt) ||
-                !CanReadWindowBounds(window))
+                !CanReadWindowBounds(window, expectedClientSize))
             {
                 return true;
             }
@@ -249,14 +260,30 @@ internal static class Program
         }
     }
 
-    private static bool CanReadWindowBounds(IntPtr window)
+    private static bool CanReadWindowBounds(IntPtr window, CaptureViewport? expectedClientSize)
     {
-        return GetClientRect(window, out var clientRect) &&
+        if (!GetClientRect(window, out var clientRect) ||
+            clientRect.Width <= 0 ||
+            clientRect.Height <= 0 ||
+            !TryReadWindowRect(window, out var windowRect) ||
+            windowRect.Width <= 0 ||
+            windowRect.Height <= 0)
+        {
+            return false;
+        }
+
+        if (expectedClientSize is null)
+        {
+            return true;
+        }
+
+        var minimumWidth = Math.Max(320, expectedClientSize.Width / 2);
+        var minimumHeight = Math.Max(240, expectedClientSize.Height / 2);
+        return
             clientRect.Width > 0 &&
             clientRect.Height > 0 &&
-            TryReadWindowRect(window, out var windowRect) &&
-            windowRect.Width > 0 &&
-            windowRect.Height > 0;
+            clientRect.Width >= minimumWidth &&
+            clientRect.Height >= minimumHeight;
     }
 
     private static string ReadWindowText(IntPtr window)
