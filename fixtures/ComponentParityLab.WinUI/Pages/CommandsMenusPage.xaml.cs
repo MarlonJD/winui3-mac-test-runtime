@@ -32,10 +32,13 @@ public sealed partial class CommandsMenusPage : Page
         if (scenarioName.Contains("open-popup", StringComparison.OrdinalIgnoreCase))
         {
             CommandStateText.Text = "Open menu targets visible";
-#if !WINDOWS
-            SetPopupOpenState(DiagnosticCommandBarFlyout, true);
-            SetPopupOpenState(DiagnosticMenuFlyout, true);
-#endif
+            _ = DispatcherQueue.TryEnqueue(() =>
+            {
+                SetPopupOpenState(DiagnosticCommandBarFlyout, true);
+                SetPopupOpenState(DiagnosticMenuFlyout, true);
+                SetPopupOpenState(DiagnosticMenuBar, true);
+                SetPopupOpenState(DiagnosticContextMenuPattern, true);
+            });
             return;
         }
 
@@ -55,9 +58,9 @@ public sealed partial class CommandsMenusPage : Page
         CommandStateText.Text = "Refreshed";
     }
 
-#if !WINDOWS
     private void PopulateManagedPopupFixtures()
     {
+#if !WINDOWS
         DiagnosticCommandBarFlyout.Content = new Button
         {
             Content = "Open command flyout",
@@ -93,10 +96,29 @@ public sealed partial class CommandsMenusPage : Page
                 }
             }
         };
+#endif
     }
 
     private static void SetPopupOpenState(ContentControl host, bool isOpen)
     {
+#if WINDOWS
+        if (isOpen && host.Content is StackPanel panel)
+        {
+            foreach (var child in panel.Children.OfType<Button>())
+            {
+                child.Flyout?.ShowAt(child);
+                child.ContextFlyout?.ShowAt(child);
+            }
+
+            foreach (var menuBar in panel.Children.OfType<MenuBar>())
+            {
+                if (menuBar.Items.Count > 0)
+                {
+                    menuBar.Items[0].GetType().GetProperty("IsSubMenuOpen")?.SetValue(menuBar.Items[0], true);
+                }
+            }
+        }
+#else
         if (host.Content is Button { Flyout: CommandBarFlyout commandBarFlyout })
         {
             commandBarFlyout.IsOpen = isOpen;
@@ -106,6 +128,6 @@ public sealed partial class CommandsMenusPage : Page
         {
             menuFlyout.IsOpen = isOpen;
         }
-    }
 #endif
+    }
 }

@@ -343,6 +343,18 @@ jobs:
             if ($targets.referenceSource -ne "native-winui-element-bounds") {
               throw "Native reference target export for $($scenario.Name) was '$($targets.referenceSource)', expected native-winui-element-bounds."
             }
+            if ([string]::IsNullOrWhiteSpace($targets.commitSha) -or $targets.commitSha -ne "${{ github.sha }}") {
+              throw "Native reference target export for $($scenario.Name) is missing matching commitSha provenance."
+            }
+            if ([string]::IsNullOrWhiteSpace($targets.workflowRunId) -or $targets.workflowRunId -ne "${{ github.run_id }}") {
+              throw "Native reference target export for $($scenario.Name) is missing matching workflowRunId provenance."
+            }
+            if (-not $targets.dimensions -or $targets.dimensions.width -le 0 -or $targets.dimensions.height -le 0) {
+              throw "Native reference target export for $($scenario.Name) is missing positive capture dimensions."
+            }
+            if ([string]::IsNullOrWhiteSpace($targets.capturedAt)) {
+              throw "Native reference target export for $($scenario.Name) is missing capturedAt provenance."
+            }
 
             $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
             $expectedTargets = @(
@@ -361,6 +373,12 @@ jobs:
               if (-not [string]::IsNullOrWhiteSpace($target.target)) {
                 $exportedTargets[$target.target] = $true
               }
+              if ([string]::IsNullOrWhiteSpace($target.boundsSource) -or [string]::IsNullOrWhiteSpace($target.capturedAt)) {
+                throw "Native reference target '$($target.target)' for $($scenario.Name) is missing boundsSource/capturedAt metadata."
+              }
+              if (-not $target.actualSize -or $target.actualSize.width -le 0 -or $target.actualSize.height -le 0) {
+                throw "Native reference target '$($target.target)' for $($scenario.Name) is missing positive actualSize metadata."
+              }
             }
 
             foreach ($expectedTarget in $expectedTargets) {
@@ -378,6 +396,7 @@ jobs:
             $fixtureExecutable = (Resolve-Path $scenario.FixtureExecutable).Path
             $fixtureScenarioPath = (Resolve-Path $scenario.Path).Path
             $outDir = "artifacts/windows-reference-screenshots/$($scenario.Name)"
+            $settleMs = if ($scenario.Name -like "*open-popup*") { 1800 } else { 750 }
             New-Item -ItemType Directory -Force $outDir | Out-Null
             $resolvedOutDir = (Resolve-Path $outDir).Path
             $launchLog = Join-Path $resolvedOutDir "native-launch.log"
@@ -401,6 +420,7 @@ jobs:
               --viewport $viewport `
               --scale "$($scenarioJson.scale)" `
               --theme $scenarioJson.theme `
+              --settle-ms $settleMs `
               -- $fixtureExecutable --scenario $fixtureScenarioPath
             $captureExitCode = $LASTEXITCODE
             Remove-Item Env:\WINUI3_MAC_NATIVE_LAUNCH_LOG -ErrorAction SilentlyContinue

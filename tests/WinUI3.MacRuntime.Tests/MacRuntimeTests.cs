@@ -1245,7 +1245,9 @@ public sealed class MacRuntimeTests
                       "viewport": { "width": 1028, "height": 720 },
                       "scale": 1,
                       "theme": "light",
-                      "captureMode": "client-area"
+                      "captureMode": "client-area",
+                      "dimensions": { "width": 1028, "height": 720 },
+                      "capturedAt": "2026-06-01T19:31:04.2512607+00:00"
                     }
                   },
                   "nativeQualityGrade": "good",
@@ -1669,9 +1671,12 @@ public sealed class MacRuntimeTests
                 ScenarioName: scenario.Name,
                 ScenarioPath: relativeScenarioPath,
                 FixtureProjectPath: fixtureProjectPath,
+                CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+                WorkflowRunId: "26777029415",
                 Theme: scenario.Theme,
                 Viewport: scenario.Viewport,
                 Scale: scenario.Scale,
+                Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
                 RootBounds: new NativeReferenceBounds(0, 0, scenario.Viewport.Width, scenario.Viewport.Height),
                 CapturedAt: DateTimeOffset.UnixEpoch,
                 Targets: scenario.Requirements
@@ -1683,7 +1688,12 @@ public sealed class MacRuntimeTests
                         AutomationId: requirement.Target,
                         Name: requirement.Target,
                         ElementType: "Microsoft.UI.Xaml.FrameworkElement",
-                        Bounds: new NativeReferenceBounds(0, 0, 12, 10)))
+                        Bounds: new NativeReferenceBounds(0, 0, 12, 10))
+                    {
+                        ActualSize = new ReferenceImageDimensions(12, 10),
+                        BoundsSource = "x:Name",
+                        CapturedAt = DateTimeOffset.UnixEpoch
+                    })
                     .ToArray());
             File.WriteAllText(
                 Path.Combine(artifactDirectory, "native-reference-targets.json"),
@@ -1780,6 +1790,36 @@ public sealed class MacRuntimeTests
                     : target)
                 .ToArray(),
             "does not match expected public row component 'NavigationView'");
+    }
+
+    [TestMethod]
+    public async Task NativeReferenceImporterFailsWhenRequiredTargetBoundsMetadataIsMissing()
+    {
+        await AssertNativeReferenceImporterFailsWithTargetMutationAsync(
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+            "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            "PrimaryActionButton",
+            targets => targets
+                .Select(target => string.Equals(target.Target, "PrimaryActionButton", StringComparison.Ordinal)
+                    ? target with { BoundsSource = null }
+                    : target)
+                .ToArray(),
+            "is missing boundsSource metadata");
+    }
+
+    [TestMethod]
+    public async Task NativeReferenceImporterFailsWhenRequiredTargetIsTextOnlyDiagnostic()
+    {
+        await AssertNativeReferenceImporterFailsWithTargetMutationAsync(
+            "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+            "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+            "PrimaryActionButton",
+            targets => targets
+                .Select(target => string.Equals(target.Target, "PrimaryActionButton", StringComparison.Ordinal)
+                    ? target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" }
+                    : target)
+                .ToArray(),
+            "not a trustworthy native element");
     }
 
     [TestMethod]
@@ -2483,9 +2523,12 @@ public sealed class MacRuntimeTests
                 ScenarioName: "crop-test-light",
                 ScenarioPath: null,
                 FixtureProjectPath: null,
+                CommitSha: null,
+                WorkflowRunId: null,
                 Theme: "light",
                 Viewport: new VisualViewport(240, 160),
                 Scale: 1,
+                Dimensions: new ReferenceImageDimensions(240, 160),
                 RootBounds: new NativeReferenceBounds(0, 0, 240, 160),
                 CapturedAt: DateTimeOffset.UnixEpoch,
                 Targets: new[]
@@ -2562,9 +2605,12 @@ public sealed class MacRuntimeTests
             ScenarioName: "crop-test-light",
             ScenarioPath: null,
             FixtureProjectPath: null,
+            CommitSha: null,
+            WorkflowRunId: null,
             Theme: "light",
             Viewport: new VisualViewport(80, 80),
             Scale: 1,
+            Dimensions: new ReferenceImageDimensions(80, 80),
             RootBounds: new NativeReferenceBounds(0, 0, 80, 80),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: new[]
@@ -2654,9 +2700,12 @@ public sealed class MacRuntimeTests
             ScenarioName: "crop-test-light",
             ScenarioPath: null,
             FixtureProjectPath: null,
+            CommitSha: null,
+            WorkflowRunId: null,
             Theme: "light",
             Viewport: new VisualViewport(80, 80),
             Scale: 1,
+            Dimensions: new ReferenceImageDimensions(80, 80),
             RootBounds: new NativeReferenceBounds(0, 0, 80, 80),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: new[]
@@ -2749,9 +2798,12 @@ public sealed class MacRuntimeTests
             ScenarioName: "crop-test-light",
             ScenarioPath: null,
             FixtureProjectPath: null,
+            CommitSha: null,
+            WorkflowRunId: null,
             Theme: "light",
             Viewport: new VisualViewport(80, 80),
             Scale: 1,
+            Dimensions: new ReferenceImageDimensions(80, 80),
             RootBounds: new NativeReferenceBounds(0, 0, 80, 80),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: new[]
@@ -3013,9 +3065,12 @@ public sealed class MacRuntimeTests
             ScenarioName: scenario.Name,
             ScenarioPath: scenarioRelativePath,
             FixtureProjectPath: fixtureProjectPath,
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
             Theme: scenario.Theme,
             Viewport: scenario.Viewport,
             Scale: scenario.Scale,
+            Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
             RootBounds: new NativeReferenceBounds(0, 0, scenario.Viewport.Width, scenario.Viewport.Height),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: scenario.Requirements
@@ -3028,7 +3083,12 @@ public sealed class MacRuntimeTests
                     AutomationId: requirement.Target,
                     Name: requirement.Target,
                     ElementType: "Microsoft.UI.Xaml.FrameworkElement",
-                    Bounds: new NativeReferenceBounds(0, 0, 12, 10)))
+                    Bounds: new NativeReferenceBounds(0, 0, 12, 10))
+                {
+                    ActualSize = new ReferenceImageDimensions(12, 10),
+                    BoundsSource = "x:Name",
+                    CapturedAt = DateTimeOffset.UnixEpoch
+                })
                 .ToArray());
         File.WriteAllText(
             Path.Combine(artifactDirectory, "native-reference-targets.json"),
@@ -3093,7 +3153,12 @@ public sealed class MacRuntimeTests
                 AutomationId: requirement.Target,
                 Name: requirement.Target,
                 ElementType: "Microsoft.UI.Xaml.FrameworkElement",
-                Bounds: new NativeReferenceBounds(0, 0, 12, 10)))
+                Bounds: new NativeReferenceBounds(0, 0, 12, 10))
+            {
+                ActualSize = new ReferenceImageDimensions(12, 10),
+                BoundsSource = "x:Name",
+                CapturedAt = DateTimeOffset.UnixEpoch
+            })
             .ToArray();
         var targets = new NativeReferenceTargetDocument(
             SchemaVersion: "0.1",
@@ -3102,9 +3167,12 @@ public sealed class MacRuntimeTests
             ScenarioName: scenario.Name,
             ScenarioPath: scenarioRelativePath,
             FixtureProjectPath: fixtureProjectPath,
+            CommitSha: "95e8d7d49f4efd610ec621db470a3d10ee6e8957",
+            WorkflowRunId: "26777029415",
             Theme: scenario.Theme,
             Viewport: scenario.Viewport,
             Scale: scenario.Scale,
+            Dimensions: new ReferenceImageDimensions(scenario.Viewport.Width, scenario.Viewport.Height),
             RootBounds: new NativeReferenceBounds(0, 0, scenario.Viewport.Width, scenario.Viewport.Height),
             CapturedAt: DateTimeOffset.UnixEpoch,
             Targets: mutateTargets(validTargets));

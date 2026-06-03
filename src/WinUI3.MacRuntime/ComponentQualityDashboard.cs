@@ -397,8 +397,11 @@ public static class ComponentQualityDashboard
             !string.IsNullOrWhiteSpace(ReadString(provenance, "runnerImage")) &&
             !string.IsNullOrWhiteSpace(ReadString(provenance, "theme")) &&
             !string.IsNullOrWhiteSpace(ReadString(provenance, "captureMode")) &&
+            !string.IsNullOrWhiteSpace(ReadString(provenance, "capturedAt")) &&
             provenance.TryGetProperty("viewport", out var viewport) &&
             viewport.ValueKind == JsonValueKind.Object &&
+            provenance.TryGetProperty("dimensions", out var dimensions) &&
+            dimensions.ValueKind == JsonValueKind.Object &&
             provenance.TryGetProperty("scale", out var scale) &&
             scale.ValueKind == JsonValueKind.Number;
     }

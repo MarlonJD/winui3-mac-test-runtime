@@ -30,9 +30,12 @@ public sealed record NativeReferenceTargetDocument(
     string ScenarioName,
     string? ScenarioPath,
     string? FixtureProjectPath,
+    string? CommitSha,
+    string? WorkflowRunId,
     string Theme,
     VisualViewport? Viewport,
     double? Scale,
+    ReferenceImageDimensions? Dimensions,
     NativeReferenceBounds? RootBounds,
     DateTimeOffset? CapturedAt,
     IReadOnlyList<NativeReferenceTarget> Targets);
@@ -50,7 +53,13 @@ public sealed record NativeReferenceTarget(
     string? AutomationId,
     string? Name,
     string? ElementType,
-    NativeReferenceBounds Bounds);
+    NativeReferenceBounds Bounds)
+{
+    public ReferenceImageDimensions? ActualSize { get; init; }
+    public string? Visibility { get; init; }
+    public string? BoundsSource { get; init; }
+    public DateTimeOffset? CapturedAt { get; init; }
+}
 
 public sealed record NativeReferenceProvenance(
     string? ReferenceSource,
@@ -118,6 +127,8 @@ public sealed record ComponentCropEvidence(
 
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public ComponentCropBoundsDelta? NativeReferenceBoundsDelta { get; init; }
+
+    public string? ComparisonNormalizationPolicy { get; init; }
 }
 
 public sealed record ComponentInspectionEvidence(

@@ -48,9 +48,11 @@ internal static class Program
                 ResizeClientArea(window.Handle, options.Viewport);
             }
 
+            Thread.Sleep(options.SettleDelay);
             var captureRect = Capture(window.Handle, options.OutputPath, options.ClientArea);
             if (!string.IsNullOrWhiteSpace(options.MetadataOutputPath))
             {
+                var workflowRunId = options.WorkflowRunId ?? Environment.GetEnvironmentVariable("GITHUB_RUN_ID");
                 File.WriteAllText(options.MetadataOutputPath, JsonSerializer.Serialize(new
                 {
                     schemaVersion = "0.2",
@@ -59,7 +61,8 @@ internal static class Program
                     scenarioPath = options.ScenarioPath,
                     scenarioName = options.ScenarioName,
                     commitSha = options.CommitSha ?? Environment.GetEnvironmentVariable("GITHUB_SHA"),
-                    workflowRunId = options.WorkflowRunId ?? Environment.GetEnvironmentVariable("GITHUB_RUN_ID"),
+                    workflowRunId,
+                    captureRunId = workflowRunId,
                     runnerImage = options.RunnerImage ?? ReadRunnerImage(),
                     viewport = options.Viewport is null
                         ? null
@@ -73,6 +76,7 @@ internal static class Program
                     windowTitle = options.Title,
                     actualWindowTitle = window.Title,
                     titleMatched = window.MatchedExpectedTitle,
+                    settleDelayMs = (int)options.SettleDelay.TotalMilliseconds,
                     outputPath = Path.GetFullPath(options.OutputPath),
                     captureMode = options.ClientArea ? "client-area" : "window-frame",
                     dimensions = new
@@ -434,6 +438,7 @@ internal static class Program
         CaptureViewport? Viewport,
         double? Scale,
         string? Theme,
+        TimeSpan SettleDelay,
         IReadOnlyList<string> Command)
     {
         public static CaptureOptions Parse(string[] args)
@@ -441,7 +446,7 @@ internal static class Program
             var separator = Array.IndexOf(args, "--");
             if (separator < 0 || separator == args.Length - 1)
             {
-                throw new ArgumentException("Usage: WindowsWindowCapture --title <title> --output <png> [--metadata-output <json>] [--client-area] [--require-title-match] [--timeout-seconds 30] -- <command> [args...]");
+                throw new ArgumentException("Usage: WindowsWindowCapture --title <title> --output <png> [--metadata-output <json>] [--client-area] [--require-title-match] [--timeout-seconds 30] [--settle-ms 750] -- <command> [args...]");
             }
 
             string? title = null;
@@ -460,6 +465,7 @@ internal static class Program
             CaptureViewport? viewport = null;
             double? scale = null;
             string? theme = null;
+            var settleDelay = TimeSpan.FromMilliseconds(750);
 
             for (var index = 0; index < separator; index++)
             {
@@ -513,6 +519,9 @@ internal static class Program
                     case "--theme":
                         theme = ReadValue(args, ++index, "--theme");
                         break;
+                    case "--settle-ms":
+                        settleDelay = TimeSpan.FromMilliseconds(ReadNonNegativeInt(ReadValue(args, ++index, "--settle-ms"), "--settle-ms"));
+                        break;
                     default:
                         throw new ArgumentException($"Unknown option '{args[index]}'.");
                 }
@@ -545,6 +554,7 @@ internal static class Program
                 viewport,
                 scale,
                 theme,
+                settleDelay,
                 args[(separator + 1)..]);
         }
 
@@ -565,6 +575,17 @@ internal static class Program
                 number <= 0)
             {
                 throw new ArgumentException($"{option} must be a positive number.");
+            }
+
+            return number;
+        }
+
+        private static int ReadNonNegativeInt(string value, string option)
+        {
+            if (!int.TryParse(value, NumberStyles.None, CultureInfo.InvariantCulture, out var number) ||
+                number < 0)
+            {
+                throw new ArgumentException($"{option} must be a non-negative integer.");
             }
 
             return number;

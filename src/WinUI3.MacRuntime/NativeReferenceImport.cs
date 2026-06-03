@@ -318,6 +318,11 @@ public static class NativeReferenceImporter
             problems.Add("viewport is missing.");
         }
 
+        if (provenance.Dimensions is not { Width: > 0, Height: > 0 })
+        {
+            problems.Add("dimensions are missing or invalid.");
+        }
+
         if (provenance.Scale is null)
         {
             problems.Add("scale is missing.");
@@ -331,6 +336,12 @@ public static class NativeReferenceImporter
         if (string.IsNullOrWhiteSpace(provenance.CaptureMode))
         {
             problems.Add("captureMode is missing.");
+        }
+
+        if (string.IsNullOrWhiteSpace(provenance.CapturedAt) ||
+            !DateTimeOffset.TryParse(provenance.CapturedAt, out _))
+        {
+            problems.Add("capturedAt is missing or invalid.");
         }
 
         return problems;
@@ -364,6 +375,36 @@ public static class NativeReferenceImporter
             !string.Equals(NormalizeRelativePath(targets.ScenarioPath), scenarioPath, StringComparison.Ordinal))
         {
             problems.Add($"native-reference-targets.json scenarioPath '{targets.ScenarioPath}' does not match reference provenance '{scenarioPath}'.");
+        }
+
+        if (string.IsNullOrWhiteSpace(targets.CommitSha))
+        {
+            problems.Add("native-reference-targets.json commitSha is missing.");
+        }
+        else if (!string.IsNullOrWhiteSpace(provenance.CommitSha) &&
+            !string.Equals(targets.CommitSha, provenance.CommitSha, StringComparison.Ordinal))
+        {
+            problems.Add("native-reference-targets.json commitSha does not match windows-reference.json.");
+        }
+
+        if (string.IsNullOrWhiteSpace(targets.WorkflowRunId))
+        {
+            problems.Add("native-reference-targets.json workflowRunId is missing.");
+        }
+        else if (!string.IsNullOrWhiteSpace(provenance.WorkflowRunId) &&
+            !string.Equals(targets.WorkflowRunId, provenance.WorkflowRunId, StringComparison.Ordinal))
+        {
+            problems.Add("native-reference-targets.json workflowRunId does not match windows-reference.json.");
+        }
+
+        if (targets.Dimensions is not { Width: > 0, Height: > 0 })
+        {
+            problems.Add("native-reference-targets.json dimensions are missing or invalid.");
+        }
+
+        if (targets.CapturedAt is null)
+        {
+            problems.Add("native-reference-targets.json capturedAt is missing.");
         }
 
         var expectedTargets = IsExpectedPublicScenarioPath(repositoryRoot, scenarioPath)
@@ -441,6 +482,26 @@ public static class NativeReferenceImporter
                     if (captureBounds is not null && !IsInside(match.Bounds, captureBounds))
                     {
                         problems.Add($"native-reference-targets.json target '{match.Target}' has bounds outside the captured client area.");
+                    }
+
+                    if (match.ActualSize is not { Width: > 0, Height: > 0 })
+                    {
+                        problems.Add($"native-reference-targets.json target '{match.Target}' is missing positive actualSize metadata.");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(match.BoundsSource))
+                    {
+                        problems.Add($"native-reference-targets.json target '{match.Target}' is missing boundsSource metadata.");
+                    }
+
+                    if (match.CapturedAt is null)
+                    {
+                        problems.Add($"native-reference-targets.json target '{match.Target}' is missing capturedAt metadata.");
+                    }
+
+                    if (IsUntrustworthyElementForComponent(expectedTarget.Component, match.ElementType))
+                    {
+                        problems.Add($"native-reference-targets.json target '{match.Target}' resolved to '{match.ElementType}', which is not a trustworthy native element for expected public row component '{expectedTarget.Component}'.");
                     }
                 }
             }
@@ -550,6 +611,52 @@ public static class NativeReferenceImporter
             targetBounds.Y + Epsilon >= captureBounds.Y &&
             targetBounds.X + targetBounds.Width <= captureBounds.X + captureBounds.Width + Epsilon &&
             targetBounds.Y + targetBounds.Height <= captureBounds.Y + captureBounds.Height + Epsilon;
+    }
+
+    private static bool IsUntrustworthyElementForComponent(string component, string? elementType)
+    {
+        if (string.IsNullOrWhiteSpace(elementType))
+        {
+            return true;
+        }
+
+        var simpleType = elementType.Split('.').Last();
+        if (string.Equals(component, simpleType, StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        if (component.EndsWith("." + simpleType, StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        if (component.Contains(simpleType, StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        var allowContainerComponents = component is
+            "Border" or
+            "Grid" or
+            "StackPanel" or
+            "ScrollViewer" or
+            "CommandBar.Content" or
+            "Context menu pattern" or
+            "Labels and forms" or
+            "Shapes" or
+            "InkCanvas / InkToolbar";
+        if (allowContainerComponents && simpleType is "Border" or "Grid" or "StackPanel" or "Button" or "CommandBar")
+        {
+            return false;
+        }
+
+        if (simpleType == "FrameworkElement")
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private static bool IsNativeTargetRequiredScenarioPath(string? scenarioPath)
