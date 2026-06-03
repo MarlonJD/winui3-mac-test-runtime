@@ -138,9 +138,10 @@ internal static class Program
     {
         var stopAt = DateTimeOffset.UtcNow + timeout;
         var allowProcessFallbackAt = DateTimeOffset.UtcNow + TimeSpan.FromSeconds(Math.Min(5, timeout.TotalSeconds));
+        var launchedAt = ReadProcessStartTime(process);
         while (DateTimeOffset.UtcNow < stopAt)
         {
-            var window = FindWindowByTitle(title, process.Id);
+            var window = FindWindowByTitle(title, launchedAt);
             if (window is not null)
             {
                 return window;
@@ -183,7 +184,20 @@ internal static class Program
         }
     }
 
-    private static WindowMatch? FindWindowByTitle(string title, int processId)
+    private static DateTimeOffset? ReadProcessStartTime(Process process)
+    {
+        try
+        {
+            process.Refresh();
+            return process.HasExited ? null : new DateTimeOffset(process.StartTime);
+        }
+        catch (InvalidOperationException)
+        {
+            return null;
+        }
+    }
+
+    private static WindowMatch? FindWindowByTitle(string title, DateTimeOffset? launchedAt)
     {
         WindowMatch? result = null;
         EnumWindows((window, _) =>
@@ -193,22 +207,56 @@ internal static class Program
                 return true;
             }
 
-            GetWindowThreadProcessId(window, out var windowProcessId);
-            if (windowProcessId != processId)
+            var text = ReadWindowText(window);
+            if (!text.Contains(title, StringComparison.OrdinalIgnoreCase))
             {
                 return true;
             }
 
-            var text = ReadWindowText(window);
-            if (text.Contains(title, StringComparison.OrdinalIgnoreCase))
+            if (!WindowStartedAfterLaunch(window, launchedAt) ||
+                !CanReadWindowBounds(window))
             {
-                result = new WindowMatch(window, text, true);
-                return false;
+                return true;
             }
 
-            return true;
+            result = new WindowMatch(window, text, true);
+            return false;
         }, IntPtr.Zero);
         return result;
+    }
+
+    private static bool WindowStartedAfterLaunch(IntPtr window, DateTimeOffset? launchedAt)
+    {
+        if (launchedAt is null)
+        {
+            return true;
+        }
+
+        _ = GetWindowThreadProcessId(window, out var windowProcessId);
+        try
+        {
+            using var windowProcess = Process.GetProcessById(windowProcessId);
+            var windowStartedAt = new DateTimeOffset(windowProcess.StartTime);
+            return windowStartedAt >= launchedAt.Value - TimeSpan.FromSeconds(2);
+        }
+        catch (ArgumentException)
+        {
+            return false;
+        }
+        catch (InvalidOperationException)
+        {
+            return false;
+        }
+    }
+
+    private static bool CanReadWindowBounds(IntPtr window)
+    {
+        return GetClientRect(window, out var clientRect) &&
+            clientRect.Width > 0 &&
+            clientRect.Height > 0 &&
+            TryReadWindowRect(window, out var windowRect) &&
+            windowRect.Width > 0 &&
+            windowRect.Height > 0;
     }
 
     private static string ReadWindowText(IntPtr window)
