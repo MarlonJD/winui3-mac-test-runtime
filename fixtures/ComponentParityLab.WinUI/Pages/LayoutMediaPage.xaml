@@ -67,14 +67,16 @@
             <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticAnnotatedScrollbar" />
                 <ContentControl x:Name="DiagnosticSemanticZoom" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticSplitView" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticTwoPaneView" />
-                <ContentControl x:Name="DiagnosticAnimatedIcon" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="14">
+                <ContentControl x:Name="DiagnosticAnimatedIcon" />
                 <ContentControl x:Name="DiagnosticTitleBarCustomization" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="14">
                 <ContentControl x:Name="DiagnosticSystemBackdrop" />
             </StackPanel>
         </StackPanel>
