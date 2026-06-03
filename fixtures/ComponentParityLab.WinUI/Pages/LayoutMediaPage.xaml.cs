@@ -8,7 +8,7 @@ public sealed partial class LayoutMediaPage : Page
     {
         InitializeComponent();
         PublicImagePreview.Width = 420;
-        PublicImagePreview.Height = 120;
+        PublicImagePreview.Height = 108;
         NativeControlSamples.PopulateLayoutAndMedia(
             DiagnosticScrollViewer,
             DiagnosticSymbolIcon,
