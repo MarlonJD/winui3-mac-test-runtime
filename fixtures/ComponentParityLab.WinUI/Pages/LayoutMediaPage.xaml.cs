@@ -7,8 +7,8 @@ public sealed partial class LayoutMediaPage : Page
     public LayoutMediaPage()
     {
         InitializeComponent();
-        PublicImagePlaceholder.Width = 420;
-        PublicImagePlaceholder.Height = 56;
+        PublicImagePreview.Width = 420;
+        PublicImagePreview.Height = 160;
         NativeControlSamples.PopulateLayoutAndMedia(
             DiagnosticSymbolIcon,
             DiagnosticXamlControlsResources,

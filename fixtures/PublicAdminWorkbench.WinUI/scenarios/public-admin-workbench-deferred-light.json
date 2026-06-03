@@ -25,7 +25,7 @@
       "type": "assertProperty",
       "target": "WorkbenchStatus",
       "key": "Title",
-      "parameter": "Deferred"
+      "parameter": "Review required"
     }
   ]
 }

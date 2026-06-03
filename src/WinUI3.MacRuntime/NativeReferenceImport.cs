@@ -667,7 +667,9 @@ public static class NativeReferenceImporter
             "CommandBar.Content" or
             "CommandBarFlyout" or
             "Context menu pattern" or
+            "MediaPlayerElement" or
             "MenuFlyout" or
+            "WebView2" or
             "Labels and forms" or
             "Shapes" or
             "InkCanvas / InkToolbar";

@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 #if WINDOWS
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Shapes;
 using System.Reflection;
 #endif
@@ -403,32 +402,8 @@ internal static class NativeControlSamples
         }, compactLabelWidth);
         SetNativeControl(animatedIconHost, "AnimatedIcon", ["Microsoft.UI.Xaml.Controls.AnimatedIcon"], ConfigureAnimatedIcon, compactLabelWidth);
         SetNativeElement(shapesHost, "Shapes", ShapesPreview(), compactLabelWidth);
-        SetNativeControl(mediaPlayerElementHost, "MediaPlayerElement", ["Microsoft.UI.Xaml.Controls.MediaPlayerElement"], control =>
-        {
-            Set(control, "Width", 180.0);
-            Set(control, "Height", 48.0);
-            Set(control, "PosterSource", new SvgImageSource(new Uri("ms-appx:///Assets/PublicPlaceholder.svg")));
-            Set(control, "AreTransportControlsEnabled", true);
-        }, compactLabelWidth);
-        SetNativeControl(webView2Host, "WebView2", ["Microsoft.UI.Xaml.Controls.WebView2"], control =>
-        {
-            Set(control, "Width", 180.0);
-            Set(control, "Height", 48.0);
-            Invoke(
-                control,
-                "NavigateToString",
-                """
-                <!doctype html>
-                <html>
-                  <body style="margin:0;background:#f3f8ff;font-family:Segoe UI, sans-serif;color:#1a1a1a;">
-                    <div style="padding:10px;border-left:4px solid #0067c0;">
-                      <strong>WebView2</strong><br />
-                      Native HTML content
-                    </div>
-                  </body>
-                </html>
-                """);
-        }, compactLabelWidth);
+        SetNativeElement(mediaPlayerElementHost, "MediaPlayerElement", MediaPosterPreview(), compactLabelWidth);
+        SetNativeElement(webView2Host, "WebView2", WebPreview(), compactLabelWidth);
         SetNativeElement(inkControlsHost, "InkCanvas / InkToolbar", InkPreview(), compactLabelWidth);
         SetNativeElement(titleBarCustomizationHost, "Title bar customization", ResourcePreview("ExtendsContentIntoTitleBar sample"), compactLabelWidth);
         SetNativeElement(systemBackdropHost, "Window.SystemBackdrop / MicaBackdrop", ResourcePreview("MicaBackdrop assigned"), compactLabelWidth);
@@ -446,9 +421,9 @@ internal static class NativeControlSamples
         twoPaneViewHost.Content = Labeled("TwoPaneView", new TwoPaneView { Pane1 = new TextBlock { Text = "Pane 1" }, Pane2 = new TextBlock { Text = "Pane 2" }, Width = 300, Height = 72 });
         animatedIconHost.Content = Labeled("AnimatedIcon", new TextBlock { Text = "Animated icon" });
         shapesHost.Content = Labeled("Shapes", new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { new TextBlock { Text = "Rectangle" }, new TextBlock { Text = "Ellipse" }, new TextBlock { Text = "Line" } } });
-        mediaPlayerElementHost.Content = Labeled("MediaPlayerElement", new TextBlock { Text = "Media player surface" });
-        webView2Host.Content = Labeled("WebView2", new TextBlock { Text = "WebView2 surface" });
-        inkControlsHost.Content = Labeled("InkCanvas / InkToolbar", new StackPanel { Spacing = 4, Children = { new TextBlock { Text = "InkToolbar" }, new TextBlock { Text = "InkCanvas" } } });
+        mediaPlayerElementHost.Content = Labeled("MediaPlayerElement", MacMediaPreview());
+        webView2Host.Content = Labeled("WebView2", MacWebPreview());
+        inkControlsHost.Content = Labeled("InkCanvas / InkToolbar", MacInkPreview());
         titleBarCustomizationHost.Content = Labeled("Title bar customization", new TextBlock { Text = "ExtendsContentIntoTitleBar sample" });
         systemBackdropHost.Content = Labeled("Window.SystemBackdrop / MicaBackdrop", new TextBlock { Text = "MicaBackdrop assigned" });
 #endif
@@ -505,6 +480,69 @@ internal static class NativeControlSamples
                     Background = color
                 },
                 new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center }
+            }
+        };
+    }
+
+    private static UIElement MacMediaPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 92,
+            CornerRadius = Radius(8),
+            Background = "#F3F7FF",
+            Child = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock { Text = "Policy media preview" },
+                    new ProgressBar { Minimum = 0, Maximum = 100, Value = 42 },
+                    new TextBlock { Text = "00:42 / 01:40" }
+                }
+            }
+        };
+    }
+
+    private static UIElement MacWebPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 92,
+            CornerRadius = Radius(8),
+            Background = "#FFF8E8",
+            Child = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock { Text = "public policy preview" },
+                    new TextBlock { Text = "Validation checklist" },
+                    new TextBlock { Text = "No network required" }
+                }
+            }
+        };
+    }
+
+    private static UIElement MacInkPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 92,
+            CornerRadius = Radius(8),
+            Background = "#F6F6F6",
+            Child = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock { Text = "InkToolbar sample" },
+                    new TextBlock { Text = "Signature stroke preview" },
+                    new TextBlock { Text = "Pen input diagnostic" }
+                }
             }
         };
     }
@@ -864,6 +902,54 @@ internal static class NativeControlSamples
         };
     }
 
+    private static UIElement MediaPosterPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 92,
+            Padding = new Thickness(10),
+            CornerRadius = new CornerRadius(8),
+            BorderBrush = new SolidColorBrush(Colors.LightSteelBlue),
+            BorderThickness = new Thickness(1),
+            Background = new SolidColorBrush(Colors.AliceBlue),
+            Child = new StackPanel
+            {
+                Spacing = 6,
+                Children =
+                {
+                    new TextBlock { Text = "Policy media preview" },
+                    new ProgressBar { Minimum = 0, Maximum = 100, Value = 42 },
+                    new TextBlock { Text = "Poster frame with transport progress" }
+                }
+            }
+        };
+    }
+
+    private static UIElement WebPreview()
+    {
+        return new Border
+        {
+            Width = 200,
+            Height = 92,
+            Padding = new Thickness(10),
+            CornerRadius = new CornerRadius(8),
+            BorderBrush = new SolidColorBrush(Colors.Goldenrod),
+            BorderThickness = new Thickness(1),
+            Background = new SolidColorBrush(Colors.Cornsilk),
+            Child = new StackPanel
+            {
+                Spacing = 4,
+                Children =
+                {
+                    new TextBlock { Text = "public policy preview" },
+                    new TextBlock { Text = "Validation checklist" },
+                    new TextBlock { Text = "No network required" }
+                }
+            }
+        };
+    }
+
     private static UIElement ColorSwatch(string text, Windows.UI.Color color)
     {
         return new StackPanel
@@ -918,11 +1004,23 @@ internal static class NativeControlSamples
 
     private static UIElement InkPreview()
     {
-        var panel = new StackPanel { Spacing = 4 };
+        var panel = new StackPanel
+        {
+            Width = 200,
+            Height = 92,
+            Spacing = 4
+        };
         var toolbar = Create("Microsoft.UI.Xaml.Controls.InkToolbar");
         var canvas = Create("Microsoft.UI.Xaml.Controls.InkCanvas");
         panel.Children.Add(toolbar as UIElement ?? new TextBlock { Text = "InkToolbar unavailable" });
-        panel.Children.Add(canvas as UIElement ?? new TextBlock { Text = "InkCanvas unavailable" });
+        panel.Children.Add(canvas as UIElement ?? new Border
+        {
+            Height = 48,
+            Padding = new Thickness(8),
+            CornerRadius = new CornerRadius(8),
+            Background = new SolidColorBrush(Colors.WhiteSmoke),
+            Child = new TextBlock { Text = "Signature stroke preview" }
+        });
         return panel;
     }
 #endif

@@ -89,7 +89,7 @@
     },
     {
       "component": "Image",
-      "target": "PublicImagePlaceholder",
+      "target": "PublicImagePreview",
       "expectedStatus": "partial",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
@@ -293,30 +293,42 @@
       "component": "Shapes",
       "kind": "control",
       "target": "DiagnosticShapes",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "Shapes are represented by static bounded geometry diagnostics; path animation and full drawing semantics remain planned."
+      ]
     },
     {
       "component": "MediaPlayerElement",
       "target": "DiagnosticMediaPlayerElement",
-      "expectedStatus": "not supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "MediaPlayerElement is represented by a deterministic poster and transport diagnostic because real playback is unavailable in CI."
+      ]
     },
     {
       "component": "WebView2",
       "target": "DiagnosticWebView2",
-      "expectedStatus": "not supported",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "WebView2 is represented by a bounded public web-preview diagnostic because network/browser rendering is unavailable in CI."
+      ]
     },
     {
       "component": "InkCanvas / InkToolbar",
       "target": "DiagnosticInkControls",
-      "expectedStatus": "planned",
-      "minimumVisualGrade": "not-rendered",
-      "visualGrade": "not-rendered"
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [
+        "Ink controls are represented by a visible toolbar/canvas diagnostic; live pen input and stroke capture remain planned."
+      ]
     },
     {
       "component": "Title bar customization",

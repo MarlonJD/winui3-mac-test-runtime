@@ -39,33 +39,6 @@
       "knownGaps": [ "The skia-v2 renderer approximates the WinUI NavigationView pane and selection chrome; native animation, compact behavior, and full keyboarding remain gaps." ]
     },
     {
-      "component": "NavigationViewItem",
-      "kind": "control",
-      "target": "QueueNavigationItem",
-      "expectedStatus": "partial",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
-      "knownGaps": [ "Selected item visuals are simplified and not pixel-perfect Fluent output." ]
-    },
-    {
-      "component": "Frame",
-      "kind": "control",
-      "target": "WorkbenchFrame",
-      "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
-      "knownGaps": [ "Back stack and transition animations are not modeled." ]
-    },
-    {
-      "component": "TextBox",
-      "kind": "control",
-      "target": "SearchBox",
-      "expectedStatus": "supported",
-      "minimumVisualGrade": "usable",
-      "visualGrade": "usable",
-      "knownGaps": [ "TextBox chrome is approximated; caret, selection, and native validation visuals remain gaps." ]
-    },
-    {
       "component": "CommandBar",
       "kind": "control",
       "target": "DecisionCommandBar",
@@ -93,13 +66,76 @@
       "knownGaps": [ "InfoBar severity chrome is approximated; close button and action area are not modeled." ]
     },
     {
+      "component": "TextBox",
+      "kind": "control",
+      "target": "PolicySearchBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "TextBox chrome is approximated; caret, selection, and native validation visuals remain gaps." ]
+    },
+    {
+      "component": "ComboBox",
+      "kind": "control",
+      "target": "PolicyScopeComboBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "ComboBox field and chevron chrome are approximated; popup, editable mode, and full keyboarding remain gaps." ]
+    },
+    {
       "component": "ListView",
       "kind": "control",
-      "target": "ReviewQueueList",
+      "target": "PolicyListView",
       "expectedStatus": "partial",
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
       "knownGaps": [ "ListView item containers and selection chrome are simplified; virtualization and templates remain gaps." ]
+    },
+    {
+      "component": "CheckBox",
+      "kind": "control",
+      "target": "RequireManagerApprovalCheckBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps." ]
+    },
+    {
+      "component": "ToggleSwitch",
+      "kind": "control",
+      "target": "AuditLoggingToggleSwitch",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps." ]
+    },
+    {
+      "component": "Slider",
+      "kind": "control",
+      "target": "ReviewWindowSlider",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps." ]
+    },
+    {
+      "component": "RadioButton",
+      "kind": "control",
+      "target": "RiskLowRadioButton",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps." ]
+    },
+    {
+      "component": "ProgressBar",
+      "kind": "control",
+      "target": "PolicyCompletenessProgress",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "ProgressBar track and indicator are rendered approximately; indeterminate animation remains a gap." ]
     },
     {
       "component": "Button",

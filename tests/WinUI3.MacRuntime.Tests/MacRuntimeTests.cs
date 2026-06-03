@@ -2070,9 +2070,11 @@ public sealed class MacRuntimeTests
                     "DiagnosticAnnotatedScrollbar" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
                     "DiagnosticColor" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
                     "DiagnosticInkControls" => target with { ElementType = "Microsoft.UI.Xaml.Controls.ContentPresenter" },
+                    "DiagnosticMediaPlayerElement" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
                     "DiagnosticShapes" => target with { ElementType = "Microsoft.UI.Xaml.Shapes.Ellipse" },
                     "DiagnosticSystemBackdrop" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
                     "DiagnosticTitleBarCustomization" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
+                    "DiagnosticWebView2" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
                     "DiagnosticXamlControlsResources" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
                     "LayoutBorder" => target with { ElementType = "Microsoft.UI.Xaml.Controls.Border" },
                     "LayoutMediaTitle" => target with { ElementType = "Microsoft.UI.Xaml.Controls.TextBlock" },
@@ -2084,14 +2086,76 @@ public sealed class MacRuntimeTests
             "DiagnosticAnnotatedScrollbar",
             "DiagnosticColor",
             "DiagnosticInkControls",
+            "DiagnosticMediaPlayerElement",
             "DiagnosticShapes",
             "DiagnosticSystemBackdrop",
             "DiagnosticTitleBarCustomization",
+            "DiagnosticWebView2",
             "DiagnosticXamlControlsResources",
             "LayoutBorder",
             "LayoutMediaTitle",
             "StaticResourceText",
             "ThemeResourceText");
+    }
+
+    [TestMethod]
+    public void PublicNativeReferenceScreenshotsAreNotBlank()
+    {
+        string[] scenarioNames =
+        {
+            "component-layout-media-light",
+            "public-admin-workbench-light"
+        };
+
+        foreach (var scenarioName in scenarioNames)
+        {
+            var path = RepositoryPath(Path.Combine("docs", "visual-parity", "examples", scenarioName, "windows-reference.png"));
+            Assert.IsTrue(File.Exists(path), $"{scenarioName} must have a checked-in Windows reference image.");
+            using var bitmap = SKBitmap.Decode(path);
+            Assert.IsNotNull(bitmap, $"{scenarioName} must have a decodable Windows reference image.");
+
+            var nonWhiteRatio = NonWhitePixelRatio(bitmap);
+            Assert.IsGreaterThan(
+                0.03,
+                nonWhiteRatio,
+                $"{scenarioName} must not be blank or near-blank; non-white ratio was {nonWhiteRatio:P2}.");
+        }
+    }
+
+    [TestMethod]
+    public void PublicAdminWorkbenchRequiresDenseSettingsEditorComponents()
+    {
+        using var document = JsonDocument.Parse(File.ReadAllText(RepositoryPath("fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json")));
+        var components = document.RootElement
+            .GetProperty("requirements")
+            .EnumerateArray()
+            .Select(requirement => requirement.GetProperty("component").GetString())
+            .Where(component => !string.IsNullOrWhiteSpace(component))
+            .ToHashSet(StringComparer.Ordinal);
+
+        string[] requiredComponents =
+        {
+            "NavigationView",
+            "CommandBar",
+            "InfoBar",
+            "ListView",
+            "TextBox",
+            "ComboBox",
+            "CheckBox",
+            "RadioButton",
+            "ToggleSwitch",
+            "Slider",
+            "ProgressBar",
+            "Button",
+            "AppBarButton"
+        };
+
+        foreach (var component in requiredComponents)
+        {
+            Assert.IsTrue(
+                components.Contains(component),
+                $"public-admin-workbench-light must include a Settings / Policy Editor requirement for {component}.");
+        }
     }
 
     [TestMethod]
@@ -3591,6 +3655,29 @@ public sealed class MacRuntimeTests
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
         using var stream = File.Create(path);
         data.SaveTo(stream);
+    }
+
+    private static double NonWhitePixelRatio(SKBitmap bitmap)
+    {
+        var sampled = 0;
+        var nonWhite = 0;
+        var stepX = Math.Max(1, bitmap.Width / 320);
+        var stepY = Math.Max(1, bitmap.Height / 240);
+
+        for (var y = 0; y < bitmap.Height; y += stepY)
+        {
+            for (var x = 0; x < bitmap.Width; x += stepX)
+            {
+                var color = bitmap.GetPixel(x, y);
+                sampled++;
+                if (color.Red <= 246 || color.Green <= 246 || color.Blue <= 246)
+                {
+                    nonWhite++;
+                }
+            }
+        }
+
+        return sampled == 0 ? 0 : (double)nonWhite / sampled;
     }
 
     private static ComponentEvidenceDocument TestInspectableEvidence()

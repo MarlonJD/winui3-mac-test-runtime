@@ -24,6 +24,7 @@ public sealed partial class MainWindow : Window
         this.launchOptions = launchOptions;
         InitializeComponent();
         Title = launchOptions.WindowTitle;
+        PopulatePolicyEditor();
 #if WINDOWS
         RootNavigation.RequestedTheme = ToElementTheme(launchOptions.Theme);
 #endif
@@ -63,31 +64,61 @@ public sealed partial class MainWindow : Window
     {
         WorkbenchTitleText.Text = tag switch
         {
-            "overview" => "Overview",
-            "reports" => "Reports",
-            _ => "Review queue"
+            "overview" => "Settings home",
+            "reports" => "Audit",
+            _ => "Policy editor"
+        };
+    }
+
+    private void PopulatePolicyEditor()
+    {
+        PolicyScopeComboBox.Items.Clear();
+        PolicyScopeComboBox.Items.Add("All policies");
+        PolicyScopeComboBox.Items.Add("External access");
+        PolicyScopeComboBox.Items.Add("Publishing");
+        PolicyScopeComboBox.SelectedIndex = 1;
+
+        PolicyOwnerComboBox.Items.Clear();
+        PolicyOwnerComboBox.Items.Add("Public administrators");
+        PolicyOwnerComboBox.Items.Add("Review managers");
+        PolicyOwnerComboBox.Items.Add("Audit operators");
+        PolicyOwnerComboBox.SelectedIndex = 0;
+
+        AuditLoggingToggleSwitch.Content = new ToggleSwitch
+        {
+            Header = "Audit logging",
+            IsOn = true
+        };
+        ReviewWindowSlider.Content = new Slider
+        {
+            Minimum = 1,
+            Maximum = 30,
+            Value = 14
         };
     }
 
     private void OnApproveClicked(object sender, RoutedEventArgs args)
     {
         WorkbenchStatus.Title = "Approved";
-        WorkbenchStatus.Message = "The selected public fixture request is approved.";
+        WorkbenchStatus.Message = "The public policy fixture is validated and ready to publish.";
         WorkbenchStatus.Severity = InfoBarSeverity.Success;
+        PolicyCompletenessProgress.Value = 100;
     }
 
     private void OnDeferClicked(object sender, RoutedEventArgs args)
     {
-        WorkbenchStatus.Title = "Deferred";
-        WorkbenchStatus.Message = "The selected public fixture request is deferred.";
+        WorkbenchStatus.Title = "Review required";
+        WorkbenchStatus.Message = "Two policy settings require validation before publishing.";
         WorkbenchStatus.Severity = InfoBarSeverity.Warning;
+        PolicyCompletenessProgress.Value = 72;
     }
 
     private void OnRefreshClicked(object sender, RoutedEventArgs args)
     {
-        WorkbenchStatus.Title = "Ready";
-        WorkbenchStatus.Message = "No private data is used in this public fixture.";
-        WorkbenchStatus.Severity = InfoBarSeverity.Informational;
+        WorkbenchStatus.Title = "Review required";
+        WorkbenchStatus.Message = "Two policy settings require validation before publishing.";
+        WorkbenchStatus.Severity = InfoBarSeverity.Warning;
+        PolicyCompletenessProgress.Value = 72;
     }
 
     private void SelectStartupRoute(string? route)
@@ -105,8 +136,9 @@ public sealed partial class MainWindow : Window
         if (scenarioName.Contains("public-admin-workbench", StringComparison.OrdinalIgnoreCase))
         {
             WorkbenchStatus.Title = "Approved";
-            WorkbenchStatus.Message = "The selected public fixture request is approved.";
+            WorkbenchStatus.Message = "The public policy fixture is validated and ready to publish.";
             WorkbenchStatus.Severity = InfoBarSeverity.Success;
+            PolicyCompletenessProgress.Value = 100;
         }
     }
 
