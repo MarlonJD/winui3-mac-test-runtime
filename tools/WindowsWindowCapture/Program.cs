@@ -328,14 +328,17 @@ internal static class Program
 
     private static void ResizeClientArea(IntPtr window, CaptureViewport viewport)
     {
+        var readBounds = false;
         for (var attempt = 0; attempt < 10; attempt++)
         {
             if (!GetClientRect(window, out var clientRect) ||
                 !GetWindowRect(window, out var windowRect))
             {
-                throw new InvalidOperationException("Could not read the target window bounds before resizing.");
+                Thread.Sleep(150);
+                continue;
             }
 
+            readBounds = true;
             if (clientRect.Width == viewport.Width && clientRect.Height == viewport.Height)
             {
                 return;
@@ -358,9 +361,14 @@ internal static class Program
             Thread.Sleep(150);
         }
 
+        if (!readBounds)
+        {
+            throw new InvalidOperationException("Could not read the target window bounds before resizing.");
+        }
+
         if (!GetClientRect(window, out var finalClientRect))
         {
-            throw new InvalidOperationException("Could not read the target client bounds after resizing.");
+            throw new InvalidOperationException("Could not read the target bounds while resizing.");
         }
 
         throw new InvalidOperationException(
