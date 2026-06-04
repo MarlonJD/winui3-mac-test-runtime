@@ -149,7 +149,7 @@
       "requiredScenarios": ["public-admin-workbench-light", "component-navigation-workbench-light"],
       "targetGrade": "renderer-fidelity target",
       "currentGrade": "usable scaffold",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "Native window chrome and full lifecycle remain outside the local macOS support claim.",
       "evidence": ["native-winui-reference", "macos-screenshot", "tree", "accessibility", "interaction", "docs"]
     },
@@ -160,7 +160,7 @@
       "requiredScenarios": ["component-layout-media-light", "component-layout-media-dark", "component-layout-media-high-contrast"],
       "targetGrade": "renderer-fidelity target",
       "currentGrade": "usable scaffold",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "Broader WinUI layout behavior remains partial; exact sizing, clipping, and scroll behavior need renderer work.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "tree", "docs"]
     },
@@ -171,7 +171,7 @@
       "requiredScenarios": ["component-text-forms-light", "component-text-forms-focused-light", "component-text-forms-invalid-light"],
       "targetGrade": "renderer-fidelity target",
       "currentGrade": "usable scaffold",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "Advanced input, caret, selection, and validation visuals require later promotion.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "interaction", "accessibility", "docs"]
     },
@@ -182,7 +182,7 @@
       "requiredScenarios": ["component-commands-menus-light", "component-commands-menus-disabled-light", "component-commands-menus-open-popup-light"],
       "targetGrade": "renderer-fidelity target",
       "currentGrade": "usable scaffold for supported command, partial flyout subset, static MenuBar chrome, and context-menu target export",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "MenuBar submenu behavior, context-menu popup behavior, split/dropdown popup behavior, disabled item behavior, and broad keyboarding remain incomplete.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "interaction", "accessibility", "docs"]
     },
@@ -193,7 +193,7 @@
       "requiredScenarios": ["public-admin-workbench-light", "public-admin-workbench-deferred-light", "component-navigation-workbench-light", "component-collections-selected-light"],
       "targetGrade": "renderer-fidelity target",
       "currentGrade": "usable scaffold",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "Adaptive behavior, broad keyboard routing, and richer collection templates remain partial or planned.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "interaction", "accessibility", "docs"]
     },
@@ -204,7 +204,7 @@
       "requiredScenarios": ["component-status-pickers-light", "component-status-pickers-loading-light", "component-status-pickers-success-light", "component-status-pickers-error-light"],
       "targetGrade": "renderer-fidelity target",
       "currentGrade": "usable scaffold in base, loading, and success scenarios",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "Animation, close/action areas, and full native severity chrome need follow-up.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "accessibility", "docs"]
     },
@@ -215,7 +215,7 @@
       "requiredScenarios": ["component-dialogs-flyouts-light", "component-dialogs-flyouts-open-popup-light"],
       "targetGrade": "renderer-fidelity target",
       "currentGrade": "usable scaffold for supported popup subset; not-rendered for planned surfaces",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "Modal focus trapping, placement, TeachingTip, tooltip service, and full action relationships remain planned or partial.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "interaction", "accessibility", "docs"]
     },
@@ -226,7 +226,7 @@
       "requiredScenarios": ["resource-catalog-light", "resource-catalog-dark", "resource-catalog-high-contrast", "component-layout-media-high-contrast"],
       "targetGrade": "renderer-fidelity target",
       "currentGrade": "usable for simple resources and theme dictionaries; not-rendered or diagnostic for broad Fluent states",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "Full Fluent dictionaries, dynamic invalidation, pointer states, and template visual states require Phase 2+ evidence.",
       "evidence": ["native-winui-reference", "macos-screenshot", "component-evidence", "resource-diagnostics", "accessibility", "docs"]
     },
@@ -237,7 +237,7 @@
       "requiredScenarios": ["WindowsNativeProbe smoke evidence only for harness checks"],
       "targetGrade": "production-ready exclusion",
       "currentGrade": "production-ready exclusion target defined; no local macOS visual support claim",
-      "latestRunId": "26792033793",
+      "latestRunId": "26962358057",
       "nextBlocker": "Mica, Acrylic, compositor effects, media, WebView2, launcher, packaged apps, and binaries remain explicit exclusions or roadmap diagnostics.",
       "evidence": ["unsupported-apis", "diagnostics-sarif", "support-policy", "windows-validation-where-applicable"]
     }

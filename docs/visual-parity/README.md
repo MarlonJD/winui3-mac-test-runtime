@@ -14,8 +14,8 @@ results, and checked-in visual examples, see
 
 The latest full native reference artifact set was captured by public GitHub
 Actions run
-[`26792033793`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26792033793)
-on commit `3c929f4`. It includes `public-admin-workbench-light`,
+[`26962358057`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26962358057)
+on commit `1a2eb01`. It includes `public-admin-workbench-light`,
 `public-admin-workbench-deferred-light`, all light Ring 0 and Ring 1 component
 lab scenarios, `production-smoke-light`, and
 `production-e2e-workbench-light`. It also includes native WinUI corpus

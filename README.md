@@ -288,8 +288,8 @@ visual-review fixtures, not as the current support or visual-quality grade
 source.
 The latest full native WinUI reference artifact set comes from public GitHub
 Actions run
-[`26792033793`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26792033793)
-on commit `3c929f4`, and the final production gate evidence is recorded in
+[`26962358057`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26962358057)
+on commit `1a2eb01`, and the final production gate evidence is recorded in
 `docs/release/final-production-gate.md`. Synthetic `WindowsNativeProbe` output
 remains only as smoke evidence for the harness. Fresh component lab runs publish
 `component-evidence.json`; treat that file as the component-level truth for

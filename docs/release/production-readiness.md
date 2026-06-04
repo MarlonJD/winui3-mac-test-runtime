@@ -119,8 +119,8 @@ the current support boundary.
 Latest inspected public native WinUI visual workflow:
 
 - Workflow: `windows-native-screenshot.yml`
-- Run: `26792033793`
-- Code commit inspected by that workflow: `3c929f4`
+- Run: `26962358057`
+- Code commit inspected by that workflow: `1a2eb01`
 - Reference source: `native-winui`
 - Viewport: `1028x720`
 - Capture mode: client area.

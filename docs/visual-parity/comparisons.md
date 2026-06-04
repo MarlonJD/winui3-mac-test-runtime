@@ -44,8 +44,8 @@ on commit `95e8d7d`. Each `windows-reference.json` records
 viewport, theme, title match, capture mode, and dimensions.
 
 The latest full native reference workflow evidence is newer:
-[`26792033793`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26792033793)
-on commit `3c929f4`. Those latest workflow artifacts are not all checked into
+[`26962358057`](https://github.com/MarlonJD/winui3-mac-test-runtime/actions/runs/26962358057)
+on commit `1a2eb01`. Those latest workflow artifacts are not all checked into
 this comparison gallery.
 
 ## Summary

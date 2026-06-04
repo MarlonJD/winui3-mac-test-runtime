@@ -62,15 +62,15 @@ requires stricter renderer evidence.
 
 | Family | Target grade | Current grade | Latest run ID | Next blocker |
 | --- | --- | --- | --- | --- |
-| App shell | renderer-fidelity target | usable scaffold | `26792033793` | Native window chrome and full lifecycle remain outside the local macOS support claim. |
-| Core layout | renderer-fidelity target | usable scaffold | `26792033793` | Broader WinUI layout behavior remains partial; exact sizing, clipping, and scroll behavior need renderer work. |
-| Text and forms | renderer-fidelity target | usable scaffold | `26792033793` | Caret, selection, validation visuals, rich input, and native field states require direct implementation. |
-| Commands and menus | renderer-fidelity target | usable scaffold for supported command, content-slot, MenuBar, context target, split/dropdown button chrome, and partial flyout subset | `26792033793` | Native menu popup behavior, disabled item behavior, placement, light-dismiss, keyboarding, and final inspection remain incomplete. |
-| Navigation and workbench | renderer-fidelity target | usable scaffold | `26792033793` | Adaptive behavior, broad keyboard routing, richer collection templates, and native list/detail chrome remain partial or planned. |
-| Status and progress | renderer-fidelity target | usable scaffold in base, loading, and success scenarios | `26792033793` | Animation, close/action areas, and full native severity chrome need follow-up. |
-| Dialogs, flyouts, and tooltips | renderer-fidelity target | usable scaffold for supported popup subset; `not-rendered` for planned surfaces | `26792033793` | Modal focus trapping, placement, TeachingTip, tooltip service, and full action relationships remain planned or partial. |
-| Resources, theme, and visual states | renderer-fidelity target | usable for simple resources and theme dictionaries; diagnostic or `not-rendered` for broad Fluent states | `26792033793` | Full Fluent dictionaries, dynamic invalidation, pointer states, and template visual states require renderer and resource work. |
-| Materials, composition, media, and platform integration | production-ready exclusion | exclusion target defined; no local macOS visual support claim | `26792033793` | Mica, Acrylic, compositor effects, media, WebView2, launcher, packaged apps, and binaries remain explicit exclusions or roadmap diagnostics. |
+| App shell | renderer-fidelity target | usable scaffold | `26962358057` | Native window chrome and full lifecycle remain outside the local macOS support claim. |
+| Core layout | renderer-fidelity target | usable scaffold | `26962358057` | Broader WinUI layout behavior remains partial; exact sizing, clipping, and scroll behavior need renderer work. |
+| Text and forms | renderer-fidelity target | usable scaffold | `26962358057` | Caret, selection, validation visuals, rich input, and native field states require direct implementation. |
+| Commands and menus | renderer-fidelity target | usable scaffold for supported command, content-slot, MenuBar, context target, split/dropdown button chrome, and partial flyout subset | `26962358057` | Native menu popup behavior, disabled item behavior, placement, light-dismiss, keyboarding, and final inspection remain incomplete. |
+| Navigation and workbench | renderer-fidelity target | usable scaffold | `26962358057` | Adaptive behavior, broad keyboard routing, richer collection templates, and native list/detail chrome remain partial or planned. |
+| Status and progress | renderer-fidelity target | usable scaffold in base, loading, and success scenarios | `26962358057` | Animation, close/action areas, and full native severity chrome need follow-up. |
+| Dialogs, flyouts, and tooltips | renderer-fidelity target | usable scaffold for supported popup subset; `not-rendered` for planned surfaces | `26962358057` | Modal focus trapping, placement, TeachingTip, tooltip service, and full action relationships remain planned or partial. |
+| Resources, theme, and visual states | renderer-fidelity target | usable for simple resources and theme dictionaries; diagnostic or `not-rendered` for broad Fluent states | `26962358057` | Full Fluent dictionaries, dynamic invalidation, pointer states, and template visual states require renderer and resource work. |
+| Materials, composition, media, and platform integration | production-ready exclusion | exclusion target defined; no local macOS visual support claim | `26962358057` | Mica, Acrylic, compositor effects, media, WebView2, launcher, packaged apps, and binaries remain explicit exclusions or roadmap diagnostics. |
 
 Promotion is evidence-backed:
 
@@ -184,6 +184,9 @@ current production gate:
 
 | Evidence | Run | Commit | Result |
 | --- | --- | --- | --- |
+| PR #3 CI release-candidate evidence | `26965670153` | `530e4f5` | Passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
+| PR #3 full native WinUI reference workflow | `26962358057` | `1a2eb01` | Passed `windows-reference` and `synthetic-probe-smoke`; uploaded `windows-reference-screenshots` and `windows-synthetic-probe-smoke`. |
+| PR #3 local full strict sweep | local | `530e4f5` | 36/36 public scenarios passed with `--renderer skia-v2 --strict-visual`; CI now runs the same sweep and uploads `strict-scenario-sweep`. |
 | Final Sprint 7 CI | `26792033784` | `3c929f4` | Passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
 | Final full native WinUI reference workflow | `26792033793` | `3c929f4` | Captured public native fixture references and synthetic probe smoke artifacts. |
 | Sprint 6 CI | `26791576401` | `cd814a4` | Passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
@@ -191,8 +194,9 @@ current production gate:
 | Prior corpus native reference set | `26790967052` | `6d2fc9c` | Captured native references for public admin, component lab, production smoke, single-window, settings-form, and resource-catalog scenarios. |
 | Prior Sprint 5 CI | `26791199828` | `3e54a99` | Passed after native reference evidence docs were updated. |
 
-The latest full native reference artifact set includes public admin/workbench
-scenarios, all light Ring 0 and Ring 1 component lab scenarios,
+The latest full native reference artifact set, run `26962358057` on commit
+`1a2eb01`, includes public admin/workbench scenarios, all light Ring 0 and
+Ring 1 component lab scenarios,
 `production-smoke-light`, `production-e2e-workbench-light`, and public corpus
 references for single-window, settings-form, and resource-catalog scenarios.
 Every native reference JSON should record `referenceSource: native-winui`,
@@ -201,8 +205,10 @@ mode, and image dimensions.
 
 ## Strict Scenario Results
 
-The Sprint 7 local strict sweep passed **36 public scenarios** with
-`--renderer skia-v2 --strict-visual`.
+The PR #3 local strict sweep on commit `530e4f5` passed **36 public scenarios**
+with `--renderer skia-v2 --strict-visual`. The checked-in CI workflow now runs
+the same full sweep and uploads `strict-scenario-sweep` artifacts for the
+release-candidate evidence trail.
 
 | Scenario group | Scenarios | Current result |
 | --- | ---: | --- |
