@@ -8,7 +8,7 @@
       "nativeQualityGrade": "not-evaluated",
       "inspectedBy": "Codex visual evidence review",
       "inspectedDate": "2026-06-04",
-      "nativeReferenceRunId": "26959353716",
+      "nativeReferenceRunId": "26962358057",
       "comparisonArtifactPaths": [
         "components/commandbar-primarycommandbar/windows-reference.png",
         "components/commandbar-primarycommandbar/mac-runtime.png",
@@ -30,7 +30,7 @@
       "nativeQualityGrade": "not-evaluated",
       "inspectedBy": "Codex visual evidence review",
       "inspectedDate": "2026-06-04",
-      "nativeReferenceRunId": "26959353716",
+      "nativeReferenceRunId": "26962358057",
       "comparisonArtifactPaths": [
         "components/appbarbutton-savecommandbutton/windows-reference.png",
         "components/appbarbutton-savecommandbutton/mac-runtime.png",
@@ -52,7 +52,7 @@
       "nativeQualityGrade": "not-evaluated",
       "inspectedBy": "Codex visual evidence review",
       "inspectedDate": "2026-06-04",
-      "nativeReferenceRunId": "26959353716",
+      "nativeReferenceRunId": "26962358057",
       "comparisonArtifactPaths": [
         "components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png",
         "components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png",
@@ -74,7 +74,7 @@
       "nativeQualityGrade": "not-evaluated",
       "inspectedBy": "Codex visual evidence review",
       "inspectedDate": "2026-06-04",
-      "nativeReferenceRunId": "26959353716",
+      "nativeReferenceRunId": "26962358057",
       "comparisonArtifactPaths": [
         "components/appbarbutton-icon-savecommandicon/windows-reference.png",
         "components/appbarbutton-icon-savecommandicon/mac-runtime.png",
@@ -96,7 +96,7 @@
       "nativeQualityGrade": "not-evaluated",
       "inspectedBy": "Codex visual evidence review",
       "inspectedDate": "2026-06-04",
-      "nativeReferenceRunId": "26959353716",
+      "nativeReferenceRunId": "26962358057",
       "comparisonArtifactPaths": [
         "components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png",
         "components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png",
@@ -118,7 +118,7 @@
       "nativeQualityGrade": "not-evaluated",
       "inspectedBy": "Codex visual evidence review",
       "inspectedDate": "2026-06-04",
-      "nativeReferenceRunId": "26959353716",
+      "nativeReferenceRunId": "26962358057",
       "comparisonArtifactPaths": [
         "components/menuflyout-diagnosticmenuflyout/windows-reference.png",
         "components/menuflyout-diagnosticmenuflyout/mac-runtime.png",
@@ -140,7 +140,7 @@
       "nativeQualityGrade": "not-evaluated",
       "inspectedBy": "Codex visual evidence review",
       "inspectedDate": "2026-06-04",
-      "nativeReferenceRunId": "26959353716",
+      "nativeReferenceRunId": "26962358057",
       "comparisonArtifactPaths": [
         "components/menubar-diagnosticmenubar/windows-reference.png",
         "components/menubar-diagnosticmenubar/mac-runtime.png",
@@ -162,7 +162,7 @@
       "nativeQualityGrade": "not-evaluated",
       "inspectedBy": "Codex visual evidence review",
       "inspectedDate": "2026-06-04",
-      "nativeReferenceRunId": "26959353716",
+      "nativeReferenceRunId": "26962358057",
       "comparisonArtifactPaths": [
         "components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png",
         "components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png",

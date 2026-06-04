@@ -5,8 +5,8 @@
   "scenarioName": "component-commands-menus-light",
   "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
   "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
-  "commitSha": "22399f3f517633d4cd27eb8acda42c18a0ad6bd9",
-  "workflowRunId": "26959353716",
+  "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+  "workflowRunId": "26962358057",
   "theme": "light",
   "viewport": {
     "width": 1028,
@@ -23,7 +23,7 @@
     "width": 1028,
     "height": 720
   },
-  "capturedAt": "2026-06-04T14:53:14.1903084\u002B00:00",
+  "capturedAt": "2026-06-04T15:42:46.4778147\u002B00:00",
   "targets": [
     {
       "component": null,
@@ -44,7 +44,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1876856\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4751984\u002B00:00"
     },
     {
       "component": null,
@@ -65,7 +65,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1900576\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4775147\u002B00:00"
     },
     {
       "component": null,
@@ -86,7 +86,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1769836\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4646814\u002B00:00"
     },
     {
       "component": null,
@@ -107,7 +107,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1725142\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4614870\u002B00:00"
     },
     {
       "component": null,
@@ -128,7 +128,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1788856\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4668336\u002B00:00"
     },
     {
       "component": null,
@@ -149,7 +149,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1884009\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4759035\u002B00:00"
     },
     {
       "component": null,
@@ -170,7 +170,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1884243\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4759270\u002B00:00"
     },
     {
       "component": null,
@@ -191,7 +191,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1825217\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4703255\u002B00:00"
     },
     {
       "component": null,
@@ -212,7 +212,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1825497\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4703490\u002B00:00"
     },
     {
       "component": null,
@@ -233,7 +233,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1796714\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4676056\u002B00:00"
     },
     {
       "component": null,
@@ -254,7 +254,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1877814\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4752825\u002B00:00"
     },
     {
       "component": null,
@@ -275,7 +275,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1900826\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4775522\u002B00:00"
     },
     {
       "component": null,
@@ -296,7 +296,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1890653\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4765132\u002B00:00"
     },
     {
       "component": null,
@@ -317,7 +317,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1779999\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4658385\u002B00:00"
     },
     {
       "component": null,
@@ -338,7 +338,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1743365\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4627851\u002B00:00"
     },
     {
       "component": null,
@@ -359,7 +359,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1900325\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4774821\u002B00:00"
     },
     {
       "component": null,
@@ -380,7 +380,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1877383\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4752493\u002B00:00"
     },
     {
       "component": "CommandBar.Content",
@@ -401,7 +401,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-04T14:53:14.1888995\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4764169\u002B00:00"
     },
     {
       "component": "CommandBarFlyout",
@@ -422,7 +422,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-04T14:53:14.1895167\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4769790\u002B00:00"
     },
     {
       "component": "Context menu pattern",
@@ -443,7 +443,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-04T14:53:14.1902194\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4777475\u002B00:00"
     },
     {
       "component": "MenuBar",
@@ -464,7 +464,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-04T14:53:14.1899128\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4773738\u002B00:00"
     },
     {
       "component": "MenuFlyout",
@@ -485,7 +485,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name\u002Bnative-descendant",
-      "capturedAt": "2026-06-04T14:53:14.1896631\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4771239\u002B00:00"
     },
     {
       "component": null,
@@ -506,7 +506,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1792477\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4672808\u002B00:00"
     },
     {
       "component": null,
@@ -527,7 +527,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1883340\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4758286\u002B00:00"
     },
     {
       "component": null,
@@ -548,7 +548,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1819903\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4698179\u002B00:00"
     },
     {
       "component": null,
@@ -569,7 +569,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1823047\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4701254\u002B00:00"
     },
     {
       "component": null,
@@ -590,7 +590,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1733351\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4620496\u002B00:00"
     },
     {
       "component": null,
@@ -611,7 +611,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1780332\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4658734\u002B00:00"
     },
     {
       "component": null,
@@ -632,7 +632,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1764083\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4642630\u002B00:00"
     },
     {
       "component": null,
@@ -653,7 +653,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1824559\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4702598\u002B00:00"
     },
     {
       "component": null,
@@ -674,7 +674,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1820336\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4698610\u002B00:00"
     },
     {
       "component": null,
@@ -695,7 +695,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1807843\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4685915\u002B00:00"
     },
     {
       "component": null,
@@ -716,7 +716,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1725948\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4615455\u002B00:00"
     },
     {
       "component": null,
@@ -737,7 +737,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1769519\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4646590\u002B00:00"
     },
     {
       "component": null,
@@ -758,7 +758,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1764509\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4642899\u002B00:00"
     },
     {
       "component": null,
@@ -779,7 +779,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1882779\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4757690\u002B00:00"
     },
     {
       "component": null,
@@ -800,7 +800,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1770190\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4647053\u002B00:00"
     },
     {
       "component": null,
@@ -821,7 +821,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1773828\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4652227\u002B00:00"
     },
     {
       "component": null,
@@ -842,7 +842,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1800440\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4679423\u002B00:00"
     },
     {
       "component": null,
@@ -863,7 +863,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1894285\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4768530\u002B00:00"
     },
     {
       "component": null,
@@ -884,7 +884,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1762535\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4641635\u002B00:00"
     },
     {
       "component": null,
@@ -905,7 +905,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1820657\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4698912\u002B00:00"
     },
     {
       "component": null,
@@ -926,7 +926,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1763089\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4641982\u002B00:00"
     },
     {
       "component": null,
@@ -947,7 +947,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1762111\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4641339\u002B00:00"
     },
     {
       "component": null,
@@ -968,7 +968,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1724754\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4614575\u002B00:00"
     },
     {
       "component": null,
@@ -989,7 +989,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1775347\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4653544\u002B00:00"
     },
     {
       "component": "CommandBar",
@@ -1010,7 +1010,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1873424\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4748329\u002B00:00"
     },
     {
       "component": null,
@@ -1031,7 +1031,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1891001\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4765465\u002B00:00"
     },
     {
       "component": null,
@@ -1052,7 +1052,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1880386\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4755546\u002B00:00"
     },
     {
       "component": null,
@@ -1073,7 +1073,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1882083\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4757080\u002B00:00"
     },
     {
       "component": null,
@@ -1094,7 +1094,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1821054\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4699176\u002B00:00"
     },
     {
       "component": null,
@@ -1115,7 +1115,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1876592\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4751720\u002B00:00"
     },
     {
       "component": null,
@@ -1136,7 +1136,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1724293\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4614218\u002B00:00"
     },
     {
       "component": null,
@@ -1157,7 +1157,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1714537\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4606311\u002B00:00"
     },
     {
       "component": null,
@@ -1178,7 +1178,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1761580\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4640966\u002B00:00"
     },
     {
       "component": "AppBarButton",
@@ -1199,7 +1199,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1876278\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4751417\u002B00:00"
     },
     {
       "component": "AppBarButton.Icon",
@@ -1220,7 +1220,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1879692\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4754815\u002B00:00"
     },
     {
       "component": null,
@@ -1241,7 +1241,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1769035\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4646257\u002B00:00"
     },
     {
       "component": null,
@@ -1262,7 +1262,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1779356\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4657683\u002B00:00"
     },
     {
       "component": null,
@@ -1283,7 +1283,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1903050\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4778125\u002B00:00"
     },
     {
       "component": null,
@@ -1304,7 +1304,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1804064\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4682702\u002B00:00"
     },
     {
       "component": null,
@@ -1325,7 +1325,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1785231\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4664101\u002B00:00"
     },
     {
       "component": null,
@@ -1346,7 +1346,7 @@
       },
       "visibility": "Visible",
       "boundsSource": "x:Name",
-      "capturedAt": "2026-06-04T14:53:14.1725655\u002B00:00"
+      "capturedAt": "2026-06-04T15:42:46.4615260\u002B00:00"
     }
   ]
 }
