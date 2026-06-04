@@ -75,7 +75,7 @@ release-candidate evidence closeout: `windows-native-screenshot` run
 `26962358057` on commit `1a2eb01`.
 
 Latest production gate CI inspected during PR #3 release-candidate evidence
-closeout: `ci` run `26968882845` on commit `4db8d77`.
+closeout: `ci` run `26969205766` on commit `3c19711`.
 
 Local package smoke:
 

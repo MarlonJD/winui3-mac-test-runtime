@@ -184,7 +184,7 @@ current production gate:
 
 | Evidence | Run | Commit | Result |
 | --- | --- | --- | --- |
-| PR #3 CI release-candidate evidence | `26968882845` | `4db8d77` | Passed build, tests, full strict scenario sweep, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads including `strict-scenario-sweep`. |
+| PR #3 CI release-candidate evidence | `26969205766` | `3c19711` | Passed build, tests, full strict scenario sweep, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads including `strict-scenario-sweep`. |
 | PR #3 full native WinUI reference workflow | `26962358057` | `1a2eb01` | Passed `windows-reference` and `synthetic-probe-smoke`; uploaded `windows-reference-screenshots` and `windows-synthetic-probe-smoke`. |
 | PR #3 local full strict sweep | local | `530e4f5` | 36/36 public scenarios passed with `--renderer skia-v2 --strict-visual`; CI now runs the same sweep and uploads `strict-scenario-sweep`. |
 | Final Sprint 7 CI | `26792033784` | `3c929f4` | Passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
@@ -206,8 +206,8 @@ mode, and image dimensions.
 ## Strict Scenario Results
 
 The PR #3 local strict sweep on commit `530e4f5` passed **36 public scenarios**
-with `--renderer skia-v2 --strict-visual`. PR #3 CI run `26968882845` on commit
-`4db8d77` ran the same full sweep successfully and uploaded the
+with `--renderer skia-v2 --strict-visual`. PR #3 CI run `26969205766` on commit
+`3c19711` ran the same full sweep successfully and uploaded the
 `strict-scenario-sweep` artifact for the release-candidate evidence trail.
 
 | Scenario group | Scenarios | Current result |
