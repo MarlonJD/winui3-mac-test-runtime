@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -44,8 +44,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>review: <strong>ready-for-manual-inspection</strong></span>
 <span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
-<span>reference run: <strong>26872366140</strong></span>
-<span>reference commit: <strong>68f5b9c</strong></span>
+<span>reference run: <strong>26959353716</strong></span>
+<span>reference commit: <strong>22399f3</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
 <span>changed pixels: <strong>100</strong></span>
@@ -77,8 +77,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>review: <strong>ready-for-manual-inspection</strong></span>
 <span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
-<span>reference run: <strong>26872366140</strong></span>
-<span>reference commit: <strong>68f5b9c</strong></span>
+<span>reference run: <strong>26959353716</strong></span>
+<span>reference commit: <strong>22399f3</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
 <span>changed pixels: <strong>100</strong></span>
@@ -110,8 +110,8 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>review: <strong>ready-for-manual-inspection</strong></span>
 <span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
-<span>reference run: <strong>26872366140</strong></span>
-<span>reference commit: <strong>68f5b9c</strong></span>
+<span>reference run: <strong>26959353716</strong></span>
+<span>reference commit: <strong>22399f3</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
 <span>changed pixels: <strong>100</strong></span>
@@ -130,7 +130,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 271x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes.</p>
+<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 360x48; macOS crop is 548x48. Phase -1 does not normalize crop sizes.</p>
 <p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps.</p>
 </section>
 <section class="component">
@@ -143,11 +143,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>review: <strong>ready-for-manual-inspection</strong></span>
 <span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
-<span>reference run: <strong>26872366140</strong></span>
-<span>reference commit: <strong>68f5b9c</strong></span>
+<span>reference run: <strong>26959353716</strong></span>
+<span>reference commit: <strong>22399f3</strong></span>
 <span>native reference: <strong>ready</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>58.984</strong></span>
+<span>changed pixels: <strong>58,984</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -176,9 +176,9 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>review: <strong>ready-for-manual-inspection</strong></span>
 <span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
-<span>reference run: <strong>26872366140</strong></span>
-<span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>state-reference-incomplete</strong></span>
+<span>reference run: <strong>26959353716</strong></span>
+<span>reference commit: <strong>22399f3</strong></span>
+<span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
 <span>changed pixels: <strong>100</strong></span>
 </div>
@@ -196,7 +196,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</p>
+<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 164x32; macOS crop is 165x32. Phase -1 does not normalize crop sizes.</p>
 <p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial.</p>
 </section>
 <section class="component">
@@ -209,9 +209,9 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>review: <strong>ready-for-manual-inspection</strong></span>
 <span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
-<span>reference run: <strong>26872366140</strong></span>
-<span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>state-reference-incomplete</strong></span>
+<span>reference run: <strong>26959353716</strong></span>
+<span>reference commit: <strong>22399f3</strong></span>
+<span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
 <span>changed pixels: <strong>100</strong></span>
 </div>
@@ -229,7 +229,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/menuflyout-diagnosticmenuflyout/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</p>
+<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 137x32; macOS crop is 144x32. Phase -1 does not normalize crop sizes.</p>
 <p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial.</p>
 </section>
 <section class="component">
@@ -242,9 +242,9 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>review: <strong>ready-for-manual-inspection</strong></span>
 <span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
-<span>reference run: <strong>26872366140</strong></span>
-<span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>state-reference-incomplete</strong></span>
+<span>reference run: <strong>26959353716</strong></span>
+<span>reference commit: <strong>22399f3</strong></span>
+<span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
 <span>changed pixels: <strong>100</strong></span>
 </div>
@@ -262,7 +262,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/menubar-diagnosticmenubar/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</p>
+<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 120x40; macOS crop is 96x32. Phase -1 does not normalize crop sizes.</p>
 <p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps.</p>
 </section>
 <section class="component">
@@ -275,9 +275,9 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>review: <strong>ready-for-manual-inspection</strong></span>
 <span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
-<span>reference run: <strong>26872366140</strong></span>
-<span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>state-reference-incomplete</strong></span>
+<span>reference run: <strong>26959353716</strong></span>
+<span>reference commit: <strong>22399f3</strong></span>
+<span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
 <span>changed pixels: <strong>100</strong></span>
 </div>
@@ -295,7 +295,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <img alt="Pixel diff crop" src="components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.</p>
+<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 169x32; macOS crop is 194x32. Phase -1 does not normalize crop sizes.</p>
 <p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps.</p>
 </section>
 </body>
