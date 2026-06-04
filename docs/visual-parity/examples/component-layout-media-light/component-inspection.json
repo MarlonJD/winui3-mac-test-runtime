@@ -1,0 +1,619 @@
+{
+  "schemaVersion": "0.2",
+  "rows": [
+    {
+      "component": "ScrollViewer",
+      "target": "LayoutScrollViewer",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/scrollviewer-layoutscrollviewer/windows-reference.png",
+        "components/scrollviewer-layoutscrollviewer/mac-runtime.png",
+        "components/scrollviewer-layoutscrollviewer/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "ScrollViewer region and scrollbar affordance are rendered approximately; clipping and scroll physics remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ScrollViewer region and scrollbar affordance are rendered approximately; clipping and scroll physics remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 220x48; macOS crop is 772x720. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "Grid",
+      "target": "LayoutResourceGrid",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/grid-layoutresourcegrid/windows-reference.png",
+        "components/grid-layoutresourcegrid/mac-runtime.png",
+        "components/grid-layoutresourcegrid/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Grid surface and column separation are rendered for component evidence; full WinUI layout behavior remains partial."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Grid surface and column separation are rendered for component evidence; full WinUI layout behavior remains partial.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 160x18; macOS crop is 724x86. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "StackPanel",
+      "target": "LayoutNestedStack",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/stackpanel-layoutnestedstack/windows-reference.png",
+        "components/stackpanel-layoutnestedstack/mac-runtime.png",
+        "components/stackpanel-layoutnestedstack/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "StackPanel child spacing and region evidence are visible; full native layout behavior remains partial."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: StackPanel child spacing and region evidence are visible; full native layout behavior remains partial.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x86. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "Border",
+      "target": "LayoutBorder",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/border-layoutborder/windows-reference.png",
+        "components/border-layoutborder/mac-runtime.png",
+        "components/border-layoutborder/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Border surface, stroke, and corner radius are rendered approximately; brush and thickness fidelity remain partial."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Border surface, stroke, and corner radius are rendered approximately; brush and thickness fidelity remain partial.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x86. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "FontIcon",
+      "target": "LayoutFontIcon",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/fonticon-layoutfonticon/windows-reference.png",
+        "components/fonticon-layoutfonticon/mac-runtime.png",
+        "components/fonticon-layoutfonticon/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "FontIcon glyph is rendered with the scenario font; exact Segoe MDL2 metrics remain approximate."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: FontIcon glyph is rendered with the scenario font; exact Segoe MDL2 metrics remain approximate.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 160x18; macOS crop is 24x24. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "Image",
+      "target": "PublicImagePlaceholder",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/image-publicimageplaceholder/windows-reference.png",
+        "components/image-publicimageplaceholder/mac-runtime.png",
+        "components/image-publicimageplaceholder/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Image emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Image emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps.",
+      "nativeReferenceReadiness": "diagnostic-reference",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only."
+    },
+    {
+      "component": "SymbolIcon",
+      "target": "DiagnosticSymbolIcon",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/symbolicon-diagnosticsymbolicon/windows-reference.png",
+        "components/symbolicon-diagnosticsymbolicon/mac-runtime.png",
+        "components/symbolicon-diagnosticsymbolicon/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "SymbolIcon exports and renders a static Fluent glyph diagnostic; exact Segoe Fluent Icons metrics and state variants remain partial."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SymbolIcon exports and renders a static Fluent glyph diagnostic; exact Segoe Fluent Icons metrics and state variants remain partial.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 120x20; macOS crop is 308x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "XamlControlsResources",
+      "target": "DiagnosticXamlControlsResources",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/windows-reference.png",
+        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/mac-runtime.png",
+        "components/xamlcontrolsresources-diagnosticxamlcontrolsresources/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "XamlControlsResources is represented as a bounded Fluent resource bootstrap diagnostic; the real WinUI resource dictionary is not loaded."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: XamlControlsResources is represented as a bounded Fluent resource bootstrap diagnostic; the real WinUI resource dictionary is not loaded.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "ResourceDictionary.ThemeDictionaries",
+      "target": "ThemeResourceText",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/resourcedictionary-themedictionaries-themeresourcetext/windows-reference.png",
+        "components/resourcedictionary-themedictionaries-themeresourcetext/mac-runtime.png",
+        "components/resourcedictionary-themedictionaries-themeresourcetext/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Theme dictionaries are resolved for the active scenario theme in the clean-room resource subset; full dynamic resource invalidation remains planned."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Theme dictionaries are resolved for the active scenario theme in the clean-room resource subset; full dynamic resource invalidation remains planned.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "ThemeResource",
+      "target": "ThemeResourceText",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/themeresource-themeresourcetext/windows-reference.png",
+        "components/themeresource-themeresourcetext/mac-runtime.png",
+        "components/themeresource-themeresourcetext/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "ThemeResource lookup is simple and does not model full dynamic theme dictionaries."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ThemeResource lookup is simple and does not model full dynamic theme dictionaries.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "StaticResource",
+      "target": "StaticResourceText",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/staticresource-staticresourcetext/windows-reference.png",
+        "components/staticresource-staticresourcetext/mac-runtime.png",
+        "components/staticresource-staticresourcetext/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "StaticResource lookup supports simple local dictionaries only."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: StaticResource lookup supports simple local dictionaries only.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "Style",
+      "target": "LayoutMediaTitle",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/style-layoutmediatitle/windows-reference.png",
+        "components/style-layoutmediatitle/mac-runtime.png",
+        "components/style-layoutmediatitle/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Only supported setter properties are applied."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Only supported setter properties are applied.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "Setter",
+      "target": "LayoutMediaTitle",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/setter-layoutmediatitle/windows-reference.png",
+        "components/setter-layoutmediatitle/mac-runtime.png",
+        "components/setter-layoutmediatitle/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Setter support is limited to simple values on supported facade properties."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Setter support is limited to simple values on supported facade properties.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "Color",
+      "target": "DiagnosticColor",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/color-diagnosticcolor/windows-reference.png",
+        "components/color-diagnosticcolor/mac-runtime.png",
+        "components/color-diagnosticcolor/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Color resources are represented as deterministic swatch tokens for renderer evidence; full typed color object fidelity remains planned."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Color resources are represented as deterministic swatch tokens for renderer evidence; full typed color object fidelity remains planned.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "SolidColorBrush",
+      "target": "ThemeResourceText",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/solidcolorbrush-themeresourcetext/windows-reference.png",
+        "components/solidcolorbrush-themeresourcetext/mac-runtime.png",
+        "components/solidcolorbrush-themeresourcetext/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "SolidColorBrush resources are reduced to deterministic color strings for renderer evidence; full brush object fidelity remains planned."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SolidColorBrush resources are reduced to deterministic color strings for renderer evidence; full brush object fidelity remains planned.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "CornerRadius",
+      "target": "LayoutBorder",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/cornerradius-layoutborder/windows-reference.png",
+        "components/cornerradius-layoutborder/mac-runtime.png",
+        "components/cornerradius-layoutborder/pixel-diff.png"
+      ],
+      "acceptedGaps": [],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity.",
+      "nativeReferenceReadiness": "diagnostic-reference-needs-crop-bounds",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds."
+    },
+    {
+      "component": "Expander",
+      "target": "DiagnosticExpander",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/expander-diagnosticexpander/windows-reference.png",
+        "components/expander-diagnosticexpander/mac-runtime.png",
+        "components/expander-diagnosticexpander/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Expander renders a static expanded header/content diagnostic; collapse interaction, focus visuals, and expanded automation behavior remain partial."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Expander renders a static expanded header/content diagnostic; collapse interaction, focus visuals, and expanded automation behavior remain partial.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 220x60; macOS crop is 448x92. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "Annotated scrollbar",
+      "target": "DiagnosticAnnotatedScrollbar",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/annotated-scrollbar-diagnosticannotatedscrollbar/windows-reference.png",
+        "components/annotated-scrollbar-diagnosticannotatedscrollbar/mac-runtime.png",
+        "components/annotated-scrollbar-diagnosticannotatedscrollbar/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Annotated scrollbar renders static rail and marker diagnostics; scroll position binding, annotation labels, and pointer interaction remain planned."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Annotated scrollbar renders static rail and marker diagnostics; scroll position binding, annotation labels, and pointer interaction remain planned.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 1x3; macOS crop is 286x92. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "SemanticZoom",
+      "target": "DiagnosticSemanticZoom",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/semanticzoom-diagnosticsemanticzoom/windows-reference.png",
+        "components/semanticzoom-diagnosticsemanticzoom/mac-runtime.png",
+        "components/semanticzoom-diagnosticsemanticzoom/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "SemanticZoom renders static zoomed-in and zoomed-out preview panes; zoom switching and collection semantics remain planned."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SemanticZoom renders static zoomed-in and zoomed-out preview panes; zoom switching and collection semantics remain planned.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 220x56; macOS crop is 448x96. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "SplitView",
+      "target": "DiagnosticSplitView",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/splitview-diagnosticsplitview/windows-reference.png",
+        "components/splitview-diagnosticsplitview/mac-runtime.png",
+        "components/splitview-diagnosticsplitview/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "SplitView renders a static open pane/content diagnostic; display modes, light dismiss, compact overlay behavior, and interaction remain partial."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SplitView renders a static open pane/content diagnostic; display modes, light dismiss, compact overlay behavior, and interaction remain partial.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 220x56; macOS crop is 286x96. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "TwoPaneView",
+      "target": "DiagnosticTwoPaneView",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/twopaneview-diagnostictwopaneview/windows-reference.png",
+        "components/twopaneview-diagnostictwopaneview/mac-runtime.png",
+        "components/twopaneview-diagnostictwopaneview/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "TwoPaneView renders static side-by-side panes; adaptive spanning behavior and responsive breakpoints remain planned."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: TwoPaneView renders static side-by-side panes; adaptive spanning behavior and responsive breakpoints remain planned.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 220x48; macOS crop is 488x72. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "AnimatedIcon",
+      "target": "DiagnosticAnimatedIcon",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/animatedicon-diagnosticanimatedicon/windows-reference.png",
+        "components/animatedicon-diagnosticanimatedicon/mac-runtime.png",
+        "components/animatedicon-diagnosticanimatedicon/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ],
+      "toleranceReason": "Outside the current source-level support claim; retained as diagnostic/non-goal evidence.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. 'AnimatedIcon' is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.",
+      "nativeReferenceReadiness": "native-not-rendered",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference does not show a production AnimatedIcon source/frame."
+    },
+    {
+      "component": "Shapes",
+      "target": "DiagnosticShapes",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/shapes-diagnosticshapes/windows-reference.png",
+        "components/shapes-diagnosticshapes/mac-runtime.png",
+        "components/shapes-diagnosticshapes/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ],
+      "toleranceReason": "Outside the current source-level support claim; retained as diagnostic/non-goal evidence.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. 'Shapes' is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 28x28; macOS crop is 349x24. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "MediaPlayerElement",
+      "target": "DiagnosticMediaPlayerElement",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/mediaplayerelement-diagnosticmediaplayerelement/windows-reference.png",
+        "components/mediaplayerelement-diagnosticmediaplayerelement/mac-runtime.png",
+        "components/mediaplayerelement-diagnosticmediaplayerelement/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ],
+      "toleranceReason": "Outside the current source-level support claim; retained as diagnostic/non-goal evidence.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. 'MediaPlayerElement' is cataloged as not supported and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.",
+      "nativeReferenceReadiness": "placeholder-reference",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content."
+    },
+    {
+      "component": "WebView2",
+      "target": "DiagnosticWebView2",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/webview2-diagnosticwebview2/windows-reference.png",
+        "components/webview2-diagnosticwebview2/mac-runtime.png",
+        "components/webview2-diagnosticwebview2/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ],
+      "toleranceReason": "Outside the current source-level support claim; retained as diagnostic/non-goal evidence.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. 'WebView2' is cataloged as not supported and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.",
+      "nativeReferenceReadiness": "placeholder-reference",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content."
+    },
+    {
+      "component": "InkCanvas / InkToolbar",
+      "target": "DiagnosticInkControls",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/windows-reference.png",
+        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/mac-runtime.png",
+        "components/inkcanvas-inktoolbar-diagnosticinkcontrols/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ],
+      "toleranceReason": "Outside the current source-level support claim; retained as diagnostic/non-goal evidence.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. 'InkCanvas / InkToolbar' is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.",
+      "nativeReferenceReadiness": "native-unavailable",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls."
+    },
+    {
+      "component": "Title bar customization",
+      "target": "DiagnosticTitleBarCustomization",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/title-bar-customization-diagnostictitlebarcustomization/windows-reference.png",
+        "components/title-bar-customization-diagnostictitlebarcustomization/mac-runtime.png",
+        "components/title-bar-customization-diagnostictitlebarcustomization/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ],
+      "toleranceReason": "Outside the current source-level support claim; retained as diagnostic/non-goal evidence.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. 'Title bar customization' is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.",
+      "nativeReferenceReadiness": "offscreen-reference",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface."
+    },
+    {
+      "component": "Window.SystemBackdrop / MicaBackdrop",
+      "target": "DiagnosticSystemBackdrop",
+      "visualGrade": "not-rendered",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/windows-reference.png",
+        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/mac-runtime.png",
+        "components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Diagnostic-only inventory row; no renderer support is claimed yet."
+      ],
+      "toleranceReason": "Outside the current source-level support claim; retained as diagnostic/non-goal evidence.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. 'Window.SystemBackdrop / MicaBackdrop' is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.",
+      "nativeReferenceReadiness": "offscreen-reference",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "The current crop is effectively offscreen/height 1 and does not prove the platform surface."
+    }
+  ]
+}

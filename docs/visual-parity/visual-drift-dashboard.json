@@ -33,7 +33,7 @@
         "gated": true,
         "metric": "component-evidence crop grade and per-component thresholds",
         "status": "within-target-for-supported-subset",
-        "note": "Supported command surfaces, static MenuBar chrome, context target export, and the partial flyout/menu subset are usable; final native-quality inspection remains blocked."
+        "note": "Supported command surfaces, static MenuBar chrome, context target export, and the partial flyout/menu subset are usable; native-quality rendering is not claimed."
       },
       "wholeScreenDrift": {
         "gated": false,

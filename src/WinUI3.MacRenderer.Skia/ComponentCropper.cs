@@ -211,13 +211,14 @@ public static class ComponentCropper
         WriteCrop(reference, referenceBounds, referenceCropPath);
         if (referenceBounds.Width != bounds.Width || referenceBounds.Height != bounds.Height)
         {
+            var mismatchDiff = PixelDiff.Compare(referenceCropPath, runtimeCropPath, diffPath, thresholds);
             return CropFailure(
                 component,
                 bounds,
                 referenceBounds,
                 runtimeCropPath,
                 referenceCropPath,
-                diffPath: null,
+                diffPath: diffPath,
                 blank: blank,
                 thresholds: thresholds,
                 nativeReferenceProvenance: nativeReferenceProvenance,
@@ -225,7 +226,8 @@ public static class ComponentCropper
                 message: $"Native and macOS crop dimensions differ. Native crop is {referenceBounds.Width}x{referenceBounds.Height}; macOS crop is {bounds.Width}x{bounds.Height}. Phase -1 does not normalize crop sizes.",
                 outputDirectory: outputDirectory,
                 useRelativePaths: useRelativePaths,
-                readinessStatus: "native-crop-size-mismatch");
+                readinessStatus: "native-crop-size-mismatch",
+                diff: mismatchDiff);
         }
 
         var diff = PixelDiff.Compare(referenceCropPath, runtimeCropPath, diffPath, thresholds);
@@ -278,7 +280,8 @@ public static class ComponentCropper
         string message,
         string outputDirectory,
         bool useRelativePaths,
-        string? readinessStatus = null)
+        string? readinessStatus = null,
+        PixelDiffResult? diff = null)
     {
         var status = readinessStatus ?? (nativeReferenceTarget is null ? "needs-native-crop-bounds" : "invalid-native-crop-bounds");
         return new ComponentCropEvidence(
@@ -290,9 +293,9 @@ public static class ComponentCropper
             PixelDiffPath: ArtifactPath(outputDirectory, diffPath, useRelativePaths),
             RuntimeBlank: blank,
             Thresholds: thresholds,
-            ChangedPixelPercentage: null,
-            MeanAbsoluteError: null,
-            RootMeanSquaredError: null,
+            ChangedPixelPercentage: diff?.ChangedPixelPercentage,
+            MeanAbsoluteError: diff?.MeanAbsoluteError,
+            RootMeanSquaredError: diff?.RootMeanSquaredError,
             Message: message)
         {
             NativeReferenceProvenance = nativeReferenceProvenance,

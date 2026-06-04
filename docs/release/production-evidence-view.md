@@ -21,7 +21,7 @@ states, Mica, Acrylic, composition, media, WebView2, or platform integration.
 | Production status | Release evidence gate is met for the documented harness subset; production visual fidelity is not met. |
 | Runtime model | Wine-free managed macOS execution against local `Microsoft.UI.Xaml` facade types. |
 | Windows source of truth | Public native WinUI fixture captures from `windows-native-screenshot.yml`. |
-| Native source readiness | `docs/visual-parity/native-reference-readiness.json`; currently 58/58 public rows are blocked until Windows element crops or reviewed native bounds prove the references target the intended components. |
+| Native source readiness | `docs/visual-parity/native-reference-readiness.json`; currently 58/58 public rows are `ready` with zero blocker rows. |
 | macOS renderer evidence | Local `skia-v2` strict scenario artifacts show usable scaffolding plus many simplified or `not-rendered` controls. |
 | Component grade source | `component-evidence.json`, not whole-screenshot pass/fail alone; `usable` is not a native-fidelity grade. |
 | Support boundary | Public sanitized Ring 0 and claimed Ring 1 harness components with required evidence. |
@@ -48,16 +48,17 @@ release-evidence result, not a renderer-fidelity result.
 
 The checked-in public component-quality dashboard contains 58 component rows:
 51 `usable` and 7 `not-rendered`. Those rows now have native/macOS/diff crop
-triptychs for manual inspection, but large areas of WinUI chrome, templates,
-states, and advanced controls still need direct renderer work before any
-native-quality claim.
+triptychs and manual inspection metadata for the bounded source-level harness
+gate, but large areas of WinUI chrome, templates, states, and advanced controls
+still need direct renderer work before any native-quality claim.
 
 Native crop presence is not enough for promotion. The checked-in native
 reference source audit (`docs/visual-parity/native-reference-source-audit.md`)
 found that several Windows reference crops are runtime-bound, placeholder,
-unavailable, or offscreen. The release candidate gate now reads
-`docs/visual-parity/native-reference-readiness.json` and blocks every public row
-whose Windows reference source is not explicitly `ready`.
+unavailable, or offscreen in historical context. The release candidate gate
+reads `docs/visual-parity/native-reference-readiness.json`; the current manifest
+has zero source-readiness blockers, while native-quality promotion still
+requires stricter renderer evidence.
 
 | Family | Target grade | Current grade | Latest run ID | Next blocker |
 | --- | --- | --- | --- | --- |
@@ -280,12 +281,12 @@ must not be used to promote or demote current component grades by themselves;
 manual screenshot inspection remains required before claiming visual quality.
 
 The generated `docs/visual-parity/component-quality-dashboard.json` is the
-current public component-quality gate. It is blocked with 58/58 checked-in
-public component rows below the native-quality target. The public rows now have
-macOS component crops, native WinUI reference crops, component diffs, and native
-reference provenance; they remain blocked because final visual grades,
-`nativeQualityGrade` good or production-ready, and manual inspection metadata
-are still missing. The generated
+current public component-quality gate. It now has zero source-level harness
+blocker rows across 58 checked-in public component rows. The public rows have
+macOS component crops, native WinUI reference crops, component diffs, native
+reference provenance, and manual inspection metadata. They remain at 51
+`usable`, 7 `not-rendered`, and 58 `nativeQualityGrade: not-evaluated`; this is
+not a native-quality promotion. The generated
 `docs/visual-parity/public-visual-review-index.html` is the row-by-row
 inspection queue for those crops.
 

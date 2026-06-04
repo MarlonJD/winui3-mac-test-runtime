@@ -94,42 +94,44 @@ applies only to that component's documented harness subset.
 
 The checked-in public component-quality dashboard contains 58 component
 evidence rows: 51 `usable` and 7 `not-rendered`. Those rows all have
-native/macOS/diff crop triptychs, but they do not establish native WinUI visual
-fidelity until final grades and manual inspection metadata are present.
+native/macOS/diff crop triptychs and manual inspection metadata. They establish
+the bounded source-level harness gate only; all rows keep
+`nativeQualityGrade: not-evaluated`, so they do not establish native WinUI
+visual fidelity.
 
-The current native reference readiness manifest blocks all 58 public rows.
-This is intentional: crop presence alone is not enough when the native crop
-uses runtime-derived bounds, points at a neighboring region, or the Windows
-reference itself is placeholder/unavailable/offscreen. Treat
-`native-reference-readiness.json` as the source-readiness gate before manual
-promotion.
+The current native reference readiness manifest reports 58/58 public rows
+`ready` with zero blocker rows. Treat `native-reference-readiness.json` as the
+source-readiness gate before any future visual promotion, but do not treat
+source readiness alone as native-quality renderer fidelity.
 
 `component-quality-dashboard.json` is the checked-in generated quality gate for
 the public example evidence. It lists every checked-in component row, its
-current grade, native-quality target, owner family, required scenario, and
-remaining blocker. The current dashboard is blocked: 58/58 checked-in public
-component rows have native/macOS/diff crop evidence and native WinUI reference
-provenance, but still lack native-quality completion evidence: final visual
-grades, `nativeQualityGrade` good or production-ready, and manual screenshot
-inspection metadata.
+current grade, source-level harness target, owner family, required scenario,
+and remaining blocker. The current dashboard has zero source-level blocker
+rows. It still records 51 `usable` rows, 7 planned or not-supported
+`not-rendered` rows, and no `good` or `production-ready`
+`nativeQualityGrade` values.
 
 `public-visual-review-index.html` and `public-visual-review-index.json` are the
 checked-in generated inspection queue for those public rows. The index links
 each row to its scenario review page plus native reference, macOS runtime, and
 pixel diff crops, links each scenario's `component-inspection-template.json`,
 embeds compact native/macOS/diff crop previews with component diff metrics, and
-repeats the dashboard blocker so manual inspection can work row by row without
+repeats the dashboard status so manual inspection can work row by row without
 promoting claims prematurely.
 
 Manual inspection is applied through
 `winui3-mac-runner component-inspection-apply --evidence <component-evidence.json>
 --inspection <component-inspection.json>`. The inspection manifest must provide
-`good` or `production-ready` for both `visualGrade` and `nativeQualityGrade`,
+an honest documented grade (`usable` for claimed harness rows or
+`not-rendered` for excluded diagnostic rows), `nativeQualityGrade:
+not-evaluated` unless native-quality evidence supports promotion,
 reviewer/date/run ID/notes, and either explicit comparison artifact paths or
-the existing crop triptych paths. The command rejects non-final grades,
-missing crop evidence, missing component diff metrics, missing native
-provenance, mismatched native reference run IDs, and nonexistent artifact
-paths.
+the existing crop triptych paths. The command rejects unknown grades, claimed
+harness rows below `usable`, excluded rows promoted above `not-rendered`,
+native-quality grades without promotion-valid native bounds, missing crop
+evidence, missing component diff metrics, missing native provenance, mismatched
+native reference run IDs, and nonexistent artifact paths.
 
 Interactive rows also need automation evidence before they can be treated as
 production-ready. The project target is FlaUI 5.0 + FlaUI.UIA3 on native

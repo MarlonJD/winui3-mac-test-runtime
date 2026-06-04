@@ -5,7 +5,8 @@ namespace WinUI3.MacRuntime;
 public static class ComponentInspectionTemplate
 {
     public const string DefaultFileName = "component-inspection-template.json";
-    private const string TodoFinalGrade = "TODO-good-or-production-ready";
+    private const string TodoVisualGrade = "TODO-not-rendered-usable-good-or-production-ready";
+    private const string TodoNativeQualityGrade = "TODO-not-evaluated-good-or-production-ready";
 
     public static ComponentInspectionDocument Build(ComponentEvidenceDocument evidence)
     {
@@ -43,8 +44,8 @@ public static class ComponentInspectionTemplate
         var row = new ComponentInspectionRow(
             Component: component.Component,
             Target: component.Target,
-            VisualGrade: TodoFinalGrade,
-            NativeQualityGrade: TodoFinalGrade,
+            VisualGrade: TodoVisualGrade,
+            NativeQualityGrade: TodoNativeQualityGrade,
             InspectedBy: "TODO-reviewer",
             InspectedDate: "TODO-YYYY-MM-DD",
             NativeReferenceRunId: crop?.NativeReferenceProvenance?.WorkflowRunId ?? "TODO-native-reference-run-id",

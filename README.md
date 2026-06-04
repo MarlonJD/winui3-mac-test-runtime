@@ -29,17 +29,18 @@ not-supported, and uncataloged APIs must fail or report diagnostics instead of
 silently looking supported.
 
 It also does **not** mean native WinUI visual fidelity. The checked-in public
-component-quality dashboard currently tracks 58 public component rows: 32
-`usable`, 26 `not-rendered`, and 58 blocker rows. `usable` means recognizable
-and functionally testable, not pixel-matched Fluent chrome. The next project
-phase is renderer fidelity, automation evidence, and manual inspection work,
-not more release-gate expansion.
+component-quality dashboard currently tracks 58 public component rows: 51
+`usable` source-level harness rows and 7 planned or not-supported
+`not-rendered` diagnostic rows. `usable` means recognizable and functionally
+testable, not pixel-matched Fluent chrome. The next project phase is renderer
+fidelity and deeper automation evidence, not more release-gate expansion.
 
 The checked-in public component-quality dashboard at
-`docs/visual-parity/component-quality-dashboard.json` is currently blocked:
-58/58 checked-in public component rows have native/macOS/diff crop evidence and
-native WinUI reference provenance, but still lack final native-quality grades
-and manual inspection metadata.
+`docs/visual-parity/component-quality-dashboard.json` now has zero source-level
+harness blocker rows. The rows have native/macOS/diff crop evidence, native
+WinUI reference provenance, and manual inspection metadata, while all
+`nativeQualityGrade` values remain `not-evaluated`; this is not a
+native-quality visual claim.
 
 Use this runtime when your app or fixture stays inside the documented
 `supported` and `partial` subset. Do not use it as evidence that arbitrary WinUI
@@ -74,8 +75,9 @@ control honesty, no OS composition claim, gated component-crop drift, the
 component-quality dashboard, native reference provenance, release docs, and the
 private-name scan) and lists the external workflow requirements (full native
 reference capture, full strict scenario sweep, and the package dry run with
-`release-check`). The gate remains blocked until every public component row has
-native-quality evidence. The exact support boundary stays source-level WinUI 3
+`release-check`). The deterministic local gate is expected to pass when the
+machine-readable artifacts are current; external workflow/package evidence is
+still recorded separately. The exact support boundary stays source-level WinUI 3
 harness readiness for the documented public subset, not Windows binary
 execution, arbitrary WinUI 3 compatibility, or high-fidelity Fluent rendering.
 

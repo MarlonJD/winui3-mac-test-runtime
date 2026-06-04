@@ -40,9 +40,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -86,7 +86,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -136,12 +136,31 @@
           "y": -4,
           "width": -16,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/button-primaryactionbutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/button-primaryactionbutton/windows-reference.png",
+          "components/button-primaryactionbutton/mac-runtime.png",
+          "components/button-primaryactionbutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      }
     },
     {
       "component": "ToggleButton",
@@ -180,9 +199,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -226,7 +245,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -276,12 +295,31 @@
           "y": -4,
           "width": -5,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/togglebutton-pinnedtogglebutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/togglebutton-pinnedtogglebutton/windows-reference.png",
+          "components/togglebutton-pinnedtogglebutton/mac-runtime.png",
+          "components/togglebutton-pinnedtogglebutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      }
     },
     {
       "component": "CheckBox",
@@ -320,9 +358,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -366,7 +404,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -416,12 +454,31 @@
           "y": -4,
           "width": 24,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/checkbox-enabledcheckbox/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/checkbox-enabledcheckbox/windows-reference.png",
+          "components/checkbox-enabledcheckbox/mac-runtime.png",
+          "components/checkbox-enabledcheckbox/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps."
+      }
     },
     {
       "component": "RadioButton",
@@ -460,9 +517,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -506,7 +563,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -556,12 +613,31 @@
           "y": -4,
           "width": -8,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/radiobutton-highpriorityradiobutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/radiobutton-highpriorityradiobutton/windows-reference.png",
+          "components/radiobutton-highpriorityradiobutton/mac-runtime.png",
+          "components/radiobutton-highpriorityradiobutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps."
+      }
     },
     {
       "component": "ComboBox",
@@ -649,7 +725,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -704,7 +780,22 @@
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/combobox-statuscombobox/windows-reference.png",
+          "components/combobox-statuscombobox/mac-runtime.png",
+          "components/combobox-statuscombobox/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps."
+      }
     },
     {
       "component": "RepeatButton",
@@ -743,9 +834,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -789,13 +880,13 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
           "component": "RepeatButton",
           "target": "DiagnosticRepeatButton",
-          "identitySource": "x:Name\u002Bnative-descendant",
+          "identitySource": "x:Name+native-descendant",
           "automationId": "",
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
@@ -810,7 +901,7 @@
             "height": 32
           },
           "visibility": "Visible",
-          "boundsSource": "x:Name\u002Bnative-descendant",
+          "boundsSource": "x:Name+native-descendant",
           "capturedAt": "2026-06-03T08:19:32.254014+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
@@ -839,12 +930,31 @@
           "y": -9,
           "width": -190,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/repeatbutton-diagnosticrepeatbutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/repeatbutton-diagnosticrepeatbutton/windows-reference.png",
+          "components/repeatbutton-diagnosticrepeatbutton/mac-runtime.png",
+          "components/repeatbutton-diagnosticrepeatbutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
+      }
     },
     {
       "component": "HyperlinkButton",
@@ -883,9 +993,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -929,13 +1039,13 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
           "component": "HyperlinkButton",
           "target": "DiagnosticHyperlinkButton",
-          "identitySource": "x:Name\u002Bnative-descendant",
+          "identitySource": "x:Name+native-descendant",
           "automationId": "",
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.HyperlinkButton",
@@ -950,7 +1060,7 @@
             "height": 32
           },
           "visibility": "Visible",
-          "boundsSource": "x:Name\u002Bnative-descendant",
+          "boundsSource": "x:Name+native-descendant",
           "capturedAt": "2026-06-03T08:19:32.2541978+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
@@ -979,12 +1089,31 @@
           "y": -9,
           "width": -187,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/hyperlinkbutton-diagnostichyperlinkbutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/hyperlinkbutton-diagnostichyperlinkbutton/windows-reference.png",
+          "components/hyperlinkbutton-diagnostichyperlinkbutton/mac-runtime.png",
+          "components/hyperlinkbutton-diagnostichyperlinkbutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
+      }
     },
     {
       "component": "DropDownButton",
@@ -1023,9 +1152,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -1069,13 +1198,13 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
           "component": "DropDownButton",
           "target": "DiagnosticDropDownButton",
-          "identitySource": "x:Name\u002Bnative-descendant",
+          "identitySource": "x:Name+native-descendant",
           "automationId": "",
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.DropDownButton",
@@ -1090,7 +1219,7 @@
             "height": 32
           },
           "visibility": "Visible",
-          "boundsSource": "x:Name\u002Bnative-descendant",
+          "boundsSource": "x:Name+native-descendant",
           "capturedAt": "2026-06-03T08:19:32.2544075+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
@@ -1119,12 +1248,31 @@
           "y": -9,
           "width": -198,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/dropdownbutton-diagnosticdropdownbutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/dropdownbutton-diagnosticdropdownbutton/windows-reference.png",
+          "components/dropdownbutton-diagnosticdropdownbutton/mac-runtime.png",
+          "components/dropdownbutton-diagnosticdropdownbutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
+      }
     },
     {
       "component": "SplitButton",
@@ -1163,9 +1311,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -1209,13 +1357,13 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
           "component": "SplitButton",
           "target": "DiagnosticSplitButton",
-          "identitySource": "x:Name\u002Bnative-descendant",
+          "identitySource": "x:Name+native-descendant",
           "automationId": "",
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.SplitButton",
@@ -1230,7 +1378,7 @@
             "height": 30
           },
           "visibility": "Visible",
-          "boundsSource": "x:Name\u002Bnative-descendant",
+          "boundsSource": "x:Name+native-descendant",
           "capturedAt": "2026-06-03T08:19:32.2547597+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
@@ -1259,12 +1407,31 @@
           "y": -9,
           "width": -196,
           "height": -2
-        }
+        },
+        "pixelDiffPath": "components/splitbutton-diagnosticsplitbutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/splitbutton-diagnosticsplitbutton/windows-reference.png",
+          "components/splitbutton-diagnosticsplitbutton/mac-runtime.png",
+          "components/splitbutton-diagnosticsplitbutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
+      }
     },
     {
       "component": "ToggleSplitButton",
@@ -1303,9 +1470,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -1349,13 +1516,13 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
           "component": "ToggleSplitButton",
           "target": "DiagnosticToggleSplitButton",
-          "identitySource": "x:Name\u002Bnative-descendant",
+          "identitySource": "x:Name+native-descendant",
           "automationId": "",
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.ToggleSplitButton",
@@ -1370,7 +1537,7 @@
             "height": 30
           },
           "visibility": "Visible",
-          "boundsSource": "x:Name\u002Bnative-descendant",
+          "boundsSource": "x:Name+native-descendant",
           "capturedAt": "2026-06-03T08:19:32.2553952+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
@@ -1399,12 +1566,31 @@
           "y": -9,
           "width": -188,
           "height": -2
-        }
+        },
+        "pixelDiffPath": "components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png",
+          "components/togglesplitbutton-diagnostictogglesplitbutton/mac-runtime.png",
+          "components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
+      }
     },
     {
       "component": "Slider",
@@ -1443,9 +1629,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -1489,13 +1675,13 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
           "component": "Slider",
           "target": "DiagnosticSlider",
-          "identitySource": "x:Name\u002Bnative-descendant",
+          "identitySource": "x:Name+native-descendant",
           "automationId": "",
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.Slider",
@@ -1510,7 +1696,7 @@
             "height": 32
           },
           "visibility": "Visible",
-          "boundsSource": "x:Name\u002Bnative-descendant",
+          "boundsSource": "x:Name+native-descendant",
           "capturedAt": "2026-06-03T08:19:32.256718+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
@@ -1539,12 +1725,31 @@
           "y": -9,
           "width": -188,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/slider-diagnosticslider/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/slider-diagnosticslider/windows-reference.png",
+          "components/slider-diagnosticslider/mac-runtime.png",
+          "components/slider-diagnosticslider/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
+      }
     },
     {
       "component": "ToggleSwitch",
@@ -1583,9 +1788,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -1629,13 +1834,13 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
           "component": "ToggleSwitch",
           "target": "DiagnosticToggleSwitch",
-          "identitySource": "x:Name\u002Bnative-descendant",
+          "identitySource": "x:Name+native-descendant",
           "automationId": "",
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.ToggleSwitch",
@@ -1650,7 +1855,7 @@
             "height": 63
           },
           "visibility": "Visible",
-          "boundsSource": "x:Name\u002Bnative-descendant",
+          "boundsSource": "x:Name+native-descendant",
           "capturedAt": "2026-06-03T08:19:32.2573484+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
@@ -1679,12 +1884,31 @@
           "y": -9,
           "width": -193,
           "height": 19
-        }
+        },
+        "pixelDiffPath": "components/toggleswitch-diagnostictoggleswitch/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/toggleswitch-diagnostictoggleswitch/windows-reference.png",
+          "components/toggleswitch-diagnostictoggleswitch/mac-runtime.png",
+          "components/toggleswitch-diagnostictoggleswitch/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
+      }
     },
     {
       "component": "RatingControl",
@@ -1723,9 +1947,9 @@
         "meanAbsoluteError": 12,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 30.145914,
-      "meanAbsoluteError": 9.611153,
-      "rootMeanSquaredError": 39.380451,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -1769,13 +1993,13 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:33.6629802\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:33.6629802+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
           "component": "RatingControl",
           "target": "DiagnosticRatingControl",
-          "identitySource": "x:Name\u002Bnative-descendant",
+          "identitySource": "x:Name+native-descendant",
           "automationId": "",
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.RatingControl",
@@ -1790,7 +2014,7 @@
             "height": 32
           },
           "visibility": "Visible",
-          "boundsSource": "x:Name\u002Bnative-descendant",
+          "boundsSource": "x:Name+native-descendant",
           "capturedAt": "2026-06-03T08:19:32.25788+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
@@ -1819,12 +2043,31 @@
           "y": -9,
           "width": -188,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/ratingcontrol-diagnosticratingcontrol/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/ratingcontrol-diagnosticratingcontrol/windows-reference.png",
+          "components/ratingcontrol-diagnosticratingcontrol/mac-runtime.png",
+          "components/ratingcontrol-diagnosticratingcontrol/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
+      }
     }
   ],
   "sourceFeatures": [],

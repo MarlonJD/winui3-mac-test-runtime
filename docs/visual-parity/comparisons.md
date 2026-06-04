@@ -29,9 +29,10 @@ but many controls still have simplified chrome, missing native states, missing
 templates, incomplete popup placement, or diagnostic-only rendering.
 
 The generated dashboard at `docs/visual-parity/component-quality-dashboard.json`
-is the current checked-in component-quality gate. It is blocked with 58/58
-public example rows below the native-quality target because the rows lack final
-native-quality grades and manual inspection metadata.
+is the current checked-in component-quality gate. It has zero source-level
+harness blocker rows across 58 public example rows. The rows remain 51
+`usable`, 7 `not-rendered`, and 58 `nativeQualityGrade: not-evaluated`, so this
+is not a native-quality visual fidelity claim.
 
 ## Provenance
 
