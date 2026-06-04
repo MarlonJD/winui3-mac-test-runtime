@@ -127,7 +127,7 @@ See `component-support.md` for a readable component-by-component support table.
 | `ComboBox` | supported | Items, selected item/index, placeholder, tree export, layout, and `skia-v2` painter for public fixtures. |
 | `ProgressRing`, `ProgressBar`, `InfoBar` | supported | State/value/severity metadata, tree export, layout, and `skia-v2` painters for public fixtures. |
 | `CommandBar`, `AppBarButton` | supported | Primary commands, labels, click simulation, tree export, layout, and `skia-v2` painters for public fixtures. |
-| `CommandBarFlyout`, `MenuFlyout` | partial | Open state, command/menu item invocation, accessibility popup/menuitem metadata, layout, and `skia-v2` popup painters for public smoke scenarios. |
+| `CommandBarFlyout`, `MenuFlyout` | partial | Static host targets are covered in the checked-in public native comparison; source-level open/invoke diagnostics exercise popup metadata and `skia-v2` popup painters without promoting native popup visual parity. |
 | `ScrollViewer`, `ContentControl`, `ItemsControl` | supported | Single-slot or item collection containment, tree export, layout, and `skia-v2` support for public fixtures. |
 | `ContentDialog`, `Flyout`, `ToolTip` | partial | Open state, dialog/flyout/tooltip metadata, accessibility expanded state, layout, and `skia-v2` popup painters for public smoke scenarios. |
 | `Image`, `ListView` | partial | Logical model plus `skia-v2` placeholder/list painters for public scenarios. |

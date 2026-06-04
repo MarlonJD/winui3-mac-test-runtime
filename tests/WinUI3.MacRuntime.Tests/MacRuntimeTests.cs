@@ -2236,6 +2236,36 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task PublicCommandsMenusScenarioKeepsPopupStateOutOfStaticNativeReference()
+    {
+        var scenarioPath = Path.Combine(
+            FindRepositoryRoot(),
+            "fixtures",
+            "ComponentParityLab.WinUI",
+            "scenarios",
+            "component-commands-menus-light.json");
+        var scenario = await VisualScenario.LoadAsync(scenarioPath);
+        var popupInteractionTypes = new[] { "openPopup", "invokeMenuItem" };
+
+        foreach (var action in scenario.Interactions)
+        {
+            CollectionAssert.DoesNotContain(
+                popupInteractionTypes,
+                action.Type,
+                "The public commands/menus base scenario is static native-reference evidence; open popup state belongs in explicit open-popup diagnostics.");
+        }
+
+        foreach (var requirement in scenario.Requirements.Where(requirement =>
+            requirement.Component is "CommandBarFlyout" or "MenuFlyout"))
+        {
+            CollectionAssert.DoesNotContain(
+                requirement.RequiredProperties.ToArray(),
+                "open-popup",
+                $"'{requirement.Component}' must not require open-popup evidence in the static public commands/menus scenario.");
+        }
+    }
+
+    [TestMethod]
     public async Task ComponentLabScenariosCoverDownstreamSourceAuditGaps()
     {
         var repositoryRoot = FindRepositoryRoot();

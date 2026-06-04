@@ -667,7 +667,7 @@
       },
       "catalogStatus": "partial",
       "presence": "present",
-      "interactionStatus": "passed",
+      "interactionStatus": "not-applicable",
       "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 24,
@@ -788,13 +788,13 @@
           "components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png"
         ],
         "acceptedGaps": [
-          "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+          "CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
         ],
         "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
-        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static CommandBarFlyout host target, not native-quality popup parity. Documented gaps: CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
       },
       "knownGaps": [
-        "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+        "CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
       ]
     },
     {
@@ -826,7 +826,7 @@
       },
       "catalogStatus": "partial",
       "presence": "present",
-      "interactionStatus": "passed",
+      "interactionStatus": "not-applicable",
       "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 24,
@@ -947,13 +947,13 @@
           "components/menuflyout-diagnosticmenuflyout/pixel-diff.png"
         ],
         "acceptedGaps": [
-          "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+          "MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
         ],
         "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
-        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static MenuFlyout host target, not native-quality popup parity. Documented gaps: MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
       },
       "knownGaps": [
-        "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+        "MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
       ]
     },
     {

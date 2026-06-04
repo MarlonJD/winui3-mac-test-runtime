@@ -33,11 +33,11 @@
         "gated": true,
         "metric": "component-evidence crop grade and per-component thresholds",
         "status": "within-target-for-supported-subset",
-        "note": "Supported command surfaces, static MenuBar chrome, context target export, and the partial flyout/menu subset are usable; native-quality rendering is not claimed."
+        "note": "Supported command surfaces, static flyout host targets, static MenuBar chrome, and context target export are usable; popup/native-quality rendering is not claimed."
       },
       "wholeScreenDrift": {
         "gated": false,
-        "changedPixelPercentage": 29.206388,
+        "changedPixelPercentage": 28.416018,
         "threshold": 24,
         "status": "informational-over-threshold",
         "note": "Superseded by component evidence; cross-platform rasterization difference."

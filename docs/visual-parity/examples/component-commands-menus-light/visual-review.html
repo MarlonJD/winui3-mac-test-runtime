@@ -197,7 +197,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 164x32; macOS crop is 165x32. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static CommandBarFlyout host target, not native-quality popup parity. Documented gaps: CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence.</p>
 </section>
 <section class="component">
 <h2>MenuFlyout <code>DiagnosticMenuFlyout</code></h2>
@@ -230,7 +230,7 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 137x32; macOS crop is 144x32. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static MenuFlyout host target, not native-quality popup parity. Documented gaps: MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence.</p>
 </section>
 <section class="component">
 <h2>MenuBar <code>DiagnosticMenuBar</code></h2>

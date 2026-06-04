@@ -69,7 +69,7 @@
       "name": "Ring 1 E2E visual completion",
       "status": "implemented for claimed subsets",
       "evidence": [
-        "strict open-popup scenarios cover MenuFlyout, CommandBarFlyout, ContentDialog, Flyout, and ToolTip; component-commands-menus-light covers static MenuBar chrome and context-menu target export",
+        "component-commands-menus-light covers static CommandBarFlyout/MenuFlyout host targets, static MenuBar chrome, and context-menu target export; strict open-popup scenarios remain source-level diagnostics until matching native popup visual references exist",
         "collections selected and layout/media light, dark, and high-contrast scenarios remain strict",
         "rich form input, templates, broader keyboarding, advanced collection controls, TeachingTip, MenuBar submenu behavior, and context-menu popup behavior remain planned or diagnostic until real support is implemented"
       ]

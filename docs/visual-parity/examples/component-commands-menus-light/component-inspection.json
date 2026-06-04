@@ -103,13 +103,13 @@
         "components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png"
       ],
       "acceptedGaps": [
-        "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+        "CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
       ],
       "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
-      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial.",
-      "nativeReferenceReadiness": "state-reference-incomplete",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static CommandBarFlyout host target, not native-quality popup parity. Documented gaps: CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence.",
+      "nativeReferenceReadiness": "ready",
       "nativeReferenceBoundsSource": "windows-native-element-bounds",
-      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
+      "nativeReferenceIntegrityBlockerReason": "none"
     },
     {
       "component": "MenuFlyout",
@@ -125,13 +125,13 @@
         "components/menuflyout-diagnosticmenuflyout/pixel-diff.png"
       ],
       "acceptedGaps": [
-        "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+        "MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
       ],
       "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
-      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial.",
-      "nativeReferenceReadiness": "state-reference-incomplete",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static MenuFlyout host target, not native-quality popup parity. Documented gaps: MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence.",
+      "nativeReferenceReadiness": "ready",
       "nativeReferenceBoundsSource": "windows-native-element-bounds",
-      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
+      "nativeReferenceIntegrityBlockerReason": "none"
     },
     {
       "component": "MenuBar",
@@ -151,9 +151,9 @@
       ],
       "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
       "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps.",
-      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceReadiness": "ready",
       "nativeReferenceBoundsSource": "windows-native-element-bounds",
-      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
+      "nativeReferenceIntegrityBlockerReason": "none"
     },
     {
       "component": "Context menu pattern",
@@ -173,9 +173,9 @@
       ],
       "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
       "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps.",
-      "nativeReferenceReadiness": "state-reference-incomplete",
+      "nativeReferenceReadiness": "ready",
       "nativeReferenceBoundsSource": "windows-native-element-bounds",
-      "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
+      "nativeReferenceIntegrityBlockerReason": "none"
     }
   ]
 }
