@@ -18,15 +18,13 @@
                 </AppBarButton>
             </CommandBar.PrimaryCommands>
         </CommandBar>
-        <TextBlock x:Name="CommandStateText" Text="Commands ready" />
-        <StackPanel Orientation="Horizontal" Spacing="14">
+        <TextBlock x:Name="CommandStateText" Text="Command state: Ready" />
+        <StackPanel x:Name="CommandsMenusDiagnostics" Spacing="10">
             <ContentControl x:Name="DiagnosticCommandBarContent" />
             <ContentControl x:Name="DiagnosticCommandBarFlyout" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Spacing="14">
             <ContentControl x:Name="DiagnosticMenuFlyout" />
             <ContentControl x:Name="DiagnosticMenuBar" />
+            <ContentControl x:Name="DiagnosticContextMenuPattern" />
         </StackPanel>
-        <ContentControl x:Name="DiagnosticContextMenuPattern" />
     </StackPanel>
 </Page>

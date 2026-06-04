@@ -2452,6 +2452,34 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void VisualLayoutEnginePlacesCommandBarContentBeforePrimaryCommands()
+    {
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new CommandBar
+            {
+                Name = "ContentCommandBar",
+                Width = 360,
+                Content = new TextBlock { Name = "InlineCommandContent", Text = "Inline command content" },
+                PrimaryCommands =
+                {
+                    new AppBarButton { Name = "AcceptCommand", Label = "Accept" }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "commandbar-content", "skia-v2", new VisualViewport(480, 120), 1, "light", true, new VisualThresholds());
+
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var content = RequireNode(arranged.Root, "InlineCommandContent");
+        var command = RequireNode(arranged.Root, "AcceptCommand");
+
+        Assert.HasCount(0, unsupported);
+        Assert.IsTrue(content.Layout!.X < command.Layout!.X, "CommandBar.Content must be laid out before primary commands.");
+        Assert.IsFalse(content.Properties.ContainsKey("commandBarCompact"), "CommandBar.Content must not be tagged as compact command chrome.");
+        Assert.AreEqual(true, command.Properties["commandBarCompact"]);
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererDrawsAdaptiveContainerDiagnostics()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "adaptive");

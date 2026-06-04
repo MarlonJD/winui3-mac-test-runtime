@@ -383,14 +383,35 @@ public static class VisualLayoutEngine
             const double commandHeight = 32;
             const double commandSpacing = 64;
             const double overflowReserve = 40;
-            var startX = rect.X + rect.Width - overflowReserve - node.Children.Count * commandSpacing;
+            var contentChildren = node.Children
+                .Where(child => SimpleType(child) != "AppBarButton")
+                .ToArray();
+            var primaryCommands = node.Children
+                .Where(child => SimpleType(child) == "AppBarButton")
+                .ToArray();
+            var startX = rect.X + rect.Width - overflowReserve - primaryCommands.Length * commandSpacing;
             var commandY = rect.Y + Math.Max(0, (rect.Height - commandHeight) / 2);
             var commandChildren = new List<UiNode>(node.Children.Count);
-            for (var index = 0; index < node.Children.Count; index++)
+            if (contentChildren.Length > 0)
+            {
+                var contentX = rect.X + 8;
+                var contentRight = Math.Max(contentX + 1, startX - 8);
+                var slotWidth = Math.Max(1, (contentRight - contentX) / contentChildren.Length);
+                for (var index = 0; index < contentChildren.Length; index++)
+                {
+                    var childX = contentX + index * slotWidth;
+                    commandChildren.Add(ArrangeNode(
+                        contentChildren[index],
+                        new LayoutRect(childX, commandY, Math.Min(slotWidth, EstimateWidth(contentChildren[index], slotWidth)), commandHeight),
+                        unsupported));
+                }
+            }
+
+            for (var index = 0; index < primaryCommands.Length; index++)
             {
                 var childX = startX + index * commandSpacing;
                 var arrangedChild = ArrangeNode(
-                    node.Children[index],
+                    primaryCommands[index],
                     new LayoutRect(childX, commandY, commandWidth, commandHeight),
                     unsupported);
                 commandChildren.Add(WithProperty(arrangedChild, "commandBarCompact", true));

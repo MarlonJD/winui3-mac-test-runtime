@@ -28,7 +28,7 @@
       "type": "assertProperty",
       "target": "CommandStateText",
       "key": "Text",
-      "parameter": "Saved"
+      "parameter": "Command state: Saved"
     },
     {
       "type": "openPopup",
