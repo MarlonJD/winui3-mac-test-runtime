@@ -50,7 +50,7 @@
         "open-popup"
       ],
       "knownGaps": [
-        "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+        "CommandBarFlyout open state and command invocation are source-level smoke diagnostics; matching native popup visual reference capture, native placement, overflow, and dismissal semantics remain partial."
       ]
     },
     {
@@ -63,7 +63,7 @@
         "open-popup"
       ],
       "knownGaps": [
-        "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+        "MenuFlyout open state and item invocation are source-level smoke diagnostics; matching native popup visual reference capture, native placement, keyboarding, and dismissal semantics remain partial."
       ]
     },
     {

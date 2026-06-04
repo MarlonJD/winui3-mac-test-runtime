@@ -89,7 +89,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -144,7 +144,22 @@
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "The skia-v2 renderer approximates the WinUI NavigationView pane and selection chrome; native animation, compact behavior, and full keyboarding remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/navigationview-rootnavigation/windows-reference.png",
+          "components/navigationview-rootnavigation/mac-runtime.png",
+          "components/navigationview-rootnavigation/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "The skia-v2 renderer approximates the WinUI NavigationView pane and selection chrome; native animation, compact behavior, and full keyboarding remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: The skia-v2 renderer approximates the WinUI NavigationView pane and selection chrome; native animation, compact behavior, and full keyboarding remain gaps."
+      }
     },
     {
       "component": "NavigationViewItem",
@@ -183,9 +198,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.988381,
-      "meanAbsoluteError": 9.585413,
-      "rootMeanSquaredError": 36.246235,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -229,7 +244,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -279,12 +294,31 @@
           "y": -8,
           "width": 24,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/navigationviewitem-queuenavigationitem/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Selected item visuals are simplified and not pixel-perfect Fluent output."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/navigationviewitem-queuenavigationitem/windows-reference.png",
+          "components/navigationviewitem-queuenavigationitem/mac-runtime.png",
+          "components/navigationviewitem-queuenavigationitem/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "Selected item visuals are simplified and not pixel-perfect Fluent output."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Selected item visuals are simplified and not pixel-perfect Fluent output."
+      }
     },
     {
       "component": "Frame",
@@ -323,9 +357,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.988381,
-      "meanAbsoluteError": 9.585413,
-      "rootMeanSquaredError": 36.246235,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -369,7 +403,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -419,12 +453,31 @@
           "y": 1,
           "width": -1,
           "height": -1
-        }
+        },
+        "pixelDiffPath": "components/frame-workbenchframe/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Back stack and transition animations are not modeled."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/frame-workbenchframe/windows-reference.png",
+          "components/frame-workbenchframe/mac-runtime.png",
+          "components/frame-workbenchframe/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "Back stack and transition animations are not modeled."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Back stack and transition animations are not modeled."
+      }
     },
     {
       "component": "TextBox",
@@ -463,9 +516,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.988381,
-      "meanAbsoluteError": 9.585413,
-      "rootMeanSquaredError": 36.246235,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -509,7 +562,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -559,12 +612,31 @@
           "y": -4,
           "width": 571,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/textbox-searchbox/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "TextBox chrome is approximated; caret, selection, and native validation visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/textbox-searchbox/windows-reference.png",
+          "components/textbox-searchbox/mac-runtime.png",
+          "components/textbox-searchbox/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "TextBox chrome is approximated; caret, selection, and native validation visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: TextBox chrome is approximated; caret, selection, and native validation visuals remain gaps."
+      }
     },
     {
       "component": "CommandBar",
@@ -603,9 +675,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.988381,
-      "meanAbsoluteError": 9.585413,
-      "rootMeanSquaredError": 36.246235,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -649,7 +721,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -699,12 +771,31 @@
           "y": -4,
           "width": -1,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/commandbar-decisioncommandbar/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "CommandBar chrome is approximated; overflow, pointer states, and native spacing remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/commandbar-decisioncommandbar/windows-reference.png",
+          "components/commandbar-decisioncommandbar/mac-runtime.png",
+          "components/commandbar-decisioncommandbar/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "CommandBar chrome is approximated; overflow, pointer states, and native spacing remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBar chrome is approximated; overflow, pointer states, and native spacing remain gaps."
+      }
     },
     {
       "component": "AppBarButton",
@@ -743,9 +834,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.988381,
-      "meanAbsoluteError": 9.585413,
-      "rootMeanSquaredError": 36.246235,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -789,7 +880,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -839,12 +930,31 @@
           "y": -12,
           "width": -36,
           "height": 32
-        }
+        },
+        "pixelDiffPath": "components/appbarbutton-approvecommand/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "AppBarButton label and icon chrome are approximated; native overflow and focus behavior remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/appbarbutton-approvecommand/windows-reference.png",
+          "components/appbarbutton-approvecommand/mac-runtime.png",
+          "components/appbarbutton-approvecommand/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "AppBarButton label and icon chrome are approximated; native overflow and focus behavior remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: AppBarButton label and icon chrome are approximated; native overflow and focus behavior remain gaps."
+      }
     },
     {
       "component": "InfoBar",
@@ -883,9 +993,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.988381,
-      "meanAbsoluteError": 9.585413,
-      "rootMeanSquaredError": 36.246235,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -929,7 +1039,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -979,12 +1089,31 @@
           "y": -4,
           "width": -1,
           "height": -24
-        }
+        },
+        "pixelDiffPath": "components/infobar-workbenchstatus/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "InfoBar severity chrome is approximated; close button and action area are not modeled."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/infobar-workbenchstatus/windows-reference.png",
+          "components/infobar-workbenchstatus/mac-runtime.png",
+          "components/infobar-workbenchstatus/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "InfoBar severity chrome is approximated; close button and action area are not modeled."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: InfoBar severity chrome is approximated; close button and action area are not modeled."
+      }
     },
     {
       "component": "ListView",
@@ -1023,9 +1152,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.988381,
-      "meanAbsoluteError": 9.585413,
-      "rootMeanSquaredError": 36.246235,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -1069,7 +1198,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -1119,12 +1248,31 @@
           "y": -28,
           "width": 0,
           "height": -20
-        }
+        },
+        "pixelDiffPath": "components/listview-reviewqueuelist/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "ListView item containers and selection chrome are simplified; virtualization and templates remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/listview-reviewqueuelist/windows-reference.png",
+          "components/listview-reviewqueuelist/mac-runtime.png",
+          "components/listview-reviewqueuelist/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "ListView item containers and selection chrome are simplified; virtualization and templates remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ListView item containers and selection chrome are simplified; virtualization and templates remain gaps."
+      }
     },
     {
       "component": "Button",
@@ -1163,9 +1311,9 @@
         "meanAbsoluteError": 34,
         "rootMeanSquaredError": 64
       },
-      "changedPixelPercentage": 99.988381,
-      "meanAbsoluteError": 9.585413,
-      "rootMeanSquaredError": 36.246235,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -1209,7 +1357,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:19:27.6815118\u002B00:00",
+          "capturedAt": "2026-06-03T08:19:27.6815118+00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -1259,12 +1407,31 @@
           "y": -48,
           "width": 339,
           "height": 0
-        }
+        },
+        "pixelDiffPath": "components/button-completereviewbutton/pixel-diff.png",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255
       },
       "nativeQualityGrade": "not-evaluated",
       "knownGaps": [
         "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
-      ]
+      ],
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26872366140",
+        "comparisonArtifactPaths": [
+          "components/button-completereviewbutton/windows-reference.png",
+          "components/button-completereviewbutton/mac-runtime.png",
+          "components/button-completereviewbutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      }
     }
   ],
   "sourceFeatures": [],

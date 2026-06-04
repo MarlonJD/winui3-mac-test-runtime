@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "0.2",
+  "rows": [
+    {
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26962358057",
+      "comparisonArtifactPaths": [
+        "components/commandbar-primarycommandbar/windows-reference.png",
+        "components/commandbar-primarycommandbar/mac-runtime.png",
+        "components/commandbar-primarycommandbar/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 723x48; macOS crop is 724x48. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26962358057",
+      "comparisonArtifactPaths": [
+        "components/appbarbutton-savecommandbutton/windows-reference.png",
+        "components/appbarbutton-savecommandbutton/mac-runtime.png",
+        "components/appbarbutton-savecommandbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "CommandBar.Content",
+      "target": "DiagnosticCommandBarContent",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26962358057",
+      "comparisonArtifactPaths": [
+        "components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png",
+        "components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png",
+        "components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 271x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "AppBarButton.Icon",
+      "target": "SaveCommandIcon",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26962358057",
+      "comparisonArtifactPaths": [
+        "components/appbarbutton-icon-savecommandicon/windows-reference.png",
+        "components/appbarbutton-icon-savecommandicon/mac-runtime.png",
+        "components/appbarbutton-icon-savecommandicon/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate.",
+      "nativeReferenceReadiness": "ready",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "none"
+    },
+    {
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26962358057",
+      "comparisonArtifactPaths": [
+        "components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png",
+        "components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png",
+        "components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static CommandBarFlyout host target, not native-quality popup parity. Documented gaps: CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence.",
+      "nativeReferenceReadiness": "ready",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "none"
+    },
+    {
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26962358057",
+      "comparisonArtifactPaths": [
+        "components/menuflyout-diagnosticmenuflyout/windows-reference.png",
+        "components/menuflyout-diagnosticmenuflyout/mac-runtime.png",
+        "components/menuflyout-diagnosticmenuflyout/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static MenuFlyout host target, not native-quality popup parity. Documented gaps: MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence.",
+      "nativeReferenceReadiness": "ready",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "none"
+    },
+    {
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26962358057",
+      "comparisonArtifactPaths": [
+        "components/menubar-diagnosticmenubar/windows-reference.png",
+        "components/menubar-diagnosticmenubar/mac-runtime.png",
+        "components/menubar-diagnosticmenubar/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "ready",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "none"
+    },
+    {
+      "component": "Context menu pattern",
+      "target": "DiagnosticContextMenuPattern",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26962358057",
+      "comparisonArtifactPaths": [
+        "components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png",
+        "components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png",
+        "components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps.",
+      "nativeReferenceReadiness": "ready",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "none"
+    }
+  ]
+}

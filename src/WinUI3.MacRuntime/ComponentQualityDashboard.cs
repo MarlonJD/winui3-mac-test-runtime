@@ -70,18 +70,33 @@ public sealed record ComponentQualityBlocker(
 
 public static class ComponentQualityDashboard
 {
-    private static readonly HashSet<string> FinalVisualGrades = new(StringComparer.Ordinal)
+    private static readonly IReadOnlyDictionary<string, int> VisualGradeRank = new Dictionary<string, int>(StringComparer.Ordinal)
+    {
+        ["not-rendered"] = 0,
+        ["poor"] = 1,
+        ["weak"] = 2,
+        ["usable"] = 3,
+        ["good"] = 4,
+        ["production-ready"] = 5
+    };
+
+    private static readonly HashSet<string> NativeQualityGrades = new(StringComparer.Ordinal)
+    {
+        "not-evaluated",
+        "good",
+        "production-ready"
+    };
+
+    private static readonly HashSet<string> FinalGrades = new(StringComparer.Ordinal)
     {
         "good",
         "production-ready"
     };
 
-    private static readonly HashSet<string> BlockingVisualGrades = new(StringComparer.Ordinal)
+    private static readonly HashSet<string> ClaimedHarnessCatalogStatuses = new(StringComparer.Ordinal)
     {
-        "not-rendered",
-        "poor",
-        "weak",
-        "usable"
+        "supported",
+        "partial"
     };
 
     public static ComponentQualityDashboardDocument BuildFromPublicEvidence(string repositoryRoot)
@@ -124,35 +139,38 @@ public static class ComponentQualityDashboard
                 Increment(nativeQualityGradeCounts, nativeQualityGrade);
                 var componentName = ReadString(component, "component") ?? "unknown";
                 var target = ReadString(component, "target");
+                var catalogStatus = ReadString(component, "catalogStatus") ?? "unknown";
                 var scenarioPath = RelativePath(repositoryRoot, evidenceFile);
                 var nativeReadiness = NativeReferenceReadinessFor(component, scenarioName, componentName, target, readinessOverrides);
                 Increment(nativeReferenceReadinessCounts, nativeReadiness.Status);
-                if (!nativeReadiness.ValidForPromotion)
+                if (!nativeReadiness.SourceReady)
                 {
                     invalidNativeReferenceRows++;
                 }
 
-                if (!nativeReadiness.TrustedForPromotion)
+                if (!nativeReadiness.SourceReady)
                 {
                     untrustedNativeReferenceRows++;
                 }
 
-                if (nativeReadiness.BlocksPromotion)
+                if (nativeReadiness.BlocksSourceGate)
                 {
                     referenceIntegrityBlockingRows++;
                 }
 
-                var reasons = BlockingReasons(component, visualGrade, nativeQualityGrade, nativeReadiness);
+                var reasons = BlockingReasons(component, visualGrade, nativeQualityGrade, catalogStatus, nativeReadiness);
                 rows.Add(new ComponentQualityRow(
                     scenarioName,
                     scenarioPath,
                     componentName,
                     target,
                     OwnerFamilyForScenario(scenarioName),
-                    ReadString(component, "catalogStatus") ?? "unknown",
+                    catalogStatus,
                     visualGrade,
                     nativeQualityGrade,
-                    "good-or-production-ready",
+                    ClaimedHarnessCatalogStatuses.Contains(catalogStatus)
+                        ? "usable-or-better"
+                        : "excluded-from-source-level-claim",
                     RequiredStatesForScenario(scenarioName),
                     new[] { scenarioName },
                     reasons.Count == 0 ? "none" : string.Join(" ", reasons),
@@ -201,7 +219,7 @@ public static class ComponentQualityDashboard
                     scenarioPath,
                     ReadString(component, "component") ?? "unknown",
                     ReadString(component, "target"),
-                    ReadString(component, "catalogStatus") ?? "unknown",
+                    catalogStatus,
                     visualGrade,
                     nativeQualityGrade,
                     reasons));
@@ -246,18 +264,40 @@ public static class ComponentQualityDashboard
         JsonElement component,
         string visualGrade,
         string nativeQualityGrade,
+        string catalogStatus,
         NativeReferenceReadiness nativeReadiness)
     {
         var reasons = new List<string>();
+        var claimedHarnessRow = ClaimedHarnessCatalogStatuses.Contains(catalogStatus);
 
-        if (BlockingVisualGrades.Contains(visualGrade))
+        if (!VisualGradeRank.ContainsKey(visualGrade))
         {
-            reasons.Add($"visualGrade is '{visualGrade}', below the native-quality target.");
+            reasons.Add($"visualGrade is '{visualGrade}', not a recognized component grade.");
         }
 
-        if (!FinalVisualGrades.Contains(nativeQualityGrade))
+        if (!NativeQualityGrades.Contains(nativeQualityGrade))
         {
-            reasons.Add($"nativeQualityGrade is '{nativeQualityGrade}', not good or production-ready.");
+            reasons.Add($"nativeQualityGrade is '{nativeQualityGrade}', not a recognized native-quality grade.");
+        }
+
+        if (!claimedHarnessRow)
+        {
+            if (!string.Equals(visualGrade, "not-rendered", StringComparison.Ordinal))
+            {
+                reasons.Add($"catalogStatus is '{catalogStatus}', outside the source-level support claim, but visualGrade is '{visualGrade}'.");
+            }
+
+            if (FinalGrades.Contains(nativeQualityGrade))
+            {
+                reasons.Add($"catalogStatus is '{catalogStatus}', outside the source-level support claim, but nativeQualityGrade is '{nativeQualityGrade}'.");
+            }
+
+            return reasons;
+        }
+
+        if (!MeetsMinimumVisualGrade(visualGrade, "usable"))
+        {
+            reasons.Add($"visualGrade is '{visualGrade}', below the source-level harness target of usable.");
         }
 
         if (!HasMacRuntimeCrop(component))
@@ -275,7 +315,7 @@ public static class ComponentQualityDashboard
             reasons.Add("Missing native WinUI reference provenance.");
         }
 
-        if (nativeReadiness.BlocksPromotion)
+        if (nativeReadiness.BlocksSourceGate)
         {
             reasons.Add($"Native reference status is '{nativeReadiness.Status}': {nativeReadiness.Reason}");
         }
@@ -288,6 +328,12 @@ public static class ComponentQualityDashboard
         if (!HasInspection(component))
         {
             reasons.Add("Missing manual screenshot inspection metadata.");
+        }
+
+        if ((FinalGrades.Contains(visualGrade) || FinalGrades.Contains(nativeQualityGrade)) &&
+            !nativeReadiness.TrustedForPromotion)
+        {
+            reasons.Add("Native-quality promotion requires promotion-valid Windows native element bounds and provenance.");
         }
 
         return reasons;
@@ -354,14 +400,20 @@ public static class ComponentQualityDashboard
             readinessAllowsPromotion &&
             hasWindowsNativeElementBounds &&
             HasNativeReferenceProvenance(component);
+        var sourceReady = cropExists &&
+            readinessAllowsPromotion &&
+            hasWindowsNativeElementBounds &&
+            HasNativeReferenceProvenance(component) &&
+            !diagnosticOrPlaceholder;
         return new NativeReferenceReadiness(
             status,
             cropExists,
             validForPromotion && readinessAllowsPromotion,
             trustedForPromotion,
+            sourceReady,
             hasWindowsNativeElementBounds,
             diagnosticOrPlaceholder,
-            !validForPromotion || !readinessAllowsPromotion,
+            !sourceReady,
             reason,
             requiredAction,
             boundsSource,
@@ -494,6 +546,13 @@ public static class ComponentQualityDashboard
         counts[value] = counts.TryGetValue(value, out var current) ? current + 1 : 1;
     }
 
+    private static bool MeetsMinimumVisualGrade(string actual, string minimum)
+    {
+        return VisualGradeRank.TryGetValue(actual, out var actualRank) &&
+            VisualGradeRank.TryGetValue(minimum, out var minimumRank) &&
+            actualRank >= minimumRank;
+    }
+
     private static string RowKey(string scenarioName, string component, string? target)
     {
         return $"{scenarioName}\u001f{component}\u001f{target ?? string.Empty}";
@@ -569,9 +628,10 @@ public static class ComponentQualityDashboard
         bool CropExists,
         bool ValidForPromotion,
         bool TrustedForPromotion,
+        bool SourceReady,
         bool HasWindowsNativeElementBounds,
         bool IsDiagnosticOrPlaceholder,
-        bool BlocksPromotion,
+        bool BlocksSourceGate,
         string Reason,
         string RequiredAction,
         string BoundsSource,

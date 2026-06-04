@@ -70,11 +70,12 @@ Version: `0.1.0-alpha.1`
 
 ## Verification Evidence
 
-Latest public native WinUI reference workflow inspected during Level 7
-readiness: `windows-native-screenshot` run `26792033793` on commit `3c929f4`.
+Latest public native WinUI reference workflow inspected during PR #3
+release-candidate evidence closeout: `windows-native-screenshot` run
+`26962358057` on commit `1a2eb01`.
 
-Latest production gate CI inspected during Level 7 readiness: `ci` run
-`26792033784` on commit `3c929f4`.
+Latest production gate CI inspected during PR #3 release-candidate evidence
+closeout: `ci` run `26969205766` on commit `3c19711`.
 
 Local package smoke:
 

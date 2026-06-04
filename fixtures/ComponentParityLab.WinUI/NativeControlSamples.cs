@@ -226,8 +226,9 @@ internal static class NativeControlSamples
         {
             Set(control, "Content", new TextBlock { Text = "Inline command content" });
             AddToPropertyCollection(control, "PrimaryCommands", AppBarButton("Accept"));
+            Set(control, "Width", 360.0);
         });
-        SetNativeElement(commandBarFlyoutHost, "CommandBarFlyout", ButtonWithCommandBarFlyout(), 96);
+        SetNativeElement(commandBarFlyoutHost, "CommandBarFlyout", ButtonWithCommandBarFlyout());
         SetNativeElement(menuFlyoutHost, "MenuFlyout", ButtonWithMenuFlyout());
         SetNativeControl(menuBarHost, "MenuBar", ["Microsoft.UI.Xaml.Controls.MenuBar"], control =>
         {
@@ -242,7 +243,15 @@ internal static class NativeControlSamples
         });
         SetNativeElement(contextMenuPatternHost, "Context menu pattern", ButtonWithContextMenu());
 #else
-        commandBarContentHost.Content = new TextBlock { Text = "CommandBar.Content", Width = 120, Height = 120 };
+        commandBarContentHost.Content = Labeled("CommandBar.Content", new CommandBar
+        {
+            Content = new TextBlock { Text = "Inline command content" },
+            Width = 360,
+            PrimaryCommands =
+            {
+                new AppBarButton { Label = "Accept" }
+            }
+        });
         menuBarHost.Content = new MenuBar
         {
             Items =

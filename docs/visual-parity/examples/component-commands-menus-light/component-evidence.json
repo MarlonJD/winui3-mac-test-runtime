@@ -40,9 +40,9 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 28.922665,
-      "meanAbsoluteError": 7.921195,
-      "rootMeanSquaredError": 35.22379,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -59,6 +59,7 @@
         },
         "nativeReferencePath": "components/commandbar-primarycommandbar/windows-reference.png",
         "macRuntimePath": "components/commandbar-primarycommandbar/mac-runtime.png",
+        "pixelDiffPath": "components/commandbar-primarycommandbar/pixel-diff.png",
         "runtimeBlank": false,
         "thresholds": {
           "changedPixelPercentage": 24,
@@ -66,14 +67,17 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255,
         "message": "Native and macOS crop dimensions differ. Native crop is 723x48; macOS crop is 724x48. Phase -1 does not normalize crop sizes.",
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
           "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
           "scenarioName": "component-commands-menus-light",
-          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-          "workflowRunId": "26872366140",
+          "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+          "workflowRunId": "26962358057",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -86,7 +90,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
+          "capturedAt": "2026-06-04T15:42:47.9746802\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -108,7 +112,7 @@
           },
           "visibility": "Visible",
           "boundsSource": "x:Name",
-          "capturedAt": "2026-06-03T08:19:58.5552966+00:00"
+          "capturedAt": "2026-06-04T15:42:46.4748329+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 723x48; macOS crop is 724x48. Phase -1 does not normalize crop sizes.",
@@ -139,6 +143,21 @@
         }
       },
       "nativeQualityGrade": "not-evaluated",
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26962358057",
+        "comparisonArtifactPaths": [
+          "components/commandbar-primarycommandbar/windows-reference.png",
+          "components/commandbar-primarycommandbar/mac-runtime.png",
+          "components/commandbar-primarycommandbar/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps."
+      },
       "knownGaps": [
         "CommandBar surface chrome is rendered approximately; overflow, pointer states, and native spacing remain gaps."
       ]
@@ -180,9 +199,9 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 28.922665,
-      "meanAbsoluteError": 7.921195,
-      "rootMeanSquaredError": 35.22379,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
@@ -199,6 +218,7 @@
         },
         "nativeReferencePath": "components/appbarbutton-savecommandbutton/windows-reference.png",
         "macRuntimePath": "components/appbarbutton-savecommandbutton/mac-runtime.png",
+        "pixelDiffPath": "components/appbarbutton-savecommandbutton/pixel-diff.png",
         "runtimeBlank": false,
         "thresholds": {
           "changedPixelPercentage": 24,
@@ -206,14 +226,17 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255,
         "message": "Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
           "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
           "scenarioName": "component-commands-menus-light",
-          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-          "workflowRunId": "26872366140",
+          "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+          "workflowRunId": "26962358057",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -226,7 +249,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
+          "capturedAt": "2026-06-04T15:42:47.9746802\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -248,7 +271,7 @@
           },
           "visibility": "Visible",
           "boundsSource": "x:Name",
-          "capturedAt": "2026-06-03T08:19:58.5555584+00:00"
+          "capturedAt": "2026-06-04T15:42:46.4751417+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
         "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 68x64; macOS crop is 104x32. Phase -1 does not normalize crop sizes.",
@@ -279,6 +302,21 @@
         }
       },
       "nativeQualityGrade": "not-evaluated",
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26962358057",
+        "comparisonArtifactPaths": [
+          "components/appbarbutton-savecommandbutton/windows-reference.png",
+          "components/appbarbutton-savecommandbutton/mac-runtime.png",
+          "components/appbarbutton-savecommandbutton/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps."
+      },
       "knownGaps": [
         "AppBarButton label and icon chrome are rendered approximately; overflow, focus, and native command sizing remain gaps."
       ]
@@ -290,10 +328,10 @@
       "layoutRegion": {
         "x": 280,
         "y": 146,
-        "width": 120,
-        "height": 120,
-        "desiredWidth": 120,
-        "desiredHeight": 120,
+        "width": 548,
+        "height": 48,
+        "desiredWidth": 548,
+        "desiredHeight": 48,
         "margin": {
           "left": 0,
           "top": 0,
@@ -320,25 +358,26 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 28.922665,
-      "meanAbsoluteError": 7.921195,
-      "rootMeanSquaredError": 35.22379,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 280,
           "y": 146,
-          "width": 120,
-          "height": 120
+          "width": 548,
+          "height": 48
         },
         "nativeReferenceBounds": {
           "x": 469,
           "y": 137,
-          "width": 271,
+          "width": 360,
           "height": 48
         },
         "nativeReferencePath": "components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png",
         "macRuntimePath": "components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png",
+        "pixelDiffPath": "components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png",
         "runtimeBlank": false,
         "thresholds": {
           "changedPixelPercentage": 24,
@@ -346,14 +385,17 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
-        "message": "Native and macOS crop dimensions differ. Native crop is 271x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes.",
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255,
+        "message": "Native and macOS crop dimensions differ. Native crop is 360x48; macOS crop is 548x48. Phase -1 does not normalize crop sizes.",
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
           "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
           "scenarioName": "component-commands-menus-light",
-          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-          "workflowRunId": "26872366140",
+          "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+          "workflowRunId": "26962358057",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -366,7 +408,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
+          "capturedAt": "2026-06-04T15:42:47.9746802\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -379,46 +421,61 @@
           "bounds": {
             "x": 469,
             "y": 137,
-            "width": 271,
+            "width": 360,
             "height": 48
           },
           "actualSize": {
-            "width": 271,
+            "width": 360,
             "height": 48
           },
           "visibility": "Visible",
           "boundsSource": "x:Name\u002Bnative-descendant",
-          "capturedAt": "2026-06-03T08:19:58.5568866+00:00"
+          "capturedAt": "2026-06-04T15:42:46.4764169+00:00"
         },
         "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
-        "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 271x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes.",
+        "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 360x48; macOS crop is 548x48. Phase -1 does not normalize crop sizes.",
         "nativeReferenceRequiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
         "nativeReferenceBoundsSource": "windows-native-element-bounds",
         "nativeReferenceBoundsValidForPromotion": false,
-        "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 271x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes.",
+        "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 360x48; macOS crop is 548x48. Phase -1 does not normalize crop sizes.",
         "nativeReferenceReadiness": {
           "status": "native-crop-size-mismatch",
-          "reason": "Native and macOS crop dimensions differ. Native crop is 271x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes.",
+          "reason": "Native and macOS crop dimensions differ. Native crop is 360x48; macOS crop is 548x48. Phase -1 does not normalize crop sizes.",
           "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
           "readyForPromotion": false,
-          "blockerReason": "Native and macOS crop dimensions differ. Native crop is 271x48; macOS crop is 120x120. Phase -1 does not normalize crop sizes."
+          "blockerReason": "Native and macOS crop dimensions differ. Native crop is 360x48; macOS crop is 548x48. Phase -1 does not normalize crop sizes."
         },
         "nativeReferenceCropSize": {
-          "width": 271,
+          "width": 360,
           "height": 48
         },
         "macRuntimeCropSize": {
-          "width": 120,
-          "height": 120
+          "width": 548,
+          "height": 48
         },
         "nativeReferenceBoundsDelta": {
           "x": 189,
           "y": -9,
-          "width": 151,
-          "height": -72
+          "width": -188,
+          "height": 0
         }
       },
       "nativeQualityGrade": "not-evaluated",
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26962358057",
+        "comparisonArtifactPaths": [
+          "components/commandbar-content-diagnosticcommandbarcontent/windows-reference.png",
+          "components/commandbar-content-diagnosticcommandbarcontent/mac-runtime.png",
+          "components/commandbar-content-diagnosticcommandbarcontent/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps."
+      },
       "knownGaps": [
         "CommandBar.Content emits visible inline content in the command fixture; full layout negotiation, overflow interaction, and native template visuals remain gaps."
       ]
@@ -495,8 +552,8 @@
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
           "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
           "scenarioName": "component-commands-menus-light",
-          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-          "workflowRunId": "26872366140",
+          "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+          "workflowRunId": "26962358057",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -509,7 +566,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
+          "capturedAt": "2026-06-04T15:42:47.9746802\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -531,7 +588,7 @@
           },
           "visibility": "Visible",
           "boundsSource": "x:Name",
-          "capturedAt": "2026-06-03T08:19:58.5558905+00:00"
+          "capturedAt": "2026-06-04T15:42:46.4754815+00:00"
         },
         "nativeReferenceReadinessStatus": "ready",
         "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
@@ -562,6 +619,21 @@
         }
       },
       "nativeQualityGrade": "not-evaluated",
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26962358057",
+        "comparisonArtifactPaths": [
+          "components/appbarbutton-icon-savecommandicon/windows-reference.png",
+          "components/appbarbutton-icon-savecommandicon/mac-runtime.png",
+          "components/appbarbutton-icon-savecommandicon/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate."
+      },
       "knownGaps": [
         "FontIcon glyph output is visible through the AppBarButton icon slot; exact icon metrics remain approximate."
       ]
@@ -571,8 +643,8 @@
       "kind": "control",
       "target": "DiagnosticCommandBarFlyout",
       "layoutRegion": {
-        "x": 414,
-        "y": 146,
+        "x": 280,
+        "y": 204,
         "width": 165,
         "height": 32,
         "desiredWidth": 165,
@@ -595,7 +667,7 @@
       },
       "catalogStatus": "partial",
       "presence": "present",
-      "interactionStatus": "passed",
+      "interactionStatus": "not-applicable",
       "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 24,
@@ -603,25 +675,26 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 28.922665,
-      "meanAbsoluteError": 7.921195,
-      "rootMeanSquaredError": 35.22379,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 414,
-          "y": 146,
+          "x": 280,
+          "y": 204,
           "width": 165,
           "height": 32
         },
         "nativeReferenceBounds": {
-          "x": 858,
-          "y": 137,
+          "x": 469,
+          "y": 195,
           "width": 164,
           "height": 32
         },
         "nativeReferencePath": "components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png",
         "macRuntimePath": "components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png",
+        "pixelDiffPath": "components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png",
         "runtimeBlank": false,
         "thresholds": {
           "changedPixelPercentage": 24,
@@ -629,14 +702,17 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255,
         "message": "Native and macOS crop dimensions differ. Native crop is 164x32; macOS crop is 165x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
           "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
           "scenarioName": "component-commands-menus-light",
-          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-          "workflowRunId": "26872366140",
+          "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+          "workflowRunId": "26962358057",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -649,7 +725,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
+          "capturedAt": "2026-06-04T15:42:47.9746802\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -660,8 +736,8 @@
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.Button",
           "bounds": {
-            "x": 858,
-            "y": 137,
+            "x": 469,
+            "y": 195,
             "width": 164,
             "height": 32
           },
@@ -671,20 +747,20 @@
           },
           "visibility": "Visible",
           "boundsSource": "x:Name\u002Bnative-descendant",
-          "capturedAt": "2026-06-03T08:19:58.5574313+00:00"
+          "capturedAt": "2026-06-04T15:42:46.476979+00:00"
         },
-        "nativeReferenceReadinessStatus": "state-reference-incomplete",
-        "nativeReferenceReadinessReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-        "nativeReferenceRequiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+        "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
+        "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 164x32; macOS crop is 165x32. Phase -1 does not normalize crop sizes.",
+        "nativeReferenceRequiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
         "nativeReferenceBoundsSource": "windows-native-element-bounds",
         "nativeReferenceBoundsValidForPromotion": false,
-        "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+        "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 164x32; macOS crop is 165x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceReadiness": {
-          "status": "state-reference-incomplete",
-          "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-          "requiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+          "status": "native-crop-size-mismatch",
+          "reason": "Native and macOS crop dimensions differ. Native crop is 164x32; macOS crop is 165x32. Phase -1 does not normalize crop sizes.",
+          "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
           "readyForPromotion": false,
-          "blockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
+          "blockerReason": "Native and macOS crop dimensions differ. Native crop is 164x32; macOS crop is 165x32. Phase -1 does not normalize crop sizes."
         },
         "nativeReferenceCropSize": {
           "width": 164,
@@ -695,15 +771,30 @@
           "height": 32
         },
         "nativeReferenceBoundsDelta": {
-          "x": 444,
+          "x": 189,
           "y": -9,
           "width": -1,
           "height": 0
         }
       },
       "nativeQualityGrade": "not-evaluated",
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26962358057",
+        "comparisonArtifactPaths": [
+          "components/commandbarflyout-diagnosticcommandbarflyout/windows-reference.png",
+          "components/commandbarflyout-diagnosticcommandbarflyout/mac-runtime.png",
+          "components/commandbarflyout-diagnosticcommandbarflyout/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static CommandBarFlyout host target, not native-quality popup parity. Documented gaps: CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
+      },
       "knownGaps": [
-        "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+        "CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
       ]
     },
     {
@@ -712,7 +803,7 @@
       "target": "DiagnosticMenuFlyout",
       "layoutRegion": {
         "x": 280,
-        "y": 276,
+        "y": 320,
         "width": 144,
         "height": 32,
         "desiredWidth": 144,
@@ -735,7 +826,7 @@
       },
       "catalogStatus": "partial",
       "presence": "present",
-      "interactionStatus": "passed",
+      "interactionStatus": "not-applicable",
       "visualGrade": "usable",
       "componentThresholds": {
         "changedPixelPercentage": 24,
@@ -743,25 +834,26 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 28.922665,
-      "meanAbsoluteError": 7.921195,
-      "rootMeanSquaredError": 35.22379,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 276,
+          "y": 320,
           "width": 144,
           "height": 32
         },
         "nativeReferenceBounds": {
           "x": 469,
-          "y": 195,
+          "y": 311,
           "width": 137,
           "height": 32
         },
         "nativeReferencePath": "components/menuflyout-diagnosticmenuflyout/windows-reference.png",
         "macRuntimePath": "components/menuflyout-diagnosticmenuflyout/mac-runtime.png",
+        "pixelDiffPath": "components/menuflyout-diagnosticmenuflyout/pixel-diff.png",
         "runtimeBlank": false,
         "thresholds": {
           "changedPixelPercentage": 24,
@@ -769,14 +861,17 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255,
         "message": "Native and macOS crop dimensions differ. Native crop is 137x32; macOS crop is 144x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
           "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
           "scenarioName": "component-commands-menus-light",
-          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-          "workflowRunId": "26872366140",
+          "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+          "workflowRunId": "26962358057",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -789,7 +884,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
+          "capturedAt": "2026-06-04T15:42:47.9746802\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -801,7 +896,7 @@
           "elementType": "Microsoft.UI.Xaml.Controls.Button",
           "bounds": {
             "x": 469,
-            "y": 195,
+            "y": 311,
             "width": 137,
             "height": 32
           },
@@ -811,20 +906,20 @@
           },
           "visibility": "Visible",
           "boundsSource": "x:Name\u002Bnative-descendant",
-          "capturedAt": "2026-06-03T08:19:58.5575637+00:00"
+          "capturedAt": "2026-06-04T15:42:46.4771239+00:00"
         },
-        "nativeReferenceReadinessStatus": "state-reference-incomplete",
-        "nativeReferenceReadinessReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-        "nativeReferenceRequiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+        "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
+        "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 137x32; macOS crop is 144x32. Phase -1 does not normalize crop sizes.",
+        "nativeReferenceRequiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
         "nativeReferenceBoundsSource": "windows-native-element-bounds",
         "nativeReferenceBoundsValidForPromotion": false,
-        "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+        "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 137x32; macOS crop is 144x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceReadiness": {
-          "status": "state-reference-incomplete",
-          "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-          "requiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+          "status": "native-crop-size-mismatch",
+          "reason": "Native and macOS crop dimensions differ. Native crop is 137x32; macOS crop is 144x32. Phase -1 does not normalize crop sizes.",
+          "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
           "readyForPromotion": false,
-          "blockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
+          "blockerReason": "Native and macOS crop dimensions differ. Native crop is 137x32; macOS crop is 144x32. Phase -1 does not normalize crop sizes."
         },
         "nativeReferenceCropSize": {
           "width": 137,
@@ -836,14 +931,29 @@
         },
         "nativeReferenceBoundsDelta": {
           "x": 189,
-          "y": -81,
+          "y": -9,
           "width": -7,
           "height": 0
         }
       },
       "nativeQualityGrade": "not-evaluated",
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26962358057",
+        "comparisonArtifactPaths": [
+          "components/menuflyout-diagnosticmenuflyout/windows-reference.png",
+          "components/menuflyout-diagnosticmenuflyout/mac-runtime.png",
+          "components/menuflyout-diagnosticmenuflyout/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence only establishes a visible static MenuFlyout host target, not native-quality popup parity. Documented gaps: MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
+      },
       "knownGaps": [
-        "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+        "MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
       ]
     },
     {
@@ -851,8 +961,8 @@
       "kind": "control",
       "target": "DiagnosticMenuBar",
       "layoutRegion": {
-        "x": 438,
-        "y": 276,
+        "x": 280,
+        "y": 454,
         "width": 96,
         "height": 32,
         "desiredWidth": 96,
@@ -883,25 +993,26 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 28.922665,
-      "meanAbsoluteError": 7.921195,
-      "rootMeanSquaredError": 35.22379,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
-          "x": 438,
-          "y": 276,
+          "x": 280,
+          "y": 454,
           "width": 96,
           "height": 32
         },
         "nativeReferenceBounds": {
-          "x": 808,
-          "y": 195,
+          "x": 469,
+          "y": 445,
           "width": 120,
           "height": 40
         },
         "nativeReferencePath": "components/menubar-diagnosticmenubar/windows-reference.png",
         "macRuntimePath": "components/menubar-diagnosticmenubar/mac-runtime.png",
+        "pixelDiffPath": "components/menubar-diagnosticmenubar/pixel-diff.png",
         "runtimeBlank": false,
         "thresholds": {
           "changedPixelPercentage": 24,
@@ -909,14 +1020,17 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255,
         "message": "Native and macOS crop dimensions differ. Native crop is 120x40; macOS crop is 96x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
           "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
           "scenarioName": "component-commands-menus-light",
-          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-          "workflowRunId": "26872366140",
+          "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+          "workflowRunId": "26962358057",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -929,7 +1043,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
+          "capturedAt": "2026-06-04T15:42:47.9746802\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -940,8 +1054,8 @@
           "name": "",
           "elementType": "Microsoft.UI.Xaml.Controls.MenuBar",
           "bounds": {
-            "x": 808,
-            "y": 195,
+            "x": 469,
+            "y": 445,
             "width": 120,
             "height": 40
           },
@@ -951,20 +1065,20 @@
           },
           "visibility": "Visible",
           "boundsSource": "x:Name\u002Bnative-descendant",
-          "capturedAt": "2026-06-03T08:19:58.5578052+00:00"
+          "capturedAt": "2026-06-04T15:42:46.4773738+00:00"
         },
-        "nativeReferenceReadinessStatus": "state-reference-incomplete",
-        "nativeReferenceReadinessReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-        "nativeReferenceRequiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+        "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
+        "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 120x40; macOS crop is 96x32. Phase -1 does not normalize crop sizes.",
+        "nativeReferenceRequiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
         "nativeReferenceBoundsSource": "windows-native-element-bounds",
         "nativeReferenceBoundsValidForPromotion": false,
-        "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+        "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 120x40; macOS crop is 96x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceReadiness": {
-          "status": "state-reference-incomplete",
-          "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-          "requiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+          "status": "native-crop-size-mismatch",
+          "reason": "Native and macOS crop dimensions differ. Native crop is 120x40; macOS crop is 96x32. Phase -1 does not normalize crop sizes.",
+          "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
           "readyForPromotion": false,
-          "blockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
+          "blockerReason": "Native and macOS crop dimensions differ. Native crop is 120x40; macOS crop is 96x32. Phase -1 does not normalize crop sizes."
         },
         "nativeReferenceCropSize": {
           "width": 120,
@@ -975,13 +1089,28 @@
           "height": 32
         },
         "nativeReferenceBoundsDelta": {
-          "x": 370,
-          "y": -81,
+          "x": 189,
+          "y": -9,
           "width": 24,
           "height": 8
         }
       },
       "nativeQualityGrade": "not-evaluated",
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26962358057",
+        "comparisonArtifactPaths": [
+          "components/menubar-diagnosticmenubar/windows-reference.png",
+          "components/menubar-diagnosticmenubar/mac-runtime.png",
+          "components/menubar-diagnosticmenubar/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps."
+      },
       "knownGaps": [
         "MenuBar emits top-level menu items and submenu affordance chrome; submenu opening, command invocation, keyboarding, and full native template visuals remain gaps."
       ]
@@ -992,7 +1121,7 @@
       "target": "DiagnosticContextMenuPattern",
       "layoutRegion": {
         "x": 280,
-        "y": 318,
+        "y": 496,
         "width": 194,
         "height": 32,
         "desiredWidth": 194,
@@ -1023,25 +1152,26 @@
         "meanAbsoluteError": 16,
         "rootMeanSquaredError": 48
       },
-      "changedPixelPercentage": 28.922665,
-      "meanAbsoluteError": 7.921195,
-      "rootMeanSquaredError": 35.22379,
+      "changedPixelPercentage": 100,
+      "meanAbsoluteError": 255,
+      "rootMeanSquaredError": 255,
       "crop": {
         "status": "failed",
         "bounds": {
           "x": 280,
-          "y": 318,
+          "y": 496,
           "width": 194,
           "height": 32
         },
         "nativeReferenceBounds": {
           "x": 469,
-          "y": 245,
+          "y": 495,
           "width": 169,
           "height": 32
         },
         "nativeReferencePath": "components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png",
         "macRuntimePath": "components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png",
+        "pixelDiffPath": "components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png",
         "runtimeBlank": false,
         "thresholds": {
           "changedPixelPercentage": 24,
@@ -1049,14 +1179,17 @@
           "meanAbsoluteError": 16,
           "rootMeanSquaredError": 48
         },
+        "changedPixelPercentage": 100,
+        "meanAbsoluteError": 255,
+        "rootMeanSquaredError": 255,
         "message": "Native and macOS crop dimensions differ. Native crop is 169x32; macOS crop is 194x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceProvenance": {
           "referenceSource": "native-winui",
           "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
           "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-light.json",
           "scenarioName": "component-commands-menus-light",
-          "commitSha": "68f5b9c81f5d83731ced2549f325aa90fcf2cc52",
-          "workflowRunId": "26872366140",
+          "commitSha": "1a2eb015fb8c86e0d5d90154b18807105f792829",
+          "workflowRunId": "26962358057",
           "runnerImage": "win25 20260525.149.1",
           "viewport": {
             "width": 1028,
@@ -1069,7 +1202,7 @@
             "width": 1028,
             "height": 720
           },
-          "capturedAt": "2026-06-03T08:20:00.0385849\u002B00:00",
+          "capturedAt": "2026-06-04T15:42:47.9746802\u002B00:00",
           "nativeReferenceTargetsPath": "native-reference-targets.json"
         },
         "nativeReferenceTarget": {
@@ -1081,7 +1214,7 @@
           "elementType": "Microsoft.UI.Xaml.Controls.Button",
           "bounds": {
             "x": 469,
-            "y": 245,
+            "y": 495,
             "width": 169,
             "height": 32
           },
@@ -1091,20 +1224,20 @@
           },
           "visibility": "Visible",
           "boundsSource": "x:Name\u002Bnative-descendant",
-          "capturedAt": "2026-06-03T08:19:58.5581059+00:00"
+          "capturedAt": "2026-06-04T15:42:46.4777475+00:00"
         },
-        "nativeReferenceReadinessStatus": "state-reference-incomplete",
-        "nativeReferenceReadinessReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-        "nativeReferenceRequiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+        "nativeReferenceReadinessStatus": "native-crop-size-mismatch",
+        "nativeReferenceReadinessReason": "Native and macOS crop dimensions differ. Native crop is 169x32; macOS crop is 194x32. Phase -1 does not normalize crop sizes.",
+        "nativeReferenceRequiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
         "nativeReferenceBoundsSource": "windows-native-element-bounds",
         "nativeReferenceBoundsValidForPromotion": false,
-        "nativeReferenceIntegrityBlockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
+        "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 169x32; macOS crop is 194x32. Phase -1 does not normalize crop sizes.",
         "nativeReferenceReadiness": {
-          "status": "state-reference-incomplete",
-          "reason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality.",
-          "requiredAction": "Use state-specific native references for open/invoked popup states before promotion.",
+          "status": "native-crop-size-mismatch",
+          "reason": "Native and macOS crop dimensions differ. Native crop is 169x32; macOS crop is 194x32. Phase -1 does not normalize crop sizes.",
+          "requiredAction": "Fix the exported Windows native target bounds and regenerate component evidence.",
           "readyForPromotion": false,
-          "blockerReason": "The base Windows reference captures static/closed command diagnostics; open-popup state evidence is required for final interaction quality."
+          "blockerReason": "Native and macOS crop dimensions differ. Native crop is 169x32; macOS crop is 194x32. Phase -1 does not normalize crop sizes."
         },
         "nativeReferenceCropSize": {
           "width": 169,
@@ -1116,12 +1249,27 @@
         },
         "nativeReferenceBoundsDelta": {
           "x": 189,
-          "y": -73,
+          "y": -1,
           "width": -25,
           "height": 0
         }
       },
       "nativeQualityGrade": "not-evaluated",
+      "inspection": {
+        "inspectedBy": "Codex visual evidence review",
+        "inspectedDate": "2026-06-04",
+        "nativeReferenceRunId": "26962358057",
+        "comparisonArtifactPaths": [
+          "components/context-menu-pattern-diagnosticcontextmenupattern/windows-reference.png",
+          "components/context-menu-pattern-diagnosticcontextmenupattern/mac-runtime.png",
+          "components/context-menu-pattern-diagnosticcontextmenupattern/pixel-diff.png"
+        ],
+        "acceptedGaps": [
+          "Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps."
+        ],
+        "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+        "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps."
+      },
       "knownGaps": [
         "Context menu pattern exports a visible command target with ContextFlyout metadata; right-click dispatch, popup placement, keyboarding, and full native context-menu visuals remain gaps."
       ]

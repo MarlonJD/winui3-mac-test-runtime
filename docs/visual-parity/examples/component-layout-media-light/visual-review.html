@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -28,11 +28,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <p>Evidence: <code>component-evidence.json</code></p>
 <div class="summary">
 <div class="metric"><strong>28</strong>Components</div>
-<div class="metric"><strong>0</strong>Complete triptychs</div>
+<div class="metric"><strong>28</strong>Complete triptychs</div>
 <div class="metric"><strong>0</strong>Missing native crops</div>
 <div class="metric"><strong>0</strong>Missing macOS crops</div>
-<div class="metric"><strong>28</strong>Missing diffs</div>
-<div class="metric"><strong>28</strong>Missing inspections</div>
+<div class="metric"><strong>0</strong>Missing diffs</div>
+<div class="metric"><strong>0</strong>Missing inspections</div>
 </div>
 <section class="component">
 <h2>ScrollViewer <code>LayoutScrollViewer</code></h2>
@@ -41,14 +41,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -61,11 +61,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/scrollviewer-layoutscrollviewer/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 220x48; macOS crop is 772x720. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">ScrollViewer region and scrollbar affordance are rendered approximately; clipping and scroll physics remain gaps.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ScrollViewer region and scrollbar affordance are rendered approximately; clipping and scroll physics remain gaps.</p>
 </section>
 <section class="component">
 <h2>Grid <code>LayoutResourceGrid</code></h2>
@@ -74,14 +74,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -94,11 +94,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/grid-layoutresourcegrid/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 160x18; macOS crop is 724x86. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Grid surface and column separation are rendered for component evidence; full WinUI layout behavior remains partial.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Grid surface and column separation are rendered for component evidence; full WinUI layout behavior remains partial.</p>
 </section>
 <section class="component">
 <h2>StackPanel <code>LayoutNestedStack</code></h2>
@@ -107,14 +107,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -127,11 +127,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/stackpanel-layoutnestedstack/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x86. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">StackPanel child spacing and region evidence are visible; full native layout behavior remains partial.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: StackPanel child spacing and region evidence are visible; full native layout behavior remains partial.</p>
 </section>
 <section class="component">
 <h2>Border <code>LayoutBorder</code></h2>
@@ -140,14 +140,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -160,11 +160,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/border-layoutborder/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x86. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Border surface, stroke, and corner radius are rendered approximately; brush and thickness fidelity remain partial.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Border surface, stroke, and corner radius are rendered approximately; brush and thickness fidelity remain partial.</p>
 </section>
 <section class="component">
 <h2>FontIcon <code>LayoutFontIcon</code></h2>
@@ -173,14 +173,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -193,11 +193,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/fonticon-layoutfonticon/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 160x18; macOS crop is 24x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">FontIcon glyph is rendered with the scenario font; exact Segoe MDL2 metrics remain approximate.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: FontIcon glyph is rendered with the scenario font; exact Segoe MDL2 metrics remain approximate.</p>
 </section>
 <section class="component">
 <h2>Image <code>PublicImagePlaceholder</code></h2>
@@ -206,14 +206,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -226,11 +226,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/image-publicimageplaceholder/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 420x56; macOS crop is 548x86. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Image emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps.</p>
+<p class="notes">Native reference integrity: The current Windows reference does not prove real image decode and stretch behavior; it is diagnostic context only.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Image emits a visible placeholder for source-backed evidence; real image decode and stretch modes remain gaps.</p>
 </section>
 <section class="component">
 <h2>SymbolIcon <code>DiagnosticSymbolIcon</code></h2>
@@ -239,14 +239,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -259,11 +259,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/symbolicon-diagnosticsymbolicon/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 120x20; macOS crop is 308x32. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">SymbolIcon exports and renders a static Fluent glyph diagnostic; exact Segoe Fluent Icons metrics and state variants remain partial.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SymbolIcon exports and renders a static Fluent glyph diagnostic; exact Segoe Fluent Icons metrics and state variants remain partial.</p>
 </section>
 <section class="component">
 <h2>XamlControlsResources <code>DiagnosticXamlControlsResources</code></h2>
@@ -272,14 +272,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -292,11 +292,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/xamlcontrolsresources-diagnosticxamlcontrolsresources/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 208x35; macOS crop is 408x34. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">XamlControlsResources is represented as a bounded Fluent resource bootstrap diagnostic; the real WinUI resource dictionary is not loaded.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: XamlControlsResources is represented as a bounded Fluent resource bootstrap diagnostic; the real WinUI resource dictionary is not loaded.</p>
 </section>
 <section class="component">
 <h2>ResourceDictionary.ThemeDictionaries <code>ThemeResourceText</code></h2>
@@ -305,14 +305,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -325,11 +325,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/resourcedictionary-themedictionaries-themeresourcetext/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 125x19; macOS crop is 123x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Theme dictionaries are resolved for the active scenario theme in the clean-room resource subset; full dynamic resource invalidation remains planned.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Theme dictionaries are resolved for the active scenario theme in the clean-room resource subset; full dynamic resource invalidation remains planned.</p>
 </section>
 <section class="component">
 <h2>ThemeResource <code>ThemeResourceText</code></h2>
@@ -338,14 +338,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -358,11 +358,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/themeresource-themeresourcetext/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 125x19; macOS crop is 123x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">ThemeResource lookup is simple and does not model full dynamic theme dictionaries.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ThemeResource lookup is simple and does not model full dynamic theme dictionaries.</p>
 </section>
 <section class="component">
 <h2>StaticResource <code>StaticResourceText</code></h2>
@@ -371,14 +371,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -391,11 +391,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/staticresource-staticresourcetext/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 147x19; macOS crop is 160x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">StaticResource lookup supports simple local dictionaries only.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: StaticResource lookup supports simple local dictionaries only.</p>
 </section>
 <section class="component">
 <h2>Style <code>LayoutMediaTitle</code></h2>
@@ -404,14 +404,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -424,11 +424,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/style-layoutmediatitle/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 182x19; macOS crop is 216x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Only supported setter properties are applied.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Only supported setter properties are applied.</p>
 </section>
 <section class="component">
 <h2>Setter <code>LayoutMediaTitle</code></h2>
@@ -437,14 +437,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -457,11 +457,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/setter-layoutmediatitle/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 182x19; macOS crop is 216x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Setter support is limited to simple values on supported facade properties.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Setter support is limited to simple values on supported facade properties.</p>
 </section>
 <section class="component">
 <h2>Color <code>DiagnosticColor</code></h2>
@@ -470,14 +470,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -490,11 +490,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/color-diagnosticcolor/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 40x20; macOS crop is 337x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Color resources are represented as deterministic swatch tokens for renderer evidence; full typed color object fidelity remains planned.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Color resources are represented as deterministic swatch tokens for renderer evidence; full typed color object fidelity remains planned.</p>
 </section>
 <section class="component">
 <h2>SolidColorBrush <code>ThemeResourceText</code></h2>
@@ -503,14 +503,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -523,11 +523,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/solidcolorbrush-themeresourcetext/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 125x19; macOS crop is 123x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">SolidColorBrush resources are reduced to deterministic color strings for renderer evidence; full brush object fidelity remains planned.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SolidColorBrush resources are reduced to deterministic color strings for renderer evidence; full brush object fidelity remains planned.</p>
 </section>
 <section class="component">
 <h2>CornerRadius <code>LayoutBorder</code></h2>
@@ -536,14 +536,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>diagnostic-reference-needs-crop-bounds</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -556,11 +556,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/cornerradius-layoutborder/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 160x68; macOS crop is 160x86. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Manual inspection is pending.</p>
+<p class="notes">Native reference integrity: The row is a resource diagnostic and current native crops are runtime-bound; final review needs tighter native target bounds.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity.</p>
 </section>
 <section class="component">
 <h2>Expander <code>DiagnosticExpander</code></h2>
@@ -569,14 +569,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -589,11 +589,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/expander-diagnosticexpander/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 220x60; macOS crop is 448x92. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Expander renders a static expanded header/content diagnostic; collapse interaction, focus visuals, and expanded automation behavior remain partial.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Expander renders a static expanded header/content diagnostic; collapse interaction, focus visuals, and expanded automation behavior remain partial.</p>
 </section>
 <section class="component">
 <h2>Annotated scrollbar <code>DiagnosticAnnotatedScrollbar</code></h2>
@@ -602,14 +602,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -622,11 +622,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/annotated-scrollbar-diagnosticannotatedscrollbar/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 1x3; macOS crop is 286x92. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Annotated scrollbar renders static rail and marker diagnostics; scroll position binding, annotation labels, and pointer interaction remain planned.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Annotated scrollbar renders static rail and marker diagnostics; scroll position binding, annotation labels, and pointer interaction remain planned.</p>
 </section>
 <section class="component">
 <h2>SemanticZoom <code>DiagnosticSemanticZoom</code></h2>
@@ -635,14 +635,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -655,11 +655,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/semanticzoom-diagnosticsemanticzoom/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 220x56; macOS crop is 448x96. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">SemanticZoom renders static zoomed-in and zoomed-out preview panes; zoom switching and collection semantics remain planned.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SemanticZoom renders static zoomed-in and zoomed-out preview panes; zoom switching and collection semantics remain planned.</p>
 </section>
 <section class="component">
 <h2>SplitView <code>DiagnosticSplitView</code></h2>
@@ -668,14 +668,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -688,11 +688,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/splitview-diagnosticsplitview/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 220x56; macOS crop is 286x96. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">SplitView renders a static open pane/content diagnostic; display modes, light dismiss, compact overlay behavior, and interaction remain partial.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SplitView renders a static open pane/content diagnostic; display modes, light dismiss, compact overlay behavior, and interaction remain partial.</p>
 </section>
 <section class="component">
 <h2>TwoPaneView <code>DiagnosticTwoPaneView</code></h2>
@@ -701,14 +701,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>usable</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>failed</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -721,11 +721,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/twopaneview-diagnostictwopaneview/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 220x48; macOS crop is 488x72. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">TwoPaneView renders static side-by-side panes; adaptive spanning behavior and responsive breakpoints remain planned.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: TwoPaneView renders static side-by-side panes; adaptive spanning behavior and responsive breakpoints remain planned.</p>
 </section>
 <section class="component">
 <h2>AnimatedIcon <code>DiagnosticAnimatedIcon</code></h2>
@@ -734,14 +734,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>not-rendered</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>not-applicable</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>native-not-rendered</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -754,11 +754,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/animatedicon-diagnosticanimatedicon/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 120x48; macOS crop is 246x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+<p class="notes">Native reference integrity: The current Windows reference does not show a production AnimatedIcon source/frame.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. &#39;AnimatedIcon&#39; is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.</p>
 </section>
 <section class="component">
 <h2>Shapes <code>DiagnosticShapes</code></h2>
@@ -767,14 +767,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>not-rendered</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>not-applicable</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
 <span>native reference: <strong>native-crop-size-mismatch</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -787,11 +787,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/shapes-diagnosticshapes/pixel-diff.png">
 </figure>
 </div>
 <p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 28x28; macOS crop is 349x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. &#39;Shapes&#39; is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.</p>
 </section>
 <section class="component">
 <h2>MediaPlayerElement <code>DiagnosticMediaPlayerElement</code></h2>
@@ -800,14 +800,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>not-rendered</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>not-applicable</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>placeholder-reference</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -820,11 +820,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/mediaplayerelement-diagnosticmediaplayerelement/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 180x48; macOS crop is 332x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+<p class="notes">Native reference integrity: The current Windows reference shows only placeholder/diagnostic context for MediaPlayerElement, not rendered native content.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. &#39;MediaPlayerElement&#39; is cataloged as not supported and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.</p>
 </section>
 <section class="component">
 <h2>WebView2 <code>DiagnosticWebView2</code></h2>
@@ -833,14 +833,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>not-rendered</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>not-applicable</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>placeholder-reference</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -853,11 +853,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/webview2-diagnosticwebview2/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 180x48; macOS crop is 308x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+<p class="notes">Native reference integrity: The current Windows reference shows only placeholder/diagnostic context for WebView2, not rendered native content.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. &#39;WebView2&#39; is cataloged as not supported and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.</p>
 </section>
 <section class="component">
 <h2>InkCanvas / InkToolbar <code>DiagnosticInkControls</code></h2>
@@ -866,14 +866,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>not-rendered</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>not-applicable</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>native-unavailable</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -886,11 +886,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/inkcanvas-inktoolbar-diagnosticinkcontrols/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 243x42; macOS crop is 308x52. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+<p class="notes">Native reference integrity: The current Windows reference shows unavailable InkToolbar/InkCanvas text instead of native ink controls.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. &#39;InkCanvas / InkToolbar&#39; is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.</p>
 </section>
 <section class="component">
 <h2>Title bar customization <code>DiagnosticTitleBarCustomization</code></h2>
@@ -899,14 +899,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>not-rendered</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>not-applicable</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>offscreen-reference</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -919,11 +919,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/title-bar-customization-diagnostictitlebarcustomization/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 232x35; macOS crop is 426x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+<p class="notes">Native reference integrity: The current crop is effectively offscreen/height 1 and does not prove the platform surface.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. &#39;Title bar customization&#39; is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.</p>
 </section>
 <section class="component">
 <h2>Window.SystemBackdrop / MicaBackdrop <code>DiagnosticSystemBackdrop</code></h2>
@@ -932,14 +932,14 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 <span>visual: <strong>not-rendered</strong></span>
 <span>native quality: <strong>not-evaluated</strong></span>
 <span>crop: <strong>not-applicable</strong></span>
-<span>review: <strong>missing-crop-evidence</strong></span>
-<span>inspection: <strong>missing</strong></span>
+<span>review: <strong>ready-for-manual-inspection</strong></span>
+<span>inspection: <strong>present</strong></span>
 <span>reference source: <strong>native-winui</strong></span>
 <span>reference run: <strong>26872366140</strong></span>
 <span>reference commit: <strong>68f5b9c</strong></span>
-<span>native reference: <strong>native-crop-size-mismatch</strong></span>
+<span>native reference: <strong>offscreen-reference</strong></span>
 <span>bounds source: <strong>windows-native-element-bounds</strong></span>
-<span>changed pixels: <strong>39,879</strong></span>
+<span>changed pixels: <strong>100</strong></span>
 </div>
 <div class="triptych">
 <figure>
@@ -952,11 +952,11 @@ img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
 </figure>
 <figure>
 <figcaption>Pixel diff</figcaption>
-<div class="missing">Missing Pixel diff crop</div>
+<img alt="Pixel diff crop" src="components/window-systembackdrop-micabackdrop-diagnosticsystembackdrop/pixel-diff.png">
 </figure>
 </div>
-<p class="notes">Native reference integrity: Native and macOS crop dimensions differ. Native crop is 162x35; macOS crop is 308x24. Phase -1 does not normalize crop sizes.</p>
-<p class="notes">Diagnostic-only inventory row; no renderer support is claimed yet.</p>
+<p class="notes">Native reference integrity: The current crop is effectively offscreen/height 1 and does not prove the platform surface.</p>
+<p class="notes">Reviewed native WinUI, macOS runtime, and diff crops. &#39;Window.SystemBackdrop / MicaBackdrop&#39; is cataloged as planned and remains not-rendered outside the current production quality claim. Documented gaps: Diagnostic-only inventory row; no renderer support is claimed yet.</p>
 </section>
 </body>
 </html>

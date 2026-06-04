@@ -16,19 +16,19 @@ a new schema version and documentation update.
 | `tree.json` | `0.1`; `0.2` when `skia-v2` layout metadata is exported |
 | `accessibility.json` | `0.3` |
 | `binding-failures.json` | `0.1` |
-| `visual/component-evidence.json` | `0.4` |
-| `component-inspection.json` | `0.1` |
-| `component-inspection-template.json` | `0.1` |
-| `docs/visual-parity/component-quality-dashboard.json` | `0.2` |
-| `docs/visual-parity/public-visual-review-index.json` | `0.1` |
-| `native-reference-import.json` | `0.1` |
+| `visual/component-evidence.json` | `0.5` |
+| `component-inspection.json` | `0.2` |
+| `component-inspection-template.json` | `0.2` |
+| `docs/visual-parity/component-quality-dashboard.json` | `0.3` |
+| `docs/visual-parity/public-visual-review-index.json` | `0.2` |
+| `native-reference-import.json` | `0.2` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
 | `project-ingestion.json` | `0.1` |
 | `interactions.json` | `0.2` |
 | `snapshot.json` | `0.1`; `0.2` for `skia-v2` PNG snapshots |
 | `visual/visual-run.json` | `0.1` |
-| `visual/visual-review.json` | `0.2` |
+| `visual/visual-review.json` | `0.3` |
 | `visual/windows-reference.json` | `0.2` |
 | `visual/pixel-diff.json` | `0.1` |
 
@@ -90,12 +90,14 @@ a new schema version and documentation update.
   reference or crop diff metrics.
 - `component-inspection.json`: reviewer-supplied manifest consumed by
   `component-inspection-apply`. Each row must name the component and target,
-  final `visualGrade`, final `nativeQualityGrade`, reviewer, inspection date,
-  native reference run ID, notes, optional accepted gaps, optional tolerance
-  reason, and optional comparison artifact paths. The apply command validates
-  final grades, crop triptychs, component diff metrics, native reference
-  provenance, run ID consistency, and artifact paths before it writes updated
-  component evidence.
+  honest `visualGrade`, `nativeQualityGrade`, reviewer, inspection date, native
+  reference run ID, notes, optional accepted gaps, optional tolerance reason,
+  and optional comparison artifact paths. The apply command validates documented
+  harness grades, excludes planned or not-supported rows from promotion,
+  requires promotion-valid native bounds before `good` or `production-ready`
+  native-quality grades, and checks crop triptychs, component diff metrics,
+  native reference provenance, run ID consistency, and artifact paths before it
+  writes updated component evidence.
 - `component-inspection-template.json`: generated reviewer starting point from
   `component-inspection-template`. It pre-fills component/target identity,
   native reference run ID, and comparison artifact paths, but leaves reviewer,

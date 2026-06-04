@@ -119,8 +119,8 @@ the current support boundary.
 Latest inspected public native WinUI visual workflow:
 
 - Workflow: `windows-native-screenshot.yml`
-- Run: `26792033793`
-- Code commit inspected by that workflow: `3c929f4`
+- Run: `26962358057`
+- Code commit inspected by that workflow: `1a2eb01`
 - Reference source: `native-winui`
 - Viewport: `1028x720`
 - Capture mode: client area.
@@ -139,7 +139,7 @@ Latest inspected native comparison status for checked-in historical examples:
 | --- | --- | ---: | ---: | ---: | --- |
 | `public-admin-workbench-light` | failed | 99.988381% / threshold 45% | 9.678085 | 36.397928 | 9 `usable`; not a visual-fidelity pass. |
 | `component-basic-input-light` | failed | 30.145914% / threshold 18% | 9.611153 | 39.380451 | 13 `usable`, zero `not-rendered`; not a visual-fidelity pass. |
-| `component-commands-menus-light` | failed | 28.866596% / threshold 24% | 7.884937 | 35.151692 | 8 `usable`, zero `not-rendered`; not a visual-fidelity pass. |
+| `component-commands-menus-light` | failed | 28.416018% / threshold 24% | 7.920517 | 35.461129 | 8 `usable`, zero `not-rendered`; not a visual-fidelity pass. |
 | `component-layout-media-light` | failed | 44.828821% / threshold 24% | 13.06852 | 44.114842 | 21 `usable`, 7 `not-rendered`; not a visual-fidelity pass. |
 
 Current harness component status is sourced from fresh

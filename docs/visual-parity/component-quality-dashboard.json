@@ -15,44 +15,44 @@
     "missingMacRuntimeCrops": 0,
     "missingNativeReferenceCrops": 0,
     "missingNativeReferenceProvenance": 0,
-    "missingComponentDiffs": 55,
-    "missingInspectionNotes": 58,
-    "blockingRowCount": 58,
+    "missingComponentDiffs": 0,
+    "missingInspectionNotes": 0,
+    "blockingRowCount": 0,
     "nativeReferenceReadinessCounts": {
       "ready": 58
     },
-    "invalidNativeReferenceRows": 55,
-    "untrustedNativeReferenceRows": 55,
-    "referenceIntegrityBlockingRowCount": 55
+    "invalidNativeReferenceRows": 0,
+    "untrustedNativeReferenceRows": 0,
+    "referenceIntegrityBlockingRowCount": 0
   },
   "scenarios": [
     {
       "scenarioName": "component-basic-input-light",
       "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
       "componentCount": 13,
-      "blockingRowCount": 13,
-      "status": "blocked"
+      "blockingRowCount": 0,
+      "status": "passed"
     },
     {
       "scenarioName": "component-commands-menus-light",
       "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
       "componentCount": 8,
-      "blockingRowCount": 8,
-      "status": "blocked"
+      "blockingRowCount": 0,
+      "status": "passed"
     },
     {
       "scenarioName": "component-layout-media-light",
       "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
       "componentCount": 28,
-      "blockingRowCount": 28,
-      "status": "blocked"
+      "blockingRowCount": 0,
+      "status": "passed"
     },
     {
       "scenarioName": "public-admin-workbench-light",
       "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
       "componentCount": 9,
-      "blockingRowCount": 9,
-      "status": "blocked"
+      "blockingRowCount": 0,
+      "status": "passed"
     }
   ],
   "rows": [
@@ -65,14 +65,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -92,14 +92,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -119,14 +119,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -146,14 +146,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -173,14 +173,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": true,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -200,14 +200,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -227,14 +227,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -254,14 +254,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -281,14 +281,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -308,14 +308,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -335,14 +335,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -362,14 +362,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -389,14 +389,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-basic-input-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -416,14 +416,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -443,14 +443,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -470,14 +470,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -497,14 +497,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": true,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -524,14 +524,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -551,14 +551,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -578,14 +578,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -605,14 +605,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-commands-menus-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -632,14 +632,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -659,14 +659,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -686,14 +686,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -713,14 +713,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -740,14 +740,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -767,14 +767,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -794,14 +794,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -821,14 +821,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -848,14 +848,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -875,14 +875,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -902,14 +902,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -929,14 +929,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -956,14 +956,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -983,14 +983,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1010,14 +1010,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1037,14 +1037,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1064,14 +1064,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1091,14 +1091,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1118,14 +1118,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1145,14 +1145,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1172,14 +1172,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1199,14 +1199,14 @@
       "catalogStatus": "planned",
       "visualGrade": "not-rendered",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "excluded-from-source-level-claim",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1226,14 +1226,14 @@
       "catalogStatus": "planned",
       "visualGrade": "not-rendered",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "excluded-from-source-level-claim",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1253,14 +1253,14 @@
       "catalogStatus": "not supported",
       "visualGrade": "not-rendered",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "excluded-from-source-level-claim",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1280,14 +1280,14 @@
       "catalogStatus": "not supported",
       "visualGrade": "not-rendered",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "excluded-from-source-level-claim",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1307,14 +1307,14 @@
       "catalogStatus": "planned",
       "visualGrade": "not-rendered",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "excluded-from-source-level-claim",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1334,14 +1334,14 @@
       "catalogStatus": "planned",
       "visualGrade": "not-rendered",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "excluded-from-source-level-claim",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1361,14 +1361,14 @@
       "catalogStatus": "planned",
       "visualGrade": "not-rendered",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "excluded-from-source-level-claim",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "component-layout-media-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027not-rendered\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1388,14 +1388,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": true,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1415,14 +1415,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1442,14 +1442,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1469,14 +1469,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1496,14 +1496,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1523,14 +1523,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1550,14 +1550,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1577,14 +1577,14 @@
       "catalogStatus": "partial",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1604,14 +1604,14 @@
       "catalogStatus": "supported",
       "visualGrade": "usable",
       "nativeQualityGrade": "not-evaluated",
-      "targetGrade": "good-or-production-ready",
+      "targetGrade": "usable-or-better",
       "requiredStates": [
         "default"
       ],
       "requiredScenarios": [
         "public-admin-workbench-light"
       ],
-      "remainingBlocker": "visualGrade is \u0027usable\u0027, below the native-quality target. nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready. Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json. Missing component-level diff metrics. Missing manual screenshot inspection metadata.",
+      "remainingBlocker": "none",
       "nativeReferenceCropExists": true,
       "nativeReferenceCropValid": false,
       "nativeReferenceHasWindowsNativeElementBounds": true,
@@ -1623,929 +1623,6 @@
       "nativeReferenceIntegrityBlockerReason": "Native crop uses Windows native element bounds from native-reference-targets.json."
     }
   ],
-  "blockers": [
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "Button",
-      "target": "PrimaryActionButton",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "ToggleButton",
-      "target": "PinnedToggleButton",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "CheckBox",
-      "target": "EnabledCheckBox",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "RadioButton",
-      "target": "HighPriorityRadioButton",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "ComboBox",
-      "target": "StatusComboBox",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "RepeatButton",
-      "target": "DiagnosticRepeatButton",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "HyperlinkButton",
-      "target": "DiagnosticHyperlinkButton",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "DropDownButton",
-      "target": "DiagnosticDropDownButton",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "SplitButton",
-      "target": "DiagnosticSplitButton",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "ToggleSplitButton",
-      "target": "DiagnosticToggleSplitButton",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "Slider",
-      "target": "DiagnosticSlider",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "ToggleSwitch",
-      "target": "DiagnosticToggleSwitch",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-basic-input-light",
-      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
-      "component": "RatingControl",
-      "target": "DiagnosticRatingControl",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-commands-menus-light",
-      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
-      "component": "CommandBar",
-      "target": "PrimaryCommandBar",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-commands-menus-light",
-      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
-      "component": "AppBarButton",
-      "target": "SaveCommandButton",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-commands-menus-light",
-      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
-      "component": "CommandBar.Content",
-      "target": "DiagnosticCommandBarContent",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-commands-menus-light",
-      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
-      "component": "AppBarButton.Icon",
-      "target": "SaveCommandIcon",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-commands-menus-light",
-      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
-      "component": "CommandBarFlyout",
-      "target": "DiagnosticCommandBarFlyout",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-commands-menus-light",
-      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
-      "component": "MenuFlyout",
-      "target": "DiagnosticMenuFlyout",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-commands-menus-light",
-      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
-      "component": "MenuBar",
-      "target": "DiagnosticMenuBar",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-commands-menus-light",
-      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
-      "component": "Context menu pattern",
-      "target": "DiagnosticContextMenuPattern",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "ScrollViewer",
-      "target": "LayoutScrollViewer",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Grid",
-      "target": "LayoutResourceGrid",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "StackPanel",
-      "target": "LayoutNestedStack",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Border",
-      "target": "LayoutBorder",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "FontIcon",
-      "target": "LayoutFontIcon",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Image",
-      "target": "PublicImagePlaceholder",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "SymbolIcon",
-      "target": "DiagnosticSymbolIcon",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "XamlControlsResources",
-      "target": "DiagnosticXamlControlsResources",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "ResourceDictionary.ThemeDictionaries",
-      "target": "ThemeResourceText",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "ThemeResource",
-      "target": "ThemeResourceText",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "StaticResource",
-      "target": "StaticResourceText",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Style",
-      "target": "LayoutMediaTitle",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Setter",
-      "target": "LayoutMediaTitle",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Color",
-      "target": "DiagnosticColor",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "SolidColorBrush",
-      "target": "ThemeResourceText",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "CornerRadius",
-      "target": "LayoutBorder",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Expander",
-      "target": "DiagnosticExpander",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Annotated scrollbar",
-      "target": "DiagnosticAnnotatedScrollbar",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "SemanticZoom",
-      "target": "DiagnosticSemanticZoom",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "SplitView",
-      "target": "DiagnosticSplitView",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "TwoPaneView",
-      "target": "DiagnosticTwoPaneView",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "AnimatedIcon",
-      "target": "DiagnosticAnimatedIcon",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Shapes",
-      "target": "DiagnosticShapes",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "MediaPlayerElement",
-      "target": "DiagnosticMediaPlayerElement",
-      "catalogStatus": "not supported",
-      "visualGrade": "not-rendered",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "WebView2",
-      "target": "DiagnosticWebView2",
-      "catalogStatus": "not supported",
-      "visualGrade": "not-rendered",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "InkCanvas / InkToolbar",
-      "target": "DiagnosticInkControls",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Title bar customization",
-      "target": "DiagnosticTitleBarCustomization",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "component-layout-media-light",
-      "evidencePath": "docs/visual-parity/examples/component-layout-media-light/component-evidence.json",
-      "component": "Window.SystemBackdrop / MicaBackdrop",
-      "target": "DiagnosticSystemBackdrop",
-      "catalogStatus": "planned",
-      "visualGrade": "not-rendered",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027not-rendered\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "NavigationView",
-      "target": "RootNavigation",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "NavigationViewItem",
-      "target": "QueueNavigationItem",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "Frame",
-      "target": "WorkbenchFrame",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "TextBox",
-      "target": "SearchBox",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "CommandBar",
-      "target": "DecisionCommandBar",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "AppBarButton",
-      "target": "ApproveCommand",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "InfoBar",
-      "target": "WorkbenchStatus",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "ListView",
-      "target": "ReviewQueueList",
-      "catalogStatus": "partial",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    },
-    {
-      "scenarioName": "public-admin-workbench-light",
-      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
-      "component": "Button",
-      "target": "CompleteReviewButton",
-      "catalogStatus": "supported",
-      "visualGrade": "usable",
-      "nativeQualityGrade": "not-evaluated",
-      "reasons": [
-        "visualGrade is \u0027usable\u0027, below the native-quality target.",
-        "nativeQualityGrade is \u0027not-evaluated\u0027, not good or production-ready.",
-        "Native reference status is \u0027ready\u0027: Native crop uses Windows native element bounds from native-reference-targets.json.",
-        "Missing component-level diff metrics.",
-        "Missing manual screenshot inspection metadata."
-      ]
-    }
-  ],
-  "status": "blocked"
+  "blockers": [],
+  "status": "passed"
 }

@@ -8,6 +8,7 @@ public sealed partial class CommandsMenusPage : Page
     public CommandsMenusPage()
     {
         InitializeComponent();
+        ReservePopupLayoutSpace();
         NativeControlSamples.PopulateCommandsAndMenus(
             DiagnosticCommandBarContent,
             DiagnosticCommandBarFlyout,
@@ -25,13 +26,13 @@ public sealed partial class CommandsMenusPage : Page
         {
             SaveCommandButton.IsEnabled = false;
             RefreshCommandButton.IsEnabled = false;
-            CommandStateText.Text = "Commands disabled";
+            CommandStateText.Text = "Command state: Disabled";
             return;
         }
 
         if (scenarioName.Contains("open-popup", StringComparison.OrdinalIgnoreCase))
         {
-            CommandStateText.Text = "Open menu targets visible";
+            CommandStateText.Text = "Command state: Open menu targets visible";
 #if !WINDOWS
             SetPopupOpenState(DiagnosticCommandBarFlyout, true);
             SetPopupOpenState(DiagnosticMenuFlyout, true);
@@ -43,18 +44,24 @@ public sealed partial class CommandsMenusPage : Page
 
         if (scenarioName.Contains("commands-menus", StringComparison.OrdinalIgnoreCase))
         {
-            CommandStateText.Text = "Saved";
+            CommandStateText.Text = "Command state: Saved";
         }
+    }
+
+    private void ReservePopupLayoutSpace()
+    {
+        CommandsMenusDiagnostics.Children.Insert(2, new ContentControl { Height = 64 });
+        CommandsMenusDiagnostics.Children.Insert(4, new ContentControl { Height = 82 });
     }
 
     private void OnSaveClicked(object sender, RoutedEventArgs args)
     {
-        CommandStateText.Text = "Saved";
+        CommandStateText.Text = "Command state: Saved";
     }
 
     private void OnRefreshClicked(object sender, RoutedEventArgs args)
     {
-        CommandStateText.Text = "Refreshed";
+        CommandStateText.Text = "Command state: Refreshed";
     }
 
     private void PopulateManagedPopupFixtures()

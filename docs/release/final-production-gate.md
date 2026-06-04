@@ -39,24 +39,27 @@ source-level WinUI 3 harness readiness for the documented public subset. Visual
 renderer quality needs a separate renderer-fidelity plan before any stronger
 visual claim.
 
-The current release-candidate gate is intentionally blocked by
+The current release-candidate local gate is no longer blocked by
 `docs/visual-parity/component-quality-dashboard.json`: 58/58 checked-in public
-component rows are below the native-quality target because they lack final
-native-quality grades and manual inspection evidence.
-This blocker prevents the existing harness-grade rows from being mistaken for
+component rows have the source-level harness evidence required by the bounded
+support claim, and `blockingRowCount` is zero. The dashboard still records 51
+`usable` rows, 7 planned or not-supported `not-rendered` rows, and 58
+`nativeQualityGrade: not-evaluated` rows, so it must not be read as
 native-quality WinUI visual readiness.
 
-The gate is also intentionally blocked by
-`docs/visual-parity/native-reference-readiness.json`: 58/58 public rows lack
-source-ready native reference status. `referenceSource: native-winui` proves the
-full-window screenshot came from Windows; it does not prove the component crop
-targets the intended native control. Rows must receive native element crop
-bounds or reviewed native reference bounds before they can be promoted.
+`docs/visual-parity/native-reference-readiness.json` remains source-ready:
+58/58 public rows are `ready` and `blockingRowCount` is zero. Native crop
+presence and source readiness are still prerequisites for any future visual
+promotion, but they do not by themselves establish native-quality renderer
+fidelity.
 
 ## Workflow Evidence
 
 | Gate | Evidence |
 | --- | --- |
+| PR #3 CI release-candidate evidence | Run `26969205766`, commit `3c19711`, passed build, tests, full strict scenario sweep, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads including `strict-scenario-sweep`. |
+| PR #3 full native WinUI reference workflow | Run `26962358057`, commit `1a2eb01`, passed `windows-reference` and `synthetic-probe-smoke` jobs and uploaded `windows-reference-screenshots` plus `windows-synthetic-probe-smoke` artifacts. |
+| PR #3 local full strict sweep | Commit `530e4f5`, 36/36 public scenarios passed locally with `--renderer skia-v2 --strict-visual`; this remains source-level harness evidence, not native-quality visual fidelity. |
 | Final Sprint 7 CI | Run `26792033784`, commit `3c929f4`, passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
 | Final full native WinUI reference workflow | Run `26792033793`, commit `3c929f4`, captures public native fixture references and synthetic probe smoke artifacts. |
 | Sprint 6 CI | Run `26791576401`, commit `cd814a4`, passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
@@ -100,8 +103,9 @@ Current inspected renderer evidence:
 
 Across the checked-in public component-quality dashboard, there are 58
 component rows: 51 `usable` and 7 `not-rendered`. The rows have
-native/macOS/diff crop triptychs, which is enough for manual inspection
-queuing. It is not enough for a native-quality WinUI visual claim.
+native/macOS/diff crop triptychs and manual inspection metadata for the
+source-level harness gate. It is not enough for a native-quality WinUI visual
+claim, and no row is assigned a native-quality grade.
 
 The current native reference source audit is in
 `docs/visual-parity/native-reference-source-audit.md`. It records that some
@@ -116,8 +120,8 @@ prove that `usable` controls are visually close to native WinUI.
 
 The `ComponentQualityDashboardMatchesPublicEvidence` test keeps
 `docs/visual-parity/component-quality-dashboard.json` synchronized with the
-checked-in public component evidence and requires missing native-quality
-evidence to remain visible as release blockers.
+checked-in public component evidence and requires source-level harness blockers
+to remain visible without promoting `usable` rows to native-quality claims.
 
 The `VisualReviewIndexMatchesPublicEvidence` test keeps
 `docs/visual-parity/public-visual-review-index.html` and

@@ -167,11 +167,11 @@
         "MenuFlyout",
         "MenuBar"
       ],
-      "interactionRequirement": "open menu or flyout, invoke item, dismiss",
-      "accessibilityRequirement": "popup/menu item names, expanded state, and accelerator text",
+      "interactionRequirement": "source-level open menu or flyout diagnostics; native popup visual evidence is not promoted",
+      "accessibilityRequirement": "static host names for public evidence; popup/menu item names, expanded state, and accelerator text remain diagnostic",
       "minimumVisualGrade": "not-rendered",
       "knownGaps": [
-        "Native Windows popup targets are visible; macOS popup host behavior is not implemented yet."
+        "Open-popup diagnostics are source-level only until matching native popup reference capture and promotion evidence are added."
       ]
     },
     {
@@ -705,11 +705,11 @@
       "winuiAvailability": "stable",
       "catalogStatus": "partial",
       "demoPage": "Page 5: Commands And Menus",
-      "fixtureCoverage": "component-commands-menus-light",
-      "interactionCoverage": "openPopup + invokeMenuItem",
+      "fixtureCoverage": "component-commands-menus-light; component-commands-menus-open-popup-light remains diagnostic",
+      "interactionCoverage": "static host target in public evidence; openPopup + invokeMenuItem diagnostic only",
       "visualEvidence": "usable",
       "knownGaps": [
-        "Open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+        "The checked-in public native comparison covers the visible static host target only; open state, command invocation, native placement, overflow, and dismissal semantics remain partial and unpromoted."
       ]
     },
     {
@@ -1095,11 +1095,11 @@
       "winuiAvailability": "stable",
       "catalogStatus": "partial",
       "demoPage": "Page 5: Commands And Menus",
-      "fixtureCoverage": "component-commands-menus-light",
-      "interactionCoverage": "openPopup + invokeMenuItem",
+      "fixtureCoverage": "component-commands-menus-light; component-commands-menus-open-popup-light remains diagnostic",
+      "interactionCoverage": "static host target in public evidence; openPopup + invokeMenuItem diagnostic only",
       "visualEvidence": "usable",
       "knownGaps": [
-        "Open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+        "The checked-in public native comparison covers the visible static host target only; open state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and unpromoted."
       ]
     },
     {

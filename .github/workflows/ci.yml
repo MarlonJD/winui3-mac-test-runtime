@@ -27,6 +27,58 @@ jobs:
       - name: Test
         run: dotnet test --no-build
 
+      - name: Full strict scenario sweep
+        run: |
+          set -euo pipefail
+
+          sweep_root="artifacts/strict-scenario-sweep"
+          mkdir -p "$sweep_root"
+
+          count=0
+          passed=0
+          failed=0
+          rc=0
+
+          while IFS= read -r scenario; do
+            case "$scenario" in
+              fixtures/ComponentParityLab.WinUI/*) project=fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj ;;
+              fixtures/ControlGallery.MacTest/*) project=fixtures/ControlGallery.MacTest/ControlGallery.MacTest.csproj ;;
+              fixtures/InteractionBindingApp.MacTest/*) project=fixtures/InteractionBindingApp.MacTest/InteractionBindingApp.MacTest.csproj ;;
+              fixtures/ProductionSmoke.WinUI/*) project=fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj ;;
+              fixtures/PublicAdminWorkbench.WinUI/*) project=fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj ;;
+              fixtures/ResourceCatalogApp.WinUI/*) project=fixtures/ResourceCatalogApp.WinUI/ResourceCatalogApp.WinUI.csproj ;;
+              fixtures/SampleAdminShell.MacTest/*) project=fixtures/SampleAdminShell.MacTest/SampleAdminShell.MacTest.csproj ;;
+              fixtures/SettingsFormApp.WinUI/*) project=fixtures/SettingsFormApp.WinUI/SettingsFormApp.WinUI.csproj ;;
+              fixtures/SingleWindowApp.WinUI/*) project=fixtures/SingleWindowApp.WinUI/SingleWindowApp.WinUI.csproj ;;
+              *)
+                echo "unknown project for $scenario"
+                failed=$((failed + 1))
+                rc=1
+                continue
+                ;;
+            esac
+
+            name="$(basename "$scenario" .json)"
+            output="$sweep_root/$name"
+            log="$sweep_root/$name.log"
+            count=$((count + 1))
+
+            printf '[%02d] %s\n' "$count" "$name"
+            if dotnet run --no-build --project src/WinUI3.MacRunner/WinUI3.MacRunner.csproj -- \
+              run --project "$project" --renderer skia-v2 --scenario "$scenario" --strict-visual --output "$output" > "$log" 2>&1; then
+              passed=$((passed + 1))
+              tail -n 3 "$log"
+            else
+              failed=$((failed + 1))
+              rc=1
+              echo "FAILED $name"
+              tail -n 40 "$log"
+            fi
+          done < <(find fixtures -path '*scenarios/*.json' -type f | sort)
+
+          printf 'strict scenario sweep: %d passed, %d failed, %d total\n' "$passed" "$failed" "$count"
+          exit "$rc"
+
       - name: Corpus ingestion
         run: >-
           dotnet run --no-build --project src/WinUI3.MacRunner --
@@ -68,6 +120,14 @@ jobs:
         with:
           name: production-gates
           path: artifacts/production-gates
+          if-no-files-found: ignore
+
+      - name: Upload strict scenario sweep
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: strict-scenario-sweep
+          path: artifacts/strict-scenario-sweep
           if-no-files-found: ignore
 
       - name: Upload package dry run

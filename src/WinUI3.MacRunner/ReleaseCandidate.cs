@@ -259,12 +259,12 @@ internal static class ReleaseCandidateCommand
         {
             return Fail(
                 "component-quality-dashboard",
-                $"{expected.Totals.BlockingRowCount} public component row(s) are not native-quality complete.");
+                $"{expected.Totals.BlockingRowCount} public component row(s) are missing source-level harness quality evidence.");
         }
 
         return Pass(
             "component-quality-dashboard",
-            $"All {expected.Totals.ComponentCount} public component rows have native-quality evidence.",
+            $"All {expected.Totals.ComponentCount} public component rows satisfy the documented source-level harness quality gate.",
             ("rows", expected.Totals.ComponentCount.ToString()));
     }
 

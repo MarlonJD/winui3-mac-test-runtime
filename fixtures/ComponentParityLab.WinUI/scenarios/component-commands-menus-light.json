@@ -28,25 +28,7 @@
       "type": "assertProperty",
       "target": "CommandStateText",
       "key": "Text",
-      "parameter": "Saved"
-    },
-    {
-      "type": "openPopup",
-      "target": "DiagnosticCommandBarFlyout"
-    },
-    {
-      "type": "invokeMenuItem",
-      "target": "DiagnosticCommandBarFlyout",
-      "parameter": "Pin"
-    },
-    {
-      "type": "openPopup",
-      "target": "DiagnosticMenuFlyout"
-    },
-    {
-      "type": "invokeMenuItem",
-      "target": "DiagnosticMenuFlyout",
-      "parameter": "Approve"
+      "parameter": "Command state: Saved"
     }
   ],
   "requirements": [
@@ -113,10 +95,10 @@
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
       "requiredProperties": [
-        "open-popup"
+        "flyout-target"
       ],
       "knownGaps": [
-        "CommandBarFlyout open state and command invocation are supported for clean-room smoke scenarios; native placement, overflow, and dismissal semantics remain partial."
+        "CommandBarFlyout exports a visible host target in the static command fixture; open popup state, command invocation, native placement, overflow, and dismissal semantics remain partial and are not promoted by this base evidence."
       ]
     },
     {
@@ -126,10 +108,10 @@
       "minimumVisualGrade": "usable",
       "visualGrade": "usable",
       "requiredProperties": [
-        "open-popup"
+        "flyout-target"
       ],
       "knownGaps": [
-        "MenuFlyout open state and item invocation are supported for clean-room smoke scenarios; native placement, keyboarding, and dismissal semantics remain partial."
+        "MenuFlyout exports a visible host target in the static command fixture; open popup state, item invocation, native placement, keyboarding, and dismissal semantics remain partial and are not promoted by this base evidence."
       ]
     },
     {

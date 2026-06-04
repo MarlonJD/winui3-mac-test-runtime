@@ -3,7 +3,7 @@
   "phase": "Phase 8",
   "date": "2026-06-02",
   "policy": "Component-crop drift is the gated metric for production grades. Whole-screen drift is informational only: cross-platform font rasterization, GPU paths, and OS composition differ, so a high whole-screen change ratio does not by itself demote a component grade. Whole-screen values below are read from the checked-in pixel-diff artifacts and must match them exactly.",
-  "latestRunId": "26792033793",
+  "latestRunId": "26962358057",
   "gatedMetric": "component-crop",
   "informationalMetric": "whole-screen",
   "families": [
@@ -33,11 +33,11 @@
         "gated": true,
         "metric": "component-evidence crop grade and per-component thresholds",
         "status": "within-target-for-supported-subset",
-        "note": "Supported command surfaces, static MenuBar chrome, context target export, and the partial flyout/menu subset are usable; final native-quality inspection remains blocked."
+        "note": "Supported command surfaces, static flyout host targets, static MenuBar chrome, and context target export are usable; popup/native-quality rendering is not claimed."
       },
       "wholeScreenDrift": {
         "gated": false,
-        "changedPixelPercentage": 28.922665,
+        "changedPixelPercentage": 28.416018,
         "threshold": 24,
         "status": "informational-over-threshold",
         "note": "Superseded by component evidence; cross-platform rasterization difference."

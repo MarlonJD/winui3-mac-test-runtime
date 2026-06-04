@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "0.2",
+  "rows": [
+    {
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/button-primaryactionbutton/windows-reference.png",
+        "components/button-primaryactionbutton/mac-runtime.png",
+        "components/button-primaryactionbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Button chrome is approximated; native pressed, hover, and template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 142x32; macOS crop is 158x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/togglebutton-pinnedtogglebutton/windows-reference.png",
+        "components/togglebutton-pinnedtogglebutton/mac-runtime.png",
+        "components/togglebutton-pinnedtogglebutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 67x32; macOS crop is 72x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/checkbox-enabledcheckbox/windows-reference.png",
+        "components/checkbox-enabledcheckbox/mac-runtime.png",
+        "components/checkbox-enabledcheckbox/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 96x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/radiobutton-highpriorityradiobutton/windows-reference.png",
+        "components/radiobutton-highpriorityradiobutton/mac-runtime.png",
+        "components/radiobutton-highpriorityradiobutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 128x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/combobox-statuscombobox/windows-reference.png",
+        "components/combobox-statuscombobox/mac-runtime.png",
+        "components/combobox-statuscombobox/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps.",
+      "nativeReferenceReadiness": "ready",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "none"
+    },
+    {
+      "component": "RepeatButton",
+      "target": "DiagnosticRepeatButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/repeatbutton-diagnosticrepeatbutton/windows-reference.png",
+        "components/repeatbutton-diagnosticrepeatbutton/mac-runtime.png",
+        "components/repeatbutton-diagnosticrepeatbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 310x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "HyperlinkButton",
+      "target": "DiagnosticHyperlinkButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/hyperlinkbutton-diagnostichyperlinkbutton/windows-reference.png",
+        "components/hyperlinkbutton-diagnostichyperlinkbutton/mac-runtime.png",
+        "components/hyperlinkbutton-diagnostichyperlinkbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 125x32; macOS crop is 312x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "DropDownButton",
+      "target": "DiagnosticDropDownButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/dropdownbutton-diagnosticdropdownbutton/windows-reference.png",
+        "components/dropdownbutton-diagnosticdropdownbutton/mac-runtime.png",
+        "components/dropdownbutton-diagnosticdropdownbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 132x32; macOS crop is 330x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "SplitButton",
+      "target": "DiagnosticSplitButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/splitbutton-diagnosticsplitbutton/windows-reference.png",
+        "components/splitbutton-diagnosticsplitbutton/mac-runtime.png",
+        "components/splitbutton-diagnosticsplitbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 127x30; macOS crop is 323x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "ToggleSplitButton",
+      "target": "DiagnosticToggleSplitButton",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png",
+        "components/togglesplitbutton-diagnostictogglesplitbutton/mac-runtime.png",
+        "components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 129x30; macOS crop is 317x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "Slider",
+      "target": "DiagnosticSlider",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/slider-diagnosticslider/windows-reference.png",
+        "components/slider-diagnosticslider/mac-runtime.png",
+        "components/slider-diagnosticslider/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 180x32; macOS crop is 368x32. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "ToggleSwitch",
+      "target": "DiagnosticToggleSwitch",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/toggleswitch-diagnostictoggleswitch/windows-reference.png",
+        "components/toggleswitch-diagnostictoggleswitch/mac-runtime.png",
+        "components/toggleswitch-diagnostictoggleswitch/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 120x63; macOS crop is 313x44. Phase -1 does not normalize crop sizes."
+    },
+    {
+      "component": "RatingControl",
+      "target": "DiagnosticRatingControl",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "inspectedBy": "Codex visual evidence review",
+      "inspectedDate": "2026-06-04",
+      "nativeReferenceRunId": "26872366140",
+      "comparisonArtifactPaths": [
+        "components/ratingcontrol-diagnosticratingcontrol/windows-reference.png",
+        "components/ratingcontrol-diagnosticratingcontrol/mac-runtime.png",
+        "components/ratingcontrol-diagnosticratingcontrol/pixel-diff.png"
+      ],
+      "acceptedGaps": [
+        "RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
+      ],
+      "toleranceReason": "Harness-grade review accepts documented renderer simplifications; no native-quality promotion is claimed.",
+      "notes": "Reviewed native WinUI, macOS runtime, and diff crops. Retained the documented source-level harness grade; nativeQualityGrade remains not-evaluated because the current renderer evidence does not establish native-quality WinUI parity. Documented gaps: RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps.",
+      "nativeReferenceReadiness": "native-crop-size-mismatch",
+      "nativeReferenceBoundsSource": "windows-native-element-bounds",
+      "nativeReferenceIntegrityBlockerReason": "Native and macOS crop dimensions differ. Native crop is 120x32; macOS crop is 308x32. Phase -1 does not normalize crop sizes."
+    }
+  ]
+}
