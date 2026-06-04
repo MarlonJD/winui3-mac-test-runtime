@@ -2474,9 +2474,9 @@ public sealed class MacRuntimeTests
         var command = RequireNode(arranged.Root, "AcceptCommand");
 
         Assert.HasCount(0, unsupported);
-        Assert.IsTrue(content.Layout!.X < command.Layout!.X, "CommandBar.Content must be laid out before primary commands.");
+        Assert.IsLessThan(command.Layout!.X, content.Layout!.X, "CommandBar.Content must be laid out before primary commands.");
         Assert.IsFalse(content.Properties.ContainsKey("commandBarCompact"), "CommandBar.Content must not be tagged as compact command chrome.");
-        Assert.AreEqual(true, command.Properties["commandBarCompact"]);
+        Assert.IsTrue((bool)command.Properties["commandBarCompact"]!);
     }
 
     [TestMethod]
