@@ -57,7 +57,7 @@ fidelity.
 
 | Gate | Evidence |
 | --- | --- |
-| PR #3 CI release-candidate evidence | Run `26965670153`, commit `530e4f5`, passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
+| PR #3 CI release-candidate evidence | Run `26968882845`, commit `4db8d77`, passed build, tests, full strict scenario sweep, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads including `strict-scenario-sweep`. |
 | PR #3 full native WinUI reference workflow | Run `26962358057`, commit `1a2eb01`, passed `windows-reference` and `synthetic-probe-smoke` jobs and uploaded `windows-reference-screenshots` plus `windows-synthetic-probe-smoke` artifacts. |
 | PR #3 local full strict sweep | Commit `530e4f5`, 36/36 public scenarios passed locally with `--renderer skia-v2 --strict-visual`; this remains source-level harness evidence, not native-quality visual fidelity. |
 | Final Sprint 7 CI | Run `26792033784`, commit `3c929f4`, passed build, tests, corpus ingestion, benchmark/flake, package dry run, release-check, and artifact uploads. |
