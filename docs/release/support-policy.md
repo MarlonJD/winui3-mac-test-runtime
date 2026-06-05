@@ -99,11 +99,26 @@ Triage levels:
 
 A production-supporting release candidate must have:
 
+- a passing `PATH="$PWD/tools:$PATH" winui3-mac-release-ready-local` run from a
+  clean checkout, or equivalent CI evidence for the same ordered build, test,
+  product-evidence, package dry-run, release-check, and release-candidate
+  steps;
+- a passing `winui3-mac-runner product-evidence --profile strict-scenario-sweep`
+  report that runs every public scenario with `skia-v2 --strict-visual` and
+  writes per-scenario `visual-run.json` artifacts plus attached
+  `component-evidence.json` and `accessibility.json` artifacts for
+  `productionStateCoverage` rows, including target and state export validation
+  for checked, disabled, focused, and selected evidence;
+- a passing `winui3-mac-runner product-evidence --profile public-product`
+  report for deterministic local artifact freshness and product evidence
+  status;
 - a passing `winui3-mac-runner release-candidate` gate, whose deterministic local
   checks (126/126 catalog dispositions, catalog/docs count consistency, zero
   unknown surfaces, broader-control honesty, no OS composition claim, gated
-  component-crop drift, native reference provenance, release docs, and the
-  private-name scan) all pass and whose external requirements are confirmed;
+  component-crop drift, component-quality dashboard freshness, state coverage
+  matrix freshness, native-quality family tranche freshness, native reference
+  provenance, release docs, and the private-name scan) all pass and whose
+  external requirements are confirmed;
 - passing `dotnet build`, `dotnet test`, corpus ingestion, private-name scan,
   benchmark/flake, package dry-run, and release-check gates;
 - public native WinUI reference workflow evidence for changed production

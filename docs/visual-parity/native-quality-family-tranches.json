@@ -1,0 +1,837 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "1970-01-01T00:00:00+00:00",
+  "policy": "Milestone C native-quality work is tracked by control family, not by ad hoc component closure. A family can only move toward native-quality promotion when its rows have native-quality evidence and the state matrix is broader than default-only evidence.",
+  "totals": {
+    "familyCount": 6,
+    "rowCount": 26,
+    "nativeQualityReadyRowCount": 3,
+    "notEvaluatedRowCount": 23,
+    "defaultOnlyComponentCount": 14,
+    "missingDefaultEvidenceComponentCount": 8,
+    "blockedFamilyCount": 6,
+    "readyFamilyCount": 0,
+    "outOfMilestoneScopeRowCount": 32
+  },
+  "families": [
+    {
+      "familyId": "selection-controls",
+      "name": "Selection controls",
+      "components": [
+        "CheckBox",
+        "RadioButton",
+        "ToggleButton",
+        "ToggleSwitch"
+      ],
+      "rowCount": 4,
+      "nativeQualityReadyRowCount": 2,
+      "notEvaluatedRowCount": 2,
+      "defaultOnlyComponentCount": 3,
+      "missingDefaultEvidenceComponentCount": 0,
+      "stateBackedComponentCount": 0,
+      "stateRequirementCount": 4,
+      "missingStateRequirementCount": 4,
+      "stateRequirementStates": [
+        "checked",
+        "disabled"
+      ],
+      "stateRequirementScenarios": [
+        "component-basic-input-checked-light",
+        "component-basic-input-disabled-light"
+      ],
+      "status": "native-quality-blocked",
+      "evidencePaths": [
+        "docs/visual-parity/examples/component-basic-input-light/component-evidence.json"
+      ],
+      "nextActions": [
+        "Complete native-quality inspection and promotion evidence for not-evaluated rows.",
+        "Close state coverage gaps before treating the family as production-ready native quality.",
+        "Resolve source-level component quality blockers before native-quality promotion."
+      ]
+    },
+    {
+      "familyId": "button-link",
+      "name": "Button and link controls",
+      "components": [
+        "AppBarButton",
+        "Button",
+        "CommandBar",
+        "HyperlinkButton",
+        "RepeatButton"
+      ],
+      "rowCount": 8,
+      "nativeQualityReadyRowCount": 0,
+      "notEvaluatedRowCount": 8,
+      "defaultOnlyComponentCount": 3,
+      "missingDefaultEvidenceComponentCount": 0,
+      "stateBackedComponentCount": 0,
+      "stateRequirementCount": 8,
+      "missingStateRequirementCount": 8,
+      "stateRequirementStates": [
+        "command-invoked",
+        "deferred-decision",
+        "disabled",
+        "focused"
+      ],
+      "stateRequirementScenarios": [
+        "component-basic-input-disabled-light",
+        "component-basic-input-focused-light",
+        "component-commands-menus-command-invoked-light",
+        "component-commands-menus-disabled-light",
+        "public-admin-workbench-deferred-light"
+      ],
+      "status": "native-quality-blocked",
+      "evidencePaths": [
+        "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+        "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+        "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json"
+      ],
+      "nextActions": [
+        "Complete native-quality inspection and promotion evidence for not-evaluated rows.",
+        "Close state coverage gaps before treating the family as production-ready native quality.",
+        "Resolve source-level component quality blockers before native-quality promotion."
+      ]
+    },
+    {
+      "familyId": "dropdown-menu",
+      "name": "Dropdown and menu controls",
+      "components": [
+        "ComboBox",
+        "CommandBarFlyout",
+        "ContentDialog",
+        "DropDownButton",
+        "Flyout",
+        "MenuBar",
+        "MenuFlyout",
+        "SplitButton",
+        "TeachingTip",
+        "ToggleSplitButton",
+        "ToolTip"
+      ],
+      "rowCount": 7,
+      "nativeQualityReadyRowCount": 0,
+      "notEvaluatedRowCount": 7,
+      "defaultOnlyComponentCount": 4,
+      "missingDefaultEvidenceComponentCount": 4,
+      "stateBackedComponentCount": 0,
+      "stateRequirementCount": 9,
+      "missingStateRequirementCount": 9,
+      "stateRequirementStates": [
+        "disabled",
+        "focused",
+        "open-popup"
+      ],
+      "stateRequirementScenarios": [
+        "component-basic-input-disabled-light",
+        "component-basic-input-focused-light",
+        "component-commands-menus-open-popup-light",
+        "component-dialogs-flyouts-open-popup-light"
+      ],
+      "status": "native-quality-blocked",
+      "evidencePaths": [
+        "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+        "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json"
+      ],
+      "nextActions": [
+        "Complete native-quality inspection and promotion evidence for not-evaluated rows.",
+        "Close state coverage gaps before treating the family as production-ready native quality.",
+        "Resolve source-level component quality blockers before native-quality promotion."
+      ]
+    },
+    {
+      "familyId": "text-forms",
+      "name": "Text and forms",
+      "components": [
+        "Labels/forms pattern",
+        "TextBox"
+      ],
+      "rowCount": 1,
+      "nativeQualityReadyRowCount": 0,
+      "notEvaluatedRowCount": 1,
+      "defaultOnlyComponentCount": 1,
+      "missingDefaultEvidenceComponentCount": 1,
+      "stateBackedComponentCount": 0,
+      "stateRequirementCount": 4,
+      "missingStateRequirementCount": 4,
+      "stateRequirementStates": [
+        "deferred-decision",
+        "focused",
+        "invalid"
+      ],
+      "stateRequirementScenarios": [
+        "component-text-forms-focused-light",
+        "component-text-forms-invalid-light",
+        "public-admin-workbench-deferred-light"
+      ],
+      "status": "native-quality-blocked",
+      "evidencePaths": [
+        "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json"
+      ],
+      "nextActions": [
+        "Complete native-quality inspection and promotion evidence for not-evaluated rows.",
+        "Close state coverage gaps before treating the family as production-ready native quality.",
+        "Resolve source-level component quality blockers before native-quality promotion."
+      ]
+    },
+    {
+      "familyId": "navigation-list",
+      "name": "Navigation and list controls",
+      "components": [
+        "Frame",
+        "ItemsControl",
+        "ListView",
+        "NavigationView",
+        "NavigationViewItem"
+      ],
+      "rowCount": 4,
+      "nativeQualityReadyRowCount": 0,
+      "notEvaluatedRowCount": 4,
+      "defaultOnlyComponentCount": 2,
+      "missingDefaultEvidenceComponentCount": 1,
+      "stateBackedComponentCount": 0,
+      "stateRequirementCount": 4,
+      "missingStateRequirementCount": 4,
+      "stateRequirementStates": [
+        "deferred-decision",
+        "selected"
+      ],
+      "stateRequirementScenarios": [
+        "component-collections-selected-light",
+        "public-admin-workbench-deferred-light"
+      ],
+      "status": "native-quality-blocked",
+      "evidencePaths": [
+        "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json"
+      ],
+      "nextActions": [
+        "Complete native-quality inspection and promotion evidence for not-evaluated rows.",
+        "Close state coverage gaps before treating the family as production-ready native quality.",
+        "Resolve source-level component quality blockers before native-quality promotion."
+      ]
+    },
+    {
+      "familyId": "status-progress",
+      "name": "Status and progress controls",
+      "components": [
+        "InfoBar",
+        "ProgressBar",
+        "ProgressRing",
+        "RatingControl"
+      ],
+      "rowCount": 2,
+      "nativeQualityReadyRowCount": 1,
+      "notEvaluatedRowCount": 1,
+      "defaultOnlyComponentCount": 1,
+      "missingDefaultEvidenceComponentCount": 2,
+      "stateBackedComponentCount": 0,
+      "stateRequirementCount": 7,
+      "missingStateRequirementCount": 7,
+      "stateRequirementStates": [
+        "deferred-decision",
+        "error",
+        "loading",
+        "success"
+      ],
+      "stateRequirementScenarios": [
+        "component-status-pickers-error-light",
+        "component-status-pickers-loading-light",
+        "component-status-pickers-success-light",
+        "public-admin-workbench-deferred-light"
+      ],
+      "status": "native-quality-blocked",
+      "evidencePaths": [
+        "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+        "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json"
+      ],
+      "nextActions": [
+        "Complete native-quality inspection and promotion evidence for not-evaluated rows.",
+        "Close state coverage gaps before treating the family as production-ready native quality.",
+        "Resolve source-level component quality blockers before native-quality promotion."
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "familyId": "button-link",
+      "familyName": "Button and link controls",
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "AppBarButton",
+      "target": "SaveCommandButton",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "command-invoked",
+        "default",
+        "deferred-decision",
+        "disabled"
+      ],
+      "missingStates": [
+        "command-invoked",
+        "deferred-decision",
+        "disabled"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48."
+    },
+    {
+      "familyId": "button-link",
+      "familyName": "Button and link controls",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "AppBarButton",
+      "target": "ApproveCommand",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "command-invoked",
+        "default",
+        "deferred-decision",
+        "disabled"
+      ],
+      "missingStates": [
+        "command-invoked",
+        "deferred-decision",
+        "disabled"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64."
+    },
+    {
+      "familyId": "button-link",
+      "familyName": "Button and link controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "disabled",
+        "focused"
+      ],
+      "missingStates": [
+        "disabled",
+        "focused"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 23.06338 exceeds threshold 18. meanAbsoluteError 19.270577 exceeds threshold 12. rootMeanSquaredError 56.387646 exceeds threshold 48.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 23.06338 exceeds threshold 18. meanAbsoluteError 19.270577 exceeds threshold 12. rootMeanSquaredError 56.387646 exceeds threshold 48."
+    },
+    {
+      "familyId": "button-link",
+      "familyName": "Button and link controls",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "Button",
+      "target": "CompleteReviewButton",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "disabled",
+        "focused"
+      ],
+      "missingStates": [
+        "disabled",
+        "focused"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64."
+    },
+    {
+      "familyId": "button-link",
+      "familyName": "Button and link controls",
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBar",
+      "target": "PrimaryCommandBar",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "command-invoked",
+        "default",
+        "deferred-decision",
+        "disabled"
+      ],
+      "missingStates": [
+        "command-invoked",
+        "deferred-decision",
+        "disabled"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48."
+    },
+    {
+      "familyId": "button-link",
+      "familyName": "Button and link controls",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "CommandBar",
+      "target": "DecisionCommandBar",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "command-invoked",
+        "default",
+        "deferred-decision",
+        "disabled"
+      ],
+      "missingStates": [
+        "command-invoked",
+        "deferred-decision",
+        "disabled"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64."
+    },
+    {
+      "familyId": "button-link",
+      "familyName": "Button and link controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "HyperlinkButton",
+      "target": "DiagnosticHyperlinkButton",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 18.75 exceeds threshold 18.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 18.75 exceeds threshold 18."
+    },
+    {
+      "familyId": "button-link",
+      "familyName": "Button and link controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RepeatButton",
+      "target": "DiagnosticRepeatButton",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 20.494792 exceeds threshold 18. meanAbsoluteError 17.454102 exceeds threshold 12. rootMeanSquaredError 53.91213 exceeds threshold 48.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 20.494792 exceeds threshold 18. meanAbsoluteError 17.454102 exceeds threshold 12. rootMeanSquaredError 53.91213 exceeds threshold 48."
+    },
+    {
+      "familyId": "dropdown-menu",
+      "familyName": "Dropdown and menu controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "disabled",
+        "focused"
+      ],
+      "missingStates": [
+        "disabled",
+        "focused"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 21.535326 exceeds threshold 18.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 21.535326 exceeds threshold 18."
+    },
+    {
+      "familyId": "dropdown-menu",
+      "familyName": "Dropdown and menu controls",
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "CommandBarFlyout",
+      "target": "DiagnosticCommandBarFlyout",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "missingStates": [
+        "open-popup"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48."
+    },
+    {
+      "familyId": "dropdown-menu",
+      "familyName": "Dropdown and menu controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "DropDownButton",
+      "target": "DiagnosticDropDownButton",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 25.189394 exceeds threshold 18. meanAbsoluteError 14.172585 exceeds threshold 12.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 25.189394 exceeds threshold 18. meanAbsoluteError 14.172585 exceeds threshold 12."
+    },
+    {
+      "familyId": "dropdown-menu",
+      "familyName": "Dropdown and menu controls",
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "MenuBar",
+      "target": "DiagnosticMenuBar",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "missingStates": [
+        "open-popup"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48."
+    },
+    {
+      "familyId": "dropdown-menu",
+      "familyName": "Dropdown and menu controls",
+      "scenarioName": "component-commands-menus-light",
+      "evidencePath": "docs/visual-parity/examples/component-commands-menus-light/component-evidence.json",
+      "component": "MenuFlyout",
+      "target": "DiagnosticMenuFlyout",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "missingStates": [
+        "open-popup"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 24. meanAbsoluteError 255 exceeds threshold 16. rootMeanSquaredError 255 exceeds threshold 48."
+    },
+    {
+      "familyId": "dropdown-menu",
+      "familyName": "Dropdown and menu controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "SplitButton",
+      "target": "DiagnosticSplitButton",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 26.167979 exceeds threshold 18. meanAbsoluteError 13.576772 exceeds threshold 12.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 26.167979 exceeds threshold 18. meanAbsoluteError 13.576772 exceeds threshold 12."
+    },
+    {
+      "familyId": "dropdown-menu",
+      "familyName": "Dropdown and menu controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleSplitButton",
+      "target": "DiagnosticToggleSplitButton",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 27.4677 exceeds threshold 18. meanAbsoluteError 13.08146 exceeds threshold 12.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 27.4677 exceeds threshold 18. meanAbsoluteError 13.08146 exceeds threshold 12."
+    },
+    {
+      "familyId": "navigation-list",
+      "familyName": "Navigation and list controls",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "Frame",
+      "target": "WorkbenchFrame",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64."
+    },
+    {
+      "familyId": "navigation-list",
+      "familyName": "Navigation and list controls",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "ListView",
+      "target": "ReviewQueueList",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "deferred-decision",
+        "selected"
+      ],
+      "missingStates": [
+        "deferred-decision",
+        "selected"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64."
+    },
+    {
+      "familyId": "navigation-list",
+      "familyName": "Navigation and list controls",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "NavigationView",
+      "target": "RootNavigation",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "deferred-decision"
+      ],
+      "missingStates": [
+        "deferred-decision"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 99.988381 exceeds threshold 45.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 99.988381 exceeds threshold 45."
+    },
+    {
+      "familyId": "navigation-list",
+      "familyName": "Navigation and list controls",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "NavigationViewItem",
+      "target": "QueueNavigationItem",
+      "catalogStatus": "partial",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64."
+    },
+    {
+      "familyId": "selection-controls",
+      "familyName": "Selection controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "catalogStatus": "supported",
+      "visualGrade": "good",
+      "nativeQualityGrade": "good",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "checked",
+        "default"
+      ],
+      "missingStates": [
+        "checked"
+      ],
+      "remainingBlocker": "none",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Close visible state, interaction, and accessibility coverage gaps for this component."
+    },
+    {
+      "familyId": "selection-controls",
+      "familyName": "Selection controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "checked",
+        "default"
+      ],
+      "missingStates": [
+        "checked"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 19.375 exceeds threshold 18.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 19.375 exceeds threshold 18."
+    },
+    {
+      "familyId": "selection-controls",
+      "familyName": "Selection controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "checked",
+        "default",
+        "disabled"
+      ],
+      "missingStates": [
+        "checked",
+        "disabled"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 22.434701 exceeds threshold 18.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 22.434701 exceeds threshold 18."
+    },
+    {
+      "familyId": "selection-controls",
+      "familyName": "Selection controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "ToggleSwitch",
+      "target": "DiagnosticToggleSwitch",
+      "catalogStatus": "partial",
+      "visualGrade": "good",
+      "nativeQualityGrade": "good",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "none",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Candidate for family-level native-quality review."
+    },
+    {
+      "familyId": "status-progress",
+      "familyName": "Status and progress controls",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "InfoBar",
+      "target": "WorkbenchStatus",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "deferred-decision",
+        "error",
+        "loading",
+        "success"
+      ],
+      "missingStates": [
+        "deferred-decision",
+        "error",
+        "loading",
+        "success"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64."
+    },
+    {
+      "familyId": "status-progress",
+      "familyName": "Status and progress controls",
+      "scenarioName": "component-basic-input-light",
+      "evidencePath": "docs/visual-parity/examples/component-basic-input-light/component-evidence.json",
+      "component": "RatingControl",
+      "target": "DiagnosticRatingControl",
+      "catalogStatus": "partial",
+      "visualGrade": "good",
+      "nativeQualityGrade": "good",
+      "stateCoverageStatus": "not-tracked",
+      "requiredStates": [
+        "default"
+      ],
+      "missingStates": [],
+      "remainingBlocker": "none",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Candidate for family-level native-quality review."
+    },
+    {
+      "familyId": "text-forms",
+      "familyName": "Text and forms",
+      "scenarioName": "public-admin-workbench-light",
+      "evidencePath": "docs/visual-parity/examples/public-admin-workbench-light/component-evidence.json",
+      "component": "TextBox",
+      "target": "SearchBox",
+      "catalogStatus": "supported",
+      "visualGrade": "usable",
+      "nativeQualityGrade": "not-evaluated",
+      "stateCoverageStatus": "default-only",
+      "requiredStates": [
+        "default",
+        "deferred-decision",
+        "focused",
+        "invalid"
+      ],
+      "missingStates": [
+        "deferred-decision",
+        "focused",
+        "invalid"
+      ],
+      "remainingBlocker": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64.",
+      "nativeReferenceStatus": "ready",
+      "nextAction": "Native-quality crop status is \u0027failed\u0027; changedPixelPercentage 100 exceeds threshold 45. meanAbsoluteError 255 exceeds threshold 34. rootMeanSquaredError 255 exceeds threshold 64."
+    }
+  ],
+  "status": "tracked-with-native-quality-gaps"
+}

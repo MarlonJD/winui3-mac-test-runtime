@@ -47,6 +47,51 @@ Use this runtime when your app or fixture stays inside the documented
 3 apps, templates, visual states, Mica/Acrylic, composition, advanced controls,
 Windows binaries, `.msix` packages, or full Fluent pixel parity work on macOS.
 
+## Productization Status
+
+Current productization level is **L2** for the documented public source-level
+harness subset. That means the catalog, runner artifacts, public component
+evidence, native reference provenance, and checked-in dashboards are ready to
+support source-level app and component harness validation for the documented
+subset. It does not mean native-quality visual fidelity.
+
+The authoritative level model is
+`docs/compatibility/compatibility-levels.md` and
+`docs/compatibility/compatibility-levels.json`. The current evidence rollup is
+`docs/release/production-evidence-view.md`. State, interaction, and
+accessibility gaps are tracked in
+`docs/visual-parity/state-coverage-matrix.json`; rows labeled `default-only`
+are not native-quality or product-ready state evidence. Each state requirement
+also names the strict-sweep component, accessibility, and visual-run artifacts
+that `public-product` must validate before release. Family-level native-quality
+promotion queues are tracked in
+`docs/visual-parity/native-quality-family-tranches.json`; every Milestone C
+family remains blocked until its component rows have native-quality inspection
+evidence and broader-than-default state coverage. Each family also publishes
+its `stateRequirementCount`, `missingStateRequirementCount`, required state
+names, and strict-sweep scenario names so Milestone C native-quality queues and
+Milestone D state coverage gaps stay joined. The product evidence rollup can be
+reproduced locally after producing the strict scenario sweep:
+
+```sh
+PATH="$PWD/tools:$PATH" winui3-mac-runner product-evidence --profile strict-scenario-sweep --output artifacts/product-evidence/strict-scenario-sweep
+PATH="$PWD/tools:$PATH" winui3-mac-runner product-evidence --profile public-product --output artifacts/product-evidence/public-product
+```
+
+The clean-checkout local release-candidate command is:
+
+```sh
+PATH="$PWD/tools:$PATH" winui3-mac-release-ready-local
+```
+
+The script runs the full local gate in order: `dotnet build`, the compiled
+MSTest assemblies, strict scenario product evidence, public product evidence,
+package dry-run artifacts, `release-check`, and `release-candidate`.
+
+Native-quality labels remain per-component-row labels only. Source-level
+production labels, diagnostic exclusions, Windows-only exclusions, and non-goal
+exclusions stay separate from native-quality promotion.
+
 ## Production Support Policy
 
 The current support claim is limited to the public sanitized component subset
@@ -72,14 +117,16 @@ The release decision is gated by `winui3-mac-runner release-candidate`, which
 aggregates the deterministic local release requirements (126/126 catalog
 dispositions, catalog/docs count consistency, zero unknown surfaces, broader-
 control honesty, no OS composition claim, gated component-crop drift, the
-component-quality dashboard, native reference provenance, release docs, and the
+component-quality dashboard, state coverage matrix, native-quality family
+tranche freshness, native reference provenance, release docs, and the
 private-name scan) and lists the external workflow requirements (full native
 reference capture, full strict scenario sweep, and the package dry run with
 `release-check`). The deterministic local gate is expected to pass when the
-machine-readable artifacts are current; external workflow/package evidence is
-still recorded separately. The exact support boundary stays source-level WinUI 3
-harness readiness for the documented public subset, not Windows binary
-execution, arbitrary WinUI 3 compatibility, or high-fidelity Fluent rendering.
+machine-readable artifacts are current;
+external workflow/package evidence is still recorded separately. The exact
+support boundary stays source-level WinUI 3 harness readiness for the documented
+public subset, not Windows binary execution, arbitrary WinUI 3 compatibility, or
+high-fidelity Fluent rendering.
 
 ## UI Automation Strategy
 
@@ -98,6 +145,58 @@ The current alpha supports runner-owned scripted interactions and deterministic
 diff artifacts. It does not yet claim full FlaUI/UIA provider compatibility on
 macOS. JSON accessibility export is useful evidence, but it is not by itself a
 replacement for FlaUI 5.0 + FlaUI.UIA3 API-level automation tests.
+
+## Optional Windows Font A/B Diagnostics
+
+The `skia-v2` renderer can run an optional local A/B visual comparison with
+licensed Windows design fonts. This is diagnostic evidence only: do not copy,
+commit, package, or redistribute Windows font files in this repository.
+
+Official Microsoft font resources:
+
+- Windows design resources:
+  https://learn.microsoft.com/en-us/windows/apps/design/downloads/
+- Segoe UI font family reference:
+  https://learn.microsoft.com/en-us/typography/font-list/segoe-ui
+- Segoe Fluent Icons reference:
+  https://learn.microsoft.com/en-us/windows/apps/design/iconography/segoe-fluent-icons-font
+- Segoe MDL2 Assets reference:
+  https://learn.microsoft.com/en-us/windows/apps/design/iconography/segoe-ui-symbol-font
+
+Download the fonts from the Windows design resources page and place the
+extracted `.ttf`, `.otf`, or `.ttc` files in a directory outside the repository,
+for example:
+
+```sh
+mkdir -p "$HOME/winui-font-ab"
+```
+
+The current renderer looks for these families, in order:
+
+- Text: `Segoe UI Variable`, then `Segoe UI`, then the platform fallback.
+- Symbols: `Segoe Fluent Icons`, then `Segoe MDL2 Assets`, then the text-font
+  fallback.
+
+Run the native-backed diagnostic comparison by pointing
+`WINUI3_MAC_TEST_FONT_DIRS` at the repo-external font directory:
+
+```sh
+WINUI3_MAC_TEST_FONT_DIRS="$HOME/winui-font-ab" \
+PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+  --project ./fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj \
+  --renderer skia-v2 \
+  --scenario ./fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json \
+  --strict-visual \
+  --reference docs/visual-parity/examples/component-basic-input-light \
+  --output artifacts/native-quality-tranche/font-ab-external-native
+```
+
+After the run, check `snapshot.json`, `visual/visual-run.json`, and
+`visual/component-evidence.json`. A successful external-font diagnostic run
+should report `requestedFamilyAvailable: true` and
+`resolvedSource: external-font-directory` for the resolved text and symbol
+roles. If a row only improves or passes with repo-external fonts, document that
+environmental provenance before using the evidence for native-quality review.
 
 ## Smoke Commands
 
@@ -258,7 +357,9 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
   project is redirected through compat shadow build discovery.
 - `diagnostics.sarif`: warning diagnostics for bindings, resources, and
   unsupported APIs with stable rule IDs.
-- `interactions.json`: optional scripted interaction results.
+- `interactions.json`: optional scripted interaction results with selector,
+  expected/actual, observed state, and before/after state for state-changing
+  actions.
 - `snapshot.json` and `screenshots/snapshot.svg`: deterministic nonblank
   snapshot output for smoke and regression tests. Passing `--renderer skia`
   writes `screenshots/snapshot.png` with the Skia renderer.

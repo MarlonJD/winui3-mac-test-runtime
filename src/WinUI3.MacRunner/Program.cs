@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.Globalization;
+using System.Text;
 using System.Text.Json;
 using WinUI3.MacCompatibility;
 using WinUI3.MacRenderer.Skia;
@@ -31,13 +33,18 @@ internal static class Cli
             "benchmark" => await ProductionGatesCommand.RunBenchmarkAsync(args[1..]),
             "release-check" => await ProductionGatesCommand.RunReleaseCheckAsync(args[1..]),
             "release-candidate" => await ReleaseCandidateCommand.RunAsync(args[1..]),
+            "product-evidence" => await RunProductEvidenceAsync(args[1..]),
             "catalog-audit" => RunCatalogAudit(args[1..]),
             "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
+            "state-coverage-matrix" => RunStateCoverageMatrix(args[1..]),
+            "native-quality-family-tranches" => RunNativeQualityFamilyTranches(args[1..]),
             "component-inspection-template" => RunComponentInspectionTemplate(args[1..]),
             "component-inspection-apply" => RunComponentInspectionApply(args[1..]),
             "native-reference-import" => RunNativeReferenceImport(args[1..]),
             "native-reference-readiness" => RunNativeReferenceReadiness(args[1..]),
             "native-reference-integrity" => RunNativeReferenceIntegrity(args[1..]),
+            "visual-drift-dashboard" => RunVisualDriftDashboard(args[1..]),
+            "visual-compare" => RunVisualCompare(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
             "visual-review-index" => RunVisualReviewIndex(args[1..]),
             "xaml" => RunXaml(args[1..]),
@@ -404,6 +411,177 @@ internal static class Cli
         return 0;
     }
 
+    private static async Task<int> RunProductEvidenceAsync(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "product-evidence"));
+        var profile = ReadOption(args, "--profile") ?? "public-product";
+        var outputRoot = Path.GetFullPath(
+            ReadOption(args, "--output") ?? Path.Combine(repositoryRoot, "artifacts", "product-evidence", profile));
+
+        try
+        {
+            Func<ProductEvidenceStep, Task<ProductEvidenceStepOutcome>>? executor =
+                string.Equals(profile, "strict-scenario-sweep", StringComparison.Ordinal)
+                    ? step => RunStrictScenarioSweepStepAsync(repositoryRoot, step)
+                    : null;
+            var report = await ProductEvidenceRunner.RunAsync(repositoryRoot, profile, outputRoot, executor);
+            Console.WriteLine(
+                $"product-evidence: {report.Status} ({report.Summary.PassedSteps} passed, {report.Summary.FailedSteps} failed, {report.Summary.ExternalEvidenceSteps} external).");
+            foreach (var step in report.Steps)
+            {
+                Console.WriteLine($"  [{step.Status}] {step.Name}: {step.Command}");
+                if (!string.IsNullOrWhiteSpace(step.FailureReason))
+                {
+                    Console.Error.WriteLine($"    {step.FailureReason}");
+                }
+            }
+
+            Console.WriteLine($"product-evidence.json: {Path.Combine(outputRoot, "product-evidence.json")}");
+            Console.WriteLine($"product-evidence.md: {Path.Combine(outputRoot, "product-evidence.md")}");
+            return report.Summary.FailedSteps == 0 ? 0 : 1;
+        }
+        catch (ArgumentException ex)
+        {
+            Console.Error.WriteLine($"product-evidence failed: {ex.Message}");
+            return 2;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"product-evidence failed: {ex.Message}");
+            return 1;
+        }
+    }
+
+    private static async Task<ProductEvidenceStepOutcome> RunStrictScenarioSweepStepAsync(
+        string repositoryRoot,
+        ProductEvidenceStep step)
+    {
+        if (string.IsNullOrWhiteSpace(step.ProjectPath) ||
+            string.IsNullOrWhiteSpace(step.ScenarioPath) ||
+            string.IsNullOrWhiteSpace(step.OutputDirectory))
+        {
+            return ProductEvidenceStepOutcome.Failed(
+                $"strict-scenario-sweep step '{step.Name}' is missing project, scenario, or output metadata.",
+                step.ArtifactPaths);
+        }
+
+        try
+        {
+            var outputDirectory = ResolveRepositoryPath(repositoryRoot, step.OutputDirectory);
+            Directory.CreateDirectory(outputDirectory);
+            var logArtifactPath = $"{step.OutputDirectory.Replace('\\', '/').TrimEnd('/')}/strict-scenario.log";
+            var artifactPaths = step.ArtifactPaths
+                .Concat(new[] { logArtifactPath })
+                .Distinct(StringComparer.Ordinal)
+                .ToArray();
+            var logPath = ResolveRepositoryPath(repositoryRoot, logArtifactPath);
+            var startInfo = CreateStrictScenarioProcessStartInfo(repositoryRoot, step);
+            using var process = new Process { StartInfo = startInfo };
+            if (!process.Start())
+            {
+                throw new InvalidOperationException("Could not start strict scenario process.");
+            }
+
+            var standardOutput = process.StandardOutput.ReadToEndAsync();
+            var standardError = process.StandardError.ReadToEndAsync();
+            await process.WaitForExitAsync();
+            var stdout = await standardOutput;
+            var stderr = await standardError;
+            await File.WriteAllTextAsync(
+                logPath,
+                BuildStrictScenarioProcessLog(startInfo, process.ExitCode, stdout, stderr));
+
+            return process.ExitCode == 0
+                ? ProductEvidenceStepOutcome.Passed($"{step.Name} strict visual scenario passed.", artifactPaths)
+                : ProductEvidenceStepOutcome.Failed(
+                    $"{step.Name} strict visual scenario failed with exit code {process.ExitCode}. {LastNonEmptyLine(stderr) ?? LastNonEmptyLine(stdout) ?? "No process output was captured."} See {logArtifactPath}.",
+                    artifactPaths);
+        }
+        catch (Exception ex)
+        {
+            return ProductEvidenceStepOutcome.Failed(
+                $"{step.Name} strict visual scenario failed: {ex.Message}",
+                step.ArtifactPaths);
+        }
+    }
+
+    private static ProcessStartInfo CreateStrictScenarioProcessStartInfo(string repositoryRoot, ProductEvidenceStep step)
+    {
+        var processPath = Environment.ProcessPath;
+        var startInfo = !string.IsNullOrWhiteSpace(processPath) &&
+            File.Exists(processPath) &&
+            !string.Equals(Path.GetFileNameWithoutExtension(processPath), "dotnet", StringComparison.OrdinalIgnoreCase)
+                ? new ProcessStartInfo(processPath)
+                : new ProcessStartInfo("dotnet");
+        if (string.Equals(startInfo.FileName, "dotnet", StringComparison.Ordinal))
+        {
+            startInfo.ArgumentList.Add(typeof(Cli).Assembly.Location);
+        }
+
+        startInfo.ArgumentList.Add("run");
+        startInfo.ArgumentList.Add("--project");
+        startInfo.ArgumentList.Add(ResolveRepositoryPath(repositoryRoot, step.ProjectPath!));
+        startInfo.ArgumentList.Add("--renderer");
+        startInfo.ArgumentList.Add("skia-v2");
+        startInfo.ArgumentList.Add("--scenario");
+        startInfo.ArgumentList.Add(ResolveRepositoryPath(repositoryRoot, step.ScenarioPath!));
+        startInfo.ArgumentList.Add("--strict-visual");
+        startInfo.ArgumentList.Add("--output");
+        startInfo.ArgumentList.Add(ResolveRepositoryPath(repositoryRoot, step.OutputDirectory!));
+        startInfo.WorkingDirectory = repositoryRoot;
+        startInfo.UseShellExecute = false;
+        startInfo.RedirectStandardOutput = true;
+        startInfo.RedirectStandardError = true;
+        return startInfo;
+    }
+
+    private static string BuildStrictScenarioProcessLog(
+        ProcessStartInfo startInfo,
+        int exitCode,
+        string stdout,
+        string stderr)
+    {
+        var builder = new StringBuilder();
+        builder.AppendLine($"command: {FormatProcessCommand(startInfo)}");
+        builder.AppendLine($"exitCode: {exitCode.ToString(CultureInfo.InvariantCulture)}");
+        builder.AppendLine();
+        builder.AppendLine("stdout:");
+        builder.AppendLine(stdout.TrimEnd());
+        builder.AppendLine();
+        builder.AppendLine("stderr:");
+        builder.AppendLine(stderr.TrimEnd());
+        return builder.ToString();
+    }
+
+    private static string FormatProcessCommand(ProcessStartInfo startInfo)
+    {
+        return string.Join(
+            " ",
+            new[] { startInfo.FileName }.Concat(startInfo.ArgumentList.Select(QuoteArgument)));
+    }
+
+    private static string QuoteArgument(string value)
+    {
+        return value.Any(char.IsWhiteSpace) || value.Contains('"', StringComparison.Ordinal)
+            ? "\"" + value.Replace("\"", "\\\"", StringComparison.Ordinal) + "\""
+            : value;
+    }
+
+    private static string? LastNonEmptyLine(string text)
+    {
+        return text
+            .Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
+            .Select(line => line.Trim())
+            .LastOrDefault(line => line.Length > 0);
+    }
+
+    private static string ResolveRepositoryPath(string repositoryRoot, string path)
+    {
+        return Path.IsPathRooted(path)
+            ? Path.GetFullPath(path)
+            : Path.GetFullPath(Path.Combine(repositoryRoot, path));
+    }
+
     private static int RunComponentQualityDashboard(string[] args)
     {
         var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "component-quality-dashboard"));
@@ -439,6 +617,96 @@ internal static class Cli
         File.WriteAllText(outputPath, json);
         Console.WriteLine($"component-quality-dashboard.json: {outputPath}");
         return dashboard.Status == "passed" ? 0 : 1;
+    }
+
+    private static int RunStateCoverageMatrix(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "state-coverage-matrix"));
+        var defaultPath = Path.Combine(repositoryRoot, StateCoverageMatrixBuilder.DefaultArtifactPath);
+        var outputPath = Path.GetFullPath(ReadOption(args, "--output") ?? defaultPath);
+        var check = HasOption(args, "--check");
+
+        try
+        {
+            var matrix = StateCoverageMatrixBuilder.Build(repositoryRoot);
+            var json = JsonSerializer.Serialize(matrix, JsonDefaults.Options);
+
+            Console.WriteLine(
+                $"state-coverage-matrix: {matrix.Totals.ComponentCount} components, {matrix.Totals.RequirementCount} state requirements, {matrix.Totals.DefaultOnlyComponentCount} default-only components.");
+
+            if (check)
+            {
+                if (!File.Exists(outputPath))
+                {
+                    Console.Error.WriteLine($"state-coverage-matrix --check failed: missing {outputPath}. Regenerate with 'winui3-mac-runner state-coverage-matrix'.");
+                    return 1;
+                }
+
+                if (NormalizeJson(File.ReadAllText(outputPath)) != NormalizeJson(json))
+                {
+                    Console.Error.WriteLine($"state-coverage-matrix --check failed: {outputPath} is out of date. Regenerate with 'winui3-mac-runner state-coverage-matrix'.");
+                    return 1;
+                }
+
+                Console.WriteLine($"state-coverage-matrix --check passed: {outputPath} is up to date.");
+                return 0;
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+            File.WriteAllText(outputPath, json);
+            Console.WriteLine($"state-coverage-matrix.json: {outputPath}");
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"state-coverage-matrix failed: {ex.Message}");
+            return 1;
+        }
+    }
+
+    private static int RunNativeQualityFamilyTranches(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "native-quality-family-tranches"));
+        var defaultPath = Path.Combine(repositoryRoot, NativeQualityFamilyTrancheBuilder.DefaultArtifactPath);
+        var outputPath = Path.GetFullPath(ReadOption(args, "--output") ?? defaultPath);
+        var check = HasOption(args, "--check");
+
+        try
+        {
+            var tranches = NativeQualityFamilyTrancheBuilder.Build(repositoryRoot);
+            var json = JsonSerializer.Serialize(tranches, JsonDefaults.Options);
+
+            Console.WriteLine(
+                $"native-quality-family-tranches: {tranches.Totals.FamilyCount} families, {tranches.Totals.RowCount} rows, {tranches.Totals.BlockedFamilyCount} blocked family tranche(s).");
+
+            if (check)
+            {
+                if (!File.Exists(outputPath))
+                {
+                    Console.Error.WriteLine($"native-quality-family-tranches --check failed: missing {outputPath}. Regenerate with 'winui3-mac-runner native-quality-family-tranches'.");
+                    return 1;
+                }
+
+                if (NormalizeJson(File.ReadAllText(outputPath)) != NormalizeJson(json))
+                {
+                    Console.Error.WriteLine($"native-quality-family-tranches --check failed: {outputPath} is out of date. Regenerate with 'winui3-mac-runner native-quality-family-tranches'.");
+                    return 1;
+                }
+
+                Console.WriteLine($"native-quality-family-tranches --check passed: {outputPath} is up to date.");
+                return 0;
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+            File.WriteAllText(outputPath, json);
+            Console.WriteLine($"native-quality-family-tranches.json: {outputPath}");
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"native-quality-family-tranches failed: {ex.Message}");
+            return 1;
+        }
     }
 
     private static async Task<int> RunVisualReviewAsync(string[] args)
@@ -698,6 +966,54 @@ internal static class Cli
         return 0;
     }
 
+    private static int RunVisualDriftDashboard(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "visual-drift-dashboard"));
+        var result = EvidenceFreshness.CheckVisualDriftDashboard(repositoryRoot);
+        Console.WriteLine($"visual-drift-dashboard: {result.Status}");
+        foreach (var problem in result.Problems)
+        {
+            Console.Error.WriteLine($"visual-drift-dashboard --check failed: {problem}");
+        }
+
+        if (args.Contains("--check", StringComparer.Ordinal) && !result.Passed)
+        {
+            return 1;
+        }
+
+        return result.Passed ? 0 : 1;
+    }
+
+    private static int RunVisualCompare(string[] args)
+    {
+        var beforeRoot = ReadOption(args, "--before");
+        var afterRoot = ReadOption(args, "--after");
+        var outputRoot = ReadOption(args, "--output");
+        if (beforeRoot is null || afterRoot is null || outputRoot is null)
+        {
+            Console.Error.WriteLine("Missing required options: --before <dir> --after <dir> --output <dir>");
+            return 2;
+        }
+
+        try
+        {
+            var report = VisualComparisonReport.Write(
+                Path.GetFullPath(beforeRoot),
+                Path.GetFullPath(afterRoot),
+                Path.GetFullPath(outputRoot));
+            Console.WriteLine(
+                $"visual-compare: {report.Status} ({report.Summary.ImprovedRows} improved, {report.Summary.RegressedRows} regressed, {report.Summary.NewlyPassingRows} newly passing, {report.Summary.NewlyFailingRows} newly failing, {report.Summary.TotalRows} total).");
+            Console.WriteLine($"visual-compare.json: {Path.Combine(Path.GetFullPath(outputRoot), "visual-compare.json")}");
+            Console.WriteLine($"visual-compare.md: {Path.Combine(Path.GetFullPath(outputRoot), "visual-compare.md")}");
+            return report.Status == "passed" ? 0 : 1;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"visual-compare failed: {ex.Message}");
+            return 1;
+        }
+    }
+
     private static int RunXaml(string[] args)
     {
         if (args.Length == 0 || args[0] != "compile")
@@ -835,13 +1151,18 @@ internal static class Cli
         Console.WriteLine("  benchmark [--output <path>] [--iterations <count>]");
         Console.WriteLine("  release-check [--package-dir <dir>] [--output <path>]");
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");
+        Console.WriteLine("  product-evidence [--profile public-product|strict-scenario-sweep] [--output <dir>]");
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");
+        Console.WriteLine("  state-coverage-matrix [--output <path>] [--check]");
+        Console.WriteLine("  native-quality-family-tranches [--output <path>] [--check]");
         Console.WriteLine("  component-inspection-template --evidence <component-evidence.json> [--output <path>] [--check]");
         Console.WriteLine("  component-inspection-apply --evidence <component-evidence.json> --inspection <component-inspection.json> [--output <path>] [--check]");
         Console.WriteLine("  native-reference-import --source <windows-reference-screenshots-dir> [--output <dir>]");
         Console.WriteLine("  native-reference-readiness [--check]");
         Console.WriteLine("  native-reference-integrity");
+        Console.WriteLine("  visual-drift-dashboard [--check]");
+        Console.WriteLine("  visual-compare --before <dir> --after <dir> --output <dir>");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  visual-review-index [--output <dir>] [--check]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");

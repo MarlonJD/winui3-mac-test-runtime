@@ -1,0 +1,2341 @@
+{
+  "schemaVersion": "0.2",
+  "generatedAt": "1970-01-01T00:00:00+00:00",
+  "root": {
+    "type": "Microsoft.UI.Xaml.Window",
+    "properties": {
+      "title": "WinUI3 Mac Test Runtime - component-basic-input-light",
+      "isActive": true
+    },
+    "children": [
+      {
+        "type": "Microsoft.UI.Xaml.Controls.NavigationView",
+        "name": "RootNavigation",
+        "properties": {
+          "visibility": "Visible",
+          "horizontalAlignment": "Stretch",
+          "verticalAlignment": "Stretch",
+          "isFocused": false,
+          "isEnabled": true,
+          "isFocusable": true,
+          "menuItemCount": 8,
+          "paneDisplayMode": "Left",
+          "selectedItem": "BasicInputNavigationItem",
+          "compactPaneLength": 56,
+          "openPaneLength": 256,
+          "isSettingsVisible": false
+        },
+        "children": [
+          {
+            "type": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+            "name": "BasicInputNavigationItem",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "tag": "basic",
+              "isEnabled": true,
+              "isFocusable": true,
+              "content": "Basic input"
+            },
+            "children": [
+              {
+                "type": "System.String",
+                "properties": {
+                  "text": "Basic input"
+                },
+                "children": []
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 48,
+              "width": 232,
+              "height": 40,
+              "desiredWidth": 232,
+              "desiredHeight": 40,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+            "name": "TextFormsNavigationItem",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "tag": "text",
+              "isEnabled": true,
+              "isFocusable": true,
+              "content": "Text and forms"
+            },
+            "children": [
+              {
+                "type": "System.String",
+                "properties": {
+                  "text": "Text and forms"
+                },
+                "children": []
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 92,
+              "width": 232,
+              "height": 40,
+              "desiredWidth": 232,
+              "desiredHeight": 40,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+            "name": "CollectionsNavigationItem",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "tag": "collections",
+              "isEnabled": true,
+              "isFocusable": true,
+              "content": "Collections"
+            },
+            "children": [
+              {
+                "type": "System.String",
+                "properties": {
+                  "text": "Collections"
+                },
+                "children": []
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 136,
+              "width": 232,
+              "height": 40,
+              "desiredWidth": 232,
+              "desiredHeight": 40,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+            "name": "DialogsNavigationItem",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "tag": "dialogs",
+              "isEnabled": true,
+              "isFocusable": true,
+              "content": "Dialogs and flyouts"
+            },
+            "children": [
+              {
+                "type": "System.String",
+                "properties": {
+                  "text": "Dialogs and flyouts"
+                },
+                "children": []
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 180,
+              "width": 232,
+              "height": 40,
+              "desiredWidth": 232,
+              "desiredHeight": 40,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+            "name": "CommandsNavigationItem",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "tag": "commands",
+              "isEnabled": true,
+              "isFocusable": true,
+              "content": "Commands and menus"
+            },
+            "children": [
+              {
+                "type": "System.String",
+                "properties": {
+                  "text": "Commands and menus"
+                },
+                "children": []
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 224,
+              "width": 232,
+              "height": 40,
+              "desiredWidth": 232,
+              "desiredHeight": 40,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+            "name": "NavigationWorkbenchNavigationItem",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "tag": "navigation",
+              "isEnabled": true,
+              "isFocusable": true,
+              "content": "Navigation"
+            },
+            "children": [
+              {
+                "type": "System.String",
+                "properties": {
+                  "text": "Navigation"
+                },
+                "children": []
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 268,
+              "width": 232,
+              "height": 40,
+              "desiredWidth": 232,
+              "desiredHeight": 40,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+            "name": "StatusPickersNavigationItem",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "tag": "status",
+              "isEnabled": true,
+              "isFocusable": true,
+              "content": "Status and pickers"
+            },
+            "children": [
+              {
+                "type": "System.String",
+                "properties": {
+                  "text": "Status and pickers"
+                },
+                "children": []
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 312,
+              "width": 232,
+              "height": 40,
+              "desiredWidth": 232,
+              "desiredHeight": 40,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+            "name": "LayoutMediaNavigationItem",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "tag": "layout",
+              "isEnabled": true,
+              "isFocusable": true,
+              "content": "Layout and media"
+            },
+            "children": [
+              {
+                "type": "System.String",
+                "properties": {
+                  "text": "Layout and media"
+                },
+                "children": []
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 356,
+              "width": 232,
+              "height": 40,
+              "desiredWidth": 232,
+              "desiredHeight": 40,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+            "name": "LabPaneFooter",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "orientation": "Vertical",
+              "childCount": 2,
+              "padding": "12,8,12,12",
+              "spacing": 8
+            },
+            "children": [
+              {
+                "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                "name": "PaneFooterTitle",
+                "properties": {
+                  "visibility": "Visible",
+                  "horizontalAlignment": "Stretch",
+                  "verticalAlignment": "Stretch",
+                  "isFocused": false,
+                  "text": "Public fixture"
+                },
+                "children": [],
+                "layout": {
+                  "x": 24,
+                  "y": 632,
+                  "width": 101,
+                  "height": 24,
+                  "desiredWidth": 101,
+                  "desiredHeight": 24,
+                  "margin": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 0,
+                    "bottom": 0
+                  },
+                  "padding": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 0,
+                    "bottom": 0
+                  },
+                  "horizontalAlignment": "Stretch",
+                  "verticalAlignment": "Stretch",
+                  "visibility": "Visible"
+                }
+              },
+              {
+                "type": "Microsoft.UI.Xaml.Controls.Button",
+                "name": "ResetLabButton",
+                "properties": {
+                  "visibility": "Visible",
+                  "horizontalAlignment": "Stretch",
+                  "verticalAlignment": "Stretch",
+                  "isFocused": false,
+                  "isEnabled": true,
+                  "isFocusable": true,
+                  "content": "Reset page"
+                },
+                "children": [],
+                "layout": {
+                  "x": 24,
+                  "y": 664,
+                  "width": 91,
+                  "height": 32,
+                  "desiredWidth": 91,
+                  "desiredHeight": 32,
+                  "margin": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 0,
+                    "bottom": 0
+                  },
+                  "padding": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 0,
+                    "bottom": 0
+                  },
+                  "horizontalAlignment": "Stretch",
+                  "verticalAlignment": "Stretch",
+                  "visibility": "Visible"
+                }
+              }
+            ],
+            "layout": {
+              "x": 12,
+              "y": 624,
+              "width": 232,
+              "height": 84,
+              "desiredWidth": 232,
+              "desiredHeight": 84,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 12,
+                "top": 8,
+                "right": 12,
+                "bottom": 12
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          },
+          {
+            "type": "Microsoft.UI.Xaml.Controls.Frame",
+            "name": "LabFrame",
+            "properties": {
+              "visibility": "Visible",
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "isFocused": false,
+              "isEnabled": true,
+              "isFocusable": true,
+              "sourcePageType": "ComponentParityLab.WinUI.BasicInputPage"
+            },
+            "children": [
+              {
+                "type": "Microsoft.UI.Xaml.Controls.Page",
+                "properties": {
+                  "visibility": "Visible",
+                  "horizontalAlignment": "Stretch",
+                  "verticalAlignment": "Stretch",
+                  "isFocused": false
+                },
+                "children": [
+                  {
+                    "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                    "name": "BasicInputRoot",
+                    "properties": {
+                      "visibility": "Visible",
+                      "horizontalAlignment": "Stretch",
+                      "verticalAlignment": "Stretch",
+                      "isFocused": false,
+                      "orientation": "Vertical",
+                      "childCount": 11,
+                      "padding": "24,20,24,24",
+                      "spacing": 10
+                    },
+                    "children": [
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                        "name": "BasicInputTitle",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "text": "Page 1: Basic input"
+                        },
+                        "children": [],
+                        "layout": {
+                          "x": 280,
+                          "y": 20,
+                          "width": 137,
+                          "height": 24,
+                          "desiredWidth": 137,
+                          "desiredHeight": 24,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.Button",
+                        "name": "PrimaryActionButton",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "isEnabled": true,
+                          "isFocusable": true,
+                          "content": "Run primary action"
+                        },
+                        "children": [],
+                        "layout": {
+                          "x": 280,
+                          "y": 54,
+                          "width": 142,
+                          "height": 32,
+                          "desiredWidth": 142,
+                          "desiredHeight": 32,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.ToggleButton",
+                        "name": "PinnedToggleButton",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "isEnabled": true,
+                          "isFocusable": true,
+                          "isChecked": true,
+                          "content": "Pinned"
+                        },
+                        "children": [
+                          {
+                            "type": "System.String",
+                            "properties": {
+                              "text": "Pinned"
+                            },
+                            "children": []
+                          }
+                        ],
+                        "layout": {
+                          "x": 280,
+                          "y": 96,
+                          "width": 67,
+                          "height": 32,
+                          "desiredWidth": 67,
+                          "desiredHeight": 32,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.CheckBox",
+                        "name": "EnabledCheckBox",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "isEnabled": true,
+                          "isFocusable": true,
+                          "isChecked": true,
+                          "content": "Enabled"
+                        },
+                        "children": [
+                          {
+                            "type": "System.String",
+                            "properties": {
+                              "text": "Enabled"
+                            },
+                            "children": []
+                          }
+                        ],
+                        "layout": {
+                          "x": 280,
+                          "y": 138,
+                          "width": 120,
+                          "height": 32,
+                          "desiredWidth": 120,
+                          "desiredHeight": 32,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.RadioButton",
+                        "name": "HighPriorityRadioButton",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "isEnabled": true,
+                          "isFocusable": true,
+                          "isChecked": true,
+                          "groupName": "Priority",
+                          "content": "High priority"
+                        },
+                        "children": [
+                          {
+                            "type": "System.String",
+                            "properties": {
+                              "text": "High priority"
+                            },
+                            "children": []
+                          }
+                        ],
+                        "layout": {
+                          "x": 280,
+                          "y": 180,
+                          "width": 120,
+                          "height": 32,
+                          "desiredWidth": 120,
+                          "desiredHeight": 32,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.ComboBox",
+                        "name": "StatusComboBox",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "isEnabled": true,
+                          "isFocusable": true,
+                          "itemCount": 3,
+                          "placeholderText": "Status",
+                          "selectedIndex": 2,
+                          "selectedItem": "Closed"
+                        },
+                        "children": [
+                          {
+                            "type": "System.String",
+                            "properties": {
+                              "text": "Open"
+                            },
+                            "children": []
+                          },
+                          {
+                            "type": "System.String",
+                            "properties": {
+                              "text": "In review"
+                            },
+                            "children": []
+                          },
+                          {
+                            "type": "System.String",
+                            "properties": {
+                              "text": "Closed"
+                            },
+                            "children": []
+                          }
+                        ],
+                        "layout": {
+                          "x": 280,
+                          "y": 222,
+                          "width": 92,
+                          "height": 32,
+                          "desiredWidth": 92,
+                          "desiredHeight": 32,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                        "name": "BasicInputStateText",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "text": "Primary action ran"
+                        },
+                        "children": [],
+                        "layout": {
+                          "x": 280,
+                          "y": 264,
+                          "width": 130,
+                          "height": 24,
+                          "desiredWidth": 130,
+                          "desiredHeight": 24,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "orientation": "Horizontal",
+                          "childCount": 2,
+                          "padding": null,
+                          "spacing": 14
+                        },
+                        "children": [
+                          {
+                            "type": "Microsoft.UI.Xaml.Controls.ContentControl",
+                            "name": "DiagnosticRepeatButton",
+                            "properties": {
+                              "visibility": "Visible",
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "isFocused": false,
+                              "isEnabled": true,
+                              "isFocusable": true
+                            },
+                            "children": [
+                              {
+                                "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                                "properties": {
+                                  "visibility": "Visible",
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "isFocused": false,
+                                  "orientation": "Horizontal",
+                                  "childCount": 2,
+                                  "padding": null,
+                                  "spacing": 8
+                                },
+                                "children": [
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "isFocused": false,
+                                      "width": 180,
+                                      "text": "RepeatButton"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 280,
+                                      "y": 298,
+                                      "width": 180,
+                                      "height": 24,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 24,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "visibility": "Visible"
+                                    }
+                                  },
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "isFocused": false,
+                                      "minWidth": 120,
+                                      "isEnabled": true,
+                                      "isFocusable": true,
+                                      "content": "Repeat action"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 468,
+                                      "y": 298,
+                                      "width": 120,
+                                      "height": 32,
+                                      "desiredWidth": 120,
+                                      "desiredHeight": 32,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "visibility": "Visible"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "x": 280,
+                                  "y": 298,
+                                  "width": 308,
+                                  "height": 32,
+                                  "desiredWidth": 308,
+                                  "desiredHeight": 32,
+                                  "margin": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "padding": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "visibility": "Visible"
+                                }
+                              }
+                            ],
+                            "layout": {
+                              "x": 280,
+                              "y": 298,
+                              "width": 308,
+                              "height": 32,
+                              "desiredWidth": 308,
+                              "desiredHeight": 32,
+                              "margin": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "padding": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "visibility": "Visible"
+                            }
+                          },
+                          {
+                            "type": "Microsoft.UI.Xaml.Controls.ContentControl",
+                            "name": "DiagnosticHyperlinkButton",
+                            "properties": {
+                              "visibility": "Visible",
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "isFocused": false,
+                              "isEnabled": true,
+                              "isFocusable": true
+                            },
+                            "children": [
+                              {
+                                "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                                "properties": {
+                                  "visibility": "Visible",
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "isFocused": false,
+                                  "orientation": "Horizontal",
+                                  "childCount": 2,
+                                  "padding": null,
+                                  "spacing": 8
+                                },
+                                "children": [
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "isFocused": false,
+                                      "width": 180,
+                                      "text": "HyperlinkButton"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 602,
+                                      "y": 298,
+                                      "width": 180,
+                                      "height": 24,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 24,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "visibility": "Visible"
+                                    }
+                                  },
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.HyperlinkButton",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "isFocused": false,
+                                      "minWidth": 120,
+                                      "isEnabled": true,
+                                      "isFocusable": true,
+                                      "content": "Open public link"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 790,
+                                      "y": 298,
+                                      "width": 125,
+                                      "height": 32,
+                                      "desiredWidth": 125,
+                                      "desiredHeight": 32,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "visibility": "Visible"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "x": 602,
+                                  "y": 298,
+                                  "width": 313,
+                                  "height": 32,
+                                  "desiredWidth": 313,
+                                  "desiredHeight": 32,
+                                  "margin": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "padding": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "visibility": "Visible"
+                                }
+                              }
+                            ],
+                            "layout": {
+                              "x": 602,
+                              "y": 298,
+                              "width": 313,
+                              "height": 32,
+                              "desiredWidth": 313,
+                              "desiredHeight": 32,
+                              "margin": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "padding": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "visibility": "Visible"
+                            }
+                          }
+                        ],
+                        "layout": {
+                          "x": 280,
+                          "y": 298,
+                          "width": 635,
+                          "height": 32,
+                          "desiredWidth": 635,
+                          "desiredHeight": 32,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "orientation": "Horizontal",
+                          "childCount": 2,
+                          "padding": null,
+                          "spacing": 14
+                        },
+                        "children": [
+                          {
+                            "type": "Microsoft.UI.Xaml.Controls.ContentControl",
+                            "name": "DiagnosticDropDownButton",
+                            "properties": {
+                              "visibility": "Visible",
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "isFocused": false,
+                              "isEnabled": true,
+                              "isFocusable": true
+                            },
+                            "children": [
+                              {
+                                "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                                "properties": {
+                                  "visibility": "Visible",
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "isFocused": false,
+                                  "orientation": "Horizontal",
+                                  "childCount": 2,
+                                  "padding": null,
+                                  "spacing": 8
+                                },
+                                "children": [
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "isFocused": false,
+                                      "width": 180,
+                                      "text": "DropDownButton"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 280,
+                                      "y": 340,
+                                      "width": 180,
+                                      "height": 24,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 24,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "visibility": "Visible"
+                                    }
+                                  },
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.DropDownButton",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "isFocused": false,
+                                      "minWidth": 120,
+                                      "isEnabled": true,
+                                      "isFocusable": true,
+                                      "content": "Choose action"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 468,
+                                      "y": 340,
+                                      "width": 132,
+                                      "height": 32,
+                                      "desiredWidth": 132,
+                                      "desiredHeight": 32,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "visibility": "Visible"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "x": 280,
+                                  "y": 340,
+                                  "width": 320,
+                                  "height": 32,
+                                  "desiredWidth": 320,
+                                  "desiredHeight": 32,
+                                  "margin": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "padding": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "visibility": "Visible"
+                                }
+                              }
+                            ],
+                            "layout": {
+                              "x": 280,
+                              "y": 340,
+                              "width": 320,
+                              "height": 32,
+                              "desiredWidth": 320,
+                              "desiredHeight": 32,
+                              "margin": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "padding": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "visibility": "Visible"
+                            }
+                          },
+                          {
+                            "type": "Microsoft.UI.Xaml.Controls.ContentControl",
+                            "name": "DiagnosticSplitButton",
+                            "properties": {
+                              "visibility": "Visible",
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "isFocused": false,
+                              "isEnabled": true,
+                              "isFocusable": true
+                            },
+                            "children": [
+                              {
+                                "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                                "properties": {
+                                  "visibility": "Visible",
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "isFocused": false,
+                                  "orientation": "Horizontal",
+                                  "childCount": 2,
+                                  "padding": null,
+                                  "spacing": 8
+                                },
+                                "children": [
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "isFocused": false,
+                                      "width": 180,
+                                      "text": "SplitButton"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 614,
+                                      "y": 340,
+                                      "width": 180,
+                                      "height": 24,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 24,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "visibility": "Visible"
+                                    }
+                                  },
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.SplitButton",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "isFocused": false,
+                                      "minWidth": 120,
+                                      "isEnabled": true,
+                                      "isFocusable": true,
+                                      "content": "Split action"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 802,
+                                      "y": 340,
+                                      "width": 127,
+                                      "height": 30,
+                                      "desiredWidth": 127,
+                                      "desiredHeight": 30,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "visibility": "Visible"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "x": 614,
+                                  "y": 340,
+                                  "width": 315,
+                                  "height": 30,
+                                  "desiredWidth": 315,
+                                  "desiredHeight": 30,
+                                  "margin": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "padding": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "visibility": "Visible"
+                                }
+                              }
+                            ],
+                            "layout": {
+                              "x": 614,
+                              "y": 340,
+                              "width": 315,
+                              "height": 30,
+                              "desiredWidth": 315,
+                              "desiredHeight": 30,
+                              "margin": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "padding": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "visibility": "Visible"
+                            }
+                          }
+                        ],
+                        "layout": {
+                          "x": 280,
+                          "y": 340,
+                          "width": 649,
+                          "height": 32,
+                          "desiredWidth": 649,
+                          "desiredHeight": 32,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "orientation": "Horizontal",
+                          "childCount": 2,
+                          "padding": null,
+                          "spacing": 14
+                        },
+                        "children": [
+                          {
+                            "type": "Microsoft.UI.Xaml.Controls.ContentControl",
+                            "name": "DiagnosticToggleSplitButton",
+                            "properties": {
+                              "visibility": "Visible",
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "isFocused": false,
+                              "isEnabled": true,
+                              "isFocusable": true
+                            },
+                            "children": [
+                              {
+                                "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                                "properties": {
+                                  "visibility": "Visible",
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "isFocused": false,
+                                  "orientation": "Horizontal",
+                                  "childCount": 2,
+                                  "padding": null,
+                                  "spacing": 8
+                                },
+                                "children": [
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "isFocused": false,
+                                      "width": 180,
+                                      "text": "ToggleSplitButton"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 280,
+                                      "y": 382,
+                                      "width": 180,
+                                      "height": 24,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 24,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "visibility": "Visible"
+                                    }
+                                  },
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.ToggleSplitButton",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "isFocused": false,
+                                      "minWidth": 120,
+                                      "isEnabled": true,
+                                      "isFocusable": true,
+                                      "isChecked": true,
+                                      "content": "Toggle split"
+                                    },
+                                    "children": [
+                                      {
+                                        "type": "System.String",
+                                        "properties": {
+                                          "text": "Toggle split"
+                                        },
+                                        "children": [],
+                                        "layout": {
+                                          "x": 468,
+                                          "y": 382,
+                                          "width": 129,
+                                          "height": 30,
+                                          "desiredWidth": 129,
+                                          "desiredHeight": 30,
+                                          "margin": {
+                                            "left": 0,
+                                            "top": 0,
+                                            "right": 0,
+                                            "bottom": 0
+                                          },
+                                          "padding": {
+                                            "left": 0,
+                                            "top": 0,
+                                            "right": 0,
+                                            "bottom": 0
+                                          },
+                                          "horizontalAlignment": "Stretch",
+                                          "verticalAlignment": "Stretch",
+                                          "visibility": "Visible"
+                                        }
+                                      }
+                                    ],
+                                    "layout": {
+                                      "x": 468,
+                                      "y": 382,
+                                      "width": 129,
+                                      "height": 30,
+                                      "desiredWidth": 129,
+                                      "desiredHeight": 30,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "visibility": "Visible"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "x": 280,
+                                  "y": 382,
+                                  "width": 317,
+                                  "height": 30,
+                                  "desiredWidth": 317,
+                                  "desiredHeight": 30,
+                                  "margin": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "padding": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "visibility": "Visible"
+                                }
+                              }
+                            ],
+                            "layout": {
+                              "x": 280,
+                              "y": 382,
+                              "width": 317,
+                              "height": 30,
+                              "desiredWidth": 317,
+                              "desiredHeight": 30,
+                              "margin": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "padding": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "visibility": "Visible"
+                            }
+                          },
+                          {
+                            "type": "Microsoft.UI.Xaml.Controls.ContentControl",
+                            "name": "DiagnosticSlider",
+                            "properties": {
+                              "visibility": "Visible",
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "isFocused": false,
+                              "isEnabled": true,
+                              "isFocusable": true
+                            },
+                            "children": [
+                              {
+                                "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                                "properties": {
+                                  "visibility": "Visible",
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "isFocused": false,
+                                  "orientation": "Horizontal",
+                                  "childCount": 2,
+                                  "padding": null,
+                                  "spacing": 8
+                                },
+                                "children": [
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "isFocused": false,
+                                      "width": 180,
+                                      "text": "Slider"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 611,
+                                      "y": 382,
+                                      "width": 180,
+                                      "height": 24,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 24,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "visibility": "Visible"
+                                    }
+                                  },
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.Slider",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "isFocused": false,
+                                      "minWidth": 120,
+                                      "isEnabled": true,
+                                      "isFocusable": true,
+                                      "minimum": 0,
+                                      "maximum": 100,
+                                      "value": 64
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 799,
+                                      "y": 382,
+                                      "width": 180,
+                                      "height": 32,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 32,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "visibility": "Visible"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "x": 611,
+                                  "y": 382,
+                                  "width": 368,
+                                  "height": 32,
+                                  "desiredWidth": 368,
+                                  "desiredHeight": 32,
+                                  "margin": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "padding": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "visibility": "Visible"
+                                }
+                              }
+                            ],
+                            "layout": {
+                              "x": 611,
+                              "y": 382,
+                              "width": 368,
+                              "height": 32,
+                              "desiredWidth": 368,
+                              "desiredHeight": 32,
+                              "margin": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "padding": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "visibility": "Visible"
+                            }
+                          }
+                        ],
+                        "layout": {
+                          "x": 280,
+                          "y": 382,
+                          "width": 699,
+                          "height": 32,
+                          "desiredWidth": 699,
+                          "desiredHeight": 32,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      },
+                      {
+                        "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                        "properties": {
+                          "visibility": "Visible",
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "isFocused": false,
+                          "orientation": "Horizontal",
+                          "childCount": 2,
+                          "padding": null,
+                          "spacing": 14
+                        },
+                        "children": [
+                          {
+                            "type": "Microsoft.UI.Xaml.Controls.ContentControl",
+                            "name": "DiagnosticToggleSwitch",
+                            "properties": {
+                              "visibility": "Visible",
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "isFocused": false,
+                              "isEnabled": true,
+                              "isFocusable": true
+                            },
+                            "children": [
+                              {
+                                "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                                "properties": {
+                                  "visibility": "Visible",
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "isFocused": false,
+                                  "orientation": "Horizontal",
+                                  "childCount": 2,
+                                  "padding": null,
+                                  "spacing": 8
+                                },
+                                "children": [
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "isFocused": false,
+                                      "width": 180,
+                                      "text": "ToggleSwitch"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 280,
+                                      "y": 424,
+                                      "width": 180,
+                                      "height": 24,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 24,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "visibility": "Visible"
+                                    }
+                                  },
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.ToggleSwitch",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "isFocused": false,
+                                      "minWidth": 120,
+                                      "isEnabled": true,
+                                      "isFocusable": true,
+                                      "header": "Enabled",
+                                      "isOn": true
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 468,
+                                      "y": 424,
+                                      "width": 120,
+                                      "height": 63,
+                                      "desiredWidth": 120,
+                                      "desiredHeight": 63,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "visibility": "Visible"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "x": 280,
+                                  "y": 424,
+                                  "width": 308,
+                                  "height": 63,
+                                  "desiredWidth": 308,
+                                  "desiredHeight": 63,
+                                  "margin": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "padding": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "visibility": "Visible"
+                                }
+                              }
+                            ],
+                            "layout": {
+                              "x": 280,
+                              "y": 424,
+                              "width": 308,
+                              "height": 63,
+                              "desiredWidth": 308,
+                              "desiredHeight": 63,
+                              "margin": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "padding": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "visibility": "Visible"
+                            }
+                          },
+                          {
+                            "type": "Microsoft.UI.Xaml.Controls.ContentControl",
+                            "name": "DiagnosticRatingControl",
+                            "properties": {
+                              "visibility": "Visible",
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "isFocused": false,
+                              "isEnabled": true,
+                              "isFocusable": true
+                            },
+                            "children": [
+                              {
+                                "type": "Microsoft.UI.Xaml.Controls.StackPanel",
+                                "properties": {
+                                  "visibility": "Visible",
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "isFocused": false,
+                                  "orientation": "Horizontal",
+                                  "childCount": 2,
+                                  "padding": null,
+                                  "spacing": 8
+                                },
+                                "children": [
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.TextBlock",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "isFocused": false,
+                                      "width": 180,
+                                      "text": "RatingControl"
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 602,
+                                      "y": 424,
+                                      "width": 180,
+                                      "height": 24,
+                                      "desiredWidth": 180,
+                                      "desiredHeight": 24,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Center",
+                                      "visibility": "Visible"
+                                    }
+                                  },
+                                  {
+                                    "type": "Microsoft.UI.Xaml.Controls.RatingControl",
+                                    "properties": {
+                                      "visibility": "Visible",
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "isFocused": false,
+                                      "minWidth": 120,
+                                      "isEnabled": true,
+                                      "isFocusable": true,
+                                      "maxRating": 5,
+                                      "value": 4
+                                    },
+                                    "children": [],
+                                    "layout": {
+                                      "x": 790,
+                                      "y": 424,
+                                      "width": 120,
+                                      "height": 32,
+                                      "desiredWidth": 120,
+                                      "desiredHeight": 32,
+                                      "margin": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "padding": {
+                                        "left": 0,
+                                        "top": 0,
+                                        "right": 0,
+                                        "bottom": 0
+                                      },
+                                      "horizontalAlignment": "Stretch",
+                                      "verticalAlignment": "Stretch",
+                                      "visibility": "Visible"
+                                    }
+                                  }
+                                ],
+                                "layout": {
+                                  "x": 602,
+                                  "y": 424,
+                                  "width": 308,
+                                  "height": 32,
+                                  "desiredWidth": 308,
+                                  "desiredHeight": 32,
+                                  "margin": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "padding": {
+                                    "left": 0,
+                                    "top": 0,
+                                    "right": 0,
+                                    "bottom": 0
+                                  },
+                                  "horizontalAlignment": "Stretch",
+                                  "verticalAlignment": "Stretch",
+                                  "visibility": "Visible"
+                                }
+                              }
+                            ],
+                            "layout": {
+                              "x": 602,
+                              "y": 424,
+                              "width": 308,
+                              "height": 32,
+                              "desiredWidth": 308,
+                              "desiredHeight": 32,
+                              "margin": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "padding": {
+                                "left": 0,
+                                "top": 0,
+                                "right": 0,
+                                "bottom": 0
+                              },
+                              "horizontalAlignment": "Stretch",
+                              "verticalAlignment": "Stretch",
+                              "visibility": "Visible"
+                            }
+                          }
+                        ],
+                        "layout": {
+                          "x": 280,
+                          "y": 424,
+                          "width": 630,
+                          "height": 63,
+                          "desiredWidth": 630,
+                          "desiredHeight": 63,
+                          "margin": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "padding": {
+                            "left": 0,
+                            "top": 0,
+                            "right": 0,
+                            "bottom": 0
+                          },
+                          "horizontalAlignment": "Stretch",
+                          "verticalAlignment": "Stretch",
+                          "visibility": "Visible"
+                        }
+                      }
+                    ],
+                    "layout": {
+                      "x": 256,
+                      "y": 0,
+                      "width": 772,
+                      "height": 720,
+                      "desiredWidth": 772,
+                      "desiredHeight": 720,
+                      "margin": {
+                        "left": 0,
+                        "top": 0,
+                        "right": 0,
+                        "bottom": 0
+                      },
+                      "padding": {
+                        "left": 24,
+                        "top": 20,
+                        "right": 24,
+                        "bottom": 24
+                      },
+                      "horizontalAlignment": "Stretch",
+                      "verticalAlignment": "Stretch",
+                      "visibility": "Visible"
+                    }
+                  }
+                ],
+                "layout": {
+                  "x": 256,
+                  "y": 0,
+                  "width": 772,
+                  "height": 720,
+                  "desiredWidth": 772,
+                  "desiredHeight": 720,
+                  "margin": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 0,
+                    "bottom": 0
+                  },
+                  "padding": {
+                    "left": 0,
+                    "top": 0,
+                    "right": 0,
+                    "bottom": 0
+                  },
+                  "horizontalAlignment": "Stretch",
+                  "verticalAlignment": "Stretch",
+                  "visibility": "Visible"
+                }
+              }
+            ],
+            "layout": {
+              "x": 256,
+              "y": 0,
+              "width": 772,
+              "height": 720,
+              "desiredWidth": 772,
+              "desiredHeight": 720,
+              "margin": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "padding": {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0
+              },
+              "horizontalAlignment": "Stretch",
+              "verticalAlignment": "Stretch",
+              "visibility": "Visible"
+            }
+          }
+        ],
+        "layout": {
+          "x": 0,
+          "y": 0,
+          "width": 1028,
+          "height": 720,
+          "desiredWidth": 1028,
+          "desiredHeight": 720,
+          "margin": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "padding": {
+            "left": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0
+          },
+          "horizontalAlignment": "Stretch",
+          "verticalAlignment": "Stretch",
+          "visibility": "Visible"
+        }
+      }
+    ],
+    "layout": {
+      "x": 0,
+      "y": 0,
+      "width": 1028,
+      "height": 720,
+      "desiredWidth": 1028,
+      "desiredHeight": 720,
+      "margin": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "padding": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "horizontalAlignment": "Stretch",
+      "verticalAlignment": "Stretch",
+      "visibility": "Visible"
+    }
+  }
+}

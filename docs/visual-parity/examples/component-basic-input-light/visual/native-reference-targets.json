@@ -1,0 +1,1961 @@
+{
+  "schemaVersion": "0.1",
+  "referenceSource": "native-winui-element-bounds",
+  "coordinateSpace": "client-area",
+  "scenarioName": "component-basic-input-light",
+  "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+  "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+  "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+  "workflowRunId": "26886291295",
+  "theme": "light",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1,
+  "dimensions": {
+    "width": 1028,
+    "height": 720
+  },
+  "rootBounds": {
+    "x": 0,
+    "y": 0,
+    "width": 1028,
+    "height": 720
+  },
+  "capturedAt": "2026-06-03T13:01:41.7359862\u002B00:00",
+  "targets": [
+    {
+      "component": null,
+      "target": "Background",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Background",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 281,
+        "y": 218,
+        "width": 92,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 92,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7303952\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "BasicInputNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "BasicInputNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6846939\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "BasicInputRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "BasicInputRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "bounds": {
+        "x": 257,
+        "y": 1,
+        "width": 771,
+        "height": 719
+      },
+      "actualSize": {
+        "width": 771,
+        "height": 719
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7167297\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "BasicInputStateText",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "BasicInputStateText",
+      "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
+      "bounds": {
+        "x": 281,
+        "y": 260,
+        "width": 112.35546875,
+        "height": 18.62109375
+      },
+      "actualSize": {
+        "width": 112,
+        "height": 19
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7305499\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "BasicInputTitle",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "BasicInputTitle",
+      "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
+      "bounds": {
+        "x": 281,
+        "y": 21,
+        "width": 113.052734375,
+        "height": 18.62109375
+      },
+      "actualSize": {
+        "width": 113,
+        "height": 19
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7168045\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "Border",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Border",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 803,
+        "y": 331,
+        "width": 127,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 127,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7318878\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ButtonHolderGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ButtonHolderGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 4,
+        "width": 56,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 56,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6773594\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "CaptionStackPanel",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CaptionStackPanel",
+      "elementType": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "bounds": {
+        "x": 771,
+        "y": 395,
+        "width": 164,
+        "height": 72
+      },
+      "actualSize": {
+        "width": 164,
+        "height": 72
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7357880\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "CheckGlyph",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CheckGlyph",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Ellipse",
+      "bounds": {
+        "x": 285,
+        "y": 186,
+        "width": 12,
+        "height": 12
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 12
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7291016\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "CheckOuterEllipse",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CheckOuterEllipse",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Ellipse",
+      "bounds": {
+        "x": 281,
+        "y": 182,
+        "width": 20,
+        "height": 20
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 20
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7290690\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ChevronIcon",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ChevronIcon",
+      "elementType": "Microsoft.UI.Xaml.Controls.AnimatedIcon",
+      "bounds": {
+        "x": 577,
+        "y": 341,
+        "width": 12,
+        "height": 12
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 12
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7312347\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "CollectionsNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CollectionsNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 124,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6920517\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "CommandsNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "CommandsNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 204,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6959657\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ContentGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 4,
+        "y": 46,
+        "width": 234,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 234,
+        "height": 36
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6881093\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ContentPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "bounds": {
+        "x": 52,
+        "y": 6,
+        "width": 4,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 4,
+        "height": 36
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6803511\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ContentRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ContentRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 256,
+        "y": 0,
+        "width": 772,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 772,
+        "height": 720
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7157357\u002B00:00"
+    },
+    {
+      "component": "DropDownButton",
+      "target": "DiagnosticDropDownButton",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.DropDownButton",
+      "bounds": {
+        "x": 469,
+        "y": 331,
+        "width": 132,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 132,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:01:41.7311118\u002B00:00"
+    },
+    {
+      "component": "HyperlinkButton",
+      "target": "DiagnosticHyperlinkButton",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.HyperlinkButton",
+      "bounds": {
+        "x": 791,
+        "y": 289,
+        "width": 125,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 125,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:01:41.7308481\u002B00:00"
+    },
+    {
+      "component": "RatingControl",
+      "target": "DiagnosticRatingControl",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.RatingControl",
+      "bounds": {
+        "x": 791,
+        "y": 415,
+        "width": 120,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:01:41.7357117\u002B00:00"
+    },
+    {
+      "component": "RepeatButton",
+      "target": "DiagnosticRepeatButton",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
+      "bounds": {
+        "x": 469,
+        "y": 289,
+        "width": 120,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:01:41.7306901\u002B00:00"
+    },
+    {
+      "component": "Slider",
+      "target": "DiagnosticSlider",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.Slider",
+      "bounds": {
+        "x": 800,
+        "y": 373,
+        "width": 180,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 180,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:01:41.7344149\u002B00:00"
+    },
+    {
+      "component": "SplitButton",
+      "target": "DiagnosticSplitButton",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.SplitButton",
+      "bounds": {
+        "x": 803,
+        "y": 331,
+        "width": 127,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 127,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:01:41.7315134\u002B00:00"
+    },
+    {
+      "component": "ToggleSplitButton",
+      "target": "DiagnosticToggleSplitButton",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.ToggleSplitButton",
+      "bounds": {
+        "x": 469,
+        "y": 373,
+        "width": 129,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 129,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:01:41.7321522\u002B00:00"
+    },
+    {
+      "component": "ToggleSwitch",
+      "target": "DiagnosticToggleSwitch",
+      "identitySource": "x:Name\u002Bnative-descendant",
+      "automationId": "",
+      "name": "",
+      "elementType": "Microsoft.UI.Xaml.Controls.ToggleSwitch",
+      "bounds": {
+        "x": 469,
+        "y": 415,
+        "width": 120,
+        "height": 63
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 63
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name\u002Bnative-descendant",
+      "capturedAt": "2026-06-03T13:01:41.7351182\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "DialogsNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DialogsNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 164,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6938878\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "DividerBackgroundGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DividerBackgroundGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 894,
+        "y": 331,
+        "width": 1,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 1,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7316391\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "DropDownGlyph",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "DropDownGlyph",
+      "elementType": "Microsoft.UI.Xaml.Controls.AnimatedIcon",
+      "bounds": {
+        "x": 347,
+        "y": 218,
+        "width": 12,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7304975\u002B00:00"
+    },
+    {
+      "component": "CheckBox",
+      "target": "EnabledCheckBox",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "EnabledCheckBox",
+      "elementType": "Microsoft.UI.Xaml.Controls.CheckBox",
+      "bounds": {
+        "x": 281,
+        "y": 134,
+        "width": 120,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7276158\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "FocusBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "FocusBorder",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 800,
+        "y": 373,
+        "width": 180,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 180,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7344833\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "FooterContentBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "FooterContentBorder",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 0,
+        "y": 633,
+        "width": 256,
+        "height": 79
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 79
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7135795\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ForegroundContentPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ForegroundContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "bounds": {
+        "x": 791,
+        "y": 415,
+        "width": 120,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7358592\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "HCPaneBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HCPaneBorder",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 254,
+        "y": 1,
+        "width": 1,
+        "height": 718
+      },
+      "actualSize": {
+        "width": 1,
+        "height": 718
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7156272\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "HeaderContentPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HeaderContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "bounds": {
+        "x": 469,
+        "y": 415,
+        "width": 120,
+        "height": 19
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 19
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7351807\u002B00:00"
+    },
+    {
+      "component": "RadioButton",
+      "target": "HighPriorityRadioButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HighPriorityRadioButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.RadioButton",
+      "bounds": {
+        "x": 281,
+        "y": 176,
+        "width": 120,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7288653\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "HighlightBackground",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HighlightBackground",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 277,
+        "y": 214,
+        "width": 100,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 100,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7303606\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "HorizontalDecreaseRect",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HorizontalDecreaseRect",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 800,
+        "y": 387,
+        "width": 104,
+        "height": 4
+      },
+      "actualSize": {
+        "width": 104,
+        "height": 4
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7345995\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "HorizontalTemplate",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HorizontalTemplate",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 800,
+        "y": 373,
+        "width": 180,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 180,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7345382\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "HorizontalThumb",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HorizontalThumb",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.Thumb",
+      "bounds": {
+        "x": 904,
+        "y": 380,
+        "width": 18,
+        "height": 18
+      },
+      "actualSize": {
+        "width": 18,
+        "height": 18
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7346431\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "HorizontalTrackRect",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "HorizontalTrackRect",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 800,
+        "y": 387,
+        "width": 180,
+        "height": 4
+      },
+      "actualSize": {
+        "width": 180,
+        "height": 4
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7345712\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "Icon",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Icon",
+      "elementType": "Microsoft.UI.Xaml.Controls.AnimatedIcon",
+      "bounds": {
+        "x": 20,
+        "y": 16,
+        "width": 16,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 16,
+        "height": 16
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6787340\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "IconColumn",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "IconColumn",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 4,
+        "y": 46,
+        "width": 8,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 8,
+        "height": 36
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6882251\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ItemsContainerGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ItemsContainerGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 672
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 672
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6836386\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "LabFrame",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "LabFrame",
+      "elementType": "Microsoft.UI.Xaml.Controls.Frame",
+      "bounds": {
+        "x": 257,
+        "y": 1,
+        "width": 771,
+        "height": 719
+      },
+      "actualSize": {
+        "width": 771,
+        "height": 719
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7163088\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "LabPaneFooter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "LabPaneFooter",
+      "elementType": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "bounds": {
+        "x": 0,
+        "y": 633,
+        "width": 256,
+        "height": 79
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 79
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7139322\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "LayoutMediaNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "LayoutMediaNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 324,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7086498\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "LayoutRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "LayoutRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 4,
+        "y": 6,
+        "width": 48,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 48,
+        "height": 36
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6775430\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "MenuItemsHost",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "MenuItemsHost",
+      "elementType": "Microsoft.UI.Xaml.Controls.ItemsRepeater",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 589
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 589
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6845867\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "MenuItemsScrollViewer",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "MenuItemsScrollViewer",
+      "elementType": "Microsoft.UI.Xaml.Controls.ScrollViewer",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 589
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 589
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6837097\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "NVIRootGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "NVIRootGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6847940\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "NavigationViewItemPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "NavigationViewItemPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.NavigationViewItemPresenter",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6857782\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "NavigationWorkbenchNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "NavigationWorkbenchNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 244,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6995432\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "NormalRectangle",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "NormalRectangle",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 281,
+        "y": 140,
+        "width": 20,
+        "height": 20
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 20
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7277391\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "OffContentPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "OffContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "bounds": {
+        "x": 521,
+        "y": 449,
+        "width": 20,
+        "height": 19
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 19
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7352440\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "OnContentPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "OnContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentPresenter",
+      "bounds": {
+        "x": 521,
+        "y": 449,
+        "width": 19,
+        "height": 19
+      },
+      "actualSize": {
+        "width": 19,
+        "height": 19
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7352750\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "OuterBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "OuterBorder",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 469,
+        "y": 448,
+        "width": 40,
+        "height": 20
+      },
+      "actualSize": {
+        "width": 40,
+        "height": 20
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7353067\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "OuterEllipse",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "OuterEllipse",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Ellipse",
+      "bounds": {
+        "x": 281,
+        "y": 182,
+        "width": 20,
+        "height": 20
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 20
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7290321\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PaneContentGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneContentGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 4,
+        "width": 256,
+        "height": 712
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 712
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6833430\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PaneFooterTitle",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneFooterTitle",
+      "elementType": "Microsoft.UI.Xaml.Controls.TextBlock",
+      "bounds": {
+        "x": 12,
+        "y": 641,
+        "width": 80.130859375,
+        "height": 18.62109375
+      },
+      "actualSize": {
+        "width": 80,
+        "height": 19
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7140150\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PaneHeaderContentBorder",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneHeaderContentBorder",
+      "elementType": "Microsoft.UI.Xaml.Controls.ContentControl",
+      "bounds": {
+        "x": 40,
+        "y": 4,
+        "width": 216,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 216,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6834870\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PaneRoot",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneRoot",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 256,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 720
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6831936\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PaneToggleButtonGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PaneToggleButtonGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 56,
+        "height": 48
+      },
+      "actualSize": {
+        "width": 56,
+        "height": 48
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6772767\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "Pill",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Pill",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 282,
+        "y": 226,
+        "width": 3,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 3,
+        "height": 16
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7304254\u002B00:00"
+    },
+    {
+      "component": "ToggleButton",
+      "target": "PinnedToggleButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PinnedToggleButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.ToggleButton",
+      "bounds": {
+        "x": 281,
+        "y": 92,
+        "width": 67,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 67,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7272426\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PresenterContentRootGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PresenterContentRootGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 4,
+        "y": 46,
+        "width": 248,
+        "height": 36
+      },
+      "actualSize": {
+        "width": 248,
+        "height": 36
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6863402\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PressedCheckGlyph",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PressedCheckGlyph",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 289,
+        "y": 190,
+        "width": 4,
+        "height": 4
+      },
+      "actualSize": {
+        "width": 4,
+        "height": 4
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7291283\u002B00:00"
+    },
+    {
+      "component": "Button",
+      "target": "PrimaryActionButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PrimaryActionButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 281,
+        "y": 50,
+        "width": 142,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 142,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7269188\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PrimaryBackgroundGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PrimaryBackgroundGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 803,
+        "y": 331,
+        "width": 92,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 92,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7316127\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "PrimaryButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "PrimaryButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 803,
+        "y": 331,
+        "width": 91,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 91,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7317045\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "RatingBackgroundStackPanel",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RatingBackgroundStackPanel",
+      "elementType": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "bounds": {
+        "x": 791,
+        "y": 423,
+        "width": 120,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7358148\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "RatingForegroundStackPanel",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RatingForegroundStackPanel",
+      "elementType": "Microsoft.UI.Xaml.Controls.StackPanel",
+      "bounds": {
+        "x": 791,
+        "y": 423,
+        "width": 120,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 120,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7359002\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ResetLabButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ResetLabButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 12,
+        "y": 668,
+        "width": 93,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 93,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7143140\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "Root",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "Root",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 589
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 589
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6837814\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "RootGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RootGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 895,
+        "y": 331,
+        "width": 35,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 35,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7318172\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "RootNavigation",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RootNavigation",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationView",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1028,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 1028,
+        "height": 720
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6751016\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "RootSplitView",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "RootSplitView",
+      "elementType": "Microsoft.UI.Xaml.Controls.SplitView",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1028,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 1028,
+        "height": 720
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6830999\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ScrollContentPresenter",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ScrollContentPresenter",
+      "elementType": "Microsoft.UI.Xaml.Controls.ScrollContentPresenter",
+      "bounds": {
+        "x": 0,
+        "y": 44,
+        "width": 256,
+        "height": 589
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 589
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6844916\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SecondaryBackgroundGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SecondaryBackgroundGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 895,
+        "y": 331,
+        "width": 35,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 35,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7316742\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SecondaryButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SecondaryButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 895,
+        "y": 331,
+        "width": 35,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 35,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7317908\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SelectionIndicator",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SelectionIndicator",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 4,
+        "y": 56,
+        "width": 3,
+        "height": 16
+      },
+      "actualSize": {
+        "width": 3,
+        "height": 16
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6878456\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "ShadowCaster",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "ShadowCaster",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 256,
+        "height": 720
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 720
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7359826\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SliderContainer",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SliderContainer",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 800,
+        "y": 373,
+        "width": 180,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 180,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7345115\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SliderInnerThumb",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SliderInnerThumb",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Ellipse",
+      "bounds": {
+        "x": 907,
+        "y": 383,
+        "width": 12,
+        "height": 12
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 12
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7346805\u002B00:00"
+    },
+    {
+      "component": "ComboBox",
+      "target": "StatusComboBox",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "StatusComboBox",
+      "elementType": "Microsoft.UI.Xaml.Controls.ComboBox",
+      "bounds": {
+        "x": 281,
+        "y": 218,
+        "width": 92,
+        "height": 32
+      },
+      "actualSize": {
+        "width": 92,
+        "height": 32
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7302883\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "StatusPickersNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "StatusPickersNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 284,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7067617\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SwitchAreaGrid",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SwitchAreaGrid",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 469,
+        "y": 443,
+        "width": 72,
+        "height": 30
+      },
+      "actualSize": {
+        "width": 72,
+        "height": 30
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7352180\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SwitchKnob",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SwitchKnob",
+      "elementType": "Microsoft.UI.Xaml.Controls.Grid",
+      "bounds": {
+        "x": 489,
+        "y": 448,
+        "width": 20,
+        "height": 20
+      },
+      "actualSize": {
+        "width": 20,
+        "height": 20
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7353574\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SwitchKnobBounds",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SwitchKnobBounds",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 469,
+        "y": 448,
+        "width": 40,
+        "height": 20
+      },
+      "actualSize": {
+        "width": 40,
+        "height": 20
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7353320\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SwitchKnobOff",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SwitchKnobOff",
+      "elementType": "Microsoft.UI.Xaml.Shapes.Rectangle",
+      "bounds": {
+        "x": 493,
+        "y": 452,
+        "width": 12,
+        "height": 12
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 12
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7354214\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SwitchKnobOn",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SwitchKnobOn",
+      "elementType": "Microsoft.UI.Xaml.Controls.Border",
+      "bounds": {
+        "x": 493,
+        "y": 452,
+        "width": 12,
+        "height": 12
+      },
+      "actualSize": {
+        "width": 12,
+        "height": 12
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7353939\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "SwitchThumb",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "SwitchThumb",
+      "elementType": "Microsoft.UI.Xaml.Controls.Primitives.Thumb",
+      "bounds": {
+        "x": 469,
+        "y": 438,
+        "width": 72,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 72,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.7354476\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "TextFormsNavigationItem",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "TextFormsNavigationItem",
+      "elementType": "Microsoft.UI.Xaml.Controls.NavigationViewItem",
+      "bounds": {
+        "x": 0,
+        "y": 84,
+        "width": 256,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 256,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6903171\u002B00:00"
+    },
+    {
+      "component": null,
+      "target": "TogglePaneButton",
+      "identitySource": "x:Name",
+      "automationId": "",
+      "name": "TogglePaneButton",
+      "elementType": "Microsoft.UI.Xaml.Controls.Button",
+      "bounds": {
+        "x": 0,
+        "y": 4,
+        "width": 56,
+        "height": 40
+      },
+      "actualSize": {
+        "width": 56,
+        "height": 40
+      },
+      "visibility": "Visible",
+      "boundsSource": "x:Name",
+      "capturedAt": "2026-06-03T13:01:41.6774720\u002B00:00"
+    }
+  ]
+}

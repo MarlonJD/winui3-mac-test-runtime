@@ -507,10 +507,11 @@ public static class VisualLayoutEngine
         var natural = SimpleType(node) switch
         {
             "TextBlock" or "String" => 24,
-            "Button" or "RepeatButton" or "HyperlinkButton" or "DropDownButton" or "SplitButton" or "ToggleSplitButton" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 32,
+            "SplitButton" or "ToggleSplitButton" => 30,
+            "Button" or "RepeatButton" or "HyperlinkButton" or "DropDownButton" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 32,
             "TextBox" => 32,
             "Slider" => 32,
-            "ToggleSwitch" => 44,
+            "ToggleSwitch" => 63,
             "RatingControl" => 32,
             "SymbolIcon" => 32,
             "FontIcon" => 24,
@@ -546,17 +547,20 @@ public static class VisualLayoutEngine
         var natural = SimpleType(node) switch
         {
             "TextBlock" or "String" => Math.Min(fallback, Math.Max(24, EstimateTextWidth(ReadText(node) ?? node.Name ?? string.Empty))),
-            "Button" or "RepeatButton" or "ToggleButton" => Math.Min(fallback, Math.Max(64, EstimateTextWidth(ReadControlText(node, "Button")) + 28)),
-            "HyperlinkButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadControlText(node, "Link")) + 8)),
-            "DropDownButton" or "SplitButton" => Math.Min(fallback, Math.Max(124, EstimateTextWidth(ReadControlText(node, "Action")) + 48)),
-            "ToggleSplitButton" => Math.Min(fallback, Math.Max(120, EstimateTextWidth(ReadControlText(node, "Toggle")) + 42)),
+            "Button" => Math.Min(fallback, Math.Max(64, EstimateControlTextWidth(ReadControlText(node, "Button"), 28))),
+            "RepeatButton" => Math.Min(fallback, Math.Max(120, EstimateControlTextWidth(ReadControlText(node, "Button"), 28))),
+            "ToggleButton" => Math.Min(fallback, Math.Max(64, EstimateControlTextWidth(ReadControlText(node, "Toggle"), 29))),
+            "HyperlinkButton" => Math.Min(fallback, Math.Max(96, EstimateControlTextWidth(ReadControlText(node, "Link"), 24))),
+            "DropDownButton" => Math.Min(fallback, Math.Max(124, EstimateControlTextWidth(ReadControlText(node, "Action"), 50))),
+            "SplitButton" => Math.Min(fallback, Math.Max(124, EstimateControlTextWidth(ReadControlText(node, "Split"), 51))),
+            "ToggleSplitButton" => Math.Min(fallback, Math.Max(120, EstimateControlTextWidth(ReadControlText(node, "Toggle"), 53))),
             "AppBarButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadString(node, "label") ?? ReadControlText(node, "Command")) + 42)),
-            "CheckBox" or "RadioButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadControlText(node, "Option")) + 34)),
+            "CheckBox" or "RadioButton" => Math.Min(fallback, Math.Max(120, EstimateControlTextWidth(ReadControlText(node, "Option"), 34))),
             "ComboBox" => Math.Min(fallback, Math.Max(92, EstimateTextWidth(ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select") + 48)),
             "TextBox" => Math.Min(fallback, Math.Max(180, EstimateTextWidth(ReadText(node) ?? string.Empty) + 28)),
             "Slider" => Math.Min(fallback, 180),
-            "ToggleSwitch" => Math.Min(fallback, Math.Max(120, EstimateTextWidth(ReadString(node, "header") ?? string.Empty) + 74)),
-            "RatingControl" => Math.Min(fallback, Math.Max(112, ReadDouble(node, "maxRating", 5) * 22)),
+            "ToggleSwitch" => Math.Min(fallback, Math.Max(120, EstimateControlTextWidth(ReadString(node, "header") ?? string.Empty, 64))),
+            "RatingControl" => Math.Min(fallback, Math.Max(120, ReadDouble(node, "maxRating", 5) * 24)),
             "SymbolIcon" => Math.Min(fallback, 32),
             "ProgressBar" => Math.Min(fallback, 180),
             "ProgressRing" => Math.Min(fallback, 32),
@@ -634,6 +638,11 @@ public static class VisualLayoutEngine
     private static double EstimateTextWidth(string text)
     {
         return Math.Ceiling(text.Length * 7.2);
+    }
+
+    private static double EstimateControlTextWidth(string text, double chromePadding)
+    {
+        return Math.Ceiling(text.Length * 6.3 + chromePadding);
     }
 
     private static string ReadControlText(UiNode node, string fallback)

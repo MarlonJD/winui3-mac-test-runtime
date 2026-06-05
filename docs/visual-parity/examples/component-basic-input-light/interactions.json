@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "0.2",
+  "steps": [
+    {
+      "index": 0,
+      "type": "click",
+      "status": "passed",
+      "target": "PrimaryActionButton",
+      "selector": "PrimaryActionButton",
+      "selectorKind": "name",
+      "targetType": "Button",
+      "observedState": {
+        "type": "Button",
+        "name": "PrimaryActionButton",
+        "automationId": null,
+        "isFocused": "False",
+        "isEnabled": "True",
+        "content": "Run primary action"
+      }
+    },
+    {
+      "index": 1,
+      "type": "selectItem",
+      "status": "passed",
+      "target": "StatusComboBox",
+      "expected": "Closed",
+      "actual": "Closed",
+      "selector": "StatusComboBox",
+      "selectorKind": "name",
+      "targetType": "ComboBox",
+      "observedState": {
+        "type": "ComboBox",
+        "name": "StatusComboBox",
+        "automationId": null,
+        "isFocused": "False",
+        "isEnabled": "True",
+        "selectedIndex": "2",
+        "selectedItem": "Closed"
+      }
+    },
+    {
+      "index": 2,
+      "type": "assertProperty",
+      "status": "passed",
+      "target": "BasicInputStateText",
+      "expected": "Primary action ran",
+      "actual": "Primary action ran",
+      "selector": "BasicInputStateText",
+      "selectorKind": "name",
+      "targetType": "TextBlock",
+      "observedState": {
+        "type": "TextBlock",
+        "name": "BasicInputStateText",
+        "automationId": null,
+        "isFocused": "False",
+        "text": "Primary action ran"
+      }
+    }
+  ]
+}

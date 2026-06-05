@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+
+cd "$REPO_ROOT"
+export PATH="$REPO_ROOT/tools:$PATH"
+
+mkdir -p artifacts/product-evidence
+mkdir -p artifacts/packages
+mkdir -p artifacts/production-gates
+
+dotnet build -v minimal /m:1 /nr:false
+dotnet tests/WinUI3.MacRuntime.Tests/bin/Debug/net10.0/WinUI3.MacRuntime.Tests.dll
+dotnet tests/WinUI3.MacXaml.Tests/bin/Debug/net10.0/WinUI3.MacXaml.Tests.dll
+
+winui3-mac-runner product-evidence --profile strict-scenario-sweep --output artifacts/product-evidence/strict-scenario-sweep
+winui3-mac-runner product-evidence --profile public-product --output artifacts/product-evidence/public-product
+
+dotnet pack src/WinUI3.MacCompat/WinUI3.MacCompat.csproj --configuration Debug --no-build --output artifacts/packages
+dotnet pack src/WinUI3.MacRuntime/WinUI3.MacRuntime.csproj --configuration Debug --no-build --output artifacts/packages
+dotnet pack src/WinUI3.MacXaml/WinUI3.MacXaml.csproj --configuration Debug --no-build --output artifacts/packages
+dotnet pack src/WinUI3.MacRenderer.Skia/WinUI3.MacRenderer.Skia.csproj --configuration Debug --no-build --output artifacts/packages
+dotnet pack src/WinUI3.MacRunner/WinUI3.MacRunner.csproj --configuration Debug --no-build --output artifacts/packages
+dotnet pack src/WinUI3.MacTest.Sdk/WinUI3.MacTest.Sdk.csproj --configuration Debug --no-build --output artifacts/packages
+
+winui3-mac-runner release-check --package-dir artifacts/packages --output artifacts/production-gates/release-readiness.json
+winui3-mac-runner release-candidate --package-dir artifacts/packages --output artifacts/production-gates/release-candidate.json

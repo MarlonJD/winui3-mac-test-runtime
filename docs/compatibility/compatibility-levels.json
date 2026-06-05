@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "0.1",
+  "generatedFrom": "docs/plans/2026-06-05-winui3-mac-runtime-productization-plan.md",
+  "productContract": "source-level-public-subset",
+  "currentCompatibilityLevel": "L2",
+  "currentNativeQualityScope": "selected-component-rows-only",
+  "nativeQualityClaimAllowed": false,
+  "levels": [
+    {
+      "id": "L0",
+      "name": "Runner and artifact harness reliability",
+      "claim": "The runner emits deterministic diagnostics and versioned artifacts for cataloged, unsupported, Windows-only, and non-goal surfaces.",
+      "sourceLevelProductionLabelAllowed": false,
+      "nativeQualityLabelAllowed": false,
+      "requiredEvidence": [
+        "catalog disposition",
+        "deterministic diagnostics",
+        "versioned artifacts",
+        "support-policy wording"
+      ]
+    },
+    {
+      "id": "L1",
+      "name": "Source-level app startup and XAML ingest",
+      "claim": "Public WinUI-style source projects can be ingested through the compat shadow build and launched as managed macOS processes for the documented subset.",
+      "sourceLevelProductionLabelAllowed": true,
+      "nativeQualityLabelAllowed": false,
+      "requiredEvidence": [
+        "project ingestion artifact",
+        "XAML diagnostics",
+        "run.json",
+        "tree.json"
+      ]
+    },
+    {
+      "id": "L2",
+      "name": "Supported controls render at usable harness quality",
+      "claim": "Supported and partial public component rows have recognizable source-level harness output with native reference provenance where visual.",
+      "sourceLevelProductionLabelAllowed": true,
+      "nativeQualityLabelAllowed": false,
+      "requiredEvidence": [
+        "component-evidence.json",
+        "component-quality-dashboard.json",
+        "native-reference-readiness.json",
+        "manual inspection metadata"
+      ]
+    },
+    {
+      "id": "L3",
+      "name": "Interaction and accessibility evidence",
+      "claim": "Supported interactive controls expose deterministic script results and accessibility state for consumer CI assertions.",
+      "sourceLevelProductionLabelAllowed": true,
+      "nativeQualityLabelAllowed": false,
+      "requiredEvidence": [
+        "interactions.json",
+        "accessibility.json",
+        "supported action coverage",
+        "strict failure objects"
+      ]
+    },
+    {
+      "id": "L4",
+      "name": "State and theme coverage",
+      "claim": "Supported controls carry light, dark, high-contrast, disabled, focused, checked, selected, invalid, and popup-open evidence where applicable.",
+      "sourceLevelProductionLabelAllowed": true,
+      "nativeQualityLabelAllowed": false,
+      "requiredEvidence": [
+        "state coverage matrix",
+        "theme scenario artifacts",
+        "component dashboard state status",
+        "interaction state evidence"
+      ]
+    },
+    {
+      "id": "L5",
+      "name": "Native-quality selected subset",
+      "claim": "Specific promoted component rows meet native-backed review gates; this level applies only to those rows, not to the whole renderer.",
+      "sourceLevelProductionLabelAllowed": true,
+      "nativeQualityLabelAllowed": true,
+      "requiredEvidence": [
+        "native WinUI reference crop",
+        "macOS runtime crop",
+        "component diff crop",
+        "native-quality grade",
+        "reviewer inspection notes"
+      ]
+    },
+    {
+      "id": "L6",
+      "name": "Consumer package and release readiness",
+      "claim": "Package, quick-start, release candidate, privacy, benchmark, flake, and rollback evidence are present for a product release.",
+      "sourceLevelProductionLabelAllowed": true,
+      "nativeQualityLabelAllowed": false,
+      "requiredEvidence": [
+        "product-evidence.json",
+        "release-candidate.json",
+        "package dry run",
+        "release-check",
+        "private-name scan"
+      ]
+    }
+  ],
+  "catalogDispositionMappings": [
+    {
+      "catalogStatuses": [
+        "supported"
+      ],
+      "disposition": "source-level-production-implementation",
+      "minimumCompatibilityLevel": "L2",
+      "releaseGate": "implemented-support-with-required-evidence",
+      "sourceLevelProductionLabel": "source-level-production-implementation",
+      "nativeQualityLabelAllowed": false,
+      "evidenceRequirement": "Tests, fixtures, macOS artifacts, native WinUI reference when visual, interaction/accessibility evidence where applicable, and docs."
+    },
+    {
+      "catalogStatuses": [
+        "partial"
+      ],
+      "disposition": "bounded-source-level-production-implementation",
+      "minimumCompatibilityLevel": "L2",
+      "releaseGate": "bounded-support-with-exact-limits-and-required-evidence",
+      "sourceLevelProductionLabel": "bounded-source-level-production-implementation",
+      "nativeQualityLabelAllowed": false,
+      "evidenceRequirement": "Same source-level evidence bar as supported entries, plus exact partial-boundary wording and diagnostics for missing behavior."
+    },
+    {
+      "catalogStatuses": [
+        "planned"
+      ],
+      "disposition": "production-ready-diagnostic-exclusion-until-promoted",
+      "minimumCompatibilityLevel": "L0",
+      "releaseGate": "deterministic-diagnostic-with-promotion-exit-criteria",
+      "sourceLevelProductionLabel": "diagnostic-exclusion",
+      "nativeQualityLabelAllowed": false,
+      "evidenceRequirement": "Deterministic diagnostic, documentation, owner treatment, and promotion exit criteria."
+    },
+    {
+      "catalogStatuses": [
+        "windows-only"
+      ],
+      "disposition": "production-ready-windows-only-exclusion",
+      "minimumCompatibilityLevel": "L0",
+      "releaseGate": "deterministic-windows-only-exclusion-with-support-policy",
+      "sourceLevelProductionLabel": "windows-only-exclusion",
+      "nativeQualityLabelAllowed": false,
+      "evidenceRequirement": "Deterministic Windows-only exclusion, Windows validation where applicable, and support-policy wording."
+    },
+    {
+      "catalogStatuses": [
+        "not supported"
+      ],
+      "disposition": "production-ready-non-goal-exclusion",
+      "minimumCompatibilityLevel": "L0",
+      "releaseGate": "deterministic-non-goal-exclusion-with-support-policy",
+      "sourceLevelProductionLabel": "non-goal-exclusion",
+      "nativeQualityLabelAllowed": false,
+      "evidenceRequirement": "Deterministic non-goal diagnostic and support-policy wording."
+    }
+  ]
+}

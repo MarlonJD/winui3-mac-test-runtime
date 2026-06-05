@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "0.2",
+  "renderer": "skia-v2-png",
+  "filePath": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/screenshots/mac-runtime.png",
+  "width": 1028,
+  "height": 720,
+  "isNonBlank": true,
+  "fontDiagnostics": {
+    "text": {
+      "role": "text",
+      "requestedFamilies": [
+        "Segoe UI Variable",
+        "Segoe UI"
+      ],
+      "resolvedFamily": "Helvetica",
+      "requestedFamilyAvailable": false,
+      "fallbackMode": "platform-fallback",
+      "resolvedSource": "platform-default"
+    },
+    "symbol": {
+      "role": "symbol",
+      "requestedFamilies": [
+        "Segoe Fluent Icons",
+        "Segoe MDL2 Assets"
+      ],
+      "resolvedFamily": "Helvetica",
+      "requestedFamilyAvailable": false,
+      "fallbackMode": "text-font-fallback",
+      "resolvedSource": "text-font-fallback"
+    }
+  }
+}

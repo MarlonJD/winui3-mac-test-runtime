@@ -27,5 +27,61 @@
       "key": "Title",
       "parameter": "Review required"
     }
+  ],
+  "requirements": [
+    {
+      "component": "NavigationView",
+      "kind": "control",
+      "target": "RootNavigation",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "The skia-v2 renderer approximates the WinUI NavigationView pane and selected route; native animation, compact behavior, and full keyboarding remain gaps." ]
+    },
+    {
+      "component": "ListView",
+      "kind": "control",
+      "target": "PolicyListView",
+      "expectedStatus": "partial",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "ListView item containers and deferred-decision selection chrome are simplified; virtualization and templates remain gaps." ]
+    },
+    {
+      "component": "CommandBar",
+      "kind": "control",
+      "target": "DecisionCommandBar",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "CommandBar chrome is approximated; overflow, pointer states, and native spacing remain gaps." ]
+    },
+    {
+      "component": "AppBarButton",
+      "kind": "control",
+      "target": "DeferCommand",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "AppBarButton label and icon chrome are approximated; native overflow and focus behavior remain gaps." ]
+    },
+    {
+      "component": "InfoBar",
+      "kind": "control",
+      "target": "WorkbenchStatus",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "InfoBar severity chrome is approximated; close button and action area are not modeled." ]
+    },
+    {
+      "component": "TextBox",
+      "kind": "control",
+      "target": "PolicySearchBox",
+      "expectedStatus": "supported",
+      "minimumVisualGrade": "usable",
+      "visualGrade": "usable",
+      "knownGaps": [ "TextBox chrome is approximated; caret, selection, and native validation visuals remain gaps." ]
+    }
   ]
 }

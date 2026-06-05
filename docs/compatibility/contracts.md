@@ -14,6 +14,13 @@ documented public source-level harness subset. It does not run Windows
 binaries, `.msix` packages, or arbitrary `.exe` files on macOS, and it does not
 claim complete WinUI 3 behavior or native-quality visual rendering.
 
+The productization compatibility-level model is tracked separately in
+`docs/compatibility/compatibility-levels.json` and
+`docs/compatibility/compatibility-levels.md`. Its current level is L2 for the
+public source-level harness subset: source-level production labels are backed by
+catalog, artifact, component evidence, and native reference provenance where
+visual, while native-quality labels remain per-row promotions only.
+
 The macOS runtime contract is Wine-free: application code is compiled as managed
 .NET, loaded into a managed macOS process, and exercised through clean-room
 `Microsoft.UI.Xaml` facade types.

@@ -20,12 +20,14 @@ a new schema version and documentation update.
 | `component-inspection.json` | `0.2` |
 | `component-inspection-template.json` | `0.2` |
 | `docs/visual-parity/component-quality-dashboard.json` | `0.3` |
+| `docs/visual-parity/state-coverage-matrix.json` | `0.1` |
+| `docs/visual-parity/native-quality-family-tranches.json` | `0.1` |
 | `docs/visual-parity/public-visual-review-index.json` | `0.2` |
 | `native-reference-import.json` | `0.2` |
 | `resource-failures.json` | `0.1` |
 | `unsupported-apis.json` | `0.1` |
 | `project-ingestion.json` | `0.1` |
-| `interactions.json` | `0.2` |
+| `interactions.json` | `0.3` |
 | `snapshot.json` | `0.1`; `0.2` for `skia-v2` PNG snapshots |
 | `visual/visual-run.json` | `0.1` |
 | `visual/visual-review.json` | `0.3` |
@@ -62,10 +64,11 @@ a new schema version and documentation update.
   references.
 - `interactions.json`: emitted when `--script` or scenario interactions are
   provided; records every scripted action, semantic selector kind, target type,
-  expected/actual values, and observed target state. Supported action types are
-  `click`, `focus`, `typeText`, `selectItem`, `assertProperty`,
+  expected/actual values, observed target state, and before/after state for
+  state-changing actions. Supported action types are `click`, `focus`,
+  `typeText`, `selectItem`, `assertProperty`, `assertAccessibilityState`,
   `selectNavigation`, `navigateFrame`, `invokeAccelerator`, `openPopup`,
-  `dismissPopup`, and `invokeMenuItem`.
+  `dismissPopup`, `invokeMenuItem`, and `waitForIdle`.
 - UI automation evidence currently comes from `tree.json`,
   `accessibility.json`, `interactions.json`, screenshots, component crops, and
   pixel diffs. FlaUI 5.0 + FlaUI.UIA3 is the native Windows validation target,
@@ -116,6 +119,23 @@ a new schema version and documentation update.
   inspection template, embeds compact native/macOS/diff crop previews with
   component diff metrics, and carries the current component-quality dashboard
   blocker without promoting the row.
+- `docs/visual-parity/state-coverage-matrix.json`: generated state,
+  interaction, and accessibility matrix for `productionStateCoverage`
+  requirements. It joins checked-in component evidence with required states and
+  labels default-only or missing-default evidence so source-level usability is
+  not confused with production-ready state coverage. Requirement rows also name
+  the strict-sweep component evidence, accessibility, and visual-run artifact
+  paths that the `public-product` evidence gate must validate.
+- `docs/visual-parity/native-quality-family-tranches.json`: generated
+  Milestone C family queue. It groups component evidence rows into selection
+  controls, button/link, dropdown/menu, text/forms, navigation/list, and
+  status/progress families, then blocks family promotion while native-quality
+  inspection evidence, crop-threshold closure, or broader state coverage is
+  missing. Family rows publish state requirement counts, missing requirement
+  counts, required state names, and strict-sweep scenario names so the Milestone
+  C work queue stays linked to the Milestone D state matrix. For
+  `not-evaluated` rows with failed component crops, the row `remainingBlocker`
+  includes the failed crop status and threshold-exceeding metric values.
 - `visual/windows-reference.png`: copy of the Windows-hosted reference
   screenshot captured by the public workflow or supplied with `--reference`.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not

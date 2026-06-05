@@ -11,6 +11,7 @@ internal sealed record VisualRunReport(
     string OsImage,
     string Renderer,
     string RendererVersion,
+    SnapshotFontDiagnostics? FontDiagnostics,
     VisualViewport Viewport,
     double Scale,
     string Theme,
@@ -132,7 +133,8 @@ internal static class VisualArtifacts
                 settings.Scenario,
                 result.Tree,
                 await ReadInteractionReportAsync(result.InteractionJsonPath, cancellationToken),
-                componentMetrics);
+                componentMetrics,
+                result.Snapshot.FontDiagnostics);
             componentEvidence = ComponentCropper.WriteCrops(
                 componentEvidence,
                 runtimePath,
@@ -167,6 +169,7 @@ internal static class VisualArtifacts
                 Environment.OSVersion.VersionString,
             Renderer: settings.Renderer,
             RendererVersion: result.Snapshot.SchemaVersion,
+            FontDiagnostics: result.Snapshot.FontDiagnostics,
             Viewport: settings.Viewport,
             Scale: settings.Scale,
             Theme: settings.Theme,

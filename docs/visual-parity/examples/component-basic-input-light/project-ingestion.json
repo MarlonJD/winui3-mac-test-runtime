@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "0.1",
+  "status": "passed",
+  "sourceProjectPath": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+  "shadowProjectPath": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/shadow-build/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+  "isShadowBuild": true,
+  "targetFramework": "net8.0-windows10.0.19041.0",
+  "isWindowsTargetedWinUI": true,
+  "includedFiles": [
+    {
+      "path": "App.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "App.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "MainWindow.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "MainWindow.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "NativeControlSamples.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "NativeLaunchOptions.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "NativeReferenceTargetExporter.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "Pages/BasicInputPage.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "Pages/BasicInputPage.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "Pages/CollectionsPage.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "Pages/CollectionsPage.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "Pages/CommandsMenusPage.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "Pages/CommandsMenusPage.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "Pages/DialogsFlyoutsPage.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "Pages/DialogsFlyoutsPage.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "Pages/LayoutMediaPage.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "Pages/LayoutMediaPage.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "Pages/NavigationWorkbenchPage.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "Pages/NavigationWorkbenchPage.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "Pages/StatusPickersPage.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "Pages/StatusPickersPage.xaml.cs",
+      "kind": "compile"
+    },
+    {
+      "path": "Pages/TextFormsPage.xaml",
+      "kind": "xaml"
+    },
+    {
+      "path": "Pages/TextFormsPage.xaml.cs",
+      "kind": "compile"
+    }
+  ],
+  "excludedWindowsOnlyItems": [
+    {
+      "kind": "PackageReference",
+      "include": "Microsoft.WindowsAppSDK",
+      "status": "windows-only",
+      "reason": "Windows App SDK build targets are replaced by the macOS compatibility facade in the shadow project."
+    }
+  ],
+  "catalogStatuses": [
+    {
+      "id": "project-item:ApplicationDefinition",
+      "kind": "project-item",
+      "api": "ApplicationDefinition",
+      "status": "supported",
+      "source": "App.xaml"
+    },
+    {
+      "id": "project-item:Microsoft.WindowsAppSDK",
+      "kind": "project-item",
+      "api": "Microsoft.WindowsAppSDK",
+      "status": "windows-only",
+      "source": "Microsoft.WindowsAppSDK"
+    },
+    {
+      "id": "project-item:Page",
+      "kind": "project-item",
+      "api": "Page",
+      "status": "supported",
+      "source": "*.xaml"
+    },
+    {
+      "id": "project-property:TargetFramework.windows",
+      "kind": "project-property",
+      "api": "TargetFramework.windows",
+      "status": "supported",
+      "source": "net8.0-windows10.0.19041.0"
+    },
+    {
+      "id": "project-property:UseWinUI",
+      "kind": "project-property",
+      "api": "UseWinUI",
+      "status": "supported",
+      "source": "UseWinUI"
+    },
+    {
+      "id": "project-property:WindowsPackageType",
+      "kind": "project-property",
+      "api": "WindowsPackageType",
+      "status": "partial",
+      "source": "WindowsPackageType"
+    }
+  ],
+  "unsupportedFeatures": [],
+  "xamlDiagnostics": []
+}

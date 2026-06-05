@@ -36,7 +36,9 @@ public sealed record InteractionStepResult(
     string? Selector = null,
     string? SelectorKind = null,
     string? TargetType = null,
-    IReadOnlyDictionary<string, string?>? ObservedState = null);
+    IReadOnlyDictionary<string, string?>? ObservedState = null,
+    IReadOnlyDictionary<string, string?>? BeforeState = null,
+    IReadOnlyDictionary<string, string?>? AfterState = null);
 
 public sealed class InteractionScriptRunner
 {
@@ -84,7 +86,9 @@ public sealed class InteractionScriptRunner
                 "openPopup" => OpenPopup(window, action, index),
                 "dismissPopup" => DismissPopup(window, action, index),
                 "invokeMenuItem" => InvokeMenuItem(window, action, index),
+                "waitForIdle" => WaitForIdle(window, action, index),
                 "assertProperty" => AssertProperty(window, action, index),
+                "assertAccessibilityState" => AssertAccessibilityState(window, action, index),
                 _ => Failed(index, action, $"Unsupported action type '{action.Type}'.")
             };
         }
@@ -102,8 +106,10 @@ public sealed class InteractionScriptRunner
             return Failed(index, action, "Target is not a Button.", resolution: target);
         }
 
+        var beforeState = BuildObservedState(button);
         button.PerformClick();
-        return Passed(index, action, resolution: target);
+        var afterState = BuildObservedState(button);
+        return Passed(index, action, resolution: target, beforeState: beforeState, afterState: afterState);
     }
 
     private static InteractionStepResult Focus(Window window, InteractionAction action, int index)
@@ -114,8 +120,10 @@ public sealed class InteractionScriptRunner
             return Failed(index, action, "Target is not a FrameworkElement.", resolution: target);
         }
 
+        var beforeState = BuildObservedState(frameworkElement);
         frameworkElement.Focus(FocusState.Programmatic);
-        return Passed(index, action, resolution: target);
+        var afterState = BuildObservedState(frameworkElement);
+        return Passed(index, action, resolution: target, beforeState: beforeState, afterState: afterState);
     }
 
     private static InteractionStepResult TypeText(Window window, InteractionAction action, int index)
@@ -126,9 +134,11 @@ public sealed class InteractionScriptRunner
             return Failed(index, action, "Target is not a TextBox.", resolution: target);
         }
 
+        var beforeState = BuildObservedState(textBox);
         textBox.Text = action.Parameter ?? string.Empty;
         BindingOperations.UpdateSource(textBox, nameof(TextBox.Text));
-        return Passed(index, action, expected: action.Parameter ?? string.Empty, actual: textBox.Text, resolution: target);
+        var afterState = BuildObservedState(textBox);
+        return Passed(index, action, expected: action.Parameter ?? string.Empty, actual: textBox.Text, resolution: target, beforeState: beforeState, afterState: afterState);
     }
 
     private static InteractionStepResult SelectItem(Window window, InteractionAction action, int index)
@@ -142,8 +152,10 @@ public sealed class InteractionScriptRunner
                 return Failed(index, action, $"Item '{action.Parameter}' was not found.", resolution: target);
             }
 
+            var beforeState = BuildObservedState(comboBox);
             comboBox.SelectedIndex = selectedIndex;
-            return Passed(index, action, expected: action.Parameter, actual: comboBox.SelectedItem?.ToString(), resolution: target);
+            var afterState = BuildObservedState(comboBox);
+            return Passed(index, action, expected: action.Parameter, actual: comboBox.SelectedItem?.ToString(), resolution: target, beforeState: beforeState, afterState: afterState);
         }
 
         if (target.Element is ListView listView)
@@ -154,8 +166,10 @@ public sealed class InteractionScriptRunner
                 return Failed(index, action, $"Item '{action.Parameter}' was not found.", resolution: target);
             }
 
+            var beforeState = BuildObservedState(listView);
             listView.SelectedIndex = selectedIndex;
-            return Passed(index, action, expected: action.Parameter, actual: listView.SelectedItem?.ToString(), resolution: target);
+            var afterState = BuildObservedState(listView);
+            return Passed(index, action, expected: action.Parameter, actual: listView.SelectedItem?.ToString(), resolution: target, beforeState: beforeState, afterState: afterState);
         }
 
         return Failed(index, action, "Target is not a selectable item control.", resolution: target);
@@ -178,8 +192,10 @@ public sealed class InteractionScriptRunner
             return Failed(index, action, "NavigationView parent was not found.", resolution: target);
         }
 
+        var beforeState = BuildObservedState(item);
         navigationView.Select(item);
-        return Passed(index, action, resolution: target);
+        var afterState = BuildObservedState(item);
+        return Passed(index, action, resolution: target, beforeState: beforeState, afterState: afterState);
     }
 
     private InteractionStepResult NavigateFrame(Window window, InteractionAction action, int index)
@@ -201,8 +217,10 @@ public sealed class InteractionScriptRunner
             return Failed(index, action, $"Page type '{action.PageType}' was not found.", resolution: target);
         }
 
+        var beforeState = BuildObservedState(frame);
         frame.Navigate(pageType, action.Parameter);
-        return Passed(index, action, resolution: target);
+        var afterState = BuildObservedState(frame);
+        return Passed(index, action, resolution: target, beforeState: beforeState, afterState: afterState);
     }
 
     private static InteractionStepResult InvokeAccelerator(Window window, InteractionAction action, int index)
@@ -229,15 +247,19 @@ public sealed class InteractionScriptRunner
     private static InteractionStepResult OpenPopup(Window window, InteractionAction action, int index)
     {
         var popup = RequirePopup(window, action);
+        var beforeState = BuildObservedState(popup.Element);
         SetPopupOpenState(popup.Element!, isOpen: true);
-        return Passed(index, action, $"Opened {SimpleType(popup.Element!)}.", expected: "True", actual: GetPopupOpenState(popup.Element!).ToString(), resolution: popup);
+        var afterState = BuildObservedState(popup.Element);
+        return Passed(index, action, $"Opened {SimpleType(popup.Element!)}.", expected: "True", actual: GetPopupOpenState(popup.Element!).ToString(), resolution: popup, beforeState: beforeState, afterState: afterState);
     }
 
     private static InteractionStepResult DismissPopup(Window window, InteractionAction action, int index)
     {
         var popup = RequirePopup(window, action);
+        var beforeState = BuildObservedState(popup.Element);
         SetPopupOpenState(popup.Element!, isOpen: false);
-        return Passed(index, action, $"Dismissed {SimpleType(popup.Element!)}.", expected: "False", actual: GetPopupOpenState(popup.Element!).ToString(), resolution: popup);
+        var afterState = BuildObservedState(popup.Element);
+        return Passed(index, action, $"Dismissed {SimpleType(popup.Element!)}.", expected: "False", actual: GetPopupOpenState(popup.Element!).ToString(), resolution: popup, beforeState: beforeState, afterState: afterState);
     }
 
     private static InteractionStepResult InvokeMenuItem(Window window, InteractionAction action, int index)
@@ -253,10 +275,12 @@ public sealed class InteractionScriptRunner
                 return Failed(index, action, $"Menu item '{expected}' was not found.", resolution: popup);
             }
 
+            var beforeState = BuildObservedState(menuFlyout);
             menuFlyout.IsOpen = true;
             menuFlyout.InvokedItem = item.Text;
             item.PerformClick();
-            return Passed(index, action, $"Invoked menu item '{item.Text}'.", expected: expected, actual: menuFlyout.InvokedItem, resolution: popup);
+            var afterState = BuildObservedState(menuFlyout);
+            return Passed(index, action, $"Invoked menu item '{item.Text}'.", expected: expected, actual: menuFlyout.InvokedItem, resolution: popup, beforeState: beforeState, afterState: afterState);
         }
 
         if (popup.Element is CommandBarFlyout commandBarFlyout)
@@ -270,13 +294,21 @@ public sealed class InteractionScriptRunner
                 return Failed(index, action, $"Command '{expected}' was not found.", resolution: popup);
             }
 
+            var beforeState = BuildObservedState(commandBarFlyout);
             commandBarFlyout.IsOpen = true;
             commandBarFlyout.InvokedCommand = command.Label;
             command.PerformClick();
-            return Passed(index, action, $"Invoked command '{command.Label}'.", expected: expected, actual: commandBarFlyout.InvokedCommand, resolution: popup);
+            var afterState = BuildObservedState(commandBarFlyout);
+            return Passed(index, action, $"Invoked command '{command.Label}'.", expected: expected, actual: commandBarFlyout.InvokedCommand, resolution: popup, beforeState: beforeState, afterState: afterState);
         }
 
         return Failed(index, action, $"Target popup '{SimpleType(popup.Element!)}' does not expose invokable menu items.", resolution: popup);
+    }
+
+    private static InteractionStepResult WaitForIdle(Window window, InteractionAction action, int index)
+    {
+        BindingOperations.RefreshTree(window);
+        return Passed(index, action, "Idle tree refreshed.");
     }
 
     private static InteractionStepResult AssertProperty(Window window, InteractionAction action, int index)
@@ -298,6 +330,29 @@ public sealed class InteractionScriptRunner
         return string.Equals(actual, expected, StringComparison.Ordinal)
             ? Passed(index, action, expected: expected, actual: actual, resolution: target)
             : Failed(index, action, $"Expected '{expected}' but found '{actual}'.", expected, actual, resolution: target);
+    }
+
+    private static InteractionStepResult AssertAccessibilityState(Window window, InteractionAction action, int index)
+    {
+        var target = RequireTarget(window, action);
+        if (string.IsNullOrWhiteSpace(action.Key))
+        {
+            return Failed(index, action, "assertAccessibilityState requires key.", resolution: target);
+        }
+
+        var accessibility = AccessibilityTreeBuilder.Build(UiTreeBuilder.Build(window));
+        var node = FindAccessibilityNode(accessibility.Root, target);
+        if (node is null)
+        {
+            return Failed(index, action, $"Accessibility node '{action.Target}' was not found.", resolution: target);
+        }
+
+        var observedState = BuildAccessibilityState(node);
+        var actual = ReadAccessibilityValue(node, action.Key) ?? string.Empty;
+        var expected = action.Parameter ?? string.Empty;
+        return string.Equals(actual, expected, StringComparison.Ordinal)
+            ? Passed(index, action, expected: expected, actual: actual, resolution: target, observedState: observedState)
+            : Failed(index, action, $"Expected accessibility {action.Key} '{expected}' but found '{actual}'.", expected, actual, resolution: target, observedState: observedState);
     }
 
     private static int FindItemIndex(IList<object?> items, string? expected)
@@ -414,9 +469,13 @@ public sealed class InteractionScriptRunner
         string? expected = null,
         string? actual = null,
         ElementQueryResult? resolution = null,
-        object? resolvedElement = null)
+        object? resolvedElement = null,
+        IReadOnlyDictionary<string, string?>? observedState = null,
+        IReadOnlyDictionary<string, string?>? beforeState = null,
+        IReadOnlyDictionary<string, string?>? afterState = null)
     {
         var element = resolvedElement ?? resolution?.Element;
+        observedState ??= afterState ?? BuildObservedState(element);
         return new InteractionStepResult(
             index,
             action.Type,
@@ -428,7 +487,9 @@ public sealed class InteractionScriptRunner
             resolution?.Selector ?? action.Target,
             resolution?.SelectorKind ?? InferSelectorKind(action.Target),
             element is null ? null : SimpleType(element),
-            BuildObservedState(element));
+            observedState,
+            beforeState,
+            afterState);
     }
 
     private static InteractionStepResult Failed(
@@ -438,9 +499,13 @@ public sealed class InteractionScriptRunner
         string? expected = null,
         string? actual = null,
         ElementQueryResult? resolution = null,
-        object? resolvedElement = null)
+        object? resolvedElement = null,
+        IReadOnlyDictionary<string, string?>? observedState = null,
+        IReadOnlyDictionary<string, string?>? beforeState = null,
+        IReadOnlyDictionary<string, string?>? afterState = null)
     {
         var element = resolvedElement ?? resolution?.Element;
+        observedState ??= afterState ?? BuildObservedState(element);
         return new InteractionStepResult(
             index,
             action.Type,
@@ -452,7 +517,9 @@ public sealed class InteractionScriptRunner
             resolution?.Selector ?? action.Target,
             resolution?.SelectorKind ?? InferSelectorKind(action.Target),
             element is null ? null : SimpleType(element),
-            BuildObservedState(element));
+            observedState,
+            beforeState,
+            afterState);
     }
 
     private static string? InferSelectorKind(string? selector)
@@ -541,6 +608,97 @@ public sealed class InteractionScriptRunner
         }
 
         return state;
+    }
+
+    private static AccessibilityNode? FindAccessibilityNode(AccessibilityNode root, ElementQueryResult target)
+    {
+        if (MatchesAccessibilityNode(root, target))
+        {
+            return root;
+        }
+
+        foreach (var child in root.Children)
+        {
+            var match = FindAccessibilityNode(child, target);
+            if (match is not null)
+            {
+                return match;
+            }
+        }
+
+        return null;
+    }
+
+    private static bool MatchesAccessibilityNode(AccessibilityNode node, ElementQueryResult target)
+    {
+        if (target.Element is FrameworkElement frameworkElement)
+        {
+            if (!string.IsNullOrWhiteSpace(frameworkElement.Name) &&
+                string.Equals(node.Name, frameworkElement.Name, StringComparison.Ordinal))
+            {
+                return true;
+            }
+
+            var automationId = AutomationProperties.GetAutomationId(frameworkElement);
+            if (!string.IsNullOrWhiteSpace(automationId) &&
+                string.Equals(node.AutomationId, automationId, StringComparison.Ordinal))
+            {
+                return true;
+            }
+        }
+
+        return target.SelectorKind switch
+        {
+            "name" => string.Equals(node.Name, StripSelectorPrefix(target.Selector, "name="), StringComparison.Ordinal),
+            "automationId" => string.Equals(node.AutomationId, StripSelectorPrefix(target.Selector, "automationId="), StringComparison.Ordinal),
+            _ => false
+        };
+    }
+
+    private static string StripSelectorPrefix(string selector, string prefix)
+    {
+        return selector.StartsWith(prefix, StringComparison.Ordinal)
+            ? selector[prefix.Length..]
+            : selector;
+    }
+
+    private static string? ReadAccessibilityValue(AccessibilityNode node, string key)
+    {
+        return key switch
+        {
+            "role" => node.Role,
+            "name" => node.Name,
+            "automationId" => node.AutomationId,
+            "label" => node.Label,
+            "helpText" => node.HelpText,
+            "isFocused" => node.IsFocused.ToString(),
+            "isFocusable" => node.IsFocusable?.ToString(),
+            "isEnabled" => node.IsEnabled?.ToString(),
+            "isChecked" => node.IsChecked?.ToString(),
+            "isSelected" => node.IsSelected?.ToString(),
+            "isExpanded" => node.IsExpanded?.ToString(),
+            "value" => node.Value,
+            _ => null
+        };
+    }
+
+    private static IReadOnlyDictionary<string, string?> BuildAccessibilityState(AccessibilityNode node)
+    {
+        return new Dictionary<string, string?>(StringComparer.Ordinal)
+        {
+            ["role"] = node.Role,
+            ["name"] = node.Name,
+            ["automationId"] = node.AutomationId,
+            ["label"] = node.Label,
+            ["helpText"] = node.HelpText,
+            ["isFocused"] = node.IsFocused.ToString(),
+            ["isFocusable"] = node.IsFocusable?.ToString(),
+            ["isEnabled"] = node.IsEnabled?.ToString(),
+            ["isChecked"] = node.IsChecked?.ToString(),
+            ["isSelected"] = node.IsSelected?.ToString(),
+            ["isExpanded"] = node.IsExpanded?.ToString(),
+            ["value"] = node.Value
+        };
     }
 }
 

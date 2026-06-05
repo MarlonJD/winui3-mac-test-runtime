@@ -80,6 +80,36 @@
     },
     {
       "productionPriority": "Ring 0",
+      "state": "dark",
+      "scenario": "component-layout-media-dark",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-dark.json",
+      "components": [
+        "ThemeResource"
+      ],
+      "interactionRequirement": "dark theme resource resolution",
+      "accessibilityRequirement": "themed resource text remains exposed with a stable accessible name",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [
+        "Native Windows dark theme coverage is present; macOS theme resource fidelity is not production-rendered yet."
+      ]
+    },
+    {
+      "productionPriority": "Ring 0",
+      "state": "high-contrast",
+      "scenario": "component-layout-media-high-contrast",
+      "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-high-contrast.json",
+      "components": [
+        "ThemeResource"
+      ],
+      "interactionRequirement": "high-contrast theme resource resolution",
+      "accessibilityRequirement": "high-contrast themed resource text remains exposed with a stable accessible name",
+      "minimumVisualGrade": "not-rendered",
+      "knownGaps": [
+        "Native Windows high-contrast coverage is present; macOS high-contrast resource fidelity is not production-rendered yet."
+      ]
+    },
+    {
+      "productionPriority": "Ring 0",
       "state": "focused",
       "scenario": "component-text-forms-focused-light",
       "path": "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-focused-light.json",
@@ -904,7 +934,7 @@
       "interactionCoverage": "static link affordance export",
       "visualEvidence": "usable",
       "knownGaps": [
-        "skia-v2 renders visible link text and underline chrome; navigation behavior, visited state, focus visuals, automation invoke state, and full native template visuals remain gaps."
+        "skia-v2 renders visible centered link text; navigation behavior, visited state, focus visuals, disabled/high-contrast states, automation invoke state, and full native template visuals remain gaps."
       ]
     },
     {

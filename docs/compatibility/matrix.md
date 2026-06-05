@@ -30,6 +30,14 @@ Levels 0 through 7 are release-gate-ready for the documented public
 source-level harness subset. They are not the final arbitrary WinUI 3 macOS
 development scope and do not claim native-quality visual rendering.
 
+The productization compatibility-level artifact in
+`compatibility-levels.json` summarizes the current product gate as L2 for the
+documented public source-level harness subset. L2 maps the `supported` and
+`partial` catalog dispositions to usable source-level harness evidence while
+keeping `planned`, `windows-only`, and `not supported` entries as L0 diagnostic,
+Windows-only, or non-goal exclusions. L5 is reserved for selected component rows
+with native-quality evidence and is not implied by L2 or package readiness.
+
 ## Production Compatibility Tiers
 
 | Tier | Claim | Evidence required |
@@ -82,9 +90,9 @@ See `component-support.md` for a readable component-by-component support table.
 | `project-ingestion.json` | supported | Versioned envelope for Windows-targeted WinUI compat shadow builds, including source files, excluded Windows-only items, catalog statuses, unsupported project features, and XAML diagnostics. |
 | `diagnostics.sarif` | supported | Warning diagnostics derived from binding, resource, and unavailable API reports with stable `WINUI3MAC001`, `WINUI3MAC002`, and `WINUI3MAC003` rule IDs. |
 | Scripted click/focus actions | supported | Name-based and automation ID-based interaction script actions. |
-| Scripted text entry, item selection, and assertions | supported | `typeText`, `selectItem`, and `assertProperty` actions emit deterministic pass/fail results. |
+| Scripted text entry, item selection, and assertions | supported | `typeText`, `selectItem`, `assertProperty`, `assertAccessibilityState`, and `waitForIdle` actions emit deterministic pass/fail results with before/after state for state-changing actions. |
 | Scripted popup actions | partial | `openPopup`, `dismissPopup`, and `invokeMenuItem` support the documented `Button.Flyout`, `MenuFlyout`, `CommandBarFlyout`, `ContentDialog`, `Flyout`, and `ToolTip` smoke subset. |
-| Versioned interaction scripts | supported | Script input accepts `schemaVersion: 0.1`; reports emit `schemaVersion: 0.2` with selector kind, target type, expected/actual values, and observed state. |
+| Versioned interaction scripts | supported | Script input accepts `schemaVersion: 0.1`; reports emit `schemaVersion: 0.3` with selector kind, target type, expected/actual values, observed state, and before/after state for state-changing actions. |
 | Keyboard accelerators | partial | Headless accelerator model exists; broader routing is planned. |
 | Snapshot output | partial | Deterministic SVG fallback and Skia-backed PNG output are available for the supported tree subset. |
 | Scenario JSON visual runs | supported | `--scenario`, `--viewport`, `--scale`, `--theme`, `--strict-visual`, `--reference`, and `--diff-output` drive the strict path. |

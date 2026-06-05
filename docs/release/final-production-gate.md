@@ -39,6 +39,17 @@ source-level WinUI 3 harness readiness for the documented public subset. Visual
 renderer quality needs a separate renderer-fidelity plan before any stronger
 visual claim.
 
+Milestone A adds `winui3-mac-runner product-evidence` as the batch evidence
+entry point. The `strict-scenario-sweep` profile runs every public
+`skia-v2 --strict-visual` scenario and writes per-scenario artifacts; the
+`public-product` profile writes `product-evidence.json` and
+`product-evidence.md`, checks freshness for source-level evidence artifacts,
+the state coverage matrix, the native-quality family tranche queue, verifies
+attached strict-sweep component and accessibility evidence for
+`productionStateCoverage` scenarios, validates accessibility target/state
+exports for checked, disabled, focused, and selected state rows, and records
+workflow-backed evidence explicitly instead of claiming it ran locally.
+
 The current release-candidate local gate is no longer blocked by
 `docs/visual-parity/component-quality-dashboard.json`: 58/58 checked-in public
 component rows have the source-level harness evidence required by the bounded
@@ -46,6 +57,26 @@ support claim, and `blockingRowCount` is zero. The dashboard still records 51
 `usable` rows, 7 planned or not-supported `not-rendered` rows, and 58
 `nativeQualityGrade: not-evaluated` rows, so it must not be read as
 native-quality WinUI visual readiness.
+
+`docs/visual-parity/state-coverage-matrix.json` is now part of the local release
+candidate freshness gate. It currently tracks 23 components and 38 state
+requirements, with 15 components still labeled `default-only`; this makes state,
+interaction, and accessibility gaps explicit without expanding the source-level
+support claim. Requirement rows name the strict-sweep component evidence,
+accessibility, and visual-run artifacts that `public-product` validates after
+the sweep, including stale or mismatched release path metadata.
+
+`docs/visual-parity/native-quality-family-tranches.json` is now part of the
+local release evidence freshness gate. It groups the Milestone C work queue into
+selection controls, button/link, dropdown/menu, text/forms, navigation/list,
+and status/progress families. The current artifact records 6/6 families as
+`native-quality-blocked`, so native-quality promotion remains separate from the
+source-level harness release claim. Family summaries include state requirement
+counts, missing requirement counts, required state names, and strict-sweep
+scenario names so Milestone C promotion queues stay tied to Milestone D state
+coverage. Failed component crop thresholds are carried
+as row-level `remainingBlocker` values, which keeps renderer-fidelity blockers
+separate from state, interaction, and accessibility blockers.
 
 `docs/visual-parity/native-reference-readiness.json` remains source-ready:
 58/58 public rows are `ready` and `blockingRowCount` is zero. Native crop
@@ -128,6 +159,12 @@ The `VisualReviewIndexMatchesPublicEvidence` test keeps
 `docs/visual-parity/public-visual-review-index.json` synchronized with the
 checked-in public review crops so manual inspection has a complete, portable
 queue before any native-quality promotion.
+
+The `NativeQualityFamilyTranchesMatchesTrackedArtifact` test keeps
+`docs/visual-parity/native-quality-family-tranches.json` synchronized with the
+component-quality dashboard and state coverage matrix so Milestone C closure is
+tracked by family instead of by isolated component changes, with explicit state
+requirement queues for each family.
 
 `component-inspection-apply` is the only local command path for applying manual
 review results to component evidence. It validates final grades, reviewer

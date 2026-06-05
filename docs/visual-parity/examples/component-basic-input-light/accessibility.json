@@ -1,0 +1,599 @@
+{
+  "schemaVersion": "0.3",
+  "generatedAt": "2026-06-04T22:53:01.152676+00:00",
+  "root": {
+    "role": "window",
+    "isFocused": false,
+    "children": [
+      {
+        "role": "navigation",
+        "name": "RootNavigation",
+        "label": "RootNavigation",
+        "isFocused": false,
+        "isFocusable": true,
+        "isEnabled": true,
+        "isSelected": true,
+        "value": "BasicInputNavigationItem",
+        "children": [
+          {
+            "role": "navigation-item",
+            "name": "BasicInputNavigationItem",
+            "label": "Basic input",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "label": "Basic input",
+                "isFocused": false,
+                "value": "Basic input",
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "navigation-item",
+            "name": "TextFormsNavigationItem",
+            "label": "Text and forms",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "label": "Text and forms",
+                "isFocused": false,
+                "value": "Text and forms",
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "navigation-item",
+            "name": "CollectionsNavigationItem",
+            "label": "Collections",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "label": "Collections",
+                "isFocused": false,
+                "value": "Collections",
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "navigation-item",
+            "name": "DialogsNavigationItem",
+            "label": "Dialogs and flyouts",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "label": "Dialogs and flyouts",
+                "isFocused": false,
+                "value": "Dialogs and flyouts",
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "navigation-item",
+            "name": "CommandsNavigationItem",
+            "label": "Commands and menus",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "label": "Commands and menus",
+                "isFocused": false,
+                "value": "Commands and menus",
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "navigation-item",
+            "name": "NavigationWorkbenchNavigationItem",
+            "label": "Navigation",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "label": "Navigation",
+                "isFocused": false,
+                "value": "Navigation",
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "navigation-item",
+            "name": "StatusPickersNavigationItem",
+            "label": "Status and pickers",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "label": "Status and pickers",
+                "isFocused": false,
+                "value": "Status and pickers",
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "navigation-item",
+            "name": "LayoutMediaNavigationItem",
+            "label": "Layout and media",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "label": "Layout and media",
+                "isFocused": false,
+                "value": "Layout and media",
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "group",
+            "name": "LabPaneFooter",
+            "label": "LabPaneFooter",
+            "isFocused": false,
+            "children": [
+              {
+                "role": "text",
+                "name": "PaneFooterTitle",
+                "label": "Public fixture",
+                "isFocused": false,
+                "value": "Public fixture",
+                "children": []
+              },
+              {
+                "role": "button",
+                "name": "ResetLabButton",
+                "label": "Reset page",
+                "isFocused": false,
+                "isFocusable": true,
+                "isEnabled": true,
+                "children": []
+              }
+            ]
+          },
+          {
+            "role": "frame",
+            "name": "LabFrame",
+            "label": "LabFrame",
+            "isFocused": false,
+            "isFocusable": true,
+            "isEnabled": true,
+            "children": [
+              {
+                "role": "group",
+                "isFocused": false,
+                "children": [
+                  {
+                    "role": "group",
+                    "name": "BasicInputRoot",
+                    "label": "BasicInputRoot",
+                    "isFocused": false,
+                    "children": [
+                      {
+                        "role": "text",
+                        "name": "BasicInputTitle",
+                        "label": "Page 1: Basic input",
+                        "isFocused": false,
+                        "value": "Page 1: Basic input",
+                        "children": []
+                      },
+                      {
+                        "role": "button",
+                        "name": "PrimaryActionButton",
+                        "label": "Run primary action",
+                        "isFocused": false,
+                        "isFocusable": true,
+                        "isEnabled": true,
+                        "children": []
+                      },
+                      {
+                        "role": "toggle-button",
+                        "name": "PinnedToggleButton",
+                        "label": "Pinned",
+                        "isFocused": false,
+                        "isFocusable": true,
+                        "isEnabled": true,
+                        "isChecked": true,
+                        "children": [
+                          {
+                            "role": "group",
+                            "label": "Pinned",
+                            "isFocused": false,
+                            "value": "Pinned",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "role": "checkbox",
+                        "name": "EnabledCheckBox",
+                        "label": "Enabled",
+                        "isFocused": false,
+                        "isFocusable": true,
+                        "isEnabled": true,
+                        "isChecked": true,
+                        "children": [
+                          {
+                            "role": "group",
+                            "label": "Enabled",
+                            "isFocused": false,
+                            "value": "Enabled",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "role": "radio",
+                        "name": "HighPriorityRadioButton",
+                        "label": "High priority",
+                        "isFocused": false,
+                        "isFocusable": true,
+                        "isEnabled": true,
+                        "isChecked": true,
+                        "children": [
+                          {
+                            "role": "group",
+                            "label": "High priority",
+                            "isFocused": false,
+                            "value": "High priority",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "role": "combobox",
+                        "name": "StatusComboBox",
+                        "label": "StatusComboBox",
+                        "isFocused": false,
+                        "isFocusable": true,
+                        "isEnabled": true,
+                        "isSelected": true,
+                        "value": "Closed",
+                        "children": [
+                          {
+                            "role": "group",
+                            "label": "Open",
+                            "isFocused": false,
+                            "value": "Open",
+                            "children": []
+                          },
+                          {
+                            "role": "group",
+                            "label": "In review",
+                            "isFocused": false,
+                            "value": "In review",
+                            "children": []
+                          },
+                          {
+                            "role": "group",
+                            "label": "Closed",
+                            "isFocused": false,
+                            "value": "Closed",
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "role": "text",
+                        "name": "BasicInputStateText",
+                        "label": "Primary action ran",
+                        "isFocused": false,
+                        "value": "Primary action ran",
+                        "children": []
+                      },
+                      {
+                        "role": "group",
+                        "isFocused": false,
+                        "children": [
+                          {
+                            "role": "group",
+                            "name": "DiagnosticRepeatButton",
+                            "label": "DiagnosticRepeatButton",
+                            "isFocused": false,
+                            "isFocusable": true,
+                            "isEnabled": true,
+                            "children": [
+                              {
+                                "role": "group",
+                                "isFocused": false,
+                                "children": [
+                                  {
+                                    "role": "text",
+                                    "label": "RepeatButton",
+                                    "isFocused": false,
+                                    "value": "RepeatButton",
+                                    "children": []
+                                  },
+                                  {
+                                    "role": "group",
+                                    "label": "Repeat action",
+                                    "isFocused": false,
+                                    "isFocusable": true,
+                                    "isEnabled": true,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "role": "group",
+                            "name": "DiagnosticHyperlinkButton",
+                            "label": "DiagnosticHyperlinkButton",
+                            "isFocused": false,
+                            "isFocusable": true,
+                            "isEnabled": true,
+                            "children": [
+                              {
+                                "role": "group",
+                                "isFocused": false,
+                                "children": [
+                                  {
+                                    "role": "text",
+                                    "label": "HyperlinkButton",
+                                    "isFocused": false,
+                                    "value": "HyperlinkButton",
+                                    "children": []
+                                  },
+                                  {
+                                    "role": "group",
+                                    "label": "Open public link",
+                                    "isFocused": false,
+                                    "isFocusable": true,
+                                    "isEnabled": true,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "role": "group",
+                        "isFocused": false,
+                        "children": [
+                          {
+                            "role": "group",
+                            "name": "DiagnosticDropDownButton",
+                            "label": "DiagnosticDropDownButton",
+                            "isFocused": false,
+                            "isFocusable": true,
+                            "isEnabled": true,
+                            "children": [
+                              {
+                                "role": "group",
+                                "isFocused": false,
+                                "children": [
+                                  {
+                                    "role": "text",
+                                    "label": "DropDownButton",
+                                    "isFocused": false,
+                                    "value": "DropDownButton",
+                                    "children": []
+                                  },
+                                  {
+                                    "role": "group",
+                                    "label": "Choose action",
+                                    "isFocused": false,
+                                    "isFocusable": true,
+                                    "isEnabled": true,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "role": "group",
+                            "name": "DiagnosticSplitButton",
+                            "label": "DiagnosticSplitButton",
+                            "isFocused": false,
+                            "isFocusable": true,
+                            "isEnabled": true,
+                            "children": [
+                              {
+                                "role": "group",
+                                "isFocused": false,
+                                "children": [
+                                  {
+                                    "role": "text",
+                                    "label": "SplitButton",
+                                    "isFocused": false,
+                                    "value": "SplitButton",
+                                    "children": []
+                                  },
+                                  {
+                                    "role": "group",
+                                    "label": "Split action",
+                                    "isFocused": false,
+                                    "isFocusable": true,
+                                    "isEnabled": true,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "role": "group",
+                        "isFocused": false,
+                        "children": [
+                          {
+                            "role": "group",
+                            "name": "DiagnosticToggleSplitButton",
+                            "label": "DiagnosticToggleSplitButton",
+                            "isFocused": false,
+                            "isFocusable": true,
+                            "isEnabled": true,
+                            "children": [
+                              {
+                                "role": "group",
+                                "isFocused": false,
+                                "children": [
+                                  {
+                                    "role": "text",
+                                    "label": "ToggleSplitButton",
+                                    "isFocused": false,
+                                    "value": "ToggleSplitButton",
+                                    "children": []
+                                  },
+                                  {
+                                    "role": "group",
+                                    "label": "Toggle split",
+                                    "isFocused": false,
+                                    "isFocusable": true,
+                                    "isEnabled": true,
+                                    "isChecked": true,
+                                    "children": [
+                                      {
+                                        "role": "group",
+                                        "label": "Toggle split",
+                                        "isFocused": false,
+                                        "value": "Toggle split",
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "role": "group",
+                            "name": "DiagnosticSlider",
+                            "label": "DiagnosticSlider",
+                            "isFocused": false,
+                            "isFocusable": true,
+                            "isEnabled": true,
+                            "children": [
+                              {
+                                "role": "group",
+                                "isFocused": false,
+                                "children": [
+                                  {
+                                    "role": "text",
+                                    "label": "Slider",
+                                    "isFocused": false,
+                                    "value": "Slider",
+                                    "children": []
+                                  },
+                                  {
+                                    "role": "group",
+                                    "isFocused": false,
+                                    "isFocusable": true,
+                                    "isEnabled": true,
+                                    "value": "64",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "role": "group",
+                        "isFocused": false,
+                        "children": [
+                          {
+                            "role": "group",
+                            "name": "DiagnosticToggleSwitch",
+                            "label": "DiagnosticToggleSwitch",
+                            "isFocused": false,
+                            "isFocusable": true,
+                            "isEnabled": true,
+                            "children": [
+                              {
+                                "role": "group",
+                                "isFocused": false,
+                                "children": [
+                                  {
+                                    "role": "text",
+                                    "label": "ToggleSwitch",
+                                    "isFocused": false,
+                                    "value": "ToggleSwitch",
+                                    "children": []
+                                  },
+                                  {
+                                    "role": "group",
+                                    "isFocused": false,
+                                    "isFocusable": true,
+                                    "isEnabled": true,
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "role": "group",
+                            "name": "DiagnosticRatingControl",
+                            "label": "DiagnosticRatingControl",
+                            "isFocused": false,
+                            "isFocusable": true,
+                            "isEnabled": true,
+                            "children": [
+                              {
+                                "role": "group",
+                                "isFocused": false,
+                                "children": [
+                                  {
+                                    "role": "text",
+                                    "label": "RatingControl",
+                                    "isFocused": false,
+                                    "value": "RatingControl",
+                                    "children": []
+                                  },
+                                  {
+                                    "role": "group",
+                                    "isFocused": false,
+                                    "isFocusable": true,
+                                    "isEnabled": true,
+                                    "value": "4",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

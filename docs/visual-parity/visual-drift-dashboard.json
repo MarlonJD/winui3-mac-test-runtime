@@ -17,13 +17,13 @@
         "status": "within-target-for-supported-subset",
         "note": "Supported Ring 0 basic input controls are usable; planned rich-input rows remain not-rendered."
       },
-      "wholeScreenDrift": {
-        "gated": false,
-        "changedPixelPercentage": 30.145914,
-        "threshold": 18,
-        "status": "informational-over-threshold",
-        "note": "Superseded by component evidence; cross-platform rasterization difference."
-      }
+  "wholeScreenDrift": {
+   "gated": false,
+   "changedPixelPercentage": 30.007836,
+   "threshold": 18,
+   "status": "informational-over-threshold",
+   "note": "Superseded by component evidence; cross-platform rasterization difference."
+  }
     },
     {
       "family": "Commands and menus",

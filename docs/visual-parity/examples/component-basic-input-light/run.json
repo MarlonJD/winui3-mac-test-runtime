@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "0.1",
+  "status": "passed",
+  "host": "managed-macos-dotnet",
+  "primaryPathRequiresWine": false,
+  "startedAt": "2026-06-04T22:53:01.11021+00:00",
+  "endedAt": "2026-06-04T22:53:01.221694+00:00",
+  "durationMs": 111,
+  "projectPath": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+  "assemblyPath": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/shadow-build/ComponentParityLab.WinUI/bin/Debug/net10.0/ComponentParityLab.WinUI.dll",
+  "outputDirectory": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light",
+  "wine": {
+    "required": false,
+    "status": "optional",
+    "found": false
+  },
+  "artifacts": {
+    "run": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/run.json",
+    "tree": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/tree.json",
+    "accessibility": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/accessibility.json",
+    "bindingFailures": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/binding-failures.json",
+    "resourceFailures": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/resource-failures.json",
+    "unsupportedApis": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/unsupported-apis.json",
+    "diagnostics": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/diagnostics.sarif",
+    "snapshot": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/snapshot.json",
+    "screenshot": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/screenshots/mac-runtime.png",
+    "projectIngestion": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/project-ingestion.json",
+    "interactions": "/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/docs/visual-parity/examples/component-basic-input-light/interactions.json"
+  },
+  "diagnostics": []
+}

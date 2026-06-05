@@ -1,0 +1,1892 @@
+{
+  "schemaVersion": "0.5",
+  "fixtureName": "component-parity-lab",
+  "scenarioName": "component-basic-input-light",
+  "components": [
+    {
+      "component": "Button",
+      "kind": "control",
+      "target": "PrimaryActionButton",
+      "layoutRegion": {
+        "x": 280,
+        "y": 54,
+        "width": 142,
+        "height": 32,
+        "desiredWidth": 142,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "passed",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 23.06338,
+      "meanAbsoluteError": 19.270577,
+      "rootMeanSquaredError": 56.387646,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 280,
+          "y": 54,
+          "width": 142,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 281,
+          "y": 50,
+          "width": 142,
+          "height": 32
+        },
+        "nativeReferencePath": "components/button-primaryactionbutton/windows-reference.png",
+        "macRuntimePath": "components/button-primaryactionbutton/mac-runtime.png",
+        "pixelDiffPath": "components/button-primaryactionbutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 23.06338,
+        "meanAbsoluteError": 19.270577,
+        "rootMeanSquaredError": 56.387646,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "Button",
+          "target": "PrimaryActionButton",
+          "identitySource": "x:Name",
+          "automationId": "",
+          "name": "PrimaryActionButton",
+          "elementType": "Microsoft.UI.Xaml.Controls.Button",
+          "bounds": {
+            "x": 281,
+            "y": 50,
+            "width": 142,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 142,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T13:01:41.7269188+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 142,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 142,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -4,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "Button chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "ToggleButton",
+      "kind": "control",
+      "target": "PinnedToggleButton",
+      "layoutRegion": {
+        "x": 280,
+        "y": 96,
+        "width": 67,
+        "height": 32,
+        "desiredWidth": 67,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 22.434701,
+      "meanAbsoluteError": 10.923041,
+      "rootMeanSquaredError": 38.58626,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 280,
+          "y": 96,
+          "width": 67,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 281,
+          "y": 92,
+          "width": 67,
+          "height": 32
+        },
+        "nativeReferencePath": "components/togglebutton-pinnedtogglebutton/windows-reference.png",
+        "macRuntimePath": "components/togglebutton-pinnedtogglebutton/mac-runtime.png",
+        "pixelDiffPath": "components/togglebutton-pinnedtogglebutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 22.434701,
+        "meanAbsoluteError": 10.923041,
+        "rootMeanSquaredError": 38.58626,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "ToggleButton",
+          "target": "PinnedToggleButton",
+          "identitySource": "x:Name",
+          "automationId": "",
+          "name": "PinnedToggleButton",
+          "elementType": "Microsoft.UI.Xaml.Controls.Primitives.ToggleButton",
+          "bounds": {
+            "x": 281,
+            "y": 92,
+            "width": 67,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 67,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T13:01:41.7272426+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 67,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 67,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -4,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "ToggleButton checked and disabled chrome is approximated; native pressed, hover, and template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "CheckBox",
+      "kind": "control",
+      "target": "EnabledCheckBox",
+      "layoutRegion": {
+        "x": 280,
+        "y": 138,
+        "width": 120,
+        "height": 32,
+        "desiredWidth": 120,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 14.765625,
+      "meanAbsoluteError": 10.186328,
+      "rootMeanSquaredError": 38.866589,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 280,
+          "y": 138,
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 281,
+          "y": 134,
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferencePath": "components/checkbox-enabledcheckbox/windows-reference.png",
+        "macRuntimePath": "components/checkbox-enabledcheckbox/mac-runtime.png",
+        "pixelDiffPath": "components/checkbox-enabledcheckbox/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 14.765625,
+        "meanAbsoluteError": 10.186328,
+        "rootMeanSquaredError": 38.866589,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "CheckBox",
+          "target": "EnabledCheckBox",
+          "identitySource": "x:Name",
+          "automationId": "",
+          "name": "EnabledCheckBox",
+          "elementType": "Microsoft.UI.Xaml.Controls.CheckBox",
+          "bounds": {
+            "x": 281,
+            "y": 134,
+            "width": 120,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 120,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T13:01:41.7276158+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 120,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -4,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "CheckBox glyph and checked state chrome are rendered approximately; indeterminate, focus, and full template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "RadioButton",
+      "kind": "control",
+      "target": "HighPriorityRadioButton",
+      "layoutRegion": {
+        "x": 280,
+        "y": 180,
+        "width": 120,
+        "height": 32,
+        "desiredWidth": 120,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 19.375,
+      "meanAbsoluteError": 11.536914,
+      "rootMeanSquaredError": 40.37002,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 280,
+          "y": 180,
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 281,
+          "y": 176,
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferencePath": "components/radiobutton-highpriorityradiobutton/windows-reference.png",
+        "macRuntimePath": "components/radiobutton-highpriorityradiobutton/mac-runtime.png",
+        "pixelDiffPath": "components/radiobutton-highpriorityradiobutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 19.375,
+        "meanAbsoluteError": 11.536914,
+        "rootMeanSquaredError": 40.37002,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "RadioButton",
+          "target": "HighPriorityRadioButton",
+          "identitySource": "x:Name",
+          "automationId": "",
+          "name": "HighPriorityRadioButton",
+          "elementType": "Microsoft.UI.Xaml.Controls.RadioButton",
+          "bounds": {
+            "x": 281,
+            "y": 176,
+            "width": 120,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 120,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T13:01:41.7288653+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 120,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -4,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "RadioButton glyph and checked state chrome are rendered approximately; focus, group keyboarding, and full template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "ComboBox",
+      "kind": "control",
+      "target": "StatusComboBox",
+      "layoutRegion": {
+        "x": 280,
+        "y": 222,
+        "width": 92,
+        "height": 32,
+        "desiredWidth": 92,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "supported",
+      "presence": "present",
+      "interactionStatus": "passed",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 21.535326,
+      "meanAbsoluteError": 9.389521,
+      "rootMeanSquaredError": 36.054402,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 280,
+          "y": 222,
+          "width": 92,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 281,
+          "y": 218,
+          "width": 92,
+          "height": 32
+        },
+        "nativeReferencePath": "components/combobox-statuscombobox/windows-reference.png",
+        "macRuntimePath": "components/combobox-statuscombobox/mac-runtime.png",
+        "pixelDiffPath": "components/combobox-statuscombobox/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 21.535326,
+        "meanAbsoluteError": 9.389521,
+        "rootMeanSquaredError": 36.054402,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "ComboBox",
+          "target": "StatusComboBox",
+          "identitySource": "x:Name",
+          "automationId": "",
+          "name": "StatusComboBox",
+          "elementType": "Microsoft.UI.Xaml.Controls.ComboBox",
+          "bounds": {
+            "x": 281,
+            "y": 218,
+            "width": 92,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 92,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name",
+          "capturedAt": "2026-06-03T13:01:41.7302883+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 92,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 92,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -4,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "ComboBox field and chevron chrome are rendered approximately; popup, editable mode, and full keyboarding remain gaps."
+      ]
+    },
+    {
+      "component": "RepeatButton",
+      "kind": "control",
+      "target": "DiagnosticRepeatButton",
+      "layoutRegion": {
+        "x": 468,
+        "y": 298,
+        "width": 120,
+        "height": 32,
+        "desiredWidth": 120,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 20.494792,
+      "meanAbsoluteError": 17.454102,
+      "rootMeanSquaredError": 53.91213,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 468,
+          "y": 298,
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 469,
+          "y": 289,
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferencePath": "components/repeatbutton-diagnosticrepeatbutton/windows-reference.png",
+        "macRuntimePath": "components/repeatbutton-diagnosticrepeatbutton/mac-runtime.png",
+        "pixelDiffPath": "components/repeatbutton-diagnosticrepeatbutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 20.494792,
+        "meanAbsoluteError": 17.454102,
+        "rootMeanSquaredError": 53.91213,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "RepeatButton",
+          "target": "DiagnosticRepeatButton",
+          "identitySource": "x:Name\u002Bnative-descendant",
+          "automationId": "",
+          "name": "",
+          "elementType": "Microsoft.UI.Xaml.Controls.Primitives.RepeatButton",
+          "bounds": {
+            "x": 469,
+            "y": 289,
+            "width": 120,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 120,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name\u002Bnative-descendant",
+          "capturedAt": "2026-06-03T13:01:41.7306901+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 120,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -9,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "RepeatButton renders through the shared button chrome path; repeat timing, pressed cadence, and full native template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "HyperlinkButton",
+      "kind": "control",
+      "target": "DiagnosticHyperlinkButton",
+      "layoutRegion": {
+        "x": 790,
+        "y": 298,
+        "width": 125,
+        "height": 32,
+        "desiredWidth": 125,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 18.75,
+      "meanAbsoluteError": 9.976125,
+      "rootMeanSquaredError": 35.4673,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 790,
+          "y": 298,
+          "width": 125,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 791,
+          "y": 289,
+          "width": 125,
+          "height": 32
+        },
+        "nativeReferencePath": "components/hyperlinkbutton-diagnostichyperlinkbutton/windows-reference.png",
+        "macRuntimePath": "components/hyperlinkbutton-diagnostichyperlinkbutton/mac-runtime.png",
+        "pixelDiffPath": "components/hyperlinkbutton-diagnostichyperlinkbutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 18.75,
+        "meanAbsoluteError": 9.976125,
+        "rootMeanSquaredError": 35.4673,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "HyperlinkButton",
+          "target": "DiagnosticHyperlinkButton",
+          "identitySource": "x:Name\u002Bnative-descendant",
+          "automationId": "",
+          "name": "",
+          "elementType": "Microsoft.UI.Xaml.Controls.HyperlinkButton",
+          "bounds": {
+            "x": 791,
+            "y": 289,
+            "width": 125,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 125,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name\u002Bnative-descendant",
+          "capturedAt": "2026-06-03T13:01:41.7308481+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 125,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 125,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -9,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "HyperlinkButton emits visible centered link text; navigation behavior, visited state, focus visuals, disabled/high-contrast states, automation invoke state, and full native template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "DropDownButton",
+      "kind": "control",
+      "target": "DiagnosticDropDownButton",
+      "layoutRegion": {
+        "x": 468,
+        "y": 340,
+        "width": 132,
+        "height": 32,
+        "desiredWidth": 132,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 25.189394,
+      "meanAbsoluteError": 14.172585,
+      "rootMeanSquaredError": 46.247109,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 468,
+          "y": 340,
+          "width": 132,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 469,
+          "y": 331,
+          "width": 132,
+          "height": 32
+        },
+        "nativeReferencePath": "components/dropdownbutton-diagnosticdropdownbutton/windows-reference.png",
+        "macRuntimePath": "components/dropdownbutton-diagnosticdropdownbutton/mac-runtime.png",
+        "pixelDiffPath": "components/dropdownbutton-diagnosticdropdownbutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 25.189394,
+        "meanAbsoluteError": 14.172585,
+        "rootMeanSquaredError": 46.247109,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "DropDownButton",
+          "target": "DiagnosticDropDownButton",
+          "identitySource": "x:Name\u002Bnative-descendant",
+          "automationId": "",
+          "name": "",
+          "elementType": "Microsoft.UI.Xaml.Controls.DropDownButton",
+          "bounds": {
+            "x": 469,
+            "y": 331,
+            "width": 132,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 132,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name\u002Bnative-descendant",
+          "capturedAt": "2026-06-03T13:01:41.7311118+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 132,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 132,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -9,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "DropDownButton renders button chrome and chevron; popup opening, placement, light-dismiss, keyboarding, and full native template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "SplitButton",
+      "kind": "control",
+      "target": "DiagnosticSplitButton",
+      "layoutRegion": {
+        "x": 802,
+        "y": 340,
+        "width": 127,
+        "height": 30,
+        "desiredWidth": 127,
+        "desiredHeight": 30,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 26.167979,
+      "meanAbsoluteError": 13.576772,
+      "rootMeanSquaredError": 45.280821,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 802,
+          "y": 340,
+          "width": 127,
+          "height": 30
+        },
+        "nativeReferenceBounds": {
+          "x": 803,
+          "y": 331,
+          "width": 127,
+          "height": 30
+        },
+        "nativeReferencePath": "components/splitbutton-diagnosticsplitbutton/windows-reference.png",
+        "macRuntimePath": "components/splitbutton-diagnosticsplitbutton/mac-runtime.png",
+        "pixelDiffPath": "components/splitbutton-diagnosticsplitbutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 26.167979,
+        "meanAbsoluteError": 13.576772,
+        "rootMeanSquaredError": 45.280821,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "SplitButton",
+          "target": "DiagnosticSplitButton",
+          "identitySource": "x:Name\u002Bnative-descendant",
+          "automationId": "",
+          "name": "",
+          "elementType": "Microsoft.UI.Xaml.Controls.SplitButton",
+          "bounds": {
+            "x": 803,
+            "y": 331,
+            "width": 127,
+            "height": 30
+          },
+          "actualSize": {
+            "width": 127,
+            "height": 30
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name\u002Bnative-descendant",
+          "capturedAt": "2026-06-03T13:01:41.7315134+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 127,
+          "height": 30
+        },
+        "macRuntimeCropSize": {
+          "width": 127,
+          "height": 30
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -9,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "SplitButton renders primary and secondary chrome; secondary flyout behavior, invoke/open separation, keyboarding, and full native template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "ToggleSplitButton",
+      "kind": "control",
+      "target": "DiagnosticToggleSplitButton",
+      "layoutRegion": {
+        "x": 468,
+        "y": 382,
+        "width": 129,
+        "height": 30,
+        "desiredWidth": 129,
+        "desiredHeight": 30,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 27.4677,
+      "meanAbsoluteError": 13.08146,
+      "rootMeanSquaredError": 42.016755,
+      "crop": {
+        "status": "failed",
+        "bounds": {
+          "x": 468,
+          "y": 382,
+          "width": 129,
+          "height": 30
+        },
+        "nativeReferenceBounds": {
+          "x": 469,
+          "y": 373,
+          "width": 129,
+          "height": 30
+        },
+        "nativeReferencePath": "components/togglesplitbutton-diagnostictogglesplitbutton/windows-reference.png",
+        "macRuntimePath": "components/togglesplitbutton-diagnostictogglesplitbutton/mac-runtime.png",
+        "pixelDiffPath": "components/togglesplitbutton-diagnostictogglesplitbutton/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 27.4677,
+        "meanAbsoluteError": 13.08146,
+        "rootMeanSquaredError": 42.016755,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "ToggleSplitButton",
+          "target": "DiagnosticToggleSplitButton",
+          "identitySource": "x:Name\u002Bnative-descendant",
+          "automationId": "",
+          "name": "",
+          "elementType": "Microsoft.UI.Xaml.Controls.ToggleSplitButton",
+          "bounds": {
+            "x": 469,
+            "y": 373,
+            "width": 129,
+            "height": 30
+          },
+          "actualSize": {
+            "width": 129,
+            "height": 30
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name\u002Bnative-descendant",
+          "capturedAt": "2026-06-03T13:01:41.7321522+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 129,
+          "height": 30
+        },
+        "macRuntimeCropSize": {
+          "width": 129,
+          "height": 30
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -9,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "ToggleSplitButton renders checked split chrome; secondary flyout behavior, expanded state, keyboarding, and full native template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "Slider",
+      "kind": "control",
+      "target": "DiagnosticSlider",
+      "layoutRegion": {
+        "x": 799,
+        "y": 382,
+        "width": 180,
+        "height": 32,
+        "desiredWidth": 180,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 11.666667,
+      "meanAbsoluteError": 6.485851,
+      "rootMeanSquaredError": 26.9597,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 799,
+          "y": 382,
+          "width": 180,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 800,
+          "y": 373,
+          "width": 180,
+          "height": 32
+        },
+        "nativeReferencePath": "components/slider-diagnosticslider/windows-reference.png",
+        "macRuntimePath": "components/slider-diagnosticslider/mac-runtime.png",
+        "pixelDiffPath": "components/slider-diagnosticslider/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 11.666667,
+        "meanAbsoluteError": 6.485851,
+        "rootMeanSquaredError": 26.9597,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "Slider",
+          "target": "DiagnosticSlider",
+          "identitySource": "x:Name\u002Bnative-descendant",
+          "automationId": "",
+          "name": "",
+          "elementType": "Microsoft.UI.Xaml.Controls.Slider",
+          "bounds": {
+            "x": 800,
+            "y": 373,
+            "width": 180,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 180,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name\u002Bnative-descendant",
+          "capturedAt": "2026-06-03T13:01:41.7344149+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 180,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 180,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -9,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "Slider renders track, fill, and thumb from exported value state; pointer dragging, keyboard value changes, tick marks, and full native template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "ToggleSwitch",
+      "kind": "control",
+      "target": "DiagnosticToggleSwitch",
+      "layoutRegion": {
+        "x": 468,
+        "y": 424,
+        "width": 120,
+        "height": 63,
+        "desiredWidth": 120,
+        "desiredHeight": 63,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 11.296296,
+      "meanAbsoluteError": 8.258829,
+      "rootMeanSquaredError": 36.053914,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 468,
+          "y": 424,
+          "width": 120,
+          "height": 63
+        },
+        "nativeReferenceBounds": {
+          "x": 469,
+          "y": 415,
+          "width": 120,
+          "height": 63
+        },
+        "nativeReferencePath": "components/toggleswitch-diagnostictoggleswitch/windows-reference.png",
+        "macRuntimePath": "components/toggleswitch-diagnostictoggleswitch/mac-runtime.png",
+        "pixelDiffPath": "components/toggleswitch-diagnostictoggleswitch/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 11.296296,
+        "meanAbsoluteError": 8.258829,
+        "rootMeanSquaredError": 36.053914,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "ToggleSwitch",
+          "target": "DiagnosticToggleSwitch",
+          "identitySource": "x:Name\u002Bnative-descendant",
+          "automationId": "",
+          "name": "",
+          "elementType": "Microsoft.UI.Xaml.Controls.ToggleSwitch",
+          "bounds": {
+            "x": 469,
+            "y": 415,
+            "width": 120,
+            "height": 63
+          },
+          "actualSize": {
+            "width": 120,
+            "height": 63
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name\u002Bnative-descendant",
+          "capturedAt": "2026-06-03T13:01:41.7351182+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 120,
+          "height": 63
+        },
+        "macRuntimeCropSize": {
+          "width": 120,
+          "height": 63
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -9,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "ToggleSwitch renders on/off track, thumb, header, and state label; toggle interaction, focus visuals, automation state, and full native template visuals remain gaps."
+      ]
+    },
+    {
+      "component": "RatingControl",
+      "kind": "control",
+      "target": "DiagnosticRatingControl",
+      "layoutRegion": {
+        "x": 790,
+        "y": 424,
+        "width": 120,
+        "height": 32,
+        "desiredWidth": 120,
+        "desiredHeight": 32,
+        "margin": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "padding": {
+          "left": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "horizontalAlignment": "Stretch",
+        "verticalAlignment": "Stretch",
+        "visibility": "Visible"
+      },
+      "catalogStatus": "partial",
+      "presence": "present",
+      "interactionStatus": "not-applicable",
+      "visualGrade": "usable",
+      "componentThresholds": {
+        "changedPixelPercentage": 18,
+        "maxChannelDelta": 255,
+        "meanAbsoluteError": 12,
+        "rootMeanSquaredError": 48
+      },
+      "changedPixelPercentage": 13.385417,
+      "meanAbsoluteError": 6.450911,
+      "rootMeanSquaredError": 27.881123,
+      "crop": {
+        "status": "passed",
+        "bounds": {
+          "x": 790,
+          "y": 424,
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferenceBounds": {
+          "x": 791,
+          "y": 415,
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferencePath": "components/ratingcontrol-diagnosticratingcontrol/windows-reference.png",
+        "macRuntimePath": "components/ratingcontrol-diagnosticratingcontrol/mac-runtime.png",
+        "pixelDiffPath": "components/ratingcontrol-diagnosticratingcontrol/pixel-diff.png",
+        "runtimeBlank": false,
+        "thresholds": {
+          "changedPixelPercentage": 18,
+          "maxChannelDelta": 255,
+          "meanAbsoluteError": 12,
+          "rootMeanSquaredError": 48
+        },
+        "changedPixelPercentage": 13.385417,
+        "meanAbsoluteError": 6.450911,
+        "rootMeanSquaredError": 27.881123,
+        "nativeReferenceProvenance": {
+          "referenceSource": "native-winui",
+          "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+          "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+          "scenarioName": "component-basic-input-light",
+          "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+          "workflowRunId": "26886291295",
+          "runnerImage": "win25 20260525.149.1",
+          "viewport": {
+            "width": 1028,
+            "height": 720
+          },
+          "scale": 1,
+          "theme": "light",
+          "captureMode": "client-area",
+          "dimensions": {
+            "width": 1028,
+            "height": 720
+          },
+          "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+          "nativeReferenceTargetsPath": "native-reference-targets.json"
+        },
+        "nativeReferenceTarget": {
+          "component": "RatingControl",
+          "target": "DiagnosticRatingControl",
+          "identitySource": "x:Name\u002Bnative-descendant",
+          "automationId": "",
+          "name": "",
+          "elementType": "Microsoft.UI.Xaml.Controls.RatingControl",
+          "bounds": {
+            "x": 791,
+            "y": 415,
+            "width": 120,
+            "height": 32
+          },
+          "actualSize": {
+            "width": 120,
+            "height": 32
+          },
+          "visibility": "Visible",
+          "boundsSource": "x:Name\u002Bnative-descendant",
+          "capturedAt": "2026-06-03T13:01:41.7357117+00:00"
+        },
+        "nativeReferenceReadinessStatus": "ready",
+        "nativeReferenceReadinessReason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+        "nativeReferenceRequiredAction": "Keep the native target export with the Windows reference artifact.",
+        "nativeReferenceBoundsSource": "windows-native-element-bounds",
+        "nativeReferenceBoundsValidForPromotion": true,
+        "nativeReferenceIntegrityBlockerReason": "none",
+        "nativeReferenceReadiness": {
+          "status": "ready",
+          "reason": "Native crop uses Windows native element bounds from native-reference-targets.json.",
+          "requiredAction": "Keep the native target export with the Windows reference artifact.",
+          "readyForPromotion": true,
+          "blockerReason": "none"
+        },
+        "nativeReferenceCropSize": {
+          "width": 120,
+          "height": 32
+        },
+        "macRuntimeCropSize": {
+          "width": 120,
+          "height": 32
+        },
+        "nativeReferenceBoundsDelta": {
+          "x": 1,
+          "y": -9,
+          "width": 0,
+          "height": 0
+        }
+      },
+      "nativeQualityGrade": "not-evaluated",
+      "knownGaps": [
+        "RatingControl renders visible rating glyphs from exported value state; pointer set/hover behavior, accessibility rating value, and full native template visuals remain gaps."
+      ]
+    }
+  ],
+  "sourceFeatures": [],
+  "status": "failed",
+  "fontDiagnostics": {
+    "text": {
+      "role": "text",
+      "requestedFamilies": [
+        "Segoe UI Variable",
+        "Segoe UI"
+      ],
+      "resolvedFamily": "Helvetica",
+      "requestedFamilyAvailable": false,
+      "fallbackMode": "platform-fallback",
+      "resolvedSource": "platform-default"
+    },
+    "symbol": {
+      "role": "symbol",
+      "requestedFamilies": [
+        "Segoe Fluent Icons",
+        "Segoe MDL2 Assets"
+      ],
+      "resolvedFamily": "Helvetica",
+      "requestedFamilyAvailable": false,
+      "fallbackMode": "text-font-fallback",
+      "resolvedSource": "text-font-fallback"
+    }
+  }
+}

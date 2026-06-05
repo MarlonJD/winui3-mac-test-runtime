@@ -1,0 +1,36 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "WinUI3.MacTestRuntime",
+          "rules": [
+            {
+              "id": "WINUI3MAC001",
+              "name": "WINUI3MAC001",
+              "shortDescription": {
+                "text": "Binding failure"
+              }
+            },
+            {
+              "id": "WINUI3MAC002",
+              "name": "WINUI3MAC002",
+              "shortDescription": {
+                "text": "Resource lookup failure"
+              }
+            },
+            {
+              "id": "WINUI3MAC003",
+              "name": "WINUI3MAC003",
+              "shortDescription": {
+                "text": "Unavailable compatibility API"
+              }
+            }
+          ]
+        }
+      },
+      "results": []
+    }
+  ]
+}

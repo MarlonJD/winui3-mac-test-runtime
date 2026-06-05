@@ -127,7 +127,7 @@
         "content"
       ],
       "knownGaps": [
-        "HyperlinkButton emits visible link text and underline chrome; navigation behavior, visited state, focus visuals, and full native template visuals remain gaps."
+        "HyperlinkButton emits visible centered link text; navigation behavior, visited state, focus visuals, disabled/high-contrast states, automation invoke state, and full native template visuals remain gaps."
       ]
     },
     {

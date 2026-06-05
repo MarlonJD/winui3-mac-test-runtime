@@ -104,6 +104,38 @@ The current native reference readiness manifest reports 58/58 public rows
 source-readiness gate before any future visual promotion, but do not treat
 source readiness alone as native-quality renderer fidelity.
 
+`state-coverage-matrix.json` is the checked-in generated state, interaction,
+and accessibility tracking gate. It joins
+`docs/compatibility/winui-component-inventory.json` `productionStateCoverage`
+requirements with checked-in component evidence and labels rows that still have
+only default-state evidence. A `default-only` component can remain source-level
+usable, but it is not production-ready state coverage and must not be promoted
+as native-quality. Each requirement row also carries the expected
+strict-sweep `component-evidence.json`, `accessibility.json`, and
+`visual-run.json` paths plus `releaseEvidenceStatus:
+required-via-public-product`. Release evidence adds the second check: after
+`product-evidence --profile strict-scenario-sweep` runs, the `public-product`
+rollup verifies that each `productionStateCoverage` scenario has attached
+strict-sweep artifacts at those matrix-declared paths and that accessibility
+targets plus
+checked/disabled/focused/selected and dark/high-contrast state exports match
+the matrix requirements.
+
+`native-quality-family-tranches.json` is the checked-in generated Milestone C
+queue. It groups public component evidence rows into selection controls,
+button/link, dropdown/menu, text/forms, navigation/list, and status/progress
+families so native-quality work moves by family instead of one-off component
+closure. A family remains `native-quality-blocked` while any row lacks
+native-quality inspection evidence, lacks default component evidence, or is
+still `default-only` in the state matrix. Each family summary publishes
+`stateRequirementCount`, `missingStateRequirementCount`,
+`stateRequirementStates`, and `stateRequirementScenarios` so family-level
+native-quality work can be sequenced against the exact Milestone D state
+requirements. For `not-evaluated` rows whose component crop failed, each row's
+`remainingBlocker` carries the failed crop status plus the exact metric values
+that exceed the configured thresholds, so family queues identify renderer work
+separately from state-coverage gaps.
+
 `component-quality-dashboard.json` is the checked-in generated quality gate for
 the public example evidence. It lists every checked-in component row, its
 current grade, source-level harness target, owner family, required scenario,
@@ -181,9 +213,12 @@ When a visual scenario or renderer behavior changes:
    and run `winui3-mac-runner component-inspection-apply --check --evidence
    <component-evidence.json> --inspection <component-inspection.json>` before
    writing any grade changes.
-8. Run `winui3-mac-runner component-quality-dashboard` and
-   `winui3-mac-runner visual-review-index`; inspect the updated row blockers
-   and crop links before promoting any claim.
+8. Run `winui3-mac-runner component-quality-dashboard`,
+   `winui3-mac-runner state-coverage-matrix`,
+   `winui3-mac-runner native-quality-family-tranches`, and
+   `winui3-mac-runner visual-review-index`; inspect the updated row blockers,
+   state coverage, family tranche queues, and crop links before promoting any
+   claim.
 9. Update the relevant example folder only when the artifact is public and does
    not contain private names, private screenshots, secrets, or proprietary
    fixture content. Production visual examples must come from native WinUI

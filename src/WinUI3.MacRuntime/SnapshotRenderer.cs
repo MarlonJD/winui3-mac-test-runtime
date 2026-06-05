@@ -9,7 +9,8 @@ public sealed record SnapshotResult(
     string FilePath,
     int Width,
     int Height,
-    bool IsNonBlank);
+    bool IsNonBlank,
+    SnapshotFontDiagnostics? FontDiagnostics = null);
 
 public interface ISnapshotRenderer
 {

@@ -1,0 +1,22 @@
+{
+  "referenceSource": "native-winui",
+  "fixtureProjectPath": "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+  "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json",
+  "scenarioName": "component-basic-input-light",
+  "commitSha": "7d9a2c0263656319d576bf7db2c33ecc6b66ee73",
+  "workflowRunId": "26886291295",
+  "runnerImage": "win25 20260525.149.1",
+  "viewport": {
+    "width": 1028,
+    "height": 720
+  },
+  "scale": 1,
+  "theme": "light",
+  "captureMode": "client-area",
+  "dimensions": {
+    "width": 1028,
+    "height": 720
+  },
+  "capturedAt": "2026-06-03T13:01:42.9837626\u002B00:00",
+  "nativeReferenceTargetsPath": "native-reference-targets.json"
+}

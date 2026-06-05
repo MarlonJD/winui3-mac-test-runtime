@@ -1,0 +1,1394 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "1970-01-01T00:00:00+00:00",
+  "policy": "Default-state component evidence is not production-ready state coverage. Native-quality promotion requires visible state, interaction, and accessibility coverage by component family; missing state evidence is tracked explicitly instead of inferred from default screenshots.",
+  "totals": {
+    "componentCount": 23,
+    "requirementCount": 38,
+    "evidenceBackedRequirementCount": 0,
+    "missingEvidenceRequirementCount": 38,
+    "defaultOnlyComponentCount": 15,
+    "stateBackedComponentCount": 0,
+    "missingDefaultEvidenceComponentCount": 8,
+    "coverageStatusCounts": {
+      "default-only": 15,
+      "missing-default-evidence": 8
+    }
+  },
+  "components": [
+    {
+      "component": "Button",
+      "ownerFamily": "Basic input",
+      "requiredStates": [
+        "default",
+        "disabled",
+        "focused"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "disabled",
+        "focused"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": true,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "CheckBox",
+      "ownerFamily": "Basic input",
+      "requiredStates": [
+        "checked",
+        "default"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "checked"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "ComboBox",
+      "ownerFamily": "Basic input",
+      "requiredStates": [
+        "default",
+        "disabled",
+        "focused"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "disabled",
+        "focused"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": true,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "RadioButton",
+      "ownerFamily": "Basic input",
+      "requiredStates": [
+        "checked",
+        "default"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "checked"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "ToggleButton",
+      "ownerFamily": "Basic input",
+      "requiredStates": [
+        "checked",
+        "default",
+        "disabled"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "checked",
+        "disabled"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "ItemsControl",
+      "ownerFamily": "Collections and templates",
+      "requiredStates": [
+        "default",
+        "selected"
+      ],
+      "coveredStates": [],
+      "missingStates": [
+        "default",
+        "selected"
+      ],
+      "hasDefaultEvidence": false,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "missing-default-evidence",
+      "productionReadiness": "not-production-ready-missing-default-evidence"
+    },
+    {
+      "component": "ListView",
+      "ownerFamily": "Collections and templates; Navigation and workbench",
+      "requiredStates": [
+        "default",
+        "deferred-decision",
+        "selected"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "deferred-decision",
+        "selected"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "CommandBarFlyout",
+      "ownerFamily": "Commands and menus",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "open-popup"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "MenuBar",
+      "ownerFamily": "Commands and menus",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "open-popup"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "MenuFlyout",
+      "ownerFamily": "Commands and menus",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "open-popup"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "AppBarButton",
+      "ownerFamily": "Commands and menus; Navigation and workbench",
+      "requiredStates": [
+        "command-invoked",
+        "default",
+        "deferred-decision",
+        "disabled"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "command-invoked",
+        "deferred-decision",
+        "disabled"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": true,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "CommandBar",
+      "ownerFamily": "Commands and menus; Navigation and workbench",
+      "requiredStates": [
+        "command-invoked",
+        "default",
+        "deferred-decision",
+        "disabled"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "command-invoked",
+        "deferred-decision",
+        "disabled"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "ContentDialog",
+      "ownerFamily": "Dialogs and flyouts",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "coveredStates": [],
+      "missingStates": [
+        "default",
+        "open-popup"
+      ],
+      "hasDefaultEvidence": false,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "missing-default-evidence",
+      "productionReadiness": "not-production-ready-missing-default-evidence"
+    },
+    {
+      "component": "Flyout",
+      "ownerFamily": "Dialogs and flyouts",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "coveredStates": [],
+      "missingStates": [
+        "default",
+        "open-popup"
+      ],
+      "hasDefaultEvidence": false,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "missing-default-evidence",
+      "productionReadiness": "not-production-ready-missing-default-evidence"
+    },
+    {
+      "component": "TeachingTip",
+      "ownerFamily": "Dialogs and flyouts",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "coveredStates": [],
+      "missingStates": [
+        "default",
+        "open-popup"
+      ],
+      "hasDefaultEvidence": false,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "missing-default-evidence",
+      "productionReadiness": "not-production-ready-missing-default-evidence"
+    },
+    {
+      "component": "ToolTip",
+      "ownerFamily": "Dialogs and flyouts",
+      "requiredStates": [
+        "default",
+        "open-popup"
+      ],
+      "coveredStates": [],
+      "missingStates": [
+        "default",
+        "open-popup"
+      ],
+      "hasDefaultEvidence": false,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "missing-default-evidence",
+      "productionReadiness": "not-production-ready-missing-default-evidence"
+    },
+    {
+      "component": "NavigationView",
+      "ownerFamily": "Navigation and workbench",
+      "requiredStates": [
+        "default",
+        "deferred-decision"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "deferred-decision"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "InfoBar",
+      "ownerFamily": "Navigation and workbench; Status, pickers, and people",
+      "requiredStates": [
+        "default",
+        "deferred-decision",
+        "error",
+        "loading",
+        "success"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "deferred-decision",
+        "error",
+        "loading",
+        "success"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": true,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "TextBox",
+      "ownerFamily": "Navigation and workbench; Text and forms",
+      "requiredStates": [
+        "default",
+        "deferred-decision",
+        "focused",
+        "invalid"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "deferred-decision",
+        "focused",
+        "invalid"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    },
+    {
+      "component": "ProgressBar",
+      "ownerFamily": "Status, pickers, and people",
+      "requiredStates": [
+        "default",
+        "error",
+        "success"
+      ],
+      "coveredStates": [],
+      "missingStates": [
+        "default",
+        "error",
+        "success"
+      ],
+      "hasDefaultEvidence": false,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "missing-default-evidence",
+      "productionReadiness": "not-production-ready-missing-default-evidence"
+    },
+    {
+      "component": "ProgressRing",
+      "ownerFamily": "Status, pickers, and people",
+      "requiredStates": [
+        "default",
+        "loading"
+      ],
+      "coveredStates": [],
+      "missingStates": [
+        "default",
+        "loading"
+      ],
+      "hasDefaultEvidence": false,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "missing-default-evidence",
+      "productionReadiness": "not-production-ready-missing-default-evidence"
+    },
+    {
+      "component": "Labels/forms pattern",
+      "ownerFamily": "Text and forms",
+      "requiredStates": [
+        "default",
+        "invalid"
+      ],
+      "coveredStates": [],
+      "missingStates": [
+        "default",
+        "invalid"
+      ],
+      "hasDefaultEvidence": false,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "missing-default-evidence",
+      "productionReadiness": "not-production-ready-missing-default-evidence"
+    },
+    {
+      "component": "ThemeResource",
+      "ownerFamily": "Theming and resources",
+      "requiredStates": [
+        "dark",
+        "default",
+        "high-contrast"
+      ],
+      "coveredStates": [
+        "default"
+      ],
+      "missingStates": [
+        "dark",
+        "high-contrast"
+      ],
+      "hasDefaultEvidence": true,
+      "hasInteractionEvidence": false,
+      "hasAccessibilityEvidence": false,
+      "coverageStatus": "default-only",
+      "productionReadiness": "not-production-ready-default-only"
+    }
+  ],
+  "requirements": [
+    {
+      "component": "Button",
+      "ownerFamily": "Basic input",
+      "productionPriority": "Ring 0",
+      "state": "disabled",
+      "scenarioName": "component-basic-input-disabled-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-disabled-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "disabled state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "disabled controls expose enabled=false",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows disabled coverage is present; macOS disabled chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "Button",
+      "ownerFamily": "Basic input",
+      "productionPriority": "Ring 0",
+      "state": "focused",
+      "scenarioName": "component-basic-input-focused-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-focused-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "focus",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "focused control exposes role, name, enabled state, and value where available",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-focused-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-focused-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-focused-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows focus coverage is present; macOS focus visuals are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "CheckBox",
+      "ownerFamily": "Basic input",
+      "productionPriority": "Ring 0",
+      "state": "checked",
+      "scenarioName": "component-basic-input-checked-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-checked-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "checked state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "checked controls expose checked state and name",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows checked-state coverage is present; macOS check/radio glyphs are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ComboBox",
+      "ownerFamily": "Basic input",
+      "productionPriority": "Ring 0",
+      "state": "disabled",
+      "scenarioName": "component-basic-input-disabled-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-disabled-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "disabled state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "disabled controls expose enabled=false",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows disabled coverage is present; macOS disabled chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ComboBox",
+      "ownerFamily": "Basic input",
+      "productionPriority": "Ring 0",
+      "state": "focused",
+      "scenarioName": "component-basic-input-focused-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-focused-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "focus",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "focused control exposes role, name, enabled state, and value where available",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-focused-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-focused-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-focused-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows focus coverage is present; macOS focus visuals are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "RadioButton",
+      "ownerFamily": "Basic input",
+      "productionPriority": "Ring 0",
+      "state": "checked",
+      "scenarioName": "component-basic-input-checked-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-checked-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "checked state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "checked controls expose checked state and name",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows checked-state coverage is present; macOS check/radio glyphs are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ToggleButton",
+      "ownerFamily": "Basic input",
+      "productionPriority": "Ring 0",
+      "state": "checked",
+      "scenarioName": "component-basic-input-checked-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-checked-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "checked state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "checked controls expose checked state and name",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows checked-state coverage is present; macOS check/radio glyphs are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ToggleButton",
+      "ownerFamily": "Basic input",
+      "productionPriority": "Ring 0",
+      "state": "disabled",
+      "scenarioName": "component-basic-input-disabled-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-disabled-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "disabled state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "disabled controls expose enabled=false",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-disabled-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows disabled coverage is present; macOS disabled chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ItemsControl",
+      "ownerFamily": "Collections and templates",
+      "productionPriority": "Ring 0",
+      "state": "selected",
+      "scenarioName": "component-collections-selected-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-selected-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "select item and assert selected item",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "selected list row exposes selected state and item name",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-collections-selected-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-collections-selected-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-collections-selected-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows selected-row coverage is present; macOS row and selection chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ListView",
+      "ownerFamily": "Collections and templates",
+      "productionPriority": "Ring 0",
+      "state": "selected",
+      "scenarioName": "component-collections-selected-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-collections-selected-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "select item and assert selected item",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "selected list row exposes selected state and item name",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-collections-selected-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-collections-selected-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-collections-selected-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows selected-row coverage is present; macOS row and selection chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "AppBarButton",
+      "ownerFamily": "Commands and menus",
+      "productionPriority": "Ring 0",
+      "state": "command-invoked",
+      "scenarioName": "component-commands-menus-command-invoked-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-command-invoked-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "click command and assert result",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "command exposes role, name, icon metadata, and enabled state",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-command-invoked-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-command-invoked-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-command-invoked-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows command invocation coverage is present; macOS command chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "AppBarButton",
+      "ownerFamily": "Commands and menus",
+      "productionPriority": "Ring 0",
+      "state": "disabled",
+      "scenarioName": "component-commands-menus-disabled-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-disabled-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "disabled command state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "disabled command exposes enabled=false",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-disabled-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-disabled-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-disabled-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows disabled command coverage is present; macOS disabled command chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "CommandBar",
+      "ownerFamily": "Commands and menus",
+      "productionPriority": "Ring 0",
+      "state": "command-invoked",
+      "scenarioName": "component-commands-menus-command-invoked-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-command-invoked-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "click command and assert result",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "command exposes role, name, icon metadata, and enabled state",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-command-invoked-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-command-invoked-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-command-invoked-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows command invocation coverage is present; macOS command chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "CommandBar",
+      "ownerFamily": "Commands and menus",
+      "productionPriority": "Ring 0",
+      "state": "disabled",
+      "scenarioName": "component-commands-menus-disabled-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-disabled-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "disabled command state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "disabled command exposes enabled=false",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-disabled-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-disabled-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-disabled-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows disabled command coverage is present; macOS disabled command chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "CommandBarFlyout",
+      "ownerFamily": "Commands and menus",
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenarioName": "component-commands-menus-open-popup-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-open-popup-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "source-level open menu or flyout diagnostics; native popup visual evidence is not promoted",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "static host names for public evidence; popup/menu item names, expanded state, and accelerator text remain diagnostic",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/visual/visual-run.json",
+      "knownGaps": [
+        "Open-popup diagnostics are source-level only until matching native popup reference capture and promotion evidence are added."
+      ]
+    },
+    {
+      "component": "MenuBar",
+      "ownerFamily": "Commands and menus",
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenarioName": "component-commands-menus-open-popup-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-open-popup-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "source-level open menu or flyout diagnostics; native popup visual evidence is not promoted",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "static host names for public evidence; popup/menu item names, expanded state, and accelerator text remain diagnostic",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/visual/visual-run.json",
+      "knownGaps": [
+        "Open-popup diagnostics are source-level only until matching native popup reference capture and promotion evidence are added."
+      ]
+    },
+    {
+      "component": "MenuFlyout",
+      "ownerFamily": "Commands and menus",
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenarioName": "component-commands-menus-open-popup-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-commands-menus-open-popup-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "source-level open menu or flyout diagnostics; native popup visual evidence is not promoted",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "static host names for public evidence; popup/menu item names, expanded state, and accelerator text remain diagnostic",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-commands-menus-open-popup-light/visual/visual-run.json",
+      "knownGaps": [
+        "Open-popup diagnostics are source-level only until matching native popup reference capture and promotion evidence are added."
+      ]
+    },
+    {
+      "component": "ContentDialog",
+      "ownerFamily": "Dialogs and flyouts",
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenarioName": "component-dialogs-flyouts-open-popup-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-open-popup-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "open dialog or flyout, choose or dismiss",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "dialog/flyout title, body, button names, and popup relationship",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows dialog/flyout targets are represented; macOS dialog and popup host behavior is not implemented yet."
+      ]
+    },
+    {
+      "component": "Flyout",
+      "ownerFamily": "Dialogs and flyouts",
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenarioName": "component-dialogs-flyouts-open-popup-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-open-popup-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "open dialog or flyout, choose or dismiss",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "dialog/flyout title, body, button names, and popup relationship",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows dialog/flyout targets are represented; macOS dialog and popup host behavior is not implemented yet."
+      ]
+    },
+    {
+      "component": "TeachingTip",
+      "ownerFamily": "Dialogs and flyouts",
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenarioName": "component-dialogs-flyouts-open-popup-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-open-popup-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "open dialog or flyout, choose or dismiss",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "dialog/flyout title, body, button names, and popup relationship",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows dialog/flyout targets are represented; macOS dialog and popup host behavior is not implemented yet."
+      ]
+    },
+    {
+      "component": "ToolTip",
+      "ownerFamily": "Dialogs and flyouts",
+      "productionPriority": "Ring 1",
+      "state": "open-popup",
+      "scenarioName": "component-dialogs-flyouts-open-popup-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-dialogs-flyouts-open-popup-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "open dialog or flyout, choose or dismiss",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "dialog/flyout title, body, button names, and popup relationship",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-dialogs-flyouts-open-popup-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows dialog/flyout targets are represented; macOS dialog and popup host behavior is not implemented yet."
+      ]
+    },
+    {
+      "component": "AppBarButton",
+      "ownerFamily": "Navigation and workbench",
+      "productionPriority": "Ring 0",
+      "state": "deferred-decision",
+      "scenarioName": "public-admin-workbench-deferred-light",
+      "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "invoke alternate command and assert status",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "workbench navigation, selected row, command, and status names remain visible and non-private",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "CommandBar",
+      "ownerFamily": "Navigation and workbench",
+      "productionPriority": "Ring 0",
+      "state": "deferred-decision",
+      "scenarioName": "public-admin-workbench-deferred-light",
+      "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "invoke alternate command and assert status",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "workbench navigation, selected row, command, and status names remain visible and non-private",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "InfoBar",
+      "ownerFamily": "Navigation and workbench",
+      "productionPriority": "Ring 0",
+      "state": "deferred-decision",
+      "scenarioName": "public-admin-workbench-deferred-light",
+      "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "invoke alternate command and assert status",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "workbench navigation, selected row, command, and status names remain visible and non-private",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ListView",
+      "ownerFamily": "Navigation and workbench",
+      "productionPriority": "Ring 0",
+      "state": "deferred-decision",
+      "scenarioName": "public-admin-workbench-deferred-light",
+      "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "invoke alternate command and assert status",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "workbench navigation, selected row, command, and status names remain visible and non-private",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "NavigationView",
+      "ownerFamily": "Navigation and workbench",
+      "productionPriority": "Ring 0",
+      "state": "deferred-decision",
+      "scenarioName": "public-admin-workbench-deferred-light",
+      "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "invoke alternate command and assert status",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "workbench navigation, selected row, command, and status names remain visible and non-private",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "TextBox",
+      "ownerFamily": "Navigation and workbench",
+      "productionPriority": "Ring 0",
+      "state": "deferred-decision",
+      "scenarioName": "public-admin-workbench-deferred-light",
+      "scenarioPath": "fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-deferred-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "invoke alternate command and assert status",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "workbench navigation, selected row, command, and status names remain visible and non-private",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-deferred-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows workbench coverage is present; macOS list/detail, command, and status chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "InfoBar",
+      "ownerFamily": "Status, pickers, and people",
+      "productionPriority": "Ring 0",
+      "state": "error",
+      "scenarioName": "component-status-pickers-error-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-error-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "error state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "error status includes visible text and severity, not color alone",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-error-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-error-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-error-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows error coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "InfoBar",
+      "ownerFamily": "Status, pickers, and people",
+      "productionPriority": "Ring 0",
+      "state": "loading",
+      "scenarioName": "component-status-pickers-loading-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-loading-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "loading state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "loading status remains visible and non-color-only",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-loading-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-loading-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-loading-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows loading coverage is present; macOS InfoBar and ProgressRing chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "InfoBar",
+      "ownerFamily": "Status, pickers, and people",
+      "productionPriority": "Ring 0",
+      "state": "success",
+      "scenarioName": "component-status-pickers-success-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-success-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "click completion command and assert success status",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "success status includes visible text and severity, not color alone",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-success-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-success-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-success-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows success coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ProgressBar",
+      "ownerFamily": "Status, pickers, and people",
+      "productionPriority": "Ring 0",
+      "state": "error",
+      "scenarioName": "component-status-pickers-error-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-error-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "error state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "error status includes visible text and severity, not color alone",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-error-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-error-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-error-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows error coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ProgressBar",
+      "ownerFamily": "Status, pickers, and people",
+      "productionPriority": "Ring 0",
+      "state": "success",
+      "scenarioName": "component-status-pickers-success-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-success-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "click completion command and assert success status",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "success status includes visible text and severity, not color alone",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-success-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-success-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-success-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows success coverage is present; macOS InfoBar and ProgressBar chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ProgressRing",
+      "ownerFamily": "Status, pickers, and people",
+      "productionPriority": "Ring 0",
+      "state": "loading",
+      "scenarioName": "component-status-pickers-loading-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-status-pickers-loading-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "loading state export",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "loading status remains visible and non-color-only",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-loading-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-loading-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-status-pickers-loading-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows loading coverage is present; macOS InfoBar and ProgressRing chrome are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "Labels/forms pattern",
+      "ownerFamily": "Text and forms",
+      "productionPriority": "Ring 0",
+      "state": "invalid",
+      "scenarioName": "component-text-forms-invalid-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-invalid-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "validation state assertion",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "validation message remains visible and is not color-only",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-invalid-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-invalid-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-invalid-light/visual/visual-run.json",
+      "knownGaps": [
+        "Invalid state is represented with public text; native validation chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "TextBox",
+      "ownerFamily": "Text and forms",
+      "productionPriority": "Ring 0",
+      "state": "focused",
+      "scenarioName": "component-text-forms-focused-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-focused-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "focus",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "text input exposes role, name, value, and focus state",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-focused-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-focused-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-focused-light/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows TextBox focus coverage is present; macOS caret and focus visuals are not production-rendered yet."
+      ]
+    },
+    {
+      "component": "TextBox",
+      "ownerFamily": "Text and forms",
+      "productionPriority": "Ring 0",
+      "state": "invalid",
+      "scenarioName": "component-text-forms-invalid-light",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-text-forms-invalid-light.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "validation state assertion",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "validation message remains visible and is not color-only",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-invalid-light/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-invalid-light/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-text-forms-invalid-light/visual/visual-run.json",
+      "knownGaps": [
+        "Invalid state is represented with public text; native validation chrome is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ThemeResource",
+      "ownerFamily": "Theming and resources",
+      "productionPriority": "Ring 0",
+      "state": "dark",
+      "scenarioName": "component-layout-media-dark",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-dark.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "dark theme resource resolution",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "themed resource text remains exposed with a stable accessible name",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-layout-media-dark/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-layout-media-dark/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-layout-media-dark/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows dark theme coverage is present; macOS theme resource fidelity is not production-rendered yet."
+      ]
+    },
+    {
+      "component": "ThemeResource",
+      "ownerFamily": "Theming and resources",
+      "productionPriority": "Ring 0",
+      "state": "high-contrast",
+      "scenarioName": "component-layout-media-high-contrast",
+      "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/component-layout-media-high-contrast.json",
+      "scenarioExists": true,
+      "evidenceStatus": "missing-state-evidence",
+      "interactionRequirement": "high-contrast theme resource resolution",
+      "interactionEvidenceStatus": "missing-state-evidence",
+      "accessibilityRequirement": "high-contrast themed resource text remains exposed with a stable accessible name",
+      "accessibilityEvidenceStatus": "missing-state-evidence",
+      "minimumVisualGrade": "not-rendered",
+      "coverageStatus": "missing-state-evidence",
+      "releaseEvidenceProfile": "strict-scenario-sweep",
+      "releaseEvidenceStatus": "required-via-public-product",
+      "releaseComponentEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-layout-media-high-contrast/visual/component-evidence.json",
+      "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/component-layout-media-high-contrast/accessibility.json",
+      "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/component-layout-media-high-contrast/visual/visual-run.json",
+      "knownGaps": [
+        "Native Windows high-contrast coverage is present; macOS high-contrast resource fidelity is not production-rendered yet."
+      ]
+    }
+  ],
+  "status": "tracked-with-gaps"
+}

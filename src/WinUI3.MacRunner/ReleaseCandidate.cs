@@ -30,6 +30,8 @@ internal static class ReleaseCandidateCommand
             CheckNoOsCompositionClaim(repositoryRoot),
             CheckDriftGate(repositoryRoot),
             CheckComponentQualityDashboard(repositoryRoot),
+            CheckStateCoverageMatrix(repositoryRoot),
+            CheckNativeQualityFamilyTranches(repositoryRoot),
             CheckNativeProvenancePolicy(repositoryRoot),
             CheckNativeReferenceReadiness(repositoryRoot),
             CheckReleaseDocsPresent(repositoryRoot),
@@ -266,6 +268,54 @@ internal static class ReleaseCandidateCommand
             "component-quality-dashboard",
             $"All {expected.Totals.ComponentCount} public component rows satisfy the documented source-level harness quality gate.",
             ("rows", expected.Totals.ComponentCount.ToString()));
+    }
+
+    private static ReleaseCheck CheckStateCoverageMatrix(string repositoryRoot)
+    {
+        var path = Path.Combine(repositoryRoot, StateCoverageMatrixBuilder.DefaultArtifactPath);
+        if (!File.Exists(path))
+        {
+            return Fail("state-coverage-matrix", $"Missing {path}. Run 'winui3-mac-runner state-coverage-matrix'.");
+        }
+
+        var expected = StateCoverageMatrixBuilder.Build(repositoryRoot);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonDefaults.Options);
+        if (NormalizeJson(File.ReadAllText(path)) != NormalizeJson(expectedJson))
+        {
+            return Fail(
+                "state-coverage-matrix",
+                "state-coverage-matrix.json is out of date. Run 'winui3-mac-runner state-coverage-matrix'.");
+        }
+
+        return Pass(
+            "state-coverage-matrix",
+            $"{expected.Totals.ComponentCount} component(s) have explicit state coverage status; {expected.Totals.DefaultOnlyComponentCount} remain default-only.",
+            ("components", expected.Totals.ComponentCount.ToString()),
+            ("defaultOnly", expected.Totals.DefaultOnlyComponentCount.ToString()));
+    }
+
+    private static ReleaseCheck CheckNativeQualityFamilyTranches(string repositoryRoot)
+    {
+        var path = Path.Combine(repositoryRoot, NativeQualityFamilyTrancheBuilder.DefaultArtifactPath);
+        if (!File.Exists(path))
+        {
+            return Fail("native-quality-family-tranches", $"Missing {path}. Run 'winui3-mac-runner native-quality-family-tranches'.");
+        }
+
+        var expected = NativeQualityFamilyTrancheBuilder.Build(repositoryRoot);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonDefaults.Options);
+        if (NormalizeJson(File.ReadAllText(path)) != NormalizeJson(expectedJson))
+        {
+            return Fail(
+                "native-quality-family-tranches",
+                "native-quality-family-tranches.json is out of date. Run 'winui3-mac-runner native-quality-family-tranches'.");
+        }
+
+        return Pass(
+            "native-quality-family-tranches",
+            $"{expected.Totals.FamilyCount} native-quality family tranche(s) are tracked; {expected.Totals.BlockedFamilyCount} remain blocked pending promotion evidence.",
+            ("families", expected.Totals.FamilyCount.ToString()),
+            ("blockedFamilies", expected.Totals.BlockedFamilyCount.ToString()));
     }
 
     private static ReleaseCheck CheckNativeProvenancePolicy(string repositoryRoot)

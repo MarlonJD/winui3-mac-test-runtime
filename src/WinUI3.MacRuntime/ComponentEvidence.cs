@@ -146,7 +146,10 @@ public sealed record ComponentEvidenceDocument(
     string ScenarioName,
     IReadOnlyList<ComponentEvidenceEntry> Components,
     IReadOnlyList<SourceFeatureEvidenceEntry> SourceFeatures,
-    string Status);
+    string Status)
+{
+    public SnapshotFontDiagnostics? FontDiagnostics { get; init; }
+}
 
 public sealed record ComponentEvidenceEntry(
     string Component,
@@ -190,7 +193,8 @@ public static class ComponentEvidenceBuilder
         VisualScenario scenario,
         UiTreeDocument tree,
         InteractionReport? interactions,
-        ComponentDiffMetrics? metrics)
+        ComponentDiffMetrics? metrics,
+        SnapshotFontDiagnostics? fontDiagnostics = null)
     {
         ArgumentNullException.ThrowIfNull(scenario);
         ArgumentNullException.ThrowIfNull(tree);
@@ -212,7 +216,10 @@ public static class ComponentEvidenceBuilder
             scenario.Name,
             components,
             sourceFeatures,
-            status);
+            status)
+        {
+            FontDiagnostics = fontDiagnostics
+        };
     }
 
     private static ComponentEvidenceEntry BuildComponentEvidence(
@@ -224,6 +231,7 @@ public static class ComponentEvidenceBuilder
     {
         var targetNode = FindByName(tree.Root, requirement.Target);
         var presence = targetNode is null ? "missing" : "present";
+        var layoutRegion = ResolveLayoutRegion(requirement, targetNode);
         var interactionStatus = InteractionStatus(requirement.Target, interactions);
         var grade = requirement.VisualGrade ?? requirement.MinimumVisualGrade;
         var knownGaps = requirement.KnownGaps.Count == 0 && IsDiagnosticOnly(grade)
@@ -234,7 +242,7 @@ public static class ComponentEvidenceBuilder
             requirement.Component,
             requirement.Kind,
             requirement.Target,
-            targetNode?.Layout,
+            layoutRegion,
             requirement.ExpectedStatus,
             presence,
             interactionStatus,
@@ -247,6 +255,63 @@ public static class ComponentEvidenceBuilder
             NativeQualityGrade: "not-evaluated",
             Inspection: null,
             knownGaps);
+    }
+
+    private static UiLayoutBox? ResolveLayoutRegion(VisualRequirement requirement, UiNode? targetNode)
+    {
+        if (targetNode is null)
+        {
+            return null;
+        }
+
+        if (IsDiagnosticContentHost(targetNode) &&
+            !UsesVisibleStaticHost(requirement) &&
+            FindDescendantByComponent(targetNode, requirement.Component) is { Layout: not null } descendantTarget)
+        {
+            return descendantTarget.Layout;
+        }
+
+        return targetNode.Layout;
+    }
+
+    private static bool UsesVisibleStaticHost(VisualRequirement requirement)
+    {
+        return requirement.Component is "CommandBarFlyout" or "MenuFlyout";
+    }
+
+    private static bool IsDiagnosticContentHost(UiNode node)
+    {
+        return string.Equals(SimpleType(node), "ContentControl", StringComparison.Ordinal) &&
+            !string.IsNullOrWhiteSpace(node.Name) &&
+            node.Name.StartsWith("Diagnostic", StringComparison.Ordinal);
+    }
+
+    private static UiNode? FindDescendantByComponent(UiNode node, string component)
+    {
+        var componentType = ComponentSimpleType(component);
+        foreach (var child in node.Children)
+        {
+            if (string.Equals(SimpleType(child), componentType, StringComparison.Ordinal))
+            {
+                return child;
+            }
+
+            var descendant = FindDescendantByComponent(child, component);
+            if (descendant is not null)
+            {
+                return descendant;
+            }
+        }
+
+        return null;
+    }
+
+    private static string ComponentSimpleType(string component)
+    {
+        var slashIndex = component.IndexOf('/', StringComparison.Ordinal);
+        var normalized = (slashIndex < 0 ? component : component[..slashIndex]).Trim();
+        var dotIndex = normalized.LastIndexOf('.');
+        return dotIndex < 0 ? normalized : normalized[(dotIndex + 1)..];
     }
 
     public static ComponentEvidenceDocument WithComponentCrops(
@@ -387,5 +452,12 @@ public static class ComponentEvidenceBuilder
         }
 
         return null;
+    }
+
+    private static string SimpleType(UiNode node)
+    {
+        var type = node.Type;
+        var dot = type.LastIndexOf('.');
+        return dot < 0 ? type : type[(dot + 1)..];
     }
 }

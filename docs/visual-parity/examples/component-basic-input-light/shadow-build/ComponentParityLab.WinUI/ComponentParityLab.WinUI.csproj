@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>ComponentParityLab.WinUI</AssemblyName>
+    <RootNamespace>ComponentParityLab.WinUI</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="WinUI3.MacCompat">
+      <HintPath>/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/src/WinUI3.MacRunner/bin/Debug/net10.0/WinUI3.MacCompat.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/App.xaml.cs" Link="App.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/MainWindow.xaml.cs" Link="MainWindow.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/NativeControlSamples.cs" Link="NativeControlSamples.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/NativeLaunchOptions.cs" Link="NativeLaunchOptions.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/NativeReferenceTargetExporter.cs" Link="NativeReferenceTargetExporter.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/BasicInputPage.xaml.cs" Link="Pages/BasicInputPage.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/CollectionsPage.xaml.cs" Link="Pages/CollectionsPage.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/CommandsMenusPage.xaml.cs" Link="Pages/CommandsMenusPage.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/DialogsFlyoutsPage.xaml.cs" Link="Pages/DialogsFlyoutsPage.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/LayoutMediaPage.xaml.cs" Link="Pages/LayoutMediaPage.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/NavigationWorkbenchPage.xaml.cs" Link="Pages/NavigationWorkbenchPage.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/StatusPickersPage.xaml.cs" Link="Pages/StatusPickersPage.xaml.cs" />
+    <Compile Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/TextFormsPage.xaml.cs" Link="Pages/TextFormsPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/App.xaml" Link="App.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/MainWindow.xaml" Link="MainWindow.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/BasicInputPage.xaml" Link="Pages/BasicInputPage.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/CollectionsPage.xaml" Link="Pages/CollectionsPage.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/CommandsMenusPage.xaml" Link="Pages/CommandsMenusPage.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/DialogsFlyoutsPage.xaml" Link="Pages/DialogsFlyoutsPage.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/LayoutMediaPage.xaml" Link="Pages/LayoutMediaPage.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/NavigationWorkbenchPage.xaml" Link="Pages/NavigationWorkbenchPage.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/StatusPickersPage.xaml" Link="Pages/StatusPickersPage.xaml" />
+    <WinUI3MacXaml Include="/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/fixtures/ComponentParityLab.WinUI/Pages/TextFormsPage.xaml" Link="Pages/TextFormsPage.xaml" />
+  </ItemGroup>
+  <Target Name="WinUI3MacGenerateXaml" BeforeTargets="CoreCompile" Condition="'@(WinUI3MacXaml)' != ''">
+    <MakeDir Directories="$(IntermediateOutputPath)" />
+    <Exec Command="dotnet &quot;/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime/src/WinUI3.MacRunner/bin/Debug/net10.0/WinUI3.MacRunner.dll&quot; xaml compile --output &quot;$(IntermediateOutputPath)WinUI3MacXaml.g.cs&quot; @(WinUI3MacXaml-&gt;'&quot;%(FullPath)&quot;', ' ')" />
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)WinUI3MacXaml.g.cs" />
+    </ItemGroup>
+  </Target>
+</Project>

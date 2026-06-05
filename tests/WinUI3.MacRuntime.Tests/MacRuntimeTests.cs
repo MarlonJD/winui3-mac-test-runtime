@@ -180,6 +180,41 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void InteractionScriptRecordsBeforeAndAfterStateForMutations()
+    {
+        var searchBox = new TextBox { Name = "SearchBox", Text = "Initial" };
+        var listView = new ListView { Name = "TaskList" };
+        listView.Items.Add("Review queue");
+        listView.Items.Add("Archive completed task");
+        listView.SelectedIndex = 0;
+        var root = new StackPanel
+        {
+            Children =
+            {
+                searchBox,
+                listView
+            }
+        };
+        var window = new Window { Content = root };
+
+        var report = new InteractionScriptRunner(new TypeResolver(Array.Empty<Type>()))
+            .Run(window, new InteractionScript(new[]
+            {
+                new InteractionAction("typeText", "SearchBox", null, null, null, "Closed tasks"),
+                new InteractionAction("selectItem", "TaskList", null, null, null, "Archive completed task")
+            }));
+
+        Assert.IsTrue(report.Steps.All(step => step.Status == "passed"));
+        Assert.AreEqual("Initial", report.Steps[0].BeforeState?["text"]);
+        Assert.AreEqual("Closed tasks", report.Steps[0].AfterState?["text"]);
+        Assert.AreEqual("Closed tasks", report.Steps[0].ObservedState?["text"]);
+        Assert.AreEqual("0", report.Steps[1].BeforeState?["selectedIndex"]);
+        Assert.AreEqual("Review queue", report.Steps[1].BeforeState?["selectedItem"]);
+        Assert.AreEqual("1", report.Steps[1].AfterState?["selectedIndex"]);
+        Assert.AreEqual("Archive completed task", report.Steps[1].AfterState?["selectedItem"]);
+    }
+
+    [TestMethod]
     public void InteractionScriptFailureReportsSelectorAndObservedState()
     {
         var textBlock = new TextBlock { Name = "StatusText", Text = "Waiting" };
@@ -200,6 +235,30 @@ public sealed class MacRuntimeTests
         Assert.AreEqual("Done", step.Expected);
         Assert.AreEqual("Waiting", step.Actual);
         Assert.AreEqual("Waiting", step.ObservedState?["text"]);
+    }
+
+    [TestMethod]
+    public void InteractionScriptWaitsForIdleAndAssertsAccessibilityState()
+    {
+        var button = new Button { Name = "PrimaryButton", Content = "Continue" };
+        AutomationProperties.SetAutomationId(button, "primary-action");
+        AutomationProperties.SetName(button, "Primary action");
+        var window = new Window { Content = button };
+
+        var report = new InteractionScriptRunner(new TypeResolver(Array.Empty<Type>()))
+            .Run(window, new InteractionScript(new[]
+            {
+                new InteractionAction("waitForIdle", null, null, null, null, null),
+                new InteractionAction("assertAccessibilityState", "automationId=primary-action", "role", null, null, "button"),
+                new InteractionAction("assertAccessibilityState", "automationId=primary-action", "label", null, null, "Primary action")
+            }));
+
+        Assert.IsTrue(report.Steps.All(step => step.Status == "passed"));
+        Assert.AreEqual("waitForIdle", report.Steps[0].Type);
+        Assert.AreEqual("automationId=primary-action", report.Steps[1].Selector);
+        Assert.AreEqual("automationId", report.Steps[1].SelectorKind);
+        Assert.AreEqual("button", report.Steps[1].Actual);
+        Assert.AreEqual("Primary action", report.Steps[2].ObservedState?["label"]);
     }
 
     [TestMethod]
@@ -402,6 +461,198 @@ public sealed class MacRuntimeTests
         Assert.AreEqual(theme.Surface, checkedState.Text);
         Assert.AreEqual(theme.AccentSoft, selected.Fill);
         Assert.AreEqual(theme.Accent, selected.Text);
+    }
+
+    [TestMethod]
+    public void FluentDrawingPrimitivesDrawSelectedRadioWithAccentRing()
+    {
+        using var bitmap = new SKBitmap(40, 40, SKColorType.Bgra8888, SKAlphaType.Premul);
+        using var canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint { IsAntialias = false };
+        var theme = SkiaV2Theme.For("light");
+        canvas.Clear(theme.AppBackground);
+
+        FluentDrawingPrimitives.DrawRadioButton(
+            canvas,
+            paint,
+            20,
+            20,
+            theme,
+            new FluentControlState(IsChecked: true));
+
+        Assert.IsGreaterThan(
+            0,
+            CountExactPixels(bitmap, new SKRect(9, 9, 31, 13), theme.Accent) +
+                CountExactPixels(bitmap, new SKRect(9, 27, 31, 31), theme.Accent) +
+                CountExactPixels(bitmap, new SKRect(9, 13, 13, 27), theme.Accent) +
+                CountExactPixels(bitmap, new SKRect(27, 13, 31, 27), theme.Accent),
+            "A selected RadioButton should use accent chrome for the outer ring as well as the center dot.");
+    }
+
+    [TestMethod]
+    public void FluentDrawingPrimitivesDrawSelectedRadioWithNativeFilledRingAndCenterKnockout()
+    {
+        using var bitmap = new SKBitmap(40, 40, SKColorType.Bgra8888, SKAlphaType.Premul);
+        using var canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint { IsAntialias = false };
+        var theme = SkiaV2Theme.For("light");
+        canvas.Clear(theme.AppBackground);
+
+        FluentDrawingPrimitives.DrawRadioButton(
+            canvas,
+            paint,
+            20,
+            20,
+            theme,
+            new FluentControlState(IsChecked: true));
+
+        Assert.AreEqual(theme.Surface, bitmap.GetPixel(20, 20), "The native selected RadioButton keeps a white center knockout.");
+        Assert.AreEqual(theme.Accent, bitmap.GetPixel(27, 20), "The native selected RadioButton fills the selected ring between the edge and center knockout.");
+    }
+
+    [TestMethod]
+    public void FluentDrawingPrimitivesDrawSelectedRadioWithNativeKnockoutEdge()
+    {
+        using var bitmap = new SKBitmap(40, 40, SKColorType.Bgra8888, SKAlphaType.Premul);
+        using var canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint { IsAntialias = true };
+        var theme = SkiaV2Theme.For("light");
+        canvas.Clear(theme.AppBackground);
+
+        FluentDrawingPrimitives.DrawRadioButton(
+            canvas,
+            paint,
+            20,
+            20,
+            theme,
+            new FluentControlState(IsChecked: true));
+
+        Assert.IsTrue(
+            IsRadioKnockoutEdgeLike(bitmap.GetPixel(25, 20)),
+            $"Selected RadioButton center knockout should reach the native horizontal inner edge; actual pixel was {bitmap.GetPixel(25, 20)}.");
+        Assert.IsTrue(
+            IsRadioKnockoutEdgeLike(bitmap.GetPixel(20, 25)),
+            $"Selected RadioButton center knockout should reach the native vertical inner edge; actual pixel was {bitmap.GetPixel(20, 25)}.");
+        Assert.IsTrue(
+            IsAccentLike(bitmap.GetPixel(27, 20)),
+            $"Selected RadioButton should keep an accent ring outside the native center knockout; actual pixel was {bitmap.GetPixel(27, 20)}.");
+    }
+
+    [TestMethod]
+    public void FluentDrawingPrimitivesDrawCheckedCheckBoxWithCompactNativeTick()
+    {
+        using var bitmap = new SKBitmap(28, 28, SKColorType.Bgra8888, SKAlphaType.Premul);
+        using var canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint { IsAntialias = false };
+        var theme = SkiaV2Theme.For("light");
+        var box = new SKRect(2, 2, 22, 22);
+        canvas.Clear(theme.AppBackground);
+
+        FluentDrawingPrimitives.DrawCheckBox(
+            canvas,
+            paint,
+            box,
+            theme,
+            new FluentControlState(IsChecked: true));
+
+        var tickBounds = BoundsOfPixelsMatching(bitmap, box, pixel => pixel == theme.Surface);
+
+        Assert.IsFalse(tickBounds.IsEmpty, "Expected a checked CheckBox tick glyph.");
+        Assert.IsLessThanOrEqualTo(12, tickBounds.Width, $"Checked CheckBox tick should stay compact; actual bounds were {tickBounds}.");
+        Assert.IsLessThanOrEqualTo(9, tickBounds.Height, $"Checked CheckBox tick should stay compact; actual bounds were {tickBounds}.");
+    }
+
+    [TestMethod]
+    public void FluentDrawingPrimitivesSpreadsRatingStarsAcrossNativeSizedBounds()
+    {
+        using var bitmap = new SKBitmap(120, 32, SKColorType.Bgra8888, SKAlphaType.Premul);
+        using var canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint { IsAntialias = false };
+        var theme = SkiaV2Theme.For("light");
+        canvas.Clear(theme.AppBackground);
+
+        FluentDrawingPrimitives.DrawRatingStars(
+            canvas,
+            paint,
+            new SKRect(0, 0, 120, 32),
+            theme,
+            maxRating: 5,
+            value: 5,
+            isEnabled: true);
+
+        Assert.IsGreaterThan(
+            0,
+            CountExactPixels(bitmap, new SKRect(108, 0, 120, 32), theme.Accent),
+            "A five-star RatingControl should use the available 120 px native crop width instead of clustering stars left.");
+    }
+
+    [TestMethod]
+    public void FluentDrawingPrimitivesDrawRatingStarsWithNativeFilledStarScale()
+    {
+        using var bitmap = new SKBitmap(120, 32, SKColorType.Bgra8888, SKAlphaType.Premul);
+        using var canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint { IsAntialias = true };
+        var theme = SkiaV2Theme.For("light");
+        canvas.Clear(theme.AppBackground);
+
+        FluentDrawingPrimitives.DrawRatingStars(
+            canvas,
+            paint,
+            new SKRect(0, 0, 120, 32),
+            theme,
+            maxRating: 5,
+            value: 4,
+            isEnabled: true);
+
+        var filledBounds = BoundsOfPixelsMatching(bitmap, new SKRect(0, 0, 96, 32), IsAccentLike);
+
+        Assert.IsFalse(filledBounds.IsEmpty, "Expected filled RatingControl stars.");
+        Assert.IsLessThanOrEqualTo(89, filledBounds.Width, $"Filled RatingControl stars should match native compact width; actual bounds were {filledBounds}.");
+        Assert.IsLessThanOrEqualTo(15, filledBounds.Height, $"Filled RatingControl stars should match native compact height; actual bounds were {filledBounds}.");
+    }
+
+    [TestMethod]
+    public void FluentDrawingPrimitivesDrawRatingStarsWithVisibleNativeEmptyStroke()
+    {
+        using var bitmap = new SKBitmap(120, 32, SKColorType.Bgra8888, SKAlphaType.Premul);
+        using var canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint { IsAntialias = true };
+        var theme = SkiaV2Theme.For("light");
+        canvas.Clear(theme.AppBackground);
+
+        FluentDrawingPrimitives.DrawRatingStars(
+            canvas,
+            paint,
+            new SKRect(0, 0, 120, 32),
+            theme,
+            maxRating: 5,
+            value: 4,
+            isEnabled: true);
+
+        Assert.IsGreaterThan(
+            20,
+            CountDarkPixels(bitmap, new SKRect(92, 6, 116, 26), maximumChannelValue: 210),
+            "The unfilled RatingControl star should use a visible native-like stroke instead of a near-white outline.");
+    }
+
+    [TestMethod]
+    public void FluentDrawingPrimitivesDrawChevronDownUsesCompactNativeStroke()
+    {
+        using var bitmap = new SKBitmap(24, 16, SKColorType.Bgra8888, SKAlphaType.Premul);
+        using var canvas = new SKCanvas(bitmap);
+        using var paint = new SKPaint { IsAntialias = false };
+        var theme = SkiaV2Theme.For("light");
+        canvas.Clear(theme.AppBackground);
+
+        FluentDrawingPrimitives.DrawChevronDown(canvas, paint, 6, 5, theme.TextSecondary);
+
+        var bounds = BoundsOfPixelsOtherThan(bitmap, theme.AppBackground);
+        Assert.IsLessThanOrEqualTo(9, bounds.Width, $"Chevron should fit the native compact affordance width; actual bounds were {bounds}.");
+        Assert.IsLessThanOrEqualTo(5, bounds.Height, $"Chevron should fit the native compact affordance height; actual bounds were {bounds}.");
+        Assert.IsLessThanOrEqualTo(
+            18,
+            CountExactPixels(bitmap, new SKRect(0, 0, bitmap.Width, bitmap.Height), theme.TextSecondary),
+            "The dropdown chevron should use a light 1 px stroke rather than the previous heavy stroke.");
     }
 
     [TestMethod]
@@ -668,6 +919,773 @@ public sealed class MacRuntimeTests
                 Regex.IsMatch(text, $@"\|\s*{count}\s*\|", RegexOptions.CultureInvariant),
                 $"all-catalog-readiness-audit.md must publish the {disposition} count {count}.");
         }
+    }
+
+    [TestMethod]
+    public void CompatibilityLevelsMapEveryCatalogDisposition()
+    {
+        var audit = CatalogReadinessAudit.Build(CompatibilityCatalog.Current);
+        using var document = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/compatibility/compatibility-levels.json")));
+        var root = document.RootElement;
+
+        Assert.AreEqual("0.1", root.GetProperty("schemaVersion").GetString());
+        Assert.AreEqual("source-level-public-subset", RequireNonEmptyString(root, "productContract"));
+        Assert.AreEqual("L2", RequireNonEmptyString(root, "currentCompatibilityLevel"));
+
+        var levels = root.GetProperty("levels")
+            .EnumerateArray()
+            .Select(level => RequireNonEmptyString(level, "id"))
+            .ToArray();
+        CollectionAssert.AreEqual(new[] { "L0", "L1", "L2", "L3", "L4", "L5", "L6" }, levels);
+
+        var mappings = root.GetProperty("catalogDispositionMappings")
+            .EnumerateArray()
+            .ToDictionary(
+                mapping => RequireNonEmptyString(mapping, "disposition"),
+                mapping => mapping,
+                StringComparer.Ordinal);
+
+        foreach (var disposition in audit.DispositionCounts.Keys)
+        {
+            Assert.IsTrue(mappings.ContainsKey(disposition), $"Missing compatibility-level mapping for disposition '{disposition}'.");
+        }
+
+        var levelSet = levels.ToHashSet(StringComparer.Ordinal);
+        foreach (var entry in audit.Entries)
+        {
+            var mapping = mappings[entry.Disposition];
+            var level = RequireNonEmptyString(mapping, "minimumCompatibilityLevel");
+            Assert.IsTrue(levelSet.Contains(level), $"{entry.Id} maps to unknown compatibility level '{level}'.");
+            Assert.AreEqual(entry.ReleaseGate, RequireNonEmptyString(mapping, "releaseGate"), $"{entry.Id} release gate mapping drifted.");
+        }
+
+        Assert.AreEqual("L2", RequireNonEmptyString(mappings[CatalogReadinessAudit.DispositionSourceLevelImplementation], "minimumCompatibilityLevel"));
+        Assert.AreEqual("L2", RequireNonEmptyString(mappings[CatalogReadinessAudit.DispositionBoundedImplementation], "minimumCompatibilityLevel"));
+        Assert.AreEqual("L0", RequireNonEmptyString(mappings[CatalogReadinessAudit.DispositionDiagnosticExclusion], "minimumCompatibilityLevel"));
+        Assert.AreEqual("L0", RequireNonEmptyString(mappings[CatalogReadinessAudit.DispositionWindowsOnlyExclusion], "minimumCompatibilityLevel"));
+        Assert.AreEqual("L0", RequireNonEmptyString(mappings[CatalogReadinessAudit.DispositionNonGoalExclusion], "minimumCompatibilityLevel"));
+    }
+
+    [TestMethod]
+    public void CompatibilityLevelDocsKeepNativeQualitySeparateFromSourceLevelProduction()
+    {
+        var text = File.ReadAllText(RepositoryPath("docs/compatibility/compatibility-levels.md"));
+
+        StringAssert.Contains(text, "## Current Level");
+        StringAssert.Contains(text, "L2");
+        StringAssert.Contains(text, "source-level");
+        StringAssert.Contains(text, "native-quality");
+        StringAssert.Contains(text, "does not mean native-quality visual fidelity");
+    }
+
+    [TestMethod]
+    public void ProductEvidencePublicProductProfileUsesStableBatchGateSteps()
+    {
+        var plan = ProductEvidencePlan.Create("public-product", "artifacts/product-evidence/public-product");
+
+        Assert.AreEqual("public-product", plan.Profile);
+        Assert.AreEqual("artifacts/product-evidence/public-product", plan.OutputRoot);
+        CollectionAssert.AreEqual(
+            new[]
+            {
+                "catalog-audit",
+                "component-quality-dashboard",
+                "state-coverage-matrix",
+                "native-quality-family-tranches",
+                "native-reference-readiness",
+                "visual-drift-dashboard-freshness",
+                "visual-review-index",
+                "strict-scenario-sweep",
+                "public-admin-workbench",
+                "production-e2e-workbench",
+                "release-candidate-dry-run"
+            },
+            plan.Steps.Select(step => step.Name).ToArray());
+
+        var dashboardStep = plan.Steps.Single(step => step.Name == "component-quality-dashboard");
+        Assert.AreEqual("source-level-release", dashboardStep.BlockingScope);
+        Assert.AreEqual("PATH=\"$PWD/tools:$PATH\" winui3-mac-runner component-quality-dashboard --check", dashboardStep.Command);
+        CollectionAssert.Contains(dashboardStep.ArtifactPaths.ToArray(), "docs/visual-parity/component-quality-dashboard.json");
+
+        var sweepStep = plan.Steps.Single(step => step.Name == "strict-scenario-sweep");
+        Assert.AreEqual("external-evidence-required", sweepStep.ExecutionMode);
+        Assert.AreEqual("product-polish", sweepStep.BlockingScope);
+        StringAssert.Contains(sweepStep.Command, "product-evidence --profile strict-scenario-sweep");
+
+        var publicAdminStep = plan.Steps.Single(step => step.Name == "public-admin-workbench");
+        StringAssert.Contains(publicAdminStep.Command, "product-evidence --profile strict-scenario-sweep");
+        CollectionAssert.Contains(
+            publicAdminStep.ArtifactPaths.ToArray(),
+            "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-light/visual/visual-run.json");
+
+        var productionE2eStep = plan.Steps.Single(step => step.Name == "production-e2e-workbench");
+        StringAssert.Contains(productionE2eStep.Command, "product-evidence --profile strict-scenario-sweep");
+        CollectionAssert.Contains(
+            productionE2eStep.ArtifactPaths.ToArray(),
+            "artifacts/product-evidence/strict-scenario-sweep/production-e2e-workbench-light/visual/visual-run.json");
+
+        var stateMatrixStep = plan.Steps.Single(step => step.Name == "state-coverage-matrix");
+        Assert.AreEqual("local-check", stateMatrixStep.ExecutionMode);
+        Assert.AreEqual("state-interaction-accessibility", stateMatrixStep.BlockingScope);
+        CollectionAssert.Contains(stateMatrixStep.ArtifactPaths.ToArray(), "docs/visual-parity/state-coverage-matrix.json");
+
+        var familyTrancheStep = plan.Steps.Single(step => step.Name == "native-quality-family-tranches");
+        Assert.AreEqual("local-check", familyTrancheStep.ExecutionMode);
+        Assert.AreEqual("native-quality-promotion", familyTrancheStep.BlockingScope);
+        CollectionAssert.Contains(familyTrancheStep.ArtifactPaths.ToArray(), "docs/visual-parity/native-quality-family-tranches.json");
+    }
+
+    [TestMethod]
+    public void ProductEvidenceStrictScenarioSweepProfileDiscoversEveryPublicScenario()
+    {
+        var plan = ProductEvidencePlan.Create(
+            "strict-scenario-sweep",
+            "artifacts/product-evidence/strict-scenario-sweep",
+            RepositoryRoot());
+        var scenarioPaths = Directory
+            .EnumerateFiles(RepositoryPath("fixtures"), "*.json", SearchOption.AllDirectories)
+            .Where(path => path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                .Contains("scenarios", StringComparer.Ordinal))
+            .Select(path => Path.GetRelativePath(RepositoryRoot(), path).Replace('\\', '/'))
+            .OrderBy(path => path, StringComparer.Ordinal)
+            .ToArray();
+
+        Assert.AreEqual("strict-scenario-sweep", plan.Profile);
+        Assert.AreEqual(scenarioPaths.Length, plan.Steps.Count);
+        Assert.AreEqual(36, plan.Steps.Count);
+        CollectionAssert.AreEqual(scenarioPaths, plan.Steps.Select(step => step.ScenarioPath).ToArray());
+
+        var basicInput = plan.Steps.Single(step => step.Name == "component-basic-input-light");
+        Assert.AreEqual("local-check", basicInput.ExecutionMode);
+        Assert.AreEqual("strict-scenario-sweep", basicInput.BlockingScope);
+        Assert.AreEqual("fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj", basicInput.ProjectPath);
+        Assert.AreEqual("fixtures/ComponentParityLab.WinUI/scenarios/component-basic-input-light.json", basicInput.ScenarioPath);
+        Assert.AreEqual("artifacts/product-evidence/strict-scenario-sweep/component-basic-input-light", basicInput.OutputDirectory);
+        CollectionAssert.Contains(
+            basicInput.ArtifactPaths.ToArray(),
+            "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-light/visual/visual-run.json");
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceStrictScenarioSweepProfileWritesScenarioStepReport()
+    {
+        var outputRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-strict-sweep-tests", Guid.NewGuid().ToString("N"));
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            RepositoryRoot(),
+            "strict-scenario-sweep",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("scenario passed in test harness.", step.ArtifactPaths)));
+
+        Assert.AreEqual("passed", report.Status);
+        Assert.AreEqual(36, report.Summary.TotalSteps);
+        Assert.AreEqual(36, report.Summary.PassedSteps);
+        Assert.AreEqual(0, report.Summary.ExternalEvidenceSteps);
+        Assert.IsTrue(report.Steps.All(step => step.ExecutionMode == "local-check"));
+        Assert.IsTrue(report.Steps.All(step => !string.IsNullOrWhiteSpace(step.ProjectPath)));
+        Assert.IsTrue(report.Steps.All(step => !string.IsNullOrWhiteSpace(step.ScenarioPath)));
+        Assert.IsTrue(File.Exists(Path.Combine(outputRoot, "product-evidence.json")));
+        Assert.IsTrue(File.Exists(Path.Combine(outputRoot, "product-evidence.md")));
+    }
+
+    [TestMethod]
+    public void ProductEvidenceRejectsUnknownProfile()
+    {
+        Assert.ThrowsExactly<ArgumentException>(() => ProductEvidencePlan.Create("unknown-profile", "artifacts/product-evidence/unknown"));
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceReportSummarizesFailedStepsAndWritesStableArtifacts()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(step.Name == "component-quality-dashboard"
+                ? ProductEvidenceStepOutcome.Failed("component-quality-dashboard.json is out of date.", step.ArtifactPaths)
+                : ProductEvidenceStepOutcome.Passed("step is current.", step.ArtifactPaths)));
+
+        Assert.AreEqual("blocked", report.Status);
+        Assert.AreEqual(1, report.Summary.FailedSteps);
+        Assert.AreEqual(7, report.Summary.PassedSteps);
+        Assert.AreEqual(3, report.Summary.ExternalEvidenceSteps);
+        Assert.AreEqual("component-quality-dashboard", report.Steps.Single(step => step.Status == "failed").Name);
+        Assert.AreEqual("component-quality-dashboard.json is out of date.", report.Steps.Single(step => step.Status == "failed").FailureReason);
+        Assert.IsTrue(File.Exists(Path.Combine(outputRoot, "product-evidence.json")));
+        Assert.IsTrue(File.Exists(Path.Combine(outputRoot, "product-evidence.md")));
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceAttachesCompletedExternalArtifacts()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        CreateStrictScenarioFixture(repositoryRoot, "component-b");
+        await WriteStrictScenarioSweepReport(repositoryRoot);
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-b/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-light/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/production-e2e-workbench-light/visual/visual-run.json", "passed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("passed", report.Status);
+        Assert.AreEqual(11, report.Summary.PassedSteps);
+        Assert.AreEqual(0, report.Summary.FailedSteps);
+        Assert.AreEqual(0, report.Summary.ExternalEvidenceSteps);
+        Assert.AreEqual("passed", report.Steps.Single(step => step.Name == "strict-scenario-sweep").Status);
+        Assert.AreEqual("passed", report.Steps.Single(step => step.Name == "public-admin-workbench").Status);
+        Assert.AreEqual("passed", report.Steps.Single(step => step.Name == "production-e2e-workbench").Status);
+    }
+
+    [TestMethod]
+    public void StateCoverageMatrixBuildsVisibleDefaultOnlyRowsFromInventory()
+    {
+        var matrix = StateCoverageMatrixBuilder.Build(RepositoryRoot());
+
+        Assert.AreEqual(ArtifactSchemas.StateCoverageMatrix, matrix.SchemaVersion);
+        Assert.IsGreaterThan(0, matrix.Totals.ComponentCount);
+        Assert.IsGreaterThan(0, matrix.Totals.RequirementCount);
+        Assert.IsGreaterThan(0, matrix.Totals.DefaultOnlyComponentCount);
+
+        var button = matrix.Components.Single(component => component.Component == "Button");
+        Assert.AreEqual("Basic input", button.OwnerFamily);
+        Assert.AreEqual("default-only", button.CoverageStatus);
+        CollectionAssert.Contains(button.RequiredStates.ToArray(), "focused");
+        CollectionAssert.Contains(button.RequiredStates.ToArray(), "disabled");
+        CollectionAssert.Contains(button.CoveredStates.ToArray(), "default");
+        CollectionAssert.Contains(button.MissingStates.ToArray(), "focused");
+
+        var focusedButton = matrix.Requirements.Single(requirement =>
+            requirement.Component == "Button" &&
+            requirement.State == "focused" &&
+            requirement.ScenarioName == "component-basic-input-focused-light");
+        Assert.IsTrue(focusedButton.ScenarioExists);
+        Assert.AreEqual("missing-state-evidence", focusedButton.EvidenceStatus);
+        Assert.AreEqual("missing-state-evidence", focusedButton.CoverageStatus);
+    }
+
+    [TestMethod]
+    public void StateCoverageMatrixPublishesStrictSweepReleaseEvidencePaths()
+    {
+        var matrix = StateCoverageMatrixBuilder.Build(RepositoryRoot());
+
+        using var document = JsonDocument.Parse(JsonSerializer.Serialize(matrix, JsonDefaults.Options));
+        var checkedToggle = document.RootElement
+            .GetProperty("requirements")
+            .EnumerateArray()
+            .Single(requirement =>
+                requirement.GetProperty("component").GetString() == "ToggleButton" &&
+                requirement.GetProperty("state").GetString() == "checked" &&
+                requirement.GetProperty("scenarioName").GetString() == "component-basic-input-checked-light");
+
+        Assert.IsTrue(checkedToggle.TryGetProperty("releaseEvidenceProfile", out var profile));
+        Assert.AreEqual("strict-scenario-sweep", profile.GetString());
+        Assert.AreEqual(
+            "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/visual/component-evidence.json",
+            checkedToggle.GetProperty("releaseComponentEvidencePath").GetString());
+        Assert.AreEqual(
+            "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/accessibility.json",
+            checkedToggle.GetProperty("releaseAccessibilityEvidencePath").GetString());
+        Assert.AreEqual(
+            "artifacts/product-evidence/strict-scenario-sweep/component-basic-input-checked-light/visual/visual-run.json",
+            checkedToggle.GetProperty("releaseVisualRunPath").GetString());
+        Assert.AreEqual(
+            "required-via-public-product",
+            checkedToggle.GetProperty("releaseEvidenceStatus").GetString());
+    }
+
+    [TestMethod]
+    public void StateCoverageMatrixIncludesThemeStateRequirements()
+    {
+        var matrix = StateCoverageMatrixBuilder.Build(RepositoryRoot());
+
+        var darkTheme = matrix.Requirements.Single(requirement =>
+            requirement.Component == "ThemeResource" &&
+            requirement.State == "dark" &&
+            requirement.ScenarioName == "component-layout-media-dark");
+        var highContrastTheme = matrix.Requirements.Single(requirement =>
+            requirement.Component == "ThemeResource" &&
+            requirement.State == "high-contrast" &&
+            requirement.ScenarioName == "component-layout-media-high-contrast");
+
+        Assert.AreEqual("Theming and resources", darkTheme.OwnerFamily);
+        Assert.AreEqual("artifacts/product-evidence/strict-scenario-sweep/component-layout-media-dark/visual/component-evidence.json", darkTheme.ReleaseComponentEvidencePath);
+        Assert.AreEqual("Theming and resources", highContrastTheme.OwnerFamily);
+        Assert.AreEqual("artifacts/product-evidence/strict-scenario-sweep/component-layout-media-high-contrast/visual/component-evidence.json", highContrastTheme.ReleaseComponentEvidencePath);
+    }
+
+    [TestMethod]
+    public void StateCoverageMatrixMatchesTrackedArtifact()
+    {
+        var expected = StateCoverageMatrixBuilder.Build(RepositoryRoot());
+        var actual = File.ReadAllText(RepositoryPath("docs/visual-parity/state-coverage-matrix.json"));
+
+        Assert.AreEqual(
+            NormalizeArtifact(JsonSerializer.Serialize(expected, JsonDefaults.Options)),
+            NormalizeArtifact(actual),
+            "docs/visual-parity/state-coverage-matrix.json is out of date. Regenerate with 'winui3-mac-runner state-coverage-matrix'.");
+
+        Assert.IsTrue(
+            expected.Components.Any(component => component.CoverageStatus == "default-only"),
+            "The state matrix must label components whose checked-in evidence is still default-only.");
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceBlocksFailedAttachedExternalArtifacts()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        CreateStrictScenarioFixture(repositoryRoot, "component-b");
+        await WriteStrictScenarioSweepReport(repositoryRoot, "component-b");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-b/visual/visual-run.json", "failed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("blocked", report.Status);
+        Assert.AreEqual(1, report.Summary.FailedSteps);
+        var sweep = report.Steps.Single(step => step.Name == "strict-scenario-sweep");
+        Assert.AreEqual("failed", sweep.Status);
+        StringAssert.Contains(sweep.FailureReason, "component-b");
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceBlocksIncompleteStrictScenarioSweepArtifacts()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        await WriteStrictScenarioSweepReport(repositoryRoot);
+        CreateStrictScenarioFixture(repositoryRoot, "component-b");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("blocked", report.Status);
+        var sweep = report.Steps.Single(step => step.Name == "strict-scenario-sweep");
+        Assert.AreEqual("failed", sweep.Status);
+        StringAssert.Contains(sweep.FailureReason, "component-b");
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceBlocksStrictSweepMissingStateCoverageComponentEvidence()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        WriteProductionStateCoverageInventory(repositoryRoot, "component-a", "Button", minimumVisualGrade: "usable");
+        await WriteStrictScenarioSweepReport(repositoryRoot);
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+        WriteStrictScenarioAccessibility(repositoryRoot, "component-a");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-light/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/production-e2e-workbench-light/visual/visual-run.json", "passed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("blocked", report.Status);
+        var sweep = report.Steps.Single(step => step.Name == "strict-scenario-sweep");
+        Assert.AreEqual("failed", sweep.Status);
+        StringAssert.Contains(sweep.FailureReason, "component-a/Button");
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceAcceptsStrictSweepStateCoverageComponentEvidence()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        WriteProductionStateCoverageInventory(repositoryRoot, "component-a", "Button", minimumVisualGrade: "usable");
+        await WriteStrictScenarioSweepReport(repositoryRoot);
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+        WriteStrictScenarioAccessibility(
+            repositoryRoot,
+            "component-a",
+            "PrimaryTarget",
+            role: "button",
+            isFocused: true);
+        WriteStrictScenarioComponentEvidence(repositoryRoot, "component-a", "Button", visualGrade: "usable", interactionStatus: "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-light/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/production-e2e-workbench-light/visual/visual-run.json", "passed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("passed", report.Status);
+        Assert.AreEqual("passed", report.Steps.Single(step => step.Name == "strict-scenario-sweep").Status);
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceBlocksStrictSweepWhenStateMatrixReleasePathContractIsStale()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        WriteProductionStateCoverageInventory(repositoryRoot, "component-a", "Button", minimumVisualGrade: "usable");
+        WriteStateCoverageMatrixReleaseContract(
+            repositoryRoot,
+            "component-a",
+            "Button",
+            "focused",
+            releaseComponentEvidencePath: "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/stale-component-evidence.json");
+        await WriteStrictScenarioSweepReport(repositoryRoot);
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+        WriteStrictScenarioAccessibility(
+            repositoryRoot,
+            "component-a",
+            "PrimaryTarget",
+            role: "button",
+            isFocused: true);
+        WriteStrictScenarioComponentEvidence(repositoryRoot, "component-a", "Button", visualGrade: "usable", interactionStatus: "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-light/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/production-e2e-workbench-light/visual/visual-run.json", "passed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("blocked", report.Status);
+        var sweep = report.Steps.Single(step => step.Name == "strict-scenario-sweep");
+        Assert.AreEqual("failed", sweep.Status);
+        StringAssert.Contains(sweep.FailureReason, "component-a/Button=release-component-evidence-path");
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceBlocksStrictSweepMissingAccessibilityTargetEvidence()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        WriteProductionStateCoverageInventory(repositoryRoot, "component-a", "Button", minimumVisualGrade: "usable");
+        await WriteStrictScenarioSweepReport(repositoryRoot);
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+        WriteStrictScenarioAccessibility(repositoryRoot, "component-a");
+        WriteStrictScenarioComponentEvidence(repositoryRoot, "component-a", "Button", visualGrade: "usable", interactionStatus: "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-light/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/production-e2e-workbench-light/visual/visual-run.json", "passed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("blocked", report.Status);
+        var sweep = report.Steps.Single(step => step.Name == "strict-scenario-sweep");
+        Assert.AreEqual("failed", sweep.Status);
+        StringAssert.Contains(sweep.FailureReason, "component-a/Button=missing-accessibility-node:PrimaryTarget");
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceBlocksStrictSweepMismatchedCheckedAccessibilityState()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        WriteProductionStateCoverageInventory(repositoryRoot, "component-a", "CheckBox", minimumVisualGrade: "usable", state: "checked");
+        await WriteStrictScenarioSweepReport(repositoryRoot);
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+        WriteStrictScenarioAccessibility(
+            repositoryRoot,
+            "component-a",
+            "PrimaryTarget",
+            role: "checkbox",
+            isChecked: false);
+        WriteStrictScenarioComponentEvidence(repositoryRoot, "component-a", "CheckBox", visualGrade: "usable", interactionStatus: "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-light/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/production-e2e-workbench-light/visual/visual-run.json", "passed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("blocked", report.Status);
+        var sweep = report.Steps.Single(step => step.Name == "strict-scenario-sweep");
+        Assert.AreEqual("failed", sweep.Status);
+        StringAssert.Contains(sweep.FailureReason, "component-a/CheckBox=accessibility-state:checked");
+    }
+
+    [TestMethod]
+    public async Task ProductEvidenceBlocksStrictSweepWithoutDisabledAccessibilityState()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "public-product");
+        CreateStrictScenarioFixture(repositoryRoot, "component-a");
+        WriteProductionStateCoverageInventory(repositoryRoot, "component-a", "Button", minimumVisualGrade: "usable", state: "disabled");
+        await WriteStrictScenarioSweepReport(repositoryRoot);
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/component-a/visual/visual-run.json", "passed");
+        WriteStrictScenarioAccessibility(
+            repositoryRoot,
+            "component-a",
+            "PrimaryTarget",
+            role: "button",
+            isEnabled: true);
+        WriteStrictScenarioComponentEvidence(repositoryRoot, "component-a", "Button", visualGrade: "usable", interactionStatus: "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/public-admin-workbench-light/visual/visual-run.json", "passed");
+        WriteVisualRunStatus(repositoryRoot, "artifacts/product-evidence/strict-scenario-sweep/production-e2e-workbench-light/visual/visual-run.json", "passed");
+
+        var report = await ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "public-product",
+            outputRoot,
+            step => Task.FromResult(ProductEvidenceStepOutcome.Passed("local step passed.", step.ArtifactPaths)));
+
+        Assert.AreEqual("blocked", report.Status);
+        var sweep = report.Steps.Single(step => step.Name == "strict-scenario-sweep");
+        Assert.AreEqual("failed", sweep.Status);
+        StringAssert.Contains(sweep.FailureReason, "component-a=accessibility-state:disabled");
+    }
+
+    [TestMethod]
+    public void NativeQualityFamilyTranchesBuildsMilestoneCFamilyQueues()
+    {
+        var tranches = NativeQualityFamilyTrancheBuilder.Build(RepositoryRoot());
+
+        Assert.AreEqual(ArtifactSchemas.NativeQualityFamilyTranches, tranches.SchemaVersion);
+        CollectionAssert.AreEqual(
+            new[]
+            {
+                "selection-controls",
+                "button-link",
+                "dropdown-menu",
+                "text-forms",
+                "navigation-list",
+                "status-progress"
+            },
+            tranches.Families.Select(family => family.FamilyId).ToArray());
+        Assert.IsGreaterThan(0, tranches.Totals.RowCount);
+        Assert.IsGreaterThan(0, tranches.Totals.NotEvaluatedRowCount);
+        Assert.IsGreaterThan(0, tranches.Totals.DefaultOnlyComponentCount);
+        Assert.AreEqual("tracked-with-native-quality-gaps", tranches.Status);
+
+        var selection = tranches.Families.Single(family => family.FamilyId == "selection-controls");
+        CollectionAssert.Contains(selection.Components.ToArray(), "CheckBox");
+        CollectionAssert.Contains(selection.Components.ToArray(), "RadioButton");
+        Assert.AreEqual("native-quality-blocked", selection.Status);
+        Assert.IsTrue(selection.NextActions.Any(action => action.Contains("state", StringComparison.OrdinalIgnoreCase)));
+
+        var buttonLink = tranches.Families.Single(family => family.FamilyId == "button-link");
+        CollectionAssert.Contains(buttonLink.Components.ToArray(), "Button");
+        CollectionAssert.Contains(buttonLink.Components.ToArray(), "HyperlinkButton");
+
+        var dropdown = tranches.Families.Single(family => family.FamilyId == "dropdown-menu");
+        CollectionAssert.Contains(dropdown.Components.ToArray(), "ComboBox");
+
+        var textForms = tranches.Families.Single(family => family.FamilyId == "text-forms");
+        CollectionAssert.Contains(textForms.Components.ToArray(), "TextBox");
+
+        var navigationList = tranches.Families.Single(family => family.FamilyId == "navigation-list");
+        CollectionAssert.Contains(navigationList.Components.ToArray(), "ListView");
+        CollectionAssert.Contains(navigationList.Components.ToArray(), "NavigationView");
+
+        var statusProgress = tranches.Families.Single(family => family.FamilyId == "status-progress");
+        CollectionAssert.Contains(statusProgress.Components.ToArray(), "InfoBar");
+        CollectionAssert.Contains(statusProgress.Components.ToArray(), "ProgressBar");
+    }
+
+    [TestMethod]
+    public void NativeQualityFamilyTranchesExposeCropThresholdBlockersForNotEvaluatedRows()
+    {
+        var tranches = NativeQualityFamilyTrancheBuilder.Build(RepositoryRoot());
+
+        var radio = tranches.Rows.Single(row =>
+            row.FamilyId == "selection-controls" &&
+            row.Component == "RadioButton" &&
+            row.Target == "HighPriorityRadioButton");
+        var toggle = tranches.Rows.Single(row =>
+            row.FamilyId == "selection-controls" &&
+            row.Component == "ToggleButton" &&
+            row.Target == "PinnedToggleButton");
+
+        StringAssert.Contains(radio.RemainingBlocker, "crop status is 'failed'");
+        StringAssert.Contains(radio.RemainingBlocker, "changedPixelPercentage 19.375 exceeds threshold 18");
+        StringAssert.Contains(toggle.RemainingBlocker, "crop status is 'failed'");
+        StringAssert.Contains(toggle.RemainingBlocker, "changedPixelPercentage 22.434701 exceeds threshold 18");
+    }
+
+    [TestMethod]
+    public void NativeQualityFamilyTranchesExposeFamilyStateRequirementQueues()
+    {
+        var tranches = NativeQualityFamilyTrancheBuilder.Build(RepositoryRoot());
+        using var document = JsonDocument.Parse(JsonSerializer.Serialize(tranches, JsonDefaults.Options));
+
+        var selection = document.RootElement.GetProperty("families")
+            .EnumerateArray()
+            .Single(family => family.GetProperty("familyId").GetString() == "selection-controls");
+
+        Assert.IsTrue(
+            selection.TryGetProperty("stateRequirementCount", out var stateRequirementCount),
+            "Family tranche rows must publish the number of state requirements that block family-level promotion.");
+        Assert.AreEqual(4, stateRequirementCount.GetInt32());
+
+        Assert.IsTrue(
+            selection.TryGetProperty("missingStateRequirementCount", out var missingStateRequirementCount),
+            "Family tranche rows must publish unresolved state requirement counts.");
+        Assert.AreEqual(4, missingStateRequirementCount.GetInt32());
+
+        CollectionAssert.AreEqual(
+            new[] { "checked", "disabled" },
+            selection.GetProperty("stateRequirementStates")
+                .EnumerateArray()
+                .Select(state => state.GetString())
+                .ToArray());
+        CollectionAssert.AreEqual(
+            new[] { "component-basic-input-checked-light", "component-basic-input-disabled-light" },
+            selection.GetProperty("stateRequirementScenarios")
+                .EnumerateArray()
+                .Select(scenario => scenario.GetString())
+                .ToArray());
+    }
+
+    [TestMethod]
+    public void NativeQualityFamilyTranchesMatchesTrackedArtifact()
+    {
+        var expected = NativeQualityFamilyTrancheBuilder.Build(RepositoryRoot());
+        var actual = File.ReadAllText(RepositoryPath("docs/visual-parity/native-quality-family-tranches.json"));
+
+        Assert.AreEqual(
+            NormalizeArtifact(JsonSerializer.Serialize(expected, JsonDefaults.Options)),
+            NormalizeArtifact(actual),
+            "docs/visual-parity/native-quality-family-tranches.json is out of date. Regenerate with 'winui3-mac-runner native-quality-family-tranches'.");
+    }
+
+    [TestMethod]
+    public void EvidenceFreshnessFlagsStaleVisualDriftDashboardMetrics()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-freshness-tests", Guid.NewGuid().ToString("N"));
+        var visualDirectory = Path.Combine(repositoryRoot, "docs", "visual-parity");
+        var evidenceDirectory = Path.Combine(visualDirectory, "examples", "scenario-light");
+        Directory.CreateDirectory(evidenceDirectory);
+        File.WriteAllText(Path.Combine(evidenceDirectory, "pixel-diff.json"), """
+            {
+              "schemaVersion": "0.1",
+              "changedPixelPercentage": 42.5,
+              "meanAbsoluteError": 1.0,
+              "rootMeanSquaredError": 2.0,
+              "status": "failed"
+            }
+            """);
+        File.WriteAllText(Path.Combine(visualDirectory, "visual-drift-dashboard.json"), """
+            {
+              "schemaVersion": "0.1",
+              "gatedMetric": "component-crop",
+              "informationalMetric": "whole-screen",
+              "families": [
+                {
+                  "family": "Scenario",
+                  "scenario": "scenario-light",
+                  "pixelDiffPath": "docs/visual-parity/examples/scenario-light/pixel-diff.json",
+                  "componentCropDrift": { "gated": true },
+                  "wholeScreenDrift": {
+                    "gated": false,
+                    "changedPixelPercentage": 1.25
+                  }
+                }
+              ]
+            }
+            """);
+
+        var result = EvidenceFreshness.CheckVisualDriftDashboard(repositoryRoot);
+
+        Assert.AreEqual("failed", result.Status);
+        Assert.IsTrue(result.Problems.Any(problem => problem.Contains("Scenario", StringComparison.Ordinal)));
+        Assert.IsTrue(result.Problems.Any(problem => problem.Contains("pixel-diff.json", StringComparison.Ordinal)));
+    }
+
+    [TestMethod]
+    public void EvidenceFreshnessFlagsStaleComponentQualityDashboard()
+    {
+        var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-freshness-tests", Guid.NewGuid().ToString("N"));
+        var visualDirectory = Path.Combine(repositoryRoot, "docs", "visual-parity");
+        var evidenceDirectory = Path.Combine(visualDirectory, "examples", "scenario-light");
+        Directory.CreateDirectory(evidenceDirectory);
+        File.WriteAllText(Path.Combine(evidenceDirectory, "component-evidence.json"), TestComponentEvidenceJson("PrimaryButton"));
+        File.WriteAllText(
+            Path.Combine(visualDirectory, "component-quality-dashboard.json"),
+            JsonSerializer.Serialize(ComponentQualityDashboard.BuildFromPublicEvidence(repositoryRoot), JsonDefaults.Options));
+        File.WriteAllText(Path.Combine(evidenceDirectory, "component-evidence.json"), TestComponentEvidenceJson("SecondaryButton"));
+
+        var result = EvidenceFreshness.CheckComponentQualityDashboard(repositoryRoot);
+
+        Assert.AreEqual("failed", result.Status);
+        Assert.IsTrue(result.Problems.Any(problem => problem.Contains("component-quality-dashboard.json", StringComparison.Ordinal)));
+        Assert.IsTrue(result.Problems.Any(problem => problem.Contains("component-evidence.json", StringComparison.Ordinal)));
+    }
+
+    [TestMethod]
+    public void VisualCompareReportClassifiesBatchComponentRows()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "winui3-mac-visual-compare-tests", Guid.NewGuid().ToString("N"));
+        var beforeRoot = Path.Combine(root, "before");
+        var afterRoot = Path.Combine(root, "after");
+        WriteCompareComponentEvidence(
+            beforeRoot,
+            "scenario-light",
+            ("Button", "PrimaryButton", "failed", 12.5, 3.0, 5.0),
+            ("Slider", "VolumeSlider", "passed", 2.0, 1.0, 1.5),
+            ("CheckBox", "EnabledCheckBox", "failed", 8.0, 2.0, 4.0));
+        WriteCompareComponentEvidence(
+            afterRoot,
+            "scenario-light",
+            ("Button", "PrimaryButton", "passed", 4.0, 1.0, 2.0),
+            ("Slider", "VolumeSlider", "passed", 5.0, 2.0, 3.0),
+            ("CheckBox", "EnabledCheckBox", "failed", 3.0, 1.0, 2.0));
+
+        var report = VisualComparisonReport.Create(beforeRoot, afterRoot);
+
+        Assert.AreEqual(3, report.Summary.TotalRows);
+        Assert.AreEqual(1, report.Summary.NewlyPassingRows);
+        Assert.AreEqual(1, report.Summary.RegressedRows);
+        Assert.AreEqual(1, report.Summary.ImprovedRows);
+        Assert.AreEqual("newly-passing", report.Rows.Single(row => row.Target == "PrimaryButton").Status);
+        Assert.AreEqual("regressed", report.Rows.Single(row => row.Target == "VolumeSlider").Status);
+        Assert.AreEqual("improved", report.Rows.Single(row => row.Target == "EnabledCheckBox").Status);
+    }
+
+    [TestMethod]
+    public void VisualCompareReportWritesJsonAndMarkdown()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "winui3-mac-visual-compare-tests", Guid.NewGuid().ToString("N"));
+        var beforeRoot = Path.Combine(root, "before");
+        var afterRoot = Path.Combine(root, "after");
+        var outputRoot = Path.Combine(root, "compare");
+        WriteCompareComponentEvidence(beforeRoot, "scenario-light", ("Button", "PrimaryButton", "passed", 3.0, 1.0, 1.5));
+        WriteCompareComponentEvidence(afterRoot, "scenario-light", ("Button", "PrimaryButton", "passed", 2.0, 0.5, 1.0));
+
+        var report = VisualComparisonReport.Write(beforeRoot, afterRoot, outputRoot);
+
+        Assert.AreEqual("passed", report.Status);
+        Assert.IsTrue(File.Exists(Path.Combine(outputRoot, "visual-compare.json")));
+        Assert.IsTrue(File.Exists(Path.Combine(outputRoot, "visual-compare.md")));
+        StringAssert.Contains(File.ReadAllText(Path.Combine(outputRoot, "visual-compare.md")), "PrimaryButton");
     }
 
     [TestMethod]
@@ -941,6 +1959,55 @@ public sealed class MacRuntimeTests
         Assert.AreEqual("not-evaluated", evidence.Components[1].NativeQualityGrade);
         Assert.HasCount(1, evidence.SourceFeatures);
         Assert.AreEqual("present", evidence.SourceFeatures[0].Presence);
+    }
+
+    [TestMethod]
+    public void ComponentEvidenceBuilderCarriesRendererFontDiagnostics()
+    {
+        var scenario = new VisualScenario
+        {
+            FixtureName = "component-parity-lab",
+            Name = "component-basic-input-light",
+            Requirements = new[]
+            {
+                new VisualRequirement
+                {
+                    Component = "Button",
+                    Target = "PrimaryButton",
+                    ExpectedStatus = CompatibilityStatuses.Supported,
+                    MinimumVisualGrade = "usable",
+                    VisualGrade = "usable"
+                }
+            }
+        };
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new Button { Name = "PrimaryButton", Content = "Run" }
+        });
+        var settings = new VisualRunSettings(null, scenario.Name, "skia-v2", new VisualViewport(240, 160), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var diagnostics = new SnapshotFontDiagnostics(
+            Text: new FontRoleDiagnostic(
+                Role: FontResolver.TextRole,
+                RequestedFamilies: new[] { "Segoe UI" },
+                MatchedFamily: "Segoe UI",
+                ResolvedFamily: "Segoe UI",
+                RequestedFamilyAvailable: true,
+                FallbackMode: FontResolver.RequestedFamilyMode),
+            Symbol: new FontRoleDiagnostic(
+                Role: FontResolver.SymbolRole,
+                RequestedFamilies: new[] { "Segoe Fluent Icons", "Segoe MDL2 Assets" },
+                MatchedFamily: "Segoe Fluent Icons",
+                ResolvedFamily: "Segoe Fluent Icons",
+                RequestedFamilyAvailable: true,
+                FallbackMode: FontResolver.RequestedFamilyMode));
+
+        var evidence = ComponentEvidenceBuilder.Build(scenario, arranged, interactions: null, metrics: null, fontDiagnostics: diagnostics);
+
+        Assert.IsNotNull(evidence.FontDiagnostics);
+        Assert.AreEqual("Segoe UI", evidence.FontDiagnostics.Text.ResolvedFamily);
+        Assert.AreEqual("Segoe Fluent Icons", evidence.FontDiagnostics.Symbol.ResolvedFamily);
+        Assert.AreEqual(FontResolver.RequestedFamilyMode, evidence.FontDiagnostics.Symbol.FallbackMode);
     }
 
     [TestMethod]
@@ -1756,6 +2823,22 @@ public sealed class MacRuntimeTests
             Assert.AreEqual(0, dashboard.RootElement.GetProperty("totals").GetProperty("blockingRowCount").GetInt32());
         }
 
+        using (var tranches = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/visual-parity/native-quality-family-tranches.json"))))
+        {
+            Assert.AreEqual("tracked-with-native-quality-gaps", tranches.RootElement.GetProperty("status").GetString());
+            Assert.AreEqual(6, tranches.RootElement.GetProperty("totals").GetProperty("blockedFamilyCount").GetInt32());
+        }
+
+        var releaseCandidateSource = File.ReadAllText(RepositoryPath("src/WinUI3.MacRunner/ReleaseCandidate.cs"));
+        StringAssert.Contains(
+            releaseCandidateSource,
+            "CheckNativeQualityFamilyTranches",
+            "release-candidate must include the native-quality family tranche freshness gate.");
+        StringAssert.Contains(
+            releaseCandidateSource,
+            "native-quality-family-tranches",
+            "release-candidate output must name the native-quality family tranche gate.");
+
         // Native provenance for every checked-in visual reference.
         var referenceFiles = Directory.EnumerateFiles(
             RepositoryPath("docs/visual-parity/examples"),
@@ -1800,6 +2883,32 @@ public sealed class MacRuntimeTests
 
         var evidenceView = File.ReadAllText(RepositoryPath("docs/release/production-evidence-view.md"));
         StringAssert.Contains(evidenceView, "release-candidate", "The production evidence view must document the release candidate gate.");
+    }
+
+    [TestMethod]
+    public void LocalReleaseReadyCommandRunsTheCleanCheckoutGateSequence()
+    {
+        var scriptPath = RepositoryPath("tools/winui3-mac-release-ready-local");
+        Assert.IsTrue(File.Exists(scriptPath), "Milestone E requires a single local command for the clean-checkout release-ready gate.");
+
+        var script = File.ReadAllText(scriptPath);
+        StringAssert.Contains(script, "dotnet build -v minimal /m:1 /nr:false");
+        StringAssert.Contains(script, "dotnet tests/WinUI3.MacRuntime.Tests/bin/Debug/net10.0/WinUI3.MacRuntime.Tests.dll");
+        StringAssert.Contains(script, "dotnet tests/WinUI3.MacXaml.Tests/bin/Debug/net10.0/WinUI3.MacXaml.Tests.dll");
+        StringAssert.Contains(script, "product-evidence --profile strict-scenario-sweep");
+        StringAssert.Contains(script, "product-evidence --profile public-product");
+        StringAssert.Contains(script, "dotnet pack src/WinUI3.MacCompat/WinUI3.MacCompat.csproj");
+        StringAssert.Contains(script, "dotnet pack src/WinUI3.MacRuntime/WinUI3.MacRuntime.csproj");
+        StringAssert.Contains(script, "dotnet pack src/WinUI3.MacXaml/WinUI3.MacXaml.csproj");
+        StringAssert.Contains(script, "dotnet pack src/WinUI3.MacRenderer.Skia/WinUI3.MacRenderer.Skia.csproj");
+        StringAssert.Contains(script, "dotnet pack src/WinUI3.MacRunner/WinUI3.MacRunner.csproj");
+        StringAssert.Contains(script, "dotnet pack src/WinUI3.MacTest.Sdk/WinUI3.MacTest.Sdk.csproj");
+        StringAssert.Contains(script, "release-check --package-dir artifacts/packages");
+        StringAssert.Contains(script, "release-candidate --package-dir artifacts/packages");
+
+        var readme = File.ReadAllText(RepositoryPath("README.md"));
+        StringAssert.Contains(readme, "winui3-mac-release-ready-local");
+        StringAssert.Contains(readme, "clean-checkout local release-candidate command");
     }
 
     [TestMethod]
@@ -2482,6 +3591,200 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void VisualLayoutEngineUsesNativeSizedBasicInputControlBounds()
+    {
+        var statusComboBox = new ComboBox { Name = "StatusComboBox", PlaceholderText = "Status" };
+        statusComboBox.Items.Add("Closed");
+        statusComboBox.SelectedIndex = 0;
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                Children =
+                {
+                    new Button { Name = "PrimaryActionButton", Content = "Run primary action" },
+                    new ToggleButton { Name = "PinnedToggleButton", Content = "Pinned", IsChecked = true },
+                    new CheckBox { Name = "EnabledCheckBox", Content = "Enabled", IsChecked = true },
+                    new RadioButton { Name = "HighPriorityRadioButton", Content = "High priority", IsChecked = true },
+                    statusComboBox,
+                    new Microsoft.UI.Xaml.Controls.Primitives.RepeatButton { Name = "DiagnosticRepeatButton", Content = "Repeat action" },
+                    new HyperlinkButton { Name = "DiagnosticHyperlinkButton", Content = "Open public link" },
+                    new DropDownButton { Name = "DiagnosticDropDownButton", Content = "Choose action" },
+                    new SplitButton { Name = "DiagnosticSplitButton", Content = "Split action" },
+                    new ToggleSplitButton { Name = "DiagnosticToggleSplitButton", Content = "Toggle split", IsChecked = true },
+                    new Slider { Name = "DiagnosticSlider", Minimum = 0, Maximum = 100, Value = 64 },
+                    new ToggleSwitch { Name = "DiagnosticToggleSwitch", Header = "Enabled", IsOn = true },
+                    new RatingControl { Name = "DiagnosticRatingControl", MaxRating = 5, Value = 4 }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "component-basic-input-light", "skia-v2", new VisualViewport(1028, 720), 1, "light", true, new VisualThresholds());
+
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+
+        Assert.HasCount(0, unsupported);
+        AssertLayoutSize(arranged.Root, "PrimaryActionButton", width: 142, height: 32);
+        AssertLayoutSize(arranged.Root, "PinnedToggleButton", width: 67, height: 32);
+        AssertLayoutSize(arranged.Root, "EnabledCheckBox", width: 120, height: 32);
+        AssertLayoutSize(arranged.Root, "HighPriorityRadioButton", width: 120, height: 32);
+        AssertLayoutSize(arranged.Root, "StatusComboBox", width: 92, height: 32);
+        AssertLayoutSize(arranged.Root, "DiagnosticRepeatButton", width: 120, height: 32);
+        AssertLayoutSize(arranged.Root, "DiagnosticHyperlinkButton", width: 125, height: 32);
+        AssertLayoutSize(arranged.Root, "DiagnosticDropDownButton", width: 132, height: 32);
+        AssertLayoutSize(arranged.Root, "DiagnosticSplitButton", width: 127, height: 30);
+        AssertLayoutSize(arranged.Root, "DiagnosticToggleSplitButton", width: 129, height: 30);
+        AssertLayoutSize(arranged.Root, "DiagnosticSlider", width: 180, height: 32);
+        AssertLayoutSize(arranged.Root, "DiagnosticToggleSwitch", width: 120, height: 63);
+        AssertLayoutSize(arranged.Root, "DiagnosticRatingControl", width: 120, height: 32);
+    }
+
+    [TestMethod]
+    public void ComponentEvidenceBuilderUsesDiagnosticDescendantLayoutForLabeledHosts()
+    {
+        var scenario = new VisualScenario
+        {
+            FixtureName = "component-parity-lab",
+            Name = "component-basic-input-light",
+            Requirements = new[]
+            {
+                new VisualRequirement
+                {
+                    Component = "RepeatButton",
+                    Target = "DiagnosticRepeatButton",
+                    ExpectedStatus = CompatibilityStatuses.Partial,
+                    MinimumVisualGrade = "usable",
+                    VisualGrade = "usable"
+                }
+            }
+        };
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new ContentControl
+            {
+                Name = "DiagnosticRepeatButton",
+                Content = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Spacing = 8,
+                    Children =
+                    {
+                        new TextBlock { Text = "RepeatButton", Width = 180 },
+                        new Microsoft.UI.Xaml.Controls.Primitives.RepeatButton { Content = "Repeat action", MinWidth = 120 }
+                    }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(scenario, scenario.Name, "skia-v2", new VisualViewport(420, 120), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var hostLayout = RequireNode(arranged.Root, "DiagnosticRepeatButton").Layout!;
+
+        var evidence = ComponentEvidenceBuilder.Build(scenario, arranged, interactions: null, metrics: null);
+
+        var layout = evidence.Components.Single().LayoutRegion ?? throw new AssertFailedException("Expected crop target layout.");
+        Assert.AreEqual(120, layout.Width);
+        Assert.AreEqual(32, layout.Height);
+        Assert.IsGreaterThan(hostLayout.X, layout.X, "Diagnostic crop target should isolate the descendant control after the row label.");
+        Assert.IsLessThan(hostLayout.Width, layout.Width, "Diagnostic crop target must not use the whole labeled host row.");
+    }
+
+    [TestMethod]
+    public void ComponentEvidenceBuilderKeepsStaticFlyoutHostLayout()
+    {
+        var scenario = new VisualScenario
+        {
+            FixtureName = "component-parity-lab",
+            Name = "component-commands-menus-light",
+            Requirements = new[]
+            {
+                new VisualRequirement
+                {
+                    Component = "CommandBarFlyout",
+                    Target = "DiagnosticCommandBarFlyout",
+                    ExpectedStatus = CompatibilityStatuses.Partial,
+                    MinimumVisualGrade = "usable",
+                    VisualGrade = "usable"
+                }
+            }
+        };
+        var flyout = new CommandBarFlyout();
+        flyout.PrimaryCommands.Add(new AppBarButton { Label = "Approve" });
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new ContentControl
+            {
+                Name = "DiagnosticCommandBarFlyout",
+                Content = new Button
+                {
+                    Content = "Command flyout",
+                    MinWidth = 165,
+                    Flyout = flyout
+                }
+            }
+        });
+        var settings = new VisualRunSettings(scenario, scenario.Name, "skia-v2", new VisualViewport(420, 160), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var hostLayout = RequireNode(arranged.Root, "DiagnosticCommandBarFlyout").Layout!;
+
+        var evidence = ComponentEvidenceBuilder.Build(scenario, arranged, interactions: null, metrics: null);
+
+        var layout = evidence.Components.Single().LayoutRegion ?? throw new AssertFailedException("Expected static flyout host layout.");
+        Assert.AreEqual(hostLayout.X, layout.X);
+        Assert.AreEqual(hostLayout.Y, layout.Y);
+        Assert.AreEqual(hostLayout.Width, layout.Width);
+        Assert.AreEqual(hostLayout.Height, layout.Height);
+    }
+
+    [TestMethod]
+    public void SkiaV2FontResolverPrefersSegoeTextAndFluentSymbolFonts()
+    {
+        var installed = new HashSet<string>(new[]
+        {
+            "Helvetica Neue",
+            "Segoe UI",
+            "Segoe MDL2 Assets",
+            "Segoe Fluent Icons"
+        }, StringComparer.OrdinalIgnoreCase);
+        var plan = FontResolver.Plan(installed.Contains);
+
+        Assert.AreEqual("Segoe UI", plan.Text.MatchedFamily);
+        Assert.AreEqual("Segoe Fluent Icons", plan.Symbol.MatchedFamily);
+        Assert.AreEqual(FontResolver.RequestedFamilyMode, plan.Text.FallbackMode);
+        Assert.AreEqual(FontResolver.RequestedFamilyMode, plan.Symbol.FallbackMode);
+    }
+
+    [TestMethod]
+    public void SkiaV2FontResolverFallsBackFromFluentSymbolsToMdl2()
+    {
+        var installed = new HashSet<string>(new[]
+        {
+            "Segoe UI",
+            "Segoe MDL2 Assets"
+        }, StringComparer.OrdinalIgnoreCase);
+        var plan = FontResolver.Plan(installed.Contains);
+
+        Assert.AreEqual("Segoe UI", plan.Text.MatchedFamily);
+        Assert.AreEqual("Segoe MDL2 Assets", plan.Symbol.MatchedFamily);
+        Assert.AreEqual(FontResolver.RequestedFamilyMode, plan.Text.FallbackMode);
+        Assert.AreEqual(FontResolver.RequestedFamilyMode, plan.Symbol.FallbackMode);
+    }
+
+    [TestMethod]
+    public void SkiaV2FontResolverReportsTextAndIconFallbackSeparately()
+    {
+        var installed = new HashSet<string>(new[]
+        {
+            "Helvetica Neue"
+        }, StringComparer.OrdinalIgnoreCase);
+        var plan = FontResolver.Plan(installed.Contains);
+
+        Assert.IsNull(plan.Text.MatchedFamily);
+        Assert.IsNull(plan.Symbol.MatchedFamily);
+        Assert.AreEqual(FontResolver.PlatformFallbackMode, plan.Text.FallbackMode);
+        Assert.AreEqual(FontResolver.TextFontFallbackMode, plan.Symbol.FallbackMode);
+    }
+
+    [TestMethod]
     public void VisualLayoutEnginePlacesCommandBarContentBeforePrimaryCommands()
     {
         var tree = UiTreeBuilder.Build(new Window
@@ -2595,7 +3898,418 @@ public sealed class MacRuntimeTests
         Assert.AreEqual("skia-v2-png", first.Renderer);
         Assert.AreEqual(640, first.Width);
         Assert.AreEqual(480, first.Height);
+        var fontDiagnostics = first.FontDiagnostics ?? throw new AssertFailedException("Expected skia-v2 font diagnostics.");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(fontDiagnostics.Text.ResolvedFamily));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(fontDiagnostics.Symbol.ResolvedFamily));
+        CollectionAssert.Contains(fontDiagnostics.Text.RequestedFamilies.ToArray(), "Segoe UI");
+        CollectionAssert.Contains(fontDiagnostics.Symbol.RequestedFamilies.ToArray(), "Segoe Fluent Icons");
         CollectionAssert.AreEqual(await Sha256Async(first.FilePath), await Sha256Async(second.FilePath));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererUsesSoftInsetSeparatorForCheckedToggleSplitButton()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "toggle-split");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Toggle split chrome",
+            Content = new StackPanel
+            {
+                Children =
+                {
+                    new ToggleSplitButton
+                    {
+                        Name = "PinnedToggleSplitButton",
+                        Content = "Go",
+                        IsChecked = true,
+                        Width = 129,
+                        Height = 30,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    }
+                }
+            }
+        });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "toggle-split", "skia-v2", new VisualViewport(180, 80), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "toggle-split", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var toggleSplit = RequireNode(arranged.Root, "PinnedToggleSplitButton").Layout!;
+        var separatorZone = new SKRect(
+            (float)(toggleSplit.X + toggleSplit.Width - 38),
+            (float)toggleSplit.Y + 4,
+            (float)(toggleSplit.X + toggleSplit.Width - 28),
+            (float)(toggleSplit.Y + toggleSplit.Height - 4));
+
+        Assert.AreEqual(
+            0,
+            CountBrightPixels(bitmap, separatorZone, minimumChannelValue: 120),
+            "Checked ToggleSplitButton should use a softened separator instead of a high-contrast light divider.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererAlignsDropdownChevronsToNativeVerticalCenter()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "dropdown-chevron");
+        var comboBox = new ComboBox
+        {
+            Name = "StatusComboBox",
+            Width = 92,
+            Height = 32,
+            HorizontalAlignment = HorizontalAlignment.Left
+        };
+        comboBox.Items.Add("Closed");
+        comboBox.SelectedIndex = 0;
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Dropdown chevrons",
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                Children =
+                {
+                    comboBox,
+                    new SplitButton
+                    {
+                        Name = "DiagnosticSplitButton",
+                        Content = "Split action",
+                        Width = 127,
+                        Height = 30,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "dropdown-chevron", "skia-v2", new VisualViewport(180, 100), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "dropdown-chevron", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var combo = RequireNode(arranged.Root, "StatusComboBox").Layout!;
+        var split = RequireNode(arranged.Root, "DiagnosticSplitButton").Layout!;
+        var comboChevron = BoundsOfPixelsMatching(
+            bitmap,
+            new SKRect((float)(combo.X + combo.Width - 28), (float)combo.Y + 8, (float)(combo.X + combo.Width - 8), (float)combo.Y + 22),
+            pixel => pixel.Red <= 180 && pixel.Green <= 180 && pixel.Blue <= 180);
+        var splitChevron = BoundsOfPixelsMatching(
+            bitmap,
+            new SKRect((float)(split.X + split.Width - 28), (float)split.Y + 8, (float)(split.X + split.Width - 8), (float)split.Y + 22),
+            pixel => pixel.Red <= 180 && pixel.Green <= 180 && pixel.Blue <= 180);
+
+        Assert.IsFalse(comboChevron.IsEmpty, "Expected ComboBox dropdown chevron.");
+        Assert.IsFalse(splitChevron.IsEmpty, "Expected SplitButton dropdown chevron.");
+        Assert.IsLessThanOrEqualTo(comboChevron.Top, (int)combo.Y + 13, $"ComboBox chevron should align to native vertical center; actual bounds were {comboChevron}.");
+        Assert.IsLessThanOrEqualTo(splitChevron.Top, (int)split.Y + 12, $"SplitButton chevron should align to native vertical center; actual bounds were {splitChevron}.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererCentersButtonFamilyTextInsideNativeSizedBounds()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "button-text");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Button text",
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                Children =
+                {
+                    new Button
+                    {
+                        Name = "PrimaryActionButton",
+                        Content = "Run primary action",
+                        Width = 142,
+                        Height = 32,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    },
+                    new Microsoft.UI.Xaml.Controls.Primitives.RepeatButton
+                    {
+                        Name = "DiagnosticRepeatButton",
+                        Content = "Repeat action",
+                        Width = 120,
+                        Height = 32,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    },
+                    new ToggleButton
+                    {
+                        Name = "PinnedToggleButton",
+                        Content = "Pinned",
+                        IsChecked = true,
+                        Width = 67,
+                        Height = 32,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "button-text", "skia-v2", new VisualViewport(240, 160), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "button-text", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var repeat = RequireNode(arranged.Root, "DiagnosticRepeatButton").Layout!;
+        var toggle = RequireNode(arranged.Root, "PinnedToggleButton").Layout!;
+        var repeatBounds = BoundsOfPixelsMatching(
+            bitmap,
+            LayoutRectToSkRect(repeat),
+            pixel => pixel.Red <= 145 && pixel.Green <= 145 && pixel.Blue <= 145);
+        var toggleTextBounds = BoundsOfPixelsMatching(
+            bitmap,
+            Inset(LayoutRectToSkRect(toggle), 4),
+            pixel => pixel.Red >= 150 && pixel.Green >= 180 && pixel.Blue >= 200);
+
+        Assert.IsFalse(repeatBounds.IsEmpty, "Expected rendered RepeatButton text pixels.");
+        Assert.IsFalse(toggleTextBounds.IsEmpty, "Expected rendered ToggleButton text pixels.");
+        AssertTextCenterWithin(repeatBounds, repeat, tolerance: 1.5f);
+        AssertTextCenterWithin(toggleTextBounds, toggle, tolerance: 1.5f);
+        Assert.IsTrue(
+            repeatBounds.Bottom <= repeat.Y + 23,
+            $"RepeatButton text baseline should not sit below the native crop text box; actual bounds were {repeatBounds}.");
+        Assert.IsTrue(
+            toggleTextBounds.Top <= toggle.Y + 10,
+            $"Checked ToggleButton text should share the native vertical centering; actual bounds were {toggleTextBounds}.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererDoesNotUnderlineDefaultHyperlinkButton()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "hyperlink-button");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "HyperlinkButton",
+            Content = new HyperlinkButton
+            {
+                Name = "DiagnosticHyperlinkButton",
+                Content = "Open public link",
+                Width = 125,
+                Height = 32,
+                HorizontalAlignment = HorizontalAlignment.Left
+            }
+        });
+        var settings = new VisualRunSettings(null, "hyperlink-button", "skia-v2", new VisualViewport(180, 64), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "hyperlink-button", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var hyperlink = RequireNode(arranged.Root, "DiagnosticHyperlinkButton").Layout!;
+        var underlineBand = new SKRect(
+            (float)hyperlink.X,
+            (float)hyperlink.Y + 24,
+            (float)(hyperlink.X + hyperlink.Width),
+            (float)hyperlink.Y + 27);
+        var underlineBounds = BoundsOfPixelsMatching(bitmap, underlineBand, IsBlueTextLike);
+
+        Assert.IsTrue(
+            underlineBounds.IsEmpty || underlineBounds.Width < 40,
+            "Default HyperlinkButton should match native text-only chrome and avoid drawing a persistent underline.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererCentersDefaultHyperlinkButtonText()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "hyperlink-button-origin");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "HyperlinkButton origin",
+            Content = new HyperlinkButton
+            {
+                Name = "DiagnosticHyperlinkButton",
+                Content = "Open public link",
+                Width = 125,
+                Height = 32,
+                HorizontalAlignment = HorizontalAlignment.Left
+            }
+        });
+        var settings = new VisualRunSettings(null, "hyperlink-button-origin", "skia-v2", new VisualViewport(180, 64), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "hyperlink-button-origin", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var hyperlink = RequireNode(arranged.Root, "DiagnosticHyperlinkButton").Layout!;
+        var textBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(hyperlink), IsBlueTextLike);
+
+        Assert.IsFalse(textBounds.IsEmpty, "Expected rendered HyperlinkButton text pixels.");
+        AssertTextCenterWithin(textBounds, hyperlink, tolerance: 1.5f);
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererUsesNativeCheckBoxAndRadioLeadingChrome()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "check-radio-leading");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Check and radio leading chrome",
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                Children =
+                {
+                    new CheckBox
+                    {
+                        Name = "EnabledCheckBox",
+                        Content = "Enabled",
+                        IsChecked = true,
+                        Width = 120,
+                        Height = 32,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    },
+                    new RadioButton
+                    {
+                        Name = "HighPriorityRadioButton",
+                        Content = "High priority",
+                        IsChecked = true,
+                        Width = 120,
+                        Height = 32,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "check-radio-leading", "skia-v2", new VisualViewport(180, 100), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "check-radio-leading", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var checkBox = RequireNode(arranged.Root, "EnabledCheckBox").Layout!;
+        var radio = RequireNode(arranged.Root, "HighPriorityRadioButton").Layout!;
+        var checkAccentBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(checkBox), IsAccentLike);
+        var radioAccentBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(radio), IsAccentLike);
+        var checkTextBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(checkBox), IsDarkTextLike);
+        var radioTextBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(radio), IsDarkTextLike);
+
+        Assert.IsFalse(checkAccentBounds.IsEmpty, "Expected checked CheckBox accent chrome.");
+        Assert.IsFalse(radioAccentBounds.IsEmpty, "Expected selected RadioButton accent chrome.");
+        Assert.IsFalse(checkTextBounds.IsEmpty, "Expected CheckBox label text.");
+        Assert.IsFalse(radioTextBounds.IsEmpty, "Expected RadioButton label text.");
+        Assert.IsLessThanOrEqualTo((int)checkBox.X + 1, checkAccentBounds.Left, $"CheckBox checked chrome should start at the native leading edge; actual bounds were {checkAccentBounds}.");
+        Assert.IsLessThanOrEqualTo((int)radio.X + 1, radioAccentBounds.Left, $"RadioButton selected chrome should start at the native leading edge; actual bounds were {radioAccentBounds}.");
+        Assert.IsLessThanOrEqualTo((int)checkBox.X + 30, checkTextBounds.Left, $"CheckBox label should use native compact leading spacing; actual bounds were {checkTextBounds}.");
+        Assert.IsLessThanOrEqualTo((int)radio.X + 30, radioTextBounds.Left, $"RadioButton label should use native compact leading spacing; actual bounds were {radioTextBounds}.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererAlignsCheckedCheckBoxLabelToNativeCrop()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "checkbox-label-crop");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "CheckBox label crop",
+            Content = new CheckBox
+            {
+                Name = "EnabledCheckBox",
+                Content = "Enabled",
+                IsChecked = true,
+                Width = 120,
+                Height = 32,
+                HorizontalAlignment = HorizontalAlignment.Left
+            }
+        });
+        var settings = new VisualRunSettings(null, "checkbox-label-crop", "skia-v2", new VisualViewport(160, 64), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "checkbox-label-crop", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var checkBox = RequireNode(arranged.Root, "EnabledCheckBox").Layout!;
+        var textBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(checkBox), IsDarkTextLike);
+
+        Assert.IsFalse(textBounds.IsEmpty, "Expected CheckBox label text.");
+        Assert.IsGreaterThanOrEqualTo((int)checkBox.X + 30, textBounds.Left, $"Checked CheckBox label should begin at the native text inset; actual bounds were {textBounds}.");
+        Assert.IsLessThanOrEqualTo(textBounds.Top, (int)checkBox.Y + 10, $"Checked CheckBox label should align with the native label top; actual bounds were {textBounds}.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererAlignsSelectedRadioButtonLabelToNativeCrop()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "radio-label-crop");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "RadioButton label crop",
+            Content = new RadioButton
+            {
+                Name = "HighPriorityRadioButton",
+                Content = "High priority",
+                IsChecked = true,
+                Width = 120,
+                Height = 32,
+                HorizontalAlignment = HorizontalAlignment.Left
+            }
+        });
+        var settings = new VisualRunSettings(null, "radio-label-crop", "skia-v2", new VisualViewport(160, 64), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "radio-label-crop", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var radio = RequireNode(arranged.Root, "HighPriorityRadioButton").Layout!;
+        var textBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(radio), IsDarkTextLike);
+
+        Assert.IsFalse(textBounds.IsEmpty, "Expected RadioButton label text.");
+        Assert.IsGreaterThanOrEqualTo((int)radio.X + 30, textBounds.Left, $"Selected RadioButton label should begin at the native text inset; actual bounds were {textBounds}.");
+        Assert.IsLessThanOrEqualTo(textBounds.Top, (int)radio.Y + 11, $"Selected RadioButton label should align with the native label top; actual bounds were {textBounds}.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererUsesNativeCheckedToggleButtonChrome()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "checked-toggle-button");
+        var theme = SkiaV2Theme.For("light");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Checked ToggleButton",
+            Content = new StackPanel
+            {
+                Children =
+                {
+                    new ToggleButton
+                    {
+                        Name = "PinnedToggleButton",
+                        Content = "Pinned",
+                        IsChecked = true,
+                        Width = 67,
+                        Height = 32,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "checked-toggle-button", "skia-v2", new VisualViewport(120, 80), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "checked-toggle-button", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var toggle = RequireNode(arranged.Root, "PinnedToggleButton").Layout!;
+        var fillSample = bitmap.GetPixel((int)toggle.X + 8, (int)toggle.Y + 8);
+        var bottomEdgeSample = bitmap.GetPixel((int)(toggle.X + toggle.Width / 2), (int)(toggle.Y + toggle.Height) - 1);
+
+        Assert.AreEqual(theme.Accent, fillSample, "Checked ToggleButton fill should match the native checked button blue.");
+        Assert.AreEqual(new SKColor(0x00, 0x3e, 0x73), bottomEdgeSample, "Checked ToggleButton should retain the darker native bottom edge.");
     }
 
     [TestMethod]
@@ -2669,7 +4383,7 @@ public sealed class MacRuntimeTests
         Assert.IsGreaterThan(100, CountExactPixels(bitmap, new SKRect((float)toggle.X, (float)toggle.Y, (float)(toggle.X + toggle.Width), (float)(toggle.Y + toggle.Height)), theme.Accent));
         Assert.IsGreaterThan(50, CountExactPixels(bitmap, new SKRect((float)checkBox.X + 2, (float)checkBox.Y + 9, (float)checkBox.X + 22, (float)checkBox.Y + 29), theme.Accent));
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)checkBox.X + 2, (float)checkBox.Y + 9, (float)checkBox.X + 22, (float)checkBox.Y + 29), theme.Surface));
-        Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)(combo.X + combo.Width - 28), (float)combo.Y + 14, (float)(combo.X + combo.Width - 8), (float)combo.Y + 26), theme.TextSecondary));
+        Assert.IsGreaterThan(0, CountDarkPixels(bitmap, new SKRect((float)(combo.X + combo.Width - 28), (float)combo.Y + 14, (float)(combo.X + combo.Width - 8), (float)combo.Y + 26), maximumChannelValue: 180));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)progressBar.X, (float)(progressBar.Y + progressBar.Height / 2 - 3), (float)(progressBar.X + progressBar.Width), (float)(progressBar.Y + progressBar.Height / 2 + 3)), theme.Accent));
         Assert.IsGreaterThan(10, CountExactPixels(bitmap, new SKRect((float)progressRing.X, (float)progressRing.Y, (float)(progressRing.X + progressRing.Width), (float)(progressRing.Y + progressRing.Height)), theme.Accent));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)slider.X, (float)slider.Y, (float)(slider.X + slider.Width), (float)(slider.Y + slider.Height)), theme.Accent));
@@ -3813,6 +5527,350 @@ public sealed class MacRuntimeTests
             Status: "passed");
     }
 
+    private static string TestComponentEvidenceJson(string target)
+    {
+        return $$"""
+            {
+              "schemaVersion": "0.5",
+              "fixtureName": "test-fixture",
+              "scenarioName": "scenario-light",
+              "components": [
+                {
+                  "component": "Button",
+                  "kind": "control",
+                  "target": "{{target}}",
+                  "catalogStatus": "supported",
+                  "presence": "present",
+                  "interactionStatus": "passed",
+                  "visualGrade": "usable",
+                  "changedPixelPercentage": 0.1,
+                  "meanAbsoluteError": 0.1,
+                  "rootMeanSquaredError": 0.1,
+                  "crop": {
+                    "status": "failed",
+                    "bounds": { "x": 0, "y": 0, "width": 10, "height": 10 },
+                    "nativeReferencePath": "components/button/windows-reference.png",
+                    "macRuntimePath": "components/button/mac-runtime.png",
+                    "pixelDiffPath": "components/button/pixel-diff.png",
+                    "runtimeBlank": false,
+                    "thresholds": {
+                      "changedPixelPercentage": 5,
+                      "maxChannelDelta": 255,
+                      "meanAbsoluteError": 2,
+                      "rootMeanSquaredError": 4
+                    },
+                    "changedPixelPercentage": 0.1,
+                    "meanAbsoluteError": 0.1,
+                    "rootMeanSquaredError": 0.1
+                  },
+                  "nativeQualityGrade": "not-evaluated",
+                  "inspection": null,
+                  "knownGaps": []
+                }
+              ],
+              "sourceFeatures": [],
+              "status": "failed"
+            }
+            """;
+    }
+
+    private static void WriteVisualRunStatus(string repositoryRoot, string relativePath, string status)
+    {
+        var path = Path.Combine(repositoryRoot, relativePath);
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        File.WriteAllText(path, $$"""
+            {
+              "schemaVersion": "0.1",
+              "fixtureName": "test-fixture",
+              "scenarioName": "{{Path.GetFileName(Path.GetDirectoryName(Path.GetDirectoryName(path)!))}}",
+              "status": "{{status}}"
+            }
+            """);
+    }
+
+    private static void CreateStrictScenarioFixture(string repositoryRoot, string scenarioName)
+    {
+        var scenarioDirectory = Path.Combine(repositoryRoot, "fixtures", "ComponentParityLab.WinUI", "scenarios");
+        Directory.CreateDirectory(scenarioDirectory);
+        File.WriteAllText(Path.Combine(scenarioDirectory, scenarioName + ".json"), $$"""
+            {
+              "name": "{{scenarioName}}"
+            }
+            """);
+    }
+
+    private static Task<ProductEvidenceDocument> WriteStrictScenarioSweepReport(
+        string repositoryRoot,
+        params string[] failedScenarioNames)
+    {
+        var outputRoot = Path.Combine(repositoryRoot, "artifacts", "product-evidence", "strict-scenario-sweep");
+        var failed = failedScenarioNames.ToHashSet(StringComparer.Ordinal);
+        return ProductEvidenceRunner.RunAsync(
+            repositoryRoot,
+            "strict-scenario-sweep",
+            outputRoot,
+            step => Task.FromResult(failed.Contains(step.Name)
+                ? ProductEvidenceStepOutcome.Failed($"{step.Name} failed in test harness.", step.ArtifactPaths)
+                : ProductEvidenceStepOutcome.Passed($"{step.Name} passed in test harness.", step.ArtifactPaths)));
+    }
+
+    private static void WriteProductionStateCoverageInventory(
+        string repositoryRoot,
+        string scenarioName,
+        string component,
+        string minimumVisualGrade,
+        string state = "focused")
+    {
+        var inventoryPath = Path.Combine(repositoryRoot, "docs", "compatibility", "winui-component-inventory.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(inventoryPath)!);
+        File.WriteAllText(inventoryPath, $$"""
+            {
+              "schemaVersion": "0.1",
+              "productionStateCoverage": [
+                {
+                  "productionPriority": "Ring 0",
+                  "state": "{{state}}",
+                  "scenario": "{{scenarioName}}",
+                  "path": "fixtures/ComponentParityLab.WinUI/scenarios/{{scenarioName}}.json",
+                  "components": [
+                    "{{component}}"
+                  ],
+                  "interactionRequirement": "{{state}}",
+                  "accessibilityRequirement": "role and name",
+                  "minimumVisualGrade": "{{minimumVisualGrade}}",
+                  "knownGaps": []
+                }
+              ],
+              "entries": [],
+              "broaderControlInventory": {
+                "controls": []
+              }
+            }
+            """);
+    }
+
+    private static void WriteStateCoverageMatrixReleaseContract(
+        string repositoryRoot,
+        string scenarioName,
+        string component,
+        string state,
+        string releaseComponentEvidencePath)
+    {
+        var matrixPath = Path.Combine(repositoryRoot, "docs", "visual-parity", "state-coverage-matrix.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(matrixPath)!);
+        File.WriteAllText(matrixPath, $$"""
+            {
+              "schemaVersion": "0.1",
+              "generatedAt": "1970-01-01T00:00:00+00:00",
+              "policy": "test policy",
+              "totals": {
+                "componentCount": 1,
+                "requirementCount": 1,
+                "evidenceBackedRequirementCount": 0,
+                "missingEvidenceRequirementCount": 1,
+                "defaultOnlyComponentCount": 1,
+                "stateBackedComponentCount": 0,
+                "missingDefaultEvidenceComponentCount": 0,
+                "coverageStatusCounts": {
+                  "default-only": 1
+                }
+              },
+              "components": [
+                {
+                  "component": "{{component}}",
+                  "ownerFamily": "Basic input",
+                  "requiredStates": ["default", "{{state}}"],
+                  "coveredStates": ["default"],
+                  "missingStates": ["{{state}}"],
+                  "hasDefaultEvidence": true,
+                  "hasInteractionEvidence": false,
+                  "hasAccessibilityEvidence": false,
+                  "coverageStatus": "default-only",
+                  "productionReadiness": "not-production-ready-default-only"
+                }
+              ],
+              "requirements": [
+                {
+                  "component": "{{component}}",
+                  "ownerFamily": "Basic input",
+                  "productionPriority": "Ring 0",
+                  "state": "{{state}}",
+                  "scenarioName": "{{scenarioName}}",
+                  "scenarioPath": "fixtures/ComponentParityLab.WinUI/scenarios/{{scenarioName}}.json",
+                  "scenarioExists": true,
+                  "evidencePath": null,
+                  "evidenceStatus": "missing-state-evidence",
+                  "visualGrade": null,
+                  "interactionRequirement": "{{state}}",
+                  "interactionEvidenceStatus": "missing-state-evidence",
+                  "accessibilityRequirement": "role and name",
+                  "accessibilityEvidenceStatus": "missing-state-evidence",
+                  "minimumVisualGrade": "usable",
+                  "coverageStatus": "missing-state-evidence",
+                  "releaseEvidenceProfile": "strict-scenario-sweep",
+                  "releaseEvidenceStatus": "required-via-public-product",
+                  "releaseComponentEvidencePath": "{{releaseComponentEvidencePath}}",
+                  "releaseAccessibilityEvidencePath": "artifacts/product-evidence/strict-scenario-sweep/{{scenarioName}}/accessibility.json",
+                  "releaseVisualRunPath": "artifacts/product-evidence/strict-scenario-sweep/{{scenarioName}}/visual/visual-run.json",
+                  "knownGaps": []
+                }
+              ],
+              "status": "tracked-with-gaps"
+            }
+            """);
+    }
+
+    private static void WriteStrictScenarioComponentEvidence(
+        string repositoryRoot,
+        string scenarioName,
+        string component,
+        string visualGrade,
+        string interactionStatus)
+    {
+        var evidencePath = Path.Combine(
+            repositoryRoot,
+            "artifacts",
+            "product-evidence",
+            "strict-scenario-sweep",
+            scenarioName,
+            "visual",
+            "component-evidence.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(evidencePath)!);
+        File.WriteAllText(evidencePath, $$"""
+            {
+              "schemaVersion": "0.5",
+              "fixtureName": "component-parity-lab",
+              "scenarioName": "{{scenarioName}}",
+              "components": [
+                {
+                  "component": "{{component}}",
+                  "kind": "control",
+                  "target": "PrimaryTarget",
+                  "layoutRegion": null,
+                  "catalogStatus": "supported",
+                  "presence": "present",
+                  "interactionStatus": "{{interactionStatus}}",
+                  "visualGrade": "{{visualGrade}}",
+                  "componentThresholds": null,
+                  "changedPixelPercentage": null,
+                  "meanAbsoluteError": null,
+                  "rootMeanSquaredError": null,
+                  "crop": null,
+                  "nativeQualityGrade": "not-evaluated",
+                  "inspection": null,
+                  "knownGaps": []
+                }
+              ],
+              "sourceFeatures": [],
+              "status": "passed"
+            }
+            """);
+    }
+
+    private static void WriteStrictScenarioAccessibility(
+        string repositoryRoot,
+        string scenarioName,
+        string? targetName = null,
+        string role = "button",
+        bool? isFocused = null,
+        bool? isEnabled = null,
+        bool? isChecked = null,
+        bool? isSelected = null)
+    {
+        var accessibilityPath = Path.Combine(
+            repositoryRoot,
+            "artifacts",
+            "product-evidence",
+            "strict-scenario-sweep",
+            scenarioName,
+            "accessibility.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(accessibilityPath)!);
+        var children = targetName is null
+            ? "[]"
+            : $$"""
+              [
+                {
+                  "role": "{{role}}",
+                  "name": "{{targetName}}",
+                  "label": "{{targetName}}",
+                  "isFocused": {{JsonBool(isFocused ?? false)}},
+                  "isFocusable": true{{JsonOptionalBool("isEnabled", isEnabled)}}{{JsonOptionalBool("isChecked", isChecked)}}{{JsonOptionalBool("isSelected", isSelected)}},
+                  "children": []
+                }
+              ]
+              """;
+        File.WriteAllText(accessibilityPath, $$"""
+            {
+              "schemaVersion": "0.3",
+              "generatedAt": "1970-01-01T00:00:00+00:00",
+              "root": {
+                "name": "test-root",
+                "role": "window",
+                "isFocused": false,
+                "children": {{children}}
+              }
+            }
+            """);
+    }
+
+    private static string JsonOptionalBool(string propertyName, bool? value)
+    {
+        return value.HasValue ? $",\n                  \"{propertyName}\": {JsonBool(value.Value)}" : string.Empty;
+    }
+
+    private static string JsonBool(bool value)
+    {
+        return value ? "true" : "false";
+    }
+
+    private static void WriteCompareComponentEvidence(
+        string root,
+        string scenarioName,
+        params (string Component, string Target, string CropStatus, double ChangedPixelPercentage, double MeanAbsoluteError, double RootMeanSquaredError)[] rows)
+    {
+        var visualDirectory = Path.Combine(root, scenarioName, "visual");
+        Directory.CreateDirectory(visualDirectory);
+        var components = rows
+            .Select(row => new
+            {
+                component = row.Component,
+                kind = "control",
+                target = row.Target,
+                catalogStatus = "supported",
+                presence = "present",
+                interactionStatus = "passed",
+                visualGrade = "usable",
+                changedPixelPercentage = row.ChangedPixelPercentage,
+                meanAbsoluteError = row.MeanAbsoluteError,
+                rootMeanSquaredError = row.RootMeanSquaredError,
+                crop = new
+                {
+                    status = row.CropStatus,
+                    bounds = new { x = 0, y = 0, width = 10, height = 10 },
+                    nativeReferenceCropSize = new { width = 10, height = 10 },
+                    macRuntimeCropSize = new { width = 10, height = 10 },
+                    changedPixelPercentage = row.ChangedPixelPercentage,
+                    meanAbsoluteError = row.MeanAbsoluteError,
+                    rootMeanSquaredError = row.RootMeanSquaredError
+                },
+                nativeQualityGrade = "not-evaluated",
+                knownGaps = Array.Empty<string>()
+            })
+            .ToArray();
+        var document = new
+        {
+            schemaVersion = "0.5",
+            fixtureName = "test-fixture",
+            scenarioName,
+            components,
+            sourceFeatures = Array.Empty<object>(),
+            status = rows.Any(row => row.CropStatus == "failed") ? "failed" : "passed"
+        };
+        File.WriteAllText(
+            Path.Combine(visualDirectory, "component-evidence.json"),
+            JsonSerializer.Serialize(document, JsonDefaults.Options));
+    }
+
     private static NativeReferenceProvenance TestNativeReferenceProvenance()
     {
         return new NativeReferenceProvenance(
@@ -4049,6 +6107,13 @@ public sealed class MacRuntimeTests
         return null;
     }
 
+    private static void AssertLayoutSize(UiNode root, string name, double width, double height)
+    {
+        var layout = RequireNode(root, name).Layout ?? throw new AssertFailedException($"Expected '{name}' to have layout.");
+        Assert.AreEqual(width, layout.Width, $"{name} width");
+        Assert.AreEqual(height, layout.Height, $"{name} height");
+    }
+
     private static int CountExactPixels(SKBitmap bitmap, SKRect rect, SKColor color)
     {
         var left = Math.Clamp((int)Math.Floor(rect.Left), 0, bitmap.Width);
@@ -4068,6 +6133,168 @@ public sealed class MacRuntimeTests
         }
 
         return count;
+    }
+
+    private static int CountBrightPixels(SKBitmap bitmap, SKRect rect, byte minimumChannelValue)
+    {
+        var left = Math.Clamp((int)Math.Floor(rect.Left), 0, bitmap.Width);
+        var top = Math.Clamp((int)Math.Floor(rect.Top), 0, bitmap.Height);
+        var right = Math.Clamp((int)Math.Ceiling(rect.Right), left, bitmap.Width);
+        var bottom = Math.Clamp((int)Math.Ceiling(rect.Bottom), top, bitmap.Height);
+        var count = 0;
+        for (var y = top; y < bottom; y++)
+        {
+            for (var x = left; x < right; x++)
+            {
+                var pixel = bitmap.GetPixel(x, y);
+                if (pixel.Red >= minimumChannelValue &&
+                    pixel.Green >= minimumChannelValue &&
+                    pixel.Blue >= minimumChannelValue)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private static int CountDarkPixels(SKBitmap bitmap, SKRect rect, byte maximumChannelValue)
+    {
+        var left = Math.Clamp((int)Math.Floor(rect.Left), 0, bitmap.Width);
+        var top = Math.Clamp((int)Math.Floor(rect.Top), 0, bitmap.Height);
+        var right = Math.Clamp((int)Math.Ceiling(rect.Right), left, bitmap.Width);
+        var bottom = Math.Clamp((int)Math.Ceiling(rect.Bottom), top, bitmap.Height);
+        var count = 0;
+        for (var y = top; y < bottom; y++)
+        {
+            for (var x = left; x < right; x++)
+            {
+                var pixel = bitmap.GetPixel(x, y);
+                if (pixel.Red <= maximumChannelValue &&
+                    pixel.Green <= maximumChannelValue &&
+                    pixel.Blue <= maximumChannelValue)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private static SKRectI BoundsOfPixelsMatching(SKBitmap bitmap, SKRect rect, Func<SKColor, bool> predicate)
+    {
+        var left = Math.Clamp((int)Math.Floor(rect.Left), 0, bitmap.Width);
+        var top = Math.Clamp((int)Math.Floor(rect.Top), 0, bitmap.Height);
+        var right = Math.Clamp((int)Math.Ceiling(rect.Right), left, bitmap.Width);
+        var bottom = Math.Clamp((int)Math.Ceiling(rect.Bottom), top, bitmap.Height);
+        var resultLeft = bitmap.Width;
+        var resultTop = bitmap.Height;
+        var resultRight = -1;
+        var resultBottom = -1;
+
+        for (var y = top; y < bottom; y++)
+        {
+            for (var x = left; x < right; x++)
+            {
+                if (!predicate(bitmap.GetPixel(x, y)))
+                {
+                    continue;
+                }
+
+                resultLeft = Math.Min(resultLeft, x);
+                resultTop = Math.Min(resultTop, y);
+                resultRight = Math.Max(resultRight, x);
+                resultBottom = Math.Max(resultBottom, y);
+            }
+        }
+
+        if (resultRight < resultLeft || resultBottom < resultTop)
+        {
+            return SKRectI.Empty;
+        }
+
+        return new SKRectI(resultLeft, resultTop, resultRight + 1, resultBottom + 1);
+    }
+
+    private static SKRect LayoutRectToSkRect(UiLayoutBox rect)
+    {
+        return new SKRect((float)rect.X, (float)rect.Y, (float)(rect.X + rect.Width), (float)(rect.Y + rect.Height));
+    }
+
+    private static SKRect Inset(SKRect rect, float amount)
+    {
+        return new SKRect(rect.Left + amount, rect.Top + amount, rect.Right - amount, rect.Bottom - amount);
+    }
+
+    private static bool IsAccentLike(SKColor pixel)
+    {
+        return pixel.Red <= 40 &&
+            pixel.Green >= 80 &&
+            pixel.Green <= 150 &&
+            pixel.Blue >= 150;
+    }
+
+    private static bool IsBlueTextLike(SKColor pixel)
+    {
+        return pixel.Red <= 160 &&
+            pixel.Green >= 50 &&
+            pixel.Blue >= 120;
+    }
+
+    private static bool IsDarkTextLike(SKColor pixel)
+    {
+        return pixel.Red <= 90 &&
+            pixel.Green <= 90 &&
+            pixel.Blue <= 90;
+    }
+
+    private static bool IsRadioKnockoutEdgeLike(SKColor pixel)
+    {
+        return pixel.Red >= 100 &&
+            pixel.Green >= 160 &&
+            pixel.Blue >= 210;
+    }
+
+    private static void AssertTextCenterWithin(SKRectI textBounds, UiLayoutBox controlBounds, float tolerance)
+    {
+        var textCenter = textBounds.Left + textBounds.Width / 2f;
+        var controlCenter = (float)(controlBounds.X + controlBounds.Width / 2);
+        Assert.IsTrue(
+            Math.Abs(textCenter - controlCenter) <= tolerance,
+            $"Expected text center {textCenter} to be within {tolerance} px of control center {controlCenter}; text bounds were {textBounds}.");
+    }
+
+    private static SKRectI BoundsOfPixelsOtherThan(SKBitmap bitmap, SKColor color)
+    {
+        var left = bitmap.Width;
+        var top = bitmap.Height;
+        var right = -1;
+        var bottom = -1;
+
+        for (var y = 0; y < bitmap.Height; y++)
+        {
+            for (var x = 0; x < bitmap.Width; x++)
+            {
+                if (bitmap.GetPixel(x, y) == color)
+                {
+                    continue;
+                }
+
+                left = Math.Min(left, x);
+                top = Math.Min(top, y);
+                right = Math.Max(right, x);
+                bottom = Math.Max(bottom, y);
+            }
+        }
+
+        if (right < left || bottom < top)
+        {
+            return SKRectI.Empty;
+        }
+
+        return new SKRectI(left, top, right + 1, bottom + 1);
     }
 
     private sealed record MutableState(string Title);

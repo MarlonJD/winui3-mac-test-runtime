@@ -22,13 +22,19 @@ states, Mica, Acrylic, composition, media, WebView2, or platform integration.
 | Runtime model | Wine-free managed macOS execution against local `Microsoft.UI.Xaml` facade types. |
 | Windows source of truth | Public native WinUI fixture captures from `windows-native-screenshot.yml`. |
 | Native source readiness | `docs/visual-parity/native-reference-readiness.json`; currently 58/58 public rows are `ready` with zero blocker rows. |
+| State coverage matrix | `docs/visual-parity/state-coverage-matrix.json`; currently tracks explicit default/state/interaction/accessibility gaps and labels default-only components without expanding claims. |
+| Native-quality family tranches | `docs/visual-parity/native-quality-family-tranches.json`; currently tracks six Milestone C families, publishes each family's missing state requirement queue, and keeps all six blocked until native-quality inspection and non-default state evidence exist. |
 | macOS renderer evidence | Local `skia-v2` strict scenario artifacts show usable scaffolding plus many simplified or `not-rendered` controls. |
 | Component grade source | `component-evidence.json`, not whole-screenshot pass/fail alone; `usable` is not a native-fidelity grade. |
+| Compatibility level | `docs/compatibility/compatibility-levels.json`; current productization level is L2 for the public source-level harness subset. |
+| One-command evidence | `PATH="$PWD/tools:$PATH" winui3-mac-release-ready-local` runs the clean-checkout local gate: build, compiled test assemblies, strict scenario evidence, public product evidence, package dry-run artifacts, `release-check`, and `release-candidate` without expanding the visual claim. |
 | Support boundary | Public sanitized Ring 0 and claimed Ring 1 harness components with required evidence. |
 | Visual readiness inventory | `docs/compatibility/visual-readiness-inventory.json`. |
 
 Primary source documents:
 
+- `docs/compatibility/compatibility-levels.md`
+- `docs/compatibility/compatibility-levels.json`
 - `docs/release/final-production-gate.md`
 - `docs/compatibility/matrix.md`
 - `docs/compatibility/component-support.md`
@@ -51,6 +57,25 @@ The checked-in public component-quality dashboard contains 58 component rows:
 triptychs and manual inspection metadata for the bounded source-level harness
 gate, but large areas of WinUI chrome, templates, states, and advanced controls
 still need direct renderer work before any native-quality claim.
+
+The checked-in state coverage matrix currently tracks 23 components and 38
+state requirements from `productionStateCoverage`. It records 15 components as
+`default-only` and 8 as missing default component evidence, so state, interaction,
+and accessibility gaps are visible release evidence rather than hidden
+promotion assumptions. Each requirement row also carries the strict-sweep
+component evidence, accessibility, and visual-run artifact paths that the
+`public-product` rollup must validate after the sweep.
+
+The checked-in native-quality family tranche queue currently groups 26 public
+component rows across six Milestone C families: selection controls, button/link,
+dropdown/menu, text/forms, navigation/list, and status/progress. All six
+families are `native-quality-blocked`, with 23 rows still
+`nativeQualityGrade: not-evaluated`, 14 components still `default-only`, and 8
+components missing default component evidence. This keeps family-level renderer
+quality work explicit without promoting source-level `usable` rows. Rows whose
+component crops still fail strict thresholds now carry the exact threshold
+blocker in `remainingBlocker`, so renderer work is separated from state-matrix
+work.
 
 Native crop presence is not enough for promotion. The checked-in native
 reference source audit (`docs/visual-parity/native-reference-source-audit.md`)
@@ -88,6 +113,7 @@ Promotion is evidence-backed:
 | Phase 2: Component crop and reference tooling | Implemented | `component-evidence.json` carries crop metadata, native reference provenance, and effective per-component thresholds; `visual-run.json` points to the crop directory and generated visual review page; `visual-review.html` places native, macOS, and diff crops side by side with reference source/run/commit provenance; strict visual fails claimed supported/partial rows with missing, blank, `not-rendered`, or over-threshold crops. |
 | Phase 3: Fluent token and theme foundation | Implemented | `skia-v2` painters use a centralized token layer for light, dark, high contrast, typography, fills, strokes, status colors, focus, selected chrome, disabled surfaces, radius, and popup elevation. |
 | Phase 4: Ring 0 Windows chrome completion | Implemented for the documented source-level subset | Ring 0 strict scenarios cover shell, layout, text, commands, forms, workbench, status/progress, resources/theme, state scenarios, and artifacts; claimed supported/partial rows require at least `usable`. |
+| Phase 4B: State coverage matrix | Tracking implemented; state evidence pending promotion | `docs/visual-parity/state-coverage-matrix.json` joins `productionStateCoverage` requirements with checked-in component evidence and labels default-only rows so state gaps cannot be mistaken for native-quality coverage. |
 | Phase 5: Ring 1 E2E visual completion | Implemented for claimed subsets | Static command/menu scenarios cover claimed `MenuFlyout` and `CommandBarFlyout` host targets, `MenuBar` static chrome, and context-menu target export; open-popup diagnostics remain source-level smoke evidence unless a matching native popup reference is captured. Selected collection and layout/theme scenarios cover collection hosts, theme dictionaries, `SolidColorBrush`, and `CornerRadius`; rich input, templates, broader keyboarding, advanced collections, `TeachingTip`, and menu popup behavior remain planned diagnostics. |
 | Phase 6: All-126 catalog closure | Implemented | `docs/compatibility/all-catalog-readiness-audit.json` accounts for all 126 entries with a per-entry production disposition, owner phase, primary blocker, evidence profile, and release gate; `winui3-mac-runner catalog-audit --check` fails on drift and the audit agrees with the inventory buckets. |
 | Phase 7: Broader WinUI control inventory | Inventory and gate implemented; controls pending promotion | `docs/compatibility/winui-component-inventory.json` `broaderControlInventory` enumerates 20 prioritized public WinUI controls with target family, required states, priority, and promotion exit criteria (`docs/compatibility/broader-control-inventory.md`); the honesty gate keeps every control `not-rendered` until it carries matching catalog status, visual evidence, and interaction coverage. |
@@ -209,6 +235,16 @@ The PR #3 local strict sweep on commit `530e4f5` passed **36 public scenarios**
 with `--renderer skia-v2 --strict-visual`. PR #3 CI run `26969205766` on commit
 `3c19711` ran the same full sweep successfully and uploaded the
 `strict-scenario-sweep` artifact for the release-candidate evidence trail.
+The same scenario list is now available locally through
+`winui3-mac-runner product-evidence --profile strict-scenario-sweep --output
+artifacts/product-evidence/strict-scenario-sweep`, which writes one
+product-evidence step and one `visual-run.json` artifact per scenario. The
+`public-product` rollup also checks the `productionStateCoverage` scenarios
+against the strict-sweep artifact paths declared by
+`state-coverage-matrix.json`. The attached accessibility tree must include the
+component-evidence target and must export checked/disabled/focused/selected
+state where the matrix requires it, so state coverage cannot be satisfied by a
+passed whole-scenario screenshot alone or by stale release path metadata.
 
 | Scenario group | Scenarios | Current result |
 | --- | ---: | --- |
@@ -310,6 +346,10 @@ deterministic, locally verifiable requirements:
 - no material/motion surface claims real Windows OS composition;
 - component-crop drift is gated and whole-screen drift is informational;
 - the generated component-quality dashboard has zero blocker rows;
+- the generated state coverage matrix is current and labels default-only rows;
+- the generated native-quality family tranche queue is current;
+- attached strict-sweep accessibility targets and state exports are valid for
+  `productionStateCoverage` rows;
 - every checked-in visual reference declares native WinUI provenance;
 - release and support-policy documents are present;
 - the private-name denylist scan is clean.
@@ -318,7 +358,8 @@ It also lists the requirements that can only be satisfied with external workflow
 evidence and keeps `releaseAllowed` false until they are confirmed:
 
 - full native WinUI reference capture for every claimed scenario;
-- the full `--renderer skia-v2 --strict-visual` scenario sweep;
+- the full `--renderer skia-v2 --strict-visual` scenario sweep, produced by
+  `product-evidence --profile strict-scenario-sweep`;
 - the package dry run plus `release-check --package-dir`.
 
 The exact support boundary is unchanged: source-level WinUI 3 harness readiness
