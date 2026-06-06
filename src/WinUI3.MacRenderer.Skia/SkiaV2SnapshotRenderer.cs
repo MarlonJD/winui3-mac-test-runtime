@@ -37,6 +37,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         using var paint = new SKPaint { IsAntialias = true };
 
         RenderNode(canvas, tree.Root, theme, paint, titleFont, bodyFont, smallFont, iconFont, isRoot: true);
+        var imageIntegrity = RuntimeImageIntegrityAnalyzer.Analyze(bitmap);
 
         cancellationToken.ThrowIfCancellationRequested();
         using var image = SKImage.FromBitmap(bitmap);
@@ -50,8 +51,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             path,
             width,
             height,
-            IsNonBlank: true,
-            FontDiagnostics: fonts.Diagnostics);
+            IsNonBlank: imageIntegrity.IsNonBlank,
+            FontDiagnostics: fonts.Diagnostics,
+            RuntimeImageIntegrity: imageIntegrity);
     }
 
     private static void RenderNode(

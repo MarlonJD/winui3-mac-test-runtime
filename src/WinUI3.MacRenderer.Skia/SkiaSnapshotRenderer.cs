@@ -45,13 +45,22 @@ public sealed class SkiaSnapshotRenderer : ISnapshotRenderer
             RenderDiagnosticSnapshot(canvas, tree.Root, paint, titleFont, bodyFont, size.Width, size.Height);
         }
 
+        var imageIntegrity = RuntimeImageIntegrityAnalyzer.Analyze(bitmap);
+
         cancellationToken.ThrowIfCancellationRequested();
         using var image = SKImage.FromBitmap(bitmap);
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
         await using var stream = File.Create(path);
         data.SaveTo(stream);
 
-        return new SnapshotResult(ArtifactSchemas.Snapshot, "skia-png", path, size.Width, size.Height, IsNonBlank: true);
+        return new SnapshotResult(
+            ArtifactSchemas.Snapshot,
+            "skia-png",
+            path,
+            size.Width,
+            size.Height,
+            IsNonBlank: imageIntegrity.IsNonBlank,
+            RuntimeImageIntegrity: imageIntegrity);
     }
 
     private static void RenderNavigationShell(

@@ -838,6 +838,29 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotPublishesRuntimeImageIntegrity()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-snapshot-integrity", Guid.NewGuid().ToString("N"));
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new Button { Name = "PrimaryButton", Content = "Run" }
+        });
+        var settings = new VisualRunSettings(null, "image-integrity", "skia-v2", new VisualViewport(240, 120), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(
+            arranged,
+            outputDirectory,
+            new SnapshotRenderOptions(settings.Renderer, settings.ScenarioName, settings.Viewport, settings.Scale, settings.Theme, settings.StrictVisual, "mac-runtime.png"));
+
+        Assert.IsTrue(snapshot.IsNonBlank);
+        Assert.IsNotNull(snapshot.RuntimeImageIntegrity);
+        Assert.IsTrue(snapshot.RuntimeImageIntegrity.IsNonBlank);
+        Assert.IsTrue(snapshot.RuntimeImageIntegrity.DistinctColorCount > 1);
+        Assert.IsTrue(snapshot.RuntimeImageIntegrity.NonBackgroundPixelPercentage > 0d);
+    }
+
+    [TestMethod]
     public void BindingOperationsRefreshesTreeAndReportsFailures()
     {
         var textBlock = new TextBlock { Name = "TitleText" };

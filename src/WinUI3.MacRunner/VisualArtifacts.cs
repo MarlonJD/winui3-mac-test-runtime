@@ -24,6 +24,7 @@ internal sealed record VisualRunReport(
     string? ComponentEvidencePath,
     string? ComponentCropDirectory,
     string? VisualReviewPath,
+    RuntimeImageIntegrity? RuntimeImageIntegrity,
     VisualThresholds Thresholds,
     object? Comparison,
     IReadOnlyList<UnsupportedApiEntry> UnsupportedVisualFeatures,
@@ -155,7 +156,8 @@ internal static class VisualArtifacts
 
         var diffFailed = comparison is PixelDiffResult { Status: "failed" };
         var evidenceFailed = componentEvidence?.Status == "failed";
-        var status = settings.StrictVisual && (result.Run.Status != "passed" || diffFailed || evidenceFailed)
+        var runtimeImageFailed = result.Snapshot.RuntimeImageIntegrity?.IsNonBlank == false || !result.Snapshot.IsNonBlank;
+        var status = settings.StrictVisual && (result.Run.Status != "passed" || diffFailed || evidenceFailed || runtimeImageFailed)
             ? "failed"
             : "passed";
 
@@ -182,6 +184,7 @@ internal static class VisualArtifacts
             ComponentEvidencePath: componentEvidence is null ? null : ArtifactPath(outputDirectory, Path.Combine(outputDirectory, "component-evidence.json")),
             ComponentCropDirectory: componentEvidence is null ? null : ArtifactPath(outputDirectory, Path.Combine(outputDirectory, "components")),
             VisualReviewPath: ArtifactPath(outputDirectory, visualReviewPath),
+            RuntimeImageIntegrity: result.Snapshot.RuntimeImageIntegrity,
             Thresholds: settings.Thresholds,
             Comparison: comparison,
             UnsupportedVisualFeatures: unsupportedVisualFeatures,

@@ -10,7 +10,17 @@ public sealed record SnapshotResult(
     int Width,
     int Height,
     bool IsNonBlank,
-    SnapshotFontDiagnostics? FontDiagnostics = null);
+    SnapshotFontDiagnostics? FontDiagnostics = null,
+    RuntimeImageIntegrity? RuntimeImageIntegrity = null);
+
+public sealed record RuntimeImageIntegrity(
+    string Status,
+    bool IsNonBlank,
+    int Width,
+    int Height,
+    int DistinctColorCount,
+    double NonBackgroundPixelPercentage,
+    string Reason);
 
 public interface ISnapshotRenderer
 {
