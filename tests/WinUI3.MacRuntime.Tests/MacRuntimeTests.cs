@@ -336,6 +336,50 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamMessagesProbeCoversConversationListDetailComposerAndSend()
+    {
+        var messagesPage = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "Pages",
+            "MessagesProbePage.xaml")));
+        var scenario = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "scenarios",
+            "messages-multiline-light.json")));
+
+        foreach (var required in new[]
+        {
+            "ConversationListView",
+            "MessageDetailBorder",
+            "MessageThreadTitleTextBlock",
+            "MessageThreadStatusInfoBar",
+            "MessageComposerTextBox",
+            "SendMessageButton"
+        })
+        {
+            StringAssert.Contains(messagesPage, required);
+            StringAssert.Contains(scenario, required);
+        }
+
+        StringAssert.Contains(messagesPage, "ColumnDefinitions=\"300,16,*\"");
+        StringAssert.Contains(messagesPage, "AcceptsReturn=\"True\"");
+        StringAssert.Contains(messagesPage, "ListView");
+        StringAssert.Contains(messagesPage, "BorderBrush");
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineTreatsAutoSuggestBoxAsSupportedVisualSurface()
     {
         var tree = new UiTreeDocument(
