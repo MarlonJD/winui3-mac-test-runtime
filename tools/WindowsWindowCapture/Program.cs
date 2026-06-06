@@ -413,7 +413,7 @@ internal static class Program
         for (var attempt = 0; attempt < 10; attempt++)
         {
             if (!GetClientRect(window, out var clientRect) ||
-                !TryReadWindowRect(window, out var windowRect))
+                !GetWindowRect(window, out var windowRect))
             {
                 var resolvedWindow = resolveWindow();
                 if (resolvedWindow is { } handle && handle != IntPtr.Zero)
