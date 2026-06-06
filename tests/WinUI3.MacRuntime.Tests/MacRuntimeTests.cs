@@ -496,6 +496,8 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "summary.md");
         StringAssert.Contains(script, "review.html");
         StringAssert.Contains(script, "<img");
+        StringAssert.Contains(script, "nativeComparison");
+        StringAssert.Contains(script, "No Windows reference image was provided.");
     }
 
     [TestMethod]

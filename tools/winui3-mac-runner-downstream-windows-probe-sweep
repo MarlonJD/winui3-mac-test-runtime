@@ -61,6 +61,8 @@ tmp_entries="$output/.summary-entries.jsonl"
 
 passed=0
 failed=0
+native_comparison_status="skipped"
+native_comparison_reason="No Windows reference image was provided."
 started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
 for scenario in "${scenarios[@]}"; do
@@ -95,8 +97,23 @@ for scenario in "${scenarios[@]}"; do
     fi
   fi
 
+  pixel_diff_path="$scenario_output/visual/pixel-diff.json"
+  if [[ -f "$pixel_diff_path" ]]; then
+    comparison_status="$(sed -n 's/.*"status": "\([^"]*\)".*/\1/p' "$pixel_diff_path" | head -1)"
+    comparison_reason="$(sed -n 's/.*"reason": "\([^"]*\)".*/\1/p' "$pixel_diff_path" | head -1)"
+  else
+    comparison_status="$native_comparison_status"
+    comparison_reason="$native_comparison_reason"
+  fi
+  if [[ -z "$comparison_status" ]]; then
+    comparison_status="$native_comparison_status"
+  fi
+  if [[ -z "$comparison_reason" ]]; then
+    comparison_reason="$native_comparison_reason"
+  fi
+
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png"}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
 ENTRY
 done
 
@@ -119,6 +136,11 @@ fi
   echo "    \"passed\": $passed,"
   echo "    \"failed\": $failed"
   echo "  },"
+  echo "  \"nativeComparison\": {"
+  echo "    \"status\": \"$native_comparison_status\","
+  echo "    \"reason\": \"$native_comparison_reason\","
+  echo "    \"interpretation\": \"This sweep proves macOS runtime rendering, diagnostics, and screenshot generation for the listed downstream Windows probe scenarios. It does not prove native Windows pixel parity until Windows reference images are supplied.\""
+  echo "  },"
   echo "  \"scenarios\": ["
   entry_count=0
   while IFS= read -r entry; do
@@ -140,15 +162,19 @@ fi
   echo "- total: ${#scenarios[@]}"
   echo "- passed: $passed"
   echo "- failed: $failed"
+  echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
   echo
-  echo "| Scenario | Status | Screenshot | Log |"
-  echo "| --- | --- | --- | --- |"
+  echo "> This sweep proves macOS runtime rendering, diagnostics, and screenshot generation. It does not prove native Windows pixel parity until Windows reference images are supplied."
+  echo
+  echo "| Scenario | Status | Native comparison | Screenshot | Log |"
+  echo "| --- | --- | --- | --- | --- |"
   while IFS= read -r entry; do
     scenario="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
-    status="$(printf '%s' "$entry" | sed -E 's/.*"status":"([^"]+)".*/\1/')"
+    status="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"[^"]+","status":"([^"]+)".*/\1/')"
+    comparison_status="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"([^"]+)".*/\1/')"
     scenario_output="$(printf '%s' "$entry" | sed -E 's/.*"output":"([^"]+)".*/\1/')"
     log_path="$(printf '%s' "$entry" | sed -E 's/.*"log":"([^"]+)".*/\1/')"
-    echo "| $scenario | $status | $scenario_output/visual/mac-runtime.png | $log_path |"
+    echo "| $scenario | $status | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
   done < "$tmp_entries"
 } > "$summary_md"
 
@@ -246,6 +272,17 @@ fi
       color: #b91c1c;
       font-weight: 700;
     }
+
+    .notice {
+      margin: 0 0 20px;
+      padding: 12px 14px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-radius: 8px;
+      color: #7c2d12;
+      font-size: 14px;
+      line-height: 1.45;
+    }
   </style>
 </head>
 <body>
@@ -258,19 +295,27 @@ fi
     <div>Total<strong>${#scenarios[@]}</strong></div>
     <div>Passed<strong>$passed</strong></div>
     <div>Failed<strong>$failed</strong></div>
+    <div>Native comparison<strong>$native_comparison_status</strong></div>
+  </section>
+  <section class="notice" aria-label="Native comparison status">
+    <strong>Native comparison: $native_comparison_status.</strong>
+    $native_comparison_reason This sweep proves macOS runtime rendering, diagnostics, and screenshot generation; it does not prove native Windows pixel parity until Windows reference images are supplied.
   </section>
   <section class="grid" aria-label="Scenario screenshots">
 HTML
 
   while IFS= read -r entry; do
     scenario="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
-    status="$(printf '%s' "$entry" | sed -E 's/.*"status":"([^"]+)".*/\1/')"
+    status="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"[^"]+","status":"([^"]+)".*/\1/')"
+    comparison_status="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"([^"]+)".*/\1/')"
+    comparison_reason="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"[^"]+","reason":"([^"]+)".*/\1/')"
     scenario_name="${scenario%.json}"
     cat <<HTML
     <article class="card">
       <h2>$scenario</h2>
       <img src="$scenario_name/visual/mac-runtime.png" alt="$scenario screenshot">
-      <p class="meta">Status: <span class="status-$status">$status</span> | <a href="$scenario_name/strict-scenario.log">log</a> | <a href="$scenario_name/visual/visual-run.json">visual-run</a></p>
+      <p class="meta">Status: <span class="status-$status">$status</span> | Native comparison: $comparison_status | <a href="$scenario_name/strict-scenario.log">log</a> | <a href="$scenario_name/visual/visual-run.json">visual-run</a> | <a href="$scenario_name/visual/pixel-diff.json">pixel-diff</a></p>
+      <p class="meta">$comparison_reason</p>
     </article>
 HTML
   done < "$tmp_entries"
