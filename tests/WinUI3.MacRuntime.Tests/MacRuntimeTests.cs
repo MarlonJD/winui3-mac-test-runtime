@@ -540,6 +540,10 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "assertPropertyCount");
         StringAssert.Contains(script, "interactionMissing");
         StringAssert.Contains(script, "route anchor");
+        StringAssert.Contains(script, "artifactSummary");
+        StringAssert.Contains(script, "missingArtifactCount");
+        StringAssert.Contains(script, "artifactMissing");
+        StringAssert.Contains(script, "artifact completeness");
     }
 
     [TestMethod]
