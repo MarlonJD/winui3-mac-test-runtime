@@ -200,6 +200,152 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamWindowsProbePublishesProductionLikePageScenarios()
+    {
+        var probeRoot = Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe"));
+        var project = File.ReadAllText(Path.Combine(probeRoot, "MeetingChallenge.WinUI.MacRuntimeProbe.csproj"));
+        var windowCode = File.ReadAllText(Path.Combine(probeRoot, "MainWindow.xaml.cs"));
+        var scenarioDirectory = Path.Combine(probeRoot, "scenarios");
+
+        foreach (var page in new[]
+        {
+            "MessagesProbePage",
+            "AdminWorkbenchProbePage",
+            "StatusStatesProbePage"
+        })
+        {
+            StringAssert.Contains(project, $"Pages\\{page}.xaml");
+            Assert.IsTrue(File.Exists(Path.Combine(probeRoot, "Pages", page + ".xaml")));
+            Assert.IsTrue(File.Exists(Path.Combine(probeRoot, "Pages", page + ".xaml.cs")));
+        }
+
+        foreach (var tag in new[] { "\"messages\"", "\"admin-workbench\"", "\"status-states\"" })
+        {
+            StringAssert.Contains(windowCode, tag);
+        }
+
+        foreach (var scenario in new[]
+        {
+            "messages-multiline-light.json",
+            "admin-workbench-light.json",
+            "command-search-light.json",
+            "status-states-light.json"
+        })
+        {
+            Assert.IsTrue(File.Exists(Path.Combine(scenarioDirectory, scenario)), scenario);
+        }
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineTreatsAutoSuggestBoxAsSupportedVisualSurface()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.AutoSuggestBox",
+                        "SearchBox",
+                        new Dictionary<string, object?>
+                        {
+                            ["text"] = "applications",
+                            ["visibility"] = "Visible",
+                            ["isEnabled"] = true
+                        },
+                        Array.Empty<UiNode>())
+                }));
+
+        _ = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "autosuggestbox", "skia-v2", new VisualViewport(320, 120), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+
+        Assert.HasCount(0, unsupported);
+    }
+
+    [TestMethod]
+    public void ElementQueryTraversesCommandBarContent()
+    {
+        var searchBox = new AutoSuggestBox { Name = "WorkbenchSearchBox", Text = "applications" };
+        var window = new Window
+        {
+            Content = new CommandBar
+            {
+                Name = "WorkbenchCommandBar",
+                Content = searchBox
+            }
+        };
+
+        var result = ElementQuery.FindBySelector(window, "WorkbenchSearchBox");
+
+        Assert.AreSame(searchBox, result.Element);
+        Assert.AreEqual("name", result.SelectorKind);
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineArrangesGridRowsAndPadding()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "MessageGrid",
+                        new Dictionary<string, object?>
+                        {
+                            ["rowDefinitions"] = "Auto,12,*",
+                            ["rowDefinitionHeights"] = new[] { "Auto", "12", "*" },
+                            ["padding"] = "32",
+                            ["visibility"] = "Visible"
+                        },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.TextBlock",
+                                "Title",
+                                new Dictionary<string, object?> { ["text"] = "Messages", ["visibility"] = "Visible" },
+                                Array.Empty<UiNode>()),
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.TextBox",
+                                "Composer",
+                                new Dictionary<string, object?> { ["gridRow"] = 2, ["text"] = "Line one", ["visibility"] = "Visible" },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "grid-rows", "skia-v2", new VisualViewport(400, 300), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var grid = arranged.Root.Children.Single();
+        var title = grid.Children.Single(child => child.Name == "Title");
+        var composer = grid.Children.Single(child => child.Name == "Composer");
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual(32d, title.Layout.X);
+        Assert.AreEqual(32d, title.Layout.Y);
+        Assert.IsGreaterThanOrEqualTo(68d, composer.Layout.Y);
+    }
+
+    [TestMethod]
     public void BindingOperationsRefreshesTreeAndReportsFailures()
     {
         var textBlock = new TextBlock { Name = "TitleText" };
@@ -3997,6 +4143,91 @@ public sealed class MacRuntimeTests
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)splitView.X, (float)splitView.Y, (float)(splitView.X + splitView.Width), (float)(splitView.Y + splitView.Height)), theme.PaneBackground));
         Assert.IsGreaterThan(100, twoPaneNode.Children[1].Layout!.X - twoPaneNode.Children[0].Layout!.X);
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)twoPaneView.X, (float)twoPaneView.Y, (float)(twoPaneView.X + twoPaneView.Width), (float)(twoPaneView.Y + twoPaneView.Height)), theme.Surface));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsAcceptedReturnTextBoxLines()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "multiline-textbox");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Messages",
+            Content = new TextBox
+            {
+                Name = "MessageComposer",
+                Text = "Line one\nLine two",
+                AcceptsReturn = true,
+                TextWrapping = TextWrapping.Wrap,
+                Width = 320,
+                MinHeight = 96
+            }
+        });
+        var settings = new VisualRunSettings(null, "multiline-textbox", "skia-v2", new VisualViewport(420, 180), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "multiline-textbox", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var composer = RequireNode(arranged.Root, "MessageComposer").Layout!;
+        var secondLineBand = new SKRect(
+            (float)(composer.X + 8),
+            (float)(composer.Y + 28),
+            (float)(composer.X + 160),
+            (float)(composer.Y + 52));
+        Assert.IsGreaterThan(8, CountDarkPixels(bitmap, secondLineBand, 80));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsListViewItemChildContent()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "listview-child-content");
+        var list = new ListView
+        {
+            Name = "QueueList",
+            Width = 360,
+            Height = 140,
+            SelectedIndex = 0
+        };
+        list.Items.Add(new StackPanel
+        {
+            Name = "ApplicationsQueueItem",
+            Children =
+            {
+                new TextBlock { Text = "Applications queue" },
+                new TextBlock { Text = "6 pending reviews" }
+            }
+        });
+        list.Items.Add(new StackPanel
+        {
+            Name = "ReportsQueueItem",
+            Children =
+            {
+                new TextBlock { Text = "Reports queue" },
+                new TextBlock { Text = "2 exports waiting" }
+            }
+        });
+        var tree = UiTreeBuilder.Build(new Window { Content = list });
+        var settings = new VisualRunSettings(null, "listview-child-content", "skia-v2", new VisualViewport(440, 220), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "listview-child-content", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var item = RequireNode(arranged.Root, "ApplicationsQueueItem").Layout!;
+        var secondItem = RequireNode(arranged.Root, "ReportsQueueItem").Layout!;
+        Assert.IsGreaterThanOrEqualTo(item.Y + item.Height + 4, secondItem.Y);
+        var childTextBand = new SKRect(
+            (float)(item.X + 8),
+            (float)(item.Y + 24),
+            (float)(item.X + 180),
+            (float)(item.Y + 48));
+        Assert.IsGreaterThan(8, CountDarkPixels(bitmap, childTextBand, 80));
     }
 
     [TestMethod]

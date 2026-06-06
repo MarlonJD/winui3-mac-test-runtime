@@ -325,7 +325,7 @@ public static class BindingOperations
             Grid grid => grid.Children,
             NavigationView navigationView => navigationView.MenuItems.Concat(One(navigationView.PaneFooter)).Concat(One(navigationView.Content)),
             NavigationViewItem item => One(item.Content).Concat(One(item.Icon)),
-            CommandBar commandBar => commandBar.PrimaryCommands,
+            CommandBar commandBar => One(commandBar.Content).Concat(commandBar.PrimaryCommands),
             ItemsControl itemsControl => itemsControl.Items,
             _ => Array.Empty<object?>()
         };

@@ -87,7 +87,7 @@ public static class ElementQuery
             Grid grid => grid.Children,
             NavigationView navigationView => navigationView.MenuItems.Concat(One(navigationView.PaneFooter)).Concat(One(navigationView.Content)),
             NavigationViewItem item => One(item.Content).Concat(One(item.Icon)),
-            CommandBar commandBar => commandBar.PrimaryCommands,
+            CommandBar commandBar => One(commandBar.Content).Concat(commandBar.PrimaryCommands),
             CommandBarFlyout flyout => flyout.PrimaryCommands.Concat(flyout.SecondaryCommands),
             ItemsControl itemsControl => itemsControl.Items,
             _ => Array.Empty<object?>()

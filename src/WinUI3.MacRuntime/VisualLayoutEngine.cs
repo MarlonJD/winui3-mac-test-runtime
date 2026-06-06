@@ -37,6 +37,7 @@ public static class VisualLayoutEngine
         "CheckBox",
         "RadioButton",
         "TextBox",
+        "AutoSuggestBox",
         "Slider",
         "ToggleSwitch",
         "RatingControl",
@@ -148,21 +149,33 @@ public static class VisualLayoutEngine
         ICollection<UnsupportedVisualFeature> unsupported,
         string visibility)
     {
+        var padding = PaddingFor(node);
+        var content = Inset(rect, padding);
         var columnSpacing = ReadDouble(node, "columnSpacing", 0);
+        var rowSpacing = ReadDouble(node, "rowSpacing", 0);
         var maxColumn = node.Children
             .Select(child => Math.Max(0, (int)Math.Round(ReadDouble(child, "gridColumn", 0))))
             .DefaultIfEmpty(0)
             .Max();
-        var columns = ResolveColumnWidths(node, rect.Width, columnSpacing, maxColumn + 1);
+        var maxRow = node.Children
+            .Select(child => Math.Max(0, (int)Math.Round(ReadDouble(child, "gridRow", 0))))
+            .DefaultIfEmpty(0)
+            .Max();
+        var columns = ResolveColumnWidths(node, content.Width, columnSpacing, maxColumn + 1);
+        var rows = ResolveRowHeights(node, content.Height, rowSpacing, maxRow + 1);
         var arranged = new List<UiNode>(node.Children.Count);
         foreach (var child in node.Children)
         {
             var column = Math.Clamp((int)Math.Round(ReadDouble(child, "gridColumn", 0)), 0, columns.Length - 1);
-            var x = rect.X + columns.Take(column).Sum() + column * columnSpacing;
-            arranged.Add(ArrangeNode(child, new LayoutRect(x, rect.Y, Math.Max(1, columns[column]), rect.Height), unsupported));
+            var row = Math.Clamp((int)Math.Round(ReadDouble(child, "gridRow", 0)), 0, rows.Length - 1);
+            var columnSpan = Math.Clamp((int)Math.Round(ReadDouble(child, "gridColumnSpan", 1)), 1, columns.Length - column);
+            var x = content.X + columns.Take(column).Sum() + column * columnSpacing;
+            var y = content.Y + rows.Take(row).Sum() + row * rowSpacing;
+            var width = columns.Skip(column).Take(columnSpan).Sum() + Math.Max(0, columnSpan - 1) * columnSpacing;
+            arranged.Add(ArrangeNode(child, new LayoutRect(x, y, Math.Max(1, width), Math.Max(1, rows[row])), unsupported));
         }
 
-        return WithLayout(node, rect, EmptyThickness, EmptyThickness, visibility, arranged);
+        return WithLayout(node, rect, EmptyThickness, padding, visibility, arranged);
     }
 
     private static UiNode ArrangeOverlay(
@@ -347,8 +360,9 @@ public static class VisualLayoutEngine
         var arranged = new List<UiNode>(node.Children.Count);
         foreach (var child in node.Children)
         {
-            arranged.Add(ArrangeNode(child, new LayoutRect(rect.X + 12, y + 8, Math.Max(1, rect.Width - 24), 28), unsupported));
-            y += 34;
+            var rowHeight = Math.Max(28, EstimateHeight(child, rect.Height));
+            arranged.Add(ArrangeNode(child, new LayoutRect(rect.X + 12, y + 8, Math.Max(1, rect.Width - 24), rowHeight), unsupported));
+            y += rowHeight + 6;
         }
 
         return WithLayout(node, rect, EmptyThickness, EmptyThickness, ReadString(node, "visibility") ?? "Visible", arranged);
@@ -557,7 +571,7 @@ public static class VisualLayoutEngine
             "AppBarButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadString(node, "label") ?? ReadControlText(node, "Command")) + 42)),
             "CheckBox" or "RadioButton" => Math.Min(fallback, Math.Max(120, EstimateControlTextWidth(ReadControlText(node, "Option"), 34))),
             "ComboBox" => Math.Min(fallback, Math.Max(92, EstimateTextWidth(ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select") + 48)),
-            "TextBox" => Math.Min(fallback, Math.Max(180, EstimateTextWidth(ReadText(node) ?? string.Empty) + 28)),
+            "TextBox" or "AutoSuggestBox" => Math.Min(fallback, Math.Max(180, EstimateTextWidth(ReadText(node) ?? string.Empty) + 28)),
             "Slider" => Math.Min(fallback, 180),
             "ToggleSwitch" => Math.Min(fallback, Math.Max(120, EstimateControlTextWidth(ReadString(node, "header") ?? string.Empty, 64))),
             "RatingControl" => Math.Min(fallback, Math.Max(120, ReadDouble(node, "maxRating", 5) * 24)),
@@ -821,6 +835,48 @@ public static class VisualLayoutEngine
         }
 
         return widths;
+    }
+
+    private static double[] ResolveRowHeights(UiNode node, double availableHeight, double spacing, int minimumRowCount)
+    {
+        var definitions = ReadStringArray(node, "rowDefinitionHeights").ToArray();
+        var rowCount = Math.Max(Math.Max(1, minimumRowCount), definitions.Length);
+        var totalSpacing = Math.Max(0, rowCount - 1) * spacing;
+        var heightBudget = Math.Max(1, availableHeight - totalSpacing);
+        var heights = new double[rowCount];
+        var starRows = new List<int>();
+        var fixedTotal = 0d;
+        for (var index = 0; index < rowCount; index++)
+        {
+            var definition = index < definitions.Length ? definitions[index] : "*";
+            if (TryParseFixedGridLength(definition, out var fixedHeight))
+            {
+                heights[index] = fixedHeight;
+                fixedTotal += fixedHeight;
+            }
+            else if (string.Equals(definition, "Auto", StringComparison.OrdinalIgnoreCase))
+            {
+                var children = node.Children
+                    .Where(child => (int)Math.Round(ReadDouble(child, "gridRow", 0)) == index)
+                    .ToArray();
+                var autoHeight = children.Length == 0 ? 36 : children.Max(child => EstimateHeight(child, 36));
+                heights[index] = Math.Max(36, autoHeight);
+                fixedTotal += heights[index];
+            }
+            else
+            {
+                starRows.Add(index);
+            }
+        }
+
+        var remaining = Math.Max(1, heightBudget - fixedTotal);
+        var starHeight = starRows.Count == 0 ? 0 : remaining / starRows.Count;
+        foreach (var index in starRows)
+        {
+            heights[index] = starHeight;
+        }
+
+        return heights;
     }
 
     private static bool TryParseFixedGridLength(string? value, out double width)

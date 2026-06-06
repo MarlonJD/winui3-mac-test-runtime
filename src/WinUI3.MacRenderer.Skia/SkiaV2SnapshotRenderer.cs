@@ -184,6 +184,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             case "TextBox":
                 RenderTextBox(canvas, node, theme, paint, bodyFont);
                 break;
+            case "AutoSuggestBox":
+                RenderAutoSuggestBox(canvas, node, theme, paint, bodyFont, iconFont);
+                break;
             case "Slider":
                 RenderSlider(canvas, node, theme, paint);
                 break;
@@ -517,7 +520,17 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var focused = ReadBool(node, "isFocused", fallback: false);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
-        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 10, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
+        DrawTextBoxText(canvas, paint, font, ReadText(node) ?? string.Empty, rect, enabled ? theme.TextPrimary : theme.TextDisabled);
+    }
+
+    private static void RenderAutoSuggestBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font, SKFont iconFont)
+    {
+        var rect = Rect(node);
+        var enabled = ReadBool(node, "isEnabled", fallback: true);
+        var focused = ReadBool(node, "isFocused", fallback: false);
+        FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
+        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 34, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
+        DrawText(canvas, paint, iconFont, "\uE721", rect.Left + 10, rect.Top + 21, enabled ? ControlAffordanceColor(theme) : theme.TextDisabled);
     }
 
     private static void RenderComboBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -587,13 +600,21 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
 
             if (index == selectedIndex)
             {
-                var selectedRow = new SKRect(rect.Left + 6, (float)child.Layout.Y - 4, rect.Right - 6, (float)child.Layout.Y + 29);
+                var selectedRow = new SKRect(rect.Left + 6, (float)child.Layout.Y - 4, rect.Right - 6, (float)(child.Layout.Y + child.Layout.Height + 4));
                 DrawRoundRect(canvas, paint, selectedRow, 6, theme.AccentSoft);
                 DrawRoundRect(canvas, paint, new SKRect(selectedRow.Left, selectedRow.Top + 6, selectedRow.Left + 3, selectedRow.Bottom - 6), 2, theme.Accent);
             }
 
-            DrawText(canvas, paint, bodyFont, ReadText(child) ?? child.Name ?? "Item", (float)child.Layout.X, (float)child.Layout.Y + 19, index == selectedIndex ? theme.Accent : theme.TextPrimary);
-            DrawLine(canvas, paint, rect.Left + 12, (float)child.Layout.Y + 31, rect.Right - 12, (float)child.Layout.Y + 31, theme.Stroke);
+            if (child.Children.Count > 0)
+            {
+                RenderNode(canvas, child, theme, paint, bodyFont, bodyFont, smallFont, bodyFont, isRoot: false);
+            }
+            else
+            {
+                DrawText(canvas, paint, bodyFont, ReadText(child) ?? child.Name ?? "Item", (float)child.Layout.X, (float)child.Layout.Y + 19, index == selectedIndex ? theme.Accent : theme.TextPrimary);
+            }
+
+            DrawLine(canvas, paint, rect.Left + 12, (float)(child.Layout.Y + child.Layout.Height + 3), rect.Right - 12, (float)(child.Layout.Y + child.Layout.Height + 3), theme.Stroke);
         }
     }
 
@@ -1172,6 +1193,23 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         paint.Style = SKPaintStyle.Fill;
         paint.Color = color;
         canvas.DrawText(text, x, y, SKTextAlign.Left, font, paint);
+    }
+
+    private static void DrawTextBoxText(SKCanvas canvas, SKPaint paint, SKFont font, string text, SKRect rect, SKColor color)
+    {
+        var lines = text.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n').Split('\n');
+        var x = rect.Left + 10;
+        var y = rect.Top + 21;
+        foreach (var line in lines)
+        {
+            if (y > rect.Bottom - 6)
+            {
+                break;
+            }
+
+            DrawText(canvas, paint, font, line, x, y, color);
+            y += 20;
+        }
     }
 
     private static void DrawCheckMark(SKCanvas canvas, SKPaint paint, SKRect box, SKColor color)
