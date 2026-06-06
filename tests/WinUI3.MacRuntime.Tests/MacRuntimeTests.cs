@@ -544,6 +544,11 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "missingArtifactCount");
         StringAssert.Contains(script, "artifactMissing");
         StringAssert.Contains(script, "artifact completeness");
+        StringAssert.Contains(script, "fontSummary");
+        StringAssert.Contains(script, "fontProvenance");
+        StringAssert.Contains(script, "textResolvedSource");
+        StringAssert.Contains(script, "symbolResolvedSource");
+        StringAssert.Contains(script, "font provenance");
     }
 
     [TestMethod]

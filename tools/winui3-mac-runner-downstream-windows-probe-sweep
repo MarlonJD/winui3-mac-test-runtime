@@ -151,6 +151,9 @@ route_anchor_warning_count=0
 artifact_passed=0
 artifact_failed=0
 artifact_missing_total=0
+font_passed=0
+font_failed=0
+font_missing=0
 image_integrity_passed=0
 image_integrity_failed=0
 image_integrity_missing=0
@@ -297,6 +300,54 @@ for scenario in "${scenarios[@]}"; do
   if [[ -z "$image_integrity_non_background" ]]; then
     image_integrity_non_background=0
   fi
+
+  text_resolved_source="missing"
+  text_resolved_family="missing"
+  text_resolved_path=""
+  symbol_resolved_source="missing"
+  symbol_resolved_family="missing"
+  symbol_resolved_path=""
+  font_provenance_status="missing"
+  if [[ -f "$visual_run_path" ]]; then
+    text_resolved_source="$(awk '/"text":/ { in_text=1; next } in_text && /"symbol":/ { exit } in_text && /"resolvedSource":/ { gsub(/^ *"resolvedSource": "/, ""); gsub(/",?$/, ""); print; exit }' "$visual_run_path")"
+    text_resolved_family="$(awk '/"text":/ { in_text=1; next } in_text && /"symbol":/ { exit } in_text && /"resolvedFamily":/ { gsub(/^ *"resolvedFamily": "/, ""); gsub(/",?$/, ""); print; exit }' "$visual_run_path")"
+    text_resolved_path="$(awk '/"text":/ { in_text=1; next } in_text && /"symbol":/ { exit } in_text && /"resolvedPath":/ { gsub(/^ *"resolvedPath": "/, ""); gsub(/",?$/, ""); print; exit }' "$visual_run_path")"
+    symbol_resolved_source="$(awk '/"symbol":/ { in_symbol=1; next } in_symbol && /"viewport":/ { exit } in_symbol && /"resolvedSource":/ { gsub(/^ *"resolvedSource": "/, ""); gsub(/",?$/, ""); print; exit }' "$visual_run_path")"
+    symbol_resolved_family="$(awk '/"symbol":/ { in_symbol=1; next } in_symbol && /"viewport":/ { exit } in_symbol && /"resolvedFamily":/ { gsub(/^ *"resolvedFamily": "/, ""); gsub(/",?$/, ""); print; exit }' "$visual_run_path")"
+    symbol_resolved_path="$(awk '/"symbol":/ { in_symbol=1; next } in_symbol && /"viewport":/ { exit } in_symbol && /"resolvedPath":/ { gsub(/^ *"resolvedPath": "/, ""); gsub(/",?$/, ""); print; exit }' "$visual_run_path")"
+  fi
+  if [[ -z "$text_resolved_source" ]]; then
+    text_resolved_source="missing"
+  fi
+  if [[ -z "$text_resolved_family" ]]; then
+    text_resolved_family="missing"
+  fi
+  if [[ -z "$symbol_resolved_source" ]]; then
+    symbol_resolved_source="missing"
+  fi
+  if [[ -z "$symbol_resolved_family" ]]; then
+    symbol_resolved_family="missing"
+  fi
+  if [[ "$text_resolved_source" == "missing" || "$text_resolved_family" == "missing" || "$symbol_resolved_source" == "missing" || "$symbol_resolved_family" == "missing" ]]; then
+    font_provenance_status="failed"
+    if [[ ! -f "$visual_run_path" ]]; then
+      font_provenance_status="missing"
+    fi
+  else
+    font_provenance_status="passed"
+  fi
+  case "$font_provenance_status" in
+    passed)
+      font_passed=$((font_passed + 1))
+      ;;
+    missing)
+      font_missing=$((font_missing + 1))
+      ;;
+    *)
+      font_failed=$((font_failed + 1))
+      ;;
+  esac
+
   image_integrity_warning="none"
   if [[ "$image_integrity_status" != "passed" ]]; then
     image_integrity_warning="$image_integrity_status"
@@ -386,7 +437,7 @@ for scenario in "${scenarios[@]}"; do
   fi
 
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
 ENTRY
   cat >> "$tmp_groups" <<ENTRY
 {"group":"$coverage_group","surface":"$coverage_surface","scenario":"$scenario","status":"$status","screenshot":"$scenario_output/visual/mac-runtime.png"}
@@ -403,6 +454,9 @@ if [[ $interaction_failed -ne 0 || $interaction_missing -ne 0 ]]; then
   overall_status="failed"
 fi
 if [[ $artifact_failed -ne 0 ]]; then
+  overall_status="failed"
+fi
+if [[ $font_failed -ne 0 || $font_missing -ne 0 ]]; then
   overall_status="failed"
 fi
 for expected_group in "${expected_scenario_groups[@]}"; do
@@ -468,7 +522,10 @@ fi
   echo "    \"routeAnchorWarnings\": $route_anchor_warning_count,"
   echo "    \"artifactPassed\": $artifact_passed,"
   echo "    \"artifactFailed\": $artifact_failed,"
-  echo "    \"artifactMissing\": $artifact_missing_total"
+  echo "    \"artifactMissing\": $artifact_missing_total,"
+  echo "    \"fontProvenancePassed\": $font_passed,"
+  echo "    \"fontProvenanceFailed\": $font_failed,"
+  echo "    \"fontProvenanceMissing\": $font_missing"
   echo "  },"
   echo "  \"referenceReadiness\": {"
   echo "    \"status\": \"$reference_readiness_status\","
@@ -536,6 +593,7 @@ fi
   echo "- interactions: $interaction_passed passed, $interaction_failed failed, $interaction_missing missing"
   echo "- route anchor warnings: $route_anchor_warning_count"
   echo "- artifact completeness: $artifact_passed passed, $artifact_failed failed, $artifact_missing_total missing"
+  echo "- font provenance: $font_passed passed, $font_failed failed, $font_missing missing"
   echo "- reference readiness: $reference_readiness_status ($reference_readiness_reason)"
   echo "- missing references: $missing_reference_count"
   echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
@@ -561,8 +619,8 @@ fi
     echo "| $group | $surface | $group_scenario | $group_status |"
   done < "$tmp_groups"
   echo
-  echo "| Scenario | Status | Artifacts | Interactions | Image integrity | Native comparison | Screenshot | Log |"
-  echo "| --- | --- | --- | --- | --- | --- | --- | --- |"
+  echo "| Scenario | Status | Artifacts | Fonts | Interactions | Image integrity | Native comparison | Screenshot | Log |"
+  echo "| --- | --- | --- | --- | --- | --- | --- | --- | --- |"
   while IFS= read -r entry; do
     scenario="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
     status="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"[^"]+","status":"([^"]+)".*/\1/')"
@@ -577,6 +635,11 @@ fi
     route_anchor_warning="$(printf '%s' "$entry" | sed -E 's/.*"routeAnchorWarning":"([^"]+)".*/\1/')"
     artifact_status="$(printf '%s' "$entry" | sed -E 's/.*"artifactSummary":\{"status":"([^"]+)".*/\1/')"
     missing_artifact_count="$(printf '%s' "$entry" | sed -E 's/.*"missingArtifactCount":([^,}]+).*/\1/')"
+    font_status="$(printf '%s' "$entry" | sed -E 's/.*"fontSummary":\{"status":"([^"]+)".*/\1/')"
+    text_resolved_source="$(printf '%s' "$entry" | sed -E 's/.*"textResolvedSource":"([^"]*)".*/\1/')"
+    text_resolved_family="$(printf '%s' "$entry" | sed -E 's/.*"textResolvedFamily":"([^"]*)".*/\1/')"
+    symbol_resolved_source="$(printf '%s' "$entry" | sed -E 's/.*"symbolResolvedSource":"([^"]*)".*/\1/')"
+    symbol_resolved_family="$(printf '%s' "$entry" | sed -E 's/.*"symbolResolvedFamily":"([^"]*)".*/\1/')"
     expected_viewport_width="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":([^,}]+).*/\1/')"
     expected_viewport_height="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":[^,}]+,"height":([^,}]+).*/\1/')"
     actual_image_width="$(printf '%s' "$entry" | sed -E 's/.*"actualImageSize":\{"width":([^,}]+).*/\1/')"
@@ -584,7 +647,7 @@ fi
     comparison_status="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"([^"]+)".*/\1/')"
     scenario_output="$(printf '%s' "$entry" | sed -E 's/.*"output":"([^"]+)".*/\1/')"
     log_path="$(printf '%s' "$entry" | sed -E 's/.*"log":"([^"]+)".*/\1/')"
-    echo "| $scenario | $status | $artifact_status (${missing_artifact_count} missing) | $interaction_status (${interaction_steps} steps, ${interaction_asserts} assertProperty, route anchor: $route_anchor_warning) | $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-bg, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning) | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
+    echo "| $scenario | $status | $artifact_status (${missing_artifact_count} missing) | $font_status (text: ${text_resolved_family}/${text_resolved_source}, symbol: ${symbol_resolved_family}/${symbol_resolved_source}) | $interaction_status (${interaction_steps} steps, ${interaction_asserts} assertProperty, route anchor: $route_anchor_warning) | $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-bg, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning) | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
   done < "$tmp_entries"
 } > "$summary_md"
 
@@ -709,6 +772,7 @@ fi
     <div>Interactions<strong>$interaction_passed/$interaction_failed/$interaction_missing</strong></div>
     <div>Route anchors<strong>$route_anchor_warning_count</strong></div>
     <div>Artifacts<strong>$artifact_passed/$artifact_failed/$artifact_missing_total</strong></div>
+    <div>Font provenance<strong>$font_passed/$font_failed/$font_missing</strong></div>
     <div>Integrity warnings<strong>$image_integrity_warning_count</strong></div>
     <div>Size warnings<strong>$image_size_warning_count</strong></div>
     <div>Reference readiness<strong>$reference_readiness_status</strong></div>
@@ -765,6 +829,11 @@ HTML
     route_anchor_warning="$(printf '%s' "$entry" | sed -E 's/.*"routeAnchorWarning":"([^"]+)".*/\1/')"
     artifact_status="$(printf '%s' "$entry" | sed -E 's/.*"artifactSummary":\{"status":"([^"]+)".*/\1/')"
     missing_artifact_count="$(printf '%s' "$entry" | sed -E 's/.*"missingArtifactCount":([^,}]+).*/\1/')"
+    font_status="$(printf '%s' "$entry" | sed -E 's/.*"fontSummary":\{"status":"([^"]+)".*/\1/')"
+    text_resolved_source="$(printf '%s' "$entry" | sed -E 's/.*"textResolvedSource":"([^"]*)".*/\1/')"
+    text_resolved_family="$(printf '%s' "$entry" | sed -E 's/.*"textResolvedFamily":"([^"]*)".*/\1/')"
+    symbol_resolved_source="$(printf '%s' "$entry" | sed -E 's/.*"symbolResolvedSource":"([^"]*)".*/\1/')"
+    symbol_resolved_family="$(printf '%s' "$entry" | sed -E 's/.*"symbolResolvedFamily":"([^"]*)".*/\1/')"
     expected_viewport_width="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":([^,}]+).*/\1/')"
     expected_viewport_height="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":[^,}]+,"height":([^,}]+).*/\1/')"
     actual_image_width="$(printf '%s' "$entry" | sed -E 's/.*"actualImageSize":\{"width":([^,}]+).*/\1/')"
@@ -778,6 +847,7 @@ HTML
       <img src="$scenario_name/visual/mac-runtime.png" alt="$scenario screenshot">
       <p class="meta">Status: <span class="status-$status">$status</span> | Native comparison: $comparison_status | <a href="$scenario_name/strict-scenario.log">log</a> | <a href="$scenario_name/visual/visual-run.json">visual-run</a> | <a href="$scenario_name/visual/pixel-diff.json">pixel-diff</a></p>
       <p class="meta">Artifacts: $artifact_status (${missing_artifact_count} missing) | <a href="$scenario_name/run.json">run</a> | <a href="$scenario_name/tree.json">tree</a> | <a href="$scenario_name/accessibility.json">accessibility</a></p>
+      <p class="meta">Fonts: $font_status | text: $text_resolved_family ($text_resolved_source) | symbol: $symbol_resolved_family ($symbol_resolved_source)</p>
       <p class="meta">Interactions: $interaction_status (${interaction_steps} steps, ${interaction_asserts} assertProperty, route anchor: $route_anchor_warning) | <a href="$scenario_name/interactions.json">interactions</a></p>
       <p class="meta">Image integrity: $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-background, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning)</p>
       <p class="meta">$comparison_reason</p>
@@ -813,6 +883,10 @@ if [[ $interaction_failed -ne 0 ]]; then
 fi
 if [[ $artifact_failed -ne 0 ]]; then
   echo "artifact completeness failed: $artifact_failed scenario(s), $artifact_missing_total missing artifact(s)" >&2
+  exit 1
+fi
+if [[ $font_failed -ne 0 || $font_missing -ne 0 ]]; then
+  echo "font provenance failed: $font_failed failed, $font_missing missing scenario font diagnostic(s)" >&2
   exit 1
 fi
 if [[ "$coverage_complete" != "true" ]]; then
