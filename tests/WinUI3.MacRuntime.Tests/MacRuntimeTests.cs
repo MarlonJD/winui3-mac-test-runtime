@@ -494,6 +494,8 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "strict-visual");
         StringAssert.Contains(script, "summary.json");
         StringAssert.Contains(script, "summary.md");
+        StringAssert.Contains(script, "review.html");
+        StringAssert.Contains(script, "<img");
     }
 
     [TestMethod]
