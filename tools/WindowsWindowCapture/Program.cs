@@ -15,6 +15,10 @@ internal static class Program
     private const uint SwpNoActivate = 0x0010;
     private const int DwmwaExtendedFrameBounds = 9;
     private const uint PwRenderFullContent = 2;
+    private const int SmXVirtualScreen = 76;
+    private const int SmYVirtualScreen = 77;
+    private const int SmCxVirtualScreen = 78;
+    private const int SmCyVirtualScreen = 79;
 
     public static int Main(string[] args)
     {
@@ -58,6 +62,11 @@ internal static class Program
                         process,
                         TimeSpan.FromSeconds(2),
                         options.Viewport)?.Handle);
+            }
+
+            if (options.ClientArea)
+            {
+                captureWindow = MoveClientAreaIntoVirtualScreen(captureWindow);
             }
 
             Thread.Sleep(options.SettleDelay);
@@ -550,6 +559,94 @@ internal static class Program
             $"Expected {viewport.Width}x{viewport.Height}; actual {finalClientRect.Width}x{finalClientRect.Height}.");
     }
 
+    private static IntPtr MoveClientAreaIntoVirtualScreen(IntPtr window)
+    {
+        for (var attempt = 0; attempt < 5; attempt++)
+        {
+            if (!GetWindowRect(window, out var windowRect) ||
+                !TryReadClientScreenRect(window, out var clientRect))
+            {
+                Thread.Sleep(150);
+                continue;
+            }
+
+            var screenRect = GetVirtualScreenRect();
+            var offsetX = 0;
+            if (clientRect.Left < screenRect.Left)
+            {
+                offsetX = screenRect.Left - clientRect.Left;
+            }
+            else if (clientRect.Right > screenRect.Right)
+            {
+                offsetX = screenRect.Right - clientRect.Right;
+            }
+
+            var offsetY = 0;
+            if (clientRect.Top < screenRect.Top)
+            {
+                offsetY = screenRect.Top - clientRect.Top;
+            }
+            else if (clientRect.Bottom > screenRect.Bottom)
+            {
+                offsetY = screenRect.Bottom - clientRect.Bottom;
+            }
+
+            if (offsetX == 0 && offsetY == 0)
+            {
+                return window;
+            }
+
+            if (!SetWindowPos(
+                    window,
+                    IntPtr.Zero,
+                    windowRect.Left + offsetX,
+                    windowRect.Top + offsetY,
+                    Math.Max(1, windowRect.Width),
+                    Math.Max(1, windowRect.Height),
+                    SwpNoZOrder | SwpNoActivate))
+            {
+                throw new InvalidOperationException("Could not move the target client area inside the virtual screen.");
+            }
+
+            Thread.Sleep(150);
+        }
+
+        return window;
+    }
+
+    private static Rect GetVirtualScreenRect()
+    {
+        var left = GetSystemMetrics(SmXVirtualScreen);
+        var top = GetSystemMetrics(SmYVirtualScreen);
+        return new Rect(
+            left,
+            top,
+            left + Math.Max(1, GetSystemMetrics(SmCxVirtualScreen)),
+            top + Math.Max(1, GetSystemMetrics(SmCyVirtualScreen)));
+    }
+
+    private static bool TryReadClientScreenRect(IntPtr window, out Rect rect)
+    {
+        rect = default;
+        if (!GetClientRect(window, out var clientRect))
+        {
+            return false;
+        }
+
+        var point = new Point(0, 0);
+        if (!ClientToScreen(window, ref point))
+        {
+            return false;
+        }
+
+        rect = new Rect(
+            point.X,
+            point.Y,
+            point.X + Math.Max(1, clientRect.Width),
+            point.Y + Math.Max(1, clientRect.Height));
+        return true;
+    }
+
     private static bool TryReadWindowRect(IntPtr window, out Rect rect)
     {
         if (DwmGetWindowAttribute(
@@ -851,6 +948,9 @@ internal static class Program
 
     [DllImport("user32.dll")]
     private static extern bool ClientToScreen(IntPtr window, ref Point point);
+
+    [DllImport("user32.dll")]
+    private static extern int GetSystemMetrics(int index);
 
     [DllImport("user32.dll")]
     private static extern bool ShowWindow(IntPtr window, int command);
