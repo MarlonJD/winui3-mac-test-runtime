@@ -99,6 +99,15 @@ jobs:
                   $interaction.key -eq "Text" -and
                   -not [string]::IsNullOrWhiteSpace($interaction.parameter)) {
                 $expectedRoute = $interaction.parameter
+              } elseif ($interaction.type -eq "selectNavigation" -and -not [string]::IsNullOrWhiteSpace($interaction.target)) {
+                switch ($interaction.target) {
+                  "HomeNavigationItem" { $expectedRoute = "home" }
+                  "ChannelsNavigationItem" { $expectedRoute = "messages" }
+                  "SettingsNavigationItem" { $expectedRoute = "status-states" }
+                  "ProfileNavigationItem" { $expectedRoute = "settings-profile" }
+                  "AdminNavigationItem" { $expectedRoute = "admin" }
+                  "AdminWorkbenchNavigationItem" { $expectedRoute = "admin-workbench" }
+                }
               }
             }
 
