@@ -3803,6 +3803,13 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(workflow, "--title \"Meeting Challenge Windows macOS Runtime Probe\"");
         StringAssert.Contains(workflow, "windows-downstream-probe-screenshots");
         StringAssert.Contains(workflow, "native-winui");
+        StringAssert.Contains(workflow, "WINUI3_MAC_NATIVE_LAUNCH_LOG");
+        StringAssert.Contains(workflow, "ExpectedRoute=");
+        StringAssert.Contains(workflow, "FinalRoute=");
+        StringAssert.Contains(
+            workflow,
+            "did not report expected route",
+            "Downstream probe screenshots must fail when scenario replay stays on the wrong route.");
 
         foreach (var scenario in new[]
         {

@@ -91,6 +91,15 @@ jobs:
             New-Item -ItemType Directory -Force $outDir | Out-Null
             $launchLog = Join-Path $outDir "native-launch.log"
             $env:WINUI3_MAC_NATIVE_LAUNCH_LOG = $launchLog
+            $expectedRoute = "signed-out"
+            foreach ($interaction in $scenarioJson.interactions) {
+              if ($interaction.type -eq "assertProperty" -and
+                  $interaction.target -eq "CurrentRouteStatusTextBlock" -and
+                  $interaction.key -eq "Text" -and
+                  -not [string]::IsNullOrWhiteSpace($interaction.parameter)) {
+                $expectedRoute = $interaction.parameter
+              }
+            }
 
             dotnet $captureTool `
               --title "Meeting Challenge Windows macOS Runtime Probe" `
@@ -109,7 +118,7 @@ jobs:
               --viewport $viewport `
               --scale "$($scenarioJson.scale)" `
               --theme $scenarioJson.theme `
-              --settle-ms 1000 `
+              --settle-ms 2000 `
               -- $fixtureExecutable --scenario $fixtureScenarioPath
 
             $captureExitCode = $LASTEXITCODE
@@ -121,6 +130,19 @@ jobs:
               }
 
               throw "Downstream native WinUI reference capture failed for $($scenario.Name) with exit code $captureExitCode."
+            }
+
+            if (-not (Test-Path $launchLog)) {
+              throw "Downstream native WinUI reference capture for $($scenario.Name) did not create native launch log."
+            }
+            $launchLogText = Get-Content $launchLog -Raw
+            Write-Host "===== Native launch log for $($scenario.Name) ====="
+            Write-Host $launchLogText
+            if ($launchLogText -notmatch [regex]::Escape("ExpectedRoute=$expectedRoute")) {
+              throw "Downstream native WinUI reference capture for $($scenario.Name) did not report expected route $expectedRoute."
+            }
+            if ($launchLogText -notmatch [regex]::Escape("FinalRoute=$expectedRoute")) {
+              throw "Downstream native WinUI reference capture for $($scenario.Name) did not report expected route $expectedRoute as final route."
             }
 
             $metadata = Get-Content "$outDir/windows-reference.json" -Raw | ConvertFrom-Json
