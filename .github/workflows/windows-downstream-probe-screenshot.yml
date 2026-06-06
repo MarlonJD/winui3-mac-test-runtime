@@ -2,15 +2,32 @@ name: windows-downstream-probe-screenshot
 
 on:
   workflow_dispatch:
+    inputs:
+      emsi_ref:
+        description: EMSI monorepo branch, tag, or SHA to capture
+        required: false
+        default: main
+      runtime_ref:
+        description: winui3-mac-test-runtime branch, tag, or SHA for capture tooling
+        required: false
+        default: main
 
 jobs:
   downstream-probe-reference:
     runs-on: windows-latest
     steps:
+      - name: Checkout runtime tools
+        uses: actions/checkout@v4
+        with:
+          repository: MarlonJD/winui3-mac-test-runtime
+          ref: ${{ inputs.runtime_ref }}
+          path: winui3-mac-test-runtime
+
       - name: Checkout EMSI monorepo
         uses: actions/checkout@v4
         with:
           repository: MarlonJD/emsi_monorepo
+          ref: ${{ inputs.emsi_ref }}
           submodules: recursive
           path: emsi_monorepo
 
@@ -39,14 +56,12 @@ jobs:
 
       - name: Build capture tool and downstream probe
         shell: pwsh
-        working-directory: emsi_monorepo
         run: |
-          dotnet build tools/winui3-mac-test-runtime/tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release
-          msbuild apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/MeetingChallenge.WinUI.MacRuntimeProbe.csproj /restore /p:Configuration=Release
+          dotnet build winui3-mac-test-runtime/tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release
+          msbuild emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/MeetingChallenge.WinUI.MacRuntimeProbe.csproj /restore /p:Configuration=Release
 
       - name: Capture downstream probe scenarios
         shell: pwsh
-        working-directory: emsi_monorepo
         run: |
           $runnerImage = $env:ImageVersion
           if ([string]::IsNullOrWhiteSpace($runnerImage)) {
@@ -54,19 +69,19 @@ jobs:
           }
 
           $scenarios = @(
-            @{ Name = "login-light"; Path = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/login-light.json" },
-            @{ Name = "shell-staff-light"; Path = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/shell-staff-light.json" },
-            @{ Name = "messages-multiline-light"; Path = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/messages-multiline-light.json" },
-            @{ Name = "admin-dashboard-light"; Path = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-dashboard-light.json" },
-            @{ Name = "admin-workbench-light"; Path = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-workbench-light.json" },
-            @{ Name = "command-search-light"; Path = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/command-search-light.json" },
-            @{ Name = "status-states-light"; Path = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/status-states-light.json" },
-            @{ Name = "settings-profile-light"; Path = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/settings-profile-light.json" }
+            @{ Name = "login-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/login-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/login-light.json" },
+            @{ Name = "shell-staff-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/shell-staff-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/shell-staff-light.json" },
+            @{ Name = "messages-multiline-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/messages-multiline-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/messages-multiline-light.json" },
+            @{ Name = "admin-dashboard-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-dashboard-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-dashboard-light.json" },
+            @{ Name = "admin-workbench-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-workbench-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-workbench-light.json" },
+            @{ Name = "command-search-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/command-search-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/command-search-light.json" },
+            @{ Name = "status-states-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/status-states-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/status-states-light.json" },
+            @{ Name = "settings-profile-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/settings-profile-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/settings-profile-light.json" }
           )
 
-          $captureTool = "tools/winui3-mac-test-runtime/tools/WindowsWindowCapture/bin/Release/net10.0-windows/WindowsWindowCapture.dll"
+          $captureTool = "winui3-mac-test-runtime/tools/WindowsWindowCapture/bin/Release/net10.0-windows/WindowsWindowCapture.dll"
           $fixtureProject = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/MeetingChallenge.WinUI.MacRuntimeProbe.csproj"
-          $fixtureExecutable = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/bin/Release/net10.0-windows10.0.19041.0/MeetingChallenge.WinUI.MacRuntimeProbe.exe"
+          $fixtureExecutable = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/bin/Release/net10.0-windows10.0.19041.0/MeetingChallenge.WinUI.MacRuntimeProbe.exe"
 
           foreach ($scenario in $scenarios) {
             $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
@@ -86,7 +101,7 @@ jobs:
               --timeout-seconds 60 `
               --reference-source native-winui `
               --fixture-project $fixtureProject `
-              --scenario $scenario.Path `
+              --scenario $scenario.RelativePath `
               --scenario-name $scenario.Name `
               --commit-sha "${{ github.sha }}" `
               --workflow-run-id "${{ github.run_id }}" `

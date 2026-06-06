@@ -3794,6 +3794,9 @@ public sealed class MacRuntimeTests
 
         var workflow = File.ReadAllText(workflowPath);
         StringAssert.Contains(workflow, "MeetingChallenge.WinUI.MacRuntimeProbe.csproj");
+        StringAssert.Contains(workflow, "emsi_ref");
+        StringAssert.Contains(workflow, "runtime_ref");
+        StringAssert.Contains(workflow, "repository: MarlonJD/winui3-mac-test-runtime");
         StringAssert.Contains(workflow, "WindowsWindowCapture.csproj");
         StringAssert.Contains(workflow, "--client-area");
         StringAssert.Contains(workflow, "--require-title-match");
