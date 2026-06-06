@@ -4360,6 +4360,37 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsAutoSuggestBoxSearchPrimitive()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "autosuggestbox-search");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new AutoSuggestBox
+            {
+                Name = "SearchBox",
+                Text = "applications",
+                Width = 260
+            }
+        });
+        var settings = new VisualRunSettings(null, "autosuggestbox-search", "skia-v2", new VisualViewport(360, 120), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "autosuggestbox-search", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var search = RequireNode(arranged.Root, "SearchBox").Layout!;
+        var handleBand = new SKRect(
+            (float)(search.X + 21),
+            (float)(search.Y + 19),
+            (float)(search.X + 31),
+            (float)(search.Y + 29));
+        Assert.IsGreaterThan(4, CountDarkPixels(bitmap, handleBand, 230));
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererDrawsListViewItemChildContent()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "listview-child-content");

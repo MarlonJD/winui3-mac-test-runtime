@@ -580,7 +580,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var focused = ReadBool(node, "isFocused", fallback: false);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
         DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 34, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
-        DrawText(canvas, paint, iconFont, "\uE721", rect.Left + 10, rect.Top + 21, enabled ? ControlAffordanceColor(theme) : theme.TextDisabled);
+        DrawSearchIcon(canvas, paint, new SKRect(rect.Left + 10, rect.Top + 8, rect.Left + 26, rect.Top + 24), enabled ? ControlAffordanceColor(theme) : theme.TextDisabled);
     }
 
     private static void RenderComboBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -1080,6 +1080,18 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         path.LineTo(rect.Right - 2, rect.Top + 1);
         path.LineTo(rect.Right - 6, rect.Top + 2);
         DrawPathStroke(canvas, paint, path, color, 1.2f);
+    }
+
+    private static void DrawSearchIcon(SKCanvas canvas, SKPaint paint, SKRect rect, SKColor color)
+    {
+        paint.Style = SKPaintStyle.Stroke;
+        paint.StrokeWidth = 1.5f;
+        paint.StrokeCap = SKStrokeCap.Round;
+        paint.Color = color;
+        canvas.DrawCircle(rect.Left + 6, rect.Top + 6, 4.5f, paint);
+        canvas.DrawLine(rect.Left + 10, rect.Top + 10, rect.Right - 1, rect.Bottom - 1, paint);
+        paint.StrokeCap = SKStrokeCap.Butt;
+        paint.Style = SKPaintStyle.Fill;
     }
 
     private static void DrawEllipsisIcon(SKCanvas canvas, SKPaint paint, SKRect rect, SKColor color)
