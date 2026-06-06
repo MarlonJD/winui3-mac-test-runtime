@@ -286,6 +286,26 @@ Release or visual-change gate:
 7. Record visible gaps as `good`, `usable`, `weak`, `poor`, or `not-rendered`.
 8. Do not claim visual parity for weak or poor components.
 
+For downstream Windows probe suites that publish a sweep script, make native
+comparison explicit in release or visual-change gates. The runtime-owned EMSI
+probe sweep uses the normalized import directory and fails when native
+comparison is required but any scenario is skipped or failed:
+
+```sh
+winui3-mac-runner native-reference-import \
+  --source <downloaded-dir> \
+  --output artifacts/native-reference-import
+
+winui3-mac-runner-downstream-windows-probe-sweep \
+  --output artifacts/winui3-mac/downstream-windows-probe-sweep \
+  --reference artifacts/native-reference-import \
+  --require-native-comparison
+```
+
+If this command reports `native comparison is required`, do not treat a passing
+macOS runtime screenshot as visual parity. Add or fix the missing Windows
+reference capture first, then rerun the reference-backed sweep.
+
 ## GitHub Actions Shape
 
 For private app repositories, keep artifacts inside that repository's CI

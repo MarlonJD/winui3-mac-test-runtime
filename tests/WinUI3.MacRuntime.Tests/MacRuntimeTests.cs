@@ -98,6 +98,17 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamWindowsConsumptionDocsPublishNativeComparisonGate()
+    {
+        var docs = File.ReadAllText(RepositoryPath("docs/consumption/downstream-windows-apps.md"));
+
+        StringAssert.Contains(docs, "winui3-mac-runner-downstream-windows-probe-sweep");
+        StringAssert.Contains(docs, "--require-native-comparison");
+        StringAssert.Contains(docs, "native comparison is required");
+        StringAssert.Contains(docs, "artifacts/native-reference-import");
+    }
+
+    [TestMethod]
     public void TreeBuilderExportsProductionLayoutSizingAndScrollProperties()
     {
         var grid = new Grid
