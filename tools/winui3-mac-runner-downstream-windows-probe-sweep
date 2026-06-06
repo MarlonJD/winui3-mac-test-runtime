@@ -70,6 +70,17 @@ scenarios=(
   "settings-profile-light.json"
 )
 
+expected_scenario_groups=(
+  "login"
+  "read-surface"
+  "messages-multiline"
+  "admin-dashboard"
+  "admin-workbench"
+  "command-search"
+  "status-states"
+  "settings-profile"
+)
+
 scenario_group() {
   case "$1" in
     login-light.json) echo "login" ;;
@@ -104,8 +115,10 @@ summary_md="$output/summary.md"
 review_html="$output/review.html"
 tmp_entries="$output/.summary-entries.jsonl"
 tmp_groups="$output/.scenario-groups.jsonl"
+tmp_found_groups="$output/.found-scenario-groups.txt"
 : > "$tmp_entries"
 : > "$tmp_groups"
+: > "$tmp_found_groups"
 
 passed=0
 failed=0
@@ -118,6 +131,9 @@ reference_readiness_status="not-requested"
 reference_readiness_reason="No Windows reference image was requested."
 missing_reference_count=0
 missing_references_json=""
+coverage_complete=true
+missing_scenario_group_count=0
+missing_scenario_groups_json=""
 image_integrity_passed=0
 image_integrity_failed=0
 image_integrity_missing=0
@@ -300,11 +316,25 @@ ENTRY
   cat >> "$tmp_groups" <<ENTRY
 {"group":"$coverage_group","surface":"$coverage_surface","scenario":"$scenario","status":"$status","screenshot":"$scenario_output/visual/mac-runtime.png"}
 ENTRY
+  printf '%s\n' "$coverage_group" >> "$tmp_found_groups"
 done
 
 ended_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 overall_status="passed"
 if [[ $failed -ne 0 ]]; then
+  overall_status="failed"
+fi
+for expected_group in "${expected_scenario_groups[@]}"; do
+  if ! grep -qx "$expected_group" "$tmp_found_groups"; then
+    coverage_complete=false
+    missing_scenario_group_count=$((missing_scenario_group_count + 1))
+    if [[ -n "$missing_scenario_groups_json" ]]; then
+      missing_scenario_groups_json="$missing_scenario_groups_json,"
+    fi
+    missing_scenario_groups_json="$missing_scenario_groups_json\"$expected_group\""
+  fi
+done
+if [[ "$coverage_complete" != "true" ]]; then
   overall_status="failed"
 fi
 if [[ -n "$reference" ]]; then
@@ -373,6 +403,14 @@ fi
   echo "    \"skipped\": $native_comparison_skipped,"
   echo "    \"interpretation\": \"This sweep proves macOS runtime rendering, diagnostics, and screenshot generation for the listed downstream Windows probe scenarios. It does not prove native Windows pixel parity until Windows reference images are supplied.\""
   echo "  },"
+  echo "  \"coverageComplete\": $coverage_complete,"
+  echo "  \"expectedScenarioGroupCount\": ${#expected_scenario_groups[@]},"
+  echo "  \"missingScenarioGroupCount\": $missing_scenario_group_count,"
+  echo "  \"missingScenarioGroups\": ["
+  if [[ -n "$missing_scenario_groups_json" ]]; then
+    printf '    %s\n' "$missing_scenario_groups_json"
+  fi
+  echo "  ],"
   echo "  \"requiredScenarioGroups\": ["
   group_count=0
   while IFS= read -r group_entry; do
@@ -411,11 +449,17 @@ fi
   echo "- missing references: $missing_reference_count"
   echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
   echo "- native comparison required: $require_native_comparison"
+  echo "- coverage complete: $coverage_complete"
+  echo "- missing scenario groups: $missing_scenario_group_count"
   echo
   echo "> This sweep proves macOS runtime rendering, diagnostics, and screenshot generation. It does not prove native Windows pixel parity until Windows reference images are supplied."
   echo
   echo "## Scenario Coverage"
   echo
+  if [[ "$coverage_complete" != "true" ]]; then
+    echo "> Scenario coverage is incomplete; missing group count: $missing_scenario_group_count."
+    echo
+  fi
   echo "| Group | Surface | Scenario | Status |"
   echo "| --- | --- | --- | --- |"
   while IFS= read -r group_entry; do
@@ -570,6 +614,8 @@ fi
     <div>Reference readiness<strong>$reference_readiness_status</strong></div>
     <div>Native comparison<strong>$native_comparison_status</strong></div>
     <div>Required<strong>$require_native_comparison</strong></div>
+    <div>Coverage complete<strong>$coverage_complete</strong></div>
+    <div>Missing groups<strong>$missing_scenario_group_count</strong></div>
   </section>
   <section class="notice" aria-label="Reference readiness">
     <strong>Reference readiness: $reference_readiness_status.</strong>
@@ -580,8 +626,8 @@ fi
     $native_comparison_reason This sweep proves macOS runtime rendering, diagnostics, and screenshot generation; it does not prove native Windows pixel parity until Windows reference images are supplied.
   </section>
   <section class="notice" aria-label="Scenario coverage">
-    <strong>Scenario coverage.</strong>
-    Required production-like route groups are listed in summary.json as requiredScenarioGroups and on this page before the screenshots.
+    <strong>Scenario coverage: $coverage_complete.</strong>
+    Required production-like route groups are listed in summary.json as requiredScenarioGroups and on this page before the screenshots. If coverage is incomplete, missing groups are listed in summary.json as missingScenarioGroups.
   </section>
   <section class="grid" aria-label="Scenario coverage groups">
 HTML
@@ -638,7 +684,7 @@ HTML
 HTML
 } > "$review_html"
 
-rm -f "$tmp_entries" "$tmp_groups"
+rm -f "$tmp_entries" "$tmp_groups" "$tmp_found_groups"
 
 echo "downstream-windows-probe-sweep: $overall_status ($passed passed, $failed failed)"
 echo "summary.json: $summary_json"
@@ -647,6 +693,10 @@ echo "review.html: $review_html"
 echo "reference-readiness: $reference_readiness_status ($missing_reference_count missing)"
 
 if [[ $failed -ne 0 ]]; then
+  exit 1
+fi
+if [[ "$coverage_complete" != "true" ]]; then
+  echo "coverage is incomplete: $missing_scenario_group_count missing scenario group(s)" >&2
   exit 1
 fi
 if [[ "$require_native_comparison" == "true" && "$native_comparison_status" != "passed" ]]; then

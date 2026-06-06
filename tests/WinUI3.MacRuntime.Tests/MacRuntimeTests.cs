@@ -532,6 +532,10 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "requiredScenarioGroups");
         StringAssert.Contains(script, "read-surface");
         StringAssert.Contains(script, "command-search");
+        StringAssert.Contains(script, "coverageComplete");
+        StringAssert.Contains(script, "missingScenarioGroups");
+        StringAssert.Contains(script, "expected_scenario_groups");
+        StringAssert.Contains(script, "coverage is incomplete");
     }
 
     [TestMethod]
