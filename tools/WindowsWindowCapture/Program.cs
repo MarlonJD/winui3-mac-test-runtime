@@ -14,7 +14,6 @@ internal static class Program
     private const uint SwpNoZOrder = 0x0004;
     private const uint SwpNoActivate = 0x0010;
     private const int DwmwaExtendedFrameBounds = 9;
-    private const uint PwClientOnly = 1;
     private const uint PwRenderFullContent = 2;
 
     public static int Main(string[] args)
@@ -361,8 +360,7 @@ internal static class Program
         var hdc = graphics.GetHdc();
         try
         {
-            var printFlags = clientArea ? PwClientOnly : PwRenderFullContent;
-            if (!PrintWindow(window, hdc, printFlags))
+            if (clientArea || !PrintWindow(window, hdc, PwRenderFullContent))
             {
                 graphics.ReleaseHdc(hdc);
                 hdc = IntPtr.Zero;
