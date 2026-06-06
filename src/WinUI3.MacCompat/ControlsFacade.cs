@@ -559,7 +559,7 @@ public class FontIcon : Control
 {
     public string? Glyph { get; set; }
 
-    public double FontSize { get; set; }
+    public double FontSize { get; set; } = 20;
 }
 
 public delegate void NavigationViewSelectionChangedEventHandler(

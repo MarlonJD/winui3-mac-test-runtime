@@ -4752,6 +4752,23 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void UiTreeExportsNonZeroDefaultFontIconSize()
+    {
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new FontIcon
+            {
+                Name = "DefaultFontIcon",
+                Glyph = "\uE80F"
+            }
+        });
+
+        var icon = RequireNode(tree.Root, "DefaultFontIcon");
+
+        Assert.AreEqual(20d, icon.Properties["fontSize"]);
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererDrawsAutoSuggestBoxSearchPrimitive()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "autosuggestbox-search");
