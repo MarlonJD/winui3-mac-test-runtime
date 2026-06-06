@@ -85,6 +85,32 @@ The checked-in PNG comparisons are collected in
 each one records a native WinUI Windows reference, a local macOS runtime render,
 and a pixel diff from the checked-in example set.
 
+## Downstream EMSI Probe Evidence
+
+Private downstream EMSI Windows probe screenshots and side-by-side macOS runtime
+comparison sweeps are stored in `MarlonJD/emsi_qa`, not in this public runtime
+repository. The current Windows native reference set is
+`windows/probe-screenshots/2026-06-06-downstream-probe-onscreen-client-20260606-145329`.
+The matching macOS runtime review sweep is
+`windows/probe-comparisons/2026-06-06-downstream-probe-onscreen-client-vs-mac-runtime`.
+
+Those probe artifacts intentionally stay as PNG evidence. PNG is the source
+format for screenshots, visual review, and future pixel comparisons because it
+is lossless and does not add compression artifacts around font glyphs, icon
+strokes, one-pixel borders, or control chrome. JPG previews may be generated
+only as secondary review conveniences and must not replace reference,
+macOS-runtime, or diff inputs.
+
+To continue from the current downstream probe state, regenerate the local
+macOS sweep with the Windows reference directory attached:
+
+```sh
+WINUI3_MAC_TEST_FONT_DIRS="$HOME/winui-font-ab" PATH="$PWD/tools:$PATH" \
+  tools/winui3-mac-runner-downstream-windows-probe-sweep \
+  --output /private/tmp/emsi-windows-probe-compare-onscreen-client \
+  --windows-screenshot-dir /private/tmp/emsi_qa/windows/probe-screenshots/2026-06-06-downstream-probe-onscreen-client-20260606-145329
+```
+
 Do not read those checked-in comparisons as current support component
 grades. Current support status is determined by fresh scenario
 `component-evidence.json`, catalog status, required interactions,
