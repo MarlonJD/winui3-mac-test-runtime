@@ -470,6 +470,33 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamWindowsProbePublishesScenarioSweepScript()
+    {
+        var scriptPath = RepositoryPath("tools/winui3-mac-runner-downstream-windows-probe-sweep");
+        Assert.IsTrue(File.Exists(scriptPath), scriptPath);
+        var script = File.ReadAllText(scriptPath);
+
+        foreach (var scenario in new[]
+        {
+            "login-light.json",
+            "shell-staff-light.json",
+            "messages-multiline-light.json",
+            "admin-dashboard-light.json",
+            "admin-workbench-light.json",
+            "command-search-light.json",
+            "status-states-light.json",
+            "settings-profile-light.json"
+        })
+        {
+            StringAssert.Contains(script, scenario);
+        }
+
+        StringAssert.Contains(script, "strict-visual");
+        StringAssert.Contains(script, "summary.json");
+        StringAssert.Contains(script, "summary.md");
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineTreatsAutoSuggestBoxAsSupportedVisualSurface()
     {
         var tree = new UiTreeDocument(

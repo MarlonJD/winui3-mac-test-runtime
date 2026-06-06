@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+set -u -o pipefail
+
+usage() {
+  cat <<'USAGE'
+Usage: winui3-mac-runner-downstream-windows-probe-sweep [--output <dir>]
+
+Runs every MeetingChallenge Windows macOS runtime probe scenario with
+skia-v2 strict visual mode and writes summary.json plus summary.md.
+USAGE
+}
+
+output="/private/tmp/emsi-windows-probe-sweep"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --output)
+      if [[ $# -lt 2 ]]; then
+        echo "Missing value for --output" >&2
+        exit 2
+      fi
+      output="$2"
+      shift 2
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+runtime_root="$(cd "$script_dir/.." && pwd)"
+monorepo_root="$(cd "$runtime_root/../.." && pwd)"
+probe_root="$monorepo_root/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe"
+project="$probe_root/MeetingChallenge.WinUI.MacRuntimeProbe.csproj"
+scenario_dir="$probe_root/scenarios"
+runner="$runtime_root/tools/winui3-mac-runner"
+
+scenarios=(
+  "login-light.json"
+  "shell-staff-light.json"
+  "messages-multiline-light.json"
+  "admin-dashboard-light.json"
+  "admin-workbench-light.json"
+  "command-search-light.json"
+  "status-states-light.json"
+  "settings-profile-light.json"
+)
+
+mkdir -p "$output"
+summary_json="$output/summary.json"
+summary_md="$output/summary.md"
+tmp_entries="$output/.summary-entries.jsonl"
+: > "$tmp_entries"
+
+passed=0
+failed=0
+started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+
+for scenario in "${scenarios[@]}"; do
+  scenario_path="$scenario_dir/$scenario"
+  scenario_name="${scenario%.json}"
+  scenario_output="$output/$scenario_name"
+  log_path="$scenario_output/strict-scenario.log"
+  mkdir -p "$scenario_output"
+
+  if [[ ! -f "$scenario_path" ]]; then
+    status="failed"
+    failed=$((failed + 1))
+    message="missing scenario file"
+    printf '%s\n' "$message" > "$log_path"
+  else
+    "$runner" run \
+      --project "$project" \
+      --renderer skia-v2 \
+      --scenario "$scenario_path" \
+      --strict-visual \
+      --output "$scenario_output" \
+      > "$log_path" 2>&1
+    exit_code=$?
+    if [[ $exit_code -eq 0 ]]; then
+      status="passed"
+      passed=$((passed + 1))
+      message="strict visual scenario passed"
+    else
+      status="failed"
+      failed=$((failed + 1))
+      message="strict visual scenario failed with exit code $exit_code"
+    fi
+  fi
+
+  cat >> "$tmp_entries" <<ENTRY
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png"}
+ENTRY
+done
+
+ended_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+overall_status="passed"
+if [[ $failed -ne 0 ]]; then
+  overall_status="failed"
+fi
+
+{
+  echo "{"
+  echo "  \"schemaVersion\": \"0.1\","
+  echo "  \"status\": \"$overall_status\","
+  echo "  \"startedAt\": \"$started_at\","
+  echo "  \"endedAt\": \"$ended_at\","
+  echo "  \"project\": \"$project\","
+  echo "  \"scenarioDirectory\": \"$scenario_dir\","
+  echo "  \"summary\": {"
+  echo "    \"total\": ${#scenarios[@]},"
+  echo "    \"passed\": $passed,"
+  echo "    \"failed\": $failed"
+  echo "  },"
+  echo "  \"scenarios\": ["
+  entry_count=0
+  while IFS= read -r entry; do
+    entry_count=$((entry_count + 1))
+    if [[ $entry_count -gt 1 ]]; then
+      echo ","
+    fi
+    printf '    %s' "$entry"
+  done < "$tmp_entries"
+  echo
+  echo "  ]"
+  echo "}"
+} > "$summary_json"
+
+{
+  echo "# Downstream Windows Probe Sweep"
+  echo
+  echo "- status: $overall_status"
+  echo "- total: ${#scenarios[@]}"
+  echo "- passed: $passed"
+  echo "- failed: $failed"
+  echo
+  echo "| Scenario | Status | Screenshot | Log |"
+  echo "| --- | --- | --- | --- |"
+  while IFS= read -r entry; do
+    scenario="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
+    status="$(printf '%s' "$entry" | sed -E 's/.*"status":"([^"]+)".*/\1/')"
+    scenario_output="$(printf '%s' "$entry" | sed -E 's/.*"output":"([^"]+)".*/\1/')"
+    log_path="$(printf '%s' "$entry" | sed -E 's/.*"log":"([^"]+)".*/\1/')"
+    echo "| $scenario | $status | $scenario_output/visual/mac-runtime.png | $log_path |"
+  done < "$tmp_entries"
+} > "$summary_md"
+
+rm -f "$tmp_entries"
+
+echo "downstream-windows-probe-sweep: $overall_status ($passed passed, $failed failed)"
+echo "summary.json: $summary_json"
+echo "summary.md: $summary_md"
+
+if [[ $failed -ne 0 ]]; then
+  exit 1
+fi
