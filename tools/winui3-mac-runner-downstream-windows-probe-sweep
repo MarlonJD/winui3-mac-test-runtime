@@ -70,12 +70,42 @@ scenarios=(
   "settings-profile-light.json"
 )
 
+scenario_group() {
+  case "$1" in
+    login-light.json) echo "login" ;;
+    shell-staff-light.json) echo "read-surface" ;;
+    messages-multiline-light.json) echo "messages-multiline" ;;
+    admin-dashboard-light.json) echo "admin-dashboard" ;;
+    admin-workbench-light.json) echo "admin-workbench" ;;
+    command-search-light.json) echo "command-search" ;;
+    status-states-light.json) echo "status-states" ;;
+    settings-profile-light.json) echo "settings-profile" ;;
+    *) echo "unknown" ;;
+  esac
+}
+
+scenario_surface() {
+  case "$1" in
+    login-light.json) echo "Login route and credential form" ;;
+    shell-staff-light.json) echo "Home/read surface shell" ;;
+    messages-multiline-light.json) echo "Messages multiline input route" ;;
+    admin-dashboard-light.json) echo "Admin dashboard summary route" ;;
+    admin-workbench-light.json) echo "Admin workbench list/detail route" ;;
+    command-search-light.json) echo "Command/search region" ;;
+    status-states-light.json) echo "Status/loading/error states" ;;
+    settings-profile-light.json) echo "Settings/profile form route" ;;
+    *) echo "Unknown route" ;;
+  esac
+}
+
 mkdir -p "$output"
 summary_json="$output/summary.json"
 summary_md="$output/summary.md"
 review_html="$output/review.html"
 tmp_entries="$output/.summary-entries.jsonl"
+tmp_groups="$output/.scenario-groups.jsonl"
 : > "$tmp_entries"
+: > "$tmp_groups"
 
 passed=0
 failed=0
@@ -99,6 +129,8 @@ started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 for scenario in "${scenarios[@]}"; do
   scenario_path="$scenario_dir/$scenario"
   scenario_name="${scenario%.json}"
+  coverage_group="$(scenario_group "$scenario")"
+  coverage_surface="$(scenario_surface "$scenario")"
   scenario_output="$output/$scenario_name"
   log_path="$scenario_output/strict-scenario.log"
   mkdir -p "$scenario_output"
@@ -263,7 +295,10 @@ for scenario in "${scenarios[@]}"; do
   esac
 
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
+ENTRY
+  cat >> "$tmp_groups" <<ENTRY
+{"group":"$coverage_group","surface":"$coverage_surface","scenario":"$scenario","status":"$status","screenshot":"$scenario_output/visual/mac-runtime.png"}
 ENTRY
 done
 
@@ -338,6 +373,17 @@ fi
   echo "    \"skipped\": $native_comparison_skipped,"
   echo "    \"interpretation\": \"This sweep proves macOS runtime rendering, diagnostics, and screenshot generation for the listed downstream Windows probe scenarios. It does not prove native Windows pixel parity until Windows reference images are supplied.\""
   echo "  },"
+  echo "  \"requiredScenarioGroups\": ["
+  group_count=0
+  while IFS= read -r group_entry; do
+    group_count=$((group_count + 1))
+    if [[ $group_count -gt 1 ]]; then
+      echo ","
+    fi
+    printf '    %s' "$group_entry"
+  done < "$tmp_groups"
+  echo
+  echo "  ],"
   echo "  \"scenarios\": ["
   entry_count=0
   while IFS= read -r entry; do
@@ -367,6 +413,18 @@ fi
   echo "- native comparison required: $require_native_comparison"
   echo
   echo "> This sweep proves macOS runtime rendering, diagnostics, and screenshot generation. It does not prove native Windows pixel parity until Windows reference images are supplied."
+  echo
+  echo "## Scenario Coverage"
+  echo
+  echo "| Group | Surface | Scenario | Status |"
+  echo "| --- | --- | --- | --- |"
+  while IFS= read -r group_entry; do
+    group="$(printf '%s' "$group_entry" | sed -E 's/.*"group":"([^"]+)".*/\1/')"
+    surface="$(printf '%s' "$group_entry" | sed -E 's/.*"surface":"([^"]+)".*/\1/')"
+    group_scenario="$(printf '%s' "$group_entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
+    group_status="$(printf '%s' "$group_entry" | sed -E 's/.*"status":"([^"]+)".*/\1/')"
+    echo "| $group | $surface | $group_scenario | $group_status |"
+  done < "$tmp_groups"
   echo
   echo "| Scenario | Status | Image integrity | Native comparison | Screenshot | Log |"
   echo "| --- | --- | --- | --- | --- | --- |"
@@ -521,6 +579,29 @@ fi
     <strong>Native comparison: $native_comparison_status.</strong>
     $native_comparison_reason This sweep proves macOS runtime rendering, diagnostics, and screenshot generation; it does not prove native Windows pixel parity until Windows reference images are supplied.
   </section>
+  <section class="notice" aria-label="Scenario coverage">
+    <strong>Scenario coverage.</strong>
+    Required production-like route groups are listed in summary.json as requiredScenarioGroups and on this page before the screenshots.
+  </section>
+  <section class="grid" aria-label="Scenario coverage groups">
+HTML
+
+  while IFS= read -r group_entry; do
+    group="$(printf '%s' "$group_entry" | sed -E 's/.*"group":"([^"]+)".*/\1/')"
+    surface="$(printf '%s' "$group_entry" | sed -E 's/.*"surface":"([^"]+)".*/\1/')"
+    group_scenario="$(printf '%s' "$group_entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
+    group_status="$(printf '%s' "$group_entry" | sed -E 's/.*"status":"([^"]+)".*/\1/')"
+    cat <<HTML
+    <article class="card">
+      <h2>$group</h2>
+      <p class="meta">$surface</p>
+      <p class="meta">Scenario: $group_scenario | Status: <span class="status-$group_status">$group_status</span></p>
+    </article>
+HTML
+  done < "$tmp_groups"
+
+  cat <<HTML
+  </section>
   <section class="grid" aria-label="Scenario screenshots">
 HTML
 
@@ -557,7 +638,7 @@ HTML
 HTML
 } > "$review_html"
 
-rm -f "$tmp_entries"
+rm -f "$tmp_entries" "$tmp_groups"
 
 echo "downstream-windows-probe-sweep: $overall_status ($passed passed, $failed failed)"
 echo "summary.json: $summary_json"

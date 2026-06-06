@@ -528,6 +528,10 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "imageSizeWarning");
         StringAssert.Contains(script, "expectedViewport");
         StringAssert.Contains(script, "actualImageSize");
+        StringAssert.Contains(script, "scenarioCoverage");
+        StringAssert.Contains(script, "requiredScenarioGroups");
+        StringAssert.Contains(script, "read-surface");
+        StringAssert.Contains(script, "command-search");
     }
 
     [TestMethod]
