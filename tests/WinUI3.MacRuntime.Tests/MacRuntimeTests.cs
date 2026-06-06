@@ -498,6 +498,8 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "<img");
         StringAssert.Contains(script, "nativeComparison");
         StringAssert.Contains(script, "No Windows reference image was provided.");
+        StringAssert.Contains(script, "--reference)");
+        StringAssert.Contains(script, "--reference \"$reference\"");
     }
 
     [TestMethod]

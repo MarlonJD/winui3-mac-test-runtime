@@ -3,14 +3,17 @@ set -u -o pipefail
 
 usage() {
   cat <<'USAGE'
-Usage: winui3-mac-runner-downstream-windows-probe-sweep [--output <dir>]
+Usage: winui3-mac-runner-downstream-windows-probe-sweep [--output <dir>] [--reference <png-or-native-reference-dir>]
 
 Runs every MeetingChallenge Windows macOS runtime probe scenario with
 skia-v2 strict visual mode and writes summary.json, summary.md, and review.html.
+When --reference points to a normalized native-reference-import directory, each
+scenario is compared against its matching Windows reference image.
 USAGE
 }
 
 output="/private/tmp/emsi-windows-probe-sweep"
+reference=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --output)
@@ -19,6 +22,14 @@ while [[ $# -gt 0 ]]; do
         exit 2
       fi
       output="$2"
+      shift 2
+      ;;
+    --reference)
+      if [[ $# -lt 2 ]]; then
+        echo "Missing value for --reference" >&2
+        exit 2
+      fi
+      reference="$2"
       shift 2
       ;;
     --help|-h)
@@ -63,6 +74,9 @@ passed=0
 failed=0
 native_comparison_status="skipped"
 native_comparison_reason="No Windows reference image was provided."
+native_comparison_passed=0
+native_comparison_failed=0
+native_comparison_skipped=0
 started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
 for scenario in "${scenarios[@]}"; do
@@ -78,13 +92,24 @@ for scenario in "${scenarios[@]}"; do
     message="missing scenario file"
     printf '%s\n' "$message" > "$log_path"
   else
-    "$runner" run \
-      --project "$project" \
-      --renderer skia-v2 \
-      --scenario "$scenario_path" \
-      --strict-visual \
-      --output "$scenario_output" \
-      > "$log_path" 2>&1
+    if [[ -n "$reference" ]]; then
+      "$runner" run \
+        --project "$project" \
+        --renderer skia-v2 \
+        --scenario "$scenario_path" \
+        --strict-visual \
+        --output "$scenario_output" \
+        --reference "$reference" \
+        > "$log_path" 2>&1
+    else
+      "$runner" run \
+        --project "$project" \
+        --renderer skia-v2 \
+        --scenario "$scenario_path" \
+        --strict-visual \
+        --output "$scenario_output" \
+        > "$log_path" 2>&1
+    fi
     exit_code=$?
     if [[ $exit_code -eq 0 ]]; then
       status="passed"
@@ -111,6 +136,17 @@ for scenario in "${scenarios[@]}"; do
   if [[ -z "$comparison_reason" ]]; then
     comparison_reason="$native_comparison_reason"
   fi
+  case "$comparison_status" in
+    passed)
+      native_comparison_passed=$((native_comparison_passed + 1))
+      ;;
+    failed)
+      native_comparison_failed=$((native_comparison_failed + 1))
+      ;;
+    *)
+      native_comparison_skipped=$((native_comparison_skipped + 1))
+      ;;
+  esac
 
   cat >> "$tmp_entries" <<ENTRY
 {"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
@@ -121,6 +157,13 @@ ended_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 overall_status="passed"
 if [[ $failed -ne 0 ]]; then
   overall_status="failed"
+fi
+if [[ $native_comparison_failed -ne 0 ]]; then
+  native_comparison_status="failed"
+  native_comparison_reason="$native_comparison_failed native comparison(s) failed."
+elif [[ -n "$reference" && $native_comparison_skipped -eq 0 ]]; then
+  native_comparison_status="passed"
+  native_comparison_reason="All scenarios were compared against Windows reference images."
 fi
 
 {
@@ -139,6 +182,10 @@ fi
   echo "  \"nativeComparison\": {"
   echo "    \"status\": \"$native_comparison_status\","
   echo "    \"reason\": \"$native_comparison_reason\","
+  echo "    \"reference\": \"$reference\","
+  echo "    \"passed\": $native_comparison_passed,"
+  echo "    \"failed\": $native_comparison_failed,"
+  echo "    \"skipped\": $native_comparison_skipped,"
   echo "    \"interpretation\": \"This sweep proves macOS runtime rendering, diagnostics, and screenshot generation for the listed downstream Windows probe scenarios. It does not prove native Windows pixel parity until Windows reference images are supplied.\""
   echo "  },"
   echo "  \"scenarios\": ["
