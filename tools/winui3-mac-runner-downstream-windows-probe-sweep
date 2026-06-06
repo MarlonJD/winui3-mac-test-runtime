@@ -3,7 +3,7 @@ set -u -o pipefail
 
 usage() {
   cat <<'USAGE'
-Usage: winui3-mac-runner-downstream-windows-probe-sweep [--output <dir>] [--reference <png-or-native-reference-dir>] [--require-native-comparison]
+Usage: winui3-mac-runner-downstream-windows-probe-sweep [--output <dir>] [--reference <png-or-native-reference-dir>] [--require-native-comparison] [--windows-screenshot-dir <dir>]
 
 Runs every MeetingChallenge Windows macOS runtime probe scenario with
 skia-v2 strict visual mode and writes summary.json, summary.md, and review.html.
@@ -11,11 +11,14 @@ When --reference points to a normalized native-reference-import directory, each
 scenario is compared against its matching Windows reference image.
 Use --require-native-comparison in CI/release gates to fail when any native
 comparison is skipped or failed.
+Use --windows-screenshot-dir to add existing Windows runner page screenshots to
+review.html for side-by-side visual review. This is not pixel-diff evidence.
 USAGE
 }
 
 output="/private/tmp/emsi-windows-probe-sweep"
 reference=""
+windows_screenshot_dir=""
 require_native_comparison=false
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -33,6 +36,14 @@ while [[ $# -gt 0 ]]; do
         exit 2
       fi
       reference="$2"
+      shift 2
+      ;;
+    --windows-screenshot-dir)
+      if [[ $# -lt 2 ]]; then
+        echo "Missing value for --windows-screenshot-dir" >&2
+        exit 2
+      fi
+      windows_screenshot_dir="$2"
       shift 2
       ;;
     --require-native-comparison)
@@ -119,6 +130,18 @@ scenario_surface() {
   esac
 }
 
+windows_screenshot_name() {
+  case "$1" in
+    login-light.json) echo "windows-page-login.jpg" ;;
+    shell-staff-light.json) echo "windows-page-home.jpg" ;;
+    messages-multiline-light.json) echo "windows-page-messages.jpg" ;;
+    admin-dashboard-light.json) echo "windows-page-admin.jpg" ;;
+    admin-workbench-light.json) echo "windows-page-admin.jpg" ;;
+    settings-profile-light.json) echo "windows-page-settings.jpg" ;;
+    *) echo "" ;;
+  esac
+}
+
 mkdir -p "$output"
 summary_json="$output/summary.json"
 summary_md="$output/summary.md"
@@ -126,6 +149,7 @@ review_html="$output/review.html"
 tmp_entries="$output/.summary-entries.jsonl"
 tmp_groups="$output/.scenario-groups.jsonl"
 tmp_found_groups="$output/.found-scenario-groups.txt"
+windows_screenshot_output_dir="$output/windows-runner"
 : > "$tmp_entries"
 : > "$tmp_groups"
 : > "$tmp_found_groups"
@@ -154,6 +178,8 @@ artifact_missing_total=0
 font_passed=0
 font_failed=0
 font_missing=0
+windows_screenshot_matched=0
+windows_screenshot_missing=0
 image_integrity_passed=0
 image_integrity_failed=0
 image_integrity_missing=0
@@ -170,6 +196,33 @@ for scenario in "${scenarios[@]}"; do
   scenario_output="$output/$scenario_name"
   log_path="$scenario_output/strict-scenario.log"
   mkdir -p "$scenario_output"
+  windows_screenshot_status="not-requested"
+  windows_screenshot_path=""
+  windows_screenshot_source=""
+  windows_screenshot_file="$(windows_screenshot_name "$scenario")"
+  if [[ -n "$windows_screenshot_dir" ]]; then
+    windows_screenshot_status="missing"
+    workflow_windows_screenshot="$windows_screenshot_dir/$scenario_name/windows-reference.png"
+    legacy_windows_screenshot=""
+    if [[ -n "$windows_screenshot_file" ]]; then
+      legacy_windows_screenshot="$windows_screenshot_dir/$windows_screenshot_file"
+    fi
+    for candidate_windows_screenshot in "$workflow_windows_screenshot" "$legacy_windows_screenshot"; do
+      if [[ -n "$candidate_windows_screenshot" && -f "$candidate_windows_screenshot" ]]; then
+        mkdir -p "$windows_screenshot_output_dir"
+        windows_screenshot_extension="${candidate_windows_screenshot##*.}"
+        windows_screenshot_path="$windows_screenshot_output_dir/$scenario_name.$windows_screenshot_extension"
+        cp "$candidate_windows_screenshot" "$windows_screenshot_path"
+        windows_screenshot_source="$candidate_windows_screenshot"
+        windows_screenshot_status="matched"
+        windows_screenshot_matched=$((windows_screenshot_matched + 1))
+        break
+      fi
+    done
+    if [[ "$windows_screenshot_status" == "missing" ]]; then
+      windows_screenshot_missing=$((windows_screenshot_missing + 1))
+    fi
+  fi
 
   if [[ ! -f "$scenario_path" ]]; then
     status="failed"
@@ -437,7 +490,7 @@ for scenario in "${scenarios[@]}"; do
   fi
 
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"windowsScreenshotSummary":{"status":"$windows_screenshot_status","source":"$windows_screenshot_source","screenshot":"$windows_screenshot_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
 ENTRY
   cat >> "$tmp_groups" <<ENTRY
 {"group":"$coverage_group","surface":"$coverage_surface","scenario":"$scenario","status":"$status","screenshot":"$scenario_output/visual/mac-runtime.png"}
@@ -525,7 +578,9 @@ fi
   echo "    \"artifactMissing\": $artifact_missing_total,"
   echo "    \"fontProvenancePassed\": $font_passed,"
   echo "    \"fontProvenanceFailed\": $font_failed,"
-  echo "    \"fontProvenanceMissing\": $font_missing"
+  echo "    \"fontProvenanceMissing\": $font_missing,"
+  echo "    \"windowsScreenshotMatched\": $windows_screenshot_matched,"
+  echo "    \"windowsScreenshotMissing\": $windows_screenshot_missing"
   echo "  },"
   echo "  \"referenceReadiness\": {"
   echo "    \"status\": \"$reference_readiness_status\","
@@ -594,6 +649,7 @@ fi
   echo "- route anchor warnings: $route_anchor_warning_count"
   echo "- artifact completeness: $artifact_passed passed, $artifact_failed failed, $artifact_missing_total missing"
   echo "- font provenance: $font_passed passed, $font_failed failed, $font_missing missing"
+  echo "- Windows runner screenshots: $windows_screenshot_matched matched, $windows_screenshot_missing missing"
   echo "- reference readiness: $reference_readiness_status ($reference_readiness_reason)"
   echo "- missing references: $missing_reference_count"
   echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
@@ -619,8 +675,8 @@ fi
     echo "| $group | $surface | $group_scenario | $group_status |"
   done < "$tmp_groups"
   echo
-  echo "| Scenario | Status | Artifacts | Fonts | Interactions | Image integrity | Native comparison | Screenshot | Log |"
-  echo "| --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+  echo "| Scenario | Status | Artifacts | Fonts | Windows runner screenshot | Interactions | Image integrity | Native comparison | Screenshot | Log |"
+  echo "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |"
   while IFS= read -r entry; do
     scenario="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
     status="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"[^"]+","status":"([^"]+)".*/\1/')"
@@ -640,6 +696,8 @@ fi
     text_resolved_family="$(printf '%s' "$entry" | sed -E 's/.*"textResolvedFamily":"([^"]*)".*/\1/')"
     symbol_resolved_source="$(printf '%s' "$entry" | sed -E 's/.*"symbolResolvedSource":"([^"]*)".*/\1/')"
     symbol_resolved_family="$(printf '%s' "$entry" | sed -E 's/.*"symbolResolvedFamily":"([^"]*)".*/\1/')"
+    windows_screenshot_status="$(printf '%s' "$entry" | sed -E 's/.*"windowsScreenshotSummary":\{"status":"([^"]*)".*/\1/')"
+    windows_screenshot_path="$(printf '%s' "$entry" | sed -E 's/.*"windowsScreenshotSummary":\{"status":"[^"]*","source":"[^"]*","screenshot":"([^"]*)".*/\1/')"
     expected_viewport_width="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":([^,}]+).*/\1/')"
     expected_viewport_height="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":[^,}]+,"height":([^,}]+).*/\1/')"
     actual_image_width="$(printf '%s' "$entry" | sed -E 's/.*"actualImageSize":\{"width":([^,}]+).*/\1/')"
@@ -647,7 +705,7 @@ fi
     comparison_status="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"([^"]+)".*/\1/')"
     scenario_output="$(printf '%s' "$entry" | sed -E 's/.*"output":"([^"]+)".*/\1/')"
     log_path="$(printf '%s' "$entry" | sed -E 's/.*"log":"([^"]+)".*/\1/')"
-    echo "| $scenario | $status | $artifact_status (${missing_artifact_count} missing) | $font_status (text: ${text_resolved_family}/${text_resolved_source}, symbol: ${symbol_resolved_family}/${symbol_resolved_source}) | $interaction_status (${interaction_steps} steps, ${interaction_asserts} assertProperty, route anchor: $route_anchor_warning) | $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-bg, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning) | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
+    echo "| $scenario | $status | $artifact_status (${missing_artifact_count} missing) | $font_status (text: ${text_resolved_family}/${text_resolved_source}, symbol: ${symbol_resolved_family}/${symbol_resolved_source}) | $windows_screenshot_status $windows_screenshot_path | $interaction_status (${interaction_steps} steps, ${interaction_asserts} assertProperty, route anchor: $route_anchor_warning) | $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-bg, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning) | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
   done < "$tmp_entries"
 } > "$summary_md"
 
@@ -773,6 +831,7 @@ fi
     <div>Route anchors<strong>$route_anchor_warning_count</strong></div>
     <div>Artifacts<strong>$artifact_passed/$artifact_failed/$artifact_missing_total</strong></div>
     <div>Font provenance<strong>$font_passed/$font_failed/$font_missing</strong></div>
+    <div>Windows runner screenshots<strong>$windows_screenshot_matched/$windows_screenshot_missing</strong></div>
     <div>Integrity warnings<strong>$image_integrity_warning_count</strong></div>
     <div>Size warnings<strong>$image_size_warning_count</strong></div>
     <div>Reference readiness<strong>$reference_readiness_status</strong></div>
@@ -834,6 +893,8 @@ HTML
     text_resolved_family="$(printf '%s' "$entry" | sed -E 's/.*"textResolvedFamily":"([^"]*)".*/\1/')"
     symbol_resolved_source="$(printf '%s' "$entry" | sed -E 's/.*"symbolResolvedSource":"([^"]*)".*/\1/')"
     symbol_resolved_family="$(printf '%s' "$entry" | sed -E 's/.*"symbolResolvedFamily":"([^"]*)".*/\1/')"
+    windows_screenshot_status="$(printf '%s' "$entry" | sed -E 's/.*"windowsScreenshotSummary":\{"status":"([^"]*)".*/\1/')"
+    windows_screenshot_path="$(printf '%s' "$entry" | sed -E 's/.*"windowsScreenshotSummary":\{"status":"[^"]*","source":"[^"]*","screenshot":"([^"]*)".*/\1/')"
     expected_viewport_width="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":([^,}]+).*/\1/')"
     expected_viewport_height="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":[^,}]+,"height":([^,}]+).*/\1/')"
     actual_image_width="$(printf '%s' "$entry" | sed -E 's/.*"actualImageSize":\{"width":([^,}]+).*/\1/')"
@@ -844,10 +905,31 @@ HTML
     cat <<HTML
     <article class="card">
       <h2>$scenario</h2>
+HTML
+    if [[ "$windows_screenshot_status" == "matched" && -n "$windows_screenshot_path" ]]; then
+      windows_screenshot_relative="windows-runner/$(basename "$windows_screenshot_path")"
+      cat <<HTML
+      <div class="grid">
+        <figure>
+          <figcaption>Windows runner screenshot</figcaption>
+          <img src="$windows_screenshot_relative" alt="$scenario Windows runner screenshot">
+        </figure>
+        <figure>
+          <figcaption>macOS runtime screenshot</figcaption>
+          <img src="$scenario_name/visual/mac-runtime.png" alt="$scenario macOS runtime screenshot">
+        </figure>
+      </div>
+HTML
+    else
+      cat <<HTML
       <img src="$scenario_name/visual/mac-runtime.png" alt="$scenario screenshot">
+HTML
+    fi
+    cat <<HTML
       <p class="meta">Status: <span class="status-$status">$status</span> | Native comparison: $comparison_status | <a href="$scenario_name/strict-scenario.log">log</a> | <a href="$scenario_name/visual/visual-run.json">visual-run</a> | <a href="$scenario_name/visual/pixel-diff.json">pixel-diff</a></p>
       <p class="meta">Artifacts: $artifact_status (${missing_artifact_count} missing) | <a href="$scenario_name/run.json">run</a> | <a href="$scenario_name/tree.json">tree</a> | <a href="$scenario_name/accessibility.json">accessibility</a></p>
       <p class="meta">Fonts: $font_status | text: $text_resolved_family ($text_resolved_source) | symbol: $symbol_resolved_family ($symbol_resolved_source)</p>
+      <p class="meta">Windows runner screenshot: $windows_screenshot_status</p>
       <p class="meta">Interactions: $interaction_status (${interaction_steps} steps, ${interaction_asserts} assertProperty, route anchor: $route_anchor_warning) | <a href="$scenario_name/interactions.json">interactions</a></p>
       <p class="meta">Image integrity: $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-background, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning)</p>
       <p class="meta">$comparison_reason</p>

@@ -549,6 +549,11 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "textResolvedSource");
         StringAssert.Contains(script, "symbolResolvedSource");
         StringAssert.Contains(script, "font provenance");
+        StringAssert.Contains(script, "--windows-screenshot-dir");
+        StringAssert.Contains(script, "windowsScreenshotSummary");
+        StringAssert.Contains(script, "windowsScreenshotMatched");
+        StringAssert.Contains(script, "Windows runner screenshot");
+        StringAssert.Contains(script, "windows-reference.png");
     }
 
     [TestMethod]
@@ -3778,6 +3783,38 @@ public sealed class MacRuntimeTests
                 workflow,
                 $"Path = \"{scenarioPath}\"",
                 $"windows-native-screenshot.yml must capture native WinUI references for {scenarioPath}.");
+        }
+    }
+
+    [TestMethod]
+    public void WindowsDownstreamProbeScreenshotWorkflowCapturesClientAreaForEveryProbeScenario()
+    {
+        var workflowPath = RepositoryPath(".github/workflows/windows-downstream-probe-screenshot.yml");
+        Assert.IsTrue(File.Exists(workflowPath), "Downstream EMSI probe screenshots need a dedicated Windows runner workflow.");
+
+        var workflow = File.ReadAllText(workflowPath);
+        StringAssert.Contains(workflow, "MeetingChallenge.WinUI.MacRuntimeProbe.csproj");
+        StringAssert.Contains(workflow, "WindowsWindowCapture.csproj");
+        StringAssert.Contains(workflow, "--client-area");
+        StringAssert.Contains(workflow, "--require-title-match");
+        StringAssert.Contains(workflow, "--title \"Meeting Challenge Windows macOS Runtime Probe\"");
+        StringAssert.Contains(workflow, "windows-downstream-probe-screenshots");
+        StringAssert.Contains(workflow, "native-winui");
+
+        foreach (var scenario in new[]
+        {
+            "login-light",
+            "shell-staff-light",
+            "messages-multiline-light",
+            "admin-dashboard-light",
+            "admin-workbench-light",
+            "command-search-light",
+            "status-states-light",
+            "settings-profile-light"
+        })
+        {
+            StringAssert.Contains(workflow, $"Name = \"{scenario}\"");
+            StringAssert.Contains(workflow, $"Path = \"apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/{scenario}.json\"");
         }
     }
 
