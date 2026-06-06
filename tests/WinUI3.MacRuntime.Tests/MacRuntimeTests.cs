@@ -247,6 +247,51 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamStatusProbeCoversLoadingErrorSuccessWarningAndClosedStates()
+    {
+        var statusPage = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "Pages",
+            "StatusStatesProbePage.xaml")));
+        var scenario = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "scenarios",
+            "status-states-light.json")));
+
+        foreach (var required in new[]
+        {
+            "LoadingInfoBar",
+            "ErrorInfoBar",
+            "SuccessInfoBar",
+            "WarningInfoBar",
+            "ClosedInfoBar",
+            "LoadingProgressRing",
+            "SyncProgressBar"
+        })
+        {
+            StringAssert.Contains(statusPage, required);
+            StringAssert.Contains(scenario, required);
+        }
+
+        StringAssert.Contains(statusPage, "Severity=\"Success\"");
+        StringAssert.Contains(statusPage, "Severity=\"Warning\"");
+        StringAssert.Contains(statusPage, "IsOpen=\"False\"");
+        StringAssert.Contains(statusPage, "ProgressBar");
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineTreatsAutoSuggestBoxAsSupportedVisualSurface()
     {
         var tree = new UiTreeDocument(
