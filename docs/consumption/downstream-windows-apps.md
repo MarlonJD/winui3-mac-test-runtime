@@ -209,6 +209,32 @@ Inspect these files after every failure:
 - `pixel-diff.png`
 - `pixel-diff.json`
 
+## Full Production XAML Diagnostics
+
+Downstream applications may run full production XAML compile probes against
+private app source, but the raw diagnostic output should stay in the app-owned
+repository or private QA evidence location when it contains private paths,
+route names, product copy, or proprietary page structure.
+
+When a downstream app needs upstream runtime work, share a sanitized gap
+summary instead of the raw diagnostics. The public summary should group by
+diagnostic code, broad file category, unsupported XAML surface, count, and
+current treatment, without absolute paths or product-specific labels. The
+runtime-owned baseline for this process is
+`docs/compatibility/downstream-production-xaml-gap-summary.json`.
+
+Example private probe:
+
+```sh
+winui3-mac-runner xaml compile \
+  --output /private/tmp/downstream-prod-xaml-generated \
+  ./src/MyApp.Windows/**/*.xaml
+```
+
+Keep `/private/tmp/downstream-prod-xaml-generated.diagnostics.json` private
+when it includes app-owned paths or source details, then update the sanitized
+summary only with public-safe gap families and counts.
+
 ## CI Test Tiers
 
 Run tests in four tiers.

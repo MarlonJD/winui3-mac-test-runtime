@@ -15,11 +15,17 @@ public sealed class MacXamlCompiler
         "DataContext",
         "Foreground",
         "HorizontalAlignment",
+        "Height",
+        "MaxHeight",
+        "MaxWidth",
+        "MinHeight",
+        "MinWidth",
         "Style",
         "Tag",
         "Uid",
         "VerticalAlignment",
-        "Visibility"
+        "Visibility",
+        "Width"
     };
 
     private static readonly HashSet<string> ControlProperties = new(StringComparer.Ordinal)
@@ -34,13 +40,16 @@ public sealed class MacXamlCompiler
         ["Page"] = new(StringComparer.Ordinal) { "Content", "Resources" },
         ["UserControl"] = new(StringComparer.Ordinal) { "Content", "Resources" },
         ["StackPanel"] = new(StringComparer.Ordinal) { "Orientation", "Padding", "Spacing" },
-        ["Grid"] = new(StringComparer.Ordinal) { "ColumnDefinitions", "ColumnSpacing" },
-        ["Border"] = new(StringComparer.Ordinal) { "Child", "CornerRadius" },
-        ["ScrollViewer"] = new(StringComparer.Ordinal) { "Content", "VerticalScrollBarVisibility" },
+        ["Grid"] = new(StringComparer.Ordinal) { "ColumnDefinitions", "ColumnSpacing", "Padding", "RowDefinitions", "RowSpacing" },
+        ["Border"] = new(StringComparer.Ordinal) { "BorderBrush", "BorderThickness", "Child", "CornerRadius", "Padding" },
+        ["ScrollViewer"] = new(StringComparer.Ordinal) { "Content", "HorizontalScrollBarVisibility", "VerticalScrollBarVisibility" },
         ["ContentControl"] = new(StringComparer.Ordinal) { "Content" },
-        ["ItemsControl"] = new(StringComparer.Ordinal) { "Items" },
-        ["TextBlock"] = new(StringComparer.Ordinal) { "Text" },
-        ["TextBox"] = new(StringComparer.Ordinal) { "Text" },
+        ["ItemsControl"] = new(StringComparer.Ordinal) { "Items", "ItemTemplate" },
+        ["DataTemplate"] = new(StringComparer.Ordinal),
+        ["TextBlock"] = new(StringComparer.Ordinal) { "FontWeight", "Text", "TextWrapping" },
+        ["TextBox"] = new(StringComparer.Ordinal) { "AcceptsReturn", "Text", "TextWrapping" },
+        ["PasswordBox"] = new(StringComparer.Ordinal) { "Header", "Password", "PlaceholderText" },
+        ["AutoSuggestBox"] = new(StringComparer.Ordinal) { "MaxWidth", "MinWidth", "QueryIcon", "Text" },
         ["Button"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content" },
         ["AppBarButton"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content", "Icon", "Label" },
         ["ToggleButton"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content", "IsChecked" },
@@ -48,12 +57,13 @@ public sealed class MacXamlCompiler
         ["RadioButton"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content", "GroupName", "IsChecked" },
         ["ComboBox"] = new(StringComparer.Ordinal) { "Items", "PlaceholderText", "SelectedIndex" },
         ["Image"] = new(StringComparer.Ordinal) { "Source" },
-        ["ListView"] = new(StringComparer.Ordinal) { "Items", "SelectedIndex" },
+        ["ListView"] = new(StringComparer.Ordinal) { "IsItemClickEnabled", "Items", "ItemTemplate", "SelectedIndex", "SelectionMode" },
         ["ProgressRing"] = new(StringComparer.Ordinal) { "IsActive" },
         ["ProgressBar"] = new(StringComparer.Ordinal) { "IsIndeterminate", "Maximum", "Minimum", "Value" },
-        ["InfoBar"] = new(StringComparer.Ordinal) { "IsOpen", "Message", "Severity", "Title" },
-        ["CommandBar"] = new(StringComparer.Ordinal) { "PrimaryCommands" },
+        ["InfoBar"] = new(StringComparer.Ordinal) { "IsClosable", "IsOpen", "Message", "Severity", "Title" },
+        ["CommandBar"] = new(StringComparer.Ordinal) { "Content", "DefaultLabelPosition", "PrimaryCommands" },
         ["FontIcon"] = new(StringComparer.Ordinal) { "FontSize", "Glyph" },
+        ["SymbolIcon"] = new(StringComparer.Ordinal) { "Symbol" },
         ["Frame"] = new(StringComparer.Ordinal) { "Content" },
         ["NavigationView"] = new(StringComparer.Ordinal)
         {
@@ -78,6 +88,10 @@ public sealed class MacXamlCompiler
         ["CheckBox"] = new(StringComparer.Ordinal) { "Click" },
         ["RadioButton"] = new(StringComparer.Ordinal) { "Click" },
         ["NavigationView"] = new(StringComparer.Ordinal) { "SelectionChanged" }
+        ,
+        ["AutoSuggestBox"] = new(StringComparer.Ordinal) { "QuerySubmitted", "TextChanged" },
+        ["Grid"] = new(StringComparer.Ordinal) { "SizeChanged" },
+        ["ListView"] = new(StringComparer.Ordinal) { "SelectionChanged" }
     };
 
     private static readonly Dictionary<string, HashSet<string>> ElementPropertyElements = new(StringComparer.Ordinal)
@@ -91,11 +105,13 @@ public sealed class MacXamlCompiler
         ["Border"] = new(StringComparer.Ordinal) { "Child" },
         ["ScrollViewer"] = new(StringComparer.Ordinal) { "Content" },
         ["ContentControl"] = new(StringComparer.Ordinal) { "Content" },
-        ["ItemsControl"] = new(StringComparer.Ordinal) { "Items" },
-        ["ListView"] = new(StringComparer.Ordinal) { "Items" },
+        ["ItemsControl"] = new(StringComparer.Ordinal) { "Items", "ItemTemplate" },
+        ["ListView"] = new(StringComparer.Ordinal) { "Items", "ItemTemplate" },
         ["ComboBox"] = new(StringComparer.Ordinal) { "Items" },
         ["Frame"] = new(StringComparer.Ordinal) { "Content" },
-        ["CommandBar"] = new(StringComparer.Ordinal) { "PrimaryCommands" },
+        ["CommandBar"] = new(StringComparer.Ordinal) { "Content", "PrimaryCommands" },
+        ["AutoSuggestBox"] = new(StringComparer.Ordinal) { "QueryIcon" },
+        ["DataTemplate"] = new(StringComparer.Ordinal) { "Content" },
         ["Button"] = new(StringComparer.Ordinal) { "Content" },
         ["AppBarButton"] = new(StringComparer.Ordinal) { "Content", "Icon" },
         ["ToggleButton"] = new(StringComparer.Ordinal) { "Content" },
@@ -108,7 +124,9 @@ public sealed class MacXamlCompiler
         "AutomationProperties.AutomationId",
         "AutomationProperties.Name",
         "AutomationProperties.HelpText",
-        "Grid.Column"
+        "Grid.Column",
+        "Grid.ColumnSpan",
+        "Grid.Row"
     };
 
     public XamlCompilationResult CompileFile(string xamlPath)
@@ -139,6 +157,11 @@ public sealed class MacXamlCompiler
         var xClass = ReadXamlAttribute(root, "Class");
         if (string.IsNullOrWhiteSpace(xClass))
         {
+            if (root.Name.LocalName == "ResourceDictionary")
+            {
+                return CompileStandaloneResourceDictionary(root, filePath);
+            }
+
             diagnostics.Add(CreateDiagnostic("XAML0002", "Root element must declare x:Class.", "Error", filePath, root));
             return new XamlCompilationResult(false, string.Empty, diagnostics);
         }
@@ -185,6 +208,107 @@ public sealed class MacXamlCompiler
             diagnostics);
     }
 
+    private static XamlCompilationResult CompileStandaloneResourceDictionary(XElement root, string filePath)
+    {
+        var diagnostics = new List<XamlDiagnostic>();
+        var keys = new List<string>();
+        ValidateResourceDictionaryChildren(root, filePath, diagnostics, keys);
+
+        var source = new StringBuilder();
+        source.AppendLine("// <auto-generated />");
+        source.AppendLine("// Standalone ResourceDictionary input accepted for source-level validation.");
+        source.AppendLine("// ResourceDictionary");
+        foreach (var key in keys.Order(StringComparer.Ordinal))
+        {
+            source.AppendLine($"// resource: {key}");
+        }
+
+        return new XamlCompilationResult(
+            diagnostics.All(diagnostic => diagnostic.Severity != "Error"),
+            source.ToString(),
+            diagnostics);
+    }
+
+    private static void ValidateResourceDictionaryChildren(
+        XElement dictionary,
+        string filePath,
+        List<XamlDiagnostic> diagnostics,
+        List<string> keys)
+    {
+        foreach (var child in dictionary.Elements())
+        {
+            if (child.Name.LocalName == "ResourceDictionary.MergedDictionaries")
+            {
+                foreach (var mergedChild in child.Elements())
+                {
+                    if (mergedChild.Name.LocalName is not "XamlControlsResources" and not "ResourceDictionary")
+                    {
+                        diagnostics.Add(CreateDiagnostic(
+                            "XAML2004",
+                            $"Unsupported resource dictionary child '{mergedChild.Name.LocalName}'.",
+                            "Error",
+                            filePath,
+                            mergedChild));
+                    }
+                }
+
+                continue;
+            }
+
+            if (child.Name.LocalName == "ResourceDictionary.ThemeDictionaries")
+            {
+                foreach (var themeDictionary in child.Elements().Where(element => element.Name.LocalName == "ResourceDictionary"))
+                {
+                    ValidateResourceDictionaryChildren(themeDictionary, filePath, diagnostics, keys);
+                }
+
+                continue;
+            }
+
+            if (child.Name.LocalName == "Style")
+            {
+                var key = ReadXamlAttribute(child, "Key");
+                if (!string.IsNullOrWhiteSpace(key))
+                {
+                    keys.Add(key);
+                }
+
+                foreach (var setter in child.Elements())
+                {
+                    if (setter.Name.LocalName != "Setter")
+                    {
+                        diagnostics.Add(CreateDiagnostic(
+                            "XAML2004",
+                            $"Unsupported Style child '{setter.Name.LocalName}'.",
+                            "Error",
+                            filePath,
+                            setter));
+                    }
+                }
+
+                continue;
+            }
+
+            if (child.Name.LocalName is "SolidColorBrush" or "Color" or "CornerRadius" or "Double" or "Thickness" or "String")
+            {
+                var key = ReadXamlAttribute(child, "Key");
+                if (!string.IsNullOrWhiteSpace(key))
+                {
+                    keys.Add(key);
+                }
+
+                continue;
+            }
+
+            diagnostics.Add(CreateDiagnostic(
+                "XAML2004",
+                $"Unsupported resource dictionary child '{child.Name.LocalName}'.",
+                "Error",
+                filePath,
+                child));
+        }
+    }
+
     private static XamlCompilationResult Failure(string code, string message, string filePath, XElement? element)
     {
         return new XamlCompilationResult(
@@ -206,8 +330,11 @@ public sealed class MacXamlCompiler
             "ScrollViewer" => "Microsoft.UI.Xaml.Controls.ScrollViewer",
             "ContentControl" => "Microsoft.UI.Xaml.Controls.ContentControl",
             "ItemsControl" => "Microsoft.UI.Xaml.Controls.ItemsControl",
+            "DataTemplate" => "Microsoft.UI.Xaml.DataTemplate",
             "TextBlock" => "Microsoft.UI.Xaml.Controls.TextBlock",
             "TextBox" => "Microsoft.UI.Xaml.Controls.TextBox",
+            "PasswordBox" => "Microsoft.UI.Xaml.Controls.PasswordBox",
+            "AutoSuggestBox" => "Microsoft.UI.Xaml.Controls.AutoSuggestBox",
             "Button" => "Microsoft.UI.Xaml.Controls.Button",
             "AppBarButton" => "Microsoft.UI.Xaml.Controls.AppBarButton",
             "ToggleButton" => "Microsoft.UI.Xaml.Controls.ToggleButton",
@@ -223,6 +350,7 @@ public sealed class MacXamlCompiler
             "Grid" => "Microsoft.UI.Xaml.Controls.Grid",
             "Border" => "Microsoft.UI.Xaml.Controls.Border",
             "FontIcon" => "Microsoft.UI.Xaml.Controls.FontIcon",
+            "SymbolIcon" => "Microsoft.UI.Xaml.Controls.SymbolIcon",
             "Frame" => "Microsoft.UI.Xaml.Controls.Frame",
             "NavigationView" => "Microsoft.UI.Xaml.Controls.NavigationView",
             "NavigationViewItem" => "Microsoft.UI.Xaml.Controls.NavigationViewItem",
@@ -459,7 +587,8 @@ public sealed class MacXamlCompiler
                     continue;
                 }
 
-                if (SupportedAttachedProperties.Contains(localName) && localName == "Grid.Column")
+                if (SupportedAttachedProperties.Contains(localName) &&
+                    localName is "Grid.Column" or "Grid.ColumnSpan" or "Grid.Row")
                 {
                     properties[localName] = attribute.Value;
                     continue;
@@ -645,7 +774,7 @@ public sealed class MacXamlCompiler
 
         private static bool LooksLikeEvent(string localName)
         {
-            return localName is "Click" or "SelectionChanged";
+            return localName is "Click" or "SelectionChanged" or "SizeChanged" or "QuerySubmitted" or "TextChanged";
         }
 
         private static bool IsSupportedPropertyElement(string elementName, string propertyName)
@@ -662,6 +791,8 @@ public sealed class MacXamlCompiler
                 "CheckBox" or
                 "RadioButton" or
                 "TextBox" or
+                "PasswordBox" or
+                "AutoSuggestBox" or
                 "Image" or
                 "ItemsControl" or
                 "ListView" or
@@ -989,6 +1120,18 @@ public sealed class MacXamlCompiler
                     continue;
                 }
 
+                if (property.Key == "Grid.Row")
+                {
+                    source.AppendLine($"        Microsoft.UI.Xaml.Controls.Grid.SetRow({model.VariableName}, {RenderValue(property.Key, property.Value)});");
+                    continue;
+                }
+
+                if (property.Key == "Grid.ColumnSpan")
+                {
+                    source.AppendLine($"        Microsoft.UI.Xaml.Controls.Grid.SetColumnSpan({model.VariableName}, {RenderValue(property.Key, property.Value)});");
+                    continue;
+                }
+
                 if (property.Key == "Style" && TryReadResourceReference(property.Value, out var styleKey))
                 {
                     source.AppendLine($"        {model.VariableName}.Style = Microsoft.UI.Xaml.ResourceOperations.ResolveStyle(__resources, {Literal(styleKey)}, {Literal(property.Key)});");
@@ -1025,6 +1168,12 @@ public sealed class MacXamlCompiler
             if (parent.Element.Name.LocalName == "Border")
             {
                 source.AppendLine($"        {parent.VariableName}.Child = {child.VariableName};");
+                return;
+            }
+
+            if (parent.Element.Name.LocalName == "DataTemplate")
+            {
+                source.AppendLine($"        {parent.VariableName}.Content = {child.VariableName};");
                 return;
             }
 
@@ -1092,8 +1241,14 @@ public sealed class MacXamlCompiler
                 case "Content":
                     source.AppendLine($"        {parent.VariableName}.Content = {child.VariableName};");
                     break;
+                case "QueryIcon":
+                    source.AppendLine($"        {parent.VariableName}.QueryIcon = {child.VariableName};");
+                    break;
                 case "Child":
                     source.AppendLine($"        {parent.VariableName}.Child = {child.VariableName};");
+                    break;
+                case "ItemTemplate":
+                    source.AppendLine($"        {parent.VariableName}.ItemTemplate = {child.VariableName};");
                     break;
                 case "Items":
                     source.AppendLine($"        {parent.VariableName}.Items.Add({child.VariableName});");
@@ -1148,7 +1303,14 @@ public sealed class MacXamlCompiler
                 return $"Microsoft.UI.Xaml.Controls.Orientation.{value}";
             }
 
-            if (propertyName == "VerticalScrollBarVisibility" &&
+            if (propertyName == "TextWrapping" &&
+                (string.Equals(value, "NoWrap", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Wrap", StringComparison.OrdinalIgnoreCase)))
+            {
+                return $"Microsoft.UI.Xaml.TextWrapping.{value}";
+            }
+
+            if (propertyName is "HorizontalScrollBarVisibility" or "VerticalScrollBarVisibility" &&
                 (string.Equals(value, "Disabled", StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(value, "Auto", StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(value, "Hidden", StringComparison.OrdinalIgnoreCase) ||
@@ -1164,6 +1326,31 @@ public sealed class MacXamlCompiler
                     string.Equals(value, "Error", StringComparison.OrdinalIgnoreCase)))
             {
                 return $"Microsoft.UI.Xaml.Controls.InfoBarSeverity.{value}";
+            }
+
+            if (propertyName == "DefaultLabelPosition" &&
+                (string.Equals(value, "Bottom", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Right", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Collapsed", StringComparison.OrdinalIgnoreCase)))
+            {
+                return $"Microsoft.UI.Xaml.Controls.CommandBarDefaultLabelPosition.{value}";
+            }
+
+            if (propertyName == "SelectionMode" &&
+                (string.Equals(value, "None", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Single", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Multiple", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Extended", StringComparison.OrdinalIgnoreCase)))
+            {
+                return $"Microsoft.UI.Xaml.Controls.ListViewSelectionMode.{value}";
+            }
+
+            if (propertyName == "Symbol" &&
+                (string.Equals(value, "Accept", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Find", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, "Link", StringComparison.OrdinalIgnoreCase)))
+            {
+                return $"Microsoft.UI.Xaml.Controls.Symbol.{value}";
             }
 
             if (bool.TryParse(value, out var boolean))
@@ -1246,9 +1433,16 @@ public sealed class MacXamlCompiler
         {
             return propertyName is
                 "CompactPaneLength" or
+                "Height" or
+                "MaxHeight" or
+                "MaxWidth" or
+                "MinHeight" or
+                "MinWidth" or
                 "OpenPaneLength" or
                 "Spacing" or
                 "ColumnSpacing" or
+                "RowSpacing" or
+                "Width" or
                 "FontSize" or
                 "Minimum" or
                 "Maximum" or
@@ -1257,7 +1451,7 @@ public sealed class MacXamlCompiler
 
         private static bool IsIntProperty(string propertyName)
         {
-            return propertyName is "Grid.Column" or "SelectedIndex";
+            return propertyName is "Grid.Column" or "Grid.ColumnSpan" or "Grid.Row" or "SelectedIndex";
         }
 
         private static bool IsStringProperty(string propertyName)
@@ -1265,9 +1459,15 @@ public sealed class MacXamlCompiler
             return propertyName is
                 "Title" or
                 "Text" or
+                "Password" or
+                "PlaceholderText" or
+                "Header" or
+                "FontWeight" or
                 "Glyph" or
                 "Padding" or
+                "BorderThickness" or
                 "ColumnDefinitions" or
+                "RowDefinitions" or
                 "IsBackButtonVisible" or
                 "PaneDisplayMode";
         }

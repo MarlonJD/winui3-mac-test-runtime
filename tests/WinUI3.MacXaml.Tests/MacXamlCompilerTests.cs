@@ -142,6 +142,62 @@ public sealed class MacXamlCompilerTests
     }
 
     [TestMethod]
+    public void CompileTextGeneratesGridRowDefinitionsSpacingAndSpanRegistrations()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Grid RowDefinitions="Auto,*" RowSpacing="12" Padding="16" MinHeight="240" MaxWidth="720">
+                <TextBlock x:Name="TitleText" Grid.Row="1" Grid.ColumnSpan="2" Text="Production-like row" />
+              </Grid>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "__element1.RowDefinitions = \"Auto,*\"");
+        StringAssert.Contains(result.GeneratedSource, "__element1.RowSpacing = 12");
+        StringAssert.Contains(result.GeneratedSource, "__element1.Padding = \"16\"");
+        StringAssert.Contains(result.GeneratedSource, "__element1.MinHeight = 240");
+        StringAssert.Contains(result.GeneratedSource, "__element1.MaxWidth = 720");
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Controls.Grid.SetRow(__element2, 1)");
+        StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.Controls.Grid.SetColumnSpan(__element2, 2)");
+    }
+
+    [TestMethod]
+    public void CompileTextGeneratesBorderAndScrollViewerProductionLayoutProperties()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <Border Padding="20,12" BorderBrush="{ThemeResource CardStrokeBrush}" BorderThickness="1" MaxWidth="640">
+                  <ProgressRing Width="24" Height="24" IsActive="True" />
+                </Border>
+              </ScrollViewer>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "__element1.HorizontalScrollBarVisibility = Microsoft.UI.Xaml.Controls.ScrollBarVisibility.Disabled");
+        StringAssert.Contains(result.GeneratedSource, "__element2.Padding = \"20,12\"");
+        StringAssert.Contains(result.GeneratedSource, "__element2.BorderBrush = Microsoft.UI.Xaml.ResourceOperations.Resolve(__resources, \"CardStrokeBrush\", \"BorderBrush\")");
+        StringAssert.Contains(result.GeneratedSource, "__element2.BorderThickness = \"1\"");
+        StringAssert.Contains(result.GeneratedSource, "__element2.MaxWidth = 640");
+        StringAssert.Contains(result.GeneratedSource, "__element3.Width = 24");
+        StringAssert.Contains(result.GeneratedSource, "__element3.Height = 24");
+    }
+
+    [TestMethod]
     public void CompileTextGeneratesResourceFailureAwareLookups()
     {
         const string xaml = """
@@ -158,6 +214,133 @@ public sealed class MacXamlCompilerTests
         Assert.IsTrue(result.Succeeded);
         StringAssert.Contains(result.GeneratedSource, "Microsoft.UI.Xaml.ResourceOperations.ResolveString");
         StringAssert.Contains(result.GeneratedSource, "\"MissingTitle\"");
+    }
+
+    [TestMethod]
+    public void CompileTextAcceptsStandaloneResourceDictionaryWithoutClass()
+    {
+        const string xaml = """
+            <ResourceDictionary
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <SolidColorBrush x:Key="CardStrokeBrush" Color="#FFE5E5E5" />
+              <Style x:Key="CardTitleStyle" TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap" />
+              </Style>
+            </ResourceDictionary>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "Themes/Tokens.xaml");
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "ResourceDictionary");
+        StringAssert.Contains(result.GeneratedSource, "CardStrokeBrush");
+        StringAssert.Contains(result.GeneratedSource, "CardTitleStyle");
+    }
+
+    [TestMethod]
+    public void CompileTextRejectsUnsupportedStandaloneResourceDictionaryChildren()
+    {
+        const string xaml = """
+            <ResourceDictionary
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <DataTemplate x:Key="UnsupportedTemplate" />
+            </ResourceDictionary>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "Themes/Components.xaml");
+
+        Assert.IsFalse(result.Succeeded);
+        Assert.AreEqual("XAML2004", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "DataTemplate");
+    }
+
+    [TestMethod]
+    public void CompileTextGeneratesPasswordAndMultilineTextFormProperties()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <StackPanel>
+                <TextBlock Text="Use a strong password." TextWrapping="Wrap" />
+                <PasswordBox x:Name="SecretBox" Password="not-a-real-secret" PlaceholderText="Password" Header="Account password" />
+                <TextBox x:Name="NotesBox" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="96" Text="Line one" />
+              </StackPanel>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "LoginPanel.xaml");
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "new Microsoft.UI.Xaml.Controls.PasswordBox()");
+        StringAssert.Contains(result.GeneratedSource, "__element3.Password = \"not-a-real-secret\"");
+        StringAssert.Contains(result.GeneratedSource, "__element3.PlaceholderText = \"Password\"");
+        StringAssert.Contains(result.GeneratedSource, "__element3.Header = \"Account password\"");
+        StringAssert.Contains(result.GeneratedSource, "__element4.AcceptsReturn = true");
+        StringAssert.Contains(result.GeneratedSource, "__element4.TextWrapping = Microsoft.UI.Xaml.TextWrapping.Wrap");
+        StringAssert.Contains(result.GeneratedSource, "__element4.MinHeight = 96");
+    }
+
+    [TestMethod]
+    public void CompileTextGeneratesBoundedListsCommandContentAndStatusProperties()
+    {
+        const string xaml = """
+            <Window
+                x:Class="Sample.MainWindow"
+                xmlns="using:Microsoft.UI.Xaml"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+              <Grid SizeChanged="OnWorkspaceSizeChanged">
+                <InfoBar x:Name="StatusInfo" IsClosable="False" />
+                <CommandBar DefaultLabelPosition="Right">
+                  <CommandBar.Content>
+                    <AutoSuggestBox x:Name="SearchBox" QuerySubmitted="OnQuerySubmitted" TextChanged="OnTextChanged">
+                      <AutoSuggestBox.QueryIcon>
+                        <SymbolIcon Symbol="Find" />
+                      </AutoSuggestBox.QueryIcon>
+                    </AutoSuggestBox>
+                  </CommandBar.Content>
+                </CommandBar>
+                <ListView IsItemClickEnabled="True" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+                  <ListView.ItemTemplate>
+                    <DataTemplate>
+                      <Grid Padding="0,12" RowDefinitions="Auto,4,Auto">
+                        <TextBlock FontWeight="SemiBold" Text="{Binding Title}" TextWrapping="Wrap" />
+                      </Grid>
+                    </DataTemplate>
+                  </ListView.ItemTemplate>
+                </ListView>
+                <ItemsControl>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </Grid>
+            </Window>
+            """;
+
+        var result = new MacXamlCompiler().CompileText(xaml, "AdminSurface.xaml");
+
+        Assert.IsTrue(result.Succeeded);
+        Assert.HasCount(0, result.Diagnostics);
+        StringAssert.Contains(result.GeneratedSource, "__element2.IsClosable = false");
+        StringAssert.Contains(result.GeneratedSource, "__element3.DefaultLabelPosition = Microsoft.UI.Xaml.Controls.CommandBarDefaultLabelPosition.Right");
+        StringAssert.Contains(result.GeneratedSource, "__element3.Content = __element4");
+        StringAssert.Contains(result.GeneratedSource, "__element4.QuerySubmitted += OnQuerySubmitted");
+        StringAssert.Contains(result.GeneratedSource, "__element4.TextChanged += OnTextChanged");
+        StringAssert.Contains(result.GeneratedSource, "__element4.QueryIcon = __element5");
+        StringAssert.Contains(result.GeneratedSource, "__element6.IsItemClickEnabled = true");
+        StringAssert.Contains(result.GeneratedSource, "__element6.SelectionMode = Microsoft.UI.Xaml.Controls.ListViewSelectionMode.Single");
+        StringAssert.Contains(result.GeneratedSource, "__element6.SelectionChanged += OnSelectionChanged");
+        StringAssert.Contains(result.GeneratedSource, "__element6.ItemTemplate = __element7");
+        StringAssert.Contains(result.GeneratedSource, "__element9.FontWeight = \"SemiBold\"");
+        StringAssert.Contains(result.GeneratedSource, "__element10.ItemTemplate = __element11");
     }
 
     [TestMethod]
@@ -280,7 +463,7 @@ public sealed class MacXamlCompilerTests
     }
 
     [TestMethod]
-    public void CompileTextReportsPlannedTemplateExclusions()
+    public void CompileTextReportsUnsupportedTemplateConstructs()
     {
         const string xaml = """
             <Window
@@ -290,7 +473,7 @@ public sealed class MacXamlCompilerTests
               <ListView>
                 <ListView.ItemTemplate>
                   <DataTemplate>
-                    <TextBlock Text="Item" />
+                    <TextBlock Text="{x:Bind Title}" />
                   </DataTemplate>
                 </ListView.ItemTemplate>
               </ListView>
@@ -300,8 +483,8 @@ public sealed class MacXamlCompilerTests
         var result = new MacXamlCompiler().CompileText(xaml, "MainWindow.xaml");
 
         Assert.IsFalse(result.Succeeded);
-        Assert.AreEqual("XAML1003", result.Diagnostics[0].Code);
-        StringAssert.Contains(result.Diagnostics[0].Message, "ItemTemplate");
+        Assert.AreEqual("XAML1007", result.Diagnostics[0].Code);
+        StringAssert.Contains(result.Diagnostics[0].Message, "x:Bind");
         StringAssert.Contains(result.Diagnostics[0].Message, "cataloged as planned");
     }
 

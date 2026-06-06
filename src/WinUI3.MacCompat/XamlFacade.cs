@@ -37,6 +37,12 @@ public enum VerticalAlignment
     Stretch
 }
 
+public enum TextWrapping
+{
+    NoWrap,
+    Wrap
+}
+
 public abstract class DependencyObject
 {
 }
@@ -71,6 +77,10 @@ public class FrameworkElement : UIElement
 
     public double MinHeight { get; set; }
 
+    public double MaxWidth { get; set; } = double.PositiveInfinity;
+
+    public double MaxHeight { get; set; } = double.PositiveInfinity;
+
     public object? Background { get; set; }
 
     public object? Foreground { get; set; }
@@ -79,10 +89,22 @@ public class FrameworkElement : UIElement
 
     public bool IsFocused { get; private set; }
 
+    public event RoutedEventHandler? SizeChanged;
+
     public void Focus(FocusState focusState)
     {
         IsFocused = true;
     }
+
+    public void RaiseSizeChanged()
+    {
+        SizeChanged?.Invoke(this, new RoutedEventArgs());
+    }
+}
+
+public class DataTemplate : DependencyObject
+{
+    public object? Content { get; set; }
 }
 
 public class Window

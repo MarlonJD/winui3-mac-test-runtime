@@ -56,6 +56,150 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamProductionXamlGapSummaryTracksSanitizedBaseline()
+    {
+        var summary = DownstreamXamlGapSummary.Load(RepositoryPath("docs/compatibility/downstream-production-xaml-gap-summary.json"));
+
+        Assert.AreEqual("2026-06-06", summary.BaselineDate);
+        Assert.AreEqual(121, summary.TotalDiagnostics);
+        Assert.AreEqual(35, summary.SurfaceFamilies.Count);
+        Assert.IsTrue(summary.SurfaceFamilies.All(family => !family.Surface.Contains("/Users/", StringComparison.Ordinal)));
+        Assert.IsTrue(summary.SurfaceFamilies.Any(family =>
+            family.Surface == "Grid.RowDefinitions" &&
+            family.Count == 16 &&
+            family.CurrentTreatment == "layout gap"));
+
+        var diagnostics = new[]
+        {
+            new DownstreamXamlDiagnosticRecord(
+                "XAML1002",
+                "Unsupported XAML property 'Grid.RowDefinitions' is cataloged as planned.",
+                "Error",
+                "/Users/private/apps/windows/src/MeetingChallenge.Windows/HomePage.xaml",
+                12,
+                8),
+            new DownstreamXamlDiagnosticRecord(
+                "XAML1005",
+                "Unsupported attached property 'TextBlock.Grid.Row' is not present in the WinUI compatibility catalog.",
+                "Error",
+                "/Users/private/apps/windows/src/MeetingChallenge.Windows/AdminPage.xaml",
+                24,
+                10)
+        };
+
+        var generated = DownstreamXamlGapSummary.FromDiagnostics(
+            diagnostics,
+            DownstreamXamlGapSummary.DefaultFileCategoryClassifier);
+
+        Assert.AreEqual(2, generated.TotalDiagnostics);
+        Assert.IsTrue(generated.FileCategories.Any(category => category.Category == "home-read-surface" && category.Count == 1));
+        Assert.IsTrue(generated.FileCategories.Any(category => category.Category == "admin-workbench" && category.Count == 1));
+        Assert.IsTrue(generated.SurfaceFamilies.All(family => !family.Surface.Contains("/Users/", StringComparison.Ordinal)));
+    }
+
+    [TestMethod]
+    public void TreeBuilderExportsProductionLayoutSizingAndScrollProperties()
+    {
+        var grid = new Grid
+        {
+            Name = "ReadSurfaceGrid",
+            RowDefinitions = "Auto,*",
+            RowSpacing = 12,
+            Padding = "16",
+            MinHeight = 240,
+            MaxWidth = 720
+        };
+        var title = new TextBlock { Name = "TitleText", Text = "Production-like row" };
+        Grid.SetRow(title, 1);
+        Grid.SetColumnSpan(title, 2);
+        grid.Children.Add(title);
+
+        var scrollViewer = new ScrollViewer
+        {
+            Name = "ReadSurfaceScroll",
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            Content = new Border
+            {
+                Name = "CardBorder",
+                Padding = "20,12",
+                BorderThickness = "1",
+                BorderBrush = "CardStrokeBrush",
+                MaxWidth = 640,
+                Child = grid
+            }
+        };
+
+        var tree = UiTreeBuilder.Build(new Window { Content = scrollViewer });
+        var scrollNode = tree.Root.Children.Single(node => node.Name == "ReadSurfaceScroll");
+        var borderNode = scrollNode.Children.Single(node => node.Name == "CardBorder");
+        var gridNode = borderNode.Children.Single(node => node.Name == "ReadSurfaceGrid");
+        var titleNode = gridNode.Children.Single(node => node.Name == "TitleText");
+
+        Assert.AreEqual("Disabled", scrollNode.Properties["horizontalScrollBarVisibility"]);
+        Assert.AreEqual("20,12", borderNode.Properties["padding"]);
+        Assert.AreEqual("1", borderNode.Properties["borderThickness"]);
+        Assert.AreEqual("CardStrokeBrush", borderNode.Properties["borderBrush"]);
+        Assert.AreEqual(640d, borderNode.Properties["maxWidth"]);
+        Assert.AreEqual("Auto,*", gridNode.Properties["rowDefinitions"]);
+        Assert.AreEqual(12d, gridNode.Properties["rowSpacing"]);
+        Assert.AreEqual("16", gridNode.Properties["padding"]);
+        Assert.AreEqual(240d, gridNode.Properties["minHeight"]);
+        Assert.AreEqual(720d, gridNode.Properties["maxWidth"]);
+        Assert.AreEqual(1, titleNode.Properties["gridRow"]);
+        Assert.AreEqual(2, titleNode.Properties["gridColumnSpan"]);
+    }
+
+    [TestMethod]
+    public void TreeAndAccessibilityProtectPasswordTextAndExportMultilineMetadata()
+    {
+        var passwordBox = new PasswordBox
+        {
+            Name = "SecretBox",
+            Password = "not-a-real-secret",
+            PlaceholderText = "Password",
+            Header = "Account password"
+        };
+        var notesBox = new TextBox
+        {
+            Name = "NotesBox",
+            Text = "Line one",
+            TextWrapping = TextWrapping.Wrap,
+            AcceptsReturn = true,
+            MinHeight = 96
+        };
+        var window = new Window
+        {
+            Content = new StackPanel
+            {
+                Children =
+                {
+                    passwordBox,
+                    notesBox
+                }
+            }
+        };
+
+        var tree = UiTreeBuilder.Build(window);
+        var passwordNode = tree.Root.Children[0].Children.Single(node => node.Name == "SecretBox");
+        var notesNode = tree.Root.Children[0].Children.Single(node => node.Name == "NotesBox");
+        var accessibility = AccessibilityTreeBuilder.Build(tree);
+        var passwordAccessibility = accessibility.Root.Children[0].Children.Single(node => node.Name == "SecretBox");
+
+        Assert.IsFalse(passwordNode.Properties.ContainsKey("password"));
+        Assert.AreEqual(17, passwordNode.Properties["passwordLength"]);
+        Assert.AreEqual(true, passwordNode.Properties["isPassword"]);
+        Assert.AreEqual("Password", passwordNode.Properties["placeholderText"]);
+        Assert.AreEqual("Account password", passwordNode.Properties["header"]);
+        Assert.AreEqual("Wrap", notesNode.Properties["textWrapping"]);
+        Assert.AreEqual(true, notesNode.Properties["acceptsReturn"]);
+        Assert.AreEqual(96d, notesNode.Properties["minHeight"]);
+        Assert.AreEqual("passwordbox", passwordAccessibility.Role);
+        Assert.AreEqual("Account password", passwordAccessibility.Label);
+        Assert.AreEqual("********", passwordAccessibility.Value);
+    }
+
+    [TestMethod]
     public void BindingOperationsRefreshesTreeAndReportsFailures()
     {
         var textBlock = new TextBlock { Name = "TitleText" };

@@ -33,9 +33,16 @@ public static class AccessibilityTreeBuilder
     private static AccessibilityNode BuildNode(UiNode node)
     {
         var label = ReadString(node.Properties, "automationName") ??
+            ReadString(node.Properties, "header") ??
             ReadString(node.Properties, "text") ??
             ReadString(node.Properties, "content") ??
+            ReadString(node.Properties, "placeholderText") ??
             node.Name;
+        var value = ReadBool(node.Properties, "isPassword")
+            ? "********"
+            : ReadString(node.Properties, "text") ??
+                ReadString(node.Properties, "selectedItem") ??
+                ReadString(node.Properties, "value");
         return new AccessibilityNode(
             Role: MapRole(node.Type),
             Name: node.Name,
@@ -50,9 +57,7 @@ public static class AccessibilityTreeBuilder
                 ? ReadString(node.Properties, "selectedIndex") != "-1"
                 : null,
             IsExpanded: ReadNullableBool(node.Properties, "isOpen") ?? ReadNullableBool(node.Properties, "isExpanded") ?? ReadNullableBool(node.Properties, "isPaneOpen"),
-            Value: ReadString(node.Properties, "text") ??
-                ReadString(node.Properties, "selectedItem") ??
-                ReadString(node.Properties, "value"),
+            Value: value,
             Children: node.Children.Select(BuildNode).ToArray());
     }
 
@@ -96,6 +101,11 @@ public static class AccessibilityTreeBuilder
         if (typeName.EndsWith(".TextBox", StringComparison.Ordinal))
         {
             return "textbox";
+        }
+
+        if (typeName.EndsWith(".PasswordBox", StringComparison.Ordinal))
+        {
+            return "passwordbox";
         }
 
         if (typeName.EndsWith(".NavigationView", StringComparison.Ordinal))

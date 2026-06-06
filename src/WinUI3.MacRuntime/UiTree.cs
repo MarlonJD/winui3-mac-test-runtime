@@ -85,9 +85,29 @@ public static class UiTreeBuilder
                 properties["minHeight"] = frameworkElement.MinHeight;
             }
 
+            if (!double.IsPositiveInfinity(frameworkElement.MaxWidth))
+            {
+                properties["maxWidth"] = frameworkElement.MaxWidth;
+            }
+
+            if (!double.IsPositiveInfinity(frameworkElement.MaxHeight))
+            {
+                properties["maxHeight"] = frameworkElement.MaxHeight;
+            }
+
             if (Grid.GetColumn(frameworkElement) is var gridColumn and > 0)
             {
                 properties["gridColumn"] = gridColumn;
+            }
+
+            if (Grid.GetRow(frameworkElement) is var gridRow and > 0)
+            {
+                properties["gridRow"] = gridRow;
+            }
+
+            if (Grid.GetColumnSpan(frameworkElement) is var gridColumnSpan and > 1)
+            {
+                properties["gridColumnSpan"] = gridColumnSpan;
             }
 
             AddObjectProperty(properties, "background", frameworkElement.Background);
@@ -158,6 +178,7 @@ public static class UiTreeBuilder
                 AddChild(contentControl.Content, children);
                 break;
             case ScrollViewer scrollViewer:
+                properties["horizontalScrollBarVisibility"] = scrollViewer.HorizontalScrollBarVisibility.ToString();
                 properties["verticalScrollBarVisibility"] = scrollViewer.VerticalScrollBarVisibility.ToString();
                 AddChild(scrollViewer.Content, children);
                 break;
@@ -175,13 +196,22 @@ public static class UiTreeBuilder
             case Grid grid:
                 properties["childCount"] = grid.Children.Count;
                 properties["columnDefinitions"] = grid.ColumnDefinitions;
+                properties["rowDefinitions"] = grid.RowDefinitions;
                 if (!string.IsNullOrWhiteSpace(grid.ColumnDefinitions))
                 {
                     properties["columnDefinitionWidths"] = grid.ColumnDefinitions
                         .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
                 }
 
+                if (!string.IsNullOrWhiteSpace(grid.RowDefinitions))
+                {
+                    properties["rowDefinitionHeights"] = grid.RowDefinitions
+                        .Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                }
+
                 properties["columnSpacing"] = grid.ColumnSpacing;
+                properties["rowSpacing"] = grid.RowSpacing;
+                properties["padding"] = grid.Padding;
                 foreach (var child in grid.Children)
                 {
                     AddChild(child, children);
@@ -190,6 +220,9 @@ public static class UiTreeBuilder
                 break;
             case Border border:
                 AddObjectProperty(properties, "cornerRadius", border.CornerRadius);
+                properties["padding"] = border.Padding;
+                AddObjectProperty(properties, "borderBrush", border.BorderBrush);
+                AddObjectProperty(properties, "borderThickness", border.BorderThickness);
                 AddChild(border.Child, children);
                 break;
             case FontIcon fontIcon:
@@ -202,6 +235,7 @@ public static class UiTreeBuilder
                 break;
             case CommandBar commandBar:
                 properties["primaryCommandCount"] = commandBar.PrimaryCommands.Count;
+                properties["defaultLabelPosition"] = commandBar.DefaultLabelPosition.ToString();
                 properties["content"] = commandBar.Content is UIElement ? null : commandBar.Content?.ToString();
                 AddChild(commandBar.Content, children);
                 foreach (var command in commandBar.PrimaryCommands)
@@ -339,11 +373,31 @@ public static class UiTreeBuilder
             case SymbolIcon symbolIcon:
                 properties["symbol"] = symbolIcon.Symbol.ToString();
                 break;
+            case AutoSuggestBox autoSuggestBox:
+                properties["text"] = autoSuggestBox.Text;
+                properties["minWidth"] = autoSuggestBox.MinWidth;
+                if (!double.IsPositiveInfinity(autoSuggestBox.MaxWidth))
+                {
+                    properties["maxWidth"] = autoSuggestBox.MaxWidth;
+                }
+
+                AddChild(autoSuggestBox.QueryIcon, children);
+                break;
             case TextBlock textBlock:
                 properties["text"] = textBlock.Text;
+                properties["textWrapping"] = textBlock.TextWrapping.ToString();
+                AddObjectProperty(properties, "fontWeight", textBlock.FontWeight);
                 break;
             case TextBox textBox:
                 properties["text"] = textBox.Text;
+                properties["textWrapping"] = textBox.TextWrapping.ToString();
+                properties["acceptsReturn"] = textBox.AcceptsReturn;
+                break;
+            case PasswordBox passwordBox:
+                properties["isPassword"] = true;
+                properties["passwordLength"] = passwordBox.Password?.Length ?? 0;
+                properties["placeholderText"] = passwordBox.PlaceholderText;
+                properties["header"] = passwordBox.Header?.ToString();
                 break;
             case ComboBox comboBox:
                 properties["itemCount"] = comboBox.Items.Count;
@@ -378,6 +432,8 @@ public static class UiTreeBuilder
                 properties["itemCount"] = listView.Items.Count;
                 properties["selectedIndex"] = listView.SelectedIndex;
                 properties["selectedItem"] = listView.SelectedItem?.ToString();
+                properties["isItemClickEnabled"] = listView.IsItemClickEnabled;
+                properties["selectionMode"] = listView.SelectionMode.ToString();
                 foreach (var item in listView.Items)
                 {
                     AddChild(item, children);
@@ -398,6 +454,7 @@ public static class UiTreeBuilder
                 properties["message"] = infoBar.Message;
                 properties["severity"] = infoBar.Severity.ToString();
                 properties["isOpen"] = infoBar.IsOpen;
+                properties["isClosable"] = infoBar.IsClosable;
                 break;
             case ItemsControl itemsControl:
                 properties["itemCount"] = itemsControl.Items.Count;

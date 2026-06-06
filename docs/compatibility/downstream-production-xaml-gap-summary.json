@@ -1,0 +1,358 @@
+{
+  "schemaVersion": "0.1",
+  "baselineDate": "2026-06-06",
+  "scope": "sanitized downstream Windows production XAML compile diagnostics",
+  "totalDiagnostics": 121,
+  "latestClosure": {
+    "date": "2026-06-06",
+    "command": "tools/winui3-mac-runner xaml compile --output /private/tmp/emsi-windows-prod-xaml-generated /Users/marlonjd/Developer/monorepos/emsi_monorepo/apps/windows/src/MeetingChallenge.Windows/**/*.xaml",
+    "diagnostics": 0,
+    "rawDiagnosticsPolicy": "Raw downstream diagnostics stay private; this artifact records only sanitized counts and gap families."
+  },
+  "diagnosticCodes": [
+    {
+      "code": "XAML1002",
+      "count": 83
+    },
+    {
+      "code": "XAML1005",
+      "count": 31
+    },
+    {
+      "code": "XAML1003",
+      "count": 3
+    },
+    {
+      "code": "XAML0002",
+      "count": 2
+    },
+    {
+      "code": "XAML1001",
+      "count": 1
+    },
+    {
+      "code": "XAML1006",
+      "count": 1
+    }
+  ],
+  "fileCategories": [
+    {
+      "category": "admin-workbench",
+      "count": 27
+    },
+    {
+      "category": "home-read-surface",
+      "count": 19
+    },
+    {
+      "category": "messages",
+      "count": 16
+    },
+    {
+      "category": "channels",
+      "count": 13
+    },
+    {
+      "category": "notifications",
+      "count": 13
+    },
+    {
+      "category": "settings",
+      "count": 13
+    },
+    {
+      "category": "events",
+      "count": 9
+    },
+    {
+      "category": "login",
+      "count": 9
+    },
+    {
+      "category": "theme-dictionaries",
+      "count": 2
+    }
+  ],
+  "surfaceFamilies": [
+    {
+      "surface": "Grid.RowDefinitions",
+      "count": 16,
+      "currentTreatment": "layout gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "Grid.Padding",
+      "count": 8,
+      "currentTreatment": "layout gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "InfoBar.Grid.Row",
+      "count": 7,
+      "currentTreatment": "attached property gap",
+      "diagnosticCodes": [
+        "XAML1005"
+      ]
+    },
+    {
+      "surface": "Grid.Grid.Row",
+      "count": 7,
+      "currentTreatment": "attached property gap",
+      "diagnosticCodes": [
+        "XAML1005"
+      ]
+    },
+    {
+      "surface": "ScrollViewer.HorizontalScrollBarVisibility",
+      "count": 7,
+      "currentTreatment": "layout gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "ProgressRing.Width",
+      "count": 7,
+      "currentTreatment": "common sizing gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "ProgressRing.Height",
+      "count": 7,
+      "currentTreatment": "common sizing gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "Grid.MinHeight",
+      "count": 7,
+      "currentTreatment": "common sizing gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "Grid.MaxWidth",
+      "count": 6,
+      "currentTreatment": "common sizing gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "TextBlock.Grid.Row",
+      "count": 5,
+      "currentTreatment": "attached property gap",
+      "diagnosticCodes": [
+        "XAML1005"
+      ]
+    },
+    {
+      "surface": "TextBlock.Grid.ColumnSpan",
+      "count": 5,
+      "currentTreatment": "attached property gap",
+      "diagnosticCodes": [
+        "XAML1005"
+      ]
+    },
+    {
+      "surface": "Grid.RowSpacing",
+      "count": 5,
+      "currentTreatment": "layout gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "StackPanel.Grid.Row",
+      "count": 4,
+      "currentTreatment": "attached property gap",
+      "diagnosticCodes": [
+        "XAML1005"
+      ]
+    },
+    {
+      "surface": "TextBox.TextWrapping",
+      "count": 3,
+      "currentTreatment": "text/form gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "TextBox.MinHeight",
+      "count": 3,
+      "currentTreatment": "common sizing gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "TextBox.AcceptsReturn",
+      "count": 3,
+      "currentTreatment": "text/form gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "InfoBar.IsClosable",
+      "count": 2,
+      "currentTreatment": "status/control gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "resource dictionary root without x:Class",
+      "count": 2,
+      "currentTreatment": "resource dictionary input gap",
+      "diagnosticCodes": [
+        "XAML0002"
+      ]
+    },
+    {
+      "surface": "ListView.ItemTemplate",
+      "count": 1,
+      "currentTreatment": "list/template gap",
+      "diagnosticCodes": [
+        "XAML1003"
+      ]
+    },
+    {
+      "surface": "ItemsControl.ItemTemplate",
+      "count": 1,
+      "currentTreatment": "list/template gap",
+      "diagnosticCodes": [
+        "XAML1003"
+      ]
+    },
+    {
+      "surface": "CommandBar.Content",
+      "count": 1,
+      "currentTreatment": "command gap",
+      "diagnosticCodes": [
+        "XAML1003"
+      ]
+    },
+    {
+      "surface": "ListView.SelectionChanged",
+      "count": 1,
+      "currentTreatment": "list interaction event gap",
+      "diagnosticCodes": [
+        "XAML1006"
+      ]
+    },
+    {
+      "surface": "StackPanel.Grid.ColumnSpan",
+      "count": 1,
+      "currentTreatment": "attached property gap",
+      "diagnosticCodes": [
+        "XAML1005"
+      ]
+    },
+    {
+      "surface": "NavigationView.Grid.Row",
+      "count": 1,
+      "currentTreatment": "attached property gap",
+      "diagnosticCodes": [
+        "XAML1005"
+      ]
+    },
+    {
+      "surface": "ListView.Grid.Row",
+      "count": 1,
+      "currentTreatment": "attached property gap",
+      "diagnosticCodes": [
+        "XAML1005"
+      ]
+    },
+    {
+      "surface": "TextBlock.TextWrapping",
+      "count": 1,
+      "currentTreatment": "text/form gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "ListView.SelectionMode",
+      "count": 1,
+      "currentTreatment": "list selection model gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "ListView.IsItemClickEnabled",
+      "count": 1,
+      "currentTreatment": "list item interaction gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "Grid.SizeChanged",
+      "count": 1,
+      "currentTreatment": "lifecycle decision gap",
+      "diagnosticCodes": [
+        "XAML1006"
+      ]
+    },
+    {
+      "surface": "CommandBar.DefaultLabelPosition",
+      "count": 1,
+      "currentTreatment": "command gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "Border.Padding",
+      "count": 1,
+      "currentTreatment": "layout gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "Border.MaxWidth",
+      "count": 1,
+      "currentTreatment": "common sizing gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "Border.BorderThickness",
+      "count": 1,
+      "currentTreatment": "border visual gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "Border.BorderBrush",
+      "count": 1,
+      "currentTreatment": "border visual/resource gap",
+      "diagnosticCodes": [
+        "XAML1002"
+      ]
+    },
+    {
+      "surface": "PasswordBox",
+      "count": 1,
+      "currentTreatment": "text/form gap",
+      "diagnosticCodes": [
+        "XAML1001"
+      ]
+    }
+  ]
+}

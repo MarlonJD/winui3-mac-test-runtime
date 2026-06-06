@@ -44,6 +44,8 @@ public class ContentControl : Control
 public class ItemsControl : Control
 {
     public IList<object?> Items { get; } = new List<object?>();
+
+    public object? ItemTemplate { get; set; }
 }
 
 public class Frame : Control
@@ -138,11 +140,28 @@ public class RadioButton : ToggleButton
 public class TextBlock : FrameworkElement
 {
     public string? Text { get; set; }
+
+    public TextWrapping TextWrapping { get; set; } = TextWrapping.NoWrap;
+
+    public object? FontWeight { get; set; }
 }
 
 public class TextBox : Control
 {
     public string? Text { get; set; }
+
+    public TextWrapping TextWrapping { get; set; } = TextWrapping.NoWrap;
+
+    public bool AcceptsReturn { get; set; }
+}
+
+public class PasswordBox : Control
+{
+    public string? Password { get; set; }
+
+    public string? PlaceholderText { get; set; }
+
+    public object? Header { get; set; }
 }
 
 public class Slider : Control
@@ -196,10 +215,31 @@ public class ListView : ItemsControl
         {
             selectedIndex = value;
             SelectedItem = value >= 0 && value < Items.Count ? Items[value] : null;
+            SelectionChanged?.Invoke(this, new SelectionChangedEventArgs());
         }
     }
 
     public object? SelectedItem { get; set; }
+
+    public bool IsItemClickEnabled { get; set; }
+
+    public ListViewSelectionMode SelectionMode { get; set; } = ListViewSelectionMode.Single;
+
+    public event SelectionChangedEventHandler? SelectionChanged;
+}
+
+public enum ListViewSelectionMode
+{
+    None,
+    Single,
+    Multiple,
+    Extended
+}
+
+public delegate void SelectionChangedEventHandler(object sender, SelectionChangedEventArgs args);
+
+public sealed class SelectionChangedEventArgs : EventArgs
+{
 }
 
 public class ComboBox : ItemsControl
@@ -232,6 +272,8 @@ public enum ScrollBarVisibility
 public class ScrollViewer : Control
 {
     public object? Content { get; set; }
+
+    public ScrollBarVisibility HorizontalScrollBarVisibility { get; set; } = ScrollBarVisibility.Disabled;
 
     public ScrollBarVisibility VerticalScrollBarVisibility { get; set; } = ScrollBarVisibility.Auto;
 }
@@ -269,13 +311,45 @@ public class InfoBar : Control
     public InfoBarSeverity Severity { get; set; } = InfoBarSeverity.Informational;
 
     public bool IsOpen { get; set; } = true;
+
+    public bool IsClosable { get; set; } = true;
 }
 
 public class CommandBar : Control
 {
     public object? Content { get; set; }
 
+    public CommandBarDefaultLabelPosition DefaultLabelPosition { get; set; } = CommandBarDefaultLabelPosition.Bottom;
+
     public IList<object?> PrimaryCommands { get; } = new List<object?>();
+}
+
+public enum CommandBarDefaultLabelPosition
+{
+    Bottom,
+    Right,
+    Collapsed
+}
+
+public class AutoSuggestBox : Control
+{
+    public string? Text { get; set; }
+
+    public object? QueryIcon { get; set; }
+
+    public event RoutedEventHandler? QuerySubmitted;
+
+    public event RoutedEventHandler? TextChanged;
+
+    public void RaiseQuerySubmitted()
+    {
+        QuerySubmitted?.Invoke(this, new RoutedEventArgs());
+    }
+
+    public void RaiseTextChanged()
+    {
+        TextChanged?.Invoke(this, new RoutedEventArgs());
+    }
 }
 
 public class Flyout : ContentControl
@@ -410,10 +484,18 @@ public class StackPanel : FrameworkElement
 public class Grid : FrameworkElement
 {
     private static readonly Dictionary<UIElement, int> Columns = new();
+    private static readonly Dictionary<UIElement, int> Rows = new();
+    private static readonly Dictionary<UIElement, int> ColumnSpans = new();
 
     public string? ColumnDefinitions { get; set; }
 
+    public string? RowDefinitions { get; set; }
+
     public double ColumnSpacing { get; set; }
+
+    public double RowSpacing { get; set; }
+
+    public string? Padding { get; set; }
 
     public IList<UIElement> Children { get; } = new List<UIElement>();
 
@@ -430,6 +512,34 @@ public class Grid : FrameworkElement
 
         return Columns.TryGetValue(element, out var value) ? value : 0;
     }
+
+    public static void SetRow(UIElement element, int value)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        Rows[element] = Math.Max(0, value);
+    }
+
+    public static int GetRow(UIElement element)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        return Rows.TryGetValue(element, out var value) ? value : 0;
+    }
+
+    public static void SetColumnSpan(UIElement element, int value)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        ColumnSpans[element] = Math.Max(1, value);
+    }
+
+    public static int GetColumnSpan(UIElement element)
+    {
+        ArgumentNullException.ThrowIfNull(element);
+
+        return ColumnSpans.TryGetValue(element, out var value) ? value : 1;
+    }
 }
 
 public class Border : FrameworkElement
@@ -437,6 +547,12 @@ public class Border : FrameworkElement
     public object? Child { get; set; }
 
     public object? CornerRadius { get; set; }
+
+    public string? Padding { get; set; }
+
+    public object? BorderBrush { get; set; }
+
+    public string? BorderThickness { get; set; }
 }
 
 public class FontIcon : Control
