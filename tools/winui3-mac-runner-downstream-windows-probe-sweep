@@ -84,6 +84,10 @@ native_comparison_reason="No Windows reference image was provided."
 native_comparison_passed=0
 native_comparison_failed=0
 native_comparison_skipped=0
+reference_readiness_status="not-requested"
+reference_readiness_reason="No Windows reference image was requested."
+missing_reference_count=0
+missing_references_json=""
 started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
 for scenario in "${scenarios[@]}"; do
@@ -155,6 +159,30 @@ for scenario in "${scenarios[@]}"; do
       ;;
   esac
 
+  reference_problem=""
+  if [[ -n "$reference" && ! -f "$pixel_diff_path" ]]; then
+    if [[ ! -e "$reference" ]]; then
+      reference_problem="Reference image or directory was not found: $reference"
+    elif grep -q "No native WinUI reference image" "$log_path"; then
+      reference_problem="$(grep -m 1 "No native WinUI reference image" "$log_path")"
+    elif grep -q "Reference image or directory was not found" "$log_path"; then
+      reference_problem="$(grep -m 1 "Reference image or directory was not found" "$log_path")"
+    elif grep -q "Imported native reference image from manifest was not found" "$log_path"; then
+      reference_problem="$(grep -m 1 "Imported native reference image from manifest was not found" "$log_path")"
+    fi
+  fi
+  if [[ -n "$reference_problem" ]]; then
+    missing_reference_count=$((missing_reference_count + 1))
+    escaped_problem="${reference_problem//\\/\\\\}"
+    escaped_problem="${escaped_problem//\"/\\\"}"
+    escaped_log="${log_path//\\/\\\\}"
+    escaped_log="${escaped_log//\"/\\\"}"
+    if [[ -n "$missing_references_json" ]]; then
+      missing_references_json="$missing_references_json,"
+    fi
+    missing_references_json="$missing_references_json{\"scenario\":\"$scenario\",\"reason\":\"$escaped_problem\",\"log\":\"$escaped_log\"}"
+  fi
+
   cat >> "$tmp_entries" <<ENTRY
 {"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
 ENTRY
@@ -164,6 +192,18 @@ ended_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 overall_status="passed"
 if [[ $failed -ne 0 ]]; then
   overall_status="failed"
+fi
+if [[ -n "$reference" ]]; then
+  if [[ ! -e "$reference" ]]; then
+    reference_readiness_status="missing"
+    reference_readiness_reason="Reference path was not found."
+  elif [[ $missing_reference_count -ne 0 ]]; then
+    reference_readiness_status="missing"
+    reference_readiness_reason="$missing_reference_count scenario reference(s) were missing or unresolved."
+  else
+    reference_readiness_status="ready"
+    reference_readiness_reason="Reference path was provided and no missing per-scenario reference was detected."
+  fi
 fi
 if [[ $native_comparison_failed -ne 0 ]]; then
   native_comparison_status="failed"
@@ -191,6 +231,17 @@ fi
   echo "    \"total\": ${#scenarios[@]},"
   echo "    \"passed\": $passed,"
   echo "    \"failed\": $failed"
+  echo "  },"
+  echo "  \"referenceReadiness\": {"
+  echo "    \"status\": \"$reference_readiness_status\","
+  echo "    \"reason\": \"$reference_readiness_reason\","
+  echo "    \"reference\": \"$reference\","
+  echo "    \"missingReferenceCount\": $missing_reference_count,"
+  echo "    \"missingReferences\": ["
+  if [[ -n "$missing_references_json" ]]; then
+    printf '      %s\n' "$missing_references_json"
+  fi
+  echo "    ]"
   echo "  },"
   echo "  \"nativeComparison\": {"
   echo "    \"status\": \"$native_comparison_status\","
@@ -223,6 +274,8 @@ fi
   echo "- total: ${#scenarios[@]}"
   echo "- passed: $passed"
   echo "- failed: $failed"
+  echo "- reference readiness: $reference_readiness_status ($reference_readiness_reason)"
+  echo "- missing references: $missing_reference_count"
   echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
   echo "- native comparison required: $require_native_comparison"
   echo
@@ -357,8 +410,13 @@ fi
     <div>Total<strong>${#scenarios[@]}</strong></div>
     <div>Passed<strong>$passed</strong></div>
     <div>Failed<strong>$failed</strong></div>
+    <div>Reference readiness<strong>$reference_readiness_status</strong></div>
     <div>Native comparison<strong>$native_comparison_status</strong></div>
     <div>Required<strong>$require_native_comparison</strong></div>
+  </section>
+  <section class="notice" aria-label="Reference readiness">
+    <strong>Reference readiness: $reference_readiness_status.</strong>
+    $reference_readiness_reason Missing references: $missing_reference_count.
   </section>
   <section class="notice" aria-label="Native comparison status">
     <strong>Native comparison: $native_comparison_status.</strong>
@@ -396,6 +454,7 @@ echo "downstream-windows-probe-sweep: $overall_status ($passed passed, $failed f
 echo "summary.json: $summary_json"
 echo "summary.md: $summary_md"
 echo "review.html: $review_html"
+echo "reference-readiness: $reference_readiness_status ($missing_reference_count missing)"
 
 if [[ $failed -ne 0 ]]; then
   exit 1

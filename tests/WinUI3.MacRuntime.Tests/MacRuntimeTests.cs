@@ -515,6 +515,10 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "require_native_comparison");
         StringAssert.Contains(script, "\\\"required\\\": $require_native_comparison");
         StringAssert.Contains(script, "native comparison is required");
+        StringAssert.Contains(script, "referenceReadiness");
+        StringAssert.Contains(script, "missingReferenceCount");
+        StringAssert.Contains(script, "missingReferences");
+        StringAssert.Contains(script, "Reference readiness");
     }
 
     [TestMethod]
