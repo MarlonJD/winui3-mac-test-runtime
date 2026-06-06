@@ -523,6 +523,8 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "distinctColorCount");
         StringAssert.Contains(script, "nonBackgroundPixelPercentage");
         StringAssert.Contains(script, "Image integrity");
+        StringAssert.Contains(script, "imageIntegrityWarning");
+        StringAssert.Contains(script, "lowContentWarning");
     }
 
     [TestMethod]
