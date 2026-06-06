@@ -3804,6 +3804,7 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(workflow, "windows-downstream-probe-screenshots");
         StringAssert.Contains(workflow, "native-winui");
         StringAssert.Contains(workflow, "WINUI3_MAC_NATIVE_LAUNCH_LOG");
+        StringAssert.Contains(workflow, "Environment.GetCommandLineArgs()");
         StringAssert.Contains(workflow, "ExpectedRoute=");
         StringAssert.Contains(workflow, "FinalRoute=");
         StringAssert.Contains(

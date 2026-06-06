@@ -91,6 +91,7 @@ jobs:
             New-Item -ItemType Directory -Force $outDir | Out-Null
             $launchLog = Join-Path $outDir "native-launch.log"
             $env:WINUI3_MAC_NATIVE_LAUNCH_LOG = $launchLog
+            Write-Host "Probe launch must support Environment.GetCommandLineArgs() when WinUI launch arguments are empty."
             $expectedRoute = "signed-out"
             foreach ($interaction in $scenarioJson.interactions) {
               if ($interaction.type -eq "assertProperty" -and
