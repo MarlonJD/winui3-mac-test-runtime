@@ -380,6 +380,51 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamLoginProbeCoversFormValidationLoadingAndPasswordSafety()
+    {
+        var loginPage = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "Pages",
+            "LoginProbePage.xaml")));
+        var scenario = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "scenarios",
+            "login-light.json")));
+
+        foreach (var required in new[]
+        {
+            "LoginStatusInfoBar",
+            "UsernameBox",
+            "PasswordBox",
+            "RememberDeviceCheckBox",
+            "LoginProgressBar",
+            "SignInButton"
+        })
+        {
+            StringAssert.Contains(loginPage, required);
+            StringAssert.Contains(scenario, required);
+        }
+
+        StringAssert.Contains(loginPage, "Password=\"not-a-real-secret\"");
+        StringAssert.Contains(scenario, "PasswordBox");
+        Assert.IsFalse(scenario.Contains("not-a-real-secret", StringComparison.Ordinal));
+        StringAssert.Contains(loginPage, "ProgressBar");
+        StringAssert.Contains(loginPage, "CheckBox");
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineTreatsAutoSuggestBoxAsSupportedVisualSurface()
     {
         var tree = new UiTreeDocument(
