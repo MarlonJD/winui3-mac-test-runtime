@@ -108,7 +108,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                 RenderNavigationItem(canvas, node, theme, paint, bodyFont, iconFont);
                 break;
             case "TextBlock":
-                DrawText(canvas, paint, bodyFont, ReadText(node) ?? node.Name ?? string.Empty, (float)node.Layout.X, (float)node.Layout.Y + 19, ReadColor(node, "foreground", theme.TextPrimary));
+                DrawTextBlock(canvas, paint, bodyFont, node, theme);
                 break;
             case "CommandBar":
                 RenderCommandBar(canvas, node, theme, paint, bodyFont, titleFont, smallFont, iconFont);
@@ -536,6 +536,20 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         FluentDrawingPrimitives.DrawRadioButton(canvas, paint, rect.Left + 10, rect.Top + 16, theme, new FluentControlState(IsEnabled: enabled, IsChecked: checkedState));
         DrawText(canvas, paint, font, ReadControlLabel(node, "Option"), rect.Left + 29, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
+    }
+
+    private static void DrawTextBlock(SKCanvas canvas, SKPaint paint, SKFont font, UiNode node, SkiaV2Theme theme)
+    {
+        var text = ReadText(node) ?? node.Name ?? string.Empty;
+        var layout = node.Layout!;
+        var x = (float)layout.X;
+        var y = (float)layout.Y + 19;
+        var color = ReadColor(node, "foreground", theme.TextPrimary);
+        DrawText(canvas, paint, font, text, x, y, color);
+        if (IsBoldText(node))
+        {
+            DrawText(canvas, paint, font, text, x + 0.35f, y, color);
+        }
     }
 
     private static void RenderTextBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -1038,6 +1052,14 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     private static string? ReadString(UiNode node, string key)
     {
         return node.Properties.TryGetValue(key, out var value) ? value?.ToString() : null;
+    }
+
+    private static bool IsBoldText(UiNode node)
+    {
+        var weight = ReadString(node, "fontWeight");
+        return weight is not null &&
+            (weight.Contains("Bold", StringComparison.OrdinalIgnoreCase) ||
+             weight.Contains("SemiBold", StringComparison.OrdinalIgnoreCase));
     }
 
     private static string? FindFirstGlyph(UiNode node)

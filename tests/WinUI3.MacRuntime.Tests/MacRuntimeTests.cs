@@ -4391,6 +4391,38 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererHonorsSemiBoldTextBlockWeight()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "textblock-weight");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                Children =
+                {
+                    new TextBlock { Name = "NormalTitle", Text = "Applications queue" },
+                    new TextBlock { Name = "SemiBoldTitle", Text = "Applications queue", FontWeight = "SemiBold" }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "textblock-weight", "skia-v2", new VisualViewport(360, 140), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "textblock-weight", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var normal = RequireNode(arranged.Root, "NormalTitle").Layout!;
+        var semiBold = RequireNode(arranged.Root, "SemiBoldTitle").Layout!;
+        var normalPixels = CountDarkPixels(bitmap, new SKRect((float)normal.X, (float)normal.Y, (float)(normal.X + normal.Width), (float)(normal.Y + normal.Height)), 120);
+        var semiBoldPixels = CountDarkPixels(bitmap, new SKRect((float)semiBold.X, (float)semiBold.Y, (float)(semiBold.X + semiBold.Width), (float)(semiBold.Y + semiBold.Height)), 120);
+        Assert.IsGreaterThan(normalPixels + 8, semiBoldPixels);
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererDrawsListViewItemChildContent()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "listview-child-content");
