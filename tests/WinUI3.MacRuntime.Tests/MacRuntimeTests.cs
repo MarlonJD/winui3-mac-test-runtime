@@ -236,6 +236,7 @@ public sealed class MacRuntimeTests
         {
             "login-light.json",
             "messages-multiline-light.json",
+            "admin-dashboard-light.json",
             "admin-workbench-light.json",
             "command-search-light.json",
             "status-states-light.json",
@@ -422,6 +423,50 @@ public sealed class MacRuntimeTests
         Assert.IsFalse(scenario.Contains("not-a-real-secret", StringComparison.Ordinal));
         StringAssert.Contains(loginPage, "ProgressBar");
         StringAssert.Contains(loginPage, "CheckBox");
+    }
+
+    [TestMethod]
+    public void DownstreamAdminProbeCoversDashboardListDetailAndActions()
+    {
+        var adminPage = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "Pages",
+            "AdminProbePage.xaml")));
+        var scenario = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "scenarios",
+            "admin-dashboard-light.json")));
+
+        foreach (var required in new[]
+        {
+            "AdminQueueListView",
+            "AdminDetailBorder",
+            "AdminKpiProgressBar",
+            "AdminApproveButton",
+            "AdminEscalateButton",
+            "AdminStatusInfoBar"
+        })
+        {
+            StringAssert.Contains(adminPage, required);
+            StringAssert.Contains(scenario, required);
+        }
+
+        StringAssert.Contains(adminPage, "ColumnDefinitions=\"320,16,*\"");
+        StringAssert.Contains(adminPage, "ProgressBar");
+        StringAssert.Contains(adminPage, "BorderBrush");
+        StringAssert.Contains(adminPage, "Button");
     }
 
     [TestMethod]
