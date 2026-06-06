@@ -37,6 +37,7 @@ public static class VisualLayoutEngine
         "CheckBox",
         "RadioButton",
         "TextBox",
+        "PasswordBox",
         "AutoSuggestBox",
         "Slider",
         "ToggleSwitch",
@@ -120,6 +121,8 @@ public static class VisualLayoutEngine
         {
             return WithLayout(node, rect with { Width = 0, Height = 0 }, EmptyThickness, EmptyThickness, visibility, Array.Empty<UiNode>());
         }
+
+        rect = ApplyLayoutConstraints(node, rect);
 
         return simpleType switch
         {
@@ -524,6 +527,7 @@ public static class VisualLayoutEngine
             "SplitButton" or "ToggleSplitButton" => 30,
             "Button" or "RepeatButton" or "HyperlinkButton" or "DropDownButton" or "AppBarButton" or "ToggleButton" or "CheckBox" or "RadioButton" or "ComboBox" => 32,
             "TextBox" => 32,
+            "PasswordBox" => string.IsNullOrWhiteSpace(ReadString(node, "header")) ? 32 : 56,
             "Slider" => 32,
             "ToggleSwitch" => 63,
             "RatingControl" => 32,
@@ -571,7 +575,7 @@ public static class VisualLayoutEngine
             "AppBarButton" => Math.Min(fallback, Math.Max(96, EstimateTextWidth(ReadString(node, "label") ?? ReadControlText(node, "Command")) + 42)),
             "CheckBox" or "RadioButton" => Math.Min(fallback, Math.Max(120, EstimateControlTextWidth(ReadControlText(node, "Option"), 34))),
             "ComboBox" => Math.Min(fallback, Math.Max(92, EstimateTextWidth(ReadString(node, "selectedItem") ?? ReadString(node, "placeholderText") ?? "Select") + 48)),
-            "TextBox" or "AutoSuggestBox" => Math.Min(fallback, Math.Max(180, EstimateTextWidth(ReadText(node) ?? string.Empty) + 28)),
+            "TextBox" or "AutoSuggestBox" or "PasswordBox" => Math.Min(fallback, Math.Max(180, EstimateTextWidth(ReadText(node) ?? ReadString(node, "placeholderText") ?? string.Empty) + 28)),
             "Slider" => Math.Min(fallback, 180),
             "ToggleSwitch" => Math.Min(fallback, Math.Max(120, EstimateControlTextWidth(ReadString(node, "header") ?? string.Empty, 64))),
             "RatingControl" => Math.Min(fallback, Math.Max(120, ReadDouble(node, "maxRating", 5) * 24)),
@@ -606,7 +610,14 @@ public static class VisualLayoutEngine
         }
 
         var minWidth = ReadDouble(node, "minWidth", 0);
-        return Math.Min(fallback, Math.Max(minWidth, natural));
+        var maxWidth = ReadDouble(node, "maxWidth", double.NaN);
+        var constrained = Math.Max(minWidth, natural);
+        if (!double.IsNaN(maxWidth) && maxWidth > 0)
+        {
+            constrained = Math.Min(maxWidth, constrained);
+        }
+
+        return Math.Min(fallback, constrained);
     }
 
     private static double ApplyHeightConstraints(UiNode node, double fallback, double natural)
@@ -618,7 +629,21 @@ public static class VisualLayoutEngine
         }
 
         var minHeight = ReadDouble(node, "minHeight", 0);
-        return Math.Min(fallback, Math.Max(minHeight, natural));
+        var maxHeight = ReadDouble(node, "maxHeight", double.NaN);
+        var constrained = Math.Max(minHeight, natural);
+        if (!double.IsNaN(maxHeight) && maxHeight > 0)
+        {
+            constrained = Math.Min(maxHeight, constrained);
+        }
+
+        return Math.Min(fallback, constrained);
+    }
+
+    private static LayoutRect ApplyLayoutConstraints(UiNode node, LayoutRect rect)
+    {
+        var width = ApplyWidthConstraints(node, rect.Width, rect.Width);
+        var height = ApplyHeightConstraints(node, rect.Height, rect.Height);
+        return rect with { Width = width, Height = height };
     }
 
     private static double EstimateStackWidth(UiNode node, double fallback)
@@ -859,7 +884,7 @@ public static class VisualLayoutEngine
                 var children = node.Children
                     .Where(child => (int)Math.Round(ReadDouble(child, "gridRow", 0)) == index)
                     .ToArray();
-                var autoHeight = children.Length == 0 ? 36 : children.Max(child => EstimateHeight(child, 36));
+                var autoHeight = children.Length == 0 ? 36 : children.Max(child => EstimateHeight(child, heightBudget));
                 heights[index] = Math.Max(36, autoHeight);
                 fixedTotal += heights[index];
             }

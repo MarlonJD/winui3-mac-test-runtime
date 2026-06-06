@@ -184,6 +184,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             case "TextBox":
                 RenderTextBox(canvas, node, theme, paint, bodyFont);
                 break;
+            case "PasswordBox":
+                RenderPasswordBox(canvas, node, theme, paint, bodyFont);
+                break;
             case "AutoSuggestBox":
                 RenderAutoSuggestBox(canvas, node, theme, paint, bodyFont, iconFont);
                 break;
@@ -521,6 +524,32 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var focused = ReadBool(node, "isFocused", fallback: false);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
         DrawTextBoxText(canvas, paint, font, ReadText(node) ?? string.Empty, rect, enabled ? theme.TextPrimary : theme.TextDisabled);
+    }
+
+    private static void RenderPasswordBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
+    {
+        var rect = Rect(node);
+        var enabled = ReadBool(node, "isEnabled", fallback: true);
+        var focused = ReadBool(node, "isFocused", fallback: false);
+        var header = ReadString(node, "header");
+        var inputRect = string.IsNullOrWhiteSpace(header)
+            ? rect
+            : new SKRect(rect.Left, rect.Top + 24, rect.Right, rect.Bottom);
+        var passwordLength = (int)Math.Round(ReadFloat(node, "passwordLength", 0));
+        var text = passwordLength > 0
+            ? new string('\u2022', Math.Clamp(passwordLength, 1, 12))
+            : ReadString(node, "placeholderText") ?? string.Empty;
+        var color = passwordLength > 0
+            ? enabled ? theme.TextPrimary : theme.TextDisabled
+            : theme.TextSecondary;
+
+        if (!string.IsNullOrWhiteSpace(header))
+        {
+            DrawText(canvas, paint, font, header, rect.Left, rect.Top + 18, enabled ? theme.TextPrimary : theme.TextDisabled);
+        }
+
+        FluentDrawingPrimitives.DrawControlChrome(canvas, paint, inputRect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
+        DrawText(canvas, paint, font, text, inputRect.Left + 10, inputRect.Top + 21, color);
     }
 
     private static void RenderAutoSuggestBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font, SKFont iconFont)

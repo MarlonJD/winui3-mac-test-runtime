@@ -233,6 +233,7 @@ public sealed class MacRuntimeTests
 
         foreach (var scenario in new[]
         {
+            "login-light.json",
             "messages-multiline-light.json",
             "admin-workbench-light.json",
             "command-search-light.json",
@@ -343,6 +344,98 @@ public sealed class MacRuntimeTests
         Assert.AreEqual(32d, title.Layout.X);
         Assert.AreEqual(32d, title.Layout.Y);
         Assert.IsGreaterThanOrEqualTo(68d, composer.Layout.Y);
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineAppliesContainerMaxWidthAndMinHeight()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "LoginGrid",
+                        new Dictionary<string, object?>
+                        {
+                            ["maxWidth"] = 520d,
+                            ["minHeight"] = 420d,
+                            ["padding"] = "32",
+                            ["visibility"] = "Visible"
+                        },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.TextBox",
+                                "UsernameBox",
+                                new Dictionary<string, object?> { ["text"] = "staffer", ["visibility"] = "Visible" },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "container-constraints", "skia-v2", new VisualViewport(1044, 720), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var grid = arranged.Root.Children.Single();
+        var username = grid.Children.Single(child => child.Name == "UsernameBox");
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual(520d, grid.Layout.Width);
+        Assert.AreEqual(720d, grid.Layout.Height);
+        Assert.AreEqual(456d, username.Layout.Width);
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineLetsAutoGridRowsFitPasswordBoxHeader()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "LoginGrid",
+                        new Dictionary<string, object?>
+                        {
+                            ["rowDefinitions"] = "Auto",
+                            ["rowDefinitionHeights"] = new[] { "Auto" },
+                            ["padding"] = "32",
+                            ["visibility"] = "Visible"
+                        },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.PasswordBox",
+                                "PasswordBox",
+                                new Dictionary<string, object?>
+                                {
+                                    ["header"] = "Password",
+                                    ["passwordLength"] = 17,
+                                    ["visibility"] = "Visible"
+                                },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "password-auto-row", "skia-v2", new VisualViewport(520, 220), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var password = arranged.Root.Children.Single().Children.Single(child => child.Name == "PasswordBox");
+
+        Assert.HasCount(0, unsupported);
+        Assert.IsGreaterThanOrEqualTo(56d, password.Layout.Height);
     }
 
     [TestMethod]
@@ -4178,6 +4271,54 @@ public sealed class MacRuntimeTests
             (float)(composer.X + 160),
             (float)(composer.Y + 52));
         Assert.IsGreaterThan(8, CountDarkPixels(bitmap, secondLineBand, 80));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsPasswordBoxWithoutLeakingPassword()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "passwordbox");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Title = "Login",
+            Content = new PasswordBox
+            {
+                Name = "PasswordBox",
+                Header = "Password",
+                Password = "not-a-real-secret",
+                PlaceholderText = "Password",
+                Width = 320
+            }
+        });
+        var settings = new VisualRunSettings(null, "passwordbox", "skia-v2", new VisualViewport(420, 180), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "passwordbox", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        var passwordNode = RequireNode(arranged.Root, "PasswordBox");
+        Assert.IsFalse(passwordNode.Properties.ContainsKey("password"));
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var password = passwordNode.Layout!;
+        var chromeBand = new SKRect(
+            (float)(password.X + 2),
+            (float)(password.Y + 2),
+            (float)(password.X + password.Width - 2),
+            (float)(password.Y + password.Height - 2));
+        var headerBand = new SKRect(
+            (float)(password.X + 8),
+            (float)(password.Y + 2),
+            (float)(password.X + 120),
+            (float)(password.Y + 22));
+        var glyphBand = new SKRect(
+            (float)(password.X + 8),
+            (float)(password.Y + 28),
+            (float)(password.X + 160),
+            (float)(password.Y + 54));
+        Assert.IsGreaterThan(100, CountBrightPixels(bitmap, chromeBand, 230));
+        Assert.IsGreaterThan(8, CountDarkPixels(bitmap, headerBand, 80));
+        Assert.IsGreaterThan(8, CountDarkPixels(bitmap, glyphBand, 80));
     }
 
     [TestMethod]
