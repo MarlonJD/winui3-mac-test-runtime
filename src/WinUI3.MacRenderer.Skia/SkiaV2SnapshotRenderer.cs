@@ -1314,6 +1314,15 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                 DrawLine(canvas, paint, rect.Right - 8, rect.Top + 8, rect.Right - 8, rect.Top + 5, color);
                 DrawLine(canvas, paint, rect.Left + 8, rect.Top + 5, rect.Right - 8, rect.Top + 5, color);
                 break;
+            case 0xE77B:
+                canvas.DrawCircle(rect.MidX, rect.Top + 8, 4, paint);
+                using (var path = new SKPath())
+                {
+                    path.MoveTo(rect.Left + 5, rect.Bottom - 4);
+                    path.CubicTo(rect.Left + 7, rect.Bottom - 10, rect.Right - 7, rect.Bottom - 10, rect.Right - 5, rect.Bottom - 4);
+                    canvas.DrawPath(path, paint);
+                }
+                break;
             default:
                 paint.Style = SKPaintStyle.Fill;
                 paint.StrokeCap = SKStrokeCap.Butt;

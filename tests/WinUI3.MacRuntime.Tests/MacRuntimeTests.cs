@@ -218,7 +218,8 @@ public sealed class MacRuntimeTests
         {
             "MessagesProbePage",
             "AdminWorkbenchProbePage",
-            "StatusStatesProbePage"
+            "StatusStatesProbePage",
+            "SettingsProfileProbePage"
         })
         {
             StringAssert.Contains(project, $"Pages\\{page}.xaml");
@@ -226,7 +227,7 @@ public sealed class MacRuntimeTests
             Assert.IsTrue(File.Exists(Path.Combine(probeRoot, "Pages", page + ".xaml.cs")));
         }
 
-        foreach (var tag in new[] { "\"messages\"", "\"admin-workbench\"", "\"status-states\"" })
+        foreach (var tag in new[] { "\"messages\"", "\"admin-workbench\"", "\"status-states\"", "\"settings-profile\"" })
         {
             StringAssert.Contains(windowCode, tag);
         }
@@ -237,7 +238,8 @@ public sealed class MacRuntimeTests
             "messages-multiline-light.json",
             "admin-workbench-light.json",
             "command-search-light.json",
-            "status-states-light.json"
+            "status-states-light.json",
+            "settings-profile-light.json"
         })
         {
             Assert.IsTrue(File.Exists(Path.Combine(scenarioDirectory, scenario)), scenario);
@@ -436,6 +438,128 @@ public sealed class MacRuntimeTests
 
         Assert.HasCount(0, unsupported);
         Assert.IsGreaterThanOrEqualTo(56d, password.Layout.Height);
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineSizesBorderToTallChildContent()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "RootGrid",
+                        new Dictionary<string, object?>
+                        {
+                            ["rowDefinitions"] = "Auto",
+                            ["rowDefinitionHeights"] = new[] { "Auto" },
+                            ["visibility"] = "Visible"
+                        },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.Border",
+                                "ProfilePanel",
+                                new Dictionary<string, object?>
+                                {
+                                    ["padding"] = "20",
+                                    ["visibility"] = "Visible"
+                                },
+                                new[]
+                                {
+                                    new UiNode(
+                                        "Microsoft.UI.Xaml.Controls.StackPanel",
+                                        "FieldStack",
+                                        new Dictionary<string, object?> { ["spacing"] = 10d, ["visibility"] = "Visible" },
+                                        new[]
+                                        {
+                                            new UiNode("Microsoft.UI.Xaml.Controls.TextBox", "FieldA", new Dictionary<string, object?> { ["text"] = "A", ["visibility"] = "Visible" }, Array.Empty<UiNode>()),
+                                            new UiNode("Microsoft.UI.Xaml.Controls.TextBox", "FieldB", new Dictionary<string, object?> { ["text"] = "B", ["visibility"] = "Visible" }, Array.Empty<UiNode>()),
+                                            new UiNode("Microsoft.UI.Xaml.Controls.TextBox", "FieldC", new Dictionary<string, object?> { ["text"] = "C", ["visibility"] = "Visible" }, Array.Empty<UiNode>()),
+                                            new UiNode("Microsoft.UI.Xaml.Controls.Button", "SaveButton", new Dictionary<string, object?> { ["content"] = "Save", ["visibility"] = "Visible" }, Array.Empty<UiNode>())
+                                        })
+                                })
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "border-tall-child", "skia-v2", new VisualViewport(420, 320), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var border = RequireNode(arranged.Root, "ProfilePanel").Layout!;
+        var stack = RequireNode(arranged.Root, "FieldStack").Layout!;
+
+        Assert.HasCount(0, unsupported);
+        Assert.IsGreaterThanOrEqualTo(198d, border.Height);
+        Assert.IsGreaterThanOrEqualTo(border.Y + border.Height, stack.Y + stack.Height + 20d);
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineDoesNotReserveAutoRowHeightForClosedInfoBar()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "RootGrid",
+                        new Dictionary<string, object?>
+                        {
+                            ["rowDefinitions"] = "Auto,Auto",
+                            ["rowDefinitionHeights"] = new[] { "Auto", "Auto" },
+                            ["rowSpacing"] = 12d,
+                            ["visibility"] = "Visible"
+                        },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.InfoBar",
+                                "ClosedInfoBar",
+                                new Dictionary<string, object?>
+                                {
+                                    ["gridRow"] = 0d,
+                                    ["isOpen"] = false,
+                                    ["visibility"] = "Visible"
+                                },
+                                Array.Empty<UiNode>()),
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.Border",
+                                "NextPanel",
+                                new Dictionary<string, object?>
+                                {
+                                    ["gridRow"] = 1d,
+                                    ["padding"] = "12",
+                                    ["visibility"] = "Visible"
+                                },
+                                new[]
+                                {
+                                    new UiNode("Microsoft.UI.Xaml.Controls.TextBlock", "PanelText", new Dictionary<string, object?> { ["text"] = "Visible panel", ["visibility"] = "Visible" }, Array.Empty<UiNode>())
+                                })
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "closed-infobar-auto-row", "skia-v2", new VisualViewport(420, 180), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var infoBar = RequireNode(arranged.Root, "ClosedInfoBar").Layout!;
+        var panel = RequireNode(arranged.Root, "NextPanel").Layout!;
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual(0d, infoBar.Height);
+        Assert.IsTrue(panel.Y <= 16d);
     }
 
     [TestMethod]
@@ -4331,12 +4455,19 @@ public sealed class MacRuntimeTests
             Content = "Home",
             Icon = new FontIcon { Glyph = "\uE80F" }
         };
+        var profileItem = new NavigationViewItem
+        {
+            Name = "ProfileNavigationItem",
+            Content = "Profile",
+            Icon = new FontIcon { Glyph = "\uE77B" }
+        };
         var navigation = new NavigationView
         {
             Name = "RootNavigation",
             Content = new TextBlock { Text = "Home" }
         };
         navigation.MenuItems.Add(item);
+        navigation.MenuItems.Add(profileItem);
         navigation.Select(item);
         var tree = UiTreeBuilder.Build(new Window { Content = navigation });
         var settings = new VisualRunSettings(null, "navigation-icons", "skia-v2", new VisualViewport(520, 240), 1, "light", true, new VisualThresholds());
@@ -4347,7 +4478,9 @@ public sealed class MacRuntimeTests
 
         Assert.HasCount(0, unsupported);
         var arrangedItem = RequireNode(arranged.Root, "HomeNavigationItem");
+        var arrangedProfileItem = RequireNode(arranged.Root, "ProfileNavigationItem");
         Assert.IsTrue(arrangedItem.Children.Any(child => child.Type.EndsWith(".FontIcon", StringComparison.Ordinal)));
+        Assert.IsTrue(arrangedProfileItem.Children.Any(child => child.Type.EndsWith(".FontIcon", StringComparison.Ordinal)));
         using var bitmap = SKBitmap.Decode(snapshot.FilePath);
         Assert.IsNotNull(bitmap);
         var row = arrangedItem.Layout!;
@@ -4357,6 +4490,13 @@ public sealed class MacRuntimeTests
             (float)(row.X + 34),
             (float)(row.Y + 32));
         Assert.IsGreaterThan(8, CountDarkPixels(bitmap, iconBand, 230));
+        var profileRow = arrangedProfileItem.Layout!;
+        var profileIconBand = new SKRect(
+            (float)(profileRow.X + 8),
+            (float)(profileRow.Y + 8),
+            (float)(profileRow.X + 34),
+            (float)(profileRow.Y + 32));
+        Assert.IsGreaterThan(8, CountDarkPixels(bitmap, profileIconBand, 230));
     }
 
     [TestMethod]

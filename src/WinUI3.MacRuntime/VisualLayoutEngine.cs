@@ -122,6 +122,11 @@ public static class VisualLayoutEngine
             return WithLayout(node, rect with { Width = 0, Height = 0 }, EmptyThickness, EmptyThickness, visibility, Array.Empty<UiNode>());
         }
 
+        if (simpleType == "InfoBar" && !ReadBool(node, "isOpen", fallback: true))
+        {
+            return WithLayout(node, rect with { Height = 0 }, EmptyThickness, EmptyThickness, visibility, Array.Empty<UiNode>());
+        }
+
         rect = ApplyLayoutConstraints(node, rect);
 
         return simpleType switch
@@ -521,7 +526,13 @@ public static class VisualLayoutEngine
 
     private static double EstimateHeight(UiNode node, double fallback)
     {
-        var natural = SimpleType(node) switch
+        var simpleType = SimpleType(node);
+        if (simpleType == "InfoBar" && !ReadBool(node, "isOpen", fallback: true))
+        {
+            return 0;
+        }
+
+        var natural = simpleType switch
         {
             "TextBlock" or "String" => 24,
             "SplitButton" or "ToggleSplitButton" => 30,
@@ -548,7 +559,7 @@ public static class VisualLayoutEngine
             "TwoPaneView" => Math.Min(72, fallback),
             "ContentDialog" => 128,
             "Flyout" or "ToolTip" or "TeachingTip" => 72,
-            "Border" => Math.Min(86, fallback),
+            "Border" => EstimateSingleSlotHeight(node, fallback),
             "ListView" or "ItemsControl" => Math.Max(64, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
             "ScrollViewer" => Math.Min(120, Math.Max(64, fallback)),
             "ContentControl" => EstimateContentControlHeight(node, fallback),
@@ -718,8 +729,8 @@ public static class VisualLayoutEngine
         return Math.Min(fallback, content + verticalPadding);
     }
 
-    // ArrangeGrid lays children across columns within a single row band, so the
-    // grid's natural height is the tallest child rather than the full fallback.
+    // Auto rows must size to the tallest child in each row. Treating every grid
+    // as one row clips form panels that put status text below a two-column body.
     private static double EstimateGridHeight(UiNode node, double fallback)
     {
         if (node.Children.Count == 0)
@@ -727,7 +738,39 @@ public static class VisualLayoutEngine
             return Math.Min(fallback, 40);
         }
 
-        return Math.Min(fallback, node.Children.Max(child => EstimateHeight(child, fallback)));
+        var padding = PaddingFor(node);
+        var verticalPadding = padding.Top + padding.Bottom;
+        var available = Math.Max(1, fallback - verticalPadding);
+        var definitions = ReadStringArray(node, "rowDefinitionHeights").ToArray();
+        if (definitions.Length == 0)
+        {
+            return Math.Min(fallback, node.Children.Max(child => EstimateHeight(child, available)) + verticalPadding);
+        }
+
+        var rowSpacing = ReadDouble(node, "rowSpacing", 0);
+        var maxRow = node.Children
+            .Select(child => Math.Max(0, (int)Math.Round(ReadDouble(child, "gridRow", 0))))
+            .DefaultIfEmpty(0)
+            .Max();
+        var rowCount = Math.Max(definitions.Length, maxRow + 1);
+        var rows = new double[rowCount];
+        for (var index = 0; index < rowCount; index++)
+        {
+            var definition = index < definitions.Length ? definitions[index] : "Auto";
+            if (TryParseFixedGridLength(definition, out var fixedHeight))
+            {
+                rows[index] = fixedHeight;
+                continue;
+            }
+
+            var rowChildren = node.Children
+                .Where(child => (int)Math.Round(ReadDouble(child, "gridRow", 0)) == index)
+                .ToArray();
+            var autoHeight = rowChildren.Length == 0 ? 0 : rowChildren.Max(child => EstimateHeight(child, available));
+            rows[index] = autoHeight <= 0 ? 0 : Math.Max(36, autoHeight);
+        }
+
+        return Math.Min(fallback, rows.Sum() + Math.Max(0, rowCount - 1) * rowSpacing + verticalPadding);
     }
 
     private static double EstimateContentControlHeight(UiNode node, double fallback)
@@ -738,6 +781,20 @@ public static class VisualLayoutEngine
         }
 
         return Math.Min(fallback, Math.Max(1, node.Children.Max(child => EstimateHeight(child, fallback))));
+    }
+
+    private static double EstimateSingleSlotHeight(UiNode node, double fallback)
+    {
+        var padding = PaddingFor(node);
+        var verticalPadding = padding.Top + padding.Bottom;
+        if (node.Children.Count == 0)
+        {
+            return Math.Min(86, fallback);
+        }
+
+        var available = Math.Max(1, fallback - verticalPadding);
+        var content = node.Children.Max(child => EstimateHeight(child, available));
+        return Math.Min(fallback, Math.Max(86, content + verticalPadding));
     }
 
     private static LayoutRect Inset(LayoutRect rect, UiThickness thickness)
@@ -884,8 +941,8 @@ public static class VisualLayoutEngine
                 var children = node.Children
                     .Where(child => (int)Math.Round(ReadDouble(child, "gridRow", 0)) == index)
                     .ToArray();
-                var autoHeight = children.Length == 0 ? 36 : children.Max(child => EstimateHeight(child, heightBudget));
-                heights[index] = Math.Max(36, autoHeight);
+                var autoHeight = children.Length == 0 ? 0 : children.Max(child => EstimateHeight(child, heightBudget));
+                heights[index] = autoHeight <= 0 ? 0 : Math.Max(36, autoHeight);
                 fixedTotal += heights[index];
             }
             else
