@@ -536,6 +536,10 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "missingScenarioGroups");
         StringAssert.Contains(script, "expected_scenario_groups");
         StringAssert.Contains(script, "coverage is incomplete");
+        StringAssert.Contains(script, "interactionSummary");
+        StringAssert.Contains(script, "assertPropertyCount");
+        StringAssert.Contains(script, "interactionMissing");
+        StringAssert.Contains(script, "route anchor");
     }
 
     [TestMethod]

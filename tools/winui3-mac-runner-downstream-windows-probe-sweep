@@ -134,6 +134,10 @@ missing_references_json=""
 coverage_complete=true
 missing_scenario_group_count=0
 missing_scenario_groups_json=""
+interaction_passed=0
+interaction_failed=0
+interaction_missing=0
+route_anchor_warning_count=0
 image_integrity_passed=0
 image_integrity_failed=0
 image_integrity_missing=0
@@ -310,8 +314,45 @@ for scenario in "${scenarios[@]}"; do
       ;;
   esac
 
+  interactions_path="$scenario_output/interactions.json"
+  interaction_status="missing"
+  interaction_step_count=0
+  interaction_passed_count=0
+  interaction_failed_count=0
+  assert_property_count=0
+  route_anchor_warning="none"
+  if [[ -f "$interactions_path" ]]; then
+    interaction_step_count="$(grep -c '"status":' "$interactions_path" || true)"
+    interaction_passed_count="$(grep -c '"status": "passed"' "$interactions_path" || true)"
+    interaction_failed_count="$(grep -c '"status": "failed"' "$interactions_path" || true)"
+    assert_property_count="$(grep -c '"type": "assertProperty"' "$interactions_path" || true)"
+    if [[ "$interaction_failed_count" -ne 0 ]]; then
+      interaction_status="failed"
+    else
+      interaction_status="passed"
+    fi
+  fi
+  if [[ "$assert_property_count" -eq 0 ]]; then
+    route_anchor_warning="missing route anchor"
+    route_anchor_warning_count=$((route_anchor_warning_count + 1))
+    if [[ "$interaction_status" == "passed" ]]; then
+      interaction_status="failed"
+    fi
+  fi
+  case "$interaction_status" in
+    passed)
+      interaction_passed=$((interaction_passed + 1))
+      ;;
+    missing)
+      interaction_missing=$((interaction_missing + 1))
+      ;;
+    *)
+      interaction_failed=$((interaction_failed + 1))
+      ;;
+  esac
+
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
 ENTRY
   cat >> "$tmp_groups" <<ENTRY
 {"group":"$coverage_group","surface":"$coverage_surface","scenario":"$scenario","status":"$status","screenshot":"$scenario_output/visual/mac-runtime.png"}
@@ -322,6 +363,9 @@ done
 ended_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 overall_status="passed"
 if [[ $failed -ne 0 ]]; then
+  overall_status="failed"
+fi
+if [[ $interaction_failed -ne 0 || $interaction_missing -ne 0 ]]; then
   overall_status="failed"
 fi
 for expected_group in "${expected_scenario_groups[@]}"; do
@@ -380,7 +424,11 @@ fi
   echo "    \"imageIntegrityMissing\": $image_integrity_missing,"
   echo "    \"imageIntegrityWarnings\": $image_integrity_warning_count,"
   echo "    \"lowContentWarningThreshold\": $low_content_warning_threshold,"
-  echo "    \"imageSizeWarnings\": $image_size_warning_count"
+  echo "    \"imageSizeWarnings\": $image_size_warning_count,"
+  echo "    \"interactionPassed\": $interaction_passed,"
+  echo "    \"interactionFailed\": $interaction_failed,"
+  echo "    \"interactionMissing\": $interaction_missing,"
+  echo "    \"routeAnchorWarnings\": $route_anchor_warning_count"
   echo "  },"
   echo "  \"referenceReadiness\": {"
   echo "    \"status\": \"$reference_readiness_status\","
@@ -445,6 +493,8 @@ fi
   echo "- failed: $failed"
   echo "- image integrity: $image_integrity_passed passed, $image_integrity_failed failed, $image_integrity_missing missing, $image_integrity_warning_count warnings"
   echo "- image size warnings: $image_size_warning_count"
+  echo "- interactions: $interaction_passed passed, $interaction_failed failed, $interaction_missing missing"
+  echo "- route anchor warnings: $route_anchor_warning_count"
   echo "- reference readiness: $reference_readiness_status ($reference_readiness_reason)"
   echo "- missing references: $missing_reference_count"
   echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
@@ -470,8 +520,8 @@ fi
     echo "| $group | $surface | $group_scenario | $group_status |"
   done < "$tmp_groups"
   echo
-  echo "| Scenario | Status | Image integrity | Native comparison | Screenshot | Log |"
-  echo "| --- | --- | --- | --- | --- | --- |"
+  echo "| Scenario | Status | Interactions | Image integrity | Native comparison | Screenshot | Log |"
+  echo "| --- | --- | --- | --- | --- | --- | --- |"
   while IFS= read -r entry; do
     scenario="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
     status="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"[^"]+","status":"([^"]+)".*/\1/')"
@@ -480,6 +530,10 @@ fi
     image_integrity_non_background="$(printf '%s' "$entry" | sed -E 's/.*"nonBackgroundPixelPercentage":([^,}]+).*/\1/')"
     image_integrity_warning="$(printf '%s' "$entry" | sed -E 's/.*"imageIntegrityWarning":"([^"]+)".*/\1/')"
     image_size_warning="$(printf '%s' "$entry" | sed -E 's/.*"imageSizeWarning":"([^"]+)".*/\1/')"
+    interaction_status="$(printf '%s' "$entry" | sed -E 's/.*"interactionSummary":\{"status":"([^"]+)".*/\1/')"
+    interaction_steps="$(printf '%s' "$entry" | sed -E 's/.*"stepCount":([^,}]+).*/\1/')"
+    interaction_asserts="$(printf '%s' "$entry" | sed -E 's/.*"assertPropertyCount":([^,}]+).*/\1/')"
+    route_anchor_warning="$(printf '%s' "$entry" | sed -E 's/.*"routeAnchorWarning":"([^"]+)".*/\1/')"
     expected_viewport_width="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":([^,}]+).*/\1/')"
     expected_viewport_height="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":[^,}]+,"height":([^,}]+).*/\1/')"
     actual_image_width="$(printf '%s' "$entry" | sed -E 's/.*"actualImageSize":\{"width":([^,}]+).*/\1/')"
@@ -487,7 +541,7 @@ fi
     comparison_status="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"([^"]+)".*/\1/')"
     scenario_output="$(printf '%s' "$entry" | sed -E 's/.*"output":"([^"]+)".*/\1/')"
     log_path="$(printf '%s' "$entry" | sed -E 's/.*"log":"([^"]+)".*/\1/')"
-    echo "| $scenario | $status | $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-bg, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning) | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
+    echo "| $scenario | $status | $interaction_status (${interaction_steps} steps, ${interaction_asserts} assertProperty, route anchor: $route_anchor_warning) | $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-bg, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning) | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
   done < "$tmp_entries"
 } > "$summary_md"
 
@@ -609,6 +663,8 @@ fi
     <div>Passed<strong>$passed</strong></div>
     <div>Failed<strong>$failed</strong></div>
     <div>Image integrity<strong>$image_integrity_passed/$image_integrity_failed/$image_integrity_missing</strong></div>
+    <div>Interactions<strong>$interaction_passed/$interaction_failed/$interaction_missing</strong></div>
+    <div>Route anchors<strong>$route_anchor_warning_count</strong></div>
     <div>Integrity warnings<strong>$image_integrity_warning_count</strong></div>
     <div>Size warnings<strong>$image_size_warning_count</strong></div>
     <div>Reference readiness<strong>$reference_readiness_status</strong></div>
@@ -659,6 +715,10 @@ HTML
     image_integrity_non_background="$(printf '%s' "$entry" | sed -E 's/.*"nonBackgroundPixelPercentage":([^,}]+).*/\1/')"
     image_integrity_warning="$(printf '%s' "$entry" | sed -E 's/.*"imageIntegrityWarning":"([^"]+)".*/\1/')"
     image_size_warning="$(printf '%s' "$entry" | sed -E 's/.*"imageSizeWarning":"([^"]+)".*/\1/')"
+    interaction_status="$(printf '%s' "$entry" | sed -E 's/.*"interactionSummary":\{"status":"([^"]+)".*/\1/')"
+    interaction_steps="$(printf '%s' "$entry" | sed -E 's/.*"stepCount":([^,}]+).*/\1/')"
+    interaction_asserts="$(printf '%s' "$entry" | sed -E 's/.*"assertPropertyCount":([^,}]+).*/\1/')"
+    route_anchor_warning="$(printf '%s' "$entry" | sed -E 's/.*"routeAnchorWarning":"([^"]+)".*/\1/')"
     expected_viewport_width="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":([^,}]+).*/\1/')"
     expected_viewport_height="$(printf '%s' "$entry" | sed -E 's/.*"expectedViewport":\{"width":[^,}]+,"height":([^,}]+).*/\1/')"
     actual_image_width="$(printf '%s' "$entry" | sed -E 's/.*"actualImageSize":\{"width":([^,}]+).*/\1/')"
@@ -671,6 +731,7 @@ HTML
       <h2>$scenario</h2>
       <img src="$scenario_name/visual/mac-runtime.png" alt="$scenario screenshot">
       <p class="meta">Status: <span class="status-$status">$status</span> | Native comparison: $comparison_status | <a href="$scenario_name/strict-scenario.log">log</a> | <a href="$scenario_name/visual/visual-run.json">visual-run</a> | <a href="$scenario_name/visual/pixel-diff.json">pixel-diff</a></p>
+      <p class="meta">Interactions: $interaction_status (${interaction_steps} steps, ${interaction_asserts} assertProperty, route anchor: $route_anchor_warning) | <a href="$scenario_name/interactions.json">interactions</a></p>
       <p class="meta">Image integrity: $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-background, warning: $image_integrity_warning, size: ${actual_image_width}x${actual_image_height}/${expected_viewport_width}x${expected_viewport_height}, size warning: $image_size_warning)</p>
       <p class="meta">$comparison_reason</p>
     </article>
@@ -693,6 +754,14 @@ echo "review.html: $review_html"
 echo "reference-readiness: $reference_readiness_status ($missing_reference_count missing)"
 
 if [[ $failed -ne 0 ]]; then
+  exit 1
+fi
+if [[ $interaction_missing -ne 0 ]]; then
+  echo "interactionMissing: $interaction_missing scenario interaction report(s) were missing" >&2
+  exit 1
+fi
+if [[ $interaction_failed -ne 0 ]]; then
+  echo "interaction failed: $interaction_failed scenario interaction report(s) failed or had no route anchor" >&2
   exit 1
 fi
 if [[ "$coverage_complete" != "true" ]]; then
