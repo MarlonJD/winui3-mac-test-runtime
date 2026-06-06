@@ -3,17 +3,20 @@ set -u -o pipefail
 
 usage() {
   cat <<'USAGE'
-Usage: winui3-mac-runner-downstream-windows-probe-sweep [--output <dir>] [--reference <png-or-native-reference-dir>]
+Usage: winui3-mac-runner-downstream-windows-probe-sweep [--output <dir>] [--reference <png-or-native-reference-dir>] [--require-native-comparison]
 
 Runs every MeetingChallenge Windows macOS runtime probe scenario with
 skia-v2 strict visual mode and writes summary.json, summary.md, and review.html.
 When --reference points to a normalized native-reference-import directory, each
 scenario is compared against its matching Windows reference image.
+Use --require-native-comparison in CI/release gates to fail when any native
+comparison is skipped or failed.
 USAGE
 }
 
 output="/private/tmp/emsi-windows-probe-sweep"
 reference=""
+require_native_comparison=false
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --output)
@@ -31,6 +34,10 @@ while [[ $# -gt 0 ]]; do
       fi
       reference="$2"
       shift 2
+      ;;
+    --require-native-comparison)
+      require_native_comparison=true
+      shift
       ;;
     --help|-h)
       usage
@@ -165,6 +172,12 @@ elif [[ -n "$reference" && $native_comparison_skipped -eq 0 ]]; then
   native_comparison_status="passed"
   native_comparison_reason="All scenarios were compared against Windows reference images."
 fi
+if [[ "$require_native_comparison" == "true" && "$native_comparison_status" != "passed" ]]; then
+  overall_status="failed"
+  if [[ $native_comparison_skipped -ne 0 ]]; then
+    native_comparison_reason="native comparison is required, but $native_comparison_skipped scenario(s) were skipped."
+  fi
+fi
 
 {
   echo "{"
@@ -183,6 +196,7 @@ fi
   echo "    \"status\": \"$native_comparison_status\","
   echo "    \"reason\": \"$native_comparison_reason\","
   echo "    \"reference\": \"$reference\","
+  echo "    \"required\": $require_native_comparison,"
   echo "    \"passed\": $native_comparison_passed,"
   echo "    \"failed\": $native_comparison_failed,"
   echo "    \"skipped\": $native_comparison_skipped,"
@@ -210,6 +224,7 @@ fi
   echo "- passed: $passed"
   echo "- failed: $failed"
   echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
+  echo "- native comparison required: $require_native_comparison"
   echo
   echo "> This sweep proves macOS runtime rendering, diagnostics, and screenshot generation. It does not prove native Windows pixel parity until Windows reference images are supplied."
   echo
@@ -343,6 +358,7 @@ fi
     <div>Passed<strong>$passed</strong></div>
     <div>Failed<strong>$failed</strong></div>
     <div>Native comparison<strong>$native_comparison_status</strong></div>
+    <div>Required<strong>$require_native_comparison</strong></div>
   </section>
   <section class="notice" aria-label="Native comparison status">
     <strong>Native comparison: $native_comparison_status.</strong>
@@ -382,5 +398,8 @@ echo "summary.md: $summary_md"
 echo "review.html: $review_html"
 
 if [[ $failed -ne 0 ]]; then
+  exit 1
+fi
+if [[ "$require_native_comparison" == "true" && "$native_comparison_status" != "passed" ]]; then
   exit 1
 fi

@@ -500,6 +500,10 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "No Windows reference image was provided.");
         StringAssert.Contains(script, "--reference)");
         StringAssert.Contains(script, "--reference \"$reference\"");
+        StringAssert.Contains(script, "--require-native-comparison)");
+        StringAssert.Contains(script, "require_native_comparison");
+        StringAssert.Contains(script, "\\\"required\\\": $require_native_comparison");
+        StringAssert.Contains(script, "native comparison is required");
     }
 
     [TestMethod]
