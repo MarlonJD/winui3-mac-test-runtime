@@ -4322,6 +4322,44 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsNavigationViewItemIcons()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "navigation-icons");
+        var item = new NavigationViewItem
+        {
+            Name = "HomeNavigationItem",
+            Content = "Home",
+            Icon = new FontIcon { Glyph = "\uE80F" }
+        };
+        var navigation = new NavigationView
+        {
+            Name = "RootNavigation",
+            Content = new TextBlock { Text = "Home" }
+        };
+        navigation.MenuItems.Add(item);
+        navigation.Select(item);
+        var tree = UiTreeBuilder.Build(new Window { Content = navigation });
+        var settings = new VisualRunSettings(null, "navigation-icons", "skia-v2", new VisualViewport(520, 240), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "navigation-icons", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        var arrangedItem = RequireNode(arranged.Root, "HomeNavigationItem");
+        Assert.IsTrue(arrangedItem.Children.Any(child => child.Type.EndsWith(".FontIcon", StringComparison.Ordinal)));
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var row = arrangedItem.Layout!;
+        var iconBand = new SKRect(
+            (float)(row.X + 8),
+            (float)(row.Y + 8),
+            (float)(row.X + 34),
+            (float)(row.Y + 32));
+        Assert.IsGreaterThan(8, CountDarkPixels(bitmap, iconBand, 230));
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererDrawsListViewItemChildContent()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "listview-child-content");

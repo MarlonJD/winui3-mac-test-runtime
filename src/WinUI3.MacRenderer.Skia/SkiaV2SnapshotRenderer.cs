@@ -292,7 +292,28 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             DrawRoundRect(canvas, paint, new SKRect(row.Left, row.Top + 7, row.Left + 4, row.Bottom - 7), 2, theme.Accent);
         }
 
-        DrawText(canvas, paint, bodyFont, ReadControlLabel(node, ToTitle(ReadString(node, "tag") ?? node.Name ?? "Item")), row.Left + 16, row.Top + 26, theme.TextPrimary);
+        var icon = node.Children.FirstOrDefault(child => SimpleType(child) is "FontIcon" or "SymbolIcon");
+        var labelX = row.Left + 16;
+        if (icon is not null)
+        {
+            var iconRect = new SKRect(row.Left + 13, row.Top + 9, row.Left + 33, row.Top + 31);
+            if (SimpleType(icon) == "SymbolIcon")
+            {
+                DrawText(canvas, paint, iconFont, SymbolGlyph(ReadString(icon, "symbol")), iconRect.Left, iconRect.Top + 18, selected ? theme.Accent : ControlAffordanceColor(theme));
+            }
+            else if (DrawNavigationIcon(canvas, paint, ReadString(icon, "glyph"), iconRect, selected ? theme.Accent : ControlAffordanceColor(theme)))
+            {
+                // Drawn as a deterministic primitive so shell icons do not depend on Segoe Fluent Icons availability.
+            }
+            else
+            {
+                DrawText(canvas, paint, iconFont, ReadString(icon, "glyph") ?? "*", iconRect.Left, iconRect.Top + 18, selected ? theme.Accent : ControlAffordanceColor(theme));
+            }
+
+            labelX = row.Left + 42;
+        }
+
+        DrawText(canvas, paint, bodyFont, ReadControlLabel(node, ToTitle(ReadString(node, "tag") ?? node.Name ?? "Item")), labelX, row.Top + 26, theme.TextPrimary);
     }
 
     private static void RenderGrid(
@@ -1199,6 +1220,77 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         paint.Color = color;
         canvas.DrawLine(x1, y1, x2, y2, paint);
         paint.Style = SKPaintStyle.Fill;
+    }
+
+    private static bool DrawNavigationIcon(SKCanvas canvas, SKPaint paint, string? glyph, SKRect rect, SKColor color)
+    {
+        if (string.IsNullOrEmpty(glyph))
+        {
+            return false;
+        }
+
+        var code = char.ConvertToUtf32(glyph, 0);
+        paint.Style = SKPaintStyle.Stroke;
+        paint.StrokeWidth = 1.6f;
+        paint.StrokeCap = SKStrokeCap.Round;
+        paint.StrokeJoin = SKStrokeJoin.Round;
+        paint.Color = color;
+        switch (code)
+        {
+            case 0xE80F:
+                using (var path = new SKPath())
+                {
+                    path.MoveTo(rect.Left + 3, rect.Top + 11);
+                    path.LineTo(rect.MidX, rect.Top + 4);
+                    path.LineTo(rect.Right - 3, rect.Top + 11);
+                    path.MoveTo(rect.Left + 5, rect.Top + 10);
+                    path.LineTo(rect.Left + 5, rect.Bottom - 4);
+                    path.LineTo(rect.Right - 5, rect.Bottom - 4);
+                    path.LineTo(rect.Right - 5, rect.Top + 10);
+                    canvas.DrawPath(path, paint);
+                }
+                break;
+            case 0xE716:
+                canvas.DrawRoundRect(new SKRect(rect.Left + 3, rect.Top + 5, rect.Right - 3, rect.Bottom - 6), 4, 4, paint);
+                DrawLine(canvas, paint, rect.Left + 8, rect.Bottom - 6, rect.Left + 5, rect.Bottom - 2, color);
+                break;
+            case 0xE713:
+                canvas.DrawCircle(rect.MidX, rect.MidY, 6, paint);
+                DrawLine(canvas, paint, rect.MidX, rect.Top + 3, rect.MidX, rect.Top + 7, color);
+                DrawLine(canvas, paint, rect.MidX, rect.Bottom - 7, rect.MidX, rect.Bottom - 3, color);
+                DrawLine(canvas, paint, rect.Left + 3, rect.MidY, rect.Left + 7, rect.MidY, color);
+                DrawLine(canvas, paint, rect.Right - 7, rect.MidY, rect.Right - 3, rect.MidY, color);
+                break;
+            case 0xE8D7:
+                using (var path = new SKPath())
+                {
+                    path.MoveTo(rect.MidX, rect.Top + 3);
+                    path.LineTo(rect.Right - 4, rect.Top + 7);
+                    path.LineTo(rect.Right - 6, rect.Bottom - 5);
+                    path.LineTo(rect.MidX, rect.Bottom - 2);
+                    path.LineTo(rect.Left + 6, rect.Bottom - 5);
+                    path.LineTo(rect.Left + 4, rect.Top + 7);
+                    path.Close();
+                    canvas.DrawPath(path, paint);
+                }
+                break;
+            case 0xE9D2:
+                canvas.DrawRoundRect(new SKRect(rect.Left + 4, rect.Top + 8, rect.Right - 4, rect.Bottom - 4), 2, 2, paint);
+                DrawLine(canvas, paint, rect.Left + 8, rect.Top + 8, rect.Left + 8, rect.Top + 5, color);
+                DrawLine(canvas, paint, rect.Right - 8, rect.Top + 8, rect.Right - 8, rect.Top + 5, color);
+                DrawLine(canvas, paint, rect.Left + 8, rect.Top + 5, rect.Right - 8, rect.Top + 5, color);
+                break;
+            default:
+                paint.Style = SKPaintStyle.Fill;
+                paint.StrokeCap = SKStrokeCap.Butt;
+                paint.StrokeJoin = SKStrokeJoin.Miter;
+                return false;
+        }
+
+        paint.Style = SKPaintStyle.Fill;
+        paint.StrokeCap = SKStrokeCap.Butt;
+        paint.StrokeJoin = SKStrokeJoin.Miter;
+        return true;
     }
 
     private static void DrawCircle(SKCanvas canvas, SKPaint paint, float x, float y, float radius, SKColor color)

@@ -329,6 +329,7 @@ public static class UiTreeBuilder
             case NavigationViewItem navigationViewItem:
                 properties["content"] = navigationViewItem.Content is UIElement ? null : navigationViewItem.Content?.ToString();
                 AddChild(navigationViewItem.Content, children);
+                AddChild(navigationViewItem.Icon, children);
                 break;
             case AppBarButton appBarButton:
                 properties["label"] = appBarButton.Label;
