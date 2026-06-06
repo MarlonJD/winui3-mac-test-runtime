@@ -519,6 +519,10 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "missingReferenceCount");
         StringAssert.Contains(script, "missingReferences");
         StringAssert.Contains(script, "Reference readiness");
+        StringAssert.Contains(script, "runtimeImageIntegrity");
+        StringAssert.Contains(script, "distinctColorCount");
+        StringAssert.Contains(script, "nonBackgroundPixelPercentage");
+        StringAssert.Contains(script, "Image integrity");
     }
 
     [TestMethod]

@@ -88,6 +88,9 @@ reference_readiness_status="not-requested"
 reference_readiness_reason="No Windows reference image was requested."
 missing_reference_count=0
 missing_references_json=""
+image_integrity_passed=0
+image_integrity_failed=0
+image_integrity_missing=0
 started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
 for scenario in "${scenarios[@]}"; do
@@ -183,8 +186,43 @@ for scenario in "${scenarios[@]}"; do
     missing_references_json="$missing_references_json{\"scenario\":\"$scenario\",\"reason\":\"$escaped_problem\",\"log\":\"$escaped_log\"}"
   fi
 
+  visual_run_path="$scenario_output/visual/visual-run.json"
+  image_integrity_status="missing"
+  image_integrity_nonblank=false
+  image_integrity_distinct=0
+  image_integrity_non_background=0
+  if [[ -f "$visual_run_path" ]]; then
+    image_integrity_status="$(awk '/"runtimeImageIntegrity":/ { in_integrity=1; next } in_integrity && /"status":/ { gsub(/[",]/, "", $2); print $2; exit }' "$visual_run_path")"
+    image_integrity_nonblank="$(awk '/"runtimeImageIntegrity":/ { in_integrity=1; next } in_integrity && /"isNonBlank":/ { gsub(/[",]/, "", $2); print $2; exit }' "$visual_run_path")"
+    image_integrity_distinct="$(awk '/"runtimeImageIntegrity":/ { in_integrity=1; next } in_integrity && /"distinctColorCount":/ { gsub(/[",]/, "", $2); print $2; exit }' "$visual_run_path")"
+    image_integrity_non_background="$(awk '/"runtimeImageIntegrity":/ { in_integrity=1; next } in_integrity && /"nonBackgroundPixelPercentage":/ { gsub(/[",]/, "", $2); print $2; exit }' "$visual_run_path")"
+  fi
+  if [[ -z "$image_integrity_status" ]]; then
+    image_integrity_status="missing"
+  fi
+  if [[ -z "$image_integrity_nonblank" ]]; then
+    image_integrity_nonblank=false
+  fi
+  if [[ -z "$image_integrity_distinct" ]]; then
+    image_integrity_distinct=0
+  fi
+  if [[ -z "$image_integrity_non_background" ]]; then
+    image_integrity_non_background=0
+  fi
+  case "$image_integrity_status" in
+    passed)
+      image_integrity_passed=$((image_integrity_passed + 1))
+      ;;
+    missing)
+      image_integrity_missing=$((image_integrity_missing + 1))
+      ;;
+    *)
+      image_integrity_failed=$((image_integrity_failed + 1))
+      ;;
+  esac
+
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
 ENTRY
 done
 
@@ -230,7 +268,10 @@ fi
   echo "  \"summary\": {"
   echo "    \"total\": ${#scenarios[@]},"
   echo "    \"passed\": $passed,"
-  echo "    \"failed\": $failed"
+  echo "    \"failed\": $failed,"
+  echo "    \"imageIntegrityPassed\": $image_integrity_passed,"
+  echo "    \"imageIntegrityFailed\": $image_integrity_failed,"
+  echo "    \"imageIntegrityMissing\": $image_integrity_missing"
   echo "  },"
   echo "  \"referenceReadiness\": {"
   echo "    \"status\": \"$reference_readiness_status\","
@@ -274,6 +315,7 @@ fi
   echo "- total: ${#scenarios[@]}"
   echo "- passed: $passed"
   echo "- failed: $failed"
+  echo "- image integrity: $image_integrity_passed passed, $image_integrity_failed failed, $image_integrity_missing missing"
   echo "- reference readiness: $reference_readiness_status ($reference_readiness_reason)"
   echo "- missing references: $missing_reference_count"
   echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
@@ -281,15 +323,18 @@ fi
   echo
   echo "> This sweep proves macOS runtime rendering, diagnostics, and screenshot generation. It does not prove native Windows pixel parity until Windows reference images are supplied."
   echo
-  echo "| Scenario | Status | Native comparison | Screenshot | Log |"
-  echo "| --- | --- | --- | --- | --- |"
+  echo "| Scenario | Status | Image integrity | Native comparison | Screenshot | Log |"
+  echo "| --- | --- | --- | --- | --- | --- |"
   while IFS= read -r entry; do
     scenario="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
     status="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"[^"]+","status":"([^"]+)".*/\1/')"
+    image_integrity_status="$(printf '%s' "$entry" | sed -E 's/.*"runtimeImageIntegrity":\{"status":"([^"]+)".*/\1/')"
+    image_integrity_distinct="$(printf '%s' "$entry" | sed -E 's/.*"distinctColorCount":([^,}]+).*/\1/')"
+    image_integrity_non_background="$(printf '%s' "$entry" | sed -E 's/.*"nonBackgroundPixelPercentage":([^,}]+).*/\1/')"
     comparison_status="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"([^"]+)".*/\1/')"
     scenario_output="$(printf '%s' "$entry" | sed -E 's/.*"output":"([^"]+)".*/\1/')"
     log_path="$(printf '%s' "$entry" | sed -E 's/.*"log":"([^"]+)".*/\1/')"
-    echo "| $scenario | $status | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
+    echo "| $scenario | $status | $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-bg) | $comparison_status | $scenario_output/visual/mac-runtime.png | $log_path |"
   done < "$tmp_entries"
 } > "$summary_md"
 
@@ -410,6 +455,7 @@ fi
     <div>Total<strong>${#scenarios[@]}</strong></div>
     <div>Passed<strong>$passed</strong></div>
     <div>Failed<strong>$failed</strong></div>
+    <div>Image integrity<strong>$image_integrity_passed/$image_integrity_failed/$image_integrity_missing</strong></div>
     <div>Reference readiness<strong>$reference_readiness_status</strong></div>
     <div>Native comparison<strong>$native_comparison_status</strong></div>
     <div>Required<strong>$require_native_comparison</strong></div>
@@ -428,6 +474,9 @@ HTML
   while IFS= read -r entry; do
     scenario="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"([^"]+)".*/\1/')"
     status="$(printf '%s' "$entry" | sed -E 's/.*"scenario":"[^"]+","status":"([^"]+)".*/\1/')"
+    image_integrity_status="$(printf '%s' "$entry" | sed -E 's/.*"runtimeImageIntegrity":\{"status":"([^"]+)".*/\1/')"
+    image_integrity_distinct="$(printf '%s' "$entry" | sed -E 's/.*"distinctColorCount":([^,}]+).*/\1/')"
+    image_integrity_non_background="$(printf '%s' "$entry" | sed -E 's/.*"nonBackgroundPixelPercentage":([^,}]+).*/\1/')"
     comparison_status="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"([^"]+)".*/\1/')"
     comparison_reason="$(printf '%s' "$entry" | sed -E 's/.*"nativeComparison":\{"status":"[^"]+","reason":"([^"]+)".*/\1/')"
     scenario_name="${scenario%.json}"
@@ -436,6 +485,7 @@ HTML
       <h2>$scenario</h2>
       <img src="$scenario_name/visual/mac-runtime.png" alt="$scenario screenshot">
       <p class="meta">Status: <span class="status-$status">$status</span> | Native comparison: $comparison_status | <a href="$scenario_name/strict-scenario.log">log</a> | <a href="$scenario_name/visual/visual-run.json">visual-run</a> | <a href="$scenario_name/visual/pixel-diff.json">pixel-diff</a></p>
+      <p class="meta">Image integrity: $image_integrity_status (${image_integrity_distinct} colors, ${image_integrity_non_background}% non-background)</p>
       <p class="meta">$comparison_reason</p>
     </article>
 HTML
