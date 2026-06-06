@@ -292,6 +292,50 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamHomeProbeCoversReadSurfaceListDetailAndProgress()
+    {
+        var homePage = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "Pages",
+            "HomeProbePage.xaml")));
+        var scenario = File.ReadAllText(Path.GetFullPath(Path.Combine(
+            RepositoryPath("."),
+            "..",
+            "..",
+            "apps",
+            "windows",
+            "tests",
+            "MeetingChallenge.WinUI.MacRuntimeProbe",
+            "scenarios",
+            "shell-staff-light.json")));
+
+        foreach (var required in new[]
+        {
+            "HomeReadListView",
+            "HomeDetailBorder",
+            "HomePrimaryActionButton",
+            "HomeReadProgressBar",
+            "HomeStatusInfoBar",
+            "HomeSummaryTextBlock"
+        })
+        {
+            StringAssert.Contains(homePage, required);
+            StringAssert.Contains(scenario, required);
+        }
+
+        StringAssert.Contains(homePage, "ColumnDefinitions=\"320,16,*\"");
+        StringAssert.Contains(homePage, "ListView");
+        StringAssert.Contains(homePage, "ProgressBar");
+        StringAssert.Contains(homePage, "BorderBrush");
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineTreatsAutoSuggestBoxAsSupportedVisualSurface()
     {
         var tree = new UiTreeDocument(
