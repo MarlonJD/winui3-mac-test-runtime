@@ -525,6 +525,9 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "Image integrity");
         StringAssert.Contains(script, "imageIntegrityWarning");
         StringAssert.Contains(script, "lowContentWarning");
+        StringAssert.Contains(script, "imageSizeWarning");
+        StringAssert.Contains(script, "expectedViewport");
+        StringAssert.Contains(script, "actualImageSize");
     }
 
     [TestMethod]
