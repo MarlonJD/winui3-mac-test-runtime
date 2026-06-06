@@ -14,6 +14,7 @@ internal static class Program
     private const uint SwpNoZOrder = 0x0004;
     private const uint SwpNoActivate = 0x0010;
     private const int DwmwaExtendedFrameBounds = 9;
+    private const uint PwClientOnly = 1;
     private const uint PwRenderFullContent = 2;
 
     public static int Main(string[] args)
@@ -61,7 +62,11 @@ internal static class Program
             }
 
             Thread.Sleep(options.SettleDelay);
-            var captureRect = Capture(captureWindow, options.OutputPath, options.ClientArea);
+            var captureRect = Capture(
+                captureWindow,
+                options.OutputPath,
+                options.ClientArea,
+                options.RejectBlackBorder);
             if (!string.IsNullOrWhiteSpace(options.MetadataOutputPath))
             {
                 var workflowRunId = options.WorkflowRunId ?? Environment.GetEnvironmentVariable("GITHUB_RUN_ID");
@@ -91,6 +96,7 @@ internal static class Program
                     settleDelayMs = (int)options.SettleDelay.TotalMilliseconds,
                     outputPath = Path.GetFullPath(options.OutputPath),
                     captureMode = options.ClientArea ? "client-area" : "window-frame",
+                    blackBorderRejected = options.RejectBlackBorder,
                     dimensions = new
                     {
                         width = captureRect.Right - captureRect.Left,
@@ -344,7 +350,7 @@ internal static class Program
         return titles.Count == 0 ? "none with titles" : string.Join(" | ", titles);
     }
 
-    private static Rect Capture(IntPtr window, string outputPath, bool clientArea)
+    private static Rect Capture(IntPtr window, string outputPath, bool clientArea, bool rejectBlackBorder)
     {
         var rect = clientArea ? GetClientCaptureRect(window) : GetCaptureRect(window);
         var width = Math.Max(1, rect.Right - rect.Left);
@@ -355,7 +361,8 @@ internal static class Program
         var hdc = graphics.GetHdc();
         try
         {
-            if (clientArea || !PrintWindow(window, hdc, PwRenderFullContent))
+            var printFlags = clientArea ? PwClientOnly : PwRenderFullContent;
+            if (!PrintWindow(window, hdc, printFlags))
             {
                 graphics.ReleaseHdc(hdc);
                 hdc = IntPtr.Zero;
@@ -370,8 +377,90 @@ internal static class Program
             }
         }
 
+        if (rejectBlackBorder && TryFindTrailingBlackBorder(bitmap, out var border))
+        {
+            throw new InvalidOperationException(
+                "Captured image has a trailing black border, which usually means the client area was clipped or copied off-screen. " +
+                $"Right={border.Right}px; Bottom={border.Bottom}px.");
+        }
+
         bitmap.Save(outputPath, ImageFormat.Png);
         return rect;
+    }
+
+    private static bool TryFindTrailingBlackBorder(Bitmap bitmap, out BlackBorder border)
+    {
+        var right = CountTrailingBlackColumns(bitmap);
+        var bottom = CountTrailingBlackRows(bitmap);
+        border = new BlackBorder(right, bottom);
+        var minimumRight = Math.Max(8, bitmap.Width / 50);
+        var minimumBottom = Math.Max(8, bitmap.Height / 50);
+        return right >= minimumRight || bottom >= minimumBottom;
+    }
+
+    private static int CountTrailingBlackColumns(Bitmap bitmap)
+    {
+        var count = 0;
+        for (var x = bitmap.Width - 1; x >= 0; x--)
+        {
+            if (!IsMostlyBlackColumn(bitmap, x))
+            {
+                break;
+            }
+
+            count++;
+        }
+
+        return count;
+    }
+
+    private static int CountTrailingBlackRows(Bitmap bitmap)
+    {
+        var count = 0;
+        for (var y = bitmap.Height - 1; y >= 0; y--)
+        {
+            if (!IsMostlyBlackRow(bitmap, y))
+            {
+                break;
+            }
+
+            count++;
+        }
+
+        return count;
+    }
+
+    private static bool IsMostlyBlackColumn(Bitmap bitmap, int x)
+    {
+        var black = 0;
+        for (var y = 0; y < bitmap.Height; y++)
+        {
+            if (IsNearBlack(bitmap.GetPixel(x, y)))
+            {
+                black++;
+            }
+        }
+
+        return black >= bitmap.Height * 98 / 100;
+    }
+
+    private static bool IsMostlyBlackRow(Bitmap bitmap, int y)
+    {
+        var black = 0;
+        for (var x = 0; x < bitmap.Width; x++)
+        {
+            if (IsNearBlack(bitmap.GetPixel(x, y)))
+            {
+                black++;
+            }
+        }
+
+        return black >= bitmap.Width * 98 / 100;
+    }
+
+    private static bool IsNearBlack(Color color)
+    {
+        return color.R <= 8 && color.G <= 8 && color.B <= 8;
     }
 
     private static Rect GetCaptureRect(IntPtr window)
@@ -550,6 +639,7 @@ internal static class Program
         double? Scale,
         string? Theme,
         TimeSpan SettleDelay,
+        bool RejectBlackBorder,
         IReadOnlyList<string> Command)
     {
         public static CaptureOptions Parse(string[] args)
@@ -577,6 +667,7 @@ internal static class Program
             double? scale = null;
             string? theme = null;
             var settleDelay = TimeSpan.FromMilliseconds(750);
+            var rejectBlackBorder = false;
 
             for (var index = 0; index < separator; index++)
             {
@@ -596,6 +687,9 @@ internal static class Program
                         break;
                     case "--client-area":
                         clientArea = true;
+                        break;
+                    case "--reject-black-border":
+                        rejectBlackBorder = true;
                         break;
                     case "--require-title-match":
                         requireTitleMatch = true;
@@ -666,6 +760,7 @@ internal static class Program
                 scale,
                 theme,
                 settleDelay,
+                rejectBlackBorder,
                 args[(separator + 1)..]);
         }
 
@@ -730,6 +825,8 @@ internal static class Program
             return new CaptureViewport(width, height);
         }
     }
+
+    private sealed record BlackBorder(int Right, int Bottom);
 
     private delegate bool EnumWindowsProc(IntPtr window, IntPtr state);
 

@@ -3799,6 +3799,7 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(workflow, "repository: MarlonJD/winui3-mac-test-runtime");
         StringAssert.Contains(workflow, "WindowsWindowCapture.csproj");
         StringAssert.Contains(workflow, "--client-area");
+        StringAssert.Contains(workflow, "--reject-black-border");
         StringAssert.Contains(workflow, "--require-title-match");
         StringAssert.Contains(workflow, "--title \"Meeting Challenge Windows macOS Runtime Probe\"");
         StringAssert.Contains(workflow, "windows-downstream-probe-screenshots");
