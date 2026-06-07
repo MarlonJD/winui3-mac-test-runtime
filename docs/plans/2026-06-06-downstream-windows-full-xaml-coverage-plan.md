@@ -184,10 +184,10 @@ That probe is useful but intentionally narrow: signed-out shell visibility, staf
 
 Purpose: make the current downstream production XAML failure reproducible, grouped, and impossible to forget.
 
-- [ ] Add a runtime-owned public gap manifest, for example `docs/compatibility/downstream-production-xaml-gap-summary.json`, containing sanitized gap families, counts, and current treatment.
-- [ ] Add a runner command or test helper that can summarize diagnostics by file category and unsupported surface without committing private file paths.
-- [ ] Add a test in `tests/WinUI3.MacRuntime.Tests/MacRuntimeTests.cs` that asserts the gap summary matches the documented current surface families.
-- [ ] Add documentation to `docs/consumption/downstream-windows-apps.md` explaining how downstream apps should keep full production XAML diagnostics private while contributing sanitized gap summaries upstream.
+- [x] Add a runtime-owned public gap manifest, for example `docs/compatibility/downstream-production-xaml-gap-summary.json`, containing sanitized gap families, counts, and current treatment.
+- [x] Add a runner command or test helper that can summarize diagnostics by file category and unsupported surface without committing private file paths.
+- [x] Add a test in `tests/WinUI3.MacRuntime.Tests/MacRuntimeTests.cs` that asserts the gap summary matches the documented current surface families.
+- [x] Add documentation to `docs/consumption/downstream-windows-apps.md` explaining how downstream apps should keep full production XAML diagnostics private while contributing sanitized gap summaries upstream.
 
 Verification:
 
