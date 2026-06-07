@@ -509,8 +509,9 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "<img");
         StringAssert.Contains(script, "nativeComparison");
         StringAssert.Contains(script, "No Windows reference image was provided.");
+        StringAssert.Contains(script, "Native comparison exceeded conservative pixel thresholds.");
         StringAssert.Contains(script, "--reference)");
-        StringAssert.Contains(script, "--reference \"$reference\"");
+        StringAssert.Contains(script, "scenario_reference=\"$reference\"");
         StringAssert.Contains(script, "--require-native-comparison)");
         StringAssert.Contains(script, "require_native_comparison");
         StringAssert.Contains(script, "\\\"required\\\": $require_native_comparison");
@@ -554,6 +555,16 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "windowsScreenshotMatched");
         StringAssert.Contains(script, "Windows runner screenshot");
         StringAssert.Contains(script, "windows-reference.png");
+        StringAssert.Contains(script, "scenario_reference=\"$windows_screenshot_dir/$scenario_name/windows-reference.png\"");
+        StringAssert.Contains(script, "scenario_reference_viewport=\"$(reference_viewport \"$scenario_reference\")\"");
+        StringAssert.Contains(script, "--viewport \"$scenario_reference_viewport\"");
+        StringAssert.Contains(script, "--reference \"$scenario_reference\"");
+        StringAssert.Contains(script, "\"windowsReference\":\"$scenario_output/visual/windows-reference.png\"");
+        StringAssert.Contains(script, "\"macRuntime\":\"$scenario_output/visual/mac-runtime.png\"");
+        StringAssert.Contains(script, "\"pixelDiffImage\":\"$scenario_output/visual/pixel-diff.png\"");
+        StringAssert.Contains(script, "\"pixelDiff\":\"$scenario_output/visual/pixel-diff.json\"");
+        StringAssert.Contains(script, "windows-reference.png</a>");
+        StringAssert.Contains(script, "pixel-diff.png</a>");
     }
 
     [TestMethod]

@@ -9,10 +9,15 @@ Runs every MeetingChallenge Windows macOS runtime probe scenario with
 skia-v2 strict visual mode and writes summary.json, summary.md, and review.html.
 When --reference points to a normalized native-reference-import directory, each
 scenario is compared against its matching Windows reference image.
+When --windows-screenshot-dir points to a structured probe capture directory
+with <scenario>/windows-reference.png files, those PNGs are consumed as true
+per-scenario Windows references and copied into each scenario visual artifact
+directory before pixel diffing.
 Use --require-native-comparison in CI/release gates to fail when any native
 comparison is skipped or failed.
 Use --windows-screenshot-dir to add existing Windows runner page screenshots to
-review.html for side-by-side visual review. This is not pixel-diff evidence.
+review.html for side-by-side visual review. Legacy flat JPG screenshots remain
+review-only and are not pixel-diff evidence.
 USAGE
 }
 
@@ -142,6 +147,23 @@ windows_screenshot_name() {
   esac
 }
 
+reference_viewport() {
+  local reference_image="$1"
+  local metadata_path
+  metadata_path="$(dirname "$reference_image")/windows-reference.json"
+  if [[ ! -f "$metadata_path" ]]; then
+    return 0
+  fi
+
+  local width
+  local height
+  width="$(awk '/"viewport":/ { in_viewport=1; next } in_viewport && /"width":/ { gsub(/[",]/, "", $2); print $2; exit }' "$metadata_path")"
+  height="$(awk '/"viewport":/ { in_viewport=1; next } in_viewport && /"height":/ { gsub(/[",]/, "", $2); print $2; exit }' "$metadata_path")"
+  if [[ "$width" =~ ^[0-9]+$ && "$height" =~ ^[0-9]+$ && "$width" -gt 0 && "$height" -gt 0 ]]; then
+    printf '%sx%s\n' "$width" "$height"
+  fi
+}
+
 mkdir -p "$output"
 summary_json="$output/summary.json"
 summary_md="$output/summary.md"
@@ -158,6 +180,7 @@ passed=0
 failed=0
 native_comparison_status="skipped"
 native_comparison_reason="No Windows reference image was provided."
+native_comparison_interpretation="This sweep proves macOS runtime rendering, diagnostics, and screenshot generation for the listed downstream Windows probe scenarios. It does not prove native Windows pixel parity until Windows reference images are supplied."
 native_comparison_passed=0
 native_comparison_failed=0
 native_comparison_skipped=0
@@ -180,6 +203,7 @@ font_failed=0
 font_missing=0
 windows_screenshot_matched=0
 windows_screenshot_missing=0
+native_reference_requested=false
 image_integrity_passed=0
 image_integrity_failed=0
 image_integrity_missing=0
@@ -196,6 +220,8 @@ for scenario in "${scenarios[@]}"; do
   scenario_output="$output/$scenario_name"
   log_path="$scenario_output/strict-scenario.log"
   mkdir -p "$scenario_output"
+  scenario_reference="$reference"
+  scenario_reference_viewport=""
   windows_screenshot_status="not-requested"
   windows_screenshot_path=""
   windows_screenshot_source=""
@@ -216,6 +242,10 @@ for scenario in "${scenarios[@]}"; do
         windows_screenshot_source="$candidate_windows_screenshot"
         windows_screenshot_status="matched"
         windows_screenshot_matched=$((windows_screenshot_matched + 1))
+        if [[ -z "$reference" && "$candidate_windows_screenshot" == "$workflow_windows_screenshot" ]]; then
+          scenario_reference="$windows_screenshot_dir/$scenario_name/windows-reference.png"
+          native_reference_requested=true
+        fi
         break
       fi
     done
@@ -230,15 +260,21 @@ for scenario in "${scenarios[@]}"; do
     message="missing scenario file"
     printf '%s\n' "$message" > "$log_path"
   else
-    if [[ -n "$reference" ]]; then
-      "$runner" run \
-        --project "$project" \
-        --renderer skia-v2 \
-        --scenario "$scenario_path" \
-        --strict-visual \
-        --output "$scenario_output" \
-        --reference "$reference" \
-        > "$log_path" 2>&1
+    if [[ -n "$scenario_reference" ]]; then
+      scenario_reference_viewport="$(reference_viewport "$scenario_reference")"
+      runner_args=(
+        run
+        --project "$project"
+        --renderer skia-v2
+        --scenario "$scenario_path"
+        --strict-visual
+        --output "$scenario_output"
+      )
+      if [[ -n "$scenario_reference_viewport" ]]; then
+        runner_args+=(--viewport "$scenario_reference_viewport")
+      fi
+      runner_args+=(--reference "$scenario_reference")
+      "$runner" "${runner_args[@]}" > "$log_path" 2>&1
     else
       "$runner" run \
         --project "$project" \
@@ -264,15 +300,23 @@ for scenario in "${scenarios[@]}"; do
   if [[ -f "$pixel_diff_path" ]]; then
     comparison_status="$(sed -n 's/.*"status": "\([^"]*\)".*/\1/p' "$pixel_diff_path" | head -1)"
     comparison_reason="$(sed -n 's/.*"reason": "\([^"]*\)".*/\1/p' "$pixel_diff_path" | head -1)"
+    comparison_message="$(sed -n 's/.*"message": "\([^"]*\)".*/\1/p' "$pixel_diff_path" | head -1)"
   else
     comparison_status="$native_comparison_status"
     comparison_reason="$native_comparison_reason"
+    comparison_message=""
   fi
   if [[ -z "$comparison_status" ]]; then
     comparison_status="$native_comparison_status"
   fi
   if [[ -z "$comparison_reason" ]]; then
-    comparison_reason="$native_comparison_reason"
+    if [[ -n "$comparison_message" ]]; then
+      comparison_reason="$comparison_message"
+    elif [[ -n "$scenario_reference" && "$comparison_status" == "failed" ]]; then
+      comparison_reason="Native comparison exceeded conservative pixel thresholds."
+    else
+      comparison_reason="$native_comparison_reason"
+    fi
   fi
   case "$comparison_status" in
     passed)
@@ -287,9 +331,9 @@ for scenario in "${scenarios[@]}"; do
   esac
 
   reference_problem=""
-  if [[ -n "$reference" && ! -f "$pixel_diff_path" ]]; then
-    if [[ ! -e "$reference" ]]; then
-      reference_problem="Reference image or directory was not found: $reference"
+  if [[ -n "$scenario_reference" && ! -f "$pixel_diff_path" ]]; then
+    if [[ ! -e "$scenario_reference" ]]; then
+      reference_problem="Reference image or directory was not found: $scenario_reference"
     elif grep -q "No native WinUI reference image" "$log_path"; then
       reference_problem="$(grep -m 1 "No native WinUI reference image" "$log_path")"
     elif grep -q "Reference image or directory was not found" "$log_path"; then
@@ -490,7 +534,7 @@ for scenario in "${scenarios[@]}"; do
   fi
 
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"windowsScreenshotSummary":{"status":"$windows_screenshot_status","source":"$windows_screenshot_source","screenshot":"$windows_screenshot_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","pixelDiff":"$pixel_diff_path"}}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"windowsScreenshotSummary":{"status":"$windows_screenshot_status","source":"$windows_screenshot_source","screenshot":"$windows_screenshot_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","reference":"$scenario_reference","windowsReference":"$scenario_output/visual/windows-reference.png","macRuntime":"$scenario_output/visual/mac-runtime.png","pixelDiffImage":"$scenario_output/visual/pixel-diff.png","pixelDiff":"$scenario_output/visual/pixel-diff.json"}}
 ENTRY
   cat >> "$tmp_groups" <<ENTRY
 {"group":"$coverage_group","surface":"$coverage_surface","scenario":"$scenario","status":"$status","screenshot":"$scenario_output/visual/mac-runtime.png"}
@@ -525,8 +569,8 @@ done
 if [[ "$coverage_complete" != "true" ]]; then
   overall_status="failed"
 fi
-if [[ -n "$reference" ]]; then
-  if [[ ! -e "$reference" ]]; then
+if [[ -n "$reference" || "$native_reference_requested" == "true" ]]; then
+  if [[ -n "$reference" && ! -e "$reference" ]]; then
     reference_readiness_status="missing"
     reference_readiness_reason="Reference path was not found."
   elif [[ $missing_reference_count -ne 0 ]]; then
@@ -534,15 +578,17 @@ if [[ -n "$reference" ]]; then
     reference_readiness_reason="$missing_reference_count scenario reference(s) were missing or unresolved."
   else
     reference_readiness_status="ready"
-    reference_readiness_reason="Reference path was provided and no missing per-scenario reference was detected."
+    reference_readiness_reason="Windows reference PNGs were provided and no missing per-scenario reference was detected."
   fi
 fi
 if [[ $native_comparison_failed -ne 0 ]]; then
   native_comparison_status="failed"
   native_comparison_reason="$native_comparison_failed native comparison(s) failed."
-elif [[ -n "$reference" && $native_comparison_skipped -eq 0 ]]; then
+  native_comparison_interpretation="Windows reference images were supplied and compared. The macOS runtime artifacts are complete, but one or more scenarios exceeded the conservative pixel thresholds; inspect each pixel-diff.json for metrics."
+elif [[ ("$native_reference_requested" == "true" || -n "$reference") && $native_comparison_skipped -eq 0 ]]; then
   native_comparison_status="passed"
   native_comparison_reason="All scenarios were compared against Windows reference images."
+  native_comparison_interpretation="Windows reference images were supplied and every scenario stayed within the configured conservative pixel thresholds."
 fi
 if [[ "$require_native_comparison" == "true" && "$native_comparison_status" != "passed" ]]; then
   overall_status="failed"
@@ -601,7 +647,7 @@ fi
   echo "    \"passed\": $native_comparison_passed,"
   echo "    \"failed\": $native_comparison_failed,"
   echo "    \"skipped\": $native_comparison_skipped,"
-  echo "    \"interpretation\": \"This sweep proves macOS runtime rendering, diagnostics, and screenshot generation for the listed downstream Windows probe scenarios. It does not prove native Windows pixel parity until Windows reference images are supplied.\""
+  echo "    \"interpretation\": \"$native_comparison_interpretation\""
   echo "  },"
   echo "  \"coverageComplete\": $coverage_complete,"
   echo "  \"expectedScenarioGroupCount\": ${#expected_scenario_groups[@]},"
@@ -657,7 +703,7 @@ fi
   echo "- coverage complete: $coverage_complete"
   echo "- missing scenario groups: $missing_scenario_group_count"
   echo
-  echo "> This sweep proves macOS runtime rendering, diagnostics, and screenshot generation. It does not prove native Windows pixel parity until Windows reference images are supplied."
+  echo "> $native_comparison_interpretation"
   echo
   echo "## Scenario Coverage"
   echo
@@ -846,7 +892,7 @@ fi
   </section>
   <section class="notice" aria-label="Native comparison status">
     <strong>Native comparison: $native_comparison_status.</strong>
-    $native_comparison_reason This sweep proves macOS runtime rendering, diagnostics, and screenshot generation; it does not prove native Windows pixel parity until Windows reference images are supplied.
+    $native_comparison_reason $native_comparison_interpretation
   </section>
   <section class="notice" aria-label="Scenario coverage">
     <strong>Scenario coverage: $coverage_complete.</strong>
@@ -926,7 +972,7 @@ HTML
 HTML
     fi
     cat <<HTML
-      <p class="meta">Status: <span class="status-$status">$status</span> | Native comparison: $comparison_status | <a href="$scenario_name/strict-scenario.log">log</a> | <a href="$scenario_name/visual/visual-run.json">visual-run</a> | <a href="$scenario_name/visual/pixel-diff.json">pixel-diff</a></p>
+      <p class="meta">Status: <span class="status-$status">$status</span> | Native comparison: $comparison_status | <a href="$scenario_name/strict-scenario.log">log</a> | <a href="$scenario_name/visual/visual-run.json">visual-run</a> | <a href="$scenario_name/visual/windows-reference.png">windows-reference.png</a> | <a href="$scenario_name/visual/mac-runtime.png">mac-runtime.png</a> | <a href="$scenario_name/visual/pixel-diff.png">pixel-diff.png</a> | <a href="$scenario_name/visual/pixel-diff.json">pixel-diff.json</a></p>
       <p class="meta">Artifacts: $artifact_status (${missing_artifact_count} missing) | <a href="$scenario_name/run.json">run</a> | <a href="$scenario_name/tree.json">tree</a> | <a href="$scenario_name/accessibility.json">accessibility</a></p>
       <p class="meta">Fonts: $font_status | text: $text_resolved_family ($text_resolved_source) | symbol: $symbol_resolved_family ($symbol_resolved_source)</p>
       <p class="meta">Windows runner screenshot: $windows_screenshot_status</p>
