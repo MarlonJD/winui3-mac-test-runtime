@@ -202,19 +202,19 @@ Expected result: tests pass, catalog audit remains current, and the gap summary 
 
 Purpose: remove the high-volume mechanical blockers before richer controls.
 
-- [ ] Add compiler support for common framework sizing properties used by production pages: `Width`, `Height`, `MinWidth`, `MinHeight`, `MaxWidth`, `MaxHeight`, and `Padding` where the facade type can safely carry it.
-- [ ] Add compiler support for `Grid.RowDefinitions`, `Grid.RowSpacing`, attached `Grid.Row`, and attached `Grid.ColumnSpan`.
-- [ ] Add compiler support for `Border.Padding`, `Border.BorderBrush`, `Border.BorderThickness`, and `Border.MaxWidth`.
-- [ ] Add compiler support for `ScrollViewer.HorizontalScrollBarVisibility`.
-- [ ] Add compiler support for `ProgressRing.Width` and `ProgressRing.Height` through common sizing, not special-case one-off logic.
-- [ ] Keep unsupported events such as `Grid.SizeChanged` explicit until Phase 6 decides whether to model them or keep them diagnostic.
+- [x] Add compiler support for common framework sizing properties used by production pages: `Width`, `Height`, `MinWidth`, `MinHeight`, `MaxWidth`, `MaxHeight`, and `Padding` where the facade type can safely carry it.
+- [x] Add compiler support for `Grid.RowDefinitions`, `Grid.RowSpacing`, attached `Grid.Row`, and attached `Grid.ColumnSpan`.
+- [x] Add compiler support for `Border.Padding`, `Border.BorderBrush`, `Border.BorderThickness`, and `Border.MaxWidth`.
+- [x] Add compiler support for `ScrollViewer.HorizontalScrollBarVisibility`.
+- [x] Add compiler support for `ProgressRing.Width` and `ProgressRing.Height` through common sizing, not special-case one-off logic.
+- [x] Keep unsupported events such as `Grid.SizeChanged` explicit until Phase 6 decides whether to model them or keep them diagnostic. Current state note: `Grid.SizeChanged` has already been modeled as a supported source-level event in the compiler/facade layer.
 
 Tests:
 
-- [ ] `MacXamlCompilerTests` compiles a `Grid` with `RowDefinitions`, `RowSpacing`, `Grid.Row`, and `Grid.ColumnSpan`.
-- [ ] `MacXamlCompilerTests` compiles a `Border` card with padding, brush, thickness, and max width.
-- [ ] `MacXamlCompilerTests` compiles a `ScrollViewer` with both horizontal and vertical scrollbar visibility.
-- [ ] `MacRuntimeTests` verifies the new layout/sizing properties appear in `tree.json` where visually relevant.
+- [x] `MacXamlCompilerTests` compiles a `Grid` with `RowDefinitions`, `RowSpacing`, `Grid.Row`, and `Grid.ColumnSpan`.
+- [x] `MacXamlCompilerTests` compiles a `Border` card with padding, brush, thickness, and max width.
+- [x] `MacXamlCompilerTests` compiles a `ScrollViewer` with both horizontal and vertical scrollbar visibility.
+- [x] `MacRuntimeTests` verifies the new layout/sizing properties appear in `tree.json` where visually relevant.
 
 Verification:
 
@@ -229,16 +229,16 @@ Expected result: high-volume layout diagnostics are removed without accepting un
 
 Purpose: compile production resource dictionaries as resource dictionaries, not as page/window roots requiring `x:Class`.
 
-- [ ] Teach `MacXamlCompiler` to accept standalone `ResourceDictionary` roots without `x:Class` when invoked in resource-dictionary mode or when the root is unambiguously a resource dictionary.
-- [ ] Preserve strict diagnostics for unsupported resource entries and property setters.
-- [ ] Add catalog entries or readiness notes for standalone resource dictionary ingestion.
-- [ ] Add tests for `Themes/Tokens.xaml`-style and `Themes/Components.xaml`-style resource dictionary inputs using clean-room fixture resources.
+- [x] Teach `MacXamlCompiler` to accept standalone `ResourceDictionary` roots without `x:Class` when invoked in resource-dictionary mode or when the root is unambiguously a resource dictionary.
+- [x] Preserve strict diagnostics for unsupported resource entries and property setters.
+- [x] Add catalog entries or readiness notes for standalone resource dictionary ingestion.
+- [x] Add tests for `Themes/Tokens.xaml`-style and `Themes/Components.xaml`-style resource dictionary inputs using clean-room fixture resources.
 
 Tests:
 
-- [ ] `MacXamlCompilerTests` compiles a root `ResourceDictionary` without `x:Class`.
-- [ ] `MacXamlCompilerTests` rejects unsupported resource child shapes with clear diagnostics.
-- [ ] `MacRuntimeTests` verifies `StaticResource` and `ThemeResource` lookup still reports missing resources deterministically.
+- [x] `MacXamlCompilerTests` compiles a root `ResourceDictionary` without `x:Class`.
+- [x] `MacXamlCompilerTests` rejects unsupported resource child shapes with clear diagnostics.
+- [x] `MacRuntimeTests` verifies `StaticResource` and `ThemeResource` lookup still reports missing resources deterministically.
 
 Verification:
 
@@ -258,18 +258,18 @@ Expected result: standalone theme dictionaries compile in the supported subset a
 
 Purpose: close login and multiline input blockers.
 
-- [ ] Add a `PasswordBox` facade with `Password`, placeholder/header metadata where needed, protected-text accessibility semantics, focus state, and a clear non-goal for real secure storage.
-- [ ] Add compiler support for the `PasswordBox` element and its supported properties.
-- [ ] Add `TextBlock.TextWrapping`, `TextBox.TextWrapping`, `TextBox.AcceptsReturn`, and `TextBox.MinHeight` support.
-- [ ] Add source-level renderer support for masked password content and multiline text box bounds.
-- [ ] Add public fixture rows for password default/focused/disabled/reveal-placeholder states without private labels or secrets.
+- [x] Add a `PasswordBox` facade with `Password`, placeholder/header metadata where needed, protected-text accessibility semantics, focus state, and a clear non-goal for real secure storage.
+- [x] Add compiler support for the `PasswordBox` element and its supported properties.
+- [x] Add `TextBlock.TextWrapping`, `TextBox.TextWrapping`, `TextBox.AcceptsReturn`, and `TextBox.MinHeight` support.
+- [x] Add source-level renderer support for masked password content and multiline text box bounds.
+- [x] Add public fixture rows for password default/focused/disabled/reveal-placeholder states without private labels or secrets.
 
 Tests:
 
-- [ ] `MacXamlCompilerTests` compiles a clean-room login panel with `PasswordBox`, wrapped helper text, and multiline `TextBox`.
-- [ ] `MacRuntimeTests` verifies protected password text is not exported as plaintext in `tree.json` or `accessibility.json`.
-- [ ] `MacRuntimeTests` verifies multiline text box metadata and wrapping state are exported.
-- [ ] Component evidence test keeps `PasswordBox` out of `not-rendered` only after visual and accessibility evidence exist.
+- [x] `MacXamlCompilerTests` compiles a clean-room login panel with `PasswordBox`, wrapped helper text, and multiline `TextBox`.
+- [x] `MacRuntimeTests` verifies protected password text is not exported as plaintext in `tree.json` or `accessibility.json`.
+- [x] `MacRuntimeTests` verifies multiline text box metadata and wrapping state are exported.
+- [x] Component evidence test keeps `PasswordBox` out of `not-rendered` only after visual and accessibility evidence exist.
 
 Verification:
 
@@ -289,18 +289,18 @@ Expected result: login/form source-level surfaces compile and password content r
 
 Purpose: close list/detail and Admin workbench blockers without claiming full template parity.
 
-- [ ] Add `ListView.SelectionMode`, `ListView.IsItemClickEnabled`, and `ListView.SelectionChanged` facade/compiler support.
-- [ ] Add deterministic `SelectionChanged` invocation when script-driven selection changes.
-- [ ] Add bounded `DataTemplate`, `ListView.ItemTemplate`, and `ItemsControl.ItemTemplate` support for simple text/control trees used by clean-room fixtures.
-- [ ] Keep unsupported template constructs explicit: bindings beyond the supported subset, converters, visual states, nested complex templates, virtualization, and control templates must still fail with actionable diagnostics.
-- [ ] Update `UiTree`, `AccessibilityTree`, and renderer output for template-generated list rows.
+- [x] Add `ListView.SelectionMode`, `ListView.IsItemClickEnabled`, and `ListView.SelectionChanged` facade/compiler support.
+- [x] Add deterministic `SelectionChanged` invocation when script-driven selection changes.
+- [x] Add bounded `DataTemplate`, `ListView.ItemTemplate`, and `ItemsControl.ItemTemplate` support for simple text/control trees used by clean-room fixtures.
+- [x] Keep unsupported template constructs explicit: bindings beyond the supported subset, converters, visual states, nested complex templates, virtualization, and control templates must still fail with actionable diagnostics.
+- [x] Update `UiTree`, `AccessibilityTree`, and renderer output for template-generated list rows.
 
 Tests:
 
-- [ ] `MacXamlCompilerTests` compiles a simple `ListView.ItemTemplate` with a text/control tree.
-- [ ] `MacXamlCompilerTests` rejects unsupported template constructs with `cataloged as planned` or precise unsupported diagnostics.
-- [ ] `MacRuntimeTests` verifies selecting a list item updates `SelectedItem`, raises `SelectionChanged`, and exports selected accessibility state.
-- [ ] `MacRuntimeTests` verifies `selectItem` or equivalent script actions produce before/after state.
+- [x] `MacXamlCompilerTests` compiles a simple `ListView.ItemTemplate` with a text/control tree.
+- [x] `MacXamlCompilerTests` rejects unsupported template constructs with `cataloged as planned` or precise unsupported diagnostics.
+- [x] `MacRuntimeTests` verifies selecting a list item updates `SelectedItem`, raises `SelectionChanged`, and exports selected accessibility state.
+- [x] `MacRuntimeTests` verifies `selectItem` or equivalent script actions produce before/after state.
 
 Verification:
 
@@ -320,16 +320,16 @@ Expected result: simple production-like list/detail screens are source-ingestabl
 
 Purpose: reconcile existing clean-room `CommandBar.Content` evidence with production XAML ingestion.
 
-- [ ] Add compiler support for `CommandBar.Content` property elements and `CommandBar.DefaultLabelPosition`.
-- [ ] Confirm `ControlsFacade.CommandBar.Content` is set by generated XAML, not treated as a primary command child.
-- [ ] Update `DataFacade`, `ElementQuery`, `UiTree`, `VisualLayoutEngine`, and `SkiaV2SnapshotRenderer` so command content is laid out before primary commands and exported distinctly.
-- [ ] Add tests using clean-room command/search content without committing private downstream labels or endpoint names.
+- [x] Add compiler support for `CommandBar.Content` property elements and `CommandBar.DefaultLabelPosition`.
+- [x] Confirm `ControlsFacade.CommandBar.Content` is set by generated XAML, not treated as a primary command child.
+- [x] Update `DataFacade`, `ElementQuery`, `UiTree`, `VisualLayoutEngine`, and `SkiaV2SnapshotRenderer` so command content is laid out before primary commands and exported distinctly.
+- [x] Add tests using clean-room command/search content without committing private downstream labels or endpoint names.
 
 Tests:
 
-- [ ] `MacXamlCompilerTests` compiles a `CommandBar` with `CommandBar.Content` and primary commands.
-- [ ] `MacRuntimeTests.VisualLayoutEnginePlacesCommandBarContentBeforePrimaryCommands` remains passing and is expanded for generated XAML.
-- [ ] Component evidence for command content stays `usable` only with visible crop evidence and documented gaps.
+- [x] `MacXamlCompilerTests` compiles a `CommandBar` with `CommandBar.Content` and primary commands.
+- [x] `MacRuntimeTests.VisualLayoutEnginePlacesCommandBarContentBeforePrimaryCommands` remains passing and is expanded for generated XAML.
+- [x] Component evidence for command content stays `usable` only with visible crop evidence and documented gaps.
 
 Verification:
 
@@ -349,17 +349,17 @@ Expected result: production command/search layout compiles as source-level XAML 
 
 Purpose: support the production status/progress properties that are safe, and explicitly decide unsupported lifecycle events.
 
-- [ ] Add `InfoBar.IsClosable` support and tree/accessibility export.
-- [ ] Ensure `ProgressRing` size properties flow through the common sizing implementation from Phase 1.
-- [ ] Decide `Grid.SizeChanged`: either model it as a no-op event with clear limitations or keep it as a documented unsupported lifecycle event.
-- [ ] If modeled, add handler hookup tests and make clear that real WinUI layout lifecycle timing is not claimed.
-- [ ] If not modeled, add an explicit catalog entry and downstream doc note so it is not mistaken for an uncataloged gap.
+- [x] Add `InfoBar.IsClosable` support and tree/accessibility export.
+- [x] Ensure `ProgressRing` size properties flow through the common sizing implementation from Phase 1.
+- [x] Decide `Grid.SizeChanged`: either model it as a no-op event with clear limitations or keep it as a documented unsupported lifecycle event. Current state: modeled as a supported source-level event hookup without a claim of real WinUI layout lifecycle timing.
+- [x] If modeled, add handler hookup tests and make clear that real WinUI layout lifecycle timing is not claimed.
+- [x] If not modeled, add an explicit catalog entry and downstream doc note so it is not mistaken for an uncataloged gap. Not applicable: `Grid.SizeChanged` is modeled as a bounded source-level event hookup.
 
 Tests:
 
-- [ ] `MacXamlCompilerTests` compiles `InfoBar IsClosable`.
-- [ ] `MacRuntimeTests` verifies status close affordance metadata appears in artifacts.
-- [ ] A dedicated test asserts the chosen `Grid.SizeChanged` behavior.
+- [x] `MacXamlCompilerTests` compiles `InfoBar IsClosable`.
+- [x] `MacRuntimeTests` verifies status close affordance metadata appears in artifacts.
+- [x] A dedicated test asserts the chosen `Grid.SizeChanged` behavior.
 
 Verification:
 
@@ -379,10 +379,10 @@ Expected result: status/progress source surfaces compile and the lifecycle bound
 
 Purpose: prove the runtime now covers the production XAML shape through app-owned probes without copying private app content into the runtime.
 
-- [ ] Expand downstream app-owned macOS runtime probes to cover sanitized route groups: login, read-surface shared page, messages multiline input, admin workbench list/detail, command/search region, and status/error/loading states.
-- [ ] Add scenario JSON for each route group with stable automation IDs and deterministic sample data.
-- [ ] Keep screenshots and screenshot-like artifacts out of the main runtime repository; use downstream/private QA evidence handling rules.
-- [ ] Add a downstream evidence doc update recording before/after diagnostic counts and remaining gaps.
+- [x] Expand downstream app-owned macOS runtime probes to cover sanitized route groups: login, read-surface shared page, messages multiline input, admin workbench list/detail, command/search region, and status/error/loading states.
+- [x] Add scenario JSON for each route group with stable automation IDs and deterministic sample data.
+- [x] Keep screenshots and screenshot-like artifacts out of the main runtime repository; use downstream/private QA evidence handling rules.
+- [x] Add a downstream evidence doc update recording before/after diagnostic counts and remaining gaps.
 
 Verification from monorepo root or downstream `apps/windows` as appropriate:
 
@@ -410,11 +410,11 @@ Expected result: downstream probe scope increases beyond shell-only while stayin
 
 Purpose: promote only completed surfaces and keep native-quality claims honest.
 
-- [ ] Update `docs/compatibility/matrix.md`, `docs/compatibility/component-support.md`, `docs/compatibility/production-component-targets.md`, and `docs/consumption/downstream-windows-apps.md`.
-- [ ] Regenerate catalog audit, component dashboard, state coverage matrix, native-quality family tranches, and visual review index as needed.
-- [ ] Run strict scenario sweep and public product evidence.
-- [ ] Keep native-quality family tranches blocked unless inspected native-quality evidence exists.
-- [ ] Document remaining gaps with exact diagnostics, not broad "unsupported" language.
+- [x] Update `docs/compatibility/matrix.md`, `docs/compatibility/component-support.md`, `docs/compatibility/production-component-targets.md`, and `docs/consumption/downstream-windows-apps.md`.
+- [x] Regenerate catalog audit, component dashboard, state coverage matrix, native-quality family tranches, and visual review index as needed.
+- [x] Run strict scenario sweep and public product evidence.
+- [x] Keep native-quality family tranches blocked unless inspected native-quality evidence exists.
+- [x] Document remaining gaps with exact diagnostics, not broad "unsupported" language.
 
 Verification:
 
