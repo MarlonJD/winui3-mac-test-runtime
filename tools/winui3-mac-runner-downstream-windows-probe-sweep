@@ -164,6 +164,58 @@ reference_viewport() {
   fi
 }
 
+# Command, status, and form routes are graded against the tighter focused L5 bar;
+# broad shell/list/detail app routes use the broad L5 bar.
+scenario_focus() {
+  case "$1" in
+    login-light.json|status-states-light.json|command-search-light.json|settings-profile-light.json)
+      echo "true"
+      ;;
+    *)
+      echo "false"
+      ;;
+  esac
+}
+
+# Sanitized expected route/selection anchor used to surface route-content and
+# navigation-selection differences. The full route-selection audit lands in a
+# later phase; this keeps the per-scenario data visible now.
+route_anchor_label() {
+  case "$1" in
+    login-light.json) echo "Login" ;;
+    shell-staff-light.json) echo "Home" ;;
+    messages-multiline-light.json) echo "Messages" ;;
+    admin-dashboard-light.json) echo "Admin" ;;
+    admin-workbench-light.json) echo "Admin" ;;
+    command-search-light.json) echo "Admin" ;;
+    status-states-light.json) echo "Status" ;;
+    settings-profile-light.json) echo "Settings" ;;
+    *) echo "" ;;
+  esac
+}
+
+# Classify one comparison result against the documented L0..L5 threshold ladder.
+# Mirrors DownstreamNativeVisualParityAudit.ClassifyLadder so the shell sweep and
+# the C# audit stay in agreement. Returns the highest ladder level whose
+# whole-image changed-pixel, MAE, and RMSE bars are all satisfied.
+classify_ladder() {
+  local changed="$1" mae="$2" rmse="$3" focused="$4"
+  if [[ -z "$changed" || -z "$mae" || -z "$rmse" ]]; then
+    echo "not-compared"
+    return
+  fi
+  awk -v c="$changed" -v m="$mae" -v r="$rmse" -v f="$focused" 'BEGIN {
+    if (f == "true") {
+      if (c <= 24 && m <= 5.5 && r <= 20) { print "L5"; exit }
+    } else if (c <= 35 && m <= 6.5 && r <= 24) { print "L5"; exit }
+    if (c <= 45 && m <= 8 && r <= 28) { print "L4"; exit }
+    if (c <= 55 && m <= 8 && r <= 28) { print "L3"; exit }
+    if (c <= 70 && m <= 10 && r <= 32) { print "L2"; exit }
+    if (c <= 90 && m <= 12 && r <= 36) { print "L1"; exit }
+    print "L0";
+  }'
+}
+
 mkdir -p "$output"
 summary_json="$output/summary.json"
 summary_md="$output/summary.md"
@@ -210,6 +262,12 @@ image_integrity_missing=0
 image_integrity_warning_count=0
 low_content_warning_threshold=2
 image_size_warning_count=0
+evidence_format_warning_count=0
+route_selection_warning_count=0
+worst_changed_pixels=0
+worst_mae=0
+worst_rmse=0
+native_metric_rows=""
 started_at="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
 
 for scenario in "${scenarios[@]}"; do
@@ -329,6 +387,82 @@ for scenario in "${scenarios[@]}"; do
       native_comparison_skipped=$((native_comparison_skipped + 1))
       ;;
   esac
+
+  # Native comparison metrics: parse the per-scenario pixel-diff.json so the rollup is
+  # reviewable without opening the private PNG triplets, and classify each scenario
+  # against the L0..L5 ladder used by the threshold ratchet.
+  comparison_changed_pixels=""
+  comparison_mae=""
+  comparison_rmse=""
+  comparison_max_delta=""
+  comparison_ladder="not-compared"
+  # Only parse metrics from a real comparison. A skipped pixel-diff.json (no Windows
+  # reference) carries only a thresholds block, so naive parsing would misreport the
+  # threshold values as actual metrics. The actual metric fields exist outside the
+  # thresholds object only when status is passed or failed.
+  if [[ -f "$pixel_diff_path" && ( "$comparison_status" == "passed" || "$comparison_status" == "failed" ) ]]; then
+    comparison_changed_pixels="$(grep -m1 '"changedPixelPercentage":' "$pixel_diff_path" | sed -n 's/.*"changedPixelPercentage": \([0-9.]*\).*/\1/p')"
+    comparison_mae="$(grep -m1 '"meanAbsoluteError":' "$pixel_diff_path" | sed -n 's/.*"meanAbsoluteError": \([0-9.]*\).*/\1/p')"
+    comparison_rmse="$(grep -m1 '"rootMeanSquaredError":' "$pixel_diff_path" | sed -n 's/.*"rootMeanSquaredError": \([0-9.]*\).*/\1/p')"
+    comparison_max_delta="$(grep -m1 '"maxChannelDelta":' "$pixel_diff_path" | sed -n 's/.*"maxChannelDelta": \([0-9]*\).*/\1/p')"
+    comparison_ladder="$(classify_ladder "$comparison_changed_pixels" "$comparison_mae" "$comparison_rmse" "$(scenario_focus "$scenario")")"
+    if [[ -n "$comparison_changed_pixels" ]]; then
+      awk "BEGIN { exit !($comparison_changed_pixels > $worst_changed_pixels) }" && worst_changed_pixels="$comparison_changed_pixels"
+    fi
+    if [[ -n "$comparison_mae" ]]; then
+      awk "BEGIN { exit !($comparison_mae > $worst_mae) }" && worst_mae="$comparison_mae"
+    fi
+    if [[ -n "$comparison_rmse" ]]; then
+      awk "BEGIN { exit !($comparison_rmse > $worst_rmse) }" && worst_rmse="$comparison_rmse"
+    fi
+    if [[ -n "$native_metric_rows" ]]; then
+      native_metric_rows="$native_metric_rows,"
+    fi
+    native_metric_rows="$native_metric_rows{\"scenario\":\"$scenario\",\"changedPixelPercentage\":${comparison_changed_pixels:-null},\"meanAbsoluteError\":${comparison_mae:-null},\"rootMeanSquaredError\":${comparison_rmse:-null},\"maxChannelDelta\":${comparison_max_delta:-null},\"ladderLevel\":\"$comparison_ladder\"}"
+  fi
+
+  # Evidence must remain PNG. Reference, macOS runtime, and pixel-diff comparison inputs
+  # are pixel-diff evidence only as PNG; legacy flat .jpg/.jpeg page captures are
+  # review-only and must never be consumed as a pixel-diff reference.
+  evidence_format_warning="none"
+  if [[ -n "$scenario_reference" ]]; then
+    reference_extension_lower="$(printf '%s' "${scenario_reference##*.}" | tr '[:upper:]' '[:lower:]')"
+    if [[ "$reference_extension_lower" == "jpg" || "$reference_extension_lower" == "jpeg" ]]; then
+      evidence_format_warning="non-png-reference"
+    fi
+  fi
+  if [[ "$evidence_format_warning" == "none" && -f "$pixel_diff_path" && ! -f "$scenario_output/visual/mac-runtime.png" ]]; then
+    evidence_format_warning="missing-png-runtime"
+  fi
+  if [[ "$evidence_format_warning" != "none" ]]; then
+    evidence_format_warning_count=$((evidence_format_warning_count + 1))
+  fi
+
+  # Route/selection: surface route content and navigation-selection state from tree.json
+  # so route or selected-rail differences against the Windows reference are auditable.
+  expected_route_anchor="$(route_anchor_label "$scenario")"
+  selected_navigation_item=""
+  route_content_warning="none"
+  selection_state_warning="none"
+  tree_path="$scenario_output/tree.json"
+  if [[ -f "$tree_path" ]]; then
+    if grep -q '"menuItemCount"' "$tree_path"; then
+      selected_navigation_item="$(sed -n 's/.*"selectedItem": "\([^"]*\)".*/\1/p' "$tree_path" | head -1)"
+      # When a route owns a navigation selection, the selected rail item should match the
+      # route's expected anchor. A mismatch is the route/selection fidelity signal the
+      # later route-selection audit reconciles against the Windows reference. An empty
+      # selection (for example the signed-out login route) is not flagged here.
+      if [[ -n "$expected_route_anchor" && -n "$selected_navigation_item" ]] \
+        && ! printf '%s' "$selected_navigation_item" | grep -qi "$expected_route_anchor"; then
+        selection_state_warning="selected navigation item '$selected_navigation_item' does not match expected route anchor '$expected_route_anchor'"
+      fi
+    fi
+  else
+    route_content_warning="tree.json missing"
+  fi
+  if [[ "$route_content_warning" != "none" || "$selection_state_warning" != "none" ]]; then
+    route_selection_warning_count=$((route_selection_warning_count + 1))
+  fi
 
   reference_problem=""
   if [[ -n "$scenario_reference" && ! -f "$pixel_diff_path" ]]; then
@@ -534,7 +668,7 @@ for scenario in "${scenarios[@]}"; do
   fi
 
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"windowsScreenshotSummary":{"status":"$windows_screenshot_status","source":"$windows_screenshot_source","screenshot":"$windows_screenshot_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","reference":"$scenario_reference","windowsReference":"$scenario_output/visual/windows-reference.png","macRuntime":"$scenario_output/visual/mac-runtime.png","pixelDiffImage":"$scenario_output/visual/pixel-diff.png","pixelDiff":"$scenario_output/visual/pixel-diff.json"}}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"windowsScreenshotSummary":{"status":"$windows_screenshot_status","source":"$windows_screenshot_source","screenshot":"$windows_screenshot_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","changedPixelPercentage":${comparison_changed_pixels:-null},"meanAbsoluteError":${comparison_mae:-null},"rootMeanSquaredError":${comparison_rmse:-null},"maxChannelDelta":${comparison_max_delta:-null},"ladderLevel":"$comparison_ladder","reference":"$scenario_reference","windowsReference":"$scenario_output/visual/windows-reference.png","macRuntime":"$scenario_output/visual/mac-runtime.png","pixelDiffImage":"$scenario_output/visual/pixel-diff.png","pixelDiff":"$scenario_output/visual/pixel-diff.json"},"evidenceFormat":{"policy":"png-only","warning":"$evidence_format_warning"},"routeSelection":{"expectedRouteAnchor":"$expected_route_anchor","selectedNavigationItem":"$selected_navigation_item","routeContentWarning":"$route_content_warning","selectionStateWarning":"$selection_state_warning"}}
 ENTRY
   cat >> "$tmp_groups" <<ENTRY
 {"group":"$coverage_group","surface":"$coverage_surface","scenario":"$scenario","status":"$status","screenshot":"$scenario_output/visual/mac-runtime.png"}
@@ -619,6 +753,8 @@ fi
   echo "    \"interactionFailed\": $interaction_failed,"
   echo "    \"interactionMissing\": $interaction_missing,"
   echo "    \"routeAnchorWarnings\": $route_anchor_warning_count,"
+  echo "    \"routeSelectionWarnings\": $route_selection_warning_count,"
+  echo "    \"evidenceFormatWarnings\": $evidence_format_warning_count,"
   echo "    \"artifactPassed\": $artifact_passed,"
   echo "    \"artifactFailed\": $artifact_failed,"
   echo "    \"artifactMissing\": $artifact_missing_total,"
@@ -647,6 +783,13 @@ fi
   echo "    \"passed\": $native_comparison_passed,"
   echo "    \"failed\": $native_comparison_failed,"
   echo "    \"skipped\": $native_comparison_skipped,"
+  echo "    \"metricRollup\": {"
+  echo "      \"label\": \"Native comparison metrics (lower is better)\","
+  echo "      \"worstChangedPixelPercentage\": $worst_changed_pixels,"
+  echo "      \"worstMeanAbsoluteError\": $worst_mae,"
+  echo "      \"worstRootMeanSquaredError\": $worst_rmse,"
+  echo "      \"scenarios\": [$native_metric_rows]"
+  echo "    },"
   echo "    \"interpretation\": \"$native_comparison_interpretation\""
   echo "  },"
   echo "  \"coverageComplete\": $coverage_complete,"
@@ -700,6 +843,9 @@ fi
   echo "- missing references: $missing_reference_count"
   echo "- native comparison: $native_comparison_status ($native_comparison_reason)"
   echo "- native comparison required: $require_native_comparison"
+  echo "- Native comparison metrics (worst, lower is better): changed $worst_changed_pixels%, MAE $worst_mae, RMSE $worst_rmse"
+  echo "- Route/selection warnings: $route_selection_warning_count"
+  echo "- evidence format warnings: $evidence_format_warning_count (Evidence must remain PNG; only PNG inputs are pixel-diff evidence)"
   echo "- coverage complete: $coverage_complete"
   echo "- missing scenario groups: $missing_scenario_group_count"
   echo

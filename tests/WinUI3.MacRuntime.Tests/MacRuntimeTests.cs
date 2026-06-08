@@ -568,6 +568,152 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamNativeVisualParityAuditTracksEightScenarioBaseline()
+    {
+        var audit = DownstreamNativeVisualParityAudit.Load(
+            RepositoryPath("docs/visual-parity/downstream-native-visual-parity-audit.json"));
+
+        Assert.AreEqual("2026-06-08", audit.AuditDate);
+        Assert.AreEqual("2026-06-06", audit.ReferenceCaptureDate);
+        Assert.AreEqual("png", audit.EvidenceFormat);
+        Assert.AreEqual(960, audit.Viewport.Width);
+        Assert.AreEqual(640, audit.Viewport.Height);
+
+        var expectedOrder = new[]
+        {
+            "login-light",
+            "status-states-light",
+            "messages-multiline-light",
+            "shell-staff-light",
+            "admin-dashboard-light",
+            "admin-workbench-light",
+            "command-search-light",
+            "settings-profile-light"
+        };
+        CollectionAssert.AreEqual(
+            expectedOrder,
+            audit.Scenarios.OrderBy(scenario => scenario.Priority).Select(scenario => scenario.Scenario).ToArray());
+
+        foreach (var scenario in audit.Scenarios)
+        {
+            Assert.AreEqual(960, scenario.Width, scenario.Scenario);
+            Assert.AreEqual(640, scenario.Height, scenario.Scenario);
+            Assert.AreEqual("failed", scenario.Baseline.ThresholdStatus, scenario.Scenario);
+            Assert.AreEqual("L0", scenario.Baseline.LadderLevel, scenario.Scenario);
+            Assert.AreEqual("passed", scenario.Baseline.ArtifactStatus, scenario.Scenario);
+            Assert.AreEqual("passed", scenario.Baseline.FontProvenanceStatus, scenario.Scenario);
+            Assert.AreEqual("passed", scenario.Baseline.ImageIntegrityStatus, scenario.Scenario);
+        }
+
+        var login = audit.Scenarios.Single(scenario => scenario.Scenario == "login-light");
+        Assert.AreEqual(1, login.Priority);
+        AssertMetricClose(97.911133d, login.Baseline.ChangedPixelPercentage);
+        AssertMetricClose(7.169520d, login.Baseline.MeanAbsoluteError);
+        AssertMetricClose(21.312369d, login.Baseline.RootMeanSquaredError);
+
+        var dashboard = audit.Scenarios.Single(scenario => scenario.Scenario == "admin-dashboard-light");
+        AssertMetricClose(8.055549d, dashboard.Baseline.MeanAbsoluteError);
+        AssertMetricClose(27.656882d, dashboard.Baseline.RootMeanSquaredError);
+
+        // The whole audit must stay sanitized and environment-agnostic: no private home paths and
+        // no machine-specific absolute evidence paths leak into the checked-in manifest.
+        var serialized = JsonSerializer.Serialize(audit, JsonDefaults.Options);
+        Assert.IsFalse(serialized.Contains("/Users/", StringComparison.Ordinal));
+        Assert.IsFalse(serialized.Contains("/private/tmp", StringComparison.Ordinal));
+
+        CollectionAssert.AreEquivalent(
+            new[] { "L0", "L1", "L2", "L3", "L4", "L5" },
+            audit.ThresholdLadder.Select(level => level.Ladder).ToArray());
+
+        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Layout"));
+        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Typography"));
+        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Control chrome"));
+
+        // The ladder classifier is the reusable engine the Phase 7 ratchet depends on.
+        Assert.AreEqual(
+            "L0",
+            DownstreamNativeVisualParityAudit.ClassifyLadder(97.911133d, 7.169520d, 21.312369d));
+        Assert.AreEqual("L1", DownstreamNativeVisualParityAudit.ClassifyLadder(88d, 11d, 35d));
+        Assert.AreEqual("L2", DownstreamNativeVisualParityAudit.ClassifyLadder(68d, 9d, 31d));
+        Assert.AreEqual("L4", DownstreamNativeVisualParityAudit.ClassifyLadder(40d, 7d, 27d));
+        // Broad app-route L5 thresholds (<=35 / <=6.5 / <=24).
+        Assert.AreEqual("L5", DownstreamNativeVisualParityAudit.ClassifyLadder(30d, 6d, 23d));
+        // The same metrics judged against the tighter focused L5 thresholds (<=24 / <=5.5 / <=20)
+        // only reach L4, because 30% changed exceeds the focused 24% bar.
+        Assert.AreEqual(
+            "L4",
+            DownstreamNativeVisualParityAudit.ClassifyLadder(30d, 6d, 23d, focused: true));
+        // A genuinely tight focused result still reaches L5 under focused thresholds.
+        Assert.AreEqual(
+            "L5",
+            DownstreamNativeVisualParityAudit.ClassifyLadder(22d, 5d, 19d, focused: true));
+
+        // The same engine regenerates scenario rows from freshly parsed pixel-diff metrics.
+        var rollup = DownstreamNativeVisualParityAudit.RollupFromProbeMetrics(new[]
+        {
+            new DownstreamNativeParityProbeMetric(
+                "login-light", 1, "Login route and credential form", 960, 640,
+                40d, 7d, 27d, "failed", "Changed pixels exceeds 45%.",
+                "passed", "passed", "passed", "Signed-out login", new[] { "centering" })
+        });
+        Assert.HasCount(1, rollup);
+        Assert.AreEqual("L4", rollup[0].Baseline.LadderLevel);
+        Assert.AreEqual(960, rollup[0].Width);
+    }
+
+    [TestMethod]
+    public void DownstreamProbeSweepPublishesNativeComparisonMetricRollup()
+    {
+        var script = File.ReadAllText(RepositoryPath("tools/winui3-mac-runner-downstream-windows-probe-sweep"));
+
+        // Per-scenario pixel metrics must be parsed out of pixel-diff.json...
+        StringAssert.Contains(script, "changedPixelPercentage");
+        StringAssert.Contains(script, "meanAbsoluteError");
+        StringAssert.Contains(script, "rootMeanSquaredError");
+        StringAssert.Contains(script, "maxChannelDelta");
+        StringAssert.Contains(script, "ladderLevel");
+        // ...and rolled up into the summary nativeComparison block for review without private PNGs.
+        StringAssert.Contains(script, "metricRollup");
+        StringAssert.Contains(script, "worstChangedPixelPercentage");
+        StringAssert.Contains(script, "Native comparison metrics");
+    }
+
+    [TestMethod]
+    public void DownstreamProbeSweepKeepsEvidencePngOnly()
+    {
+        var script = File.ReadAllText(RepositoryPath("tools/winui3-mac-runner-downstream-windows-probe-sweep"));
+
+        StringAssert.Contains(script, "evidenceFormat");
+        StringAssert.Contains(script, "png-only");
+        StringAssert.Contains(script, "Evidence must remain PNG");
+        // The PNG-only guard must inspect the actual comparison inputs and reject JPG references.
+        StringAssert.Contains(script, ".jpg");
+        StringAssert.Contains(script, ".jpeg");
+        StringAssert.Contains(script, "evidence_format_warning");
+        StringAssert.Contains(script, "evidenceFormatWarnings");
+    }
+
+    [TestMethod]
+    public void DownstreamProbeSweepReportsRouteContentAndSelectionWarnings()
+    {
+        var script = File.ReadAllText(RepositoryPath("tools/winui3-mac-runner-downstream-windows-probe-sweep"));
+
+        StringAssert.Contains(script, "routeContentWarning");
+        StringAssert.Contains(script, "selectionStateWarning");
+        StringAssert.Contains(script, "routeSelectionWarnings");
+        StringAssert.Contains(script, "expected_route_anchor");
+        StringAssert.Contains(script, "selectedNavigationItem");
+        StringAssert.Contains(script, "Route/selection");
+    }
+
+    private static void AssertMetricClose(double expected, double actual)
+    {
+        Assert.IsTrue(
+            Math.Abs(expected - actual) < 0.0001d,
+            $"Expected {expected} but got {actual}.");
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineTreatsAutoSuggestBoxAsSupportedVisualSurface()
     {
         var tree = new UiTreeDocument(

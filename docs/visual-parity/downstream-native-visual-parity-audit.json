@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "0.1",
+  "auditDate": "2026-06-08",
+  "referenceCaptureDate": "2026-06-06",
+  "referenceProvenance": "downstream Windows onscreen-client WinUI probe screenshots (private QA evidence)",
+  "evidenceFormat": "png",
+  "evidenceBoundary": "Real Windows reference PNGs, macOS runtime PNGs, and pixel-diff PNGs/JSON stay in the private QA evidence location and are never committed to the runtime repository. This manifest carries only sanitized scenario names and metrics.",
+  "viewport": {
+    "width": 960,
+    "height": 640
+  },
+  "maxChannelDeltaPolicy": "maxChannelDelta stays diagnostic at 255; one high-contrast glyph edge can hit 255 even when the route is visually close.",
+  "scenarios": [
+    {
+      "scenario": "login-light",
+      "priority": 1,
+      "route": "Login route and credential form",
+      "width": 960,
+      "height": 640,
+      "baseline": {
+        "changedPixelPercentage": 97.911133,
+        "meanAbsoluteError": 7.16952,
+        "rootMeanSquaredError": 21.312369,
+        "thresholdStatus": "failed",
+        "thresholdFailure": "Changed pixels exceeds 45%.",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L0"
+      },
+      "routeSelectionState": "Signed-out login route; no navigation rail selection to reconcile.",
+      "mainVisualGaps": [
+        "Login stack anchored top-left instead of centered narrow WinUI column.",
+        "Input fields and button too wide; PasswordBox mask density differs.",
+        "TextBox focus underline and clear affordance differ; progress bar width differs."
+      ]
+    },
+    {
+      "scenario": "status-states-light",
+      "priority": 2,
+      "route": "Status/loading/error states",
+      "width": 960,
+      "height": 640,
+      "baseline": {
+        "changedPixelPercentage": 99.999023,
+        "meanAbsoluteError": 7.558422,
+        "rootMeanSquaredError": 23.599508,
+        "thresholdStatus": "failed",
+        "thresholdFailure": "Changed pixels exceeds 45%.",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L0"
+      },
+      "routeSelectionState": "Status route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "mainVisualGaps": [
+        "InfoBar severity surfaces, close button, and icon fill differ.",
+        "Title/message baselines differ.",
+        "Progress bar width and ring placement differ."
+      ]
+    },
+    {
+      "scenario": "messages-multiline-light",
+      "priority": 3,
+      "route": "Messages multiline input route",
+      "width": 960,
+      "height": 640,
+      "baseline": {
+        "changedPixelPercentage": 99.997721,
+        "meanAbsoluteError": 6.792517,
+        "rootMeanSquaredError": 25.316643,
+        "thresholdStatus": "failed",
+        "thresholdFailure": "Changed pixels exceeds 45%.",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L0"
+      },
+      "routeSelectionState": "Messages route selected in rail.",
+      "mainVisualGaps": [
+        "Conversation list and detail panes boxed and wider; selected row chrome differs.",
+        "Multiline TextBox height, inner padding, and bottom alignment differ; send button width differs.",
+        "InfoBar inside detail uses Mac strip chrome instead of filled severity surface."
+      ]
+    },
+    {
+      "scenario": "shell-staff-light",
+      "priority": 4,
+      "route": "Home/read surface shell",
+      "width": 960,
+      "height": 640,
+      "baseline": {
+        "changedPixelPercentage": 99.999349,
+        "meanAbsoluteError": 7.085251,
+        "rootMeanSquaredError": 26.113236,
+        "thresholdStatus": "failed",
+        "thresholdFailure": "Changed pixels exceeds 45%.",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L0"
+      },
+      "routeSelectionState": "Home route selected in rail.",
+      "mainVisualGaps": [
+        "NavigationView selected state, icon weight, and pane background differ.",
+        "List/detail carding, selected row fill, and detail border differ.",
+        "Progress bar width and page alignment differ."
+      ]
+    },
+    {
+      "scenario": "admin-dashboard-light",
+      "priority": 5,
+      "route": "Admin dashboard summary route",
+      "width": 960,
+      "height": 640,
+      "baseline": {
+        "changedPixelPercentage": 99.998698,
+        "meanAbsoluteError": 8.055549,
+        "rootMeanSquaredError": 27.656882,
+        "thresholdStatus": "failed",
+        "thresholdFailure": "Changed pixels exceeds 45%.",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L0"
+      },
+      "routeSelectionState": "Admin route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "mainVisualGaps": [
+        "Native success InfoBar is a filled green band while Mac uses bordered strip chrome.",
+        "List/detail carding and selected row differ.",
+        "Action button density and widths differ."
+      ]
+    },
+    {
+      "scenario": "admin-workbench-light",
+      "priority": 6,
+      "route": "Admin workbench list/detail route",
+      "width": 960,
+      "height": 640,
+      "baseline": {
+        "changedPixelPercentage": 99.107585,
+        "meanAbsoluteError": 5.898421,
+        "rootMeanSquaredError": 21.813655,
+        "thresholdStatus": "failed",
+        "thresholdFailure": "Changed pixels exceeds 45%.",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L0"
+      },
+      "routeSelectionState": "Admin workbench route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "mainVisualGaps": [
+        "Search field focus, clear/search glyphs, and command label/icon behavior differ.",
+        "List/detail cards and status InfoBar severity fill differ.",
+        "Command actions render icon-only instead of native label/chrome."
+      ]
+    },
+    {
+      "scenario": "command-search-light",
+      "priority": 7,
+      "route": "Command/search region",
+      "width": 960,
+      "height": 640,
+      "baseline": {
+        "changedPixelPercentage": 99.107585,
+        "meanAbsoluteError": 5.898421,
+        "rootMeanSquaredError": 21.813655,
+        "thresholdStatus": "failed",
+        "thresholdFailure": "Changed pixels exceeds 45%.",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L0"
+      },
+      "routeSelectionState": "Workbench command/search frame; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "mainVisualGaps": [
+        "Search lacks the native focused underline and trailing clear/search glyph pattern.",
+        "Command actions render as icon-only instead of native label/chrome.",
+        "Same visual frame as workbench with simplified chrome."
+      ]
+    },
+    {
+      "scenario": "settings-profile-light",
+      "priority": 8,
+      "route": "Settings/profile form route",
+      "width": 960,
+      "height": 640,
+      "baseline": {
+        "changedPixelPercentage": 98.819987,
+        "meanAbsoluteError": 5.835193,
+        "rootMeanSquaredError": 22.975264,
+        "thresholdStatus": "failed",
+        "thresholdFailure": "Changed pixels exceeds 45%.",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L0"
+      },
+      "routeSelectionState": "Settings route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "mainVisualGaps": [
+        "Settings form card radius and stroke differ.",
+        "Input widths, focus underline, clear icon, and field vertical rhythm differ.",
+        "Button natural width differs."
+      ]
+    }
+  ],
+  "sharedGaps": [
+    {
+      "category": "Layout",
+      "gap": "Mac content tends to start at the top-left or uses larger pane/card extents while Windows content is narrower, centered, or aligned to WinUI page columns.",
+      "evidence": "login-light, shell/list/detail routes, settings."
+    },
+    {
+      "category": "Typography",
+      "gap": "Text is present and usually legible, but vertical rhythm, line baselines, weight, and compact caption/body spacing differ.",
+      "evidence": "All eight scenarios."
+    },
+    {
+      "category": "Control chrome",
+      "gap": "TextBox, PasswordBox, Button, CheckBox, InfoBar, ProgressBar, ProgressRing, NavigationViewItem, ListView, and AppBarButton use approximate chrome.",
+      "evidence": "All scenarios, strongest in login and status states."
+    },
+    {
+      "category": "Density and spacing",
+      "gap": "Mac rows, cards, text inputs, and buttons often occupy more vertical or horizontal space than Windows.",
+      "evidence": "Login, messages, admin, settings."
+    },
+    {
+      "category": "Color/theme",
+      "gap": "Accent and severity colors are present, but selection fills, InfoBar severity backgrounds, disabled tracks, pane backgrounds, and subtle surfaces differ.",
+      "evidence": "Shell routes, admin, status."
+    },
+    {
+      "category": "Borders/elevation",
+      "gap": "Mac adds rounded card borders around list/detail regions where Windows often uses flatter pane separation or a single detail border.",
+      "evidence": "Shell, messages, admin dashboard, workbench, settings."
+    },
+    {
+      "category": "List/detail rendering",
+      "gap": "Mac boxes the list/detail panes, uses stronger selected-row blue, and draws separators differently.",
+      "evidence": "Shell, messages, admin dashboard, workbench."
+    },
+    {
+      "category": "Text input rendering",
+      "gap": "Focus underline, clear button, search glyph placement, password masking density, caret/selection, and natural field width differ.",
+      "evidence": "Login, messages, command/search, settings."
+    },
+    {
+      "category": "Command/search rendering",
+      "gap": "Mac search lacks the native focused underline and trailing clear/search glyph pattern, and command actions render as icon-only instead of native label/chrome.",
+      "evidence": "Admin workbench and command-search."
+    },
+    {
+      "category": "Status/progress rendering",
+      "gap": "Mac InfoBars use vertical strips and bordered white surfaces; Windows fills severity surfaces and shows close affordance. Progress placement and sizing differ.",
+      "evidence": "Status states and admin status surfaces."
+    },
+    {
+      "category": "Route/content fidelity",
+      "gap": "Some route screenshots show different rail selection state between Windows and Mac, especially Admin, Workbench, Status, Profile, and Settings routes.",
+      "evidence": "Admin dashboard, workbench, command-search, status, settings."
+    }
+  ],
+  "thresholdLadder": [
+    {
+      "ladder": "L0",
+      "purpose": "Baseline: current failing evidence is complete and reviewable.",
+      "changedPixels": "document actual values",
+      "mae": "document actual values",
+      "rmse": "document actual values",
+      "manualGate": "Audit triplets and categorize gaps."
+    },
+    {
+      "ladder": "L1",
+      "purpose": "Coarse route alignment: remove top-left/full-width/page-frame drift.",
+      "changedPixels": "<= 90%",
+      "mae": "<= 12",
+      "rmse": "<= 36",
+      "manualGate": "Content appears in the same route regions; no missing major surface."
+    },
+    {
+      "ladder": "L2",
+      "purpose": "Layout and density parity: align page columns, list/detail widths, row heights, and form natural sizing.",
+      "changedPixels": "<= 70%",
+      "mae": "<= 10",
+      "rmse": "<= 32",
+      "manualGate": "Major controls occupy comparable bounds."
+    },
+    {
+      "ladder": "L3",
+      "purpose": "Control-family parity: match core chrome for forms, buttons, list rows, status, progress, and navigation.",
+      "changedPixels": "<= 55%",
+      "mae": "<= 8",
+      "rmse": "<= 28",
+      "manualGate": "Native-visible chrome differences are minor, not structural."
+    },
+    {
+      "ladder": "L4",
+      "purpose": "Conservative native-comparison pass: pass the existing downstream comparison contract.",
+      "changedPixels": "<= 45%",
+      "mae": "<= 8",
+      "rmse": "<= 28",
+      "manualGate": "All eight scenarios pass --require-native-comparison."
+    },
+    {
+      "ladder": "L5",
+      "purpose": "Premium production promotion: promote only after public component crops and private route screenshots agree.",
+      "changedPixels": "<= 35% for app routes; <= 24% for focused command/status/form routes when achievable",
+      "mae": "<= 6.5 broad; <= 5.5 focused",
+      "rmse": "<= 24 broad; <= 20 focused",
+      "manualGate": "Manual review signs off no route/content mismatch, no missing affordance, no misleading status, no text overlap."
+    }
+  ],
+  "manualInspectionCriteria": [
+    "Wrong route content or wrong selected navigation state versus native reference.",
+    "Missing user-visible control, status, command, close affordance, glyph, or label.",
+    "Text overlap, clipped critical text, leaked password content, or unreadable line height.",
+    "Control chrome communicates a different state than Windows, especially selected, focused, disabled, error, warning, success, loading, or checked.",
+    "Screenshot was generated without real Windows PNG provenance or with non-PNG replacement evidence.",
+    "Improvement comes only from loosening thresholds or hiding unsupported diagnostics."
+  ]
+}
