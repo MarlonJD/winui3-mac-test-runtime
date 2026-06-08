@@ -861,6 +861,84 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void VisualLayoutEngineCentersConstrainedLoginPanel()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "LoginPanel",
+                        new Dictionary<string, object?>
+                        {
+                            ["maxWidth"] = 520d,
+                            ["horizontalAlignment"] = "Center",
+                            ["padding"] = "32",
+                            ["visibility"] = "Visible"
+                        },
+                        Array.Empty<UiNode>())
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "centered-login", "skia-v2", new VisualViewport(1044, 720), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var loginPanel = arranged.Root.Children.Single();
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual(520d, loginPanel.Layout.Width);
+        Assert.AreEqual(262d, loginPanel.Layout.X);
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineUsesNaturalButtonWidthInsteadOfStretchWhenAlignmentIsLeft()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "LoginGrid",
+                        new Dictionary<string, object?> { ["visibility"] = "Visible" },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.Button",
+                                "SignInButton",
+                                new Dictionary<string, object?>
+                                {
+                                    ["content"] = "Sign in",
+                                    ["horizontalAlignment"] = "Left",
+                                    ["visibility"] = "Visible"
+                                },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "natural-button", "skia-v2", new VisualViewport(360, 120), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var button = arranged.Root.Children.Single().Children.Single();
+
+        Assert.HasCount(0, unsupported);
+        Assert.IsLessThan(140d, button.Layout.Width);
+        Assert.AreEqual(0d, button.Layout.X);
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineLetsAutoGridRowsFitPasswordBoxHeader()
     {
         var tree = new UiTreeDocument(

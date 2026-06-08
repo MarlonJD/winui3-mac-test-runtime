@@ -652,9 +652,20 @@ public static class VisualLayoutEngine
 
     private static LayoutRect ApplyLayoutConstraints(UiNode node, LayoutRect rect)
     {
-        var width = ApplyWidthConstraints(node, rect.Width, rect.Width);
+        var horizontalAlignment = ReadString(node, "horizontalAlignment") ?? "Stretch";
+        var naturalWidth = string.Equals(horizontalAlignment, "Stretch", StringComparison.OrdinalIgnoreCase)
+            ? rect.Width
+            : EstimateWidth(node, rect.Width);
+        var width = ApplyWidthConstraints(node, rect.Width, naturalWidth);
         var height = ApplyHeightConstraints(node, rect.Height, rect.Height);
-        return rect with { Width = width, Height = height };
+        var x = horizontalAlignment switch
+        {
+            var value when string.Equals(value, "Center", StringComparison.OrdinalIgnoreCase) => rect.X + Math.Max(0, (rect.Width - width) / 2),
+            var value when string.Equals(value, "Right", StringComparison.OrdinalIgnoreCase) => rect.X + Math.Max(0, rect.Width - width),
+            _ => rect.X
+        };
+
+        return rect with { X = x, Width = width, Height = height };
     }
 
     private static double EstimateStackWidth(UiNode node, double fallback)
