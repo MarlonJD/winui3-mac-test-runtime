@@ -671,8 +671,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         var selectedIndex = (int)Math.Round(ReadFloat(node, "selectedIndex", -1));
-        DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
+        DrawRect(canvas, paint, rect, ReadColor(node, "background", theme.Surface));
         for (var index = 0; index < node.Children.Count; index++)
         {
             var child = node.Children[index];

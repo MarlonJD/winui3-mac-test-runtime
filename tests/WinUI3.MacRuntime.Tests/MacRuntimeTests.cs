@@ -5284,6 +5284,61 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsListViewSelectionWithoutExtraCardChrome()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "listview-flat-selection");
+        var list = new ListView
+        {
+            Name = "QueueList",
+            Width = 240,
+            Height = 112,
+            SelectedIndex = 1
+        };
+        list.Items.Add(new TextBlock { Text = "Applications" });
+        list.Items.Add(new TextBlock { Text = "Reports" });
+        var tree = UiTreeBuilder.Build(new Window { Content = list });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "listview-flat-selection", "skia-v2", new VisualViewport(300, 160), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "listview-flat-selection", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var listLayout = RequireNode(arranged.Root, "QueueList").Layout!;
+        var topEdge = new SKRect(
+            (float)listLayout.X,
+            (float)listLayout.Y,
+            (float)(listLayout.X + listLayout.Width),
+            (float)(listLayout.Y + 2));
+        var leftEdge = new SKRect(
+            (float)listLayout.X,
+            (float)listLayout.Y,
+            (float)(listLayout.X + 2),
+            (float)(listLayout.Y + listLayout.Height));
+        var rightEdge = new SKRect(
+            (float)(listLayout.X + listLayout.Width - 2),
+            (float)listLayout.Y,
+            (float)(listLayout.X + listLayout.Width),
+            (float)(listLayout.Y + listLayout.Height));
+        var bottomEdge = new SKRect(
+            (float)listLayout.X,
+            (float)(listLayout.Y + listLayout.Height - 2),
+            (float)(listLayout.X + listLayout.Width),
+            (float)(listLayout.Y + listLayout.Height));
+        var selectedRowBand = new SKRect(
+            (float)(listLayout.X + 4),
+            (float)(listLayout.Y + 38),
+            (float)(listLayout.X + listLayout.Width - 4),
+            (float)(listLayout.Y + 78));
+
+        Assert.AreEqual(0, CountExactPixels(bitmap, topEdge, theme.Stroke) + CountExactPixels(bitmap, leftEdge, theme.Stroke) + CountExactPixels(bitmap, rightEdge, theme.Stroke) + CountExactPixels(bitmap, bottomEdge, theme.Stroke), "ListView should not draw an extra outer card border around native list panes.");
+        Assert.IsGreaterThan(8, CountExactPixels(bitmap, selectedRowBand, theme.AccentSoft), "Selected ListView row should keep a visible native selection fill.");
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineReportsUnsupportedVisualTypes()
     {
         var tree = new UiTreeDocument(
