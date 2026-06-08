@@ -679,6 +679,26 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamNativeVisualParityAuditRequiresThresholdReasonForEveryRatchet()
+    {
+        using var audit = JsonDocument.Parse(File.ReadAllText(RepositoryPath("docs/visual-parity/downstream-native-visual-parity-audit.json")));
+
+        Assert.IsTrue(audit.RootElement.TryGetProperty("thresholdRatchets", out var ratchets));
+        Assert.IsGreaterThan(0, ratchets.GetArrayLength());
+
+        foreach (var ratchet in ratchets.EnumerateArray())
+        {
+            Assert.IsFalse(string.IsNullOrWhiteSpace(ratchet.GetProperty("scenario").GetString()));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(ratchet.GetProperty("status").GetString()));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(ratchet.GetProperty("fromLadder").GetString()));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(ratchet.GetProperty("targetLadder").GetString()));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(ratchet.GetProperty("reason").GetString()));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(ratchet.GetProperty("evidence").GetString()));
+            Assert.AreNotEqual("applied", ratchet.GetProperty("status").GetString(), "Threshold ratchets must not be marked applied without native comparison evidence.");
+        }
+    }
+
+    [TestMethod]
     public void DownstreamProbeSweepKeepsEvidencePngOnly()
     {
         var script = File.ReadAllText(RepositoryPath("tools/winui3-mac-runner-downstream-windows-probe-sweep"));

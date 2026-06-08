@@ -311,6 +311,18 @@
       "manualGate": "Manual review signs off no route/content mismatch, no missing affordance, no misleading status, no text overlap."
     }
   ],
+  "thresholdRatchets": [
+    {
+      "scenario": "login-light",
+      "status": "deferred-pending-required-native-comparison",
+      "fromLadder": "L0",
+      "targetLadder": "L1",
+      "reason": "Renderer, layout, and theme work must be proven by a real --require-native-comparison sweep before any scenario threshold is ratcheted or promoted.",
+      "evidence": "private-qa:windows/probe-comparisons/2026-06-08-threshold-ratchet",
+      "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
+      "thresholdChange": "none"
+    }
+  ],
   "manualInspectionCriteria": [
     "Wrong route content or wrong selected navigation state versus native reference.",
     "Missing user-visible control, status, command, close affordance, glyph, or label.",

@@ -72,6 +72,19 @@ Focused routes (command, status, and form: `login-light`,
 graded against the tighter focused L5 bar. Broad shell/list/detail app routes use
 the broad L5 bar.
 
+## Threshold Ratchet Policy
+
+No scenario threshold is ratcheted or promoted in this audit without a real
+`--require-native-comparison` sweep against Windows reference PNGs. The sanitized
+manifest currently records the first deferred ratchet candidate,
+`login-light` from L0 toward L1, with status
+`deferred-pending-required-native-comparison` and evidence pointer
+`private-qa:windows/probe-comparisons/2026-06-08-threshold-ratchet`.
+
+Every future ratchet entry must record the scenario, current ladder, target
+ladder, status, reason, and private QA evidence pointer. `thresholdChange` stays
+`none` until the required native comparison and manual inspection gates pass.
+
 ## Shared Gaps
 
 | Category | Shared gap |
