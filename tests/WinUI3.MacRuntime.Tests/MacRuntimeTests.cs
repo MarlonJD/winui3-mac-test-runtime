@@ -3960,6 +3960,10 @@ public sealed class MacRuntimeTests
             releaseCandidateSource,
             "native-quality-family-tranches",
             "release-candidate output must name the native-quality family tranche gate.");
+        StringAssert.Contains(
+            releaseCandidateSource,
+            "premium-downstream-native-visual-parity",
+            "release-candidate must keep all-eight downstream native visual parity as a separate external gate.");
 
         // Native provenance for every checked-in visual reference.
         var referenceFiles = Directory.EnumerateFiles(

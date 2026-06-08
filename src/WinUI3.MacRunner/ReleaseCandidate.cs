@@ -46,6 +46,7 @@ internal static class ReleaseCandidateCommand
         {
             External("full-native-reference-workflow", "Capture native WinUI references for every claimed visual scenario via windows-native-screenshot.yml."),
             External("full-strict-scenario-sweep", "Run the full --renderer skia-v2 --strict-visual scenario sweep in CI."),
+            External("premium-downstream-native-visual-parity", "Run the downstream Windows probe sweep with real Windows PNG references and --require-native-comparison; all eight scenarios must pass the configured native comparison ladder before premium native visual parity can be claimed."),
             CheckPackageDryRun(packageDirectory),
         };
 
