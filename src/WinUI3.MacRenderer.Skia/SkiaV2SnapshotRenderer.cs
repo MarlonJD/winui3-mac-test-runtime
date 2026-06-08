@@ -562,6 +562,14 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var focused = ReadBool(node, "isFocused", fallback: false);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
         DrawTextBoxText(canvas, paint, font, ReadText(node) ?? string.Empty, rect, enabled ? theme.TextPrimary : theme.TextDisabled);
+        if (enabled && !string.IsNullOrWhiteSpace(ReadText(node)))
+        {
+            DrawCloseIcon(
+                canvas,
+                paint,
+                new SKRect(rect.Right - 23, rect.Top + 10, rect.Right - 11, rect.Top + 22),
+                ControlAffordanceColor(theme));
+        }
     }
 
     private static void RenderPasswordBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -572,7 +580,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var header = ReadString(node, "header");
         var inputRect = string.IsNullOrWhiteSpace(header)
             ? rect
-            : new SKRect(rect.Left, rect.Top + 24, rect.Right, rect.Bottom);
+            : new SKRect(rect.Left, rect.Top + 24, rect.Right, Math.Min(rect.Bottom, rect.Top + 56));
         var passwordLength = (int)Math.Round(ReadFloat(node, "passwordLength", 0));
         var text = passwordLength > 0
             ? new string('\u2022', Math.Clamp(passwordLength, 1, 12))
@@ -588,7 +596,14 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         }
 
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, inputRect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
-        DrawText(canvas, paint, font, text, inputRect.Left + 10, WinUITextMetrics.For(font).BaselineFor(inputRect), color);
+        if (passwordLength > 0)
+        {
+            DrawPasswordMask(canvas, paint, inputRect, Math.Clamp(passwordLength, 1, 12), color);
+        }
+        else
+        {
+            DrawText(canvas, paint, font, text, inputRect.Left + 10, WinUITextMetrics.For(font).BaselineFor(inputRect), color);
+        }
     }
 
     private static void RenderAutoSuggestBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font, SKFont iconFont)
@@ -704,17 +719,17 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var value = Math.Clamp(ReadFloat(node, "value", min), min, max);
         var progress = (value - min) / (max - min);
         var center = rect.Top + rect.Height / 2;
-        var track = new SKRect(rect.Left, center - 2, rect.Right, center + 2);
-        DrawRoundRect(canvas, paint, track, 2, theme.DisabledSurface);
+        var track = new SKRect(rect.Left, center - 1, rect.Right, center + 1);
+        DrawRoundRect(canvas, paint, track, 1, theme.DisabledSurface);
         if (isIndeterminate)
         {
             var segmentWidth = Math.Max(28, track.Width * 0.28f);
-            DrawRoundRect(canvas, paint, new SKRect(track.Left + 8, track.Top, track.Left + 8 + segmentWidth, track.Bottom), 2, theme.Accent);
-            DrawRoundRect(canvas, paint, new SKRect(track.Right - segmentWidth - 8, track.Top, track.Right - 8, track.Bottom), 2, theme.AccentSoft);
+            DrawRoundRect(canvas, paint, new SKRect(track.Left + 8, track.Top, track.Left + 8 + segmentWidth, track.Bottom), 1, theme.Accent);
+            DrawRoundRect(canvas, paint, new SKRect(track.Right - segmentWidth - 8, track.Top, track.Right - 8, track.Bottom), 1, theme.AccentSoft);
             return;
         }
 
-        DrawRoundRect(canvas, paint, new SKRect(track.Left, track.Top, track.Left + track.Width * progress, track.Bottom), 2, theme.Accent);
+        DrawRoundRect(canvas, paint, new SKRect(track.Left, track.Top, track.Left + track.Width * progress, track.Bottom), 1, theme.Accent);
     }
 
     private static void RenderProgressRing(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint)
@@ -743,9 +758,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             "Error" => theme.Error,
             _ => theme.Accent
         };
-        DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, theme.Surface);
-        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, theme.Stroke);
-        DrawRoundRect(canvas, paint, new SKRect(rect.Left, rect.Top, rect.Left + 5, rect.Bottom), 2, accent);
+        DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, SeverityFill(severity, theme));
+        DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, SeverityStroke(severity, theme));
         DrawCircle(canvas, paint, rect.Left + 24, rect.Top + 26, 8, accent);
         if (severity == "Success")
         {
@@ -758,6 +772,14 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
 
         DrawText(canvas, paint, bodyFont, ReadString(node, "title") ?? severity, rect.Left + 42, rect.Top + 27, theme.TextPrimary);
         DrawText(canvas, paint, smallFont, ReadString(node, "message") ?? string.Empty, rect.Left + 42, rect.Top + 50, theme.TextSecondary);
+        if (ReadBool(node, "isClosable", fallback: true))
+        {
+            DrawCloseIcon(
+                canvas,
+                paint,
+                new SKRect(rect.Right - 28, rect.Top + 17, rect.Right - 16, rect.Top + 29),
+                ControlAffordanceColor(theme));
+        }
     }
 
     private static void RenderCommandBar(
@@ -1120,6 +1142,22 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         paint.Style = SKPaintStyle.Fill;
     }
 
+    private static void DrawCloseIcon(SKCanvas canvas, SKPaint paint, SKRect rect, SKColor color)
+    {
+        DrawLine(canvas, paint, rect.Left + 2, rect.Top + 2, rect.Right - 2, rect.Bottom - 2, color);
+        DrawLine(canvas, paint, rect.Right - 2, rect.Top + 2, rect.Left + 2, rect.Bottom - 2, color);
+    }
+
+    private static void DrawPasswordMask(SKCanvas canvas, SKPaint paint, SKRect rect, int count, SKColor color)
+    {
+        var centerY = rect.Top + rect.Height / 2;
+        var x = rect.Left + 13;
+        for (var index = 0; index < count; index++)
+        {
+            DrawCircle(canvas, paint, x + index * 8, centerY, 2.25f, color);
+        }
+    }
+
     private static void DrawEllipsisIcon(SKCanvas canvas, SKPaint paint, SKRect rect, SKColor color)
     {
         var centerY = rect.Top + rect.Height / 2;
@@ -1222,6 +1260,28 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     private static float ChevronTop(SKRect rect) => rect.Top + (rect.Height - 4) / 2;
 
     private static SKColor ControlAffordanceColor(SkiaV2Theme theme) => WithAlpha(theme.TextSecondary, 0xcc);
+
+    private static SKColor SeverityFill(string severity, SkiaV2Theme theme)
+    {
+        return severity switch
+        {
+            "Success" => new SKColor(0xdf, 0xf6, 0xdd),
+            "Warning" => new SKColor(0xff, 0xf4, 0xce),
+            "Error" => new SKColor(0xfd, 0xe7, 0xe9),
+            _ => theme.AccentSoft
+        };
+    }
+
+    private static SKColor SeverityStroke(string severity, SkiaV2Theme theme)
+    {
+        return severity switch
+        {
+            "Success" => new SKColor(0x9f, 0xd8, 0x9b),
+            "Warning" => new SKColor(0xf0, 0xd7, 0x83),
+            "Error" => new SKColor(0xf3, 0xb3, 0xb8),
+            _ => theme.Stroke
+        };
+    }
 
     private static SKColor SplitAffordanceColor(SkiaV2Theme theme, SKColor textColor, bool isChecked)
     {

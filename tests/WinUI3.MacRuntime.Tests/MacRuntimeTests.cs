@@ -5058,6 +5058,48 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsFocusedTextBoxUnderlineAndClearButton()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "focused-textbox-clear");
+        var focusedTextBox = new TextBox
+        {
+            Name = "FocusedTextBox",
+            Text = "search query",
+            Width = 240,
+            Height = 32,
+            HorizontalAlignment = HorizontalAlignment.Left
+        };
+        focusedTextBox.Focus(FocusState.Programmatic);
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = focusedTextBox
+        });
+        var settings = new VisualRunSettings(null, "focused-textbox-clear", "skia-v2", new VisualViewport(320, 80), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "focused-textbox-clear", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var textBox = RequireNode(arranged.Root, "FocusedTextBox").Layout!;
+        var underlineBand = new SKRect(
+            (float)textBox.X,
+            (float)(textBox.Y + textBox.Height - 4),
+            (float)(textBox.X + textBox.Width),
+            (float)(textBox.Y + textBox.Height));
+        var clearBand = new SKRect(
+            (float)(textBox.X + textBox.Width - 28),
+            (float)(textBox.Y + 8),
+            (float)(textBox.X + textBox.Width - 8),
+            (float)(textBox.Y + 24));
+
+        Assert.IsGreaterThan(24, CountExactPixels(bitmap, underlineBand, SkiaV2Theme.For("light").Accent));
+        Assert.IsGreaterThan(4, CountDarkPixels(bitmap, clearBand, 170));
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererDrawsNavigationViewItemIcons()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "navigation-icons");
@@ -5780,6 +5822,97 @@ public sealed class MacRuntimeTests
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)menuBar.X, (float)menuBar.Y, (float)(menuBar.X + menuBar.Width), (float)(menuBar.Y + menuBar.Height)), theme.SubtleSurface));
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 12, (float)infoBar.Y + 14, (float)infoBar.X + 36, (float)infoBar.Y + 38), theme.Success));
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)infoBar.X + 16, (float)infoBar.Y + 18, (float)infoBar.X + 32, (float)infoBar.Y + 34), theme.Surface));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsSeverityFilledInfoBarsWithCloseButton()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "filled-infobar");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new InfoBar
+            {
+                Name = "SuccessInfoBar",
+                Title = "Saved",
+                Message = "Profile changes are synced.",
+                Severity = InfoBarSeverity.Success,
+                IsClosable = true,
+                Width = 360,
+                Height = 64
+            }
+        });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "filled-infobar", "skia-v2", new VisualViewport(420, 120), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "filled-infobar", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var infoBar = RequireNode(arranged.Root, "SuccessInfoBar").Layout!;
+        var fillSample = bitmap.GetPixel((int)infoBar.X + 300, (int)infoBar.Y + 50);
+        var closeBand = new SKRect(
+            (float)(infoBar.X + infoBar.Width - 34),
+            (float)(infoBar.Y + 14),
+            (float)(infoBar.X + infoBar.Width - 12),
+            (float)(infoBar.Y + 36));
+
+        Assert.AreNotEqual(theme.Surface, fillSample, "Success InfoBar should use a filled severity surface, not the plain card surface.");
+        Assert.IsTrue(fillSample.Green > fillSample.Red && fillSample.Green > fillSample.Blue, $"Expected a success-tinted fill, got {fillSample}.");
+        Assert.IsGreaterThan(4, CountDarkPixels(bitmap, closeBand, 150));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererAlignsProgressBarAndProgressRingToNativeProbe()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "native-progress");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new StackPanel
+            {
+                Spacing = 8,
+                Children =
+                {
+                    new ProgressBar
+                    {
+                        Name = "SyncProgressBar",
+                        Width = 180,
+                        Height = 16,
+                        Value = 65,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    },
+                    new ProgressRing
+                    {
+                        Name = "LoadingProgressRing",
+                        Width = 24,
+                        Height = 24,
+                        IsActive = true,
+                        HorizontalAlignment = HorizontalAlignment.Left
+                    }
+                }
+            }
+        });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "native-progress", "skia-v2", new VisualViewport(240, 90), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "native-progress", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var progressBar = RequireNode(arranged.Root, "SyncProgressBar").Layout!;
+        var progressRing = RequireNode(arranged.Root, "LoadingProgressRing").Layout!;
+        var barAccentBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(progressBar), pixel => pixel == theme.Accent);
+        var ringAccentBounds = BoundsOfPixelsMatching(bitmap, LayoutRectToSkRect(progressRing), IsAccentLike);
+
+        Assert.IsFalse(barAccentBounds.IsEmpty, "Expected ProgressBar accent fill.");
+        Assert.IsLessThanOrEqualTo(3, barAccentBounds.Height, $"Native ProgressBar track should stay thin; actual bounds were {barAccentBounds}.");
+        Assert.IsFalse(ringAccentBounds.IsEmpty, "Expected ProgressRing accent arc.");
+        Assert.IsLessThanOrEqualTo(24, ringAccentBounds.Width, $"ProgressRing accent arc should fit the native 24px probe bounds; actual bounds were {ringAccentBounds}.");
     }
 
     [TestMethod]
