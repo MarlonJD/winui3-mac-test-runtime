@@ -95,13 +95,13 @@ public sealed record SkiaV2Theme(
         }
 
         return new SkiaV2Theme(
-            AppBackground: new SKColor(0xff, 0xff, 0xff),
-            PaneBackground: new SKColor(0xf3, 0xf3, 0xf3),
+            AppBackground: new SKColor(0xf3, 0xf3, 0xf3),
+            PaneBackground: new SKColor(0xf9, 0xf9, 0xf9),
             Surface: new SKColor(0xff, 0xff, 0xff),
-            SubtleSurface: new SKColor(0xfa, 0xfa, 0xfa),
+            SubtleSurface: new SKColor(0xf9, 0xf9, 0xf9),
             DisabledSurface: new SKColor(0xf0, 0xf0, 0xf0),
-            Stroke: new SKColor(0xe5, 0xe5, 0xe5),
-            SubtleStroke: new SKColor(0xea, 0xea, 0xea),
+            Stroke: new SKColor(0xe0, 0xe0, 0xe0),
+            SubtleStroke: new SKColor(0xf0, 0xf0, 0xf0),
             TextPrimary: new SKColor(0x1a, 0x1a, 0x1a),
             TextSecondary: new SKColor(0x42, 0x42, 0x42),
             TextDisabled: new SKColor(0x9a, 0x9a, 0x9a),

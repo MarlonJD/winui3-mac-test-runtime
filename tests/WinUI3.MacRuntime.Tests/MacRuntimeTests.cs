@@ -1517,6 +1517,33 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void SkiaV2ThemeMatchesWinUILightSurfaceAndSubtleStrokeTokens()
+    {
+        var theme = SkiaV2Theme.For("light");
+
+        Assert.AreEqual(new SKColor(0xf3, 0xf3, 0xf3), theme.AppBackground);
+        Assert.AreEqual(new SKColor(0xf9, 0xf9, 0xf9), theme.PaneBackground);
+        Assert.AreEqual(new SKColor(0xff, 0xff, 0xff), theme.Surface);
+        Assert.AreEqual(new SKColor(0xf9, 0xf9, 0xf9), theme.SubtleSurface);
+        Assert.AreEqual(new SKColor(0xe0, 0xe0, 0xe0), theme.Stroke);
+        Assert.AreEqual(new SKColor(0xf0, 0xf0, 0xf0), theme.SubtleStroke);
+        Assert.IsLessThan(theme.SubtleStroke.Red, theme.Stroke.Red);
+    }
+
+    [TestMethod]
+    public void SkiaV2ThemeProvidesSeverityFillAndForegroundTokens()
+    {
+        var theme = SkiaV2Theme.For("light");
+
+        Assert.AreEqual(new SKColor(0x0f, 0x7b, 0x0f), theme.Success);
+        Assert.AreEqual(new SKColor(0x9d, 0x5d, 0x00), theme.Warning);
+        Assert.AreEqual(new SKColor(0xc4, 0x2b, 0x1c), theme.Error);
+        Assert.IsGreaterThan(30, Math.Abs(theme.Surface.Red - theme.Success.Red));
+        Assert.IsGreaterThan(30, Math.Abs(theme.Surface.Green - theme.Warning.Green));
+        Assert.IsGreaterThan(30, Math.Abs(theme.Surface.Blue - theme.Error.Blue));
+    }
+
+    [TestMethod]
     public void FluentDrawingPrimitivesResolveControlStateColors()
     {
         var theme = SkiaV2Theme.For("light");
