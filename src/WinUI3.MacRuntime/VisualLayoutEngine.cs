@@ -401,10 +401,12 @@ public static class VisualLayoutEngine
     {
         if (SimpleType(node) == "CommandBar")
         {
-            const double commandWidth = 104;
             const double commandHeight = 32;
-            const double commandSpacing = 64;
             const double overflowReserve = 40;
+            var labelPosition = ReadString(node, "defaultLabelPosition") ?? "Bottom";
+            var labelsOnRight = string.Equals(labelPosition, "Right", StringComparison.Ordinal);
+            var commandWidth = labelsOnRight ? 104 : 48;
+            var commandSpacing = commandWidth + 8;
             var contentChildren = node.Children
                 .Where(child => SimpleType(child) != "AppBarButton")
                 .ToArray();
@@ -436,7 +438,7 @@ public static class VisualLayoutEngine
                     primaryCommands[index],
                     new LayoutRect(childX, commandY, commandWidth, commandHeight),
                     unsupported);
-                commandChildren.Add(WithProperty(arrangedChild, "commandBarCompact", true));
+                commandChildren.Add(WithProperty(arrangedChild, "commandBarCompact", !labelsOnRight));
             }
 
             return WithLayout(node, rect, EmptyThickness, EmptyThickness, ReadString(node, "visibility") ?? "Visible", commandChildren);

@@ -5202,6 +5202,90 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsAutoSuggestBoxFocusedUnderlineClearAndQueryIcon()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "autosuggestbox-focused-search");
+        var searchBox = new AutoSuggestBox
+        {
+            Name = "SearchBox",
+            Text = "applications",
+            Width = 260
+        };
+        searchBox.Focus(FocusState.Programmatic);
+        var tree = UiTreeBuilder.Build(new Window { Content = searchBox });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "autosuggestbox-focused-search", "skia-v2", new VisualViewport(360, 120), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "autosuggestbox-focused-search", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var search = RequireNode(arranged.Root, "SearchBox").Layout!;
+        var underlineBand = new SKRect(
+            (float)(search.X + 2),
+            (float)(search.Y + search.Height - 4),
+            (float)(search.X + search.Width - 2),
+            (float)(search.Y + search.Height));
+        var queryIconBand = new SKRect(
+            (float)(search.X + 9),
+            (float)(search.Y + 7),
+            (float)(search.X + 27),
+            (float)(search.Y + 25));
+        var clearIconBand = new SKRect(
+            (float)(search.X + search.Width - 25),
+            (float)(search.Y + 8),
+            (float)(search.X + search.Width - 9),
+            (float)(search.Y + 24));
+
+        Assert.IsGreaterThan(24, CountExactPixels(bitmap, underlineBand, theme.Accent));
+        Assert.IsGreaterThan(4, CountDarkPixels(bitmap, queryIconBand, 230));
+        Assert.IsGreaterThan(4, CountDarkPixels(bitmap, clearIconBand, 230));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsAppBarButtonLabelWhenDefaultLabelPositionIsRight()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "appbarbutton-right-label");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new CommandBar
+            {
+                Name = "ActionsBar",
+                DefaultLabelPosition = CommandBarDefaultLabelPosition.Right,
+                PrimaryCommands =
+                {
+                    new AppBarButton
+                    {
+                        Name = "RefreshCommand",
+                        Label = "Refresh",
+                        Icon = new FontIcon { Glyph = "\uE72C" }
+                    }
+                }
+            }
+        });
+        var settings = new VisualRunSettings(null, "appbarbutton-right-label", "skia-v2", new VisualViewport(360, 120), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "appbarbutton-right-label", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var refresh = RequireNode(arranged.Root, "RefreshCommand").Layout!;
+        var labelBand = new SKRect(
+            (float)(refresh.X + 30),
+            (float)(refresh.Y + 7),
+            (float)(refresh.X + refresh.Width - 6),
+            (float)(refresh.Y + refresh.Height - 5));
+
+        Assert.IsGreaterThan(12, CountDarkPixels(bitmap, labelBand, 100), "Right-label command buttons should draw their visible label text.");
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererHonorsSemiBoldTextBlockWeight()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "textblock-weight");

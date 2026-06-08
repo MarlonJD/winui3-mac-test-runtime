@@ -612,8 +612,17 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var focused = ReadBool(node, "isFocused", fallback: false);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
-        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 34, WinUITextMetrics.For(font).BaselineFor(rect), enabled ? theme.TextPrimary : theme.TextDisabled);
+        var text = ReadText(node) ?? string.Empty;
+        DrawText(canvas, paint, font, text, rect.Left + 34, WinUITextMetrics.For(font).BaselineFor(rect), enabled ? theme.TextPrimary : theme.TextDisabled);
         DrawSearchIcon(canvas, paint, new SKRect(rect.Left + 10, rect.Top + 8, rect.Left + 26, rect.Top + 24), enabled ? ControlAffordanceColor(theme) : theme.TextDisabled);
+        if (enabled && !string.IsNullOrWhiteSpace(text))
+        {
+            DrawCloseIcon(
+                canvas,
+                paint,
+                new SKRect(rect.Right - 23, rect.Top + 10, rect.Right - 11, rect.Top + 22),
+                ControlAffordanceColor(theme));
+        }
     }
 
     private static void RenderComboBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
