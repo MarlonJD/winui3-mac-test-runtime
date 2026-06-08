@@ -1,4 +1,5 @@
 using WinUI3.MacRenderer.Skia;
+using SkiaSharp;
 
 namespace WinUI3.MacRuntime.Tests;
 
@@ -147,5 +148,39 @@ public sealed class FontResolverTests
             Assert.AreEqual(diagnostics.Text.ResolvedFamily, diagnostics.Symbol.ResolvedFamily);
             Assert.AreSame(fonts.TextTypeface, fonts.SymbolTypeface);
         }
+    }
+
+    [TestMethod]
+    public void WinUITextMetricsUsesFontBoundsForBodyCaptionAndTitleBaselines()
+    {
+        using var typeface = SKTypeface.Default;
+        using var titleFont = new SKFont(typeface, SkiaV2Theme.For("light").TitleFontSize);
+        using var bodyFont = new SKFont(typeface, SkiaV2Theme.For("light").BodyFontSize);
+        using var captionFont = new SKFont(typeface, SkiaV2Theme.For("light").CaptionFontSize);
+
+        var title = WinUITextMetrics.For(titleFont);
+        var body = WinUITextMetrics.For(bodyFont);
+        var caption = WinUITextMetrics.For(captionFont);
+
+        Assert.IsGreaterThan(body.LineHeight, title.LineHeight);
+        Assert.IsLessThan(body.LineHeight, caption.LineHeight);
+        Assert.IsLessThan(0, body.Metrics.Ascent);
+        Assert.IsGreaterThan(0, body.Metrics.Descent);
+    }
+
+    [TestMethod]
+    public void WinUITextMetricsMeasuresNaturalControlTextWidthWithChromePadding()
+    {
+        using var typeface = SKTypeface.Default;
+        using var font = new SKFont(typeface, SkiaV2Theme.For("light").BodyFontSize);
+
+        var shortWidth = WinUITextMetrics.MeasureControlWidth(font, "Save", chromePadding: 28);
+        var longWidth = WinUITextMetrics.MeasureControlWidth(font, "Complete review", chromePadding: 28);
+
+        Assert.IsGreaterThan(28d, shortWidth);
+        Assert.IsGreaterThan(shortWidth, longWidth);
+        Assert.AreEqual(
+            Math.Ceiling(WinUITextMetrics.MeasureText(font, "Save") + 28),
+            shortWidth);
     }
 }

@@ -545,7 +545,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var text = ReadText(node) ?? node.Name ?? string.Empty;
         var layout = node.Layout!;
         var x = (float)layout.X;
-        var y = (float)layout.Y + 19;
+        var metrics = WinUITextMetrics.For(font);
+        var y = metrics.TopAlignedBaseline(Rect(node), 3);
         var color = ReadColor(node, "foreground", theme.TextPrimary);
         DrawText(canvas, paint, font, text, x, y, color);
         if (IsBoldText(node))
@@ -582,11 +583,12 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
 
         if (!string.IsNullOrWhiteSpace(header))
         {
-            DrawText(canvas, paint, font, header, rect.Left, rect.Top + 18, enabled ? theme.TextPrimary : theme.TextDisabled);
+            var metrics = WinUITextMetrics.For(font);
+            DrawText(canvas, paint, font, header, rect.Left, metrics.TopAlignedBaseline(rect, 2), enabled ? theme.TextPrimary : theme.TextDisabled);
         }
 
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, inputRect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
-        DrawText(canvas, paint, font, text, inputRect.Left + 10, inputRect.Top + 21, color);
+        DrawText(canvas, paint, font, text, inputRect.Left + 10, WinUITextMetrics.For(font).BaselineFor(inputRect), color);
     }
 
     private static void RenderAutoSuggestBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font, SKFont iconFont)
@@ -595,7 +597,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var enabled = ReadBool(node, "isEnabled", fallback: true);
         var focused = ReadBool(node, "isFocused", fallback: false);
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled, IsFocused: focused));
-        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 34, rect.Top + 21, enabled ? theme.TextPrimary : theme.TextDisabled);
+        DrawText(canvas, paint, font, ReadText(node) ?? string.Empty, rect.Left + 34, WinUITextMetrics.For(font).BaselineFor(rect), enabled ? theme.TextPrimary : theme.TextDisabled);
         DrawSearchIcon(canvas, paint, new SKRect(rect.Left + 10, rect.Top + 8, rect.Left + 26, rect.Top + 24), enabled ? ControlAffordanceColor(theme) : theme.TextDisabled);
     }
 
@@ -1364,8 +1366,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     private static void DrawTextBoxText(SKCanvas canvas, SKPaint paint, SKFont font, string text, SKRect rect, SKColor color)
     {
         var lines = text.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n').Split('\n');
+        var metrics = WinUITextMetrics.For(font);
         var x = rect.Left + 10;
-        var y = rect.Top + 21;
+        var y = metrics.BaselineFor(new SKRect(rect.Left, rect.Top, rect.Right, Math.Min(rect.Bottom, rect.Top + 32)));
         foreach (var line in lines)
         {
             if (y > rect.Bottom - 6)
@@ -1374,7 +1377,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             }
 
             DrawText(canvas, paint, font, line, x, y, color);
-            y += 20;
+            y += metrics.LineHeight + 4;
         }
     }
 
