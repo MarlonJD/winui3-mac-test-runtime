@@ -595,6 +595,11 @@ public class NavigationView : Control
 
     public void Select(NavigationViewItem item)
     {
+        foreach (var menuItem in MenuItems.OfType<NavigationViewItem>())
+        {
+            menuItem.IsSelected = ReferenceEquals(menuItem, item);
+        }
+
         SelectedItem = item;
         SelectionChanged?.Invoke(this, new NavigationViewSelectionChangedEventArgs
         {
@@ -608,4 +613,6 @@ public class NavigationViewItem : Control
     public object? Content { get; set; }
 
     public object? Icon { get; set; }
+
+    public bool IsSelected { get; set; }
 }

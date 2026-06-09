@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WinUI3 Mac Test Runtime Launch Demo</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101116;
+      --panel: #191b22;
+      --panel-2: #20242d;
+      --ink: #f4f7fb;
+      --muted: #aeb8c8;
+      --line: #363d4a;
+      --accent: #56d6a3;
+      --accent-2: #74a7ff;
+      --warn: #f4bf75;
+      --danger: #ff7b8a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    main {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+    }
+
+    .stage {
+      position: relative;
+      min-height: 720px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(86, 214, 163, 0.06), transparent 34%),
+        linear-gradient(180deg, rgba(116, 167, 255, 0.06), transparent 48%),
+        var(--bg);
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: minmax(340px, 0.82fr) minmax(520px, 1.18fr);
+      gap: 40px;
+      align-items: center;
+      padding: 56px clamp(28px, 5vw, 72px) 88px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(22px);
+      transition: opacity 420ms ease, transform 420ms ease;
+    }
+
+    .scene.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .kicker {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 750;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      max-width: 780px;
+      font-weight: 780;
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(48px, 7vw, 96px);
+    }
+
+    h2 {
+      font-size: clamp(36px, 5vw, 72px);
+    }
+
+    .copy {
+      max-width: 620px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 1.4vw, 22px);
+      line-height: 1.55;
+    }
+
+    .terminal,
+    .evidence-card,
+    .boundary,
+    .metric-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--panel) 92%, black);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+    }
+
+    .terminal {
+      padding: 20px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .prompt {
+      color: var(--accent);
+    }
+
+    .terminal .dim {
+      color: #7f8a9c;
+    }
+
+    .terminal .ok {
+      color: var(--accent);
+    }
+
+    .split-logos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .os-tile {
+      min-height: 180px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      font-size: 20px;
+      font-weight: 760;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .flow span,
+    .badge,
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+    }
+
+    .flow span {
+      min-height: 82px;
+      display: grid;
+      place-items: center;
+      padding: 14px;
+      color: var(--muted);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .evidence-card {
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .evidence-card header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 730;
+    }
+
+    .evidence-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1028 / 720;
+      object-fit: cover;
+      background: #0d0f14;
+    }
+
+    .badge {
+      padding: 5px 8px;
+      color: var(--accent);
+      font-size: 12px;
+    }
+
+    .artifact-wall {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .metric-card {
+      padding: 18px;
+      min-height: 118px;
+    }
+
+    .metric-card strong {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 28px;
+    }
+
+    .metric-card span {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .boundary {
+      padding: 22px;
+    }
+
+    .boundary ul {
+      display: grid;
+      gap: 14px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .boundary li {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .boundary b {
+      color: var(--ink);
+    }
+
+    .mark {
+      width: min(520px, 100%);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      margin-inline: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(86, 214, 163, 0.18), rgba(116, 167, 255, 0.12)),
+        var(--panel);
+    }
+
+    .mark-inner {
+      display: grid;
+      gap: 20px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .mark-code {
+      width: 128px;
+      height: 128px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #12151b;
+      color: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .pill {
+      padding: 9px 12px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .controls {
+      position: relative;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 18px;
+      align-items: center;
+      padding: 16px clamp(18px, 4vw, 42px);
+      border-top: 1px solid var(--line);
+      background: rgba(16, 17, 22, 0.92);
+      backdrop-filter: blur(14px);
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--ink);
+      min-height: 42px;
+      padding: 0 14px;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    button:hover,
+    button.active {
+      border-color: color-mix(in srgb, var(--accent) 70%, white);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .time-button {
+      min-width: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .progress {
+      height: 6px;
+      border-radius: 999px;
+      background: var(--panel-2);
+      overflow: hidden;
+    }
+
+    .bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 180ms linear;
+    }
+
+    @media (max-width: 980px) {
+      .stage {
+        min-height: 920px;
+      }
+
+      .scene {
+        grid-template-columns: 1fr;
+        align-content: center;
+        gap: 28px;
+      }
+
+      .evidence-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .artifact-wall,
+      .flow {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="stage" aria-live="polite">
+      <article class="scene active" data-title="Constraint">
+        <div>
+          <p class="kicker">WinUI 3 validation bottleneck</p>
+          <h1>Stop waiting for Windows to catch every source-level gap.</h1>
+          <p class="copy">A macOS developer loop can run real fixture source, inspect the tree, and produce visual evidence before the native Windows reference gate.</p>
+        </div>
+        <div>
+          <div class="terminal">
+            <span class="prompt">$</span> dotnet test<br>
+            <span class="dim">WinUI fixture needs native verification...</span><br>
+            <span class="prompt">$</span> wait-for-windows-latest<br>
+            <span class="dim">minutes become feedback debt</span>
+          </div>
+          <div class="split-logos">
+            <div class="os-tile">Windows source of truth</div>
+            <div class="os-tile">macOS developer loop</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="scene" data-title="Run">
+        <div>
+          <p class="kicker">Wine-free managed host</p>
+          <h2>Run documented WinUI 3 fixture source locally on macOS.</h2>
+          <p class="copy">The runtime executes managed assemblies against clean-room `Microsoft.UI.Xaml` facade types and writes structured artifacts for review.</p>
+        </div>
+        <div>
+          <div class="terminal">
+            <span class="prompt">$</span> PATH="$PWD/tools:$PATH" winui3-mac-runner run \<br>
+            &nbsp;&nbsp;--project ./fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj \<br>
+            &nbsp;&nbsp;--renderer skia-v2 \<br>
+            &nbsp;&nbsp;--scenario ./fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json \<br>
+            &nbsp;&nbsp;--strict-visual<br>
+            <span class="ok">✓ run.json</span> <span class="ok">✓ tree.json</span> <span class="ok">✓ accessibility.json</span><br>
+            <span class="ok">✓ visual-run.json</span> <span class="ok">✓ component-evidence.json</span>
+          </div>
+          <div class="flow">
+            <span>Build fixture</span>
+            <span>Run scenario</span>
+            <span>Capture artifacts</span>
+            <span>Gate evidence</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="scene" data-title="Compare">
+        <div>
+          <p class="kicker">Native reference evidence</p>
+          <h2>Every visual claim gets a reference, a render, and a diff.</h2>
+          <p class="copy">The story is not “trust the screenshot.” It is a reviewable triptych that keeps Windows provenance and macOS behavior visible.</p>
+        </div>
+        <div class="evidence-grid">
+          <figure class="evidence-card">
+            <header>Native Windows <span class="badge">reference</span></header>
+            <img src="../../visual-parity/examples/public-admin-workbench-light/windows-reference.png" alt="Native Windows reference screenshot">
+          </figure>
+          <figure class="evidence-card">
+            <header>macOS Runtime <span class="badge">skia-v2</span></header>
+            <img src="../../visual-parity/examples/public-admin-workbench-light/mac-runtime.png" alt="macOS runtime screenshot">
+          </figure>
+          <figure class="evidence-card">
+            <header>Pixel Diff <span class="badge">evidence</span></header>
+            <img src="../../visual-parity/examples/public-admin-workbench-light/pixel-diff.png" alt="Pixel diff screenshot">
+          </figure>
+        </div>
+      </article>
+
+      <article class="scene" data-title="Artifacts">
+        <div>
+          <p class="kicker">Inspectable by design</p>
+          <h2>The release gate reads artifacts, not vibes.</h2>
+          <p class="copy">Tree export, accessibility export, scripted interactions, unsupported API diagnostics, SARIF, visual runs, and component evidence all stay machine-readable.</p>
+        </div>
+        <div class="artifact-wall">
+          <div class="metric-card"><strong>126/126</strong><span>catalog dispositions tracked for the source-level harness boundary</span></div>
+          <div class="metric-card"><strong>58</strong><span>public component evidence rows in the checked-in quality dashboard</span></div>
+          <div class="metric-card"><strong>51 usable</strong><span>recognizable and functionally testable harness rows, not native-fidelity claims</span></div>
+          <div class="metric-card"><strong>7 not-rendered</strong><span>planned, unsupported, or diagnostic rows kept outside the support claim</span></div>
+        </div>
+      </article>
+
+      <article class="scene" data-title="Boundary">
+        <div>
+          <p class="kicker">Honest product boundary</p>
+          <h2>Built for bounded validation, not magical compatibility.</h2>
+          <p class="copy">The demo should sell the thing that is real: faster source-level feedback with explicit diagnostics and visual provenance.</p>
+        </div>
+        <div class="boundary">
+          <ul>
+            <li><span>✓</span><span><b>Use it for:</b> documented supported and partial WinUI 3 fixture validation on macOS.</span></li>
+            <li><span>✓</span><span><b>Trust it for:</b> structured artifacts, native reference provenance, component evidence, and release gates.</span></li>
+            <li><span>!</span><span><b>Do not claim:</b> arbitrary `.exe` or `.msix` execution, full WinUI 3 coverage, or pixel-perfect Fluent rendering.</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="scene" data-title="Close">
+        <div>
+          <p class="kicker">WinUI3 Mac Test Runtime</p>
+          <h2>Build. Run. Inspect. Gate. On macOS.</h2>
+          <p class="copy">A Wine-free source-level compatibility harness for teams that want evidence before release confidence.</p>
+          <div class="pill-row">
+            <span class="pill">source-level</span>
+            <span class="pill">Wine-free</span>
+            <span class="pill">native references</span>
+            <span class="pill">visual artifacts</span>
+            <span class="pill">bounded support</span>
+          </div>
+        </div>
+        <div class="mark">
+          <div class="mark-inner">
+            <div class="mark-code">XAML</div>
+            <strong>WinUI 3 evidence loop for macOS</strong>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer class="controls">
+      <button id="play" type="button">Pause</button>
+      <div>
+        <div class="timeline" id="timeline"></div>
+        <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+      </div>
+      <button id="restart" type="button">Restart</button>
+    </footer>
+  </main>
+
+  <script>
+    const scenes = Array.from(document.querySelectorAll(".scene"));
+    const timeline = document.querySelector("#timeline");
+    const bar = document.querySelector("#bar");
+    const play = document.querySelector("#play");
+    const restart = document.querySelector("#restart");
+    const sceneDurationMs = 10000;
+    let index = 0;
+    let playing = true;
+    let sceneStartedAt = performance.now();
+    let pausedElapsed = 0;
+
+    scenes.forEach((scene, sceneIndex) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "time-button";
+      button.textContent = scene.dataset.title;
+      button.addEventListener("click", () => show(sceneIndex, true));
+      timeline.appendChild(button);
+    });
+
+    const buttons = Array.from(document.querySelectorAll(".time-button"));
+
+    function show(nextIndex, resetClock) {
+      index = (nextIndex + scenes.length) % scenes.length;
+      scenes.forEach((scene, sceneIndex) => {
+        scene.classList.toggle("active", sceneIndex === index);
+      });
+      buttons.forEach((button, sceneIndex) => {
+        button.classList.toggle("active", sceneIndex === index);
+      });
+      if (resetClock) {
+        sceneStartedAt = performance.now();
+        pausedElapsed = 0;
+        bar.style.width = "0%";
+      }
+    }
+
+    function tick(now) {
+      const elapsed = playing ? now - sceneStartedAt : pausedElapsed;
+      const progress = Math.min(elapsed / sceneDurationMs, 1);
+      bar.style.width = `${progress * 100}%`;
+      if (playing && elapsed >= sceneDurationMs) {
+        show(index + 1, true);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    play.addEventListener("click", () => {
+      playing = !playing;
+      play.textContent = playing ? "Pause" : "Play";
+      if (playing) {
+        sceneStartedAt = performance.now() - pausedElapsed;
+      } else {
+        pausedElapsed = performance.now() - sceneStartedAt;
+      }
+    });
+
+    restart.addEventListener("click", () => {
+      playing = true;
+      play.textContent = "Pause";
+      show(0, true);
+    });
+
+    show(0, true);
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

@@ -726,6 +726,49 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "Route/selection");
     }
 
+    [TestMethod]
+    public void NavigationViewItemExportsSelectedStateInTree()
+    {
+        var home = new NavigationViewItem { Name = "HomeNavigationItem", Content = "Home" };
+        var messages = new NavigationViewItem { Name = "MessagesNavigationItem", Content = "Messages" };
+        var navigationView = new NavigationView { Name = "AppNavigationView" };
+        navigationView.MenuItems.Add(home);
+        navigationView.MenuItems.Add(messages);
+        navigationView.Select(messages);
+        var window = new Window { Content = navigationView };
+        window.Activate();
+
+        var tree = UiTreeBuilder.Build(window);
+        var navigationNode = tree.Root.Children.Single(node => node.Name == "AppNavigationView");
+        var homeNode = navigationNode.Children.Single(node => node.Name == "HomeNavigationItem");
+        var messagesNode = navigationNode.Children.Single(node => node.Name == "MessagesNavigationItem");
+
+        Assert.AreEqual(false, homeNode.Properties["isSelected"]);
+        Assert.AreEqual(true, messagesNode.Properties["isSelected"]);
+    }
+
+    [TestMethod]
+    public void NavigationViewItemExportsSelectedStateInAccessibility()
+    {
+        var home = new NavigationViewItem { Name = "HomeNavigationItem", Content = "Home" };
+        var messages = new NavigationViewItem { Name = "MessagesNavigationItem", Content = "Messages" };
+        var navigationView = new NavigationView { Name = "AppNavigationView" };
+        navigationView.MenuItems.Add(home);
+        navigationView.MenuItems.Add(messages);
+        navigationView.Select(messages);
+        var window = new Window { Content = navigationView };
+        window.Activate();
+
+        var tree = UiTreeBuilder.Build(window);
+        var accessibility = AccessibilityTreeBuilder.Build(tree);
+        var navigationNode = accessibility.Root.Children.Single(node => node.Name == "AppNavigationView");
+        var homeNode = navigationNode.Children.Single(node => node.Name == "HomeNavigationItem");
+        var messagesNode = navigationNode.Children.Single(node => node.Name == "MessagesNavigationItem");
+
+        Assert.AreEqual(false, homeNode.IsSelected);
+        Assert.AreEqual(true, messagesNode.IsSelected);
+    }
+
     private static void AssertMetricClose(double expected, double actual)
     {
         Assert.IsTrue(
