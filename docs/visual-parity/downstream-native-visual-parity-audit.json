@@ -2,9 +2,32 @@
   "schemaVersion": "0.1",
   "auditDate": "2026-06-08",
   "referenceCaptureDate": "2026-06-06",
+  "comparisonBaseline": "2026-06-08-real-windows-reference-after-phase8",
   "referenceProvenance": "downstream Windows onscreen-client WinUI probe screenshots (private QA evidence)",
   "evidenceFormat": "png",
   "evidenceBoundary": "Real Windows reference PNGs, macOS runtime PNGs, and pixel-diff PNGs/JSON stay in the private QA evidence location and are never committed to the runtime repository. This manifest carries only sanitized scenario names and metrics.",
+  "referenceReadiness": {
+    "status": "ready",
+    "windowsScreenshotsMatched": 8,
+    "evidenceFormatWarnings": 0
+  },
+  "realReferenceRollup": {
+    "scenarioCount": 8,
+    "passedScenarioCount": 0,
+    "failedScenarioCount": 8,
+    "windowsScreenshotsMatched": 8,
+    "artifactCompletenessPassed": 8,
+    "fontProvenancePassed": 8,
+    "scenarioInteractionsPassed": 8,
+    "imageIntegrityPassed": 8,
+    "routeSelectionWarnings": 3,
+    "evidenceFormatWarnings": 0,
+    "nativeComparisonStatus": "failed",
+    "nativeComparisonRequirement": "required",
+    "worstChangedPixelPercentage": 99.999837,
+    "worstMeanAbsoluteError": 9.392804,
+    "worstRootMeanSquaredError": 26.994749
+  },
   "viewport": {
     "width": 960,
     "height": 640
@@ -18,15 +41,21 @@
       "width": 960,
       "height": 640,
       "baseline": {
-        "changedPixelPercentage": 97.911133,
-        "meanAbsoluteError": 7.16952,
-        "rootMeanSquaredError": 21.312369,
+        "changedPixelPercentage": 99.998861,
+        "meanAbsoluteError": 6.576875,
+        "rootMeanSquaredError": 20.251297,
+        "maxChannelDelta": 255,
         "thresholdStatus": "failed",
         "thresholdFailure": "Changed pixels exceeds 45%.",
         "artifactStatus": "passed",
         "fontProvenanceStatus": "passed",
         "imageIntegrityStatus": "passed",
         "ladderLevel": "L0"
+      },
+      "routeSelection": {
+        "expectedRouteAnchor": "Login",
+        "selectedNavigationItem": "",
+        "warning": ""
       },
       "routeSelectionState": "Signed-out login route; no navigation rail selection to reconcile.",
       "mainVisualGaps": [
@@ -42,15 +71,21 @@
       "width": 960,
       "height": 640,
       "baseline": {
-        "changedPixelPercentage": 99.999023,
-        "meanAbsoluteError": 7.558422,
-        "rootMeanSquaredError": 23.599508,
+        "changedPixelPercentage": 97.936849,
+        "meanAbsoluteError": 9.392804,
+        "rootMeanSquaredError": 22.971642,
+        "maxChannelDelta": 255,
         "thresholdStatus": "failed",
         "thresholdFailure": "Changed pixels exceeds 45%.",
         "artifactStatus": "passed",
         "fontProvenanceStatus": "passed",
         "imageIntegrityStatus": "passed",
         "ladderLevel": "L0"
+      },
+      "routeSelection": {
+        "expectedRouteAnchor": "Status",
+        "selectedNavigationItem": "SettingsNavigationItem",
+        "warning": "selected navigation item does not match expected route anchor"
       },
       "routeSelectionState": "Status route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
       "mainVisualGaps": [
@@ -67,14 +102,20 @@
       "height": 640,
       "baseline": {
         "changedPixelPercentage": 99.997721,
-        "meanAbsoluteError": 6.792517,
-        "rootMeanSquaredError": 25.316643,
+        "meanAbsoluteError": 7.156,
+        "rootMeanSquaredError": 25.123735,
+        "maxChannelDelta": 255,
         "thresholdStatus": "failed",
         "thresholdFailure": "Changed pixels exceeds 45%.",
         "artifactStatus": "passed",
         "fontProvenanceStatus": "passed",
         "imageIntegrityStatus": "passed",
         "ladderLevel": "L0"
+      },
+      "routeSelection": {
+        "expectedRouteAnchor": "Messages",
+        "selectedNavigationItem": "ChannelsNavigationItem",
+        "warning": "selected navigation item does not match expected route anchor"
       },
       "routeSelectionState": "Messages route selected in rail.",
       "mainVisualGaps": [
@@ -90,15 +131,21 @@
       "width": 960,
       "height": 640,
       "baseline": {
-        "changedPixelPercentage": 99.999349,
-        "meanAbsoluteError": 7.085251,
-        "rootMeanSquaredError": 26.113236,
+        "changedPixelPercentage": 99.999837,
+        "meanAbsoluteError": 7.40827,
+        "rootMeanSquaredError": 25.635526,
+        "maxChannelDelta": 255,
         "thresholdStatus": "failed",
         "thresholdFailure": "Changed pixels exceeds 45%.",
         "artifactStatus": "passed",
         "fontProvenanceStatus": "passed",
         "imageIntegrityStatus": "passed",
         "ladderLevel": "L0"
+      },
+      "routeSelection": {
+        "expectedRouteAnchor": "Home",
+        "selectedNavigationItem": "HomeNavigationItem",
+        "warning": ""
       },
       "routeSelectionState": "Home route selected in rail.",
       "mainVisualGaps": [
@@ -114,15 +161,21 @@
       "width": 960,
       "height": 640,
       "baseline": {
-        "changedPixelPercentage": 99.998698,
-        "meanAbsoluteError": 8.055549,
-        "rootMeanSquaredError": 27.656882,
+        "changedPixelPercentage": 98.428874,
+        "meanAbsoluteError": 8.316964,
+        "rootMeanSquaredError": 26.994749,
+        "maxChannelDelta": 255,
         "thresholdStatus": "failed",
         "thresholdFailure": "Changed pixels exceeds 45%.",
         "artifactStatus": "passed",
         "fontProvenanceStatus": "passed",
         "imageIntegrityStatus": "passed",
         "ladderLevel": "L0"
+      },
+      "routeSelection": {
+        "expectedRouteAnchor": "Admin",
+        "selectedNavigationItem": "AdminNavigationItem",
+        "warning": ""
       },
       "routeSelectionState": "Admin route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
       "mainVisualGaps": [
@@ -138,15 +191,21 @@
       "width": 960,
       "height": 640,
       "baseline": {
-        "changedPixelPercentage": 99.107585,
-        "meanAbsoluteError": 5.898421,
-        "rootMeanSquaredError": 21.813655,
+        "changedPixelPercentage": 97.486654,
+        "meanAbsoluteError": 5.868128,
+        "rootMeanSquaredError": 21.591095,
+        "maxChannelDelta": 255,
         "thresholdStatus": "failed",
         "thresholdFailure": "Changed pixels exceeds 45%.",
         "artifactStatus": "passed",
         "fontProvenanceStatus": "passed",
         "imageIntegrityStatus": "passed",
         "ladderLevel": "L0"
+      },
+      "routeSelection": {
+        "expectedRouteAnchor": "Admin",
+        "selectedNavigationItem": "AdminWorkbenchNavigationItem",
+        "warning": ""
       },
       "routeSelectionState": "Admin workbench route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
       "mainVisualGaps": [
@@ -162,15 +221,21 @@
       "width": 960,
       "height": 640,
       "baseline": {
-        "changedPixelPercentage": 99.107585,
-        "meanAbsoluteError": 5.898421,
-        "rootMeanSquaredError": 21.813655,
+        "changedPixelPercentage": 97.486654,
+        "meanAbsoluteError": 5.868128,
+        "rootMeanSquaredError": 21.591095,
+        "maxChannelDelta": 255,
         "thresholdStatus": "failed",
         "thresholdFailure": "Changed pixels exceeds 45%.",
         "artifactStatus": "passed",
         "fontProvenanceStatus": "passed",
         "imageIntegrityStatus": "passed",
         "ladderLevel": "L0"
+      },
+      "routeSelection": {
+        "expectedRouteAnchor": "Admin",
+        "selectedNavigationItem": "AdminWorkbenchNavigationItem",
+        "warning": ""
       },
       "routeSelectionState": "Workbench command/search frame; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
       "mainVisualGaps": [
@@ -186,15 +251,21 @@
       "width": 960,
       "height": 640,
       "baseline": {
-        "changedPixelPercentage": 98.819987,
-        "meanAbsoluteError": 5.835193,
-        "rootMeanSquaredError": 22.975264,
+        "changedPixelPercentage": 98.821777,
+        "meanAbsoluteError": 7.190805,
+        "rootMeanSquaredError": 23.438811,
+        "maxChannelDelta": 255,
         "thresholdStatus": "failed",
         "thresholdFailure": "Changed pixels exceeds 45%.",
         "artifactStatus": "passed",
         "fontProvenanceStatus": "passed",
         "imageIntegrityStatus": "passed",
         "ladderLevel": "L0"
+      },
+      "routeSelection": {
+        "expectedRouteAnchor": "Settings",
+        "selectedNavigationItem": "ProfileNavigationItem",
+        "warning": "selected navigation item does not match expected route anchor"
       },
       "routeSelectionState": "Settings route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
       "mainVisualGaps": [

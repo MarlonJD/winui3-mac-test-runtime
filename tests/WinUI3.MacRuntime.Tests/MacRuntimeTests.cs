@@ -607,13 +607,13 @@ public sealed class MacRuntimeTests
 
         var login = audit.Scenarios.Single(scenario => scenario.Scenario == "login-light");
         Assert.AreEqual(1, login.Priority);
-        AssertMetricClose(97.911133d, login.Baseline.ChangedPixelPercentage);
-        AssertMetricClose(7.169520d, login.Baseline.MeanAbsoluteError);
-        AssertMetricClose(21.312369d, login.Baseline.RootMeanSquaredError);
+        AssertMetricClose(99.998861d, login.Baseline.ChangedPixelPercentage);
+        AssertMetricClose(6.576875d, login.Baseline.MeanAbsoluteError);
+        AssertMetricClose(20.251297d, login.Baseline.RootMeanSquaredError);
 
         var dashboard = audit.Scenarios.Single(scenario => scenario.Scenario == "admin-dashboard-light");
-        AssertMetricClose(8.055549d, dashboard.Baseline.MeanAbsoluteError);
-        AssertMetricClose(27.656882d, dashboard.Baseline.RootMeanSquaredError);
+        AssertMetricClose(8.316964d, dashboard.Baseline.MeanAbsoluteError);
+        AssertMetricClose(26.994749d, dashboard.Baseline.RootMeanSquaredError);
 
         // The whole audit must stay sanitized and environment-agnostic: no private home paths and
         // no machine-specific absolute evidence paths leak into the checked-in manifest.
@@ -632,7 +632,7 @@ public sealed class MacRuntimeTests
         // The ladder classifier is the reusable engine the Phase 7 ratchet depends on.
         Assert.AreEqual(
             "L0",
-            DownstreamNativeVisualParityAudit.ClassifyLadder(97.911133d, 7.169520d, 21.312369d));
+            DownstreamNativeVisualParityAudit.ClassifyLadder(99.998861d, 6.576875d, 20.251297d));
         Assert.AreEqual("L1", DownstreamNativeVisualParityAudit.ClassifyLadder(88d, 11d, 35d));
         Assert.AreEqual("L2", DownstreamNativeVisualParityAudit.ClassifyLadder(68d, 9d, 31d));
         Assert.AreEqual("L4", DownstreamNativeVisualParityAudit.ClassifyLadder(40d, 7d, 27d));
@@ -659,6 +659,42 @@ public sealed class MacRuntimeTests
         Assert.HasCount(1, rollup);
         Assert.AreEqual("L4", rollup[0].Baseline.LadderLevel);
         Assert.AreEqual(960, rollup[0].Width);
+    }
+
+    [TestMethod]
+    public void DownstreamProbeSweepReadsRealWindowsReferenceAfterPhase8Baseline()
+    {
+        using var audit = JsonDocument.Parse(File.ReadAllText(
+            RepositoryPath("docs/visual-parity/downstream-native-visual-parity-audit.json")));
+        var root = audit.RootElement;
+
+        Assert.AreEqual("2026-06-08-real-windows-reference-after-phase8", root.GetProperty("comparisonBaseline").GetString());
+        Assert.AreEqual("ready", root.GetProperty("referenceReadiness").GetProperty("status").GetString());
+
+        var rollup = root.GetProperty("realReferenceRollup");
+        Assert.AreEqual(8, rollup.GetProperty("scenarioCount").GetInt32());
+        Assert.AreEqual(0, rollup.GetProperty("passedScenarioCount").GetInt32());
+        Assert.AreEqual(8, rollup.GetProperty("failedScenarioCount").GetInt32());
+        Assert.AreEqual(8, rollup.GetProperty("windowsScreenshotsMatched").GetInt32());
+        Assert.AreEqual(3, rollup.GetProperty("routeSelectionWarnings").GetInt32());
+        Assert.AreEqual("failed", rollup.GetProperty("nativeComparisonStatus").GetString());
+        Assert.AreEqual("required", rollup.GetProperty("nativeComparisonRequirement").GetString());
+
+        var scenarios = root.GetProperty("scenarios");
+        var login = scenarios.EnumerateArray().Single(scenario => scenario.GetProperty("scenario").GetString() == "login-light");
+        var loginBaseline = login.GetProperty("baseline");
+        AssertMetricClose(99.998861d, loginBaseline.GetProperty("changedPixelPercentage").GetDouble());
+        AssertMetricClose(6.576875d, loginBaseline.GetProperty("meanAbsoluteError").GetDouble());
+        AssertMetricClose(20.251297d, loginBaseline.GetProperty("rootMeanSquaredError").GetDouble());
+        Assert.AreEqual(255, loginBaseline.GetProperty("maxChannelDelta").GetInt32());
+
+        var status = scenarios.EnumerateArray().Single(scenario => scenario.GetProperty("scenario").GetString() == "status-states-light");
+        AssertMetricClose(9.392804d, status.GetProperty("baseline").GetProperty("meanAbsoluteError").GetDouble());
+
+        var settings = scenarios.EnumerateArray().Single(scenario => scenario.GetProperty("scenario").GetString() == "settings-profile-light");
+        Assert.AreEqual(
+            "selected navigation item does not match expected route anchor",
+            settings.GetProperty("routeSelection").GetProperty("warning").GetString());
     }
 
     [TestMethod]
@@ -724,6 +760,17 @@ public sealed class MacRuntimeTests
         StringAssert.Contains(script, "expected_route_anchor");
         StringAssert.Contains(script, "selectedNavigationItem");
         StringAssert.Contains(script, "Route/selection");
+    }
+
+    [TestMethod]
+    public void DownstreamProbeSweepFailsWhenExplicitWindowsScreenshotDirectoryIsMissing()
+    {
+        var script = File.ReadAllText(RepositoryPath("tools/winui3-mac-runner-downstream-windows-probe-sweep"));
+
+        StringAssert.Contains(script, "Windows screenshot directory does not exist");
+        StringAssert.Contains(script, "Windows screenshot directory must contain");
+        StringAssert.Contains(script, "login-light/windows-reference.png");
+        StringAssert.Contains(script, "exit 2");
     }
 
     [TestMethod]

@@ -23,29 +23,32 @@ artifact; it does not change source-level support claims and does not promote an
 
 ## Baseline Metrics (L0)
 
-Recorded from the `2026-06-06` downstream comparison sweep. All eight scenarios
-currently fail the conservative native-comparison contract because the
-whole-image changed-pixel percentage is near full-frame, even though MAE and RMSE
-are already below the broad thresholds. Lower is better.
+Recorded from the `2026-06-08-real-windows-reference-after-phase8` downstream
+comparison sweep against the `2026-06-06` Windows reference capture. The
+reference readiness status is `ready`, 8/8 Windows screenshots matched, artifact
+completeness/font provenance/interactions/image integrity/image size checks
+passed for all scenarios, evidence format warnings are zero, and the native
+comparison gate is required but failed for all eight scenarios. Route/selection
+warnings are present for three scenarios. Lower is better.
 
 | Priority | Scenario | Changed pixels | MAE | RMSE | Threshold status | Ladder |
 | ---: | --- | ---: | ---: | ---: | --- | --- |
-| 1 | `login-light` | 97.911133% | 7.169520 | 21.312369 | failed (changed > 45%) | L0 |
-| 2 | `status-states-light` | 99.999023% | 7.558422 | 23.599508 | failed (changed > 45%) | L0 |
-| 3 | `messages-multiline-light` | 99.997721% | 6.792517 | 25.316643 | failed (changed > 45%) | L0 |
-| 4 | `shell-staff-light` | 99.999349% | 7.085251 | 26.113236 | failed (changed > 45%) | L0 |
-| 5 | `admin-dashboard-light` | 99.998698% | 8.055549 | 27.656882 | failed (changed > 45%) | L0 |
-| 6 | `admin-workbench-light` | 99.107585% | 5.898421 | 21.813655 | failed (changed > 45%) | L0 |
-| 7 | `command-search-light` | 99.107585% | 5.898421 | 21.813655 | failed (changed > 45%) | L0 |
-| 8 | `settings-profile-light` | 98.819987% | 5.835193 | 22.975264 | failed (changed > 45%) | L0 |
+| 1 | `login-light` | 99.998861% | 6.576875 | 20.251297 | failed (changed > 45%) | L0 |
+| 2 | `shell-staff-light` | 99.999837% | 7.408270 | 25.635526 | failed (changed > 45%) | L0 |
+| 3 | `messages-multiline-light` | 99.997721% | 7.156000 | 25.123735 | failed (changed > 45%) | L0 |
+| 4 | `admin-dashboard-light` | 98.428874% | 8.316964 | 26.994749 | failed (changed > 45%) | L0 |
+| 5 | `admin-workbench-light` | 97.486654% | 5.868128 | 21.591095 | failed (changed > 45%) | L0 |
+| 6 | `command-search-light` | 97.486654% | 5.868128 | 21.591095 | failed (changed > 45%) | L0 |
+| 7 | `status-states-light` | 97.936849% | 9.392804 | 22.971642 | failed (changed > 45%) | L0 |
+| 8 | `settings-profile-light` | 98.821777% | 7.190805 | 23.438811 | failed (changed > 45%) | L0 |
 
 Artifact completeness, scenario interactions, image integrity, image size, and
 external font provenance all pass for every scenario. The failures are **not**
 caused by missing references, missing artifacts, blank output, image-size
 mismatches, automation failures, or missing external fonts. The changed-pixel
-percentage is near full-frame because background tint, top-left/page alignment,
-typography rasterization, control stroke placement, and one-pixel separator
-differences are global.
+percentage is near full-frame because root route alignment, page bounds,
+background/surface drift, typography rasterization, control stroke placement,
+and one-pixel separator differences are global.
 
 `maxChannelDelta` stays diagnostic at `255`; one high-contrast glyph edge can hit
 `255` even when the route is visually close.
@@ -105,12 +108,16 @@ ladder, status, reason, and private QA evidence pointer. `thresholdChange` stays
 
 The probe sweep now exports, per scenario, the `expectedRouteAnchor` and the
 runtime's `selectedNavigationItem`, and raises a `selectionStateWarning` when the
-selected rail item does not match the route's expected anchor. The current
-reference-free baseline raises route/selection warnings for the runtime selecting
-`Settings` on the status route, `Channels` on the messages route, and `Profile`
-on the settings route. These warnings are informational; the full route-selection
-audit that reconciles each one against the Windows reference lands in the shell
-phase. An empty selection (the signed-out `login-light` route) is not flagged.
+selected rail item does not match the route's expected anchor. The current real
+reference baseline raises three route/selection warnings:
+
+| Scenario | Expected route anchor | Reported selected item | Warning |
+| --- | --- | --- | --- |
+| `messages-multiline-light` | `Messages` | `ChannelsNavigationItem` | selected navigation item does not match expected route anchor |
+| `status-states-light` | `Status` | `SettingsNavigationItem` | selected navigation item does not match expected route anchor |
+| `settings-profile-light` | `Settings` | `ProfileNavigationItem` | selected navigation item does not match expected route anchor |
+
+An empty selection (the signed-out `login-light` route) is not flagged.
 
 ## How To Reproduce
 

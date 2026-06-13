@@ -67,6 +67,17 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [[ -n "$windows_screenshot_dir" ]]; then
+  if [[ ! -d "$windows_screenshot_dir" ]]; then
+    echo "Windows screenshot directory does not exist: $windows_screenshot_dir" >&2
+    exit 2
+  fi
+  if [[ ! -f "$windows_screenshot_dir/login-light/windows-reference.png" ]]; then
+    echo "Windows screenshot directory must contain structured probe PNG references such as login-light/windows-reference.png: $windows_screenshot_dir" >&2
+    exit 2
+  fi
+fi
+
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 runtime_root="$(cd "$script_dir/.." && pwd)"
 monorepo_root="$(cd "$runtime_root/../.." && pwd)"
