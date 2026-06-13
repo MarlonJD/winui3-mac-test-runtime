@@ -1273,6 +1273,137 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void VisualLayoutEngineUsesCompactNativeInfoBarHeight()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "RootGrid",
+                        new Dictionary<string, object?>
+                        {
+                            ["rowDefinitions"] = "Auto",
+                            ["rowDefinitionHeights"] = new[] { "Auto" },
+                            ["visibility"] = "Visible"
+                        },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.InfoBar",
+                                "StatusInfoBar",
+                                new Dictionary<string, object?>
+                                {
+                                    ["title"] = "Loading",
+                                    ["message"] = "Loading data",
+                                    ["severity"] = "Informational",
+                                    ["isOpen"] = true,
+                                    ["visibility"] = "Visible"
+                                },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "compact-infobar", "skia-v2", new VisualViewport(720, 120), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var infoBar = RequireNode(arranged.Root, "StatusInfoBar").Layout!;
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual(50d, infoBar.Height);
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineLetsStretchProgressBarFillVerticalStackPanelWidth()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.StackPanel",
+                        "StatusStack",
+                        new Dictionary<string, object?> { ["visibility"] = "Visible" },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.ProgressBar",
+                                "SyncProgressBar",
+                                new Dictionary<string, object?>
+                                {
+                                    ["value"] = 64d,
+                                    ["visibility"] = "Visible"
+                                },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "stretch-progress", "skia-v2", new VisualViewport(648, 120), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var progressBar = RequireNode(arranged.Root, "SyncProgressBar").Layout!;
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual(648d, progressBar.Width);
+    }
+
+    [TestMethod]
+    public void VisualLayoutEngineCentersExplicitWidthStretchProgressRingInStackPanel()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.StackPanel",
+                        "StatusStack",
+                        new Dictionary<string, object?> { ["visibility"] = "Visible" },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.ProgressRing",
+                                "LoadingProgressRing",
+                                new Dictionary<string, object?>
+                                {
+                                    ["width"] = 32d,
+                                    ["height"] = 32d,
+                                    ["isActive"] = true,
+                                    ["visibility"] = "Visible"
+                                },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "center-progress-ring", "skia-v2", new VisualViewport(648, 120), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var ring = RequireNode(arranged.Root, "LoadingProgressRing").Layout!;
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual(32d, ring.Width);
+        Assert.AreEqual(308d, ring.X);
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotPublishesRuntimeImageIntegrity()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-snapshot-integrity", Guid.NewGuid().ToString("N"));
@@ -6231,6 +6362,64 @@ public sealed class MacRuntimeTests
         Assert.AreNotEqual(theme.Surface, fillSample, "Success InfoBar should use a filled severity surface, not the plain card surface.");
         Assert.IsTrue(fillSample.Green > fillSample.Red && fillSample.Green > fillSample.Blue, $"Expected a success-tinted fill, got {fillSample}.");
         Assert.IsGreaterThan(4, CountDarkPixels(bitmap, closeBand, 150));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererAlignsCompactInfoBarTitleAndMessageInline()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "compact-infobar-inline");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new InfoBar
+            {
+                Name = "LoadingInfoBar",
+                Title = "Loading",
+                Message = "Loading data",
+                Severity = InfoBarSeverity.Informational,
+                IsClosable = false,
+                Width = 360,
+                Height = 50
+            }
+        });
+        var settings = new VisualRunSettings(null, "compact-infobar-inline", "skia-v2", new VisualViewport(420, 96), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "compact-infobar-inline", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var infoBar = RequireNode(arranged.Root, "LoadingInfoBar").Layout!;
+        var inlineMessageBand = new SKRect((float)infoBar.X + 108, (float)infoBar.Y + 16, (float)infoBar.X + 210, (float)infoBar.Y + 34);
+        var clippedLowerBand = new SKRect((float)infoBar.X + 42, (float)infoBar.Y + 36, (float)infoBar.X + 210, (float)infoBar.Y + 49);
+
+        Assert.IsGreaterThan(8, CountDarkPixels(bitmap, inlineMessageBand, 170));
+        Assert.IsLessThanOrEqualTo(2, CountDarkPixels(bitmap, clippedLowerBand, 170));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererUsesNativeShellPaneAndContentBackgrounds()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "shell-backgrounds");
+        var navigation = new NavigationView
+        {
+            Name = "RootNavigation",
+            Content = new Frame { Name = "ContentFrame" }
+        };
+        navigation.MenuItems.Add(new NavigationViewItem { Name = "HomeNavigationItem", Content = "Home" });
+        var tree = UiTreeBuilder.Build(new Window { Content = navigation });
+        var settings = new VisualRunSettings(null, "shell-backgrounds", "skia-v2", new VisualViewport(420, 180), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "shell-backgrounds", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        Assert.AreEqual(new SKColor(0xf7, 0xf8, 0xfa), bitmap.GetPixel(24, 120));
+        Assert.AreEqual(new SKColor(0xfb, 0xfc, 0xfd), bitmap.GetPixel(300, 120));
     }
 
     [TestMethod]

@@ -350,7 +350,7 @@ public static class VisualLayoutEngine
             foreach (var child in visibleChildren)
             {
                 var height = Math.Min(content.Height, EstimateHeight(child, content.Height));
-                var width = Math.Min(content.Width, EstimateWidth(child, content.Width));
+                var width = StackPanelChildWidth(child, content.Width);
                 arranged.Add(ArrangeNode(child, new LayoutRect(content.X, y, width, height), unsupported));
                 y += height + spacing;
             }
@@ -549,7 +549,7 @@ public static class VisualLayoutEngine
             "Image" => 96,
             "ProgressBar" => 28,
             "ProgressRing" => 32,
-            "InfoBar" => 74,
+            "InfoBar" => 50,
             "CommandBar" => 48,
             "CommandBarFlyout" => 54,
             "MenuFlyout" => Math.Max(72, 18 + ReadDouble(node, "itemCount", node.Children.Count) * 34),
@@ -660,16 +660,13 @@ public static class VisualLayoutEngine
             : EstimateWidth(node, rect.Width);
         var width = ApplyWidthConstraints(node, rect.Width, naturalWidth);
         var height = ApplyHeightConstraints(node, rect.Height, rect.Height);
-        var isMaxWidthConstrainedStretch = string.Equals(horizontalAlignment, "Stretch", StringComparison.OrdinalIgnoreCase) &&
-            ReadDouble(node, "maxWidth", double.NaN) is var maxWidth &&
-            !double.IsNaN(maxWidth) &&
-            maxWidth > 0 &&
+        var isConstrainedStretch = string.Equals(horizontalAlignment, "Stretch", StringComparison.OrdinalIgnoreCase) &&
             width < rect.Width;
         var x = horizontalAlignment switch
         {
             var value when string.Equals(value, "Center", StringComparison.OrdinalIgnoreCase) => rect.X + Math.Max(0, (rect.Width - width) / 2),
             var value when string.Equals(value, "Right", StringComparison.OrdinalIgnoreCase) => rect.X + Math.Max(0, rect.Width - width),
-            _ when isMaxWidthConstrainedStretch => rect.X + Math.Max(0, (rect.Width - width) / 2),
+            _ when isConstrainedStretch => rect.X + Math.Max(0, (rect.Width - width) / 2),
             _ => rect.X
         };
 
@@ -692,6 +689,14 @@ public static class VisualLayoutEngine
             : node.Children.Max(child => EstimateWidth(child, available));
 
         return Math.Min(fallback, content + horizontalPadding);
+    }
+
+    private static double StackPanelChildWidth(UiNode child, double availableWidth)
+    {
+        var horizontalAlignment = ReadString(child, "horizontalAlignment") ?? "Stretch";
+        return string.Equals(horizontalAlignment, "Stretch", StringComparison.OrdinalIgnoreCase)
+            ? availableWidth
+            : Math.Min(availableWidth, EstimateWidth(child, availableWidth));
     }
 
     private static double EstimateContentControlWidth(UiNode node, double fallback)

@@ -245,7 +245,8 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         var paneWidth = Math.Clamp(ReadFloat(node, "openPaneLength", 248), 220, 320);
-        DrawRect(canvas, paint, new SKRect(rect.Left, rect.Top, rect.Left + paneWidth, rect.Bottom), theme.PaneBackground);
+        DrawRect(canvas, paint, new SKRect(rect.Left + paneWidth, rect.Top, rect.Right, rect.Bottom), ShellContentBackground());
+        DrawRect(canvas, paint, new SKRect(rect.Left, rect.Top, rect.Left + paneWidth, rect.Bottom), ShellPaneBackground());
         DrawLine(canvas, paint, rect.Left + paneWidth, rect.Top, rect.Left + paneWidth, rect.Bottom, theme.Stroke);
         DrawLine(canvas, paint, rect.Left + 20, rect.Top + 20, rect.Left + 31, rect.Top + 20, theme.TextPrimary);
         DrawLine(canvas, paint, rect.Left + 20, rect.Top + 24, rect.Left + 31, rect.Top + 24, theme.TextPrimary);
@@ -769,24 +770,35 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         };
         DrawRoundRect(canvas, paint, rect, theme.ContainerCornerRadius, SeverityFill(severity, theme));
         DrawRoundRectStroke(canvas, paint, rect, theme.ContainerCornerRadius, SeverityStroke(severity, theme));
-        DrawCircle(canvas, paint, rect.Left + 24, rect.Top + 26, 8, accent);
+        var centerY = rect.Top + rect.Height / 2;
+        DrawCircle(canvas, paint, rect.Left + 24, centerY, 8, accent);
         if (severity == "Success")
         {
-            DrawCheckMark(canvas, paint, new SKRect(rect.Left + 17, rect.Top + 19, rect.Left + 31, rect.Top + 33), theme.Surface);
+            DrawCheckMark(canvas, paint, new SKRect(rect.Left + 17, centerY - 7, rect.Left + 31, centerY + 7), theme.Surface);
         }
         else
         {
-            DrawText(canvas, paint, smallFont, SeverityGlyph(severity), rect.Left + 21, rect.Top + 31, theme.Surface);
+            DrawText(canvas, paint, smallFont, SeverityGlyph(severity), rect.Left + 21, centerY + 5, theme.Surface);
         }
 
-        DrawText(canvas, paint, bodyFont, ReadString(node, "title") ?? severity, rect.Left + 42, rect.Top + 27, theme.TextPrimary);
-        DrawText(canvas, paint, smallFont, ReadString(node, "message") ?? string.Empty, rect.Left + 42, rect.Top + 50, theme.TextSecondary);
+        var title = ReadString(node, "title") ?? severity;
+        var message = ReadString(node, "message") ?? string.Empty;
+        var baseline = WinUITextMetrics.For(bodyFont).BaselineFor(rect);
+        var titleX = rect.Left + 48;
+        DrawText(canvas, paint, bodyFont, title, titleX, baseline, theme.TextPrimary);
+        DrawText(canvas, paint, bodyFont, title, titleX + 0.35f, baseline, theme.TextPrimary);
+        if (!string.IsNullOrWhiteSpace(message))
+        {
+            var messageX = titleX + bodyFont.MeasureText(title) + 16;
+            DrawText(canvas, paint, bodyFont, message, messageX, baseline, theme.TextSecondary);
+        }
+
         if (ReadBool(node, "isClosable", fallback: true))
         {
             DrawCloseIcon(
                 canvas,
                 paint,
-                new SKRect(rect.Right - 28, rect.Top + 17, rect.Right - 16, rect.Top + 29),
+                new SKRect(rect.Right - 28, centerY - 6, rect.Right - 16, centerY + 6),
                 ControlAffordanceColor(theme));
         }
     }
@@ -1025,6 +1037,10 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             .Select(child => ReadString(child, "background") is null ? (SKColor?)null : ReadColor(child, "background", fallback))
             .FirstOrDefault(color => color is not null) ?? fallback;
     }
+
+    private static SKColor ShellPaneBackground() => new(0xf7, 0xf8, 0xfa);
+
+    private static SKColor ShellContentBackground() => new(0xfb, 0xfc, 0xfd);
 
     private static void RenderChildren(
         SKCanvas canvas,
