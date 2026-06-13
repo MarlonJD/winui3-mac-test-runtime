@@ -694,9 +694,34 @@ public static class VisualLayoutEngine
     private static double StackPanelChildWidth(UiNode child, double availableWidth)
     {
         var horizontalAlignment = ReadString(child, "horizontalAlignment") ?? "Stretch";
-        return string.Equals(horizontalAlignment, "Stretch", StringComparison.OrdinalIgnoreCase)
-            ? availableWidth
-            : Math.Min(availableWidth, EstimateWidth(child, availableWidth));
+        if (!string.Equals(horizontalAlignment, "Stretch", StringComparison.OrdinalIgnoreCase))
+        {
+            return Math.Min(availableWidth, EstimateWidth(child, availableWidth));
+        }
+
+        return UsesNaturalStackPanelWidth(child)
+            ? Math.Min(availableWidth, EstimateWidth(child, availableWidth))
+            : availableWidth;
+    }
+
+    private static bool UsesNaturalStackPanelWidth(UiNode node)
+    {
+        return SimpleType(node) is
+            "Button" or
+            "RepeatButton" or
+            "HyperlinkButton" or
+            "DropDownButton" or
+            "SplitButton" or
+            "ToggleSplitButton" or
+            "ToggleButton" or
+            "CheckBox" or
+            "RadioButton" or
+            "ComboBox" or
+            "Slider" or
+            "ToggleSwitch" or
+            "RatingControl" or
+            "SymbolIcon" or
+            "FontIcon";
     }
 
     private static double EstimateContentControlWidth(UiNode node, double fallback)

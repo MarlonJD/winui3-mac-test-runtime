@@ -6533,6 +6533,21 @@ public sealed class MacRuntimeTests
         Assert.AreNotEqual(theme.Surface, fillSample, "Success InfoBar should use a filled severity surface, not the plain card surface.");
         Assert.IsTrue(fillSample.Green > fillSample.Red && fillSample.Green > fillSample.Blue, $"Expected a success-tinted fill, got {fillSample}.");
         Assert.IsGreaterThan(4, CountDarkPixels(bitmap, closeBand, 150));
+        var iconBand = new SKRect((float)infoBar.X + 14, (float)infoBar.Y + 20, (float)infoBar.X + 36, (float)infoBar.Y + 44);
+        var successGlyphBounds = BoundsOfPixelsMatching(
+            bitmap,
+            iconBand,
+            pixel => pixel.Red >= 225 && pixel.Green >= 225 && pixel.Blue >= 225);
+
+        Assert.IsFalse(successGlyphBounds.IsEmpty, "Expected a visible success icon glyph inside the InfoBar status circle.");
+        Assert.IsGreaterThanOrEqualTo(
+            8,
+            successGlyphBounds.Width,
+            $"Success InfoBar check glyph should be wide enough to read at native density; actual bounds were {successGlyphBounds}.");
+        Assert.IsLessThanOrEqualTo(
+            12,
+            successGlyphBounds.Height,
+            $"Success InfoBar check glyph should fit inside the status circle without clipping; actual bounds were {successGlyphBounds}.");
     }
 
     [TestMethod]
@@ -6567,6 +6582,142 @@ public sealed class MacRuntimeTests
 
         Assert.IsGreaterThan(8, CountDarkPixels(bitmap, inlineMessageBand, 170));
         Assert.IsLessThanOrEqualTo(2, CountDarkPixels(bitmap, clippedLowerBand, 170));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererKeepsInformationalInfoBarIconVisibleWithoutSymbolFont()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "infobar-symbol-icon");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new InfoBar
+            {
+                Name = "InfoStatus",
+                Title = "ThreadVisible",
+                Message = "Latest channel update.",
+                Severity = InfoBarSeverity.Informational,
+                IsClosable = false,
+                Width = 420,
+                Height = 50
+            }
+        });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "infobar-symbol-icon", "skia-v2", new VisualViewport(480, 96), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "infobar-symbol-icon", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var infoBar = RequireNode(arranged.Root, "InfoStatus").Layout!;
+        var iconRect = new SKRect((float)infoBar.X + 14, (float)infoBar.Y + 14, (float)infoBar.X + 34, (float)infoBar.Y + 36);
+        var primitiveTextBounds = BoundsOfPixelsMatching(
+            bitmap,
+            iconRect,
+            pixel => pixel.Red >= 225 && pixel.Green >= 225 && pixel.Blue >= 225);
+
+        Assert.IsFalse(primitiveTextBounds.IsEmpty, "Expected a visible white informational glyph.");
+        Assert.IsGreaterThanOrEqualTo(
+            3,
+            primitiveTextBounds.Width,
+            $"Informational InfoBar icon should remain visible when Segoe Fluent Icons is unavailable; actual bounds were {primitiveTextBounds}.");
+        Assert.IsGreaterThanOrEqualTo(
+            10,
+            primitiveTextBounds.Height,
+            $"Informational InfoBar icon should use a legible native-density info mark, not a tiny text-font fallback; actual bounds were {primitiveTextBounds}.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererUsesStableNativeNavigationSelectionIndicatorHeight()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "nav-indicator-height");
+        var navigation = new NavigationView
+        {
+            Name = "RootNavigation",
+            OpenPaneLength = 240
+        };
+        var home = new NavigationViewItem
+        {
+            Name = "HomeNavigationItem",
+            Content = "Home",
+            Icon = new FontIcon { Glyph = "\uE80F" },
+            Height = 40
+        };
+        var admin = new NavigationViewItem
+        {
+            Name = "AdminNavigationItem",
+            Content = "Admin",
+            Icon = new FontIcon { Glyph = "\uE713" },
+            Height = 56
+        };
+        navigation.MenuItems.Add(home);
+        navigation.MenuItems.Add(admin);
+        navigation.Select(admin);
+
+        var tree = UiTreeBuilder.Build(new Window { Content = navigation });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "nav-indicator-height", "skia-v2", new VisualViewport(420, 180), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "nav-indicator-height", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var adminLayout = RequireNode(arranged.Root, "AdminNavigationItem").Layout!;
+        var indicatorBounds = BoundsOfPixelsMatching(
+            bitmap,
+            new SKRect((float)adminLayout.X, (float)adminLayout.Y, (float)adminLayout.X + 8, (float)(adminLayout.Y + adminLayout.Height)),
+            pixel => pixel == theme.Accent);
+
+        Assert.IsFalse(indicatorBounds.IsEmpty, "Expected selected NavigationViewItem accent indicator.");
+        Assert.IsLessThanOrEqualTo(
+            20,
+            indicatorBounds.Height,
+            $"Selected NavigationViewItem indicator should use a stable native height instead of stretching with the row; actual bounds were {indicatorBounds}.");
+        Assert.IsGreaterThanOrEqualTo(16, indicatorBounds.Height);
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererFallsBackToNavigationPrimitivesWithoutSymbolFont()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "nav-symbol-font");
+        var navigation = new NavigationView
+        {
+            Name = "RootNavigation",
+            OpenPaneLength = 240
+        };
+        var home = new NavigationViewItem
+        {
+            Name = "HomeNavigationItem",
+            Content = "Home",
+            Icon = new FontIcon { Glyph = "\uE80F" },
+            Height = 40
+        };
+        navigation.MenuItems.Add(home);
+        navigation.Select(home);
+
+        var tree = UiTreeBuilder.Build(new Window { Content = navigation });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "nav-symbol-font", "skia-v2", new VisualViewport(420, 120), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "nav-symbol-font", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var homeLayout = RequireNode(arranged.Root, "HomeNavigationItem").Layout!;
+        var iconRect = new SKRect((float)homeLayout.X + 12, (float)homeLayout.Y + 8, (float)homeLayout.X + 36, (float)homeLayout.Y + 34);
+
+        Assert.IsGreaterThanOrEqualTo(
+            8,
+            CountExactPixels(bitmap, iconRect, theme.Accent),
+            "Navigation FontIcon should fall back to deterministic primitives when the resolved symbol font is only the text fallback.");
     }
 
     [TestMethod]

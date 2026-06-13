@@ -225,7 +225,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                 RenderProgressBar(canvas, node, theme, paint);
                 break;
             case "InfoBar":
-                RenderInfoBar(canvas, node, theme, paint, bodyFont, smallFont);
+                RenderInfoBar(canvas, node, theme, paint, bodyFont, smallFont, iconFont);
                 break;
             case "FontIcon":
                 DrawText(canvas, paint, iconFont, ReadString(node, "glyph") ?? "*", (float)node.Layout.X, (float)node.Layout.Y + 18, theme.Accent);
@@ -302,7 +302,9 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         if (selected)
         {
             DrawRoundRect(canvas, paint, row, 4, theme.AccentSoft);
-            DrawRoundRect(canvas, paint, new SKRect(row.Left, row.Top + 7, row.Left + 4, row.Bottom - 7), 2, theme.Accent);
+            const float indicatorHeight = 18;
+            var indicatorTop = row.Top + (row.Height - indicatorHeight) / 2;
+            DrawRoundRect(canvas, paint, new SKRect(row.Left, indicatorTop, row.Left + 4, indicatorTop + indicatorHeight), 2, theme.Accent);
         }
 
         var icon = node.Children.FirstOrDefault(child => SimpleType(child) is "FontIcon" or "SymbolIcon");
@@ -314,9 +316,12 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             {
                 DrawText(canvas, paint, iconFont, SymbolGlyph(ReadString(icon, "symbol")), iconRect.Left, iconRect.Top + 18, selected ? theme.Accent : ControlAffordanceColor(theme));
             }
+            else if (!string.IsNullOrEmpty(ReadString(icon, "glyph")) && HasResolvedSymbolTypeface(iconFont))
+            {
+                DrawText(canvas, paint, iconFont, ReadString(icon, "glyph")!, iconRect.Left, iconRect.Top + 18, selected ? theme.Accent : ControlAffordanceColor(theme));
+            }
             else if (DrawNavigationIcon(canvas, paint, ReadString(icon, "glyph"), iconRect, selected ? theme.Accent : ControlAffordanceColor(theme)))
             {
-                // Drawn as a deterministic primitive so shell icons do not depend on Segoe Fluent Icons availability.
             }
             else
             {
@@ -772,7 +777,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         DrawArc(canvas, paint, new SKRect(centerX - radius, centerY - radius, centerX + radius, centerY + radius), -80, 285, theme.Accent, 3);
     }
 
-    private static void RenderInfoBar(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont)
+    private static void RenderInfoBar(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont bodyFont, SKFont smallFont, SKFont iconFont)
     {
         if (!ReadBool(node, "isOpen", fallback: true))
         {
@@ -794,11 +799,18 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         DrawCircle(canvas, paint, rect.Left + 24, centerY, 8, accent);
         if (severity == "Success")
         {
-            DrawCheckMark(canvas, paint, new SKRect(rect.Left + 17, centerY - 7, rect.Left + 31, centerY + 7), theme.Surface);
+            DrawCheckMark(canvas, paint, new SKRect(rect.Left + 14, centerY - 10, rect.Left + 34, centerY + 10), theme.Surface);
         }
         else
         {
-            DrawText(canvas, paint, smallFont, SeverityGlyph(severity), rect.Left + 21, centerY + 5, theme.Surface);
+            if (HasResolvedSymbolTypeface(iconFont))
+            {
+                DrawText(canvas, paint, iconFont, SeverityGlyph(severity), rect.Left + 16, centerY + 7, theme.Surface);
+            }
+            else
+            {
+                DrawText(canvas, paint, smallFont, SeverityFallbackGlyph(severity), rect.Left + 21, centerY + 5, theme.Surface);
+            }
         }
 
         var title = ReadString(node, "title") ?? severity;
@@ -1539,10 +1551,27 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         return severity switch
         {
+            "Warning" => "\uE7BA",
+            "Error" => "\uEA39",
+            _ => "\uE946"
+        };
+    }
+
+    private static string SeverityFallbackGlyph(string severity)
+    {
+        return severity switch
+        {
             "Warning" => "!",
             "Error" => "!",
             _ => "i"
         };
+    }
+
+    private static bool HasResolvedSymbolTypeface(SKFont iconFont)
+    {
+        var family = iconFont.Typeface?.FamilyName;
+        return FontResolver.SymbolFontCandidates.Any(candidate =>
+            string.Equals(candidate, family, StringComparison.OrdinalIgnoreCase));
     }
 
 }

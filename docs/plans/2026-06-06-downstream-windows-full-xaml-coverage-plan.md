@@ -16,6 +16,13 @@ Owner subtree: `tools/winui3-mac-test-runtime`
 
 Downstream validation boundary: `apps/windows` owns the real Windows app, Windows-runner validation, and private/screenshot-like QA evidence. This plan may reference downstream XAML categories and local evidence paths during execution, but public runtime artifacts must remain sanitized.
 
+2026-06-13 amendment:
+`docs/plans/2026-06-13-emsi-downstream-runtime-support-amendment.md` clarifies
+that the implementation target is runtime support for EMSI production
+XAML/gorunum shapes through source-level fixtures and downstream probes. It is
+not a plan to make the full `MeetingChallenge.Windows.csproj` compile or run on
+macOS.
+
 ## Objective
 
 The current runtime is healthy for the documented public source-level harness subset, but it is not sufficient to test the full downstream EMSI Windows app. The immediate blocker is production XAML ingestion: compiling the downstream production XAML with the current runtime compiler produced 121 diagnostics across page, theme, layout, list/template, command, status, and form surfaces.
@@ -57,6 +64,19 @@ tools/winui3-mac-runner run \
 ```
 
 That probe is useful but intentionally narrow: signed-out shell visibility, staff sign-in, Home navigation, Admin visibility, and Admin route selection. It does not exercise the production pages, production resource dictionaries, real list templates, command content, password input, or full read-surface/workbench states.
+
+2026-06-13 closure update:
+
+- The production XAML diagnostic closure gate now exits 0 for
+  `apps/windows/src/MeetingChallenge.Windows/**/*.xaml`.
+- `/private/tmp/emsi-windows-prod-xaml-generated.diagnostics.json` contains an
+  empty diagnostics array.
+- The downstream `shell-staff-light` source-level macOS runtime probe passes at
+  `/private/tmp/emsi_qa/windows/mac-runtime-probes/shell-staff-light`, with an
+  empty `unsupported-apis.json` and `visual-status: passed`.
+- This remains source-level runtime/probe evidence. It is not a claim that
+  `MeetingChallenge.Windows.csproj` fully compiled or ran as a native macOS app,
+  and it is not native Windows pixel parity without a supplied Windows reference.
 
 ## Gap Inventory
 
