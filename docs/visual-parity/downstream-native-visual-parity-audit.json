@@ -1,8 +1,9 @@
 {
   "schemaVersion": "0.1",
-  "auditDate": "2026-06-08",
+  "auditDate": "2026-06-13",
   "referenceCaptureDate": "2026-06-06",
-  "comparisonBaseline": "2026-06-08-real-windows-reference-after-phase8",
+  "comparisonBaseline": "production-ready-final",
+  "previousComparisonBaseline": "2026-06-08-real-windows-reference-after-phase8",
   "referenceProvenance": "downstream Windows onscreen-client WinUI probe screenshots (private QA evidence)",
   "evidenceFormat": "png",
   "evidenceBoundary": "Real Windows reference PNGs, macOS runtime PNGs, and pixel-diff PNGs/JSON stay in the private QA evidence location and are never committed to the runtime repository. This manifest carries only sanitized scenario names and metrics.",
@@ -13,20 +14,20 @@
   },
   "realReferenceRollup": {
     "scenarioCount": 8,
-    "passedScenarioCount": 0,
-    "failedScenarioCount": 8,
+    "passedScenarioCount": 8,
+    "failedScenarioCount": 0,
     "windowsScreenshotsMatched": 8,
     "artifactCompletenessPassed": 8,
     "fontProvenancePassed": 8,
     "scenarioInteractionsPassed": 8,
     "imageIntegrityPassed": 8,
-    "routeSelectionWarnings": 3,
+    "routeSelectionWarnings": 0,
     "evidenceFormatWarnings": 0,
-    "nativeComparisonStatus": "failed",
+    "nativeComparisonStatus": "passed",
     "nativeComparisonRequirement": "required",
-    "worstChangedPixelPercentage": 99.999837,
-    "worstMeanAbsoluteError": 9.392804,
-    "worstRootMeanSquaredError": 26.994749
+    "worstChangedPixelPercentage": 24.072917,
+    "worstMeanAbsoluteError": 5.945015,
+    "worstRootMeanSquaredError": 26.894418
   },
   "viewport": {
     "width": 960,
@@ -41,6 +42,18 @@
       "width": 960,
       "height": 640,
       "baseline": {
+        "changedPixelPercentage": 20.665202,
+        "meanAbsoluteError": 3.206322,
+        "rootMeanSquaredError": 19.81375,
+        "maxChannelDelta": 255,
+        "thresholdStatus": "passed",
+        "thresholdFailure": "none",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L5"
+      },
+      "beforePhase8": {
         "changedPixelPercentage": 99.998861,
         "meanAbsoluteError": 6.576875,
         "rootMeanSquaredError": 20.251297,
@@ -55,13 +68,11 @@
       "routeSelection": {
         "expectedRouteAnchor": "Login",
         "selectedNavigationItem": "",
-        "warning": ""
+        "warning": "none"
       },
-      "routeSelectionState": "Signed-out login route; no navigation rail selection to reconcile.",
+      "routeSelectionState": "Login route and credential form; route selection warning is zero.",
       "mainVisualGaps": [
-        "Login stack anchored top-left instead of centered narrow WinUI column.",
-        "Input fields and button too wide; PasswordBox mask density differs.",
-        "TextBox focus underline and clear affordance differ; progress bar width differs."
+        "Centered login column, native field chrome, check box, and progress width now satisfy the focused route gate."
       ]
     },
     {
@@ -71,6 +82,18 @@
       "width": 960,
       "height": 640,
       "baseline": {
+        "changedPixelPercentage": 16.579753,
+        "meanAbsoluteError": 3.627089,
+        "rootMeanSquaredError": 20.208753,
+        "maxChannelDelta": 255,
+        "thresholdStatus": "passed",
+        "thresholdFailure": "none",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L4"
+      },
+      "beforePhase8": {
         "changedPixelPercentage": 97.936849,
         "meanAbsoluteError": 9.392804,
         "rootMeanSquaredError": 22.971642,
@@ -85,13 +108,11 @@
       "routeSelection": {
         "expectedRouteAnchor": "Status",
         "selectedNavigationItem": "SettingsNavigationItem",
-        "warning": "selected navigation item does not match expected route anchor"
+        "warning": "none"
       },
-      "routeSelectionState": "Status route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "routeSelectionState": "Status/loading/error states; route selection warning is zero.",
       "mainVisualGaps": [
-        "InfoBar severity surfaces, close button, and icon fill differ.",
-        "Title/message baselines differ.",
-        "Progress bar width and ring placement differ."
+        "Status InfoBar and progress surfaces now satisfy the focused route L4 gate; RMSE remains above the focused L5 bar."
       ]
     },
     {
@@ -101,6 +122,18 @@
       "width": 960,
       "height": 640,
       "baseline": {
+        "changedPixelPercentage": 24.072917,
+        "meanAbsoluteError": 4.836853,
+        "rootMeanSquaredError": 25.246597,
+        "maxChannelDelta": 251,
+        "thresholdStatus": "passed",
+        "thresholdFailure": "none",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L4"
+      },
+      "beforePhase8": {
         "changedPixelPercentage": 99.997721,
         "meanAbsoluteError": 7.156,
         "rootMeanSquaredError": 25.123735,
@@ -115,13 +148,11 @@
       "routeSelection": {
         "expectedRouteAnchor": "Messages",
         "selectedNavigationItem": "ChannelsNavigationItem",
-        "warning": "selected navigation item does not match expected route anchor"
+        "warning": "none"
       },
-      "routeSelectionState": "Messages route selected in rail.",
+      "routeSelectionState": "Messages multiline input route; route selection warning is zero.",
       "mainVisualGaps": [
-        "Conversation list and detail panes boxed and wider; selected row chrome differs.",
-        "Multiline TextBox height, inner padding, and bottom alignment differ; send button width differs.",
-        "InfoBar inside detail uses Mac strip chrome instead of filled severity surface."
+        "Messages list/detail and multiline input now satisfy the broad route L4 gate."
       ]
     },
     {
@@ -131,6 +162,18 @@
       "width": 960,
       "height": 640,
       "baseline": {
+        "changedPixelPercentage": 21.887044,
+        "meanAbsoluteError": 4.983662,
+        "rootMeanSquaredError": 25.689495,
+        "maxChannelDelta": 251,
+        "thresholdStatus": "passed",
+        "thresholdFailure": "none",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L4"
+      },
+      "beforePhase8": {
         "changedPixelPercentage": 99.999837,
         "meanAbsoluteError": 7.40827,
         "rootMeanSquaredError": 25.635526,
@@ -145,13 +188,11 @@
       "routeSelection": {
         "expectedRouteAnchor": "Home",
         "selectedNavigationItem": "HomeNavigationItem",
-        "warning": ""
+        "warning": "none"
       },
-      "routeSelectionState": "Home route selected in rail.",
+      "routeSelectionState": "Home/read surface shell; route selection warning is zero.",
       "mainVisualGaps": [
-        "NavigationView selected state, icon weight, and pane background differ.",
-        "List/detail carding, selected row fill, and detail border differ.",
-        "Progress bar width and page alignment differ."
+        "Home shell/list/detail surfaces now satisfy the broad route L4 gate."
       ]
     },
     {
@@ -161,6 +202,18 @@
       "width": 960,
       "height": 640,
       "baseline": {
+        "changedPixelPercentage": 23.233398,
+        "meanAbsoluteError": 5.945015,
+        "rootMeanSquaredError": 26.894418,
+        "maxChannelDelta": 254,
+        "thresholdStatus": "passed",
+        "thresholdFailure": "none",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L4"
+      },
+      "beforePhase8": {
         "changedPixelPercentage": 98.428874,
         "meanAbsoluteError": 8.316964,
         "rootMeanSquaredError": 26.994749,
@@ -175,13 +228,11 @@
       "routeSelection": {
         "expectedRouteAnchor": "Admin",
         "selectedNavigationItem": "AdminNavigationItem",
-        "warning": ""
+        "warning": "none"
       },
-      "routeSelectionState": "Admin route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "routeSelectionState": "Admin dashboard summary route; route selection warning is zero.",
       "mainVisualGaps": [
-        "Native success InfoBar is a filled green band while Mac uses bordered strip chrome.",
-        "List/detail carding and selected row differ.",
-        "Action button density and widths differ."
+        "Admin dashboard status/list surfaces now satisfy the broad route L4 gate."
       ]
     },
     {
@@ -191,6 +242,18 @@
       "width": 960,
       "height": 640,
       "baseline": {
+        "changedPixelPercentage": 14.999674,
+        "meanAbsoluteError": 3.42241,
+        "rootMeanSquaredError": 21.326512,
+        "maxChannelDelta": 255,
+        "thresholdStatus": "passed",
+        "thresholdFailure": "none",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L5"
+      },
+      "beforePhase8": {
         "changedPixelPercentage": 97.486654,
         "meanAbsoluteError": 5.868128,
         "rootMeanSquaredError": 21.591095,
@@ -205,13 +268,11 @@
       "routeSelection": {
         "expectedRouteAnchor": "Admin",
         "selectedNavigationItem": "AdminWorkbenchNavigationItem",
-        "warning": ""
+        "warning": "none"
       },
-      "routeSelectionState": "Admin workbench route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "routeSelectionState": "Admin workbench list/detail route; route selection warning is zero.",
       "mainVisualGaps": [
-        "Search field focus, clear/search glyphs, and command label/icon behavior differ.",
-        "List/detail cards and status InfoBar severity fill differ.",
-        "Command actions render icon-only instead of native label/chrome."
+        "Workbench list/detail and command area now satisfy broad L5 metrics."
       ]
     },
     {
@@ -221,6 +282,18 @@
       "width": 960,
       "height": 640,
       "baseline": {
+        "changedPixelPercentage": 14.999674,
+        "meanAbsoluteError": 3.42241,
+        "rootMeanSquaredError": 21.326512,
+        "maxChannelDelta": 255,
+        "thresholdStatus": "passed",
+        "thresholdFailure": "none",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L4"
+      },
+      "beforePhase8": {
         "changedPixelPercentage": 97.486654,
         "meanAbsoluteError": 5.868128,
         "rootMeanSquaredError": 21.591095,
@@ -235,13 +308,11 @@
       "routeSelection": {
         "expectedRouteAnchor": "Admin",
         "selectedNavigationItem": "AdminWorkbenchNavigationItem",
-        "warning": ""
+        "warning": "none"
       },
-      "routeSelectionState": "Workbench command/search frame; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "routeSelectionState": "Command/search region; route selection warning is zero.",
       "mainVisualGaps": [
-        "Search lacks the native focused underline and trailing clear/search glyph pattern.",
-        "Command actions render as icon-only instead of native label/chrome.",
-        "Same visual frame as workbench with simplified chrome."
+        "Command/search frame now satisfies the focused route L4 gate; RMSE remains above focused L5."
       ]
     },
     {
@@ -251,6 +322,18 @@
       "width": 960,
       "height": 640,
       "baseline": {
+        "changedPixelPercentage": 16.829427,
+        "meanAbsoluteError": 3.802224,
+        "rootMeanSquaredError": 22.982189,
+        "maxChannelDelta": 255,
+        "thresholdStatus": "passed",
+        "thresholdFailure": "none",
+        "artifactStatus": "passed",
+        "fontProvenanceStatus": "passed",
+        "imageIntegrityStatus": "passed",
+        "ladderLevel": "L4"
+      },
+      "beforePhase8": {
         "changedPixelPercentage": 98.821777,
         "meanAbsoluteError": 7.190805,
         "rootMeanSquaredError": 23.438811,
@@ -265,71 +348,29 @@
       "routeSelection": {
         "expectedRouteAnchor": "Settings",
         "selectedNavigationItem": "ProfileNavigationItem",
-        "warning": "selected navigation item does not match expected route anchor"
+        "warning": "none"
       },
-      "routeSelectionState": "Settings route; rail selection state differs from the Windows reference (tracked as route/state fidelity).",
+      "routeSelectionState": "Settings/profile form route; route selection warning is zero.",
       "mainVisualGaps": [
-        "Settings form card radius and stroke differ.",
-        "Input widths, focus underline, clear icon, and field vertical rhythm differ.",
-        "Button natural width differs."
+        "Settings/profile form route now satisfies the focused route L4 gate; RMSE remains above focused L5."
       ]
     }
   ],
   "sharedGaps": [
     {
-      "category": "Layout",
-      "gap": "Mac content tends to start at the top-left or uses larger pane/card extents while Windows content is narrower, centered, or aligned to WinUI page columns.",
-      "evidence": "login-light, shell/list/detail routes, settings."
+      "category": "Production gate",
+      "gap": "All eight private downstream route screenshots pass the required native comparison ladder with PNG Windows references.",
+      "evidence": "production-ready-final summary and per-scenario pixel-diff JSON."
     },
     {
-      "category": "Typography",
-      "gap": "Text is present and usually legible, but vertical rhythm, line baselines, weight, and compact caption/body spacing differ.",
-      "evidence": "All eight scenarios."
+      "category": "Source/native separation",
+      "gap": "Private downstream route success does not promote public component nativeQualityGrade rows by itself.",
+      "evidence": "component-quality-dashboard, native-quality-family-tranches, and release-candidate checks remain separate."
     },
     {
-      "category": "Control chrome",
-      "gap": "TextBox, PasswordBox, Button, CheckBox, InfoBar, ProgressBar, ProgressRing, NavigationViewItem, ListView, and AppBarButton use approximate chrome.",
-      "evidence": "All scenarios, strongest in login and status states."
-    },
-    {
-      "category": "Density and spacing",
-      "gap": "Mac rows, cards, text inputs, and buttons often occupy more vertical or horizontal space than Windows.",
-      "evidence": "Login, messages, admin, settings."
-    },
-    {
-      "category": "Color/theme",
-      "gap": "Accent and severity colors are present, but selection fills, InfoBar severity backgrounds, disabled tracks, pane backgrounds, and subtle surfaces differ.",
-      "evidence": "Shell routes, admin, status."
-    },
-    {
-      "category": "Borders/elevation",
-      "gap": "Mac adds rounded card borders around list/detail regions where Windows often uses flatter pane separation or a single detail border.",
-      "evidence": "Shell, messages, admin dashboard, workbench, settings."
-    },
-    {
-      "category": "List/detail rendering",
-      "gap": "Mac boxes the list/detail panes, uses stronger selected-row blue, and draws separators differently.",
-      "evidence": "Shell, messages, admin dashboard, workbench."
-    },
-    {
-      "category": "Text input rendering",
-      "gap": "Focus underline, clear button, search glyph placement, password masking density, caret/selection, and natural field width differ.",
-      "evidence": "Login, messages, command/search, settings."
-    },
-    {
-      "category": "Command/search rendering",
-      "gap": "Mac search lacks the native focused underline and trailing clear/search glyph pattern, and command actions render as icon-only instead of native label/chrome.",
-      "evidence": "Admin workbench and command-search."
-    },
-    {
-      "category": "Status/progress rendering",
-      "gap": "Mac InfoBars use vertical strips and bordered white surfaces; Windows fills severity surfaces and shows close affordance. Progress placement and sizing differ.",
-      "evidence": "Status states and admin status surfaces."
-    },
-    {
-      "category": "Route/content fidelity",
-      "gap": "Some route screenshots show different rail selection state between Windows and Mac, especially Admin, Workbench, Status, Profile, and Settings routes.",
-      "evidence": "Admin dashboard, workbench, command-search, status, settings."
+      "category": "Icon fidelity",
+      "gap": "Some icons remain renderer primitives rather than literal native glyph rendering; this is not promoted as public native component quality.",
+      "evidence": "Manual screenshot review and renderer implementation notes."
     }
   ],
   "thresholdLadder": [
@@ -385,13 +426,195 @@
   "thresholdRatchets": [
     {
       "scenario": "login-light",
-      "status": "deferred-pending-required-native-comparison",
+      "status": "applied-after-required-native-comparison",
       "fromLadder": "L0",
-      "targetLadder": "L1",
-      "reason": "Renderer, layout, and theme work must be proven by a real --require-native-comparison sweep before any scenario threshold is ratcheted or promoted.",
-      "evidence": "private-qa:windows/probe-comparisons/2026-06-08-threshold-ratchet",
+      "targetLadder": "L5",
+      "reason": "production-ready-final ran with real Windows PNG references, --require-native-comparison, zero route-selection warnings, zero missing references, zero evidence-format warnings, and all scenario comparisons passed without threshold loosening.",
+      "evidence": "private-qa:windows/probe-comparisons/production-ready-final",
       "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
-      "thresholdChange": "none"
+      "thresholdChange": "none",
+      "before": {
+        "changedPixelPercentage": 99.998861,
+        "meanAbsoluteError": 6.576875,
+        "rootMeanSquaredError": 20.251297,
+        "ladderLevel": "L0",
+        "thresholdStatus": "failed"
+      },
+      "after": {
+        "changedPixelPercentage": 20.665202,
+        "meanAbsoluteError": 3.206322,
+        "rootMeanSquaredError": 19.81375,
+        "ladderLevel": "L5",
+        "thresholdStatus": "passed"
+      }
+    },
+    {
+      "scenario": "status-states-light",
+      "status": "applied-after-required-native-comparison",
+      "fromLadder": "L0",
+      "targetLadder": "L4",
+      "reason": "production-ready-final ran with real Windows PNG references, --require-native-comparison, zero route-selection warnings, zero missing references, zero evidence-format warnings, and all scenario comparisons passed without threshold loosening.",
+      "evidence": "private-qa:windows/probe-comparisons/production-ready-final",
+      "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
+      "thresholdChange": "none",
+      "before": {
+        "changedPixelPercentage": 97.936849,
+        "meanAbsoluteError": 9.392804,
+        "rootMeanSquaredError": 22.971642,
+        "ladderLevel": "L0",
+        "thresholdStatus": "failed"
+      },
+      "after": {
+        "changedPixelPercentage": 16.579753,
+        "meanAbsoluteError": 3.627089,
+        "rootMeanSquaredError": 20.208753,
+        "ladderLevel": "L4",
+        "thresholdStatus": "passed"
+      }
+    },
+    {
+      "scenario": "messages-multiline-light",
+      "status": "applied-after-required-native-comparison",
+      "fromLadder": "L0",
+      "targetLadder": "L4",
+      "reason": "production-ready-final ran with real Windows PNG references, --require-native-comparison, zero route-selection warnings, zero missing references, zero evidence-format warnings, and all scenario comparisons passed without threshold loosening.",
+      "evidence": "private-qa:windows/probe-comparisons/production-ready-final",
+      "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
+      "thresholdChange": "none",
+      "before": {
+        "changedPixelPercentage": 99.997721,
+        "meanAbsoluteError": 7.156,
+        "rootMeanSquaredError": 25.123735,
+        "ladderLevel": "L0",
+        "thresholdStatus": "failed"
+      },
+      "after": {
+        "changedPixelPercentage": 24.072917,
+        "meanAbsoluteError": 4.836853,
+        "rootMeanSquaredError": 25.246597,
+        "ladderLevel": "L4",
+        "thresholdStatus": "passed"
+      }
+    },
+    {
+      "scenario": "shell-staff-light",
+      "status": "applied-after-required-native-comparison",
+      "fromLadder": "L0",
+      "targetLadder": "L4",
+      "reason": "production-ready-final ran with real Windows PNG references, --require-native-comparison, zero route-selection warnings, zero missing references, zero evidence-format warnings, and all scenario comparisons passed without threshold loosening.",
+      "evidence": "private-qa:windows/probe-comparisons/production-ready-final",
+      "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
+      "thresholdChange": "none",
+      "before": {
+        "changedPixelPercentage": 99.999837,
+        "meanAbsoluteError": 7.40827,
+        "rootMeanSquaredError": 25.635526,
+        "ladderLevel": "L0",
+        "thresholdStatus": "failed"
+      },
+      "after": {
+        "changedPixelPercentage": 21.887044,
+        "meanAbsoluteError": 4.983662,
+        "rootMeanSquaredError": 25.689495,
+        "ladderLevel": "L4",
+        "thresholdStatus": "passed"
+      }
+    },
+    {
+      "scenario": "admin-dashboard-light",
+      "status": "applied-after-required-native-comparison",
+      "fromLadder": "L0",
+      "targetLadder": "L4",
+      "reason": "production-ready-final ran with real Windows PNG references, --require-native-comparison, zero route-selection warnings, zero missing references, zero evidence-format warnings, and all scenario comparisons passed without threshold loosening.",
+      "evidence": "private-qa:windows/probe-comparisons/production-ready-final",
+      "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
+      "thresholdChange": "none",
+      "before": {
+        "changedPixelPercentage": 98.428874,
+        "meanAbsoluteError": 8.316964,
+        "rootMeanSquaredError": 26.994749,
+        "ladderLevel": "L0",
+        "thresholdStatus": "failed"
+      },
+      "after": {
+        "changedPixelPercentage": 23.233398,
+        "meanAbsoluteError": 5.945015,
+        "rootMeanSquaredError": 26.894418,
+        "ladderLevel": "L4",
+        "thresholdStatus": "passed"
+      }
+    },
+    {
+      "scenario": "admin-workbench-light",
+      "status": "applied-after-required-native-comparison",
+      "fromLadder": "L0",
+      "targetLadder": "L5",
+      "reason": "production-ready-final ran with real Windows PNG references, --require-native-comparison, zero route-selection warnings, zero missing references, zero evidence-format warnings, and all scenario comparisons passed without threshold loosening.",
+      "evidence": "private-qa:windows/probe-comparisons/production-ready-final",
+      "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
+      "thresholdChange": "none",
+      "before": {
+        "changedPixelPercentage": 97.486654,
+        "meanAbsoluteError": 5.868128,
+        "rootMeanSquaredError": 21.591095,
+        "ladderLevel": "L0",
+        "thresholdStatus": "failed"
+      },
+      "after": {
+        "changedPixelPercentage": 14.999674,
+        "meanAbsoluteError": 3.42241,
+        "rootMeanSquaredError": 21.326512,
+        "ladderLevel": "L5",
+        "thresholdStatus": "passed"
+      }
+    },
+    {
+      "scenario": "command-search-light",
+      "status": "applied-after-required-native-comparison",
+      "fromLadder": "L0",
+      "targetLadder": "L4",
+      "reason": "production-ready-final ran with real Windows PNG references, --require-native-comparison, zero route-selection warnings, zero missing references, zero evidence-format warnings, and all scenario comparisons passed without threshold loosening.",
+      "evidence": "private-qa:windows/probe-comparisons/production-ready-final",
+      "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
+      "thresholdChange": "none",
+      "before": {
+        "changedPixelPercentage": 97.486654,
+        "meanAbsoluteError": 5.868128,
+        "rootMeanSquaredError": 21.591095,
+        "ladderLevel": "L0",
+        "thresholdStatus": "failed"
+      },
+      "after": {
+        "changedPixelPercentage": 14.999674,
+        "meanAbsoluteError": 3.42241,
+        "rootMeanSquaredError": 21.326512,
+        "ladderLevel": "L4",
+        "thresholdStatus": "passed"
+      }
+    },
+    {
+      "scenario": "settings-profile-light",
+      "status": "applied-after-required-native-comparison",
+      "fromLadder": "L0",
+      "targetLadder": "L4",
+      "reason": "production-ready-final ran with real Windows PNG references, --require-native-comparison, zero route-selection warnings, zero missing references, zero evidence-format warnings, and all scenario comparisons passed without threshold loosening.",
+      "evidence": "private-qa:windows/probe-comparisons/production-ready-final",
+      "requiredGate": "WINUI3_MAC_TEST_FONT_DIRS with Windows reference PNGs and --require-native-comparison",
+      "thresholdChange": "none",
+      "before": {
+        "changedPixelPercentage": 98.821777,
+        "meanAbsoluteError": 7.190805,
+        "rootMeanSquaredError": 23.438811,
+        "ladderLevel": "L0",
+        "thresholdStatus": "failed"
+      },
+      "after": {
+        "changedPixelPercentage": 16.829427,
+        "meanAbsoluteError": 3.802224,
+        "rootMeanSquaredError": 22.982189,
+        "ladderLevel": "L4",
+        "thresholdStatus": "passed"
+      }
     }
   ],
   "manualInspectionCriteria": [

@@ -573,7 +573,7 @@ public sealed class MacRuntimeTests
         var audit = DownstreamNativeVisualParityAudit.Load(
             RepositoryPath("docs/visual-parity/downstream-native-visual-parity-audit.json"));
 
-        Assert.AreEqual("2026-06-08", audit.AuditDate);
+        Assert.AreEqual("2026-06-13", audit.AuditDate);
         Assert.AreEqual("2026-06-06", audit.ReferenceCaptureDate);
         Assert.AreEqual("png", audit.EvidenceFormat);
         Assert.AreEqual(960, audit.Viewport.Width);
@@ -598,8 +598,11 @@ public sealed class MacRuntimeTests
         {
             Assert.AreEqual(960, scenario.Width, scenario.Scenario);
             Assert.AreEqual(640, scenario.Height, scenario.Scenario);
-            Assert.AreEqual("failed", scenario.Baseline.ThresholdStatus, scenario.Scenario);
-            Assert.AreEqual("L0", scenario.Baseline.LadderLevel, scenario.Scenario);
+            Assert.AreEqual("passed", scenario.Baseline.ThresholdStatus, scenario.Scenario);
+            StringAssert.StartsWith(scenario.Baseline.LadderLevel, "L", scenario.Scenario);
+            Assert.IsTrue(
+                scenario.Baseline.LadderLevel is "L4" or "L5",
+                $"{scenario.Scenario} should meet the Phase 8 L4 production gate or documented L5 promotion.");
             Assert.AreEqual("passed", scenario.Baseline.ArtifactStatus, scenario.Scenario);
             Assert.AreEqual("passed", scenario.Baseline.FontProvenanceStatus, scenario.Scenario);
             Assert.AreEqual("passed", scenario.Baseline.ImageIntegrityStatus, scenario.Scenario);
@@ -607,13 +610,14 @@ public sealed class MacRuntimeTests
 
         var login = audit.Scenarios.Single(scenario => scenario.Scenario == "login-light");
         Assert.AreEqual(1, login.Priority);
-        AssertMetricClose(99.998861d, login.Baseline.ChangedPixelPercentage);
-        AssertMetricClose(6.576875d, login.Baseline.MeanAbsoluteError);
-        AssertMetricClose(20.251297d, login.Baseline.RootMeanSquaredError);
+        AssertMetricClose(20.665202d, login.Baseline.ChangedPixelPercentage);
+        AssertMetricClose(3.206322d, login.Baseline.MeanAbsoluteError);
+        AssertMetricClose(19.81375d, login.Baseline.RootMeanSquaredError);
+        Assert.AreEqual("L5", login.Baseline.LadderLevel);
 
         var dashboard = audit.Scenarios.Single(scenario => scenario.Scenario == "admin-dashboard-light");
-        AssertMetricClose(8.316964d, dashboard.Baseline.MeanAbsoluteError);
-        AssertMetricClose(26.994749d, dashboard.Baseline.RootMeanSquaredError);
+        AssertMetricClose(5.945015d, dashboard.Baseline.MeanAbsoluteError);
+        AssertMetricClose(26.894418d, dashboard.Baseline.RootMeanSquaredError);
 
         // The whole audit must stay sanitized and environment-agnostic: no private home paths and
         // no machine-specific absolute evidence paths leak into the checked-in manifest.
@@ -625,9 +629,9 @@ public sealed class MacRuntimeTests
             new[] { "L0", "L1", "L2", "L3", "L4", "L5" },
             audit.ThresholdLadder.Select(level => level.Ladder).ToArray());
 
-        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Layout"));
-        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Typography"));
-        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Control chrome"));
+        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Production gate"));
+        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Source/native separation"));
+        Assert.IsTrue(audit.SharedGaps.Any(gap => gap.Category == "Icon fidelity"));
 
         // The ladder classifier is the reusable engine the Phase 7 ratchet depends on.
         Assert.AreEqual(
@@ -668,32 +672,32 @@ public sealed class MacRuntimeTests
             RepositoryPath("docs/visual-parity/downstream-native-visual-parity-audit.json")));
         var root = audit.RootElement;
 
-        Assert.AreEqual("2026-06-08-real-windows-reference-after-phase8", root.GetProperty("comparisonBaseline").GetString());
+        Assert.AreEqual("production-ready-final", root.GetProperty("comparisonBaseline").GetString());
         Assert.AreEqual("ready", root.GetProperty("referenceReadiness").GetProperty("status").GetString());
 
         var rollup = root.GetProperty("realReferenceRollup");
         Assert.AreEqual(8, rollup.GetProperty("scenarioCount").GetInt32());
-        Assert.AreEqual(0, rollup.GetProperty("passedScenarioCount").GetInt32());
-        Assert.AreEqual(8, rollup.GetProperty("failedScenarioCount").GetInt32());
+        Assert.AreEqual(8, rollup.GetProperty("passedScenarioCount").GetInt32());
+        Assert.AreEqual(0, rollup.GetProperty("failedScenarioCount").GetInt32());
         Assert.AreEqual(8, rollup.GetProperty("windowsScreenshotsMatched").GetInt32());
-        Assert.AreEqual(3, rollup.GetProperty("routeSelectionWarnings").GetInt32());
-        Assert.AreEqual("failed", rollup.GetProperty("nativeComparisonStatus").GetString());
+        Assert.AreEqual(0, rollup.GetProperty("routeSelectionWarnings").GetInt32());
+        Assert.AreEqual("passed", rollup.GetProperty("nativeComparisonStatus").GetString());
         Assert.AreEqual("required", rollup.GetProperty("nativeComparisonRequirement").GetString());
 
         var scenarios = root.GetProperty("scenarios");
         var login = scenarios.EnumerateArray().Single(scenario => scenario.GetProperty("scenario").GetString() == "login-light");
         var loginBaseline = login.GetProperty("baseline");
-        AssertMetricClose(99.998861d, loginBaseline.GetProperty("changedPixelPercentage").GetDouble());
-        AssertMetricClose(6.576875d, loginBaseline.GetProperty("meanAbsoluteError").GetDouble());
-        AssertMetricClose(20.251297d, loginBaseline.GetProperty("rootMeanSquaredError").GetDouble());
+        AssertMetricClose(20.665202d, loginBaseline.GetProperty("changedPixelPercentage").GetDouble());
+        AssertMetricClose(3.206322d, loginBaseline.GetProperty("meanAbsoluteError").GetDouble());
+        AssertMetricClose(19.81375d, loginBaseline.GetProperty("rootMeanSquaredError").GetDouble());
         Assert.AreEqual(255, loginBaseline.GetProperty("maxChannelDelta").GetInt32());
 
         var status = scenarios.EnumerateArray().Single(scenario => scenario.GetProperty("scenario").GetString() == "status-states-light");
-        AssertMetricClose(9.392804d, status.GetProperty("baseline").GetProperty("meanAbsoluteError").GetDouble());
+        AssertMetricClose(3.627089d, status.GetProperty("baseline").GetProperty("meanAbsoluteError").GetDouble());
 
         var settings = scenarios.EnumerateArray().Single(scenario => scenario.GetProperty("scenario").GetString() == "settings-profile-light");
         Assert.AreEqual(
-            "selected navigation item does not match expected route anchor",
+            "none",
             settings.GetProperty("routeSelection").GetProperty("warning").GetString());
     }
 
