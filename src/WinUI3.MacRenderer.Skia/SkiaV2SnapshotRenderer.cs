@@ -102,9 +102,18 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
                 RenderStackPanel(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont, isRoot);
                 break;
             case "Border":
-                var borderRadius = ReadFloat(node, "cornerRadius", 8);
-                DrawRoundRect(canvas, paint, Rect(node), borderRadius, ReadColor(node, "background", theme.Surface));
-                DrawRoundRectStroke(canvas, paint, Rect(node), borderRadius, theme.Stroke);
+                var borderRadius = ReadFloat(node, "cornerRadius", 0);
+                var borderRect = Rect(node);
+                if (ReadString(node, "background") is not null)
+                {
+                    DrawRoundRect(canvas, paint, borderRect, borderRadius, ReadColor(node, "background", theme.Surface));
+                }
+
+                if (ReadFloat(node, "borderThickness", 0) > 0 || ReadString(node, "borderBrush") is not null)
+                {
+                    DrawRoundRectStroke(canvas, paint, borderRect, borderRadius, ReadColor(node, "borderBrush", theme.Stroke));
+                }
+
                 RenderChildren(canvas, node, theme, paint, titleFont, bodyFont, smallFont, iconFont);
                 break;
             case "NavigationViewItem":
@@ -471,6 +480,13 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         }
 
         var foreground = enabled ? ReadColor(node, "foreground", theme.TextPrimary) : theme.TextDisabled;
+        if (node.Properties.ContainsKey("commandBarCompact"))
+        {
+            DrawAppBarIcon(canvas, paint, iconFont, node, new SKRect(rect.Left + 12, rect.Top + 8, rect.Left + 26, rect.Top + 22), enabled ? ControlAffordanceColor(theme) : theme.TextDisabled);
+            DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 21, foreground);
+            return;
+        }
+
         FluentDrawingPrimitives.DrawControlChrome(canvas, paint, rect, theme, new FluentControlState(IsEnabled: enabled));
         DrawAppBarIcon(canvas, paint, iconFont, node, new SKRect(rect.Left + 12, rect.Top + 8, rect.Left + 26, rect.Top + 22), enabled ? theme.Accent : theme.TextDisabled);
         DrawText(canvas, paint, font, ReadString(node, "label") ?? ReadControlLabel(node, "Command"), rect.Left + 30, rect.Top + 21, foreground);
@@ -682,7 +698,11 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     {
         var rect = Rect(node);
         var selectedIndex = (int)Math.Round(ReadFloat(node, "selectedIndex", -1));
-        DrawRect(canvas, paint, rect, ReadColor(node, "background", theme.Surface));
+        if (ReadString(node, "background") is not null)
+        {
+            DrawRect(canvas, paint, rect, ReadColor(node, "background", theme.Surface));
+        }
+
         for (var index = 0; index < node.Children.Count; index++)
         {
             var child = node.Children[index];
@@ -694,7 +714,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             if (index == selectedIndex)
             {
                 var selectedRow = new SKRect(rect.Left + 6, (float)child.Layout.Y - 4, rect.Right - 6, (float)(child.Layout.Y + child.Layout.Height + 4));
-                DrawRoundRect(canvas, paint, selectedRow, 6, theme.AccentSoft);
+                DrawRoundRect(canvas, paint, selectedRow, 4, theme.DisabledSurface);
                 DrawRoundRect(canvas, paint, new SKRect(selectedRow.Left, selectedRow.Top + 6, selectedRow.Left + 3, selectedRow.Bottom - 6), 2, theme.Accent);
             }
 
@@ -704,7 +724,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             }
             else
             {
-                DrawText(canvas, paint, bodyFont, ReadText(child) ?? child.Name ?? "Item", (float)child.Layout.X, (float)child.Layout.Y + 19, index == selectedIndex ? theme.Accent : theme.TextPrimary);
+                DrawText(canvas, paint, bodyFont, ReadText(child) ?? child.Name ?? "Item", (float)child.Layout.X, (float)child.Layout.Y + 19, theme.TextPrimary);
             }
 
             DrawLine(canvas, paint, rect.Left + 12, (float)(child.Layout.Y + child.Layout.Height + 3), rect.Right - 12, (float)(child.Layout.Y + child.Layout.Height + 3), theme.Stroke);

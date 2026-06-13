@@ -5647,6 +5647,53 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDrawsCommandBarRightLabelCommandsWithoutButtonChrome()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "commandbar-right-label-flat-command");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new CommandBar
+            {
+                Name = "WorkbenchCommandBar",
+                DefaultLabelPosition = CommandBarDefaultLabelPosition.Right,
+                PrimaryCommands =
+                {
+                    new AppBarButton
+                    {
+                        Name = "RefreshCommand",
+                        Label = "Refresh",
+                        Icon = new FontIcon { Glyph = "\uE72C" }
+                    }
+                }
+            }
+        });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "commandbar-right-label-flat-command", "skia-v2", new VisualViewport(420, 120), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "commandbar-right-label-flat-command", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var refresh = RequireNode(arranged.Root, "RefreshCommand").Layout!;
+        var buttonEdge = new SKRect(
+            (float)refresh.X,
+            (float)refresh.Y,
+            (float)(refresh.X + refresh.Width),
+            (float)(refresh.Y + refresh.Height));
+        var labelBand = new SKRect(
+            (float)(refresh.X + 30),
+            (float)(refresh.Y + 7),
+            (float)(refresh.X + refresh.Width - 6),
+            (float)(refresh.Y + refresh.Height - 5));
+
+        Assert.IsLessThanOrEqualTo(1, CountExactPixels(bitmap, buttonEdge, theme.Stroke), "Right-label AppBarButton commands in a CommandBar should render as flat toolbar commands, not standalone button chrome.");
+        Assert.IsGreaterThan(12, CountDarkPixels(bitmap, labelBand, 100), "Flat right-label commands should still draw their visible label text.");
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererHonorsSemiBoldTextBlockWeight()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "textblock-weight");
@@ -5780,7 +5827,78 @@ public sealed class MacRuntimeTests
             (float)(listLayout.Y + 78));
 
         Assert.AreEqual(0, CountExactPixels(bitmap, topEdge, theme.Stroke) + CountExactPixels(bitmap, leftEdge, theme.Stroke) + CountExactPixels(bitmap, rightEdge, theme.Stroke) + CountExactPixels(bitmap, bottomEdge, theme.Stroke), "ListView should not draw an extra outer card border around native list panes.");
-        Assert.IsGreaterThan(8, CountExactPixels(bitmap, selectedRowBand, theme.AccentSoft), "Selected ListView row should keep a visible native selection fill.");
+        Assert.AreEqual(0, CountExactPixels(bitmap, selectedRowBand, theme.AccentSoft), "Selected ListView row should use WinUI's neutral selection fill instead of a blue command-accent wash.");
+        Assert.IsGreaterThan(8, CountExactPixels(bitmap, selectedRowBand, theme.DisabledSurface), "Selected ListView row should keep a visible native neutral selection fill.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererKeepsListViewBackgroundTransparent()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "listview-transparent-background");
+        var list = new ListView
+        {
+            Name = "QueueList",
+            Width = 240,
+            Height = 120
+        };
+        list.Items.Add(new TextBlock { Text = "Applications" });
+        var tree = UiTreeBuilder.Build(new Window { Content = list });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "listview-transparent-background", "skia-v2", new VisualViewport(300, 180), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "listview-transparent-background", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var listLayout = RequireNode(arranged.Root, "QueueList").Layout!;
+        var emptyPaneBand = new SKRect(
+            (float)(listLayout.X + 24),
+            (float)(listLayout.Y + 72),
+            (float)(listLayout.X + listLayout.Width - 24),
+            (float)(listLayout.Y + listLayout.Height - 12));
+
+        Assert.AreEqual(0, CountExactPixels(bitmap, emptyPaneBand, theme.Surface), "ListView without an explicit Background should not paint a white surface over the route content background.");
+        Assert.IsGreaterThan(12, CountExactPixels(bitmap, emptyPaneBand, theme.AppBackground), "ListView without an explicit Background should remain transparent over the route content background.");
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererKeepsBorderBackgroundTransparentWhenUnset()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "border-transparent-background");
+        var tree = UiTreeBuilder.Build(new Window
+        {
+            Content = new Border
+            {
+                Name = "DetailBorder",
+                Width = 240,
+                Height = 160,
+                BorderBrush = "#D6DAE2",
+                BorderThickness = "1",
+                Child = new TextBlock { Text = "Application review" }
+            }
+        });
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "border-transparent-background", "skia-v2", new VisualViewport(320, 220), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out var unsupported);
+        var options = new SnapshotRenderOptions("skia-v2", "border-transparent-background", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        Assert.HasCount(0, unsupported);
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var border = RequireNode(arranged.Root, "DetailBorder").Layout!;
+        var emptyPaneBand = new SKRect(
+            (float)(border.X + 40),
+            (float)(border.Y + 80),
+            (float)(border.X + border.Width - 40),
+            (float)(border.Y + border.Height - 20));
+
+        Assert.AreEqual(0, CountExactPixels(bitmap, emptyPaneBand, theme.Surface), "Border without an explicit Background should not paint a white card fill.");
+        Assert.IsGreaterThan(12, CountExactPixels(bitmap, emptyPaneBand, theme.AppBackground), "Border without an explicit Background should leave the route content background visible.");
     }
 
     [TestMethod]
