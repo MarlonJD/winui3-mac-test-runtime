@@ -660,10 +660,16 @@ public static class VisualLayoutEngine
             : EstimateWidth(node, rect.Width);
         var width = ApplyWidthConstraints(node, rect.Width, naturalWidth);
         var height = ApplyHeightConstraints(node, rect.Height, rect.Height);
+        var isMaxWidthConstrainedStretch = string.Equals(horizontalAlignment, "Stretch", StringComparison.OrdinalIgnoreCase) &&
+            ReadDouble(node, "maxWidth", double.NaN) is var maxWidth &&
+            !double.IsNaN(maxWidth) &&
+            maxWidth > 0 &&
+            width < rect.Width;
         var x = horizontalAlignment switch
         {
             var value when string.Equals(value, "Center", StringComparison.OrdinalIgnoreCase) => rect.X + Math.Max(0, (rect.Width - width) / 2),
             var value when string.Equals(value, "Right", StringComparison.OrdinalIgnoreCase) => rect.X + Math.Max(0, rect.Width - width),
+            _ when isMaxWidthConstrainedStretch => rect.X + Math.Max(0, (rect.Width - width) / 2),
             _ => rect.X
         };
 

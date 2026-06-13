@@ -19,6 +19,7 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var width = Math.Max(1, (int)Math.Round(viewport.Width * scale));
         var height = Math.Max(1, (int)Math.Round(viewport.Height * scale));
         var theme = SkiaV2Theme.For(options?.Theme ?? "light");
+        theme = theme with { AppBackground = ResolveClientBackground(tree.Root, theme.AppBackground) };
         var fileName = options?.PreferredFileName ?? "mac-runtime.png";
         var path = Path.Combine(screenshotsDirectory, fileName);
 
@@ -1005,6 +1006,24 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         {
             DrawText(canvas, paint, smallFont, ReadText(content) ?? ReadControlLabel(content, string.Empty), rect.Left + 14, rect.Top + 48, theme.TextSecondary);
         }
+    }
+
+    private static SKColor ResolveClientBackground(UiNode root, SKColor fallback)
+    {
+        if (ReadString(root, "background") is not null)
+        {
+            return ReadColor(root, "background", fallback);
+        }
+
+        var simpleType = SimpleType(root);
+        if (simpleType is "Window" or "Page" or "Frame" or "ContentControl" or "ScrollViewer" && root.Children.Count == 1)
+        {
+            return ResolveClientBackground(root.Children[0], fallback);
+        }
+
+        return root.Children
+            .Select(child => ReadString(child, "background") is null ? (SKColor?)null : ReadColor(child, "background", fallback))
+            .FirstOrDefault(color => color is not null) ?? fallback;
     }
 
     private static void RenderChildren(

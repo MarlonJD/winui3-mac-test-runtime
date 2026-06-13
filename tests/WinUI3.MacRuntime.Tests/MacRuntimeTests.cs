@@ -1019,6 +1019,49 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void VisualLayoutEngineCentersMaxWidthStretchLoginRoutePanel()
+    {
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?>(),
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.ScrollViewer",
+                        "LoginScrollViewer",
+                        new Dictionary<string, object?> { ["visibility"] = "Visible" },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.Grid",
+                                "LoginPanel",
+                                new Dictionary<string, object?>
+                                {
+                                    ["maxWidth"] = 520d,
+                                    ["minHeight"] = 420d,
+                                    ["padding"] = "32",
+                                    ["visibility"] = "Visible"
+                                },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+
+        var arranged = VisualLayoutEngine.Arrange(
+            tree,
+            new VisualRunSettings(null, "probe-login-route", "skia-v2", new VisualViewport(960, 640), 1, "light", true, new VisualThresholds()),
+            out var unsupported);
+        var loginPanel = RequireNode(arranged.Root, "LoginPanel").Layout!;
+
+        Assert.HasCount(0, unsupported);
+        Assert.AreEqual(520d, loginPanel.Width);
+        Assert.AreEqual(220d, loginPanel.X);
+    }
+
+    [TestMethod]
     public void VisualLayoutEngineUsesNaturalButtonWidthInsteadOfStretchWhenAlignmentIsLeft()
     {
         var tree = new UiTreeDocument(
@@ -5125,6 +5168,40 @@ public sealed class MacRuntimeTests
         Assert.IsGreaterThan(20, CountExactPixels(bitmap, new SKRect((float)splitView.X, (float)splitView.Y, (float)(splitView.X + splitView.Width), (float)(splitView.Y + splitView.Height)), theme.PaneBackground));
         Assert.IsGreaterThan(100, twoPaneNode.Children[1].Layout!.X - twoPaneNode.Children[0].Layout!.X);
         Assert.IsGreaterThan(0, CountExactPixels(bitmap, new SKRect((float)twoPaneView.X, (float)twoPaneView.Y, (float)(twoPaneView.X + twoPaneView.Width), (float)(twoPaneView.Y + twoPaneView.Height)), theme.Surface));
+    }
+
+    [TestMethod]
+    public async Task SkiaV2SnapshotRendererUsesRootContentBackgroundForClientArea()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "root-background");
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?> { ["visibility"] = "Visible" },
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.Grid",
+                        "RootGrid",
+                        new Dictionary<string, object?>
+                        {
+                            ["background"] = "#F7F8FA",
+                            ["visibility"] = "Visible"
+                        },
+                        Array.Empty<UiNode>())
+                }));
+        var settings = new VisualRunSettings(null, "root-background", "skia-v2", new VisualViewport(96, 64), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "root-background", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        Assert.AreEqual(new SKColor(0xf7, 0xf8, 0xfa), bitmap.GetPixel(4, 4));
     }
 
     [TestMethod]
