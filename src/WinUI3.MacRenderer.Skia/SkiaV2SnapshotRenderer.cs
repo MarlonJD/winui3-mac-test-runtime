@@ -1048,14 +1048,12 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         }
 
         var simpleType = SimpleType(root);
-        if (simpleType is "Window" or "Page" or "Frame" or "ContentControl" or "ScrollViewer" && root.Children.Count == 1)
+        if (simpleType is ("Window" or "Page" or "Frame" or "ContentControl" or "ScrollViewer") && root.Children.Count == 1)
         {
             return ResolveClientBackground(root.Children[0], fallback);
         }
 
-        return root.Children
-            .Select(child => ReadString(child, "background") is null ? (SKColor?)null : ReadColor(child, "background", fallback))
-            .FirstOrDefault(color => color is not null) ?? fallback;
+        return fallback;
     }
 
     private static SKColor ShellPaneBackground() => new(0xf7, 0xf8, 0xfa);

@@ -5336,6 +5336,55 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public async Task SkiaV2SnapshotRendererDoesNotPromoteNestedAccentSurfaceToClientBackground()
+    {
+        var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "nested-accent-background");
+        var tree = new UiTreeDocument(
+            ArtifactSchemas.UiTree,
+            DateTimeOffset.UtcNow,
+            new UiNode(
+                "Microsoft.UI.Xaml.Window",
+                null,
+                new Dictionary<string, object?> { ["visibility"] = "Visible" },
+                new[]
+                {
+                    new UiNode(
+                        "Microsoft.UI.Xaml.Controls.StackPanel",
+                        "RootStack",
+                        new Dictionary<string, object?> { ["visibility"] = "Visible" },
+                        new[]
+                        {
+                            new UiNode(
+                                "Microsoft.UI.Xaml.Controls.Border",
+                                "AccentSurface",
+                                new Dictionary<string, object?>
+                                {
+                                    ["background"] = "#2562D9",
+                                    ["visibility"] = "Visible",
+                                    ["width"] = 80,
+                                    ["height"] = 32
+                                },
+                                Array.Empty<UiNode>())
+                        })
+                }));
+        var theme = SkiaV2Theme.For("light");
+        var settings = new VisualRunSettings(null, "nested-accent-background", "skia-v2", new VisualViewport(160, 96), 1, "light", true, new VisualThresholds());
+        var arranged = VisualLayoutEngine.Arrange(tree, settings, out _);
+        var options = new SnapshotRenderOptions("skia-v2", "nested-accent-background", settings.Viewport, settings.Scale, settings.Theme, true, "mac-runtime.png");
+
+        var snapshot = await new SkiaV2SnapshotRenderer().RenderAsync(arranged, outputDirectory, options);
+
+        using var bitmap = SKBitmap.Decode(snapshot.FilePath);
+        Assert.IsNotNull(bitmap);
+        var accentSurface = RequireNode(arranged.Root, "AccentSurface").Layout!;
+        Assert.AreEqual(theme.AppBackground, bitmap.GetPixel(140, 80), "Nested resource/accent surfaces must not become the whole client background.");
+        Assert.AreEqual(
+            new SKColor(0x25, 0x62, 0xd9),
+            bitmap.GetPixel((int)(accentSurface.X + accentSurface.Width / 2), (int)(accentSurface.Y + accentSurface.Height / 2)),
+            "The nested accent surface itself should still render with its explicit background.");
+    }
+
+    [TestMethod]
     public async Task SkiaV2SnapshotRendererDrawsAcceptedReturnTextBoxLines()
     {
         var outputDirectory = Path.Combine(Path.GetTempPath(), "winui3-mac-skia-v2-tests", Guid.NewGuid().ToString("N"), "multiline-textbox");
