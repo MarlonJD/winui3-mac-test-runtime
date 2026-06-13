@@ -53,9 +53,10 @@ public static class AccessibilityTreeBuilder
             IsFocusable: ReadNullableBool(node.Properties, "isFocusable"),
             IsEnabled: ReadNullableBool(node.Properties, "isEnabled"),
             IsChecked: ReadNullableBool(node.Properties, "isChecked"),
-            IsSelected: ReadString(node.Properties, "selectedItem") is not null || ReadString(node.Properties, "selectedIndex") is not null
-                ? ReadString(node.Properties, "selectedIndex") != "-1"
-                : null,
+            IsSelected: ReadNullableBool(node.Properties, "isSelected") ??
+                (ReadString(node.Properties, "selectedItem") is not null || ReadString(node.Properties, "selectedIndex") is not null
+                    ? ReadString(node.Properties, "selectedIndex") != "-1"
+                    : null),
             IsExpanded: ReadNullableBool(node.Properties, "isOpen") ?? ReadNullableBool(node.Properties, "isExpanded") ?? ReadNullableBool(node.Properties, "isPaneOpen"),
             Value: value,
             Children: node.Children.Select(BuildNode).ToArray());

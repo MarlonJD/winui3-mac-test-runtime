@@ -774,6 +774,18 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void DownstreamProbeSweepReconcilesSelectedNavigationItemContentAndTag()
+    {
+        var script = File.ReadAllText(RepositoryPath("tools/winui3-mac-runner-downstream-windows-probe-sweep"));
+
+        StringAssert.Contains(script, "selected_navigation_content");
+        StringAssert.Contains(script, "selected_navigation_tag");
+        StringAssert.Contains(script, "selection_state_matches_anchor");
+        StringAssert.Contains(script, "\"selectedNavigationContent\":\"$selected_navigation_content\"");
+        StringAssert.Contains(script, "\"selectedNavigationTag\":\"$selected_navigation_tag\"");
+    }
+
+    [TestMethod]
     public void NavigationViewItemExportsSelectedStateInTree()
     {
         var home = new NavigationViewItem { Name = "HomeNavigationItem", Content = "Home" };

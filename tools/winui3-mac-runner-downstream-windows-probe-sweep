@@ -205,6 +205,37 @@ route_anchor_label() {
   esac
 }
 
+selected_navigation_property() {
+  local tree_path="$1"
+  local selected_name="$2"
+  local property_name="$3"
+  awk -v selected_name="$selected_name" -v property_name="$property_name" '
+    $0 ~ "\"name\": \"" selected_name "\"" { in_selected = 1 }
+    in_selected && $0 ~ "\"" property_name "\":" {
+      value = $0
+      split(value, parts, ": ")
+      value = parts[2]
+      gsub(/[",]/, "", value)
+      gsub(/^[[:space:]]+|[[:space:]]+$/, "", value)
+      print value
+      exit
+    }
+    in_selected && $0 ~ /^              \}/ { in_selected = 0 }
+  ' "$tree_path"
+}
+
+selection_state_matches_anchor() {
+  local expected_anchor="$1"
+  local selected_name="$2"
+  local selected_content="$3"
+  local selected_tag="$4"
+  if [[ -z "$expected_anchor" || -z "$selected_name" ]]; then
+    return 0
+  fi
+
+  printf '%s\n%s\n%s\n' "$selected_name" "$selected_content" "$selected_tag" | grep -qi "$expected_anchor"
+}
+
 # Classify one comparison result against the documented L0..L5 threshold ladder.
 # Mirrors DownstreamNativeVisualParityAudit.ClassifyLadder so the shell sweep and
 # the C# audit stay in agreement. Returns the highest ladder level whose
@@ -453,18 +484,21 @@ for scenario in "${scenarios[@]}"; do
   # so route or selected-rail differences against the Windows reference are auditable.
   expected_route_anchor="$(route_anchor_label "$scenario")"
   selected_navigation_item=""
+  selected_navigation_content=""
+  selected_navigation_tag=""
   route_content_warning="none"
   selection_state_warning="none"
   tree_path="$scenario_output/tree.json"
   if [[ -f "$tree_path" ]]; then
     if grep -q '"menuItemCount"' "$tree_path"; then
       selected_navigation_item="$(sed -n 's/.*"selectedItem": "\([^"]*\)".*/\1/p' "$tree_path" | head -1)"
+      selected_navigation_content="$(selected_navigation_property "$tree_path" "$selected_navigation_item" "content")"
+      selected_navigation_tag="$(selected_navigation_property "$tree_path" "$selected_navigation_item" "tag")"
       # When a route owns a navigation selection, the selected rail item should match the
       # route's expected anchor. A mismatch is the route/selection fidelity signal the
       # later route-selection audit reconciles against the Windows reference. An empty
       # selection (for example the signed-out login route) is not flagged here.
-      if [[ -n "$expected_route_anchor" && -n "$selected_navigation_item" ]] \
-        && ! printf '%s' "$selected_navigation_item" | grep -qi "$expected_route_anchor"; then
+      if ! selection_state_matches_anchor "$expected_route_anchor" "$selected_navigation_item" "$selected_navigation_content" "$selected_navigation_tag"; then
         selection_state_warning="selected navigation item '$selected_navigation_item' does not match expected route anchor '$expected_route_anchor'"
       fi
     fi
@@ -679,7 +713,7 @@ for scenario in "${scenarios[@]}"; do
   fi
 
   cat >> "$tmp_entries" <<ENTRY
-{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"windowsScreenshotSummary":{"status":"$windows_screenshot_status","source":"$windows_screenshot_source","screenshot":"$windows_screenshot_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","changedPixelPercentage":${comparison_changed_pixels:-null},"meanAbsoluteError":${comparison_mae:-null},"rootMeanSquaredError":${comparison_rmse:-null},"maxChannelDelta":${comparison_max_delta:-null},"ladderLevel":"$comparison_ladder","reference":"$scenario_reference","windowsReference":"$scenario_output/visual/windows-reference.png","macRuntime":"$scenario_output/visual/mac-runtime.png","pixelDiffImage":"$scenario_output/visual/pixel-diff.png","pixelDiff":"$scenario_output/visual/pixel-diff.json"},"evidenceFormat":{"policy":"png-only","warning":"$evidence_format_warning"},"routeSelection":{"expectedRouteAnchor":"$expected_route_anchor","selectedNavigationItem":"$selected_navigation_item","routeContentWarning":"$route_content_warning","selectionStateWarning":"$selection_state_warning"}}
+{"scenario":"$scenario","status":"$status","message":"$message","output":"$scenario_output","log":"$log_path","screenshot":"$scenario_output/visual/mac-runtime.png","scenarioCoverage":{"group":"$coverage_group","surface":"$coverage_surface"},"artifactSummary":{"status":"$artifact_status","expectedArtifactCount":${#expected_artifacts[@]},"missingArtifactCount":$missing_artifact_count,"missingArtifacts":[$missing_artifacts_json],"run":"$scenario_output/run.json","tree":"$scenario_output/tree.json","accessibility":"$scenario_output/accessibility.json","interactions":"$scenario_output/interactions.json","visualRun":"$scenario_output/visual/visual-run.json","screenshot":"$scenario_output/visual/mac-runtime.png"},"fontSummary":{"status":"$font_provenance_status","textResolvedSource":"$text_resolved_source","textResolvedFamily":"$text_resolved_family","textResolvedPath":"$text_resolved_path","symbolResolvedSource":"$symbol_resolved_source","symbolResolvedFamily":"$symbol_resolved_family","symbolResolvedPath":"$symbol_resolved_path","visualRun":"$visual_run_path"},"windowsScreenshotSummary":{"status":"$windows_screenshot_status","source":"$windows_screenshot_source","screenshot":"$windows_screenshot_path"},"interactionSummary":{"status":"$interaction_status","stepCount":$interaction_step_count,"passedCount":$interaction_passed_count,"failedCount":$interaction_failed_count,"assertPropertyCount":$assert_property_count,"routeAnchorWarning":"$route_anchor_warning","interactions":"$interactions_path"},"runtimeImageIntegrity":{"status":"$image_integrity_status","isNonBlank":$image_integrity_nonblank,"distinctColorCount":$image_integrity_distinct,"nonBackgroundPixelPercentage":$image_integrity_non_background,"imageIntegrityWarning":"$image_integrity_warning","lowContentWarningThreshold":$low_content_warning_threshold,"expectedViewport":{"width":$expected_viewport_width,"height":$expected_viewport_height},"actualImageSize":{"width":$actual_image_width,"height":$actual_image_height},"imageSizeWarning":"$image_size_warning","visualRun":"$visual_run_path"},"nativeComparison":{"status":"$comparison_status","reason":"$comparison_reason","changedPixelPercentage":${comparison_changed_pixels:-null},"meanAbsoluteError":${comparison_mae:-null},"rootMeanSquaredError":${comparison_rmse:-null},"maxChannelDelta":${comparison_max_delta:-null},"ladderLevel":"$comparison_ladder","reference":"$scenario_reference","windowsReference":"$scenario_output/visual/windows-reference.png","macRuntime":"$scenario_output/visual/mac-runtime.png","pixelDiffImage":"$scenario_output/visual/pixel-diff.png","pixelDiff":"$scenario_output/visual/pixel-diff.json"},"evidenceFormat":{"policy":"png-only","warning":"$evidence_format_warning"},"routeSelection":{"expectedRouteAnchor":"$expected_route_anchor","selectedNavigationItem":"$selected_navigation_item","selectedNavigationContent":"$selected_navigation_content","selectedNavigationTag":"$selected_navigation_tag","routeContentWarning":"$route_content_warning","selectionStateWarning":"$selection_state_warning"}}
 ENTRY
   cat >> "$tmp_groups" <<ENTRY
 {"group":"$coverage_group","surface":"$coverage_surface","scenario":"$scenario","status":"$status","screenshot":"$scenario_output/visual/mac-runtime.png"}

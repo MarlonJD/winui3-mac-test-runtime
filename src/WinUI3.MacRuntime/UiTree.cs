@@ -328,6 +328,7 @@ public static class UiTreeBuilder
                 break;
             case NavigationViewItem navigationViewItem:
                 properties["content"] = navigationViewItem.Content is UIElement ? null : navigationViewItem.Content?.ToString();
+                properties["isSelected"] = navigationViewItem.IsSelected;
                 AddChild(navigationViewItem.Content, children);
                 AddChild(navigationViewItem.Icon, children);
                 break;
