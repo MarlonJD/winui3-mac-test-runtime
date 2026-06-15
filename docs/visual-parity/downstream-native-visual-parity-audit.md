@@ -93,8 +93,8 @@ Run from the runtime repository root:
 WINUI3_MAC_TEST_FONT_DIRS="$HOME/winui-font-ab" PATH="$PWD/tools:$PATH" \
   tools/winui3-mac-runner-downstream-windows-probe-sweep \
   --require-native-comparison \
-  --output /private/tmp/emsi_qa/windows/probe-comparisons/production-ready-final \
-  --windows-screenshot-dir /private/tmp/emsi_qa/windows/probe-screenshots/2026-06-06-downstream-probe-onscreen-client-20260606-145329
+  --output <private-qa-root>/windows/probe-comparisons/production-ready-final \
+  --windows-screenshot-dir <private-qa-root>/windows/probe-screenshots/2026-06-06-downstream-probe-onscreen-client-20260606-145329
 ```
 
 ## Manual Inspection Criteria

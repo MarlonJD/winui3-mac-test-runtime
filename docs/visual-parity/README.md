@@ -85,11 +85,11 @@ The checked-in PNG comparisons are collected in
 each one records a native WinUI Windows reference, a local macOS runtime render,
 and a pixel diff from the checked-in example set.
 
-## Downstream EMSI Probe Evidence
+## Downstream Probe Evidence
 
-Private downstream EMSI Windows probe screenshots and side-by-side macOS runtime
-comparison sweeps are stored in `MarlonJD/emsi_qa`, not in this public runtime
-repository. The current Windows native reference set is
+Private downstream Windows probe screenshots and side-by-side macOS runtime
+comparison sweeps are stored in a private QA evidence repository, not in this
+public runtime repository. The current Windows native reference set is
 `windows/probe-screenshots/2026-06-06-downstream-probe-onscreen-client-20260606-145329`.
 The matching macOS runtime review sweep is
 `windows/probe-comparisons/2026-06-06-downstream-probe-onscreen-client-vs-mac-runtime`.
@@ -107,8 +107,8 @@ macOS sweep with the Windows reference directory attached:
 ```sh
 WINUI3_MAC_TEST_FONT_DIRS="$HOME/winui-font-ab" PATH="$PWD/tools:$PATH" \
   tools/winui3-mac-runner-downstream-windows-probe-sweep \
-  --output /private/tmp/emsi-windows-probe-compare-onscreen-client \
-  --windows-screenshot-dir /private/tmp/emsi_qa/windows/probe-screenshots/2026-06-06-downstream-probe-onscreen-client-20260606-145329
+  --output /private/tmp/downstream-windows-probe-compare-onscreen-client \
+  --windows-screenshot-dir <private-qa-root>/windows/probe-screenshots/2026-06-06-downstream-probe-onscreen-client-20260606-145329
 ```
 
 Do not read those checked-in comparisons as current support component

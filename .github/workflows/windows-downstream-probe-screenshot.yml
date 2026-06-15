@@ -3,14 +3,29 @@ name: windows-downstream-probe-screenshot
 on:
   workflow_dispatch:
     inputs:
-      emsi_ref:
-        description: EMSI monorepo branch, tag, or SHA to capture
+      downstream_repository:
+        description: Private downstream repository in owner/name form
+        required: true
+      downstream_ref:
+        description: Downstream repository branch, tag, or SHA to capture
         required: false
         default: main
       runtime_ref:
         description: winui3-mac-test-runtime branch, tag, or SHA for capture tooling
         required: false
         default: main
+      downstream_probe_project:
+        description: Path to the downstream WinUI probe .csproj
+        required: true
+      downstream_probe_executable:
+        description: Path to the built downstream WinUI probe executable
+        required: true
+      downstream_probe_scenario_dir:
+        description: Directory containing downstream probe scenarios
+        required: true
+      downstream_probe_title:
+        description: Native downstream probe window title to capture
+        required: true
 
 jobs:
   downstream-probe-reference:
@@ -23,13 +38,13 @@ jobs:
           ref: ${{ inputs.runtime_ref }}
           path: winui3-mac-test-runtime
 
-      - name: Checkout EMSI monorepo
+      - name: Checkout downstream repository
         uses: actions/checkout@v4
         with:
-          repository: MarlonJD/emsi_monorepo
-          ref: ${{ inputs.emsi_ref }}
+          repository: ${{ inputs.downstream_repository }}
+          ref: ${{ inputs.downstream_ref }}
           submodules: recursive
-          path: emsi_monorepo
+          path: downstream-app
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -58,7 +73,7 @@ jobs:
         shell: pwsh
         run: |
           dotnet build winui3-mac-test-runtime/tools/WindowsWindowCapture/WindowsWindowCapture.csproj --configuration Release
-          msbuild emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/MeetingChallenge.WinUI.MacRuntimeProbe.csproj /restore /p:Configuration=Release
+          msbuild "downstream-app/${{ inputs.downstream_probe_project }}" /restore /p:Configuration=Release
 
       - name: Capture downstream probe scenarios
         shell: pwsh
@@ -68,20 +83,22 @@ jobs:
             $runnerImage = $env:ImageOS
           }
 
+          $scenarioRoot = "downstream-app/${{ inputs.downstream_probe_scenario_dir }}"
+          $scenarioRelativeRoot = "${{ inputs.downstream_probe_scenario_dir }}"
           $scenarios = @(
-            @{ Name = "login-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/login-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/login-light.json" },
-            @{ Name = "shell-staff-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/shell-staff-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/shell-staff-light.json" },
-            @{ Name = "messages-multiline-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/messages-multiline-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/messages-multiline-light.json" },
-            @{ Name = "admin-dashboard-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-dashboard-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-dashboard-light.json" },
-            @{ Name = "admin-workbench-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-workbench-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/admin-workbench-light.json" },
-            @{ Name = "command-search-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/command-search-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/command-search-light.json" },
-            @{ Name = "status-states-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/status-states-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/status-states-light.json" },
-            @{ Name = "settings-profile-light"; Path = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/settings-profile-light.json"; RelativePath = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/settings-profile-light.json" }
+            @{ Name = "login-light"; Path = "$scenarioRoot/login-light.json"; RelativePath = "$scenarioRelativeRoot/login-light.json" },
+            @{ Name = "shell-staff-light"; Path = "$scenarioRoot/shell-staff-light.json"; RelativePath = "$scenarioRelativeRoot/shell-staff-light.json" },
+            @{ Name = "messages-multiline-light"; Path = "$scenarioRoot/messages-multiline-light.json"; RelativePath = "$scenarioRelativeRoot/messages-multiline-light.json" },
+            @{ Name = "admin-dashboard-light"; Path = "$scenarioRoot/admin-dashboard-light.json"; RelativePath = "$scenarioRelativeRoot/admin-dashboard-light.json" },
+            @{ Name = "admin-workbench-light"; Path = "$scenarioRoot/admin-workbench-light.json"; RelativePath = "$scenarioRelativeRoot/admin-workbench-light.json" },
+            @{ Name = "command-search-light"; Path = "$scenarioRoot/command-search-light.json"; RelativePath = "$scenarioRelativeRoot/command-search-light.json" },
+            @{ Name = "status-states-light"; Path = "$scenarioRoot/status-states-light.json"; RelativePath = "$scenarioRelativeRoot/status-states-light.json" },
+            @{ Name = "settings-profile-light"; Path = "$scenarioRoot/settings-profile-light.json"; RelativePath = "$scenarioRelativeRoot/settings-profile-light.json" }
           )
 
           $captureTool = "winui3-mac-test-runtime/tools/WindowsWindowCapture/bin/Release/net10.0-windows/WindowsWindowCapture.dll"
-          $fixtureProject = "apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/MeetingChallenge.WinUI.MacRuntimeProbe.csproj"
-          $fixtureExecutable = "emsi_monorepo/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/bin/Release/net10.0-windows10.0.19041.0/MeetingChallenge.WinUI.MacRuntimeProbe.exe"
+          $fixtureProject = "${{ inputs.downstream_probe_project }}"
+          $fixtureExecutable = "downstream-app/${{ inputs.downstream_probe_executable }}"
 
           foreach ($scenario in $scenarios) {
             $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
@@ -114,7 +131,7 @@ jobs:
             }
 
             dotnet $captureTool `
-              --title "Meeting Challenge Windows macOS Runtime Probe" `
+              --title "${{ inputs.downstream_probe_title }}" `
               --output "$outDir/windows-reference.png" `
               --metadata-output "$outDir/windows-reference.json" `
               --client-area `
@@ -174,4 +191,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: windows-downstream-probe-screenshots
-          path: emsi_monorepo/artifacts/windows-downstream-probe-screenshots
+          path: artifacts/windows-downstream-probe-screenshots

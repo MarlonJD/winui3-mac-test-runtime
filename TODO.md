@@ -14,7 +14,7 @@ durable architecture and phase details live in `docs/plans/index.md`,
 
 ## Next
 
-2. EMSI direct runtime UI gap closure Phase 2
+2. Private downstream direct runtime UI gap closure Phase 2
    - Add fail-first direct Login `DataContext` bootstrap tests.
    - Implement the bootstrap without backend calls or credentials.
 

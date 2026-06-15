@@ -6,7 +6,7 @@ namespace WinUI3.MacRuntime;
 /// Sanitized, checked-in rollup of the downstream Windows native visual parity baseline.
 /// It keeps the eight downstream probe scenarios auditable and reviewable without copying
 /// private Windows screenshots or pixel-diff PNGs into the runtime repository. The actual
-/// PNG evidence stays in <c>/private/tmp/emsi_qa</c> or the private QA repository.
+/// PNG evidence stays under the operator's private QA evidence root.
 /// </summary>
 public sealed record DownstreamNativeVisualParityAudit(
     string SchemaVersion,

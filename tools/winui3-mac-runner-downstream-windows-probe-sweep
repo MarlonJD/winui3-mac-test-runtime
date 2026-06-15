@@ -5,7 +5,7 @@ usage() {
   cat <<'USAGE'
 Usage: winui3-mac-runner-downstream-windows-probe-sweep [--output <dir>] [--reference <png-or-native-reference-dir>] [--require-native-comparison] [--windows-screenshot-dir <dir>]
 
-Runs every MeetingChallenge Windows macOS runtime probe scenario with
+Runs every downstream Windows macOS runtime probe scenario with
 skia-v2 strict visual mode and writes summary.json, summary.md, and review.html.
 When --reference points to a normalized native-reference-import directory, each
 scenario is compared against its matching Windows reference image.
@@ -21,7 +21,7 @@ review-only and are not pixel-diff evidence.
 USAGE
 }
 
-output="/private/tmp/emsi-windows-probe-sweep"
+output="/private/tmp/downstream-windows-probe-sweep"
 reference=""
 windows_screenshot_dir=""
 require_native_comparison=false
@@ -80,8 +80,8 @@ fi
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 runtime_root="$(cd "$script_dir/.." && pwd)"
-monorepo_root="$(cd "$runtime_root/../.." && pwd)"
-probe_root="$monorepo_root/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe"
+downstream_root="$(cd "$runtime_root/../.." && pwd)"
+probe_root="$downstream_root/apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe"
 project="$probe_root/MeetingChallenge.WinUI.MacRuntimeProbe.csproj"
 scenario_dir="$probe_root/scenarios"
 runner="$runtime_root/tools/winui3-mac-runner"

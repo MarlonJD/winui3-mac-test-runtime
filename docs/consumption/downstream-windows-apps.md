@@ -316,9 +316,9 @@ Release or visual-change gate:
 8. Do not claim visual parity for weak or poor components.
 
 For downstream Windows probe suites that publish a sweep script, make native
-comparison explicit in release or visual-change gates. The runtime-owned EMSI
-probe sweep uses the normalized import directory and fails when native
-comparison is required but any scenario is skipped or failed:
+comparison explicit in release or visual-change gates. The runtime-owned
+downstream probe sweep uses the normalized import directory and fails when
+native comparison is required but any scenario is skipped or failed:
 
 ```sh
 winui3-mac-runner native-reference-import \

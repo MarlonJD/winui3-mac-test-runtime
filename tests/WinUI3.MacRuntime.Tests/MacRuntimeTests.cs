@@ -4500,18 +4500,24 @@ public sealed class MacRuntimeTests
     public void WindowsDownstreamProbeScreenshotWorkflowCapturesClientAreaForEveryProbeScenario()
     {
         var workflowPath = RepositoryPath(".github/workflows/windows-downstream-probe-screenshot.yml");
-        Assert.IsTrue(File.Exists(workflowPath), "Downstream EMSI probe screenshots need a dedicated Windows runner workflow.");
+        Assert.IsTrue(File.Exists(workflowPath), "Downstream probe screenshots need a dedicated Windows runner workflow.");
 
         var workflow = File.ReadAllText(workflowPath);
-        StringAssert.Contains(workflow, "MeetingChallenge.WinUI.MacRuntimeProbe.csproj");
-        StringAssert.Contains(workflow, "emsi_ref");
+        StringAssert.Contains(workflow, "downstream_repository");
+        StringAssert.Contains(workflow, "downstream_ref");
         StringAssert.Contains(workflow, "runtime_ref");
+        StringAssert.Contains(workflow, "downstream_probe_project");
+        StringAssert.Contains(workflow, "downstream_probe_executable");
+        StringAssert.Contains(workflow, "downstream_probe_scenario_dir");
+        StringAssert.Contains(workflow, "downstream_probe_title");
         StringAssert.Contains(workflow, "repository: MarlonJD/winui3-mac-test-runtime");
         StringAssert.Contains(workflow, "WindowsWindowCapture.csproj");
+        StringAssert.Contains(workflow, "path: downstream-app");
+        StringAssert.Contains(workflow, "msbuild \"downstream-app/${{ inputs.downstream_probe_project }}\"");
         StringAssert.Contains(workflow, "--client-area");
         StringAssert.Contains(workflow, "--reject-black-border");
         StringAssert.Contains(workflow, "--require-title-match");
-        StringAssert.Contains(workflow, "--title \"Meeting Challenge Windows macOS Runtime Probe\"");
+        StringAssert.Contains(workflow, "--title \"${{ inputs.downstream_probe_title }}\"");
         StringAssert.Contains(workflow, "windows-downstream-probe-screenshots");
         StringAssert.Contains(workflow, "native-winui");
         StringAssert.Contains(workflow, "WINUI3_MAC_NATIVE_LAUNCH_LOG");
@@ -4536,7 +4542,8 @@ public sealed class MacRuntimeTests
         })
         {
             StringAssert.Contains(workflow, $"Name = \"{scenario}\"");
-            StringAssert.Contains(workflow, $"Path = \"apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProbe/scenarios/{scenario}.json\"");
+            StringAssert.Contains(workflow, $"Path = \"$scenarioRoot/{scenario}.json\"");
+            StringAssert.Contains(workflow, $"RelativePath = \"$scenarioRelativeRoot/{scenario}.json\"");
         }
     }
 

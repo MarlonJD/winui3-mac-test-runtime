@@ -5,7 +5,7 @@
   "totalDiagnostics": 121,
   "latestClosure": {
     "date": "2026-06-06",
-    "command": "tools/winui3-mac-runner xaml compile --output /private/tmp/emsi-windows-prod-xaml-generated /Users/marlonjd/Developer/monorepos/emsi_monorepo/apps/windows/src/MeetingChallenge.Windows/**/*.xaml",
+    "command": "tools/winui3-mac-runner xaml compile --output /private/tmp/downstream-windows-prod-xaml-generated <private-downstream-root>/apps/windows/src/<App>.Windows/**/*.xaml",
     "diagnostics": 0,
     "rawDiagnosticsPolicy": "Raw downstream diagnostics stay private; this artifact records only sanitized counts and gap families."
   },
