@@ -223,13 +223,21 @@ public sealed class MacApplicationHost
         Assembly assembly,
         VisualRunSettings? visualSettings)
     {
-        if (visualSettings?.Scenario is null || visualSettings.Scenario.Interactions.Count == 0)
+        if (visualSettings?.Scenario is null)
+        {
+            return null;
+        }
+
+        var actions = visualSettings.Scenario.Interactions
+            .Concat(visualSettings.Scenario.Automation)
+            .ToArray();
+        if (actions.Length == 0)
         {
             return null;
         }
 
         var scriptRunner = new InteractionScriptRunner(new TypeResolver(assembly.GetTypes()));
-        return scriptRunner.Run(window, new InteractionScript(visualSettings.Scenario.Interactions));
+        return scriptRunner.Run(window, new InteractionScript(actions));
     }
 
     private static InteractionReport? MergeInteractions(InteractionReport? first, InteractionReport? second)

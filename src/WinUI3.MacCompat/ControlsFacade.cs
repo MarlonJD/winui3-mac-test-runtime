@@ -54,6 +54,8 @@ public class Frame : Control
 
     public Type? SourcePageType { get; private set; }
 
+    public string? CurrentRoute { get; set; }
+
     public bool Navigate(Type sourcePageType)
     {
         return Navigate(sourcePageType, parameter: null);
@@ -64,6 +66,7 @@ public class Frame : Control
         ArgumentNullException.ThrowIfNull(sourcePageType);
 
         SourcePageType = sourcePageType;
+        CurrentRoute = sourcePageType.Name;
         Content = Activator.CreateInstance(sourcePageType);
         if (Content is Page page)
         {

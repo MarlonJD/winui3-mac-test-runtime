@@ -78,6 +78,16 @@ public sealed class ProjectIngestionService
         string configuration,
         CancellationToken cancellationToken = default)
     {
+        return await PrepareAsync(projectPath, outputDirectory, configuration, scenario: null, cancellationToken);
+    }
+
+    public async Task<ProjectIngestionBuildPlan> PrepareAsync(
+        string projectPath,
+        string? outputDirectory,
+        string configuration,
+        VisualScenario? scenario,
+        CancellationToken cancellationToken = default)
+    {
         var model = ProjectModel.Read(projectPath);
         if (!model.IsWindowsTargetedWinUI)
         {
@@ -92,13 +102,26 @@ public sealed class ProjectIngestionService
         var outputRoot = Path.GetFullPath(outputDirectory);
         Directory.CreateDirectory(outputRoot);
 
+        if (scenario?.Entry is not null)
+        {
+            var directHost = DirectAppHostWriter.Write(model, scenario.Entry, configuration);
+            var directReportPath = Path.Combine(outputRoot, "project-ingestion.json");
+            var directReport = BuildDiscoveryReport(model, configuration, directHost, allowWindowsOnlyBoundaries: true, directEntry: scenario.Entry)
+                with
+                {
+                    IsShadowBuild = false
+                };
+            await File.WriteAllTextAsync(directReportPath, JsonSerializer.Serialize(directReport, JsonDefaults.Options), cancellationToken);
+            return new ProjectIngestionBuildPlan(directHost.ProjectPath, directReport, directReportPath, RequiresRestore: true);
+        }
+
         var shadowDirectory = Path.Combine(outputRoot, "shadow-build", Path.GetFileNameWithoutExtension(projectPath));
         Directory.CreateDirectory(shadowDirectory);
 
         var reportPath = Path.Combine(outputRoot, "project-ingestion.json");
         var shadowProjectPath = Path.Combine(shadowDirectory, Path.GetFileName(projectPath));
         var generatedHost = GeneratedSourceHostWriter.Write(model);
-        var report = BuildDiscoveryReport(model, configuration, generatedHost);
+        var report = BuildDiscoveryReport(model, configuration, generatedHost, allowWindowsOnlyBoundaries: false);
         var hasBlockingDiagnostics = report.Status == ProjectIngestionStatuses.Failed;
         if (!hasBlockingDiagnostics)
         {
@@ -129,22 +152,31 @@ public sealed class ProjectIngestionService
     public ProjectIngestionReport? Inspect(string projectPath, string configuration)
     {
         var model = ProjectModel.Read(projectPath);
-        return model.IsWindowsTargetedWinUI ? BuildDiscoveryReport(model, configuration, generatedHost: null) : null;
+        return model.IsWindowsTargetedWinUI
+            ? BuildDiscoveryReport(model, configuration, generatedHost: null, allowWindowsOnlyBoundaries: false)
+            : null;
     }
 
-    private static ProjectIngestionReport BuildDiscoveryReport(ProjectModel model, string configuration, GeneratedSourceHost? generatedHost)
+    private static ProjectIngestionReport BuildDiscoveryReport(
+        ProjectModel model,
+        string configuration,
+        GeneratedSourceHost? generatedHost,
+        bool allowWindowsOnlyBoundaries,
+        DirectAppEntry? directEntry = null)
     {
-        var includedFiles = model.SourceFiles
-            .Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "compile"))
-            .Concat(model.XamlFiles.Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "xaml")))
-            .OrderBy(item => item.Path, StringComparer.Ordinal)
-            .ToArray();
+        var includedFiles = directEntry is null
+            ? model.SourceFiles
+                .Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "compile"))
+                .Concat(model.XamlFiles.Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "xaml")))
+                .OrderBy(item => item.Path, StringComparer.Ordinal)
+                .ToArray()
+            : BuildDirectIncludedFiles(model, directEntry);
         var excludedItems = BuildExcludedItems(model);
         var catalogStatuses = BuildCatalogStatuses(model);
         var unsupportedFeatures = BuildUnsupportedFeatures(model);
         var xamlDiagnostics = BuildXamlDiagnostics(model, configuration);
         var hasBlockingDiagnostics =
-            unsupportedFeatures.Any(feature => !CompatibilityStatuses.IsAvailableOnMac(feature.Status)) ||
+            (!allowWindowsOnlyBoundaries && unsupportedFeatures.Any(feature => !CompatibilityStatuses.IsAvailableOnMac(feature.Status))) ||
             xamlDiagnostics.Any(diagnostic => diagnostic.Severity == "Error");
 
         return new ProjectIngestionReport(
@@ -162,6 +194,21 @@ public sealed class ProjectIngestionService
             CatalogStatuses: catalogStatuses,
             UnsupportedFeatures: unsupportedFeatures,
             XamlDiagnostics: xamlDiagnostics);
+    }
+
+    private static ProjectIngestionFile[] BuildDirectIncludedFiles(ProjectModel model, DirectAppEntry entry)
+    {
+        var normalizedEntry = entry.Xaml.Replace('\\', '/');
+        return model.XamlFiles
+            .Where(path =>
+            {
+                var relative = model.RelativeToProject(path);
+                return string.Equals(relative, normalizedEntry, StringComparison.OrdinalIgnoreCase) ||
+                    relative.StartsWith("Themes/", StringComparison.OrdinalIgnoreCase);
+            })
+            .Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "xaml"))
+            .OrderBy(item => item.Path, StringComparer.Ordinal)
+            .ToArray();
     }
 
     private static ProjectIngestionExcludedItem[] BuildExcludedItems(ProjectModel model)
@@ -592,6 +639,370 @@ public sealed class ProjectIngestionService
 
             return Environment.CurrentDirectory;
         }
+    }
+
+    private static class DirectAppHostWriter
+    {
+        private const string HostTargetFramework = "net10.0";
+        private const string HostRootDirectory = "/private/tmp/winui3-mac-test-runtime/generated-hosts";
+
+        public static GeneratedSourceHost Write(ProjectModel model, DirectAppEntry entry, string configuration)
+        {
+            var selectedXaml = ResolveEntryXaml(model, entry);
+            var selectedInfo = ReadXamlInfo(selectedXaml);
+            var hostId = StableHash(model.ProjectPath + "|" + entry.Xaml);
+            var root = Path.Combine(
+                HostRootDirectory,
+                $"{Sanitize(Path.GetFileNameWithoutExtension(model.ProjectPath))}-direct-{hostId}");
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+
+            Directory.CreateDirectory(root);
+            File.WriteAllText(Path.Combine(root, "DirectAppHost.csproj"), WriteProject(model, selectedXaml, hostId, configuration));
+            File.WriteAllText(Path.Combine(root, "App.cs"), WriteAppCode(selectedInfo, entry));
+            File.WriteAllText(Path.Combine(root, "DirectRuntimeAdapter.cs"), WriteAdapterCode(selectedInfo, entry));
+            File.WriteAllText(Path.Combine(root, "EventStubs.cs"), WriteEventStubs(selectedXaml, selectedInfo));
+
+            return new GeneratedSourceHost(root, Path.Combine(root, "DirectAppHost.csproj"));
+        }
+
+        private static string ResolveEntryXaml(ProjectModel model, DirectAppEntry entry)
+        {
+            var normalizedEntry = entry.Xaml.Replace('\\', '/');
+            var selected = model.XamlFiles.FirstOrDefault(path =>
+                string.Equals(model.RelativeToProject(path), normalizedEntry, StringComparison.OrdinalIgnoreCase));
+            if (selected is null)
+            {
+                throw new InvalidOperationException($"Direct app entry XAML '{entry.Xaml}' was not found in '{model.ProjectPath}'.");
+            }
+
+            return selected;
+        }
+
+        private static XamlInfo ReadXamlInfo(string xamlPath)
+        {
+            var document = XDocument.Load(xamlPath);
+            var root = document.Root ?? throw new InvalidOperationException($"XAML '{xamlPath}' does not have a root element.");
+            var xClass = root.Attributes().FirstOrDefault(attribute => attribute.Name.LocalName == "Class")?.Value;
+            if (string.IsNullOrWhiteSpace(xClass))
+            {
+                throw new InvalidOperationException($"Direct app entry XAML '{xamlPath}' must declare x:Class.");
+            }
+
+            var lastDot = xClass.LastIndexOf('.');
+            if (lastDot <= 0 || lastDot == xClass.Length - 1)
+            {
+                throw new InvalidOperationException($"Direct app entry x:Class '{xClass}' must include a namespace.");
+            }
+
+            return new XamlInfo(
+                xamlPath,
+                root.Name.LocalName,
+                xClass,
+                xClass[..lastDot],
+                xClass[(lastDot + 1)..]);
+        }
+
+        private static string WriteProject(ProjectModel model, string selectedXaml, string hostId, string configuration)
+        {
+            var compatPath = ResolveRuntimeDependency("WinUI3.MacCompat.dll", configuration);
+            var runtimePath = ResolveRuntimeDependency("WinUI3.MacRuntime.dll", configuration);
+            var runnerPath = ResolveRuntimeDependency("WinUI3.MacRunner.dll", configuration);
+            var linkedXaml = new[] { selectedXaml }
+                .Concat(model.XamlFiles.Where(path =>
+                    path.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase) &&
+                    !string.Equals(path, selectedXaml, StringComparison.OrdinalIgnoreCase) &&
+                    Path.GetFileName(Path.GetDirectoryName(path) ?? string.Empty).Equals("Themes", StringComparison.OrdinalIgnoreCase)))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+
+            var document = new XDocument(
+                new XElement("Project",
+                    new XAttribute("Sdk", "Microsoft.NET.Sdk"),
+                    new XElement("PropertyGroup",
+                        new XElement("OutputType", "Exe"),
+                        new XElement("TargetFramework", HostTargetFramework),
+                        new XElement("AssemblyName", "DirectAppHost_" + hostId),
+                        new XElement("RootNamespace", "WinUI3.MacRunner.GeneratedDirectHost"),
+                        new XElement("ImplicitUsings", "enable"),
+                        new XElement("Nullable", "enable"),
+                        new XElement("EnableDefaultCompileItems", "false")),
+                    new XElement("ItemGroup",
+                        Reference("WinUI3.MacCompat", compatPath),
+                        Reference("WinUI3.MacRuntime", runtimePath)),
+                    new XElement("ItemGroup",
+                        new XElement("Compile", new XAttribute("Include", "App.cs")),
+                        new XElement("Compile", new XAttribute("Include", "DirectRuntimeAdapter.cs")),
+                        new XElement("Compile", new XAttribute("Include", "EventStubs.cs"))),
+                    new XElement("ItemGroup",
+                        linkedXaml.Select(path =>
+                            new XElement("WinUI3MacXaml",
+                                new XAttribute("Include", path),
+                                new XAttribute("Link", model.RelativeToProject(path))))),
+                    new XElement("Target",
+                        new XAttribute("Name", "WinUI3MacGenerateXaml"),
+                        new XAttribute("BeforeTargets", "CoreCompile"),
+                        new XAttribute("Condition", "'@(WinUI3MacXaml)' != ''"),
+                        new XElement("MakeDir", new XAttribute("Directories", "$(IntermediateOutputPath)")),
+                        new XElement("Exec", new XAttribute(
+                            "Command",
+                            $"dotnet \"{runnerPath}\" xaml compile --output \"$(IntermediateOutputPath)WinUI3MacXaml.g.cs\" @(WinUI3MacXaml->'\"%(FullPath)\"', ' ')")),
+                        new XElement("ItemGroup",
+                            new XElement("Compile", new XAttribute("Include", "$(IntermediateOutputPath)WinUI3MacXaml.g.cs"))))));
+
+            return document.ToString();
+
+            static XElement Reference(string name, string hintPath)
+            {
+                return new XElement(
+                    "Reference",
+                    new XAttribute("Include", name),
+                    new XElement("HintPath", hintPath),
+                    new XElement("Private", "true"));
+            }
+        }
+
+        private static string WriteAppCode(XamlInfo selectedInfo, DirectAppEntry entry)
+        {
+            return $$"""
+                using Microsoft.UI.Xaml;
+
+                namespace WinUI3.MacRunner.GeneratedDirectHost;
+
+                public sealed class App : Application
+                {
+                    protected override void OnLaunched(LaunchActivatedEventArgs args)
+                    {
+                        MainWindow = DirectRuntimeAdapter.CreateWindow();
+                        MainWindow.Activate();
+                    }
+                }
+
+                public static class Program
+                {
+                    public static int Main()
+                    {
+                        return 0;
+                    }
+                }
+                """;
+        }
+
+        private static string WriteAdapterCode(XamlInfo selectedInfo, DirectAppEntry entry)
+        {
+            var mode = Literal(entry.Mode);
+            var route = Literal(entry.Route);
+            var session = Literal(entry.Session);
+            var fullType = "global::" + selectedInfo.FullClassName;
+            var factory = string.Equals(entry.Mode, "page", StringComparison.OrdinalIgnoreCase)
+                ? $$"""
+                      var page = new {{fullType}}();
+                      InvokeInitialize(page);
+                      var window = new Window
+                      {
+                          Title = "Direct app page - {{selectedInfo.ClassName}}",
+                          Content = page
+                      };
+                      return window;
+                  """
+                : $$"""
+                      var window = new {{fullType}}();
+                      InvokeInitialize(window);
+                      ApplyWindowEntry(window, {{route}}, {{session}});
+                      return window;
+                  """;
+
+            return $$"""
+                using Microsoft.UI.Xaml;
+                using Microsoft.UI.Xaml.Automation;
+                using Microsoft.UI.Xaml.Controls;
+                using WinUI3.MacRuntime;
+
+                namespace WinUI3.MacRunner.GeneratedDirectHost;
+
+                public static class DirectRuntimeAdapter
+                {
+                    public static Window CreateWindow()
+                    {
+                {{Indent(factory, 8)}}
+                    }
+
+                    public static void ApplyNavigationSelection(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+                    {
+                        var route = args.SelectedItemContainer?.Tag?.ToString();
+                        if (string.IsNullOrWhiteSpace(route))
+                        {
+                            return;
+                        }
+
+                        var frame = ElementQuery.Traverse(sender).OfType<Frame>().FirstOrDefault(frame => frame.Name == "ContentFrame");
+                        if (frame is not null)
+                        {
+                            frame.CurrentRoute = route;
+                            frame.Content = route;
+                        }
+                    }
+
+                    private static void ApplyWindowEntry(Window window, string? route, string? session)
+                    {
+                        var rootNavigation = ElementQuery.Traverse(window).OfType<NavigationView>().FirstOrDefault();
+                        if (rootNavigation is null)
+                        {
+                            return;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(session))
+                        {
+                            rootNavigation.Visibility = Visibility.Visible;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(route))
+                        {
+                            return;
+                        }
+
+                        var item = ElementQuery.Traverse(rootNavigation)
+                            .OfType<NavigationViewItem>()
+                            .FirstOrDefault(candidate =>
+                                string.Equals(candidate.Tag?.ToString(), route, StringComparison.OrdinalIgnoreCase) ||
+                                string.Equals(AutomationProperties.GetAutomationId(candidate), "shell-nav-" + route, StringComparison.OrdinalIgnoreCase));
+                        if (item is not null)
+                        {
+                            rootNavigation.Select(item);
+                        }
+
+                        var frame = ElementQuery.Traverse(rootNavigation).OfType<Frame>().FirstOrDefault(frame => frame.Name == "ContentFrame");
+                        if (frame is not null)
+                        {
+                            frame.CurrentRoute = route;
+                            frame.Content = route;
+                        }
+                    }
+
+                    private static void InvokeInitialize(object instance)
+                    {
+                        var method = instance.GetType().GetMethod("InitializeComponent", Type.EmptyTypes);
+                        method?.Invoke(instance, null);
+                    }
+                }
+                """;
+        }
+
+        private static string WriteEventStubs(string selectedXaml, XamlInfo selectedInfo)
+        {
+            var document = XDocument.Load(selectedXaml);
+            var handlers = document
+                .Descendants()
+                .SelectMany(element => element.Attributes().Select(attribute => new
+                {
+                    Element = element.Name.LocalName,
+                    Event = attribute.Name.LocalName,
+                    Handler = attribute.Value
+                }))
+                .Where(item => item.Event is "Click" or "SelectionChanged")
+                .Where(item => !string.IsNullOrWhiteSpace(item.Handler))
+                .DistinctBy(item => item.Handler, StringComparer.Ordinal)
+                .OrderBy(item => item.Handler, StringComparer.Ordinal)
+                .Select(WriteHandler)
+                .ToArray();
+
+            return $$"""
+                using Microsoft.UI.Xaml;
+                using Microsoft.UI.Xaml.Controls;
+
+                namespace {{selectedInfo.Namespace}};
+
+                public sealed partial class {{selectedInfo.ClassName}}
+                {
+                {{Indent(string.Join(Environment.NewLine + Environment.NewLine, handlers), 4)}}
+                }
+                """;
+
+            static string WriteHandler(dynamic item)
+            {
+                if (item.Event == "SelectionChanged" && item.Element == "NavigationView")
+                {
+                    return $$"""
+                        private void {{item.Handler}}(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+                        {
+                            WinUI3.MacRunner.GeneratedDirectHost.DirectRuntimeAdapter.ApplyNavigationSelection(sender, args);
+                        }
+                        """;
+                }
+
+                return $$"""
+                    private void {{item.Handler}}(object sender, RoutedEventArgs args)
+                    {
+                    }
+                    """;
+            }
+        }
+
+        private static string ResolveRuntimeDependency(string fileName, string configuration)
+        {
+            var dependencyPath = Path.Combine(AppContext.BaseDirectory, fileName);
+            if (File.Exists(dependencyPath))
+            {
+                return dependencyPath;
+            }
+
+            var repositoryRoot = FindRepositoryRoot(Environment.CurrentDirectory);
+            var sourceDependency = Path.Combine(repositoryRoot, "src", "WinUI3.MacRunner", "bin", configuration, HostTargetFramework, fileName);
+            if (File.Exists(sourceDependency))
+            {
+                return sourceDependency;
+            }
+
+            throw new FileNotFoundException($"Runtime dependency '{fileName}' was not found.", sourceDependency);
+        }
+
+        private static string StableHash(string value)
+        {
+            var hash = SHA256.HashData(Encoding.UTF8.GetBytes(Path.GetFullPath(value)));
+            return Convert.ToHexString(hash).ToLowerInvariant()[..16];
+        }
+
+        private static string Sanitize(string value)
+        {
+            return new string(value.Select(character =>
+                char.IsLetterOrDigit(character) || character is '-' or '_' ? character : '-').ToArray());
+        }
+
+        private static string Literal(string? value)
+        {
+            return value is null ? "null" : JsonSerializer.Serialize(value);
+        }
+
+        private static string Indent(string value, int spaces)
+        {
+            var prefix = new string(' ', spaces);
+            return string.Join(Environment.NewLine, value.Split(Environment.NewLine).Select(line => prefix + line));
+        }
+
+        private static string FindRepositoryRoot(string startDirectory)
+        {
+            var directory = new DirectoryInfo(Path.GetFullPath(startDirectory));
+            while (directory is not null)
+            {
+                if (File.Exists(Path.Combine(directory.FullName, "WinUI3.MacTestRuntime.sln")))
+                {
+                    return directory.FullName;
+                }
+
+                directory = directory.Parent;
+            }
+
+            return Environment.CurrentDirectory;
+        }
+
+        private sealed record XamlInfo(
+            string Path,
+            string RootElement,
+            string FullClassName,
+            string Namespace,
+            string ClassName);
     }
 
     private static class XamlCompilerInvoker

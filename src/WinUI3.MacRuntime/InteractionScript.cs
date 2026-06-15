@@ -327,7 +327,7 @@ public sealed class InteractionScriptRunner
 
         var actual = property.GetValue(target.Element)?.ToString() ?? string.Empty;
         var expected = action.Parameter ?? string.Empty;
-        return string.Equals(actual, expected, StringComparison.Ordinal)
+        return ValuesEqual(actual, expected)
             ? Passed(index, action, expected: expected, actual: actual, resolution: target)
             : Failed(index, action, $"Expected '{expected}' but found '{actual}'.", expected, actual, resolution: target);
     }
@@ -350,9 +350,19 @@ public sealed class InteractionScriptRunner
         var observedState = BuildAccessibilityState(node);
         var actual = ReadAccessibilityValue(node, action.Key) ?? string.Empty;
         var expected = action.Parameter ?? string.Empty;
-        return string.Equals(actual, expected, StringComparison.Ordinal)
+        return ValuesEqual(actual, expected)
             ? Passed(index, action, expected: expected, actual: actual, resolution: target, observedState: observedState)
             : Failed(index, action, $"Expected accessibility {action.Key} '{expected}' but found '{actual}'.", expected, actual, resolution: target, observedState: observedState);
+    }
+
+    private static bool ValuesEqual(string actual, string expected)
+    {
+        if (bool.TryParse(actual, out var actualBool) && bool.TryParse(expected, out var expectedBool))
+        {
+            return actualBool == expectedBool;
+        }
+
+        return string.Equals(actual, expected, StringComparison.Ordinal);
     }
 
     private static int FindItemIndex(IList<object?> items, string? expected)
@@ -671,11 +681,17 @@ public sealed class InteractionScriptRunner
             "automationId" => node.AutomationId,
             "label" => node.Label,
             "helpText" => node.HelpText,
+            "focused" => node.IsFocused.ToString(),
             "isFocused" => node.IsFocused.ToString(),
+            "focusable" => node.IsFocusable?.ToString(),
             "isFocusable" => node.IsFocusable?.ToString(),
+            "enabled" => node.IsEnabled?.ToString(),
             "isEnabled" => node.IsEnabled?.ToString(),
+            "checked" => node.IsChecked?.ToString(),
             "isChecked" => node.IsChecked?.ToString(),
+            "selected" => node.IsSelected?.ToString(),
             "isSelected" => node.IsSelected?.ToString(),
+            "expanded" => node.IsExpanded?.ToString(),
             "isExpanded" => node.IsExpanded?.ToString(),
             "value" => node.Value,
             _ => null

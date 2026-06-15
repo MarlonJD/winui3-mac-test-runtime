@@ -376,17 +376,17 @@ Acceptance:
 Purpose: make render scenarios and integration-test scenarios one contract
 instead of separate one-off formats.
 
-- [ ] Add a failing test in `tests/WinUI3.MacRunner.Tests` that parses a direct
+- [x] Add a failing test in `tests/WinUI3.MacRunner.Tests` that parses a direct
   app scenario containing `entry`, `automation`, and `visual` sections.
-- [ ] Verify RED.
-- [ ] Implement `AutomationScenarioModel` that maps scenario `automation`
+- [x] Verify RED.
+- [x] Implement `AutomationScenarioModel` that maps scenario `automation`
   entries to existing `InteractionAction` values without losing selector kind,
   target, key, modifiers, page type, or parameter.
-- [ ] Extend runner command handling so scenario `automation` actions are
+- [x] Extend runner command handling so scenario `automation` actions are
   executed exactly like `--script` actions after the direct app host is loaded.
-- [ ] Verify `interactions.json` is emitted for scenario automation, not only
+- [x] Verify `interactions.json` is emitted for scenario automation, not only
   for explicit `--script`.
-- [ ] Add documentation that the shared scenario is the public integration-test
+- [x] Add documentation that the shared scenario is the public integration-test
   input for both macOS runtime evidence and optional native Windows reference
   validation.
 
@@ -397,12 +397,21 @@ Acceptance:
 - Existing `InteractionScriptRunner` remains the execution engine for macOS
   runtime actions.
 
+2026-06-15 Track B update:
+
+- Added direct scenario `entry`, `automation`, and `visual` parsing to the
+  shared `VisualScenario` contract while preserving existing `interactions`
+  scenarios.
+- Scenario `automation` actions now run through `InteractionScriptRunner` and
+  emit `interactions.json`; the runtime accepts scenario contract aliases such
+  as `selected=true` while keeping semantic action results explicit.
+
 ### Phase 4: Page Render And Interaction Mode
 
 Purpose: get the first direct screenshot from a real app project by rendering a
 selected production page XAML and running integration assertions against it.
 
-- [ ] Extend scenario support with a direct page selector, for example:
+- [x] Extend scenario support with a direct page selector, for example:
 
   ```json
   {
@@ -423,15 +432,15 @@ selected production page XAML and running integration assertions against it.
   }
   ```
 
-- [ ] Add a failing runner test that uses the public fixture app and expects the
+- [x] Add a failing runner test that uses the public fixture app and expects the
   generated host to render the selected page.
-- [ ] Verify RED.
-- [ ] Implement the minimum page entry generation.
-- [ ] Run scenario automation and assert that `interactions.json` records passed
+- [x] Verify RED.
+- [x] Implement the minimum page entry generation.
+- [x] Run scenario automation and assert that `interactions.json` records passed
   assertions for the selected page.
-- [ ] Close only reusable compiler/facade/layout/renderer gaps with separate
+- [x] Close only reusable compiler/facade/layout/renderer gaps with separate
   RED/GREEN tests.
-- [ ] Run the real EMSI direct page command:
+- [x] Run the real EMSI direct page command:
 
   ```bash
   cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
@@ -449,12 +458,21 @@ Acceptance:
   reusable runtime blocker is documented.
 - The same run emits `tree.json`, `accessibility.json`, and `interactions.json`.
 
+2026-06-15 Track B page update:
+
+- Direct page entry generation passed against `Pages/HomePage.xaml` from
+  `MeetingChallenge.Windows.csproj`.
+- Evidence was emitted under
+  `/private/tmp/emsi_qa/windows/mac-runtime-direct/home-page-light`, including
+  `tree.json`, `accessibility.json`, `interactions.json`, and
+  `visual/mac-runtime.png`.
+
 ### Phase 5: Shell Route Render And Integration Mode
 
 Purpose: render the real app shell/window shape and run navigation-level
 integration tests, not only a standalone page screenshot.
 
-- [ ] Extend scenario support with a shell selector:
+- [x] Extend scenario support with a shell selector:
 
   ```json
   {
@@ -479,16 +497,16 @@ integration tests, not only a standalone page screenshot.
   }
   ```
 
-- [ ] Add failing tests for shell route generation against the fixture app.
-- [ ] Verify RED.
-- [ ] Implement generated shell bootstrap that can:
+- [x] Add failing tests for shell route generation against the fixture app.
+- [x] Verify RED.
+- [x] Implement generated shell bootstrap that can:
   - instantiate the app window source-level;
   - choose the selected navigation item or content route;
   - inject deterministic state through generated runtime adapters;
   - skip or diagnose Windows-only startup services.
-- [ ] Reuse runtime support for `Frame.Navigate`, navigation selection,
+- [x] Reuse runtime support for `Frame.Navigate`, navigation selection,
   resource dictionaries, `x:Uid`, and page parameters when possible.
-- [ ] Run the real EMSI direct shell command:
+- [x] Run the real EMSI direct shell command:
 
   ```bash
   cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
@@ -505,6 +523,22 @@ Acceptance:
 - The screenshot path is produced by direct ingestion of
   `MeetingChallenge.Windows.csproj`, not by `MeetingChallenge.WinUI.MacRuntimeProbe`.
 - The run produces integration-test evidence in `interactions.json`.
+
+2026-06-15 Track B shell update:
+
+- Direct shell/window route generation passed against `MainWindow.xaml` from
+  `MeetingChallenge.Windows.csproj`; the generated host is under
+  `/private/tmp/winui3-mac-test-runtime/generated-hosts/` and the downstream app
+  was not modified.
+- Evidence was emitted under
+  `/private/tmp/emsi_qa/windows/mac-runtime-direct/shell-home-light`, including
+  `tree.json`, `accessibility.json`, `interactions.json`, and
+  `visual/mac-runtime.png`. The five shell automation steps passed in
+  `interactions.json`.
+- `project-ingestion.json` reports `isShadowBuild=false`, lists selected render
+  inputs (`MainWindow.xaml` plus theme dictionaries), and keeps
+  `WindowsPackageType=MSIX` as a Windows packaging boundary rather than a macOS
+  compile claim.
 
 ### Phase 6: FlaUI/UIA3-Compatible Artifact Adapter
 

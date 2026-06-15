@@ -30,13 +30,23 @@ public sealed class ProjectBuildService
         string configuration,
         CancellationToken cancellationToken = default)
     {
+        return await BuildAsync(projectPath, artifactsDirectory, configuration, scenario: null, cancellationToken);
+    }
+
+    public async Task<ProjectBuildResult> BuildAsync(
+        string projectPath,
+        string? artifactsDirectory,
+        string configuration,
+        VisualScenario? scenario,
+        CancellationToken cancellationToken = default)
+    {
         var resolvedProject = Path.GetFullPath(projectPath);
         if (!File.Exists(resolvedProject))
         {
             throw new FileNotFoundException("Project file was not found.", resolvedProject);
         }
 
-        var buildPlan = await ingestionService.PrepareAsync(resolvedProject, artifactsDirectory, configuration, cancellationToken);
+        var buildPlan = await ingestionService.PrepareAsync(resolvedProject, artifactsDirectory, configuration, scenario, cancellationToken);
         var output = await RunDotNetBuildAsync(buildPlan.BuildProjectPath, configuration, buildPlan.RequiresRestore, cancellationToken);
         var projectInfo = ProjectInfo.Read(buildPlan.BuildProjectPath);
         var assemblyPath = Path.Combine(

@@ -1637,6 +1637,40 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void InteractionScriptSupportsScenarioSelectedAliasAndFrameCurrentRoute()
+    {
+        var frame = new Frame { Name = "ContentFrame" };
+        var home = new NavigationViewItem { Name = "HomeNavigationItem", Content = "Home", Tag = "home" };
+        var messages = new NavigationViewItem { Name = "MessagesNavigationItem", Content = "Messages", Tag = "messages" };
+        AutomationProperties.SetAutomationId(home, "shell-nav-home");
+        AutomationProperties.SetAutomationId(messages, "shell-nav-messages");
+        var navigation = new NavigationView { Name = "RootNavigation", Content = frame };
+        navigation.MenuItems.Add(home);
+        navigation.MenuItems.Add(messages);
+        navigation.SelectionChanged += (_, args) =>
+        {
+            if (args.SelectedItemContainer?.Tag is string route)
+            {
+                frame.CurrentRoute = route;
+            }
+        };
+        navigation.Select(home);
+        var window = new Window { Content = navigation };
+
+        var report = new InteractionScriptRunner(new TypeResolver(Array.Empty<Type>()))
+            .Run(window, new InteractionScript(new[]
+            {
+                new InteractionAction("assertAccessibilityState", "automationId=shell-nav-home", "selected", null, null, "true"),
+                new InteractionAction("selectNavigation", "automationId=shell-nav-messages", null, null, null, null),
+                new InteractionAction("assertProperty", "ContentFrame", "CurrentRoute", null, null, "messages"),
+                new InteractionAction("assertAccessibilityState", "automationId=shell-nav-messages", "selected", null, null, "true")
+            }));
+
+        Assert.IsTrue(report.Steps.All(step => step.Status == "passed"));
+        Assert.AreEqual("messages", frame.CurrentRoute);
+    }
+
+    [TestMethod]
     public void InteractionScriptOpensInvokesAndDismissesPopups()
     {
         var invoked = string.Empty;

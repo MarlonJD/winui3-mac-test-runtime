@@ -19,11 +19,17 @@ public sealed class VisualScenario
 
     public string? StartupRoute { get; init; }
 
+    public DirectAppEntry? Entry { get; init; }
+
     public bool StrictVisual { get; init; }
 
     public VisualThresholds Thresholds { get; init; } = new();
 
+    public IReadOnlyList<InteractionAction> Automation { get; init; } = Array.Empty<InteractionAction>();
+
     public IReadOnlyList<InteractionAction> Interactions { get; init; } = Array.Empty<InteractionAction>();
+
+    public ScenarioVisualOptions? Visual { get; init; }
 
     public IReadOnlyList<VisualRequirement> Requirements { get; init; } = Array.Empty<VisualRequirement>();
 
@@ -71,6 +77,16 @@ public sealed class VisualScenario
             throw new InvalidOperationException($"Scenario '{path}' uses unsupported theme '{Theme}'. Expected light, dark, or high-contrast.");
         }
 
+        if (Entry is not null)
+        {
+            Entry.Validate(path);
+        }
+
+        if (Visual is not null)
+        {
+            Visual.Validate(path);
+        }
+
         foreach (var requirement in Requirements)
         {
             if (string.IsNullOrWhiteSpace(requirement.Component))
@@ -85,6 +101,49 @@ public sealed class VisualScenario
             {
                 throw new InvalidOperationException($"Scenario '{path}' contains a source feature requirement without feature.");
             }
+        }
+    }
+}
+
+public sealed class DirectAppEntry
+{
+    public string Mode { get; init; } = string.Empty;
+
+    public string Xaml { get; init; } = string.Empty;
+
+    public string? Route { get; init; }
+
+    public string? Session { get; init; }
+
+    internal void Validate(string path)
+    {
+        if (!string.Equals(Mode, "page", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(Mode, "window", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException($"Scenario '{path}' entry mode must be page or window.");
+        }
+
+        if (string.IsNullOrWhiteSpace(Xaml))
+        {
+            throw new InvalidOperationException($"Scenario '{path}' entry must declare xaml.");
+        }
+    }
+}
+
+public sealed class ScenarioVisualOptions
+{
+    public bool Capture { get; init; }
+
+    public string? Renderer { get; init; }
+
+    internal void Validate(string path)
+    {
+        if (!string.IsNullOrWhiteSpace(Renderer) &&
+            !Renderer.Equals("svg", StringComparison.OrdinalIgnoreCase) &&
+            !Renderer.Equals("skia", StringComparison.OrdinalIgnoreCase) &&
+            !Renderer.Equals("skia-v2", StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException($"Scenario '{path}' visual renderer must be svg, skia, or skia-v2.");
         }
     }
 }

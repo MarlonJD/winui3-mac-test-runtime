@@ -29,7 +29,12 @@ public sealed class MacProjectRunner
         VisualRunSettings? visualSettings = null,
         CancellationToken cancellationToken = default)
     {
-        var build = await buildService.BuildAsync(projectPath, outputDirectory, configuration, cancellationToken);
+        var build = await buildService.BuildAsync(
+            projectPath,
+            outputDirectory,
+            configuration,
+            visualSettings?.Scenario,
+            cancellationToken);
         return await host.RunAsync(
             new MacRunOptions(
                 AssemblyPath: build.AssemblyPath,
