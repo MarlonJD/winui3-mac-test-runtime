@@ -57,14 +57,17 @@ public static class ResourceOperations
         ArgumentException.ThrowIfNullOrWhiteSpace(key);
         ArgumentException.ThrowIfNullOrWhiteSpace(targetProperty);
 
-        if (TryResolveThemeValue(resources, key, out var themedValue))
-        {
-            return themedValue;
-        }
-
-        if (resources.TryGetValue(key, out var value))
+        if (TryResolveValue(resources, key, out var value))
         {
             return value;
+        }
+
+        var applicationResources = Application.Current?.Resources;
+        if (applicationResources is not null &&
+            !ReferenceEquals(applicationResources, resources) &&
+            TryResolveValue(applicationResources, key, out var applicationValue))
+        {
+            return applicationValue;
         }
 
         ReportMissing(key, targetProperty);
@@ -96,7 +99,7 @@ public static class ResourceOperations
         }
     }
 
-    private static bool TryResolveThemeValue(ResourceDictionary resources, string key, out object? value)
+    private static bool TryResolveValue(ResourceDictionary resources, string key, out object? value)
     {
         if (resources.ThemeDictionaries.TryGetValue(CurrentTheme, out var themedResources) &&
             themedResources.TryGetValue(key, out value))
@@ -106,6 +109,11 @@ public static class ResourceOperations
 
         if (resources.ThemeDictionaries.TryGetValue("Default", out var defaultResources) &&
             defaultResources.TryGetValue(key, out value))
+        {
+            return true;
+        }
+
+        if (resources.TryGetValue(key, out value))
         {
             return true;
         }
@@ -166,9 +174,25 @@ public static class StyleOperations
             return value;
         }
 
+        if (value is string resourceReference &&
+            TryReadResourceReference(resourceReference, out var resourceKey) &&
+            Application.Current?.Resources is { } applicationResources)
+        {
+            value = ResourceOperations.Resolve(applicationResources, resourceKey, "Style.Setter");
+            if (value is null)
+            {
+                return null;
+            }
+
+            if (value is not null && nonNullableTarget.IsInstanceOfType(value))
+            {
+                return value;
+            }
+        }
+
         if (nonNullableTarget == typeof(string))
         {
-            return value.ToString();
+            return value?.ToString();
         }
 
         if (nonNullableTarget.IsEnum && value is string enumValue)
@@ -177,5 +201,22 @@ public static class StyleOperations
         }
 
         return Convert.ChangeType(value, nonNullableTarget);
+    }
+
+    private static bool TryReadResourceReference(string value, out string key)
+    {
+        if ((value.StartsWith("{StaticResource ", StringComparison.Ordinal) ||
+                value.StartsWith("{ThemeResource ", StringComparison.Ordinal)) &&
+            value.EndsWith('}'))
+        {
+            var markerLength = value.StartsWith("{StaticResource ", StringComparison.Ordinal)
+                ? "{StaticResource ".Length
+                : "{ThemeResource ".Length;
+            key = value[markerLength..^1].Trim();
+            return !string.IsNullOrWhiteSpace(key);
+        }
+
+        key = string.Empty;
+        return false;
     }
 }

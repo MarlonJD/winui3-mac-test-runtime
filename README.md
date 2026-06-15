@@ -1,21 +1,25 @@
 # WinUI3 Mac Test Runtime
 
-Wine-free source-level WinUI 3 compatibility runtime for macOS.
+Wine-free source-level WinUI 3 compatibility runtime and evidence harness.
 
-The product goal is full source-level WinUI 3 C# and XAML development from
-macOS: developers should be able to build, run, test, inspect, and visually
-validate real WinUI 3 app code locally while public `windows-latest` GitHub
-Actions runs provide the intended behavioral and visual source of truth from
-actual native WinUI fixture apps. The current repository is strongest as a
-source-level compatibility harness, catalog, artifact, and release-gate system.
-The macOS visual renderer is not yet production-fidelity WinUI; current
-`skia-v2` screenshots show usable scaffolding for a narrow public subset and
-many simplified or intentionally `not-rendered` controls.
+The updated architecture direction is portable headless first: source-level
+WinUI 3 C# and XAML validation should run on `ubuntu-latest`, `windows-latest`,
+and local macOS without requiring AppKit, `NSWindow`/`NSView`,
+NSAccessibility/AX, Metal, or hosted macOS CI. Local macOS windowed support
+still matters for developer debugging, but the default PR path is portable
+headless plus Windows native reference evidence.
+
+The current repository is strongest as a source-level compatibility harness,
+catalog, artifact, and release-gate system for a documented subset. Windows
+native reference runs remain the behavioral and visual source of truth. The
+current renderer is not production-fidelity WinUI; current `skia-v2`
+screenshots show usable scaffolding for a narrow public subset and many
+simplified or intentionally `not-rendered` controls.
 
 This repository does not run arbitrary Windows binaries, `.msix` packages, or
-`.exe` files on macOS. The current runtime runs managed .NET assemblies against
-clean-room `Microsoft.UI.Xaml` facade types, hosts the app in a macOS .NET
-process, and emits structured artifacts for test inspection.
+`.exe` files. The current runtime runs managed .NET assemblies against
+clean-room `Microsoft.UI.Xaml` facade types and emits structured artifacts for
+test inspection.
 
 ## Read This First
 
@@ -45,7 +49,31 @@ native-quality visual claim.
 Use this runtime when your app or fixture stays inside the documented
 `supported` and `partial` subset. Do not use it as evidence that arbitrary WinUI
 3 apps, templates, visual states, Mica/Acrylic, composition, advanced controls,
-Windows binaries, `.msix` packages, or full Fluent pixel parity work on macOS.
+Windows binaries, `.msix` packages, or full Fluent pixel parity work on a custom
+runtime.
+
+## Portable Headless Architecture
+
+Phase 0 of the portable-headless architecture is tracked in
+`docs/architecture/portable-headless-roadmap.md`,
+`docs/architecture/ci-strategy.md`, and the repo-native planning set under
+`docs/portable-headless/`. The external planning zip is no longer needed for
+future phases.
+
+Do not confuse the lanes:
+
+- `portable-headless`: portable source-level runtime checks with the internal
+  automation driver and Skia offscreen rendering.
+- `windows-reference`: real native WinUI on `windows-latest` using FlaUI.UIA3
+  and native WinUI screenshots as the source of truth.
+- `macos-windowed`: local/manual Mac windowed debugging.
+- `macos-windowed-ax`: later macOS NSAccessibility adapter validation.
+- `windows-custom-runtime`: optional later Windows UIA provider over this custom
+  runtime, not native WinUI reference evidence.
+
+Phase 0 does not rename public commands. `winui3-mac-runner` remains the current
+command while future phases add canonical mode metadata and portable-driver
+boundaries.
 
 ## Productization Status
 
@@ -130,21 +158,58 @@ high-fidelity Fluent rendering.
 
 ## UI Automation Strategy
 
-UI automation and screenshot capture are core project goals. The production
-direction is a two-layer contract:
+UI automation and screenshot capture are core project goals. The updated
+production direction is a three-layer contract:
 
+- `AutomationCore` is platform independent and owns stable automation IDs,
+  names, control types or roles, bounding rectangles, state/value export, action
+  dispatch, and scenario-driver behavior.
+- Portable headless validation uses the internal driver directly against
+  `AutomationCore`; it is runtime compatibility testing, not OS-level UI
+  automation.
 - Windows reference validation uses FlaUI 5.0 + FlaUI.UIA3 against real native
   WinUI apps whenever Windows UI Automation is available.
-- The macOS runtime will expose the same semantic automation contract through
-  repo-owned artifacts and adapters: stable automation IDs, names, control
-  types or roles, bounding rectangles, state/value export, action dispatch, and
-  full-window or element screenshot capture.
 
 The current alpha supports runner-owned scripted interactions and deterministic
 `tree.json`, `accessibility.json`, `interactions.json`, screenshot, crop, and
-diff artifacts. It does not yet claim full FlaUI/UIA provider compatibility on
-macOS. JSON accessibility export is useful evidence, but it is not by itself a
-replacement for FlaUI 5.0 + FlaUI.UIA3 API-level automation tests.
+diff artifacts. It does not yet claim full FlaUI/UIA provider compatibility for
+the custom runtime, and JSON accessibility export is not by itself a replacement
+for FlaUI 5.0 + FlaUI.UIA3 API-level automation tests against real WinUI.
+
+## Direct WinUI App Project Ingestion
+
+You can point the runner at a real WinUI Windows app `.csproj` and get
+source-level rendering plus automation evidence on macOS without adding a probe
+or host project to that app:
+
+```sh
+PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+  --project ./apps/windows/src/MainApp.Windows/MainApp.Windows.csproj \
+  --renderer skia-v2 \
+  --scenario ./scenarios/shell-home-light.json \
+  --output ./artifacts/mac-runtime-direct/shell-home-light
+```
+
+The runner inspects the project, generates a temporary source-level host under
+`/private/tmp/winui3-mac-test-runtime/generated-hosts/`, renders the scenario
+`entry` (a `page` or a `window`/`route`), runs the scenario `automation`
+actions, and writes `tree.json`, `accessibility.json`, `interactions.json`,
+`visual/mac-runtime.png`, and `project-ingestion.json`. The original Windows
+project is never mutated or built, and the `.exe`/`.msix` is never executed.
+
+`project-ingestion.json` includes a non-blocking `windowsOnlyBoundaries` list:
+honest diagnostics for Windows-only behavior the runner did not run, such as
+`Windows.Storage.ApplicationData`, `Windows.Security.Credentials.PasswordVault`,
+`MicaBackdrop`/`SystemBackdrop`, packaged MSIX activation, and the
+`Microsoft.WindowsAppSDK`/`Microsoft.Windows.SDK.BuildTools` deployment
+references. `blocksRender` is `false`, so a supported page/window surface still
+renders while the run reports exactly what it skipped. This is source-level
+render and semantic automation evidence, not Windows binary execution, native
+UIA provider support, or native visual parity. Native FlaUI 5.0 + UIA3
+validation through `tools/WindowsUiAutomationProbe` remains the Windows
+reference tier. See `docs/consumption/quick-start.md` and
+`docs/consumption/downstream-windows-apps.md` for the full direct-ingestion
+workflow.
 
 ## Optional Windows Font A/B Diagnostics
 
@@ -253,11 +318,12 @@ dotnet tool install MarlonJD.WinUI3.MacRunner --version 0.1.0-alpha.1 --tool-pat
 ```
 
 See `docs/consumption/quick-start.md` for fixture setup, strict visual commands,
-troubleshooting, and known limits. See
-`docs/examples/consumer-github-actions.yml` for a self-hosted macOS consumer CI
-starting point. See `docs/consumption/downstream-windows-apps.md` for why this
-tool exists, how a downstream Windows WinUI 3 app can use it, and which tests
-should run locally and in CI.
+troubleshooting, and known limits. See `docs/architecture/ci-strategy.md` for
+the updated default CI shape: `ubuntu-latest` portable headless,
+`windows-latest` Windows reference, and macOS only for local/manual/scheduled or
+release validation. See `docs/consumption/downstream-windows-apps.md` for why
+this tool exists, how a downstream Windows WinUI 3 app can use it, and which
+tests should run locally and in CI.
 
 ## Current Fixtures
 
@@ -357,7 +423,10 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
   project is inspected for direct project ingestion. It includes the generated
   temporary source-level host under `/private/tmp/winui3-mac-test-runtime/`
   plus the existing compat shadow build discovery paths when a run continues
-  into build/launch.
+  into build/launch, and a non-blocking `windowsOnlyBoundaries` list naming the
+  Windows-only behavior (WinRT storage, credential lockers, packaged activation,
+  system backdrops, Windows App SDK deployment) the runner diagnosed but did not
+  execute.
 - `diagnostics.sarif`: warning diagnostics for bindings, resources, and
   unsupported APIs with stable rule IDs.
 - `interactions.json`: optional scripted interaction results with selector,

@@ -44,8 +44,8 @@ packages in this repository.
 ## Safe CI Usage
 
 - Public GitHub Actions may run only clean-room fixture projects in this repo.
-- Private downstream apps should run on private/self-hosted macOS runners and
-  decide their own artifact retention.
+- Private downstream apps should run current macOS validation only on local or
+  self-hosted Mac runners, and decide their own artifact retention.
 - The runner should be invoked from a clean checkout or disposable workspace
   when evaluating untrusted source.
 - Do not grant the runner secrets that are not needed for the test. The runner

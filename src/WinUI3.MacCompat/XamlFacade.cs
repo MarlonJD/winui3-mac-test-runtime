@@ -40,7 +40,8 @@ public enum VerticalAlignment
 public enum TextWrapping
 {
     NoWrap,
-    Wrap
+    Wrap,
+    WrapWholeWords
 }
 
 public abstract class DependencyObject

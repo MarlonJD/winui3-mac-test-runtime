@@ -98,6 +98,72 @@ public sealed class DirectAppRuntimeTests
         Assert.IsTrue(ReadInteractionStatuses(outputRoot).All(status => status == "passed"));
     }
 
+    [TestMethod]
+    public async Task DirectAppPageEntryLoadsAppMergedThemeResources()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "winui3-mac-runner-direct-app-tests", Guid.NewGuid().ToString("N"));
+        var projectPath = await WriteResourceAppFixtureAsync(root);
+        var outputRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-runner-direct-app-output", Guid.NewGuid().ToString("N"));
+        var scenario = new VisualScenario
+        {
+            FixtureName = "direct-resource-fixture",
+            Name = "direct-resource-login-light",
+            Theme = "light",
+            Entry = new DirectAppEntry
+            {
+                Mode = "page",
+                Xaml = "Pages/LoginPage.xaml"
+            },
+            Visual = new ScenarioVisualOptions
+            {
+                Capture = true,
+                Renderer = "skia-v2"
+            }
+        };
+
+        var result = await new MacProjectRunner(new SnapshotRenderer()).RunProjectAsync(
+            projectPath,
+            outputRoot,
+            visualSettings: SettingsFor(scenario));
+
+        Assert.AreEqual("passed", result.Run.Status);
+        Assert.AreEqual(0, ReadResourceFailures(outputRoot).Length);
+        var nodes = result.Tree.Root.Children.SelectMany(Flatten).ToArray();
+        Assert.AreEqual("#f6f8fb", FindByName(nodes, "LoginScroll").Properties["background"]);
+        Assert.AreEqual("#ffffff", FindByName(nodes, "LoginCard").Properties["background"]);
+        Assert.AreEqual("#d6dde6", FindByName(nodes, "LoginCard").Properties["borderBrush"]);
+    }
+
+    [TestMethod]
+    public async Task DirectAppPageEntryLoadsLocalizedUidTextFromResourceFiles()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "winui3-mac-runner-direct-app-tests", Guid.NewGuid().ToString("N"));
+        var projectPath = await WriteResourceAppFixtureAsync(root);
+        var outputRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-runner-direct-app-output", Guid.NewGuid().ToString("N"));
+        var scenario = new VisualScenario
+        {
+            FixtureName = "direct-resource-fixture",
+            Name = "direct-resource-login-light",
+            Theme = "light",
+            Entry = new DirectAppEntry
+            {
+                Mode = "page",
+                Xaml = "Pages/LoginPage.xaml"
+            }
+        };
+
+        var result = await new MacProjectRunner(new SnapshotRenderer()).RunProjectAsync(
+            projectPath,
+            outputRoot,
+            visualSettings: SettingsFor(scenario));
+
+        var nodes = result.Tree.Root.Children.SelectMany(Flatten).ToArray();
+        Assert.AreEqual("Meeting Challenge", FindByName(nodes, "LoginTitleText").Properties["text"]);
+        Assert.AreEqual("Sign in with your Meeting Challenge account.", FindByName(nodes, "LoginSubtitleText").Properties["text"]);
+        Assert.AreEqual("Username", FindByName(nodes, "UsernameBox").Properties["placeholderText"]);
+        Assert.AreEqual("Sign In", FindByName(nodes, "SignInButton").Properties["content"]);
+    }
+
     private static void AssertDirectIngestionReport(string outputRoot, string expectedEntry)
     {
         using var document = JsonDocument.Parse(File.ReadAllText(Path.Combine(outputRoot, "project-ingestion.json")));
@@ -144,6 +210,21 @@ public sealed class DirectAppRuntimeTests
             .EnumerateArray()
             .Select(step => step.GetProperty("status").GetString() ?? string.Empty)
             .ToArray();
+    }
+
+    private static string[] ReadResourceFailures(string outputRoot)
+    {
+        using var document = JsonDocument.Parse(File.ReadAllText(Path.Combine(outputRoot, "resource-failures.json")));
+        return document.RootElement
+            .GetProperty("failures")
+            .EnumerateArray()
+            .Select(failure => failure.GetProperty("key").GetString() ?? string.Empty)
+            .ToArray();
+    }
+
+    private static UiNode FindByName(IEnumerable<UiNode> nodes, string name)
+    {
+        return nodes.Single(node => node.Name == name);
     }
 
     private static async Task<string> WriteDirectAppFixtureAsync(string root)
@@ -202,5 +283,137 @@ public sealed class DirectAppRuntimeTests
             """);
 
         return Path.Combine(root, "DirectFixture.csproj");
+    }
+
+    private static async Task<string> WriteResourceAppFixtureAsync(string root)
+    {
+        Directory.CreateDirectory(Path.Combine(root, "Pages"));
+        Directory.CreateDirectory(Path.Combine(root, "Themes"));
+        Directory.CreateDirectory(Path.Combine(root, "Strings", "en-us"));
+        await File.WriteAllTextAsync(Path.Combine(root, "DirectResourceFixture.csproj"), """
+            <Project Sdk="Microsoft.NET.Sdk">
+              <PropertyGroup>
+                <OutputType>WinExe</OutputType>
+                <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+                <UseWinUI>true</UseWinUI>
+                <WindowsPackageType>MSIX</WindowsPackageType>
+                <AssemblyName>DirectResourceFixture</AssemblyName>
+                <RootNamespace>DirectResourceFixture</RootNamespace>
+              </PropertyGroup>
+              <ItemGroup>
+                <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
+              </ItemGroup>
+              <ItemGroup>
+                <ApplicationDefinition Include="App.xaml" />
+                <Page Include="Pages\LoginPage.xaml" />
+                <Page Include="Themes\Tokens.xaml" />
+                <Page Include="Themes\Components.xaml" />
+                <PRIResource Include="Strings\en-us\Resources.resw" />
+              </ItemGroup>
+            </Project>
+            """);
+        await File.WriteAllTextAsync(Path.Combine(root, "App.xaml"), """
+            <Application
+                x:Class="DirectResourceFixture.App"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <Application.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="Themes/Tokens.xaml" />
+                            <ResourceDictionary Source="Themes/Components.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </Application.Resources>
+            </Application>
+            """);
+        await File.WriteAllTextAsync(Path.Combine(root, "Themes", "Tokens.xaml"), """
+            <ResourceDictionary
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <ResourceDictionary.ThemeDictionaries>
+                    <ResourceDictionary x:Key="Light">
+                        <Color x:Key="EmsiAppBackgroundColor">#f6f8fb</Color>
+                        <Color x:Key="EmsiSurfaceColor">#ffffff</Color>
+                        <Color x:Key="EmsiBorderColor">#d6dde6</Color>
+                        <Color x:Key="EmsiPrimaryTextColor">#17212b</Color>
+                        <Color x:Key="EmsiSecondaryTextColor">#4f5c68</Color>
+                        <SolidColorBrush x:Key="AppBackgroundBrush" Color="{StaticResource EmsiAppBackgroundColor}" />
+                        <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource EmsiSurfaceColor}" />
+                        <SolidColorBrush x:Key="SurfaceBorderBrush" Color="{StaticResource EmsiBorderColor}" />
+                        <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource EmsiPrimaryTextColor}" />
+                        <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource EmsiSecondaryTextColor}" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="Dark">
+                        <Color x:Key="EmsiAppBackgroundColor">#111418</Color>
+                        <Color x:Key="EmsiSurfaceColor">#1a1d23</Color>
+                        <Color x:Key="EmsiBorderColor">#3a414b</Color>
+                        <Color x:Key="EmsiPrimaryTextColor">#f4f7fb</Color>
+                        <Color x:Key="EmsiSecondaryTextColor">#a8b0ba</Color>
+                        <SolidColorBrush x:Key="AppBackgroundBrush" Color="{StaticResource EmsiAppBackgroundColor}" />
+                        <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource EmsiSurfaceColor}" />
+                        <SolidColorBrush x:Key="SurfaceBorderBrush" Color="{StaticResource EmsiBorderColor}" />
+                        <SolidColorBrush x:Key="PrimaryTextBrush" Color="{StaticResource EmsiPrimaryTextColor}" />
+                        <SolidColorBrush x:Key="SecondaryTextBrush" Color="{StaticResource EmsiSecondaryTextColor}" />
+                    </ResourceDictionary>
+                </ResourceDictionary.ThemeDictionaries>
+            </ResourceDictionary>
+            """);
+        await File.WriteAllTextAsync(Path.Combine(root, "Themes", "Components.xaml"), """
+            <ResourceDictionary
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <Style x:Key="PageTitleTextBlockStyle" TargetType="TextBlock">
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                    <Setter Property="Foreground" Value="{ThemeResource PrimaryTextBrush}" />
+                    <Setter Property="TextWrapping" Value="WrapWholeWords" />
+                </Style>
+                <Style x:Key="PageBodyTextBlockStyle" TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="{ThemeResource SecondaryTextBrush}" />
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                </Style>
+            </ResourceDictionary>
+            """);
+        await File.WriteAllTextAsync(Path.Combine(root, "Pages", "LoginPage.xaml"), """
+            <Page
+                x:Class="DirectResourceFixture.Pages.LoginPage"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <ScrollViewer x:Name="LoginScroll" Background="{ThemeResource AppBackgroundBrush}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <Border
+                        x:Name="LoginCard"
+                        Background="{ThemeResource SurfaceBrush}"
+                        BorderBrush="{ThemeResource SurfaceBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel>
+                            <TextBlock x:Name="LoginTitleText" x:Uid="LoginTitle" Style="{StaticResource PageTitleTextBlockStyle}" />
+                            <TextBlock x:Name="LoginSubtitleText" x:Uid="LoginSubtitle" Style="{StaticResource PageBodyTextBlockStyle}" />
+                            <TextBox x:Name="UsernameBox" x:Uid="UsernameBox" />
+                            <Button x:Name="SignInButton" x:Uid="SignInButton" />
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
+            </Page>
+            """);
+        await File.WriteAllTextAsync(Path.Combine(root, "Strings", "en-us", "Resources.resw"), """
+            <?xml version="1.0" encoding="utf-8"?>
+            <root>
+              <data name="LoginTitle.Text" xml:space="preserve">
+                <value>Meeting Challenge</value>
+              </data>
+              <data name="LoginSubtitle.Text" xml:space="preserve">
+                <value>Sign in with your Meeting Challenge account.</value>
+              </data>
+              <data name="SignInButton.Content" xml:space="preserve">
+                <value>Sign In</value>
+              </data>
+              <data name="UsernameBox.PlaceholderText" xml:space="preserve">
+                <value>Username</value>
+              </data>
+            </root>
+            """);
+
+        return Path.Combine(root, "DirectResourceFixture.csproj");
     }
 }

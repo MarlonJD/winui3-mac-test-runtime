@@ -1,13 +1,12 @@
-name: winui3-mac-compatibility
+# Manual/local macOS validation sample. Default PR CI should use portable
+# headless on ubuntu-latest plus Windows reference on windows-latest.
+name: winui3-mac-manual-compatibility
 
 on:
-  pull_request:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  macos-compatibility:
+  macos-manual-compatibility:
     runs-on: [self-hosted, macOS]
     steps:
       - name: Checkout

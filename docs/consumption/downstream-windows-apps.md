@@ -55,7 +55,36 @@ The compatibility fixture should be public-safe and deterministic:
   screenshots.
 - Keep actual production app tests in the private app repository.
 
-There are two supported fixture styles.
+There are three supported approaches. Direct app project ingestion is the
+preferred path because it does not ask the downstream app to add any project.
+
+### Option 0: Direct App Project Ingestion (No Fixture Required)
+
+Point `--project` at the real WinUI Windows app `.csproj` and supply a scenario
+that selects the entry surface. The runner inspects the project, generates a
+temporary source-level host under
+`/private/tmp/winui3-mac-test-runtime/generated-hosts/`, renders the selected
+page or window/route, and runs the scenario automation. The original Windows
+project is never mutated or built, and the `.exe`/`.msix` is never executed.
+
+```sh
+PATH="$PWD/tools:$PATH" winui3-mac-runner run \
+  --project ./apps/windows/MainApp.WinUI/MainApp.WinUI.csproj \
+  --renderer skia-v2 \
+  --scenario ./scenarios/shell-home-light.json \
+  --output ./artifacts/mac-runtime-direct/shell-home-light
+```
+
+The scenario `entry` selects the surface (`{ "mode": "page", "xaml":
+"Pages/HomePage.xaml" }` or `{ "mode": "window", "xaml": "MainWindow.xaml",
+"route": "home" }`); see the shared automation scenario contract below. This run
+emits `tree.json`, `accessibility.json`, `interactions.json`,
+`visual/mac-runtime.png`, and `project-ingestion.json`. The
+`project-ingestion.json` `windowsOnlyBoundaries` list is a non-blocking, honest
+record of Windows-only behavior the runner did not execute (WinRT storage,
+credential lockers, packaged activation, system backdrops, and Windows App SDK
+deployment). Use Options A and B only when you also want a smaller, public-safe
+fixture checked into a public repository.
 
 ### Option A: Windows-Targeted WinUI Fixture
 
@@ -312,7 +341,12 @@ For private app repositories, keep artifacts inside that repository's CI
 retention boundary. Do not upload private screenshots to this public runtime
 repository.
 
-The CI shape is:
+The updated default PR shape is documented in
+`docs/architecture/ci-strategy.md`: `ubuntu-latest` portable headless for fast
+source-level compatibility, `windows-latest` Windows native reference for truth,
+and macOS only for local/manual/scheduled or release validation.
+
+The current Mac-local/manual validation shape is:
 
 1. A local developer Mac or self-hosted macOS runner installs
    `MarlonJD.WinUI3.MacRunner`.
@@ -323,8 +357,8 @@ The CI shape is:
    comparison.
 5. The operator keeps runtime artifacts for review.
 
-Use `docs/examples/consumer-github-actions.yml` as a starting point for the
-self-hosted macOS smoke and strict visual tier. Mirror the repository's
+Use `docs/examples/consumer-github-actions.yml` only as a starting point for a
+manual self-hosted macOS smoke and strict visual tier. Mirror the repository's
 `.github/workflows/windows-native-screenshot.yml` pattern when adding the
 Windows reference tier.
 
@@ -339,13 +373,26 @@ Windows reference tier.
 - Renderer regressions for supported public controls.
 - Visual drift against native WinUI Windows screenshots when references are
   provided.
+- Windows-only boundaries in a real app project, reported as non-blocking
+  `windowsOnlyBoundaries` diagnostics in `project-ingestion.json` (WinRT
+  storage, credential lockers, packaged activation, system backdrops, and
+  Windows App SDK deployment) so a supported surface still renders while the run
+  states exactly what it skipped.
 
 ## What Still Requires Windows
 
 - Actual Windows App SDK packaging and deployment.
 - `.msix`, `.exe`, and app lifecycle behavior.
+- WinRT storage (`Windows.Storage.ApplicationData`) and credential lockers
+  (`Windows.Security.Credentials.PasswordVault`); direct ingestion diagnoses
+  these as Windows-only boundaries but does not execute or emulate them.
 - Mica, Acrylic, system backdrops, compositor effects, and advanced Fluent
   visual states until the catalog and renderer explicitly support them.
 - Native input, IME, pointer, touch, accessibility technology, and windowing
   behavior beyond the current facade subset.
+- Native UI Automation provider behavior. The macOS side exposes a FlaUI/UIA3
+  *compatible artifact adapter* over `tree.json`/`accessibility.json`/
+  `interactions.json`, not a native macOS UIA provider; native FlaUI 5.0 + UIA3
+  validation through `tools/WindowsUiAutomationProbe` remains the Windows
+  reference tier.
 - Final visual acceptance for production UI.

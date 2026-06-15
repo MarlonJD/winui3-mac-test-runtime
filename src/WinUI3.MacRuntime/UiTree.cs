@@ -177,6 +177,9 @@ public static class UiTreeBuilder
             case ContentControl contentControl:
                 AddChild(contentControl.Content, children);
                 break;
+            case ContentPresenter contentPresenter:
+                AddChild(contentPresenter.Content, children);
+                break;
             case ScrollViewer scrollViewer:
                 properties["horizontalScrollBarVisibility"] = scrollViewer.HorizontalScrollBarVisibility.ToString();
                 properties["verticalScrollBarVisibility"] = scrollViewer.VerticalScrollBarVisibility.ToString();
@@ -392,6 +395,7 @@ public static class UiTreeBuilder
                 break;
             case TextBox textBox:
                 properties["text"] = textBox.Text;
+                properties["placeholderText"] = textBox.PlaceholderText;
                 properties["textWrapping"] = textBox.TextWrapping.ToString();
                 properties["acceptsReturn"] = textBox.AcceptsReturn;
                 break;

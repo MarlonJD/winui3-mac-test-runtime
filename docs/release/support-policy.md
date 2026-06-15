@@ -18,6 +18,11 @@ source-level subset:
   `docs/compatibility/production-component-targets.md` when their scenario
   requirements meet the declared minimum visual grade;
 - deterministic runner artifacts documented in `docs/architecture/artifacts.md`;
+- direct ingestion of a real WinUI Windows app `.csproj` through a generated
+  temporary source-level host, scenario-driven page/window render and semantic
+  automation, and `project-ingestion.json` with non-blocking
+  `windowsOnlyBoundaries` diagnostics, for the documented supported/partial
+  subset only;
 - native WinUI reference provenance from public `windows-native-screenshot.yml`
   runs;
 - release, benchmark, flake, package, security, and private-name gates recorded
@@ -47,6 +52,12 @@ evidence gates:
   scenarios;
 - `.exe`, `.msix`, packaged Windows App SDK execution, Wine-backed execution,
   and real Windows App SDK target execution on macOS;
+- Windows-only boundaries reported in `project-ingestion.json`
+  `windowsOnlyBoundaries` (WinRT storage such as
+  `Windows.Storage.ApplicationData`, credential lockers such as
+  `Windows.Security.Credentials.PasswordVault`, packaged activation, system
+  backdrops, and Windows App SDK deployment); direct ingestion diagnoses these
+  honestly but never executes, emulates, or claims parity for them on macOS;
 - uncataloged APIs and any catalog entries marked `planned`, `windows-only`, or
   `not supported`;
 - Mica, Acrylic, system backdrops, compositor effects, shadows, transforms,

@@ -93,12 +93,65 @@ When a Windows reference PNG is available, add `--reference` and
   --diff-output ./artifacts/winui3-mac-visual/light
 ```
 
+## Direct WinUI App Project Ingestion
+
+You do not have to create a probe or copy production XAML into a test host. The
+`--project` argument can point at a real WinUI Windows app `.csproj` (for
+example one that targets `net10.0-windows10.0.19041.0`, sets `<UseWinUI>true`,
+references `Microsoft.WindowsAppSDK`, and packages as MSIX). The runner inspects
+the project, generates a temporary source-level host under
+`/private/tmp/winui3-mac-test-runtime/generated-hosts/`, renders the scenario
+entry, and runs the scenario automation. It never mutates or builds the original
+Windows project, and it never runs the `.exe` or `.msix`.
+
+The scenario file selects the entry surface and the integration actions:
+
+```jsonc
+{
+  "name": "shell-home-light",
+  "theme": "light",
+  "entry": { "mode": "window", "xaml": "MainWindow.xaml", "route": "home" },
+  "automation": [
+    { "type": "assertAccessibilityState", "target": "automationId=shell-nav-home", "key": "selected", "parameter": "true" },
+    { "type": "selectNavigation", "target": "automationId=shell-nav-messages" },
+    { "type": "waitForIdle" }
+  ],
+  "visual": { "capture": true, "renderer": "skia-v2" }
+}
+```
+
+```sh
+./.tools/winui3-mac-runner run \
+  --project ./src/MyApp.Windows/MyApp.Windows.csproj \
+  --renderer skia-v2 \
+  --scenario ./scenarios/shell-home-light.json \
+  --output ./artifacts/mac-runtime-direct/shell-home-light
+```
+
+Use `entry.mode` `page` with `entry.xaml` set to a `Pages/*.xaml` file to render
+a single page, or `window` with an optional `route`/`session` to render the app
+shell. Direct ingestion writes `tree.json`, `accessibility.json`,
+`interactions.json`, `visual/mac-runtime.png`, and `project-ingestion.json`.
+
+`project-ingestion.json` includes `windowsOnlyBoundaries`: honest, non-blocking
+diagnostics for Windows-only behavior the runner did not execute, such as
+`Windows.Storage.ApplicationData`, `Windows.Security.Credentials.PasswordVault`,
+`MicaBackdrop`/`SystemBackdrop`, packaged MSIX activation, and Windows App SDK
+deployment references. `blocksRender` stays `false`, so a supported page/window
+surface still renders while the report names what was skipped. These are
+diagnostics, not a claim that the boundary behavior runs or matches Windows.
+
 ## CI
 
-Use `docs/examples/consumer-github-actions.yml` as the starting point only when
-you operate a self-hosted macOS runner. The same commands can also be run
-directly on a local developer Mac. The sample installs the packaged runner,
-runs doctor, executes a managed fixture, and uploads strict visual artifacts.
+The updated default PR strategy is documented in
+`docs/architecture/ci-strategy.md`: portable headless on `ubuntu-latest`,
+Windows native reference on `windows-latest`, and macOS only for
+local/manual/scheduled or release validation.
+
+Use `docs/examples/consumer-github-actions.yml` only as a manual/self-hosted
+macOS validation sample. The same commands can also be run directly on a local
+developer Mac. The sample installs the packaged runner, runs doctor, executes a
+managed fixture, and uploads strict visual artifacts.
 
 For downstream Windows WinUI 3 app adoption, including why this tool exists and
 which test tiers should run, see
@@ -130,6 +183,12 @@ tracked in `docs/security/threat-model.md` and
 - Binding or resource gap: inspect `binding-failures.json`,
   `resource-failures.json`, and SARIF rules `WINUI3MAC001` and
   `WINUI3MAC002`.
+- Windows-only boundary in a direct app project: inspect
+  `project-ingestion.json` `windowsOnlyBoundaries`. Each entry names the
+  boundary category, the cataloged `api`/`status`, the `filePath`/`line`, and a
+  `reason`. These never block rendering (`blocksRender` is `false`); they tell
+  you which Windows-only behavior (storage, credentials, packaged activation,
+  system backdrops, Windows App SDK deployment) was skipped on macOS.
 - CI environment drift: compare `visual-run.json` runner metadata, rerun the
   public Windows reference workflow, and inspect the uploaded reference/runtime
   PNGs before changing thresholds.

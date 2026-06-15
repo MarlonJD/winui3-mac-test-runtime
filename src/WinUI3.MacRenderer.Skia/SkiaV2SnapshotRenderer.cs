@@ -1,4 +1,5 @@
 using System.Globalization;
+using Microsoft.UI.Xaml;
 using SkiaSharp;
 using WinUI3.MacRuntime;
 
@@ -569,13 +570,27 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         var layout = node.Layout!;
         var x = (float)layout.X;
         var metrics = WinUITextMetrics.For(font);
-        var y = metrics.TopAlignedBaseline(Rect(node), 3);
         var color = ReadColor(node, "foreground", theme.TextPrimary);
-        DrawText(canvas, paint, font, text, x, y, color);
-        if (IsBoldText(node))
+        var textLayout = WinUITextLayout.Measure(
+            text,
+            ReadTextWrapping(node),
+            layout.Width,
+            font.Size,
+            metrics.LineHeight,
+            layout.Height);
+        canvas.Save();
+        canvas.ClipRect(Rect(node));
+        foreach (var line in textLayout.Lines)
         {
-            DrawText(canvas, paint, font, text, x + 0.35f, y, color);
+            var y = (float)(layout.Y + line.Baseline + 3);
+            DrawText(canvas, paint, font, line.Text, x, y, color);
+            if (IsBoldText(node))
+            {
+                DrawText(canvas, paint, font, line.Text, x + 0.35f, y, color);
+            }
         }
+
+        canvas.Restore();
     }
 
     private static void RenderTextBox(SKCanvas canvas, UiNode node, SkiaV2Theme theme, SKPaint paint, SKFont font)
@@ -1151,6 +1166,14 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     private static string? ReadString(UiNode node, string key)
     {
         return node.Properties.TryGetValue(key, out var value) ? value?.ToString() : null;
+    }
+
+    private static TextWrapping ReadTextWrapping(UiNode node)
+    {
+        var value = ReadString(node, "textWrapping");
+        return Enum.TryParse<TextWrapping>(value, ignoreCase: true, out var wrapping)
+            ? wrapping
+            : TextWrapping.NoWrap;
     }
 
     private static bool IsBoldText(UiNode node)

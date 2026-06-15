@@ -33,7 +33,8 @@ public sealed record ProjectIngestionReport(
     IReadOnlyList<ProjectIngestionExcludedItem> ExcludedWindowsOnlyItems,
     IReadOnlyList<ProjectIngestionCatalogStatus> CatalogStatuses,
     IReadOnlyList<ProjectIngestionUnsupportedFeature> UnsupportedFeatures,
-    IReadOnlyList<ProjectIngestionXamlDiagnostic> XamlDiagnostics);
+    IReadOnlyList<ProjectIngestionXamlDiagnostic> XamlDiagnostics,
+    IReadOnlyList<WindowsOnlyBoundary> WindowsOnlyBoundaries);
 
 public sealed record ProjectIngestionFile(
     string Path,
@@ -175,6 +176,7 @@ public sealed class ProjectIngestionService
         var catalogStatuses = BuildCatalogStatuses(model);
         var unsupportedFeatures = BuildUnsupportedFeatures(model);
         var xamlDiagnostics = BuildXamlDiagnostics(model, configuration);
+        var windowsOnlyBoundaries = BuildWindowsOnlyBoundaries(model);
         var hasBlockingDiagnostics =
             (!allowWindowsOnlyBoundaries && unsupportedFeatures.Any(feature => !CompatibilityStatuses.IsAvailableOnMac(feature.Status))) ||
             xamlDiagnostics.Any(diagnostic => diagnostic.Severity == "Error");
@@ -193,7 +195,34 @@ public sealed class ProjectIngestionService
             ExcludedWindowsOnlyItems: excludedItems,
             CatalogStatuses: catalogStatuses,
             UnsupportedFeatures: unsupportedFeatures,
-            XamlDiagnostics: xamlDiagnostics);
+            XamlDiagnostics: xamlDiagnostics,
+            WindowsOnlyBoundaries: windowsOnlyBoundaries);
+    }
+
+    private static IReadOnlyList<WindowsOnlyBoundary> BuildWindowsOnlyBoundaries(ProjectModel model)
+    {
+        return WindowsOnlyBoundaryScanner.Scan(
+            model.SourceFiles.Select(path => ReadBoundaryFile(model, path)).OfType<WindowsOnlyBoundaryFile>(),
+            model.XamlFiles.Select(path => ReadBoundaryFile(model, path)).OfType<WindowsOnlyBoundaryFile>(),
+            model.PackageReferences,
+            model.Properties.GetValueOrDefault("WindowsPackageType"),
+            model.Properties);
+    }
+
+    private static WindowsOnlyBoundaryFile? ReadBoundaryFile(ProjectModel model, string fullPath)
+    {
+        try
+        {
+            return new WindowsOnlyBoundaryFile(model.RelativeToProject(fullPath), File.ReadAllText(fullPath));
+        }
+        catch (IOException)
+        {
+            return null;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return null;
+        }
     }
 
     private static ProjectIngestionFile[] BuildDirectIncludedFiles(ProjectModel model, DirectAppEntry entry)
@@ -650,6 +679,7 @@ public sealed class ProjectIngestionService
         {
             var selectedXaml = ResolveEntryXaml(model, entry);
             var selectedInfo = ReadXamlInfo(selectedXaml);
+            var resources = DirectResourceCatalog.Read(model);
             var hostId = StableHash(model.ProjectPath + "|" + entry.Xaml);
             var root = Path.Combine(
                 HostRootDirectory,
@@ -663,6 +693,7 @@ public sealed class ProjectIngestionService
             File.WriteAllText(Path.Combine(root, "DirectAppHost.csproj"), WriteProject(model, selectedXaml, hostId, configuration));
             File.WriteAllText(Path.Combine(root, "App.cs"), WriteAppCode(selectedInfo, entry));
             File.WriteAllText(Path.Combine(root, "DirectRuntimeAdapter.cs"), WriteAdapterCode(selectedInfo, entry));
+            File.WriteAllText(Path.Combine(root, "DirectRuntimeResources.cs"), WriteResourceCode(resources));
             File.WriteAllText(Path.Combine(root, "EventStubs.cs"), WriteEventStubs(selectedXaml, selectedInfo));
 
             return new GeneratedSourceHost(root, Path.Combine(root, "DirectAppHost.csproj"));
@@ -735,6 +766,7 @@ public sealed class ProjectIngestionService
                     new XElement("ItemGroup",
                         new XElement("Compile", new XAttribute("Include", "App.cs")),
                         new XElement("Compile", new XAttribute("Include", "DirectRuntimeAdapter.cs")),
+                        new XElement("Compile", new XAttribute("Include", "DirectRuntimeResources.cs")),
                         new XElement("Compile", new XAttribute("Include", "EventStubs.cs"))),
                     new XElement("ItemGroup",
                         linkedXaml.Select(path =>
@@ -798,8 +830,10 @@ public sealed class ProjectIngestionService
             var fullType = "global::" + selectedInfo.FullClassName;
             var factory = string.Equals(entry.Mode, "page", StringComparison.OrdinalIgnoreCase)
                 ? $$"""
+                      DirectRuntimeResources.ApplyApplicationResources(Application.Current?.Resources);
                       var page = new {{fullType}}();
                       InvokeInitialize(page);
+                      DirectRuntimeResources.ApplyLocalizedResources(page);
                       var window = new Window
                       {
                           Title = "Direct app page - {{selectedInfo.ClassName}}",
@@ -808,8 +842,10 @@ public sealed class ProjectIngestionService
                       return window;
                   """
                 : $$"""
+                      DirectRuntimeResources.ApplyApplicationResources(Application.Current?.Resources);
                       var window = new {{fullType}}();
                       InvokeInitialize(window);
+                      DirectRuntimeResources.ApplyLocalizedResources(window);
                       ApplyWindowEntry(window, {{route}}, {{session}});
                       return window;
                   """;
@@ -939,6 +975,362 @@ public sealed class ProjectIngestionService
                     """;
             }
         }
+
+        private static string WriteResourceCode(DirectResourceCatalog catalog)
+        {
+            var source = new StringBuilder();
+            source.AppendLine("using System.Reflection;");
+            source.AppendLine("using Microsoft.UI.Xaml;");
+            source.AppendLine("using WinUI3.MacRuntime;");
+            source.AppendLine();
+            source.AppendLine("namespace WinUI3.MacRunner.GeneratedDirectHost;");
+            source.AppendLine();
+            source.AppendLine("internal static class DirectRuntimeResources");
+            source.AppendLine("{");
+            source.AppendLine("    public static void ApplyApplicationResources(ResourceDictionary? resources)");
+            source.AppendLine("    {");
+            source.AppendLine("        if (resources is null)");
+            source.AppendLine("        {");
+            source.AppendLine("            return;");
+            source.AppendLine("        }");
+            source.AppendLine();
+            source.AppendLine("        resources.Clear();");
+            source.AppendLine("        resources.ThemeDictionaries.Clear();");
+            foreach (var entry in catalog.Entries)
+            {
+                WriteResourceAssignment(source, "resources", entry, "        ");
+            }
+
+            foreach (var theme in catalog.ThemeDictionaries)
+            {
+                var variable = "__theme" + Sanitize(theme.Theme);
+                source.AppendLine($"        var {variable} = new ResourceDictionary();");
+                foreach (var entry in theme.Entries)
+                {
+                    WriteResourceAssignment(source, variable, entry, "        ");
+                }
+
+                source.AppendLine($"        resources.ThemeDictionaries[{Literal(theme.Theme)}] = {variable};");
+            }
+
+            source.AppendLine("    }");
+            source.AppendLine();
+            source.AppendLine("    public static void ApplyLocalizedResources(object root)");
+            source.AppendLine("    {");
+            source.AppendLine("        foreach (var element in ElementQuery.Traverse(root).OfType<FrameworkElement>())");
+            source.AppendLine("        {");
+            source.AppendLine("            if (string.IsNullOrWhiteSpace(element.Uid))");
+            source.AppendLine("            {");
+            source.AppendLine("                continue;");
+            source.AppendLine("            }");
+            source.AppendLine();
+            source.AppendLine("            switch (element.Uid)");
+            source.AppendLine("            {");
+            foreach (var group in catalog.LocalizedStrings
+                .Select(item => SplitLocalizedName(item.Key, item.Value))
+                .Where(item => item is not null)
+                .Select(item => item!)
+                .GroupBy(item => item.Uid, StringComparer.Ordinal)
+                .OrderBy(group => group.Key, StringComparer.Ordinal))
+            {
+                source.AppendLine($"                case {Literal(group.Key)}:");
+                foreach (var item in group.OrderBy(item => item.Property, StringComparer.Ordinal))
+                {
+                    source.AppendLine($"                    ApplyLocalizedProperty(element, {Literal(item.Property)}, {Literal(item.Value)});");
+                }
+
+                source.AppendLine("                    break;");
+            }
+
+            source.AppendLine("            }");
+            source.AppendLine("        }");
+            source.AppendLine("    }");
+            source.AppendLine();
+            source.AppendLine("    private static void ApplyLocalizedProperty(object target, string propertyName, string value)");
+            source.AppendLine("    {");
+            source.AppendLine("        var property = target.GetType().GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public);");
+            source.AppendLine("        if (property is null || !property.CanWrite)");
+            source.AppendLine("        {");
+            source.AppendLine("            return;");
+            source.AppendLine("        }");
+            source.AppendLine();
+            source.AppendLine("        var targetType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;");
+            source.AppendLine("        object? converted = targetType.IsEnum");
+            source.AppendLine("            ? Enum.Parse(targetType, value, ignoreCase: true)");
+            source.AppendLine("            : targetType == typeof(string) || targetType == typeof(object)");
+            source.AppendLine("                ? value");
+            source.AppendLine("                : Convert.ChangeType(value, targetType);");
+            source.AppendLine("        property.SetValue(target, converted);");
+            source.AppendLine("    }");
+            source.AppendLine("}");
+
+            return source.ToString();
+
+            static void WriteResourceAssignment(StringBuilder source, string target, DirectResourceEntry entry, string indent)
+            {
+                if (entry.Style is null)
+                {
+                    source.AppendLine($"{indent}{target}[{Literal(entry.Key)}] = {Literal(entry.Value ?? string.Empty)};");
+                    return;
+                }
+
+                var styleVariable = "__style" + StableHash(entry.Key)[..8];
+                source.AppendLine($"{indent}var {styleVariable} = new Style {{ TargetType = {Literal(entry.Style.TargetType ?? string.Empty)} }};");
+                foreach (var setter in entry.Style.Setters)
+                {
+                    source.AppendLine($"{indent}{styleVariable}.Setters.Add(new Setter({Literal(setter.Property)}, {Literal(setter.Value)}));");
+                }
+
+                source.AppendLine($"{indent}{target}[{Literal(entry.Key)}] = {styleVariable};");
+            }
+
+            static LocalizedResource? SplitLocalizedName(string key, string value)
+            {
+                var separator = key.LastIndexOf('.');
+                if (separator <= 0 || separator == key.Length - 1)
+                {
+                    return null;
+                }
+
+                return new LocalizedResource(key[..separator], key[(separator + 1)..], value);
+            }
+        }
+
+        private sealed record LocalizedResource(string Uid, string Property, string Value);
+
+        private sealed record DirectResourceCatalog(
+            IReadOnlyList<DirectResourceEntry> Entries,
+            IReadOnlyList<DirectThemeDictionary> ThemeDictionaries,
+            IReadOnlyDictionary<string, string> LocalizedStrings)
+        {
+            public static DirectResourceCatalog Read(ProjectModel model)
+            {
+                var entries = new List<DirectResourceEntry>();
+                var themeDictionaries = new Dictionary<string, List<DirectResourceEntry>>(StringComparer.OrdinalIgnoreCase);
+                var flatValues = new Dictionary<string, string>(StringComparer.Ordinal);
+
+                foreach (var path in ResolveResourceDictionaryPaths(model).Distinct(StringComparer.OrdinalIgnoreCase))
+                {
+                    ReadDictionary(path, entries, themeDictionaries, flatValues);
+                }
+
+                return new DirectResourceCatalog(
+                    entries,
+                    themeDictionaries
+                        .Select(item => new DirectThemeDictionary(item.Key, item.Value))
+                        .OrderBy(item => item.Theme, StringComparer.Ordinal)
+                        .ToArray(),
+                    ReadLocalizedStrings(model.ProjectDirectory));
+            }
+
+            private static IEnumerable<string> ResolveResourceDictionaryPaths(ProjectModel model)
+            {
+                var appXaml = model.XamlFiles.FirstOrDefault(path =>
+                    Path.GetFileName(path).Equals("App.xaml", StringComparison.OrdinalIgnoreCase));
+                if (appXaml is not null)
+                {
+                    foreach (var source in ReadMergedDictionarySources(appXaml))
+                    {
+                        var path = Path.GetFullPath(Path.Combine(model.ProjectDirectory, source.Replace('\\', Path.DirectorySeparatorChar)));
+                        if (File.Exists(path))
+                        {
+                            yield return path;
+                        }
+                    }
+                }
+
+                foreach (var path in model.XamlFiles
+                    .Where(path => Path.GetFileName(Path.GetDirectoryName(path) ?? string.Empty).Equals("Themes", StringComparison.OrdinalIgnoreCase))
+                    .OrderBy(path => path, StringComparer.Ordinal))
+                {
+                    yield return path;
+                }
+            }
+
+            private static IEnumerable<string> ReadMergedDictionarySources(string appXaml)
+            {
+                var document = XDocument.Load(appXaml);
+                return document
+                    .Descendants()
+                    .Where(element => element.Name.LocalName == "ResourceDictionary")
+                    .Select(element => element.Attribute("Source")?.Value)
+                    .Where(source => !string.IsNullOrWhiteSpace(source))
+                    .Select(source => source!);
+            }
+
+            private static void ReadDictionary(
+                string path,
+                List<DirectResourceEntry> entries,
+                Dictionary<string, List<DirectResourceEntry>> themeDictionaries,
+                Dictionary<string, string> flatValues)
+            {
+                var document = XDocument.Load(path);
+                if (document.Root is null || document.Root.Name.LocalName != "ResourceDictionary")
+                {
+                    return;
+                }
+
+                foreach (var child in document.Root.Elements())
+                {
+                    if (child.Name.LocalName == "ResourceDictionary.ThemeDictionaries")
+                    {
+                        foreach (var themeDictionary in child.Elements().Where(element => element.Name.LocalName == "ResourceDictionary"))
+                        {
+                            var theme = ReadXamlKey(themeDictionary);
+                            if (string.IsNullOrWhiteSpace(theme))
+                            {
+                                continue;
+                            }
+
+                            if (!themeDictionaries.TryGetValue(theme, out var themeEntries))
+                            {
+                                themeEntries = new List<DirectResourceEntry>();
+                                themeDictionaries[theme] = themeEntries;
+                            }
+
+                            var themeValues = new Dictionary<string, string>(flatValues, StringComparer.Ordinal);
+                            ReadResourceEntries(themeDictionary, themeEntries, themeValues);
+                        }
+
+                        continue;
+                    }
+
+                    AddResourceEntry(child, entries, flatValues);
+                }
+            }
+
+            private static void ReadResourceEntries(
+                XElement dictionary,
+                List<DirectResourceEntry> entries,
+                Dictionary<string, string> values)
+            {
+                foreach (var child in dictionary.Elements())
+                {
+                    AddResourceEntry(child, entries, values);
+                }
+            }
+
+            private static void AddResourceEntry(
+                XElement element,
+                List<DirectResourceEntry> entries,
+                Dictionary<string, string> values)
+            {
+                if (element.Name.LocalName is "ResourceDictionary.MergedDictionaries" or "XamlControlsResources")
+                {
+                    return;
+                }
+
+                var key = ReadXamlKey(element);
+                if (string.IsNullOrWhiteSpace(key))
+                {
+                    return;
+                }
+
+                if (element.Name.LocalName == "Style")
+                {
+                    entries.Add(new DirectResourceEntry(key, null, ReadStyle(element)));
+                    return;
+                }
+
+                var value = ResolveResourceReference(ReadResourceValue(element), values);
+                values[key] = value;
+                entries.Add(new DirectResourceEntry(key, value, null));
+            }
+
+            private static DirectStyleResource ReadStyle(XElement styleElement)
+            {
+                return new DirectStyleResource(
+                    styleElement.Attribute("TargetType")?.Value,
+                    styleElement
+                        .Elements()
+                        .Where(element => element.Name.LocalName == "Setter")
+                        .Select(element => new DirectSetterResource(
+                            element.Attribute("Property")?.Value ?? string.Empty,
+                            element.Attribute("Value")?.Value ?? string.Empty))
+                        .Where(setter => !string.IsNullOrWhiteSpace(setter.Property))
+                        .ToArray());
+            }
+
+            private static string ReadResourceValue(XElement element)
+            {
+                return element.Name.LocalName switch
+                {
+                    "SolidColorBrush" => element.Attribute("Color")?.Value ?? element.Value.Trim(),
+                    _ => element.Value.Trim()
+                };
+            }
+
+            private static string ResolveResourceReference(string value, IReadOnlyDictionary<string, string> values)
+            {
+                if ((value.StartsWith("{StaticResource ", StringComparison.Ordinal) ||
+                        value.StartsWith("{ThemeResource ", StringComparison.Ordinal)) &&
+                    value.EndsWith('}'))
+                {
+                    var markerLength = value.StartsWith("{StaticResource ", StringComparison.Ordinal)
+                        ? "{StaticResource ".Length
+                        : "{ThemeResource ".Length;
+                    var key = value[markerLength..^1].Trim();
+                    if (values.TryGetValue(key, out var resolved))
+                    {
+                        return resolved;
+                    }
+                }
+
+                return value;
+            }
+
+            private static IReadOnlyDictionary<string, string> ReadLocalizedStrings(string projectDirectory)
+            {
+                var strings = new Dictionary<string, string>(StringComparer.Ordinal);
+                var files = Directory.EnumerateFiles(projectDirectory, "Resources.resw", SearchOption.AllDirectories)
+                    .OrderBy(path => path, StringComparer.Ordinal)
+                    .ToArray();
+                var preferredFiles = files
+                    .Where(path => path.Contains($"{Path.DirectorySeparatorChar}en-us{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+                    .ToArray();
+
+                foreach (var file in preferredFiles.Length > 0 ? preferredFiles : files)
+                {
+                    var document = XDocument.Load(file);
+                    foreach (var data in document.Descendants().Where(element => element.Name.LocalName == "data"))
+                    {
+                        var name = data.Attribute("name")?.Value;
+                        var value = data.Elements().FirstOrDefault(element => element.Name.LocalName == "value")?.Value;
+                        if (!string.IsNullOrWhiteSpace(name) && value is not null)
+                        {
+                            strings[name] = value;
+                        }
+                    }
+                }
+
+                return strings;
+            }
+
+            private static string? ReadXamlKey(XElement element)
+            {
+                return element
+                    .Attributes()
+                    .FirstOrDefault(attribute => attribute.Name.LocalName == "Key")
+                    ?.Value;
+            }
+        }
+
+        private sealed record DirectResourceEntry(
+            string Key,
+            string? Value,
+            DirectStyleResource? Style);
+
+        private sealed record DirectThemeDictionary(
+            string Theme,
+            IReadOnlyList<DirectResourceEntry> Entries);
+
+        private sealed record DirectStyleResource(
+            string? TargetType,
+            IReadOnlyList<DirectSetterResource> Setters);
+
+        private sealed record DirectSetterResource(
+            string Property,
+            string Value);
 
         private static string ResolveRuntimeDependency(string fileName, string configuration)
         {

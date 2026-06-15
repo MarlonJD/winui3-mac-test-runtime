@@ -41,6 +41,11 @@ public class ContentControl : Control
     public object? Content { get; set; }
 }
 
+public class ContentPresenter : Control
+{
+    public object? Content { get; set; }
+}
+
 public class ItemsControl : Control
 {
     public IList<object?> Items { get; } = new List<object?>();
@@ -152,6 +157,8 @@ public class TextBlock : FrameworkElement
 public class TextBox : Control
 {
     public string? Text { get; set; }
+
+    public string? PlaceholderText { get; set; }
 
     public TextWrapping TextWrapping { get; set; } = TextWrapping.NoWrap;
 

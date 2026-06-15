@@ -1178,6 +1178,12 @@ internal static class Cli
         Console.WriteLine("  run --project <path> [--configuration Debug] [--output <path>] [--script <path>] [--renderer svg|skia|skia-v2]");
         Console.WriteLine("      [--scenario <path>] [--viewport <width>x<height>] [--scale <number>] [--theme light|dark]");
         Console.WriteLine("      [--strict-visual] [--reference <png-or-native-reference-dir>] [--diff-output <dir>]");
+        Console.WriteLine("      --project may be a real WinUI Windows app .csproj. The runner inspects it, generates a");
+        Console.WriteLine("      temporary source-level host under /private/tmp, renders the scenario entry (page or window/route),");
+        Console.WriteLine("      and writes tree.json, accessibility.json, interactions.json, mac-runtime.png, and project-ingestion.json");
+        Console.WriteLine("      (including non-blocking Windows-only boundary diagnostics). It never builds or runs the .exe/.msix.");
+        Console.WriteLine("      Direct app example:");
+        Console.WriteLine("        run --project ./MyApp.Windows.csproj --renderer skia-v2 --scenario ./scenarios/shell-home-light.json --output ./out");
         Console.WriteLine("  benchmark [--output <path>] [--iterations <count>]");
         Console.WriteLine("  release-check [--package-dir <dir>] [--output <path>]");
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");

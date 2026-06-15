@@ -696,16 +696,16 @@ Acceptance:
 Purpose: make direct ingestion trustworthy by being precise about what is and is
 not executed.
 
-- [ ] Add `WindowsOnlyBoundaryClassifier` tests for:
+- [x] Add `WindowsOnlyBoundaryClassifier` tests for:
   - `Windows.Storage.ApplicationData`;
   - `Windows.Security.Credentials.PasswordVault`;
   - packaged app activation;
   - `Window.SystemBackdrop` / `MicaBackdrop`;
   - Windows App SDK deployment/package references.
-- [ ] Verify RED.
-- [ ] Implement diagnostics that appear in `unsupported-apis.json` or a
+- [x] Verify RED.
+- [x] Implement diagnostics that appear in `unsupported-apis.json` or a
   dedicated `project-ingestion.json`.
-- [ ] Ensure these diagnostics do not block renderable XAML/page output unless
+- [x] Ensure these diagnostics do not block renderable XAML/page output unless
   the selected route truly needs the unsupported behavior.
 
 Acceptance:
@@ -713,17 +713,42 @@ Acceptance:
 - Direct ingestion can say: "I rendered this supported source-level surface; I
   skipped or diagnosed these Windows-only boundaries."
 
+2026-06-15 Track E Phase 9 update:
+
+- Added `WindowsOnlyBoundaryScanner` (rule engine) in
+  `src/WinUI3.MacRuntime/WindowsOnlyBoundaryScanner.cs` and a
+  `WinUIProjectModel`-based `WindowsOnlyBoundaryClassifier` in
+  `src/WinUI3.MacRunner/ProjectIngestion/WindowsOnlyBoundaryClassifier.cs`. The
+  scanner classifies five boundary categories from source/XAML text, package
+  references, and project properties: `windows-storage`
+  (`Windows.Storage.ApplicationData`), `windows-credentials`
+  (`Windows.Security.Credentials.PasswordVault`), `packaged-activation`
+  (`Microsoft.Windows.AppLifecycle.AppInstance` and packaged
+  `WindowsPackageType`), `system-backdrop` (`MicaBackdrop`/`SystemBackdrop`/
+  `DesktopAcrylicBackdrop`), and `windows-app-sdk-deployment`
+  (`Microsoft.WindowsAppSDK`/`Microsoft.Windows.SDK.BuildTools`/
+  `WindowsAppSDKSelfContained`).
+- Status comes from the existing compatibility catalog (`FindByApi`) with a
+  `windows-only` fallback for the genuinely Windows-only WinRT namespaces. No new
+  catalog entries were added, so the 126-entry catalog-audit counts stay intact.
+- Diagnostics are surfaced in `project-ingestion.json` as a new non-blocking
+  `windowsOnlyBoundaries` array (`blocksRender` always `false`); they never flip
+  `hasBlockingDiagnostics`, so renderable XAML/page output still proceeds. RED
+  was confirmed (missing types) before implementation; the dedicated test class
+  `WindowsOnlyBoundaryProjectIngestionTests` (8 tests) is GREEN, including the
+  real `MeetingChallenge.Windows.csproj` classification.
+
 ### Phase 10: Verification And Documentation
 
 Purpose: make the feature usable by other WinUI app owners.
 
-- [ ] Update runtime docs:
+- [x] Update runtime docs:
   - `README.md`;
   - `docs/consumption/quick-start.md`;
   - `docs/consumption/downstream-windows-apps.md`;
   - compatibility docs only if support status changes.
-- [ ] Add CLI help examples for direct app project ingestion.
-- [ ] Run targeted verification:
+- [x] Add CLI help examples for direct app project ingestion.
+- [x] Run targeted verification:
 
   ```bash
   cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
@@ -735,7 +760,7 @@ Purpose: make the feature usable by other WinUI app owners.
   dotnet build tools/WindowsUiAutomationProbe/WindowsUiAutomationProbe.csproj
   ```
 
-- [ ] Run the real EMSI direct ingestion gate:
+- [x] Run the real EMSI direct ingestion gate:
 
   ```bash
   cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
@@ -747,7 +772,7 @@ Purpose: make the feature usable by other WinUI app owners.
     --output /private/tmp/emsi_qa/windows/mac-runtime-direct/shell-home-light
   ```
 
-- [ ] Report:
+- [x] Report:
   - exact screenshot path;
   - whether it came from direct app project ingestion;
   - integration action pass/fail/skip counts;
@@ -761,6 +786,32 @@ Acceptance:
 - A user can point the runtime at a real WinUI Windows app project and get a
   macOS source-level runtime screenshot and integration-test evidence without
   adding a custom probe project to their app.
+
+2026-06-15 Track E Phase 10 update:
+
+- Docs updated for direct ingestion + automation/integration testing: `README.md`
+  (new "Direct WinUI App Project Ingestion" section + project-ingestion bullet),
+  `docs/consumption/quick-start.md` (direct-ingestion section + boundary
+  troubleshooting), `docs/consumption/downstream-windows-apps.md` (new
+  "Option 0: Direct App Project Ingestion" + "What This Catches"/"What Still
+  Requires Windows" boundary wording), `docs/architecture/artifacts.md`
+  (`windowsOnlyBoundaries` field), and `docs/release/support-policy.md`
+  (supported scope + Windows-only boundary exclusion). CLI `run` help now
+  documents direct app ingestion and the boundary diagnostics.
+- Targeted verification (run via the MTP DLL + `FullyQualifiedName~` filters,
+  not `dotnet test --filter`): runner suite 29/29; MacRuntime
+  Interaction/Accessibility/Frame/Navigation/Renderer 53/53; MacXaml 30/30;
+  `dotnet build src/WinUI3.MacRunner` and
+  `dotnet build tools/WindowsUiAutomationProbe` succeeded; production XAML
+  compile gate diagnostics `[]`.
+- Direct EMSI ingestion gate result: `passed`, `isShadowBuild=false`. Screenshot
+  `/private/tmp/emsi_qa/windows/mac-runtime-direct/shell-home-light/visual/mac-runtime.png`
+  produced by direct ingestion of `MeetingChallenge.Windows.csproj` (no probe).
+  Integration actions: 5 passed / 0 failed / 0 skipped on macOS.
+  `project-ingestion.json` `windowsOnlyBoundaries` recorded 10 non-blocking
+  boundaries (storage ×3, credentials ×2, system-backdrop ×2, app-sdk-deployment
+  ×2, packaged-activation ×1). Native Windows FlaUI/UIA3 reference comparison
+  was not run (macOS host; Windows reference tier stays optional).
 
 ## Execution Tracks
 

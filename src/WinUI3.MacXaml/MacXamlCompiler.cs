@@ -44,10 +44,11 @@ public sealed class MacXamlCompiler
         ["Border"] = new(StringComparer.Ordinal) { "BorderBrush", "BorderThickness", "Child", "CornerRadius", "Padding" },
         ["ScrollViewer"] = new(StringComparer.Ordinal) { "Content", "HorizontalScrollBarVisibility", "VerticalScrollBarVisibility" },
         ["ContentControl"] = new(StringComparer.Ordinal) { "Content" },
+        ["ContentPresenter"] = new(StringComparer.Ordinal) { "Content" },
         ["ItemsControl"] = new(StringComparer.Ordinal) { "Items", "ItemTemplate" },
         ["DataTemplate"] = new(StringComparer.Ordinal),
         ["TextBlock"] = new(StringComparer.Ordinal) { "FontWeight", "Text", "TextWrapping" },
-        ["TextBox"] = new(StringComparer.Ordinal) { "AcceptsReturn", "Text", "TextWrapping" },
+        ["TextBox"] = new(StringComparer.Ordinal) { "AcceptsReturn", "PlaceholderText", "Text", "TextWrapping" },
         ["PasswordBox"] = new(StringComparer.Ordinal) { "Header", "Password", "PlaceholderText" },
         ["AutoSuggestBox"] = new(StringComparer.Ordinal) { "MaxWidth", "MinWidth", "QueryIcon", "Text" },
         ["Button"] = new(StringComparer.Ordinal) { "Command", "CommandParameter", "Content" },
@@ -105,6 +106,7 @@ public sealed class MacXamlCompiler
         ["Border"] = new(StringComparer.Ordinal) { "Child" },
         ["ScrollViewer"] = new(StringComparer.Ordinal) { "Content" },
         ["ContentControl"] = new(StringComparer.Ordinal) { "Content" },
+        ["ContentPresenter"] = new(StringComparer.Ordinal) { "Content" },
         ["ItemsControl"] = new(StringComparer.Ordinal) { "Items", "ItemTemplate" },
         ["ListView"] = new(StringComparer.Ordinal) { "Items", "ItemTemplate" },
         ["ComboBox"] = new(StringComparer.Ordinal) { "Items" },
@@ -329,6 +331,7 @@ public sealed class MacXamlCompiler
             "StackPanel" => "Microsoft.UI.Xaml.Controls.StackPanel",
             "ScrollViewer" => "Microsoft.UI.Xaml.Controls.ScrollViewer",
             "ContentControl" => "Microsoft.UI.Xaml.Controls.ContentControl",
+            "ContentPresenter" => "Microsoft.UI.Xaml.Controls.ContentPresenter",
             "ItemsControl" => "Microsoft.UI.Xaml.Controls.ItemsControl",
             "DataTemplate" => "Microsoft.UI.Xaml.DataTemplate",
             "TextBlock" => "Microsoft.UI.Xaml.Controls.TextBlock",
@@ -405,6 +408,7 @@ public sealed class MacXamlCompiler
         var message = catalogEntry is null
             ? $"Unsupported {kind} '{construct}' is not present in the WinUI compatibility catalog."
             : $"Unsupported {kind} '{construct}' is cataloged as {catalogEntry.Status}.";
+        message += $" {PortableXamlMaterialization.Phase2Name} reports unsupported markup instead of silently materializing it.";
         return CreateDiagnostic(code, message, "Error", filePath, element);
     }
 
@@ -1177,7 +1181,7 @@ public sealed class MacXamlCompiler
                 return;
             }
 
-            if (parent.Element.Name.LocalName is "ScrollViewer" or "ContentControl" or "Frame")
+            if (parent.Element.Name.LocalName is "ScrollViewer" or "ContentControl" or "ContentPresenter" or "Frame")
             {
                 source.AppendLine($"        {parent.VariableName}.Content = {child.VariableName};");
                 return;
@@ -1408,6 +1412,14 @@ public sealed class MacXamlCompiler
             if (value.StartsWith("{Binding ", StringComparison.Ordinal) && value.EndsWith('}'))
             {
                 path = value["{Binding ".Length..^1].Trim();
+                var comma = path.IndexOf(',');
+                if (comma >= 0)
+                {
+                    var options = path[(comma + 1)..];
+                    path = path[..comma].Trim();
+                    mode = ReadBindingMode(options);
+                }
+
                 return !string.IsNullOrWhiteSpace(path);
             }
 

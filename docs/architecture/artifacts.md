@@ -57,9 +57,24 @@ a new schema version and documentation update.
   `/private/tmp/winui3-mac-test-runtime/generated-hosts/`, the existing compat
   shadow project path when a run proceeds into build/launch, included C# and
   XAML files, excluded Windows-only items such as `Microsoft.WindowsAppSDK`,
-  catalog statuses for project features, unsupported project features, and
-  blocking XAML diagnostics. The generated host is a macOS source-level harness;
-  it is not a Windows `.exe` or `.msix` execution path.
+  catalog statuses for project features, unsupported project features,
+  blocking XAML diagnostics, and `windowsOnlyBoundaries`. The generated host is a
+  macOS source-level harness; it is not a Windows `.exe` or `.msix` execution
+  path.
+  - `windowsOnlyBoundaries`: non-blocking diagnostics for Windows-only behavior
+    found in the project source/XAML, package references, and project
+    properties. Each entry records the boundary category (`windows-storage`,
+    `windows-credentials`, `packaged-activation`, `system-backdrop`, or
+    `windows-app-sdk-deployment`), the cataloged `api` and `status`, the matched
+    `symbol`, the `filePath`/`line` when the boundary comes from source/XAML, a
+    human-readable `reason`, and `blocksRender`. These diagnostics are honest:
+    `blocksRender` is `false` so a supported page/window surface still renders
+    while the runner reports what it skipped. Examples for a real WinUI app are
+    `Windows.Storage.ApplicationData`, `Windows.Security.Credentials.PasswordVault`,
+    `MicaBackdrop`/`SystemBackdrop`, packaged MSIX activation, and the
+    `Microsoft.WindowsAppSDK`/`Microsoft.Windows.SDK.BuildTools` deployment
+    references. The runner does not execute, emulate, or claim parity for any of
+    these Windows-only boundaries on macOS.
 - `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
   and unsupported API reports.
 - `native-reference-import.json`: normalized import manifest for downloaded
