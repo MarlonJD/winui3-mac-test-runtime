@@ -545,7 +545,7 @@ Acceptance:
 Purpose: let integration tests use a Windows-automation-shaped API over macOS
 runtime artifacts before claiming any broader FlaUI support.
 
-- [ ] Add failing tests for `FlaUIArtifactAdapter` that load
+- [x] Add failing tests for `FlaUIArtifactAdapter` that load
   `tree.json`, `accessibility.json`, and `interactions.json` and expose:
   - lookup by automation ID;
   - lookup by name;
@@ -554,18 +554,45 @@ runtime artifacts before claiming any broader FlaUI support.
   - value/text state;
   - bounding rectangle/layout state when available;
   - action-result lookup by selector.
-- [ ] Verify RED.
-- [ ] Implement the minimum adapter model. It may be runtime-owned and
+- [x] Verify RED.
+- [x] Implement the minimum adapter model. It may be runtime-owned and
   FlaUI-shaped without depending on actual FlaUI packages on macOS.
-- [ ] Add a compatibility report command or artifact section that states which
+- [x] Add a compatibility report command or artifact section that states which
   FlaUI/UIA concepts are supported by the artifact adapter and which remain
   unsupported.
-- [ ] Keep wording strict: this is not a native macOS UIA provider.
+- [x] Keep wording strict: this is not a native macOS UIA provider.
 
 Acceptance:
 
 - A test can assert UIA-like automation state against macOS runtime artifacts.
 - The adapter has explicit unsupported diagnostics for missing UIA concepts.
+
+2026-06-15 Track C update:
+
+- Added a runtime-owned, FlaUI/UIA3-shaped artifact adapter in
+  `src/WinUI3.MacRunner/Automation/` (`FlaUIArtifactAdapter`,
+  `ArtifactAutomationElement`, `AutomationContractReport`). It loads
+  `tree.json` (layout/bounds), `accessibility.json` (required state), and
+  `interactions.json` (action results) over a runtime artifact directory.
+- Supported FlaUI/UIA-shaped concepts: lookup by automation ID/name/selector,
+  control-type mapping (WinUI type preferred, accessibility role fallback),
+  `IsEnabled`, `HasKeyboardFocus`, `IsKeyboardFocusable`,
+  `SelectionItemPattern.IsSelected`, `TogglePattern.ToggleState`,
+  `ExpandCollapsePattern.ExpandCollapseState`, `ValuePattern.Value`, help text,
+  `BoundingRectangle` (when layout is present), child/descendant tree
+  navigation, and action-result lookup by selector.
+- Explicitly unsupported (named in the compatibility report): native macOS UIA
+  provider, unchanged FlaUI/UIA3 test execution, pattern method invocation,
+  real pointer/keyboard input, UIA event subscriptions, window handles/process
+  attachment, live re-query, `TextPattern`, `Grid`/`Table` patterns,
+  `RangeValuePattern`, and screenshot capture.
+- New CLI command `automation-adapter-report --artifacts <dir> [--output <dir>]`
+  emits `automation-adapter-report.json` (compatibility) and
+  `automation-parity.json` (macOS-only parity). Verified against
+  `/private/tmp/emsi_qa/windows/mac-runtime-direct/shell-home-light`
+  (15 supported / 11 unsupported concepts; 5 actions passed on macOS, Windows
+  reference not run). This is an artifact adapter only; it does not run `.exe`,
+  `.msix`, GitHub workflows, or a native UIA provider.
 
 ### Phase 7: Native Windows FlaUI/UIA3 Reference Probe
 
@@ -599,21 +626,34 @@ Acceptance:
 Purpose: compare macOS runtime artifact evidence with optional native Windows
 automation evidence.
 
-- [ ] Add a report builder that consumes:
+- [x] Add a report builder that consumes:
   - macOS `tree.json`;
   - macOS `accessibility.json`;
   - macOS `interactions.json`;
-  - optional Windows `native-automation.json`;
-  - optional Windows screenshot provenance.
-- [ ] Report each scenario action as:
+  - optional Windows `native-automation.json`; *(Track D)*
+  - optional Windows screenshot provenance. *(Track D)*
+- [x] Report each scenario action as:
   - passed on macOS;
   - failed on macOS;
   - skipped on macOS due to unsupported runtime boundary;
-  - passed on Windows reference;
-  - failed on Windows reference;
+  - passed on Windows reference; *(Track D)*
+  - failed on Windows reference; *(Track D)*
   - not run on Windows.
-- [ ] Keep screenshot diff and automation parity separate.
-- [ ] Add a public fixture test for the report shape.
+- [x] Keep screenshot diff and automation parity separate.
+- [x] Add a public fixture test for the report shape.
+
+2026-06-15 Track C update (macOS-only report shape):
+
+- `AutomationParityReport.FromActions` builds the macOS-only parity report over
+  the adapter's loaded artifacts. Each action maps to `PassedOnMac`,
+  `FailedOnMac`, or `SkippedOnMac`, and the Windows reference column is fixed at
+  `NotRunOnWindows`. The `AutomationParityStatus` vocabulary already includes
+  `PassedOnWindows`/`FailedOnWindows` for the Track D native reference tier.
+- Parity output is JSON-only (`automation-parity.json`) and stays separate from
+  screenshot/pixel-diff evidence. Public fixture tests
+  (`AutomationParityReportTests`) lock the report shape and counts.
+- Consuming Windows `native-automation.json` and screenshot provenance is left
+  to Track D (Native Windows FlaUI/UIA3 Reference Probe).
 
 Acceptance:
 

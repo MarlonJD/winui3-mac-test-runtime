@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using WinUI3.MacCompatibility;
 using WinUI3.MacRenderer.Skia;
+using WinUI3.MacRunner.Automation;
 using WinUI3.MacRuntime;
 using WinUI3.MacXaml;
 
@@ -47,6 +48,7 @@ internal static class Cli
             "visual-compare" => RunVisualCompare(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
             "visual-review-index" => RunVisualReviewIndex(args[1..]),
+            "automation-adapter-report" => RunAutomationAdapterReport(args[1..]),
             "xaml" => RunXaml(args[1..]),
             _ => UnknownCommand(args[0])
         };
@@ -1139,6 +1141,34 @@ internal static class Cli
         return 2;
     }
 
+    private static int RunAutomationAdapterReport(string[] args)
+    {
+        var artifactsDirectory = ReadOption(args, "--artifacts") ?? Environment.CurrentDirectory;
+        artifactsDirectory = Path.GetFullPath(artifactsDirectory);
+        var outputDirectory = Path.GetFullPath(ReadOption(args, "--output") ?? artifactsDirectory);
+
+        var accessibilityPath = Path.Combine(artifactsDirectory, FlaUIArtifactAdapter.AccessibilityFileName);
+        if (!File.Exists(accessibilityPath))
+        {
+            Console.Error.WriteLine(
+                $"automation-adapter-report failed: missing {accessibilityPath}. Provide a runtime artifact directory with --artifacts.");
+            return 1;
+        }
+
+        var adapter = FlaUIArtifactAdapter.LoadFromDirectory(artifactsDirectory);
+        var compatibility = adapter.BuildCompatibilityReport();
+        var parity = adapter.BuildParityReport();
+        var paths = adapter.WriteReports(outputDirectory);
+
+        Console.WriteLine(
+            $"automation-adapter-report: {compatibility.SupportedConcepts.Count} supported / {compatibility.UnsupportedConcepts.Count} unsupported UIA concepts (native UIA provider: {compatibility.IsNativeUiaProvider}).");
+        Console.WriteLine(
+            $"automation-parity: {parity.PassedOnMac} passed / {parity.FailedOnMac} failed / {parity.SkippedOnMac} skipped on macOS; Windows reference run: {parity.WindowsReferenceRun}.");
+        Console.WriteLine($"{FlaUIArtifactAdapter.CompatibilityReportFileName}: {paths.CompatibilityReportPath}");
+        Console.WriteLine($"{FlaUIArtifactAdapter.ParityReportFileName}: {paths.ParityReportPath}");
+        return 0;
+    }
+
     private static void PrintHelp()
     {
         Console.WriteLine("WinUI3 Mac Test Runtime");
@@ -1165,6 +1195,7 @@ internal static class Cli
         Console.WriteLine("  visual-compare --before <dir> --after <dir> --output <dir>");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  visual-review-index [--output <dir>] [--check]");
+        Console.WriteLine("  automation-adapter-report --artifacts <runtime-artifact-dir> [--output <dir>]");
         Console.WriteLine("  ingest --manifest <path> [--configuration Debug] [--output <dir>] [--baseline-dir <dir>]");
         Console.WriteLine("      [--check] [--write-baseline]");
         Console.WriteLine("  xaml compile --output <path> <xaml-file> [...]");
