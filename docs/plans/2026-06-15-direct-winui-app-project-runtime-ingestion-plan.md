@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Make `winui3-mac-test-runtime` accept a real WinUI Windows application project directly and render/test it on macOS without requiring downstream apps to add a custom probe or host project.
+**Goal:** Make `winui3-mac-test-runtime` accept a real WinUI Windows application project directly and render, automate, and integration-test it on macOS without requiring downstream apps to add a custom probe or host project.
 
-**Architecture:** The runtime owns project ingestion, source-level host generation, Windows-only boundary isolation, XAML/page selection, deterministic scenario execution, and screenshot artifacts. A user should be able to point `WinUI3.MacRunner` at a real `*.csproj` such as `MeetingChallenge.Windows.csproj`; the runner creates a temporary macOS-compatible source-level harness outside the app repo, compiles supported WinUI source/XAML against the clean-room facades, runs the selected route/page, and emits tree/accessibility/screenshot evidence. This is not Windows binary execution and not Windows App SDK deployment emulation.
+**Architecture:** The runtime owns project ingestion, source-level host generation, Windows-only boundary isolation, XAML/page selection, deterministic scenario execution, semantic automation, and screenshot artifacts. A user should be able to point `WinUI3.MacRunner` at a real `*.csproj` such as `MeetingChallenge.Windows.csproj`; the runner creates a temporary macOS-compatible source-level harness outside the app repo, compiles supported WinUI source/XAML against the clean-room facades, runs the selected route/page, executes integration-test actions, and emits tree/accessibility/interactions/screenshot evidence. Native Windows remains the reference tier through FlaUI 5.0 + UIA3 and Windows capture tooling; macOS exposes a compatible semantic automation contract over runtime artifacts, not a native Windows UIA provider.
 
-**Tech Stack:** .NET 10, MSBuild project inspection, WinUI facade runtime, `WinUI3.MacRunner`, `WinUI3.MacXaml`, `WinUI3.MacRuntime`, `WinUI3.MacRenderer.Skia`, MSTest, source-level generated temporary host projects.
+**Tech Stack:** .NET 10, MSBuild project inspection, WinUI facade runtime, `WinUI3.MacRunner`, `WinUI3.MacXaml`, `WinUI3.MacRuntime`, `WinUI3.MacRenderer.Skia`, MSTest, source-level generated temporary host projects, runner interaction scripts, `tree.json`, `accessibility.json`, `interactions.json`, Windows `FlaUI 5.0 + FlaUI.UIA3`, and `tools/WindowsWindowCapture`.
 
 ---
 
@@ -29,7 +29,9 @@ Related plans:
 
 The product should not require every Windows app to create a
 `MacRuntimeProbe` or app-owned test host. The runtime itself should be able to
-open a real WinUI Windows app project in a source-level test environment.
+open a real WinUI Windows app project in a source-level test environment, run
+scripted UI/integration tests against it, and produce automation artifacts that
+can be compared with native Windows UI Automation evidence.
 
 For EMSI, the target command shape should become:
 
@@ -53,7 +55,81 @@ not ask the downstream app to create a probe. Instead it should:
 - isolate or explicitly diagnose Windows-only pieces;
 - render the selected shell/page route through the runtime;
 - produce `tree.json`, `accessibility.json`, `unsupported-apis.json`,
-  `visual-run.json`, and `mac-runtime.png`.
+  `interactions.json`, `visual-run.json`, and `mac-runtime.png`.
+
+## Automation And Integration Testing Target
+
+Direct app ingestion is only half the product. The complete target is:
+
+```text
+real WinUI app .csproj
+  -> runtime-owned temporary source-level host on macOS
+  -> semantic automation scenario
+  -> tree/accessibility/interactions/screenshot artifacts
+  -> optional native Windows FlaUI/UIA3 reference run for the same scenario
+```
+
+### Native Windows Reference Tools
+
+Use these for real Windows behavior:
+
+- `FlaUI 5.0 + FlaUI.UIA3`: native Windows UI Automation reference validation
+  against real WinUI windows.
+- `tools/WindowsWindowCapture`: existing native Windows process/window capture
+  tool for client-area screenshots and reference metadata.
+- `.github/workflows/windows-native-screenshot.yml`: public Windows reference
+  workflow for native fixture screenshots.
+- `.github/workflows/windows-downstream-probe-screenshot.yml`: current EMSI
+  downstream probe reference capture; useful precedent, but direct ingestion
+  should not depend on downstream probe projects.
+
+### macOS Runtime Automation Tools
+
+Use these locally on macOS:
+
+- `InteractionScriptRunner`: existing semantic action runner.
+- `tree.json`: logical tree, stable names, visibility, selected/focused state,
+  control properties, and layout metadata.
+- `accessibility.json`: role/name/automation ID/label/help/focus/focusable/
+  enabled/checked/selected/expanded/value contract.
+- `interactions.json`: action results with selector, expected/actual,
+  target type, observed state, and before/after state.
+- `visual/mac-runtime.png`: screenshot evidence from `skia-v2`.
+- future `FlaUI.UIA3-compatible artifact adapter`: repo-owned adapter over
+  `tree.json`, `accessibility.json`, and `interactions.json`, not a native macOS
+  UIA provider claim.
+
+### Shared Scenario Contract
+
+The scenario format must support both render and integration test intent:
+
+```json
+{
+  "name": "meetingchallenge-shell-home-light",
+  "theme": "light",
+  "entry": {
+    "mode": "window",
+    "xaml": "MainWindow.xaml",
+    "route": "home",
+    "session": "staff"
+  },
+  "automation": [
+    { "type": "assertAccessibilityState", "target": "automationId=shell-nav-home", "key": "selected", "parameter": "true" },
+    { "type": "selectNavigation", "target": "automationId=shell-nav-messages" },
+    { "type": "waitForIdle" },
+    { "type": "assertProperty", "target": "ContentFrame", "key": "CurrentRoute", "parameter": "messages" }
+  ],
+  "visual": {
+    "capture": true,
+    "renderer": "skia-v2"
+  }
+}
+```
+
+Existing interaction action types are the starting point: `click`, `focus`,
+`typeText`, `selectItem`, `selectNavigation`, `navigateFrame`,
+`invokeAccelerator`, `openPopup`, `dismissPopup`, `invokeMenuItem`,
+`waitForIdle`, `assertProperty`, and `assertAccessibilityState`.
 
 ## Product Boundary
 
@@ -68,6 +144,13 @@ not ask the downstream app to create a probe. Instead it should:
 - Generate deterministic host bootstrap code for macOS runtime execution.
 - Let scenarios select an entry window/page/route and provide deterministic
   session/data fixtures where needed.
+- Execute integration-test actions through the existing scenario/script
+  interaction pipeline.
+- Emit automation-ready `tree.json`, `accessibility.json`, and
+  `interactions.json` with stable selectors and schema versions.
+- Provide a FlaUI/UIA3-compatible artifact adapter layer before making any
+  claim that existing Windows UI test code can run unchanged against macOS
+  runtime output.
 - Keep private screenshots and pixel diffs outside the repo.
 - Produce honest diagnostics for unsupported Windows-only boundaries.
 
@@ -78,6 +161,10 @@ not ask the downstream app to create a probe. Instead it should:
 - Full `MeetingChallenge.Windows.csproj` build as a macOS app.
 - WinRT storage, PasswordVault, deployment, activation, native UIA provider,
   Mica/Acrylic, Windows shell, or packaged resource behavior.
+- Arbitrary FlaUI/UIA compatibility on macOS before API-level adapter tests
+  exist.
+- Full pointer/keyboard/IME behavior parity before those interactions have
+  explicit runtime support and tests.
 - Native Windows pixel parity without a Windows reference screenshot.
 
 ### Downstream Apps Should Not Have To Do
@@ -140,7 +227,15 @@ Likely additions:
 - `src/WinUI3.MacRunner/ProjectIngestion/GeneratedHostOptions.cs`
 - `src/WinUI3.MacRunner/ProjectIngestion/WindowsOnlyBoundaryClassifier.cs`
 - `src/WinUI3.MacRunner/ProjectIngestion/ScenarioHostOptions.cs`
+- `src/WinUI3.MacRunner/Automation/AutomationScenarioModel.cs`
+- `src/WinUI3.MacRunner/Automation/AutomationContractReport.cs`
+- `src/WinUI3.MacRunner/Automation/FlaUIArtifactAdapter.cs`
+- `src/WinUI3.MacRunner/Automation/NativeWindowsAutomationPlan.cs`
+- `tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj`
 - `tests/WinUI3.MacRunner.Tests/ProjectIngestionTests.cs`
+- `tests/WinUI3.MacRunner.Tests/AutomationContractTests.cs`
+- `tools/WindowsUiAutomationProbe/WindowsUiAutomationProbe.csproj`
+- `tools/WindowsUiAutomationProbe/Program.cs`
 - `fixtures/RealWinUIAppFixture/RealWinUIAppFixture.csproj`
 - `fixtures/RealWinUIAppFixture/MainWindow.xaml`
 - `fixtures/RealWinUIAppFixture/Pages/HomePage.xaml`
@@ -160,6 +255,10 @@ Likely modifications:
 - `tests/WinUI3.MacXaml.Tests/MacXamlCompilerTests.cs`
 - `tests/WinUI3.MacRuntime.Tests/MacRuntimeTests.cs`
 - compatibility docs/catalogs only when support status changes
+- `docs/architecture/artifacts.md`
+- `docs/consumption/quick-start.md`
+- `docs/consumption/downstream-windows-apps.md`
+- `README.md`
 
 Do not create or modify `apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProductionHost`.
 
@@ -218,6 +317,11 @@ trying to render it.
   fixture `.csproj` with `UseWinUI=true`, `WindowsPackageType=MSIX`,
   `ApplicationDefinition`, `Page`, `ResourceDictionary`, and project
   references.
+- [ ] If `tests/WinUI3.MacRunner.Tests` does not exist yet, create a minimal
+  MSTest project that references `src/WinUI3.MacRunner` before adding the first
+  failing test. Keep the test project focused on runner/project-ingestion and
+  automation contract behavior; do not fold these tests into renderer or XAML
+  compiler suites.
 - [ ] Verify RED: the inspector type or behavior does not exist.
 - [ ] Implement `WinUIProjectInspector` and `WinUIProjectModel` with:
   - project path;
@@ -267,10 +371,36 @@ Acceptance:
 - Direct app ingestion creates a temporary host without asking the app repo for
   a probe project.
 
-### Phase 3: Page Render Mode
+### Phase 3: Shared Automation Scenario Contract
+
+Purpose: make render scenarios and integration-test scenarios one contract
+instead of separate one-off formats.
+
+- [ ] Add a failing test in `tests/WinUI3.MacRunner.Tests` that parses a direct
+  app scenario containing `entry`, `automation`, and `visual` sections.
+- [ ] Verify RED.
+- [ ] Implement `AutomationScenarioModel` that maps scenario `automation`
+  entries to existing `InteractionAction` values without losing selector kind,
+  target, key, modifiers, page type, or parameter.
+- [ ] Extend runner command handling so scenario `automation` actions are
+  executed exactly like `--script` actions after the direct app host is loaded.
+- [ ] Verify `interactions.json` is emitted for scenario automation, not only
+  for explicit `--script`.
+- [ ] Add documentation that the shared scenario is the public integration-test
+  input for both macOS runtime evidence and optional native Windows reference
+  validation.
+
+Acceptance:
+
+- A direct app scenario can describe route/page setup, UI automation actions,
+  assertions, and visual capture in one file.
+- Existing `InteractionScriptRunner` remains the execution engine for macOS
+  runtime actions.
+
+### Phase 4: Page Render And Interaction Mode
 
 Purpose: get the first direct screenshot from a real app project by rendering a
-selected production page XAML.
+selected production page XAML and running integration assertions against it.
 
 - [ ] Extend scenario support with a direct page selector, for example:
 
@@ -281,6 +411,14 @@ selected production page XAML.
     "entry": {
       "mode": "page",
       "xaml": "Pages/HomePage.xaml"
+    },
+    "automation": [
+      { "type": "assertAccessibilityState", "target": "automationId=home-title", "key": "role", "parameter": "text" },
+      { "type": "waitForIdle" }
+    ],
+    "visual": {
+      "capture": true,
+      "renderer": "skia-v2"
     }
   }
   ```
@@ -289,6 +427,8 @@ selected production page XAML.
   generated host to render the selected page.
 - [ ] Verify RED.
 - [ ] Implement the minimum page entry generation.
+- [ ] Run scenario automation and assert that `interactions.json` records passed
+  assertions for the selected page.
 - [ ] Close only reusable compiler/facade/layout/renderer gaps with separate
   RED/GREEN tests.
 - [ ] Run the real EMSI direct page command:
@@ -307,10 +447,12 @@ Acceptance:
 
 - A real production `HomePage.xaml` source-level render exists, or the exact
   reusable runtime blocker is documented.
+- The same run emits `tree.json`, `accessibility.json`, and `interactions.json`.
 
-### Phase 4: Shell Route Render Mode
+### Phase 5: Shell Route Render And Integration Mode
 
-Purpose: render the real app shell/window shape, not only a standalone page.
+Purpose: render the real app shell/window shape and run navigation-level
+integration tests, not only a standalone page screenshot.
 
 - [ ] Extend scenario support with a shell selector:
 
@@ -323,6 +465,16 @@ Purpose: render the real app shell/window shape, not only a standalone page.
       "xaml": "MainWindow.xaml",
       "route": "home",
       "session": "staff"
+    },
+    "automation": [
+      { "type": "assertAccessibilityState", "target": "automationId=shell-nav-home", "key": "selected", "parameter": "true" },
+      { "type": "selectNavigation", "target": "automationId=shell-nav-messages" },
+      { "type": "waitForIdle" },
+      { "type": "assertAccessibilityState", "target": "automationId=shell-nav-messages", "key": "selected", "parameter": "true" }
+    ],
+    "visual": {
+      "capture": true,
+      "renderer": "skia-v2"
     }
   }
   ```
@@ -352,8 +504,89 @@ Acceptance:
 
 - The screenshot path is produced by direct ingestion of
   `MeetingChallenge.Windows.csproj`, not by `MeetingChallenge.WinUI.MacRuntimeProbe`.
+- The run produces integration-test evidence in `interactions.json`.
 
-### Phase 5: Windows-Only Boundary Diagnostics
+### Phase 6: FlaUI/UIA3-Compatible Artifact Adapter
+
+Purpose: let integration tests use a Windows-automation-shaped API over macOS
+runtime artifacts before claiming any broader FlaUI support.
+
+- [ ] Add failing tests for `FlaUIArtifactAdapter` that load
+  `tree.json`, `accessibility.json`, and `interactions.json` and expose:
+  - lookup by automation ID;
+  - lookup by name;
+  - role/control-type mapping;
+  - enabled/focused/selected/checked/expanded state;
+  - value/text state;
+  - bounding rectangle/layout state when available;
+  - action-result lookup by selector.
+- [ ] Verify RED.
+- [ ] Implement the minimum adapter model. It may be runtime-owned and
+  FlaUI-shaped without depending on actual FlaUI packages on macOS.
+- [ ] Add a compatibility report command or artifact section that states which
+  FlaUI/UIA concepts are supported by the artifact adapter and which remain
+  unsupported.
+- [ ] Keep wording strict: this is not a native macOS UIA provider.
+
+Acceptance:
+
+- A test can assert UIA-like automation state against macOS runtime artifacts.
+- The adapter has explicit unsupported diagnostics for missing UIA concepts.
+
+### Phase 7: Native Windows FlaUI/UIA3 Reference Probe
+
+Purpose: define and validate the optional Windows reference side for the same
+scenario contract.
+
+- [ ] Add a Windows-only tool plan or implementation for
+  `tools/WindowsUiAutomationProbe`.
+- [ ] Use `FlaUI 5.0 + FlaUI.UIA3` to launch or attach to a native WinUI app,
+  execute the same scenario automation where possible, and emit:
+  - `native-automation.json`;
+  - `windows-reference.png` when screenshot capture is requested;
+  - `windows-reference.json` provenance;
+  - failed action diagnostics.
+- [ ] Reuse `tools/WindowsWindowCapture` for client-area screenshots instead of
+  rewriting capture code.
+- [ ] Add Windows-only tests or workflow checks that build the tool without
+  running it on macOS.
+- [ ] Do not run GitHub workflows during normal local implementation unless the
+  user explicitly asks.
+
+Acceptance:
+
+- Native Windows UIA/FlaUI validation is the reference tier for direct app
+  scenarios.
+- The macOS runtime artifact adapter and native Windows probe speak the same
+  scenario vocabulary.
+
+### Phase 8: Automation Parity Report
+
+Purpose: compare macOS runtime artifact evidence with optional native Windows
+automation evidence.
+
+- [ ] Add a report builder that consumes:
+  - macOS `tree.json`;
+  - macOS `accessibility.json`;
+  - macOS `interactions.json`;
+  - optional Windows `native-automation.json`;
+  - optional Windows screenshot provenance.
+- [ ] Report each scenario action as:
+  - passed on macOS;
+  - failed on macOS;
+  - skipped on macOS due to unsupported runtime boundary;
+  - passed on Windows reference;
+  - failed on Windows reference;
+  - not run on Windows.
+- [ ] Keep screenshot diff and automation parity separate.
+- [ ] Add a public fixture test for the report shape.
+
+Acceptance:
+
+- The final direct ingestion run can say not only "screenshot exists" but also
+  "these integration actions passed/failed/skipped."
+
+### Phase 9: Windows-Only Boundary Diagnostics
 
 Purpose: make direct ingestion trustworthy by being precise about what is and is
 not executed.
@@ -375,7 +608,7 @@ Acceptance:
 - Direct ingestion can say: "I rendered this supported source-level surface; I
   skipped or diagnosed these Windows-only boundaries."
 
-### Phase 6: Verification And Documentation
+### Phase 10: Verification And Documentation
 
 Purpose: make the feature usable by other WinUI app owners.
 
@@ -390,9 +623,11 @@ Purpose: make the feature usable by other WinUI app owners.
   ```bash
   cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
   dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "ProjectIngestion|GeneratedHost|DirectApp"
+  dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "AutomationContract|FlaUIArtifactAdapter|AutomationParity"
   dotnet test --project tests/WinUI3.MacRuntime.Tests/WinUI3.MacRuntime.Tests.csproj --filter "InfoBar|Icon|Navigation|Renderer|Layout|Frame|Resource"
   dotnet test --project tests/WinUI3.MacXaml.Tests/WinUI3.MacXaml.Tests.csproj
   dotnet build src/WinUI3.MacRunner/WinUI3.MacRunner.csproj
+  dotnet build tools/WindowsUiAutomationProbe/WindowsUiAutomationProbe.csproj
   ```
 
 - [ ] Run the real EMSI direct ingestion gate:
@@ -410,6 +645,8 @@ Purpose: make the feature usable by other WinUI app owners.
 - [ ] Report:
   - exact screenshot path;
   - whether it came from direct app project ingestion;
+  - integration action pass/fail/skip counts;
+  - automation artifact paths;
   - unsupported Windows-only boundary diagnostics;
   - remaining renderer/layout/facade gaps;
   - whether native Windows reference comparison was run or skipped.
@@ -417,8 +654,80 @@ Purpose: make the feature usable by other WinUI app owners.
 Acceptance:
 
 - A user can point the runtime at a real WinUI Windows app project and get a
-  macOS source-level runtime screenshot without adding a custom probe project to
-  their app.
+  macOS source-level runtime screenshot and integration-test evidence without
+  adding a custom probe project to their app.
+
+## Execution Tracks
+
+This is too large for one implementation prompt. Execute it in tracks and commit
+each completed track when verification passes.
+
+### Track A: Direct Project Ingestion Foundation
+
+Scope:
+
+- Phase 0
+- Phase 1
+- Phase 2
+
+Done when:
+
+- real WinUI app `.csproj` inspection works;
+- generated temporary host creation works;
+- no downstream probe/host project is required.
+
+### Track B: Direct Render With Runtime Interactions
+
+Scope:
+
+- Phase 3
+- Phase 4
+- Phase 5
+
+Done when:
+
+- direct page and shell scenarios can run automation actions;
+- `tree.json`, `accessibility.json`, `interactions.json`, and `mac-runtime.png`
+  are emitted from direct project ingestion.
+
+### Track C: UIA/FlaUI-Compatible Artifact Adapter
+
+Scope:
+
+- Phase 6
+- Phase 8 report shape for macOS-only evidence
+
+Done when:
+
+- runtime artifacts can be queried through a UIA/FlaUI-shaped adapter;
+- action/state parity is reportable without claiming native UIA provider
+  support on macOS.
+
+### Track D: Native Windows Reference Automation
+
+Scope:
+
+- Phase 7
+- optional Windows side of Phase 8
+
+Done when:
+
+- native Windows `FlaUI 5.0 + UIA3` probe can execute the same scenario contract
+  where Windows is available;
+- Windows screenshot capture still flows through `tools/WindowsWindowCapture`.
+
+### Track E: Documentation And Final Product Gate
+
+Scope:
+
+- Phase 9
+- Phase 10
+
+Done when:
+
+- docs explain direct ingestion, integration scripts, artifact adapter limits,
+  Windows reference validation, and remaining exclusions;
+- EMSI direct app ingestion gate reports screenshot and automation evidence.
 
 ## Verification Gates
 
@@ -427,9 +736,11 @@ Minimum runtime gates:
 ```bash
 cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
 dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "ProjectIngestion|GeneratedHost|DirectApp"
+dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "AutomationContract|FlaUIArtifactAdapter|AutomationParity"
 dotnet test --project tests/WinUI3.MacRuntime.Tests/WinUI3.MacRuntime.Tests.csproj --filter "InfoBar|Icon|Navigation|Renderer|Layout|Frame|Resource"
 dotnet test --project tests/WinUI3.MacXaml.Tests/WinUI3.MacXaml.Tests.csproj
 dotnet build src/WinUI3.MacRunner/WinUI3.MacRunner.csproj
+dotnet build tools/WindowsUiAutomationProbe/WindowsUiAutomationProbe.csproj
 ```
 
 Production XAML diagnostic gate:
@@ -460,6 +771,9 @@ tools/winui3-mac-runner run \
 | The generated host becomes app-specific EMSI code hidden in the runtime. | Build project ingestion against public fixtures first, then validate EMSI as a downstream target. |
 | Windows-only APIs block all rendering. | Classify boundaries and allow renderable surfaces to proceed with explicit diagnostics. |
 | Code-behind support balloons into full WinUI/WinRT emulation. | Start XAML/page-first, add facades only when reusable and test-proven. |
+| macOS artifact adapter is mistaken for native UIA provider support. | Use "FlaUI/UIA3-compatible artifact adapter" wording and keep unsupported native provider diagnostics explicit. |
+| Integration tests become screenshot-only again. | Treat `interactions.json` and automation parity reports as required evidence beside `mac-runtime.png`. |
+| Native Windows automation cannot run locally on macOS. | Build Windows tools locally only when possible; keep actual FlaUI/UIA3 execution optional and Windows-runner scoped. |
 | Private screenshots leak into the repo. | Keep screenshot/diff output under `/private/tmp/emsi_qa` or approved QA storage. |
 | Visual output is mistaken for native Windows parity. | Run native reference comparison only with explicit external reference evidence and report skipped comparison honestly. |
 
@@ -467,6 +781,11 @@ tools/winui3-mac-runner run \
 
 - If project ingestion cannot support direct shell mode yet, keep page mode as
   the first deliverable and document shell mode as the next blocker.
+- If automation cannot execute a scenario action yet, emit an explicit skipped
+  or unsupported action result instead of hiding the gap behind screenshot
+  success.
+- If FlaUI/UIA3 adapter work is too large for the direct render track, complete
+  Track B first and leave Track C active.
 - If EMSI direct ingestion exposes a Windows-only blocker, keep the public
   fixture support and report the exact unsupported boundary.
 - If a generated host change affects existing probe runs, revert only the
@@ -476,24 +795,21 @@ tools/winui3-mac-runner run \
 
 ## Execution Prompt
 
-Implement the plan saved at `tools/winui3-mac-test-runtime/docs/plans/2026-06-15-direct-winui-app-project-runtime-ingestion-plan.md`.
+Implement Track A from the plan saved at `tools/winui3-mac-test-runtime/docs/plans/2026-06-15-direct-winui-app-project-runtime-ingestion-plan.md`.
 
-Work in `/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime`. The product goal is direct app project ingestion: users should be able to run `winui3-mac-runner run --project <real WinUI Windows app csproj>` on macOS and get source-level tree/accessibility/screenshot evidence without adding a custom downstream probe or host project. Use `MeetingChallenge.Windows.csproj` only as the downstream validation target. Do not create `apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProductionHost`; changes should live in `tools/winui3-mac-test-runtime` except for read-only validation against `apps/windows`.
+Work in `/Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime`. The overall product goal is direct app project ingestion plus automation/integration testing: users should be able to run `winui3-mac-runner run --project <real WinUI Windows app csproj>` on macOS and get source-level tree/accessibility/interactions/screenshot evidence without adding a custom downstream probe or host project. Track A only covers project inspection and generated temporary host creation. Use `MeetingChallenge.Windows.csproj` only as the downstream validation target. Do not create `apps/windows/tests/MeetingChallenge.WinUI.MacRuntimeProductionHost`; changes should live in `tools/winui3-mac-test-runtime` except for read-only validation against `apps/windows`.
 
 Use `emsi-workflows:emsi-task-router`, `emsi-workflows:emsi-verification-gate`, `superpowers:test-driven-development`, and either `superpowers:subagent-driven-development` or `superpowers:executing-plans`. Read `/Users/marlonjd/Developer/monorepos/emsi_monorepo/AGENTS.md`, `/Users/marlonjd/Developer/monorepos/emsi_monorepo/apps/windows/AGENTS.md`, `README.md`, `docs/plans/2026-06-13-emsi-downstream-runtime-support-amendment.md`, and `docs/plans/2026-06-06-downstream-windows-full-xaml-coverage-plan.md` before editing.
 
-Implement in phases:
+Implement only these phases:
 
 1. Add project inspection for real WinUI app `.csproj` files.
 2. Add generated temporary source-level host creation under `/private/tmp`.
-3. Add direct page render mode for selected app XAML.
-4. Add direct shell/window route render mode.
-5. Add precise Windows-only boundary diagnostics.
-6. Update docs and run verification.
+3. Update `project-ingestion.json` documentation for the generated host output.
 
-For every XAML/facade/layout/renderer/runner behavior change, write a failing targeted test first, verify RED, implement the minimum support, then verify GREEN. Do not make the full `MeetingChallenge.Windows.csproj` macOS build the implementation goal. Do not run `.exe` or `.msix`. Do not run GitHub workflows. Do not push. Do not copy private PNG/screenshot/pixel-diff artifacts into the repo. Keep source-level runtime render, direct project ingestion, and native Windows visual parity as separate claims.
+For every runner/project-ingestion behavior change, write a failing targeted test first, verify RED, implement the minimum support, then verify GREEN. Do not make the full `MeetingChallenge.Windows.csproj` macOS build the implementation goal. Do not run `.exe` or `.msix`. Do not run GitHub workflows. Do not push. Do not copy private PNG/screenshot/pixel-diff artifacts into the repo. Keep source-level runtime render, direct project ingestion, semantic automation, and native Windows visual/UIA parity as separate claims.
 
-Required final direct app ingestion command:
+Track A validation command shape:
 
 ```bash
 cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
@@ -505,15 +821,79 @@ tools/winui3-mac-runner run \
   --output /private/tmp/emsi_qa/windows/mac-runtime-direct/shell-home-light
 ```
 
+For Track A this command may still fail after generated host creation if page/shell render mode is not implemented yet. If so, report the next blocker as Track B work, not as Track A failure.
+
 Required verification before final:
 
 ```bash
 cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
 dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "ProjectIngestion|GeneratedHost|DirectApp"
-dotnet test --project tests/WinUI3.MacRuntime.Tests/WinUI3.MacRuntime.Tests.csproj --filter "InfoBar|Icon|Navigation|Renderer|Layout|Frame|Resource"
-dotnet test --project tests/WinUI3.MacXaml.Tests/WinUI3.MacXaml.Tests.csproj
 dotnet build src/WinUI3.MacRunner/WinUI3.MacRunner.csproj
 tools/winui3-mac-runner xaml compile --output /private/tmp/emsi-windows-prod-xaml-generated /Users/marlonjd/Developer/monorepos/emsi_monorepo/apps/windows/src/MeetingChallenge.Windows/**/*.xaml
 ```
 
-Final response must include: completed phases, whether direct `MeetingChallenge.Windows.csproj` ingestion works or where it is blocked, changed runtime support areas, verification commands and results, screenshot/evidence paths under `/private/tmp/emsi_qa`, remaining runtime/visual differences, and commit hash if a commit was made.
+Final response must include: completed Track A phases, generated host path, whether real `MeetingChallenge.Windows.csproj` inspection works, whether a generated host is emitted, next Track B blocker if render still fails, verification commands and results, and commit hash if a commit was made.
+
+## Follow-Up Execution Prompts
+
+Use these after Track A is complete.
+
+### Track B Prompt: Direct Render With Runtime Interactions
+
+Implement Track B from `tools/winui3-mac-test-runtime/docs/plans/2026-06-15-direct-winui-app-project-runtime-ingestion-plan.md`.
+
+Build on the completed project inspection/generated host work. Add the shared scenario `entry`, `automation`, and `visual` contract; route scenario automation into `InteractionScriptRunner`; implement direct page render mode; implement direct shell/window route render mode; and produce `tree.json`, `accessibility.json`, `interactions.json`, and `visual/mac-runtime.png` from direct `MeetingChallenge.Windows.csproj` ingestion. Do not create downstream probe or host projects. Use fail-first tests for every runner/runtime behavior change. Do not run GitHub workflows or push. Final evidence must include the direct ingestion output path under `/private/tmp/emsi_qa/windows/mac-runtime-direct`.
+
+Required targeted verification:
+
+```bash
+cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
+dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "AutomationContract|DirectApp"
+dotnet test --project tests/WinUI3.MacRuntime.Tests/WinUI3.MacRuntime.Tests.csproj --filter "Interaction|Frame|Navigation|Accessibility"
+dotnet build src/WinUI3.MacRunner/WinUI3.MacRunner.csproj
+WINUI3_MAC_TEST_FONT_DIRS="$HOME/winui-font-ab" tools/winui3-mac-runner run --project /Users/marlonjd/Developer/monorepos/emsi_monorepo/apps/windows/src/MeetingChallenge.Windows/MeetingChallenge.Windows.csproj --renderer skia-v2 --scenario /private/tmp/emsi_qa/windows/mac-runtime-direct/scenarios/meetingchallenge-shell-home-light.json --output /private/tmp/emsi_qa/windows/mac-runtime-direct/shell-home-light
+```
+
+### Track C Prompt: UIA/FlaUI-Compatible Artifact Adapter
+
+Implement Track C from `tools/winui3-mac-test-runtime/docs/plans/2026-06-15-direct-winui-app-project-runtime-ingestion-plan.md`.
+
+Build a runtime-owned FlaUI/UIA3-compatible artifact adapter over macOS `tree.json`, `accessibility.json`, and `interactions.json`. It must support lookup by automation ID/name, control-role mapping, selected/checked/enabled/focused/value state, layout bounds when present, and action-result lookup. It must not claim native macOS UIA provider support. Add fail-first tests and an automation compatibility report that lists supported and unsupported UIA concepts.
+
+Required targeted verification:
+
+```bash
+cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
+dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "FlaUIArtifactAdapter|AutomationParity"
+dotnet build src/WinUI3.MacRunner/WinUI3.MacRunner.csproj
+```
+
+### Track D Prompt: Native Windows FlaUI/UIA3 Reference Probe
+
+Implement Track D from `tools/winui3-mac-test-runtime/docs/plans/2026-06-15-direct-winui-app-project-runtime-ingestion-plan.md`.
+
+Add a Windows-only `tools/WindowsUiAutomationProbe` that uses FlaUI 5.0 + FlaUI.UIA3 to execute the shared scenario contract against a native WinUI app when running on Windows. Reuse `tools/WindowsWindowCapture` for screenshots. Emit `native-automation.json`, `windows-reference.json`, optional `windows-reference.png`, and failed action diagnostics. Build the tool locally where possible, but do not run GitHub workflows or push unless explicitly asked.
+
+Required targeted verification:
+
+```bash
+cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
+dotnet build tools/WindowsUiAutomationProbe/WindowsUiAutomationProbe.csproj
+dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "NativeWindowsAutomationPlan|AutomationParity"
+```
+
+### Track E Prompt: Documentation And Final Product Gate
+
+Implement Track E from `tools/winui3-mac-test-runtime/docs/plans/2026-06-15-direct-winui-app-project-runtime-ingestion-plan.md`.
+
+Update README, quick-start, downstream consumption docs, artifact docs, and support-policy wording for direct WinUI app project ingestion plus automation/integration testing. The docs must explain: source-level direct ingestion, generated temporary hosts, scenario automation, `tree.json/accessibility.json/interactions.json`, FlaUI/UIA3-compatible artifact adapter limits, optional native Windows FlaUI reference validation, screenshot/reference boundaries, and unsupported Windows-only APIs. Run the final direct EMSI ingestion gate if Tracks A/B are complete; otherwise document the current blocker without overstating readiness.
+
+Required targeted verification:
+
+```bash
+cd /Users/marlonjd/Developer/monorepos/emsi_monorepo/tools/winui3-mac-test-runtime
+dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "ProjectIngestion|GeneratedHost|DirectApp|AutomationContract|FlaUIArtifactAdapter|AutomationParity"
+dotnet test --project tests/WinUI3.MacRuntime.Tests/WinUI3.MacRuntime.Tests.csproj --filter "Interaction|Accessibility|Frame|Navigation|Renderer"
+dotnet test --project tests/WinUI3.MacXaml.Tests/WinUI3.MacXaml.Tests.csproj
+dotnet build src/WinUI3.MacRunner/WinUI3.MacRunner.csproj
+```
