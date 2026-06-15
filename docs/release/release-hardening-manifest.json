@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "1970-01-01T00:00:00+00:00",
+  "profile": "phase15-release-hardening",
+  "status": "ready-pending-external-evidence",
+  "policy": "Phase 15 hardens the public source-level harness release package. It does not expand the support claim beyond the documented subset, does not claim native WinUI visual fidelity, and does not run Windows binaries, .exe, or .msix payloads on macOS.",
+  "categories": [
+    {
+      "name": "CLI polish",
+      "status": "documented",
+      "evidence": [
+        "tools/winui3-mac-release-ready-local",
+        "README.md",
+        "release-candidate"
+      ],
+      "releaseGate": [
+        "winui3-mac-runner release-candidate",
+        "winui3-mac-release-ready-local"
+      ]
+    },
+    {
+      "name": "GitHub Action docs",
+      "status": "documented",
+      "evidence": [
+        "docs/release/sample-workflows.md",
+        ".github/workflows/ci.yml",
+        ".github/workflows/windows-native-screenshot.yml"
+      ],
+      "releaseGate": [
+        "winui3-mac-runner release-candidate",
+        "winui3-mac-release-ready-local"
+      ]
+    },
+    {
+      "name": "Sample projects",
+      "status": "documented",
+      "evidence": [
+        "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
+        "fixtures/ComponentParityLab.WinUI/ComponentParityLab.WinUI.csproj",
+        "fixtures/ProductionSmoke.WinUI/ProductionSmoke.WinUI.csproj"
+      ],
+      "releaseGate": [
+        "winui3-mac-runner release-candidate",
+        "winui3-mac-release-ready-local"
+      ]
+    },
+    {
+      "name": "Known gaps",
+      "status": "documented",
+      "evidence": [
+        "docs/release/phase-15-release-hardening.md",
+        "docs/release/production-readiness.md",
+        "docs/visual-parity/broader-control-state-coverage.json"
+      ],
+      "releaseGate": [
+        "winui3-mac-runner release-candidate",
+        "winui3-mac-release-ready-local"
+      ]
+    },
+    {
+      "name": "Baseline management",
+      "status": "documented",
+      "evidence": [
+        "docs/compatibility/corpus-inventory.json",
+        "docs/compatibility/corpus-unknown-apis.json",
+        "docs/visual-parity/state-coverage-matrix.json"
+      ],
+      "releaseGate": [
+        "winui3-mac-runner release-candidate",
+        "winui3-mac-release-ready-local"
+      ]
+    },
+    {
+      "name": "Artifact retention",
+      "status": "documented",
+      "evidence": [
+        "docs/release/sample-workflows.md",
+        "docs/release/release-gates.md",
+        "artifacts/product-evidence/public-product"
+      ],
+      "releaseGate": [
+        "winui3-mac-runner release-candidate",
+        "winui3-mac-release-ready-local"
+      ]
+    },
+    {
+      "name": "Versioned compatibility matrix",
+      "status": "documented",
+      "evidence": [
+        "docs/compatibility/matrix.md",
+        "docs/compatibility/compatibility-levels.json",
+        "docs/release/release-hardening-manifest.json"
+      ],
+      "releaseGate": [
+        "winui3-mac-runner release-candidate",
+        "winui3-mac-release-ready-local"
+      ]
+    }
+  ],
+  "demos": [
+    {
+      "name": "no-app-source-change-supported-subset",
+      "projectPath": "fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj",
+      "policy": "The portable-headless run inspects and renders source-level supported subset artifacts; it does not mutate app source and does not execute .exe or .msix output on macOS.",
+      "commands": [
+        "PATH=\u0022$PWD/tools:$PATH\u0022 winui3-mac-runner run --project fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj --renderer skia-v2 --scenario fixtures/PublicAdminWorkbench.WinUI/scenarios/public-admin-workbench-light.json --output artifacts/portable-headless/public-admin-workbench-light",
+        "gh workflow run windows-native-screenshot.yml -f scenario=public-admin-workbench-light",
+        "PATH=\u0022$PWD/tools:$PATH\u0022 winui3-mac-runner portable-headless-dashboard --portable artifacts/portable-headless/public-admin-workbench-light --windows-reference artifacts/windows-reference/public-admin-workbench-light --output artifacts/comparison/public-admin-workbench-light"
+      ],
+      "expectedArtifacts": [
+        "run.json",
+        "tree.json",
+        "accessibility.json",
+        "visual/visual-run.json",
+        "visual/windows-reference.json",
+        "portable-headless-comparison-dashboard.json"
+      ]
+    }
+  ],
+  "requiredDocs": [
+    "README.md",
+    "docs/release/phase-15-release-hardening.md",
+    "docs/release/sample-workflows.md",
+    "docs/release/release-gates.md",
+    "docs/release/support-policy.md",
+    "docs/release/final-production-gate.md",
+    "docs/release/production-evidence-view.md",
+    "docs/compatibility/matrix.md",
+    "docs/compatibility/component-support.md",
+    "docs/architecture/ci-strategy.md",
+    "docs/architecture/artifacts.md"
+  ],
+  "localCommands": [
+    "PATH=\u0022$PWD/tools:$PATH\u0022 winui3-mac-release-ready-local",
+    "PATH=\u0022$PWD/tools:$PATH\u0022 winui3-mac-runner release-hardening-manifest --check",
+    "PATH=\u0022$PWD/tools:$PATH\u0022 winui3-mac-runner release-candidate"
+  ],
+  "externalWorkflows": [
+    ".github/workflows/ci.yml",
+    ".github/workflows/windows-native-screenshot.yml"
+  ],
+  "baselineArtifacts": [
+    "docs/compatibility/corpus-inventory.json",
+    "docs/compatibility/corpus-unknown-apis.json",
+    "docs/visual-parity/component-quality-dashboard.json",
+    "docs/visual-parity/state-coverage-matrix.json",
+    "docs/visual-parity/native-quality-family-tranches.json",
+    "docs/visual-parity/broader-control-state-coverage.json"
+  ],
+  "compatibilityMatrices": [
+    "docs/compatibility/matrix.md",
+    "docs/compatibility/component-support.md",
+    "docs/compatibility/compatibility-levels.json",
+    "docs/compatibility/winui-api-compatibility.catalog.json"
+  ],
+  "artifactRetentionDocs": [
+    "docs/release/sample-workflows.md",
+    "docs/release/release-gates.md",
+    "docs/architecture/artifacts.md"
+  ],
+  "knownGapDocs": [
+    "docs/release/phase-15-release-hardening.md",
+    "docs/release/production-readiness.md",
+    "docs/visual-parity/broader-control-state-coverage.json",
+    "docs/visual-parity/native-quality-family-tranches.json"
+  ]
+}

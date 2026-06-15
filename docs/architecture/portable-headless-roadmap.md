@@ -57,7 +57,7 @@ runtime proves the custom provider.
 | 12.5 | macOS windowed live interaction loop | Windowed host maps click/key events to local runtime node state, redraws focus/press/toggle/selection/text overlays, and writes live state evidence |
 | 13 | Optional Windows custom-runtime UIA provider | Windows-only custom-runtime UIA provider scaffold maps `AutomationCore` to UIA ControlTypes/patterns while staying distinct from native reference |
 | 14 | Broader controls and states | `broader-control-state-coverage` publishes a guarded compatibility dashboard for ComboBox, ListView, InfoBar, Flyout, ContentDialog, Slider, ProgressRing, and ProgressBar with default/hover/pressed/disabled/focused/selected state separation and supported/partial/planned buckets |
-| 15 | Release hardening | Versioned docs, samples, gates, and compatibility matrices |
+| 15 | Release hardening | `release-hardening-manifest` guards external developer docs, no-app-source-change demo commands, Linux portable-headless plus Windows reference workflow guidance, known gaps, baseline management, artifact retention, and versioned compatibility matrix links |
 
 ## Current Command Boundary
 

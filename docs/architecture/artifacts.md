@@ -23,6 +23,7 @@ a new schema version and documentation update.
 | `docs/visual-parity/state-coverage-matrix.json` | `0.1` |
 | `docs/visual-parity/broader-control-state-coverage.json` | `0.1` |
 | `docs/visual-parity/native-quality-family-tranches.json` | `0.1` |
+| `docs/release/release-hardening-manifest.json` | `0.1` |
 | `docs/visual-parity/public-visual-review-index.json` | `0.2` |
 | `native-reference-import.json` | `0.2` |
 | `resource-failures.json` | `0.1` |
@@ -216,6 +217,11 @@ a new schema version and documentation update.
   C work queue stays linked to the Milestone D state matrix. For
   `not-evaluated` rows with failed component crops, the row `remainingBlocker`
   includes the failed crop status and threshold-exceeding metric values.
+- `docs/release/release-hardening-manifest.json`: generated Phase 15 release
+  hardening manifest. It records external developer docs, sample workflow
+  coverage, no-app-source-change demo commands, known-gap docs, baseline
+  artifacts, artifact retention docs, compatibility matrices, and the local
+  release commands that must stay discoverable before release.
 - `visual/windows-reference.png`: copy of the Windows-hosted reference
   screenshot captured by the public workflow or supplied with `--reference`.
   Current checked-in examples are synthetic `WindowsNativeProbe` captures, not

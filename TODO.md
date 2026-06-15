@@ -7,19 +7,14 @@ durable architecture and phase details live in `docs/plans/index.md`,
 
 ## Now
 
-1. Phase 15 release hardening
-   - Version docs, samples, gates, and compatibility matrices for the current
-     portable-headless architecture.
-   - Preserve existing release gates and keep README/product claims honest.
-
-## Next
-
-2. Direct ingestion Track C
+1. Direct ingestion Track C
    - Add the UIA/FlaUI-compatible artifact adapter over `tree.json`,
      `accessibility.json`, and `interactions.json`.
    - Keep it separate from native Windows FlaUI/UIA3 reference evidence.
 
-3. EMSI direct runtime UI gap closure Phase 2
+## Next
+
+2. EMSI direct runtime UI gap closure Phase 2
    - Add fail-first direct Login `DataContext` bootstrap tests.
    - Implement the bootstrap without backend calls or credentials.
 
@@ -110,3 +105,10 @@ or been superseded by a newer plan.
   ComboBox, ListView, InfoBar, Flyout, ContentDialog, Slider, ProgressRing, and
   ProgressBar coverage with explicit default/hover/pressed/disabled/focused/
   selected state separation plus supported/partial/planned status buckets.
+- Phase 15 release hardening:
+  `ReleaseHardeningManifestBuilder`, `release-hardening-manifest`,
+  `docs/release/release-hardening-manifest.json`, and
+  `docs/release/phase-15-release-hardening.md` now guard external developer
+  docs, sample workflow guidance, no-app-source-change demo commands, known
+  gaps, baseline management, artifact retention, and versioned compatibility
+  matrix links without expanding the source-level support claim.

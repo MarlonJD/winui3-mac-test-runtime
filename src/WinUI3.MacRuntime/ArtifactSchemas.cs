@@ -23,6 +23,7 @@ public static class ArtifactSchemas
     public const string PixelDiff = "0.1";
     public const string ProductEvidence = "0.1";
     public const string ProjectIngestion = "0.1";
+    public const string ReleaseHardeningManifest = "0.1";
     public const string RunReport = "0.1";
     public const string ResourceFailures = "0.1";
     public const string Scenario = "0.1";

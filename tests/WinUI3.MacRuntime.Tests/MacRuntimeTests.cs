@@ -4410,6 +4410,58 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void Phase15ReleaseHardeningManifestPublishesExternalDeveloperReadyArtifacts()
+    {
+        var manifest = ReleaseHardeningManifestBuilder.Build(RepositoryRoot());
+
+        Assert.AreEqual(ArtifactSchemas.ReleaseHardeningManifest, manifest.SchemaVersion);
+        Assert.AreEqual("phase15-release-hardening", manifest.Profile);
+        Assert.AreEqual("ready-pending-external-evidence", manifest.Status);
+        CollectionAssert.Contains(manifest.RequiredDocs.ToArray(), "docs/release/phase-15-release-hardening.md");
+        CollectionAssert.Contains(manifest.RequiredDocs.ToArray(), "docs/release/sample-workflows.md");
+        CollectionAssert.Contains(manifest.RequiredDocs.ToArray(), "docs/release/release-gates.md");
+        CollectionAssert.Contains(manifest.RequiredDocs.ToArray(), "docs/compatibility/matrix.md");
+        CollectionAssert.Contains(manifest.LocalCommands.ToArray(), "PATH=\"$PWD/tools:$PATH\" winui3-mac-release-ready-local");
+        CollectionAssert.Contains(manifest.ExternalWorkflows.ToArray(), ".github/workflows/ci.yml");
+        CollectionAssert.Contains(manifest.ExternalWorkflows.ToArray(), ".github/workflows/windows-native-screenshot.yml");
+
+        var categories = manifest.Categories.ToDictionary(category => category.Name, StringComparer.Ordinal);
+        Assert.AreEqual("documented", categories["CLI polish"].Status);
+        Assert.AreEqual("documented", categories["GitHub Action docs"].Status);
+        Assert.AreEqual("documented", categories["Sample projects"].Status);
+        Assert.AreEqual("documented", categories["Known gaps"].Status);
+        Assert.AreEqual("documented", categories["Baseline management"].Status);
+        Assert.AreEqual("documented", categories["Artifact retention"].Status);
+        Assert.AreEqual("documented", categories["Versioned compatibility matrix"].Status);
+
+        var noSourceChangeDemo = manifest.Demos.Single(demo => demo.Name == "no-app-source-change-supported-subset");
+        Assert.AreEqual("fixtures/PublicAdminWorkbench.WinUI/PublicAdminWorkbench.WinUI.csproj", noSourceChangeDemo.ProjectPath);
+        Assert.IsTrue(noSourceChangeDemo.Commands.Any(command => command.Contains("--renderer skia-v2", StringComparison.Ordinal)));
+        Assert.IsTrue(noSourceChangeDemo.Commands.Any(command => command.Contains("windows-native-screenshot.yml", StringComparison.Ordinal)));
+        Assert.IsTrue(noSourceChangeDemo.Policy.Contains("does not mutate app source", StringComparison.Ordinal));
+    }
+
+    [TestMethod]
+    public void Phase15ReleaseHardeningManifestMatchesTrackedArtifactAndReleaseCandidateGate()
+    {
+        var expected = ReleaseHardeningManifestBuilder.Build(RepositoryRoot());
+        var actual = File.ReadAllText(RepositoryPath(ReleaseHardeningManifestBuilder.DefaultArtifactPath));
+
+        Assert.AreEqual(
+            NormalizeArtifact(JsonSerializer.Serialize(expected, JsonDefaults.Options)),
+            NormalizeArtifact(actual),
+            $"{ReleaseHardeningManifestBuilder.DefaultArtifactPath} is out of date. Regenerate with 'winui3-mac-runner release-hardening-manifest'.");
+
+        var releaseCandidate = File.ReadAllText(RepositoryPath("src/WinUI3.MacRunner/ReleaseCandidate.cs"));
+        StringAssert.Contains(releaseCandidate, "CheckReleaseHardeningManifest");
+        StringAssert.Contains(releaseCandidate, "release-hardening-manifest");
+
+        var readme = File.ReadAllText(RepositoryPath("README.md"));
+        StringAssert.Contains(readme, "Phase 15 release hardening");
+        StringAssert.Contains(readme, "docs/release/release-hardening-manifest.json");
+    }
+
+    [TestMethod]
     public void WindowsNativeReferenceWorkflowCoversEveryComponentParityScenario()
     {
         var workflow = File.ReadAllText(RepositoryPath(".github/workflows/windows-native-screenshot.yml"));

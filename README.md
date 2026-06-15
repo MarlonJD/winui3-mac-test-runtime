@@ -116,6 +116,22 @@ The script runs the full local gate in order: `dotnet build`, the compiled
 MSTest assemblies, strict scenario product evidence, public product evidence,
 package dry-run artifacts, `release-check`, and `release-candidate`.
 
+## Phase 15 Release Hardening
+
+Phase 15 release hardening is tracked by
+`docs/release/release-hardening-manifest.json` and documented in
+`docs/release/phase-15-release-hardening.md`. It packages the external
+developer docs, sample workflow guidance, known gaps, baseline management,
+artifact retention guidance, and versioned compatibility matrix links without
+expanding the support claim.
+
+The sample default workflow shape is documented in
+`docs/release/sample-workflows.md`: `ubuntu-latest` runs portable-headless with
+the internal driver and Skia offscreen renderer, while `windows-latest` runs the
+Windows native reference lane with FlaUI.UIA3 and native WinUI rendering.
+macOS windowed and AX lanes remain local/manual, scheduled, release, or
+self-hosted validation only.
+
 Native-quality labels remain per-component-row labels only. Source-level
 production labels, diagnostic exclusions, Windows-only exclusions, and non-goal
 exclusions stay separate from native-quality promotion.

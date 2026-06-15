@@ -481,6 +481,14 @@ Tooling'i kullanılabilir ürün haline getirmek.
 
 ### Done
 
-- External developer docs hazır.
-- “No app source change within supported subset” demo çalışır.
+- External developer docs hazır:
+  `docs/release/phase-15-release-hardening.md` and
+  `docs/release/sample-workflows.md`.
+- `release-hardening-manifest` command produces
+  `docs/release/release-hardening-manifest.json`.
+- Release-candidate checks the release hardening manifest freshness.
+- “No app source change within supported subset” demo commands are documented
+  for `fixtures/PublicAdminWorkbench.WinUI`.
 - Linux portable-headless + Windows reference sample workflow hazır.
+- Known gaps, baseline management, artifact retention guidance, and versioned
+  compatibility matrix links are tracked without expanding the support claim.

@@ -36,6 +36,7 @@ internal static class Cli
             "benchmark" => await ProductionGatesCommand.RunBenchmarkAsync(args[1..]),
             "release-check" => await ProductionGatesCommand.RunReleaseCheckAsync(args[1..]),
             "release-candidate" => await ReleaseCandidateCommand.RunAsync(args[1..]),
+            "release-hardening-manifest" => RunReleaseHardeningManifest(args[1..]),
             "product-evidence" => await RunProductEvidenceAsync(args[1..]),
             "catalog-audit" => RunCatalogAudit(args[1..]),
             "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
@@ -708,6 +709,43 @@ internal static class Cli
         File.WriteAllText(outputPath, json);
         Console.WriteLine($"broader-control-state-coverage.json: {outputPath}");
         return 0;
+    }
+
+    private static int RunReleaseHardeningManifest(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "release-hardening-manifest"));
+        var defaultPath = Path.Combine(repositoryRoot, ReleaseHardeningManifestBuilder.DefaultArtifactPath);
+        var outputPath = Path.GetFullPath(ReadOption(args, "--output") ?? defaultPath);
+        var check = HasOption(args, "--check");
+
+        var manifest = ReleaseHardeningManifestBuilder.Build(repositoryRoot);
+        var json = JsonSerializer.Serialize(manifest, JsonDefaults.Options);
+
+        Console.WriteLine(
+            $"release-hardening-manifest: {manifest.Categories.Count} categories, {manifest.RequiredDocs.Count} docs, status {manifest.Status}.");
+
+        if (check)
+        {
+            if (!File.Exists(outputPath))
+            {
+                Console.Error.WriteLine($"release-hardening-manifest --check failed: missing {outputPath}. Regenerate with 'winui3-mac-runner release-hardening-manifest'.");
+                return 1;
+            }
+
+            if (NormalizeJson(File.ReadAllText(outputPath)) != NormalizeJson(json))
+            {
+                Console.Error.WriteLine($"release-hardening-manifest --check failed: {outputPath} is out of date. Regenerate with 'winui3-mac-runner release-hardening-manifest'.");
+                return 1;
+            }
+
+            Console.WriteLine($"release-hardening-manifest --check passed: {outputPath} is up to date.");
+            return manifest.Status == "blocked" ? 1 : 0;
+        }
+
+        Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+        File.WriteAllText(outputPath, json);
+        Console.WriteLine($"release-hardening-manifest.json: {outputPath}");
+        return manifest.Status == "blocked" ? 1 : 0;
     }
 
     private static int RunNativeQualityFamilyTranches(string[] args)
@@ -1392,6 +1430,7 @@ internal static class Cli
         Console.WriteLine("  benchmark [--output <path>] [--iterations <count>]");
         Console.WriteLine("  release-check [--package-dir <dir>] [--output <path>]");
         Console.WriteLine("  release-candidate [--package-dir <dir>] [--output <path>] [--skip-private-name-scan]");
+        Console.WriteLine("  release-hardening-manifest [--output <path>] [--check]");
         Console.WriteLine("  product-evidence [--profile public-product|strict-scenario-sweep] [--output <dir>]");
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");

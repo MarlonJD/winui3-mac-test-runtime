@@ -32,6 +32,7 @@ internal static class ReleaseCandidateCommand
             CheckComponentQualityDashboard(repositoryRoot),
             CheckStateCoverageMatrix(repositoryRoot),
             CheckNativeQualityFamilyTranches(repositoryRoot),
+            CheckReleaseHardeningManifest(repositoryRoot),
             CheckNativeProvenancePolicy(repositoryRoot),
             CheckNativeReferenceReadiness(repositoryRoot),
             CheckReleaseDocsPresent(repositoryRoot),
@@ -317,6 +318,31 @@ internal static class ReleaseCandidateCommand
             $"{expected.Totals.FamilyCount} native-quality family tranche(s) are tracked; {expected.Totals.BlockedFamilyCount} remain blocked pending promotion evidence.",
             ("families", expected.Totals.FamilyCount.ToString()),
             ("blockedFamilies", expected.Totals.BlockedFamilyCount.ToString()));
+    }
+
+    private static ReleaseCheck CheckReleaseHardeningManifest(string repositoryRoot)
+    {
+        var path = Path.Combine(repositoryRoot, ReleaseHardeningManifestBuilder.DefaultArtifactPath);
+        if (!File.Exists(path))
+        {
+            return Fail("release-hardening-manifest", $"Missing {path}. Run 'winui3-mac-runner release-hardening-manifest'.");
+        }
+
+        var expected = ReleaseHardeningManifestBuilder.Build(repositoryRoot);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonDefaults.Options);
+        if (NormalizeJson(File.ReadAllText(path)) != NormalizeJson(expectedJson))
+        {
+            return Fail(
+                "release-hardening-manifest",
+                "release-hardening-manifest.json is out of date. Run 'winui3-mac-runner release-hardening-manifest'.");
+        }
+
+        return expected.Status == "blocked"
+            ? Fail("release-hardening-manifest", "Phase 15 release hardening manifest is blocked by missing docs or workflow files.")
+            : Pass(
+                "release-hardening-manifest",
+                $"{expected.Categories.Count} Phase 15 release hardening category/categories are documented and gated.",
+                ("categories", expected.Categories.Count.ToString()));
     }
 
     private static ReleaseCheck CheckNativeProvenancePolicy(string repositoryRoot)

@@ -64,7 +64,7 @@ Use this order for future phases:
 | 12.5 | macos-windowed-live-interaction-guarded | `macos-windowed-host` generated Swift now maps mouse/key events to local runtime node state, redraws focus/press/toggle/selection/text overlays, writes `macos-windowed-live-state.json`, and remains local/manual rather than default PR CI |
 | 13 | windows-custom-runtime-uia-provider-guarded | `WindowsCustomRuntimeUiaProviderScaffold`, `windows-custom-runtime-uia`, and `WindowsCustomRuntimeUiaProviderTests` cover `AutomationCore` to Windows UIA ControlType/pattern mapping, provider source scaffolding, `windows-custom-runtime-uia-tree.json`, and lane metadata that is explicitly not `windows-reference` |
 | 14 | broader-control-state-coverage-guarded | `BroaderControlStateCoverageBuilder`, `broader-control-state-coverage`, and `docs/visual-parity/broader-control-state-coverage.json` cover ComboBox, ListView, InfoBar, Flyout, ContentDialog, Slider, ProgressRing, and ProgressBar with explicit default/hover/pressed/disabled/focused/selected state coverage and supported/partial/planned separation |
-| 15 | planned | Release hardening still needs to proceed from `CODEX_PHASE_PLAN.md` |
+| 15 | release-hardening-guarded | `ReleaseHardeningManifestBuilder`, `release-hardening-manifest`, `docs/release/release-hardening-manifest.json`, `docs/release/phase-15-release-hardening.md`, and `docs/release/sample-workflows.md` cover external developer docs, no-app-source-change demo commands, Linux portable-headless plus Windows reference workflow guidance, known gaps, baseline management, artifact retention, and versioned compatibility matrix links |
 
 ## Source Integrity Snapshot
 
