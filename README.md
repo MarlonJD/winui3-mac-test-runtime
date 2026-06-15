@@ -354,7 +354,10 @@ The runner writes artifacts to `artifacts/winui3-mac/` by default:
 - `unsupported-apis.json`: versioned envelope for placeholder facade APIs
   touched by the app.
 - `project-ingestion.json`: emitted when a Windows-targeted WinUI source
-  project is redirected through compat shadow build discovery.
+  project is inspected for direct project ingestion. It includes the generated
+  temporary source-level host under `/private/tmp/winui3-mac-test-runtime/`
+  plus the existing compat shadow build discovery paths when a run continues
+  into build/launch.
 - `diagnostics.sarif`: warning diagnostics for bindings, resources, and
   unsupported APIs with stable rule IDs.
 - `interactions.json`: optional scripted interaction results with selector,

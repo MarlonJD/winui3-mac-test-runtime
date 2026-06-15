@@ -51,10 +51,15 @@ a new schema version and documentation update.
   (`planned`, `windows-only`, or `not supported`) or `unknown` when the API is
   not cataloged yet.
 - `project-ingestion.json`: emitted for Windows-targeted WinUI source projects
-  that use compat shadow build discovery. It records the original project, the
-  generated shadow project, included C# and XAML files, excluded Windows-only
-  items such as `Microsoft.WindowsAppSDK`, catalog statuses for project
-  features, unsupported project features, and blocking XAML diagnostics.
+  inspected for direct project ingestion. It records the original project, the
+  generated temporary source-level host (`generatedHostPath` and
+  `generatedHostProjectPath`) under
+  `/private/tmp/winui3-mac-test-runtime/generated-hosts/`, the existing compat
+  shadow project path when a run proceeds into build/launch, included C# and
+  XAML files, excluded Windows-only items such as `Microsoft.WindowsAppSDK`,
+  catalog statuses for project features, unsupported project features, and
+  blocking XAML diagnostics. The generated host is a macOS source-level harness;
+  it is not a Windows `.exe` or `.msix` execution path.
 - `diagnostics.sarif`: warning-level diagnostics derived from binding, resource,
   and unsupported API reports.
 - `native-reference-import.json`: normalized import manifest for downloaded
@@ -172,11 +177,13 @@ references are resolved by scenario from `native-reference-import.json` or
 adjacent native WinUI provenance.
 
 When `--project` points at a Windows-targeted WinUI source project, the runner
-does not mutate or build the original Windows project. It writes a compat shadow
-project under the output directory, retargets it to the managed macOS facade,
-compiles supported XAML with the local compiler, and writes
-`project-ingestion.json` before launch. Unsupported project or XAML features
-fail before shadow build with catalog-backed diagnostics.
+does not mutate or build the original Windows project. Project inspection writes
+a generated temporary source-level host under `/private/tmp`, then the existing
+compat shadow build path can retarget supported source/XAML to the managed
+macOS facade and write `project-ingestion.json` before launch. Unsupported
+project or XAML features are reported with catalog-backed diagnostics. Direct
+page/window selection and semantic automation are separate runtime phases from
+this host-generation contract.
 
 `--strict-visual` fails the process when binding failures, resource failures,
 unsupported facade APIs, unsupported visual painters, failed interactions, or

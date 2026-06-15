@@ -1,4 +1,6 @@
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Xml.Linq;
 using WinUI3.MacCompatibility;
@@ -22,6 +24,8 @@ public sealed record ProjectIngestionReport(
     string Status,
     string SourceProjectPath,
     string? ShadowProjectPath,
+    string? GeneratedHostPath,
+    string? GeneratedHostProjectPath,
     bool IsShadowBuild,
     string? TargetFramework,
     bool IsWindowsTargetedWinUI,
@@ -93,7 +97,8 @@ public sealed class ProjectIngestionService
 
         var reportPath = Path.Combine(outputRoot, "project-ingestion.json");
         var shadowProjectPath = Path.Combine(shadowDirectory, Path.GetFileName(projectPath));
-        var report = BuildDiscoveryReport(model, configuration);
+        var generatedHost = GeneratedSourceHostWriter.Write(model);
+        var report = BuildDiscoveryReport(model, configuration, generatedHost);
         var hasBlockingDiagnostics = report.Status == ProjectIngestionStatuses.Failed;
         if (!hasBlockingDiagnostics)
         {
@@ -124,10 +129,10 @@ public sealed class ProjectIngestionService
     public ProjectIngestionReport? Inspect(string projectPath, string configuration)
     {
         var model = ProjectModel.Read(projectPath);
-        return model.IsWindowsTargetedWinUI ? BuildDiscoveryReport(model, configuration) : null;
+        return model.IsWindowsTargetedWinUI ? BuildDiscoveryReport(model, configuration, generatedHost: null) : null;
     }
 
-    private static ProjectIngestionReport BuildDiscoveryReport(ProjectModel model, string configuration)
+    private static ProjectIngestionReport BuildDiscoveryReport(ProjectModel model, string configuration, GeneratedSourceHost? generatedHost)
     {
         var includedFiles = model.SourceFiles
             .Select(path => new ProjectIngestionFile(model.RelativeToProject(path), "compile"))
@@ -147,6 +152,8 @@ public sealed class ProjectIngestionService
             Status: hasBlockingDiagnostics ? ProjectIngestionStatuses.Failed : ProjectIngestionStatuses.Passed,
             SourceProjectPath: model.ProjectPath,
             ShadowProjectPath: null,
+            GeneratedHostPath: generatedHost?.RootDirectory,
+            GeneratedHostProjectPath: generatedHost?.ProjectPath,
             IsShadowBuild: true,
             TargetFramework: model.TargetFramework,
             IsWindowsTargetedWinUI: true,
@@ -460,6 +467,114 @@ public sealed class ProjectIngestionService
             }
 
             throw new FileNotFoundException($"Runtime dependency '{fileName}' was not found.", sourceDependency);
+        }
+
+        private static string FindRepositoryRoot(string startDirectory)
+        {
+            var directory = new DirectoryInfo(Path.GetFullPath(startDirectory));
+            while (directory is not null)
+            {
+                if (File.Exists(Path.Combine(directory.FullName, "WinUI3.MacTestRuntime.sln")))
+                {
+                    return directory.FullName;
+                }
+
+                directory = directory.Parent;
+            }
+
+            return Environment.CurrentDirectory;
+        }
+    }
+
+    private sealed record GeneratedSourceHost(string RootDirectory, string ProjectPath);
+
+    private static class GeneratedSourceHostWriter
+    {
+        private const string HostTargetFramework = "net10.0";
+        private const string HostRootDirectory = "/private/tmp/winui3-mac-test-runtime/generated-hosts";
+
+        public static GeneratedSourceHost Write(ProjectModel model)
+        {
+            var root = Path.Combine(HostRootDirectory, $"{Sanitize(Path.GetFileNameWithoutExtension(model.ProjectPath))}-{StableHash(model.ProjectPath)}");
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+
+            Directory.CreateDirectory(root);
+            File.WriteAllText(Path.Combine(root, "App.xaml"), """
+                <Application
+                    x:Class="WinUI3.MacRunner.GeneratedHost.App"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" />
+                """);
+            File.WriteAllText(Path.Combine(root, "App.xaml.cs"), """
+                namespace WinUI3.MacRunner.GeneratedHost;
+
+                public sealed class App
+                {
+                }
+
+                public static class Program
+                {
+                    public static int Main()
+                    {
+                        return 0;
+                    }
+                }
+                """);
+
+            var projectPath = Path.Combine(root, "GeneratedWinUIAppHost.csproj");
+            File.WriteAllText(projectPath, WriteProject(model));
+            return new GeneratedSourceHost(root, projectPath);
+        }
+
+        private static string WriteProject(ProjectModel model)
+        {
+            var repositoryRoot = FindRepositoryRoot(Environment.CurrentDirectory);
+            var document = new XDocument(
+                new XElement("Project",
+                    new XAttribute("Sdk", "Microsoft.NET.Sdk"),
+                    new XElement("PropertyGroup",
+                        new XElement("OutputType", "Exe"),
+                        new XElement("TargetFramework", HostTargetFramework),
+                        new XElement("AssemblyName", "GeneratedWinUIAppHost"),
+                        new XElement("RootNamespace", "WinUI3.MacRunner.GeneratedHost"),
+                        new XElement("ImplicitUsings", "enable"),
+                        new XElement("Nullable", "enable"),
+                        new XElement("EnableDefaultCompileItems", "false")),
+                    new XElement("ItemGroup",
+                        ProjectReference(repositoryRoot, "WinUI3.MacCompat"),
+                        ProjectReference(repositoryRoot, "WinUI3.MacRuntime"),
+                        ProjectReference(repositoryRoot, "WinUI3.MacXaml")),
+                    new XElement("ItemGroup",
+                        new XElement("Compile", new XAttribute("Include", "App.xaml.cs"))),
+                    new XElement("ItemGroup",
+                        model.XamlFiles.Select(path =>
+                            new XElement("WinUI3MacXaml",
+                                new XAttribute("Include", path),
+                                new XAttribute("Link", model.RelativeToProject(path)))))));
+
+            return document.ToString();
+        }
+
+        private static XElement ProjectReference(string repositoryRoot, string projectName)
+        {
+            return new XElement(
+                "ProjectReference",
+                new XAttribute("Include", Path.Combine(repositoryRoot, "src", projectName, $"{projectName}.csproj")));
+        }
+
+        private static string StableHash(string value)
+        {
+            var hash = SHA256.HashData(Encoding.UTF8.GetBytes(Path.GetFullPath(value)));
+            return Convert.ToHexString(hash).ToLowerInvariant()[..16];
+        }
+
+        private static string Sanitize(string value)
+        {
+            return new string(value.Select(character =>
+                char.IsLetterOrDigit(character) || character is '-' or '_' ? character : '-').ToArray());
         }
 
         private static string FindRepositoryRoot(string startDirectory)
