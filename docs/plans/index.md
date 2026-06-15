@@ -7,4 +7,4 @@ predate this index are left in place and are not reclassified here.
 
 | Status | Plan | Owner | Next todo |
 | --- | --- | --- | --- |
-| active | [MeetingChallenge production source runtime host](2026-06-15-meetingchallenge-production-source-runtime-host-plan.md) | `tools/winui3-mac-test-runtime` + downstream `apps/windows` | Phase 0 audit, then create `MeetingChallenge.WinUI.MacRuntimeProductionHost` with real production XAML links. |
+| active | [Direct WinUI app project runtime ingestion](2026-06-15-direct-winui-app-project-runtime-ingestion-plan.md) | `tools/winui3-mac-test-runtime` | Phase 0 baseline, then implement `winui3-mac-runner run --project <real WinUI app csproj>` via runtime-owned project inspection and generated temporary hosts. |
