@@ -9,6 +9,7 @@ public static class ArtifactSchemas
     public const string Accessibility = "0.3";
     public const string AutomationCore = "0.1";
     public const string BindingFailures = "0.1";
+    public const string BroaderControlStateCoverage = "0.1";
     public const string ComponentEvidence = "0.5";
     public const string ComponentInspection = "0.2";
     public const string ComponentQualityDashboard = "0.3";
@@ -37,6 +38,7 @@ public static class ArtifactSchemas
     public const string VisualReview = "0.3";
     public const string VisualReviewIndex = "0.2";
     public const string VisualUiTree = "0.2";
+    public const string WindowsCustomRuntimeUiaProvider = "0.1";
 }
 
 public static class DiagnosticRuleIds

@@ -1,6 +1,10 @@
 # Control Support Matrix Seed
 
-This is the initial MVP support matrix.
+This is the initial MVP support matrix. The current Phase 14 broader control
+and state dashboard is generated at
+`docs/visual-parity/broader-control-state-coverage.json`; keep this seed as the
+MVP baseline/history and use the generated dashboard for the current
+supported/partial/planned split.
 
 ## Legend
 
@@ -111,6 +115,18 @@ Screenshot selected state
 | hover | windowed only/later |
 | selected | NavigationViewItem/RadioButton |
 | error/validation | later |
+
+## Phase 14 dashboard
+
+The broader matrix now tracks the post-MVP controls and required states below:
+
+```text
+Controls: ComboBox, ListView, InfoBar, Flyout, ContentDialog, Slider, ProgressRing, ProgressBar
+States: default, hover, pressed, disabled, focused, selected
+```
+
+`supported`, `partial`, and `planned` in the generated dashboard are evidence
+and implementation status labels, not native WinUI fidelity claims.
 
 ## Matrix update rule
 

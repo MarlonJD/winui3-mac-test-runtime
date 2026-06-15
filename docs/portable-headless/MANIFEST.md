@@ -61,7 +61,10 @@ Use this order for future phases:
 | 10 | comparison-dashboard-guarded | `PortableHeadlessComparisonDashboard`, `portable-headless-dashboard`, and `Phase10ComparisonDashboardTests` cover JSON/Markdown reports for scenario result, automation node, bounds tolerance, and visual diff comparisons between `portable-headless` and `windows-reference` artifacts |
 | 11 | macos-windowed-host-guarded | `MacOsWindowedHostScaffold`, `macos-windowed-host`, and `MacOsWindowedHostTests` cover a local/manual AppKit window scaffold over Skia runtime artifacts, coordinate conversion, hit-test event logging, `macos-windowed` metadata, and no AX/Metal/default-PR-CI coupling |
 | 12 | macos-ax-adapter-guarded | `MacOsAxAdapterScaffold`, `macos-ax-adapter`, and `MacOsAxAdapterTests` cover optional/local `AutomationCore` to `NSAccessibilityElement` role/action/value mapping, `macos-ax-tree.json`, `MacOsAxAdapter.swift`, `macos-windowed-ax-adapter.json`, and no portable-headless/default-PR-CI coupling |
-| 13-15 | planned | Implementation still needs to proceed phase by phase from `CODEX_PHASE_PLAN.md` |
+| 12.5 | macos-windowed-live-interaction-guarded | `macos-windowed-host` generated Swift now maps mouse/key events to local runtime node state, redraws focus/press/toggle/selection/text overlays, writes `macos-windowed-live-state.json`, and remains local/manual rather than default PR CI |
+| 13 | windows-custom-runtime-uia-provider-guarded | `WindowsCustomRuntimeUiaProviderScaffold`, `windows-custom-runtime-uia`, and `WindowsCustomRuntimeUiaProviderTests` cover `AutomationCore` to Windows UIA ControlType/pattern mapping, provider source scaffolding, `windows-custom-runtime-uia-tree.json`, and lane metadata that is explicitly not `windows-reference` |
+| 14 | broader-control-state-coverage-guarded | `BroaderControlStateCoverageBuilder`, `broader-control-state-coverage`, and `docs/visual-parity/broader-control-state-coverage.json` cover ComboBox, ListView, InfoBar, Flyout, ContentDialog, Slider, ProgressRing, and ProgressBar with explicit default/hover/pressed/disabled/focused/selected state coverage and supported/partial/planned separation |
+| 15 | planned | Release hardening still needs to proceed from `CODEX_PHASE_PLAN.md` |
 
 ## Source Integrity Snapshot
 

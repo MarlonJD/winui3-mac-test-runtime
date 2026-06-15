@@ -367,6 +367,35 @@ macOS platform accessibility/automation bridge'i doğrulamak.
 
 ---
 
+## Phase 12.5 — macOS windowed live interaction loop
+
+### Amaç
+
+`macos-windowed` host'u sadece PNG viewer olmaktan çıkarıp local/manual canlı
+debug yüzeyi haline getirmek.
+
+### İşler
+
+- Window mouse/key/scroll events -> runtime hit-test node.
+- Click/type/toggle/select state -> local live interaction state.
+- Focus, button press, checkbox/toggle, selection, and text input visual
+  overlays.
+- Window redraw after state mutation.
+- `macos-windowed-live-state.json` evidence.
+- Keep this local/manual; do not add hosted macOS PR CI.
+- Keep AX adapter separate from this host loop.
+
+### Done
+
+- Button click produces visible press/focus feedback.
+- TextBox focus/type updates visible text overlay.
+- CheckBox/Toggle state changes visually.
+- `macos-windowed-events.jsonl` and `macos-windowed-live-state.json` are
+  produced.
+- This remains optional/manual/local and not default PR CI.
+
+---
+
 ## Phase 13 — Optional Windows custom-runtime UIA provider
 
 ### Amaç
@@ -385,6 +414,9 @@ Bizim custom runtime Windows'ta çalışırsa FlaUI.UIA3 ile test edilebilir hal
 
 ### Done
 
+- `windows-custom-runtime-uia` command produces provider scaffold artifacts.
+- `AutomationCore` nodes map to Windows UIA ControlType and pattern names.
+- Provider source exposes Invoke/Value/Toggle/Selection/Scroll provider surface.
 - FlaUI bizim custom-rendered runtime'ı Windows'ta sürebilir.
 - Native WinUI reference ile karışmaz.
 
@@ -419,8 +451,15 @@ MVP sonrası component coverage genişletmek.
 
 ### Done
 
-- Compatibility dashboard controls/states bazında güncel.
+- `broader-control-state-coverage` command produces the Phase 14 dashboard.
+- `docs/visual-parity/broader-control-state-coverage.json` tracks ComboBox,
+  ListView, InfoBar, Flyout, ContentDialog, Slider, ProgressRing, and
+  ProgressBar.
+- The dashboard names default, hover, pressed, disabled, focused, and selected
+  coverage per control.
 - Supported/partial/planned ayrımı açık.
+- VisualStateManager, resource/theme, and accessibility-pattern expansion
+  coverage is visible without claiming native WinUI visual fidelity.
 
 ---
 

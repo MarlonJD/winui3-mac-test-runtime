@@ -155,6 +155,27 @@ AutomationCore exposed as UIA provider
 FlaUI.UIA3 tests our runtime
 ```
 
+Current scaffold:
+
+```sh
+winui3-mac-runner windows-custom-runtime-uia \
+  --automation <automation-core.json> \
+  --output artifacts/windows-custom-runtime/<scenario> \
+  --scenario <scenario>
+```
+
+Outputs:
+
+```text
+windows-custom-runtime-uia-provider.json
+windows-custom-runtime-uia-tree.json
+WindowsCustomRuntimeUiaProvider.cs
+```
+
+The provider source is Windows-only scaffold code for a custom rendered host. It
+must not be loaded by portable-headless and must not be used as native WinUI
+reference evidence.
+
 This is not native WinUI reference.
 
 ## Adapter separation

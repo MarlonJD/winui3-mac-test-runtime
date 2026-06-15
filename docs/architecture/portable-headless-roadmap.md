@@ -54,8 +54,9 @@ runtime proves the custom provider.
 | 10 | Comparison dashboard | JSON/Markdown dashboard compares portable scenario, automation, bounds, and visual evidence with Windows native reference artifacts |
 | 11 | macOS windowed host | Local/manual AppKit window scaffold displays Skia artifacts and logs internal-driver input without becoming default PR CI |
 | 12 | macOS AX adapter | `AutomationCore` maps to a local/manual NSAccessibility scaffold with role/action/value metadata and no default PR CI coupling |
-| 13 | Optional Windows custom-runtime UIA provider | UIA provider over this runtime, kept distinct from native reference |
-| 14 | Broader controls and states | Expanded support matrix and state coverage |
+| 12.5 | macOS windowed live interaction loop | Windowed host maps click/key events to local runtime node state, redraws focus/press/toggle/selection/text overlays, and writes live state evidence |
+| 13 | Optional Windows custom-runtime UIA provider | Windows-only custom-runtime UIA provider scaffold maps `AutomationCore` to UIA ControlTypes/patterns while staying distinct from native reference |
+| 14 | Broader controls and states | `broader-control-state-coverage` publishes a guarded compatibility dashboard for ComboBox, ListView, InfoBar, Flyout, ContentDialog, Slider, ProgressRing, and ProgressBar with default/hover/pressed/disabled/focused/selected state separation and supported/partial/planned buckets |
 | 15 | Release hardening | Versioned docs, samples, gates, and compatibility matrices |
 
 ## Current Command Boundary

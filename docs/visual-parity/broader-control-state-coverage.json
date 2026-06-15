@@ -1,0 +1,486 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "1970-01-01T00:00:00+00:00",
+  "profile": "phase14-broader-control-state-coverage",
+  "policy": "Broader control/state coverage is a compatibility dashboard contract, not a native-fidelity claim. Controls remain supported, partial, or planned until portable-headless render, AutomationCore, state, resource/theme, and scenario evidence all line up.",
+  "totals": {
+    "controlCount": 8,
+    "supportStatusCounts": {
+      "partial": 4,
+      "planned": 3,
+      "supported": 1
+    },
+    "rendererStatusCounts": {
+      "partial": 5,
+      "planned": 2,
+      "supported": 1
+    },
+    "automationStatusCounts": {
+      "partial": 5,
+      "planned": 3
+    },
+    "fullyStateCoveredControlCount": 1,
+    "partialStateCoveredControlCount": 4,
+    "plannedStateCoveredControlCount": 7
+  },
+  "stateModel": {
+    "states": [
+      "default",
+      "hover",
+      "pressed",
+      "disabled",
+      "focused",
+      "selected"
+    ],
+    "policy": "Every Phase 14 control must name default, hover, pressed, disabled, focused, and selected coverage explicitly; missing states stay planned instead of being inferred from default screenshots.",
+    "promotionRequirements": [
+      "portable-headless render tree state flag",
+      "AutomationCore pattern or property exposure",
+      "scenario fixture or checked-in evidence path",
+      "resource/theme token mapping when visual state depends on theme",
+      "documented known gaps for partial and planned rows"
+    ]
+  },
+  "visualStateManagerExpansion": {
+    "status": "partial",
+    "requiredStateGroups": [
+      "CommonStates",
+      "FocusStates",
+      "SelectionStates",
+      "CheckStates",
+      "ValidationStates",
+      "InfoBarSeverityStates",
+      "DialogOverlayStates",
+      "ProgressStates"
+    ],
+    "runtimeCoverage": [
+      "CommonStates: default, disabled, focused",
+      "SelectionStates: selected for list-like controls",
+      "ProgressStates: determinate progress values"
+    ],
+    "plannedCoverage": [
+      "hover and pressed visuals across all controls",
+      "Flyout/Dialog overlay state transitions",
+      "ProgressRing indeterminate animation phase",
+      "InfoBar severity icon/resource variants"
+    ]
+  },
+  "resourceThemeCoverage": {
+    "status": "partial",
+    "requiredTokens": [
+      "ThemeResource",
+      "SystemControlForegroundBaseHighBrush",
+      "SystemControlBackgroundAccentBrush",
+      "ControlCornerRadius",
+      "FocusVisualPrimaryBrush",
+      "InfoBarSeverityIconForeground",
+      "ProgressBarIndicatorBrush"
+    ],
+    "runtimeCoverage": [
+      "ThemeResource lookup diagnostics",
+      "foreground/background brush fallback",
+      "focus visual brush tracking"
+    ],
+    "plannedCoverage": [
+      "full WinUI resource dictionary parity",
+      "InfoBar severity-specific tokens",
+      "ComboBox popup token set",
+      "Dialog/Flyout overlay tokens"
+    ]
+  },
+  "accessibilityPatternExpansion": {
+    "status": "partial",
+    "requiredPatterns": [
+      "InvokePattern",
+      "ValuePattern",
+      "RangeValuePattern",
+      "SelectionPattern",
+      "SelectionItemPattern",
+      "ExpandCollapsePattern",
+      "ScrollPattern",
+      "WindowPattern"
+    ],
+    "runtimeCoverage": [
+      "InvokePattern",
+      "ValuePattern",
+      "RangeValuePattern",
+      "SelectionItemPattern",
+      "ExpandCollapsePattern"
+    ],
+    "plannedCoverage": [
+      "SelectionPattern container semantics",
+      "WindowPattern dialog modality",
+      "ScrollPattern for virtualized list ranges",
+      "live-region/event semantics for InfoBar and progress"
+    ]
+  },
+  "controls": [
+    {
+      "control": "Slider",
+      "family": "Basic input",
+      "supportStatus": "partial",
+      "automationStatus": "partial",
+      "rendererStatus": "partial",
+      "requiredStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "supportedStates": [
+        "default",
+        "disabled",
+        "focused"
+      ],
+      "partialStates": [
+        "pressed"
+      ],
+      "plannedStates": [
+        "hover",
+        "selected"
+      ],
+      "visualStateGroups": [
+        "CommonStates",
+        "FocusStates"
+      ],
+      "resourceThemeTokens": [
+        "ThemeResource",
+        "SystemControlBackgroundAccentBrush",
+        "FocusVisualPrimaryBrush"
+      ],
+      "accessibilityPatterns": [
+        "RangeValuePattern"
+      ],
+      "scenarioCoverage": [
+        "planned: component-basic-input-slider-light"
+      ],
+      "knownGaps": [
+        "drag interaction and tick/snapping visuals are partial",
+        "hover visual is planned"
+      ],
+      "promotionStatus": "not-production-ready-state-gaps"
+    },
+    {
+      "control": "ListView",
+      "family": "Collections and templates",
+      "supportStatus": "partial",
+      "automationStatus": "partial",
+      "rendererStatus": "partial",
+      "requiredStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "supportedStates": [
+        "default",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "partialStates": [
+        "hover"
+      ],
+      "plannedStates": [
+        "pressed"
+      ],
+      "visualStateGroups": [
+        "CommonStates",
+        "FocusStates",
+        "SelectionStates"
+      ],
+      "resourceThemeTokens": [
+        "ThemeResource",
+        "SystemControlForegroundBaseHighBrush"
+      ],
+      "accessibilityPatterns": [
+        "SelectionPattern",
+        "SelectionItemPattern",
+        "ScrollPattern"
+      ],
+      "scenarioCoverage": [
+        "planned: component-collections-listview-light"
+      ],
+      "knownGaps": [
+        "virtualization is planned",
+        "pressed item visual is planned"
+      ],
+      "promotionStatus": "not-production-ready-state-gaps"
+    },
+    {
+      "control": "ContentDialog",
+      "family": "Dialogs and flyouts",
+      "supportStatus": "planned",
+      "automationStatus": "planned",
+      "rendererStatus": "planned",
+      "requiredStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "supportedStates": [
+        "default",
+        "focused"
+      ],
+      "partialStates": [],
+      "plannedStates": [
+        "hover",
+        "pressed",
+        "disabled",
+        "selected"
+      ],
+      "visualStateGroups": [
+        "DialogOverlayStates",
+        "FocusStates"
+      ],
+      "resourceThemeTokens": [
+        "ThemeResource",
+        "ControlCornerRadius"
+      ],
+      "accessibilityPatterns": [
+        "WindowPattern",
+        "InvokePattern"
+      ],
+      "scenarioCoverage": [
+        "planned: component-dialogs-flyouts-dialog-light"
+      ],
+      "knownGaps": [
+        "modal focus trap and button command routing are planned"
+      ],
+      "promotionStatus": "planned-control"
+    },
+    {
+      "control": "Flyout",
+      "family": "Dialogs and flyouts",
+      "supportStatus": "planned",
+      "automationStatus": "planned",
+      "rendererStatus": "planned",
+      "requiredStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "supportedStates": [
+        "default"
+      ],
+      "partialStates": [],
+      "plannedStates": [
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "visualStateGroups": [
+        "DialogOverlayStates"
+      ],
+      "resourceThemeTokens": [
+        "ThemeResource"
+      ],
+      "accessibilityPatterns": [
+        "WindowPattern"
+      ],
+      "scenarioCoverage": [
+        "planned: component-dialogs-flyouts-flyout-light"
+      ],
+      "knownGaps": [
+        "overlay placement, dismissal, and modality are planned"
+      ],
+      "promotionStatus": "planned-control"
+    },
+    {
+      "control": "ComboBox",
+      "family": "Selection and pickers",
+      "supportStatus": "partial",
+      "automationStatus": "partial",
+      "rendererStatus": "partial",
+      "requiredStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "supportedStates": [
+        "default",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "partialStates": [
+        "pressed"
+      ],
+      "plannedStates": [
+        "hover"
+      ],
+      "visualStateGroups": [
+        "CommonStates",
+        "FocusStates",
+        "SelectionStates"
+      ],
+      "resourceThemeTokens": [
+        "ThemeResource",
+        "SystemControlForegroundBaseHighBrush",
+        "FocusVisualPrimaryBrush"
+      ],
+      "accessibilityPatterns": [
+        "ExpandCollapsePattern",
+        "SelectionItemPattern",
+        "ValuePattern"
+      ],
+      "scenarioCoverage": [
+        "planned: component-status-pickers-combobox-light"
+      ],
+      "knownGaps": [
+        "popup placement/rendering remains planned",
+        "hover visual is planned"
+      ],
+      "promotionStatus": "not-production-ready-state-gaps"
+    },
+    {
+      "control": "InfoBar",
+      "family": "Status and feedback",
+      "supportStatus": "partial",
+      "automationStatus": "partial",
+      "rendererStatus": "partial",
+      "requiredStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "supportedStates": [
+        "default",
+        "disabled",
+        "focused"
+      ],
+      "partialStates": [
+        "hover",
+        "pressed"
+      ],
+      "plannedStates": [
+        "selected"
+      ],
+      "visualStateGroups": [
+        "CommonStates",
+        "FocusStates",
+        "InfoBarSeverityStates"
+      ],
+      "resourceThemeTokens": [
+        "ThemeResource",
+        "InfoBarSeverityIconForeground"
+      ],
+      "accessibilityPatterns": [
+        "InvokePattern"
+      ],
+      "scenarioCoverage": [
+        "planned: component-status-pickers-infobar-light"
+      ],
+      "knownGaps": [
+        "severity-specific icon/resource parity is partial",
+        "live-region events are planned"
+      ],
+      "promotionStatus": "not-production-ready-state-gaps"
+    },
+    {
+      "control": "ProgressBar",
+      "family": "Status and feedback",
+      "supportStatus": "supported",
+      "automationStatus": "partial",
+      "rendererStatus": "supported",
+      "requiredStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "supportedStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "partialStates": [],
+      "plannedStates": [],
+      "visualStateGroups": [
+        "CommonStates",
+        "ProgressStates"
+      ],
+      "resourceThemeTokens": [
+        "ThemeResource",
+        "ProgressBarIndicatorBrush"
+      ],
+      "accessibilityPatterns": [
+        "RangeValuePattern"
+      ],
+      "scenarioCoverage": [
+        "planned: component-status-pickers-progressbar-light"
+      ],
+      "knownGaps": [
+        "native visual fidelity still requires Windows-reference comparison"
+      ],
+      "promotionStatus": "coverage-dashboard-ready-reference-required"
+    },
+    {
+      "control": "ProgressRing",
+      "family": "Status and feedback",
+      "supportStatus": "planned",
+      "automationStatus": "planned",
+      "rendererStatus": "partial",
+      "requiredStates": [
+        "default",
+        "hover",
+        "pressed",
+        "disabled",
+        "focused",
+        "selected"
+      ],
+      "supportedStates": [
+        "default",
+        "disabled"
+      ],
+      "partialStates": [],
+      "plannedStates": [
+        "hover",
+        "pressed",
+        "focused",
+        "selected"
+      ],
+      "visualStateGroups": [
+        "ProgressStates"
+      ],
+      "resourceThemeTokens": [
+        "ThemeResource"
+      ],
+      "accessibilityPatterns": [
+        "RangeValuePattern"
+      ],
+      "scenarioCoverage": [
+        "planned: component-status-pickers-progressring-light"
+      ],
+      "knownGaps": [
+        "indeterminate animation phase is planned",
+        "live progress eventing is planned"
+      ],
+      "promotionStatus": "planned-control"
+    }
+  ],
+  "status": "tracked-with-gaps"
+}

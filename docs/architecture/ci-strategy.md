@@ -11,6 +11,7 @@ truth.
 | --- | --- | --- | --- | --- | --- |
 | Portable headless | `ubuntu-latest` | `portable-headless` | internal `AutomationCore` driver | Skia offscreen | Fast source-level compatibility, layout, text, automation, screenshot, and diagnostics signal |
 | Windows reference | `windows-latest` | `windows-reference` | FlaUI.UIA3 | native WinUI | Real WinUI behavior, native UIA tree, native screenshot, and reference artifacts |
+| Windows custom runtime | `windows-latest`, scheduled, release, or manual | `windows-custom-runtime` | FlaUI.UIA3 against custom provider | custom runtime renderer | Optional validation of this runtime's UIA provider, not native WinUI truth |
 
 The default `.github/workflows/ci.yml` workflow includes a dedicated
 `portable-headless` job on `ubuntu-latest`. It sets `WINUI3_COMPAT_MODE` to
@@ -25,6 +26,11 @@ sets `WINUI3_COMPAT_MODE=windows-reference`,
 `WINUI3_COMPAT_RUNTIME=native-winui`, `WINUI3_COMPAT_DRIVER=flaui-uia3`, and
 `WINUI3_COMPAT_RENDERER=native-winui`, then writes the same lane/runtime/
 driver/renderer values into each `windows-reference.json` artifact.
+
+Optional Windows custom-runtime UIA provider validation may run on
+`windows-latest`, scheduled, release, or manual lanes, but it must publish
+`windows-custom-runtime` artifacts and must not replace the `windows-reference`
+native WinUI source of truth.
 
 ## macOS Lane Policy
 

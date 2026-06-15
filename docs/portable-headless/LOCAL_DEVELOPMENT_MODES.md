@@ -44,6 +44,9 @@ NSWindow açar
 Skia runtime PNG artifact'ını pencerede gösterir
 mouse/keyboard/scroll eventlerini alır
 tree.json üzerinden coordinate conversion ve hit-test event log'u üretir
+click/key eventlerini local live state'e uygular
+focus, press, checkbox/toggle, selection ve text input overlay'lerini redraw eder
+macos-windowed-live-state.json üretir
 AX/NSAccessibility adapter değildir
 default PR CI değildir
 ```
@@ -108,18 +111,18 @@ Bu gerçek Windows WinUI app çalıştırır.
 
 ## 6. Local Windows — optional custom runtime
 
-Phase 13 sonrası:
+Custom runtime UIA provider scaffold için:
 
 ```sh
-winui3-compat-runner run \
-  --mode windows-custom-runtime \
-  --driver flaui-uia3 \
-  --renderer skia-offscreen \
-  --project src/MyApp/MyApp.csproj \
-  --scenario tests/scenarios/login.json
+winui3-mac-runner windows-custom-runtime-uia \
+  --automation artifacts/portable-headless/strict-scenario-sweep/login-light/automation-core.json \
+  --output artifacts/windows-custom-runtime/login-light \
+  --scenario login-light
 ```
 
-Bu native WinUI reference değildir. Bizim custom runtime'ın Windows UIA provider'ını test eder.
+Bu native WinUI reference değildir. Bizim custom runtime'ın Windows UIA
+provider'ını FlaUI.UIA3 ile test etmek için `windows-custom-runtime` lane
+artifactleri üretir.
 
 ## Local developer promise
 

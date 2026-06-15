@@ -31,6 +31,26 @@ public sealed class MacOsWindowedHostTests
                       "bounds": { "x": 20, "y": 80, "width": 120, "height": 32 }
                     },
                     "children": []
+                  },
+                  {
+                    "name": "RememberBox",
+                    "type": "Microsoft.UI.Xaml.Controls.CheckBox",
+                    "properties": {
+                      "automationId": "RememberBox",
+                      "isChecked": "false",
+                      "bounds": { "x": 20, "y": 120, "width": 140, "height": 32 }
+                    },
+                    "children": []
+                  },
+                  {
+                    "name": "EmailBox",
+                    "type": "Microsoft.UI.Xaml.Controls.TextBox",
+                    "properties": {
+                      "automationId": "EmailBox",
+                      "text": "",
+                      "bounds": { "x": 20, "y": 160, "width": 200, "height": 32 }
+                    },
+                    "children": []
                   }
                 ]
               }
@@ -64,6 +84,13 @@ public sealed class MacOsWindowedHostTests
         StringAssert.Contains(hostSource, "scrollWheel");
         StringAssert.Contains(hostSource, "convertToRuntimePoint");
         StringAssert.Contains(hostSource, "hitTestRuntimeNode");
+        StringAssert.Contains(hostSource, "applyAutomationCoreAction");
+        StringAssert.Contains(hostSource, "drawLiveStateOverlay");
+        StringAssert.Contains(hostSource, "focusedRuntimeId");
+        StringAssert.Contains(hostSource, "toggleState");
+        StringAssert.Contains(hostSource, "textValue");
+        StringAssert.Contains(hostSource, "writeLiveState");
+        StringAssert.Contains(hostSource, "setNeedsDisplay(bounds)");
         Assert.IsFalse(hostSource.Contains("NSAccessibility", StringComparison.Ordinal), "Phase 11 must not implement the Phase 12 AX adapter.");
         Assert.IsFalse(hostSource.Contains("AXUIElement", StringComparison.Ordinal), "Phase 11 must not implement AX.");
         Assert.IsFalse(hostSource.Contains("CAMetalLayer", StringComparison.Ordinal), "Raw Metal must not become the primary windowed renderer.");
@@ -82,5 +109,7 @@ public sealed class MacOsWindowedHostTests
         Assert.AreEqual("screenshots/mac-runtime.png", metadata.RootElement.GetProperty("runtimeImagePath").GetString());
         Assert.AreEqual("tree.json", metadata.RootElement.GetProperty("treePath").GetString());
         Assert.AreEqual("macos-windowed-events.jsonl", metadata.RootElement.GetProperty("eventLogPath").GetString());
+        Assert.AreEqual("macos-windowed-live-state.json", metadata.RootElement.GetProperty("liveStatePath").GetString());
+        Assert.IsTrue(metadata.RootElement.GetProperty("liveInteraction").GetBoolean());
     }
 }

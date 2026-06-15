@@ -2676,6 +2676,64 @@ public sealed class MacRuntimeTests
     }
 
     [TestMethod]
+    public void BroaderControlStateCoveragePublishesPhase14SupportSeparation()
+    {
+        var matrix = BroaderControlStateCoverageBuilder.Build();
+
+        Assert.AreEqual(ArtifactSchemas.BroaderControlStateCoverage, matrix.SchemaVersion);
+        Assert.AreEqual("phase14-broader-control-state-coverage", matrix.Profile);
+        CollectionAssert.AreEqual(
+            new[] { "default", "hover", "pressed", "disabled", "focused", "selected" },
+            matrix.StateModel.States.ToArray());
+
+        var controls = matrix.Controls.ToDictionary(row => row.Control, StringComparer.Ordinal);
+        foreach (var requiredControl in new[]
+        {
+            "ComboBox",
+            "ListView",
+            "InfoBar",
+            "Flyout",
+            "ContentDialog",
+            "Slider",
+            "ProgressRing",
+            "ProgressBar"
+        })
+        {
+            Assert.IsTrue(controls.ContainsKey(requiredControl), $"{requiredControl} must be tracked in the Phase 14 matrix.");
+        }
+
+        Assert.IsTrue(matrix.Totals.SupportStatusCounts.ContainsKey("supported"));
+        Assert.IsTrue(matrix.Totals.SupportStatusCounts.ContainsKey("partial"));
+        Assert.IsTrue(matrix.Totals.SupportStatusCounts.ContainsKey("planned"));
+
+        Assert.AreEqual("partial", controls["ComboBox"].SupportStatus);
+        CollectionAssert.Contains(controls["ComboBox"].AccessibilityPatterns.ToArray(), "ExpandCollapsePattern");
+        CollectionAssert.Contains(controls["ComboBox"].SupportedStates.ToArray(), "selected");
+        CollectionAssert.Contains(controls["ComboBox"].PlannedStates.ToArray(), "hover");
+        Assert.AreEqual("planned", controls["Flyout"].SupportStatus);
+        Assert.AreEqual("supported", controls["ProgressBar"].SupportStatus);
+        Assert.AreEqual("partial", controls["Slider"].SupportStatus);
+        CollectionAssert.Contains(controls["Slider"].AccessibilityPatterns.ToArray(), "RangeValuePattern");
+        CollectionAssert.Contains(controls["InfoBar"].VisualStateGroups.ToArray(), "InfoBarSeverityStates");
+
+        Assert.IsTrue(matrix.ResourceThemeCoverage.RequiredTokens.Contains("ThemeResource", StringComparer.Ordinal));
+        Assert.IsTrue(matrix.VisualStateManagerExpansion.RequiredStateGroups.Contains("CommonStates", StringComparer.Ordinal));
+        Assert.IsTrue(matrix.AccessibilityPatternExpansion.RequiredPatterns.Contains("SelectionPattern", StringComparer.Ordinal));
+    }
+
+    [TestMethod]
+    public void BroaderControlStateCoverageMatchesTrackedArtifact()
+    {
+        var expected = BroaderControlStateCoverageBuilder.Build();
+        var actual = File.ReadAllText(RepositoryPath(BroaderControlStateCoverageBuilder.DefaultArtifactPath));
+
+        Assert.AreEqual(
+            NormalizeArtifact(JsonSerializer.Serialize(expected, JsonDefaults.Options)),
+            NormalizeArtifact(actual),
+            $"{BroaderControlStateCoverageBuilder.DefaultArtifactPath} is out of date. Regenerate with 'winui3-mac-runner broader-control-state-coverage'.");
+    }
+
+    [TestMethod]
     public async Task ProductEvidenceBlocksFailedAttachedExternalArtifacts()
     {
         var repositoryRoot = Path.Combine(Path.GetTempPath(), "winui3-mac-product-evidence-tests", Guid.NewGuid().ToString("N"));

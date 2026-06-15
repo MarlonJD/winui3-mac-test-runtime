@@ -7,10 +7,10 @@ durable architecture and phase details live in `docs/plans/index.md`,
 
 ## Now
 
-1. Phase 13 optional Windows custom-runtime UIA provider
-   - Add a Windows-only provider lane for this custom runtime.
-   - Keep it separate from `windows-reference`, which remains real native WinUI.
-   - Do not treat it as the source of truth for native WinUI behavior.
+1. Phase 15 release hardening
+   - Version docs, samples, gates, and compatibility matrices for the current
+     portable-headless architecture.
+   - Preserve existing release gates and keep README/product claims honest.
 
 ## Next
 
@@ -22,8 +22,6 @@ durable architecture and phase details live in `docs/plans/index.md`,
 3. EMSI direct runtime UI gap closure Phase 2
    - Add fail-first direct Login `DataContext` bootstrap tests.
    - Implement the bootstrap without backend calls or credentials.
-
-4. Phase 14 broader controls and states.
 
 ## Done / Archived
 
@@ -91,3 +89,24 @@ or been superseded by a newer plan.
   role/action/value mapping for the MVP accessibility set, `macos-ax-tree.json`,
   `MacOsAxAdapter.swift`, and `macos-windowed-ax-adapter.json` without making AX
   part of portable-headless or default PR CI.
+- Phase 12.5 macOS windowed live interaction loop:
+  `macos-windowed-host` now writes live interaction metadata and generated Swift
+  code that maps mouse/key events to local runtime node state, updates focus,
+  button press, checkbox/toggle, selection, and text input overlays, redraws the
+  window, and emits `macos-windowed-live-state.json` while remaining local/manual
+  and outside default PR CI.
+- Phase 13 optional Windows custom-runtime UIA provider:
+  `WindowsCustomRuntimeUiaProviderScaffold`, `windows-custom-runtime-uia`, and
+  `WindowsCustomRuntimeUiaProviderTests` now guard a Windows-only custom-runtime
+  UIA provider lane with `AutomationCore` to UIA ControlType/pattern mapping,
+  `windows-custom-runtime-uia-tree.json`,
+  `WindowsCustomRuntimeUiaProvider.cs`, and
+  `windows-custom-runtime-uia-provider.json` metadata that explicitly stays
+  separate from `windows-reference` native WinUI evidence.
+- Phase 14 broader controls and states:
+  `BroaderControlStateCoverageBuilder`,
+  `broader-control-state-coverage`, and the tracked
+  `docs/visual-parity/broader-control-state-coverage.json` dashboard now guard
+  ComboBox, ListView, InfoBar, Flyout, ContentDialog, Slider, ProgressRing, and
+  ProgressBar coverage with explicit default/hover/pressed/disabled/focused/
+  selected state separation plus supported/partial/planned status buckets.

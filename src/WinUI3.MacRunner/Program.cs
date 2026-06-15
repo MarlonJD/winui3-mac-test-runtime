@@ -40,6 +40,7 @@ internal static class Cli
             "catalog-audit" => RunCatalogAudit(args[1..]),
             "component-quality-dashboard" => RunComponentQualityDashboard(args[1..]),
             "state-coverage-matrix" => RunStateCoverageMatrix(args[1..]),
+            "broader-control-state-coverage" => RunBroaderControlStateCoverage(args[1..]),
             "native-quality-family-tranches" => RunNativeQualityFamilyTranches(args[1..]),
             "component-inspection-template" => RunComponentInspectionTemplate(args[1..]),
             "component-inspection-apply" => RunComponentInspectionApply(args[1..]),
@@ -50,6 +51,7 @@ internal static class Cli
             "portable-headless-dashboard" => RunPortableHeadlessDashboard(args[1..]),
             "macos-windowed-host" => RunMacOsWindowedHost(args[1..]),
             "macos-ax-adapter" => RunMacOsAxAdapter(args[1..]),
+            "windows-custom-runtime-uia" => RunWindowsCustomRuntimeUia(args[1..]),
             "visual-compare" => RunVisualCompare(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
             "visual-review-index" => RunVisualReviewIndex(args[1..]),
@@ -671,6 +673,43 @@ internal static class Cli
         }
     }
 
+    private static int RunBroaderControlStateCoverage(string[] args)
+    {
+        var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "broader-control-state-coverage"));
+        var defaultPath = Path.Combine(repositoryRoot, BroaderControlStateCoverageBuilder.DefaultArtifactPath);
+        var outputPath = Path.GetFullPath(ReadOption(args, "--output") ?? defaultPath);
+        var check = HasOption(args, "--check");
+
+        var matrix = BroaderControlStateCoverageBuilder.Build();
+        var json = JsonSerializer.Serialize(matrix, JsonDefaults.Options);
+
+        Console.WriteLine(
+            $"broader-control-state-coverage: {matrix.Totals.ControlCount} controls, {matrix.Totals.PartialStateCoveredControlCount} partial-state controls, {matrix.Totals.PlannedStateCoveredControlCount} controls with planned states.");
+
+        if (check)
+        {
+            if (!File.Exists(outputPath))
+            {
+                Console.Error.WriteLine($"broader-control-state-coverage --check failed: missing {outputPath}. Regenerate with 'winui3-mac-runner broader-control-state-coverage'.");
+                return 1;
+            }
+
+            if (NormalizeJson(File.ReadAllText(outputPath)) != NormalizeJson(json))
+            {
+                Console.Error.WriteLine($"broader-control-state-coverage --check failed: {outputPath} is out of date. Regenerate with 'winui3-mac-runner broader-control-state-coverage'.");
+                return 1;
+            }
+
+            Console.WriteLine($"broader-control-state-coverage --check passed: {outputPath} is up to date.");
+            return 0;
+        }
+
+        Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
+        File.WriteAllText(outputPath, json);
+        Console.WriteLine($"broader-control-state-coverage.json: {outputPath}");
+        return 0;
+    }
+
     private static int RunNativeQualityFamilyTranches(string[] args)
     {
         var repositoryRoot = FindRepositoryRoot(Path.Combine(Environment.CurrentDirectory, "native-quality-family-tranches"));
@@ -1114,6 +1153,44 @@ internal static class Cli
         }
     }
 
+    private static int RunWindowsCustomRuntimeUia(string[] args)
+    {
+        var automationPath = ReadOption(args, "--automation");
+        var output = ReadOption(args, "--output");
+        var scenarioName = ReadOption(args, "--scenario")
+            ?? (automationPath is null ? "scenario" : Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(automationPath)) ?? "scenario"));
+        if (automationPath is null || output is null)
+        {
+            Console.Error.WriteLine("Missing required options: --automation <automation-core.json> --output <dir>");
+            return 2;
+        }
+
+        try
+        {
+            var jsonOptions = new JsonSerializerOptions(JsonDefaults.Options);
+            jsonOptions.Converters.Add(new JsonStringEnumConverter());
+            using var automationStream = File.OpenRead(automationPath);
+            var automation = JsonSerializer.Deserialize<AutomationDocument>(automationStream, jsonOptions)
+                ?? throw new InvalidOperationException("Automation document did not deserialize.");
+            var scaffold = WindowsCustomRuntimeUiaProviderScaffold.Write(
+                automation,
+                new WindowsCustomRuntimeUiaProviderOptions(
+                    OutputDirectory: Path.GetFullPath(output),
+                    ScenarioName: scenarioName));
+
+            Console.WriteLine($"windows-custom-runtime-uia: {scaffold.Lane} {scaffold.ReferenceBoundary}");
+            Console.WriteLine($"windows-custom-runtime-uia-provider.json: {scaffold.MetadataPath}");
+            Console.WriteLine($"windows-custom-runtime-uia-tree.json: {scaffold.UiaTreePath}");
+            Console.WriteLine($"WindowsCustomRuntimeUiaProvider.cs: {scaffold.ProviderSourcePath}");
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"windows-custom-runtime-uia failed: {ex.Message}");
+            return 1;
+        }
+    }
+
     private static int RunVisualCompare(string[] args)
     {
         var beforeRoot = ReadOption(args, "--before");
@@ -1319,6 +1396,7 @@ internal static class Cli
         Console.WriteLine("  catalog-audit [--output <path>] [--check]");
         Console.WriteLine("  component-quality-dashboard [--output <path>] [--check]");
         Console.WriteLine("  state-coverage-matrix [--output <path>] [--check]");
+        Console.WriteLine("  broader-control-state-coverage [--output <path>] [--check]");
         Console.WriteLine("  native-quality-family-tranches [--output <path>] [--check]");
         Console.WriteLine("  component-inspection-template --evidence <component-evidence.json> [--output <path>] [--check]");
         Console.WriteLine("  component-inspection-apply --evidence <component-evidence.json> --inspection <component-inspection.json> [--output <path>] [--check]");
@@ -1329,6 +1407,7 @@ internal static class Cli
         Console.WriteLine("  portable-headless-dashboard --portable <dir> --windows-reference <dir> --output <dir> [--bounds-tolerance <px>]");
         Console.WriteLine("  macos-windowed-host --artifacts <portable-scenario-artifact-dir> --output <dir> [--scenario <name>] [--title <title>] [--launch]");
         Console.WriteLine("  macos-ax-adapter --automation <automation-core.json> --output <dir> [--scenario <name>]");
+        Console.WriteLine("  windows-custom-runtime-uia --automation <automation-core.json> --output <dir> [--scenario <name>]");
         Console.WriteLine("  visual-compare --before <dir> --after <dir> --output <dir>");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  visual-review-index [--output <dir>] [--check]");
