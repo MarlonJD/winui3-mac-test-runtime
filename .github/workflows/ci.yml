@@ -7,6 +7,46 @@ on:
   pull_request:
 
 jobs:
+  portable-headless:
+    runs-on: ubuntu-latest
+    env:
+      WINUI3_COMPAT_MODE: portable-headless
+      WINUI3_COMPAT_DRIVER: internal
+      WINUI3_COMPAT_RENDERER: skia-offscreen
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build portable-headless runtime
+        run: dotnet build -v minimal /m:1 /nr:false
+
+      - name: Portable-headless tests
+        run: dotnet test --no-build --filter "PortableHeadless|Phase2|Phase3|Phase4|Phase5|Phase6|Phase7"
+
+      - name: Portable-headless visual artifacts
+        run: >-
+          dotnet run --no-build --project src/WinUI3.MacRunner --
+          product-evidence --profile strict-scenario-sweep
+          --output artifacts/portable-headless/strict-scenario-sweep
+
+      - name: Validate portable-headless artifact contract
+        run: |
+          test -n "$(find artifacts/portable-headless -name '*.png' -print -quit)"
+          test -n "$(find artifacts/portable-headless -name '*.metadata.json' -print -quit)"
+
+      - name: Upload portable-headless artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portable-headless-artifacts
+          path: artifacts/portable-headless
+          if-no-files-found: error
+
   build-test:
     runs-on: ubuntu-latest
     steps:

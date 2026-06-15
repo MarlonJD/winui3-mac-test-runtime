@@ -12,9 +12,19 @@ truth.
 | Portable headless | `ubuntu-latest` | `portable-headless` | internal `AutomationCore` driver | Skia offscreen | Fast source-level compatibility, layout, text, automation, screenshot, and diagnostics signal |
 | Windows reference | `windows-latest` | `windows-reference` | FlaUI.UIA3 | native WinUI | Real WinUI behavior, native UIA tree, native screenshot, and reference artifacts |
 
-The current repository already keeps the primary build/test/release dry-run gate
-on `ubuntu-latest`. Windows native screenshot/reference workflows stay on
-`windows-latest`.
+The default `.github/workflows/ci.yml` workflow includes a dedicated
+`portable-headless` job on `ubuntu-latest`. It sets `WINUI3_COMPAT_MODE` to
+`portable-headless`, uses the internal driver with Skia offscreen rendering,
+runs targeted portable phase tests, validates PNG plus `*.metadata.json`
+artifacts, and uploads `portable-headless-artifacts`.
+
+The broader build/test/release dry-run gate also remains on `ubuntu-latest`.
+Windows native screenshot/reference workflows stay on `windows-latest`. The
+`windows-reference` job in `.github/workflows/windows-native-screenshot.yml`
+sets `WINUI3_COMPAT_MODE=windows-reference`,
+`WINUI3_COMPAT_RUNTIME=native-winui`, `WINUI3_COMPAT_DRIVER=flaui-uia3`, and
+`WINUI3_COMPAT_RENDERER=native-winui`, then writes the same lane/runtime/
+driver/renderer values into each `windows-reference.json` artifact.
 
 ## macOS Lane Policy
 

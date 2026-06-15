@@ -33,6 +33,7 @@ public static class ArtifactSchemas
     public const string UnsupportedApis = "0.1";
     public const string VisualRun = "0.1";
     public const string VisualComparison = "0.1";
+    public const string PortableHeadlessComparisonDashboard = "0.1";
     public const string VisualReview = "0.3";
     public const string VisualReviewIndex = "0.2";
     public const string VisualUiTree = "0.2";

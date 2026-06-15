@@ -2,7 +2,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using WinUI3.MacCompatibility;
+using WinUI3.MacRunner.MacOS;
 using WinUI3.MacRenderer.Skia;
 using WinUI3.MacRunner.Automation;
 using WinUI3.MacRuntime;
@@ -45,6 +47,9 @@ internal static class Cli
             "native-reference-readiness" => RunNativeReferenceReadiness(args[1..]),
             "native-reference-integrity" => RunNativeReferenceIntegrity(args[1..]),
             "visual-drift-dashboard" => RunVisualDriftDashboard(args[1..]),
+            "portable-headless-dashboard" => RunPortableHeadlessDashboard(args[1..]),
+            "macos-windowed-host" => RunMacOsWindowedHost(args[1..]),
+            "macos-ax-adapter" => RunMacOsAxAdapter(args[1..]),
             "visual-compare" => RunVisualCompare(args[1..]),
             "visual-review" => await RunVisualReviewAsync(args[1..]),
             "visual-review-index" => RunVisualReviewIndex(args[1..]),
@@ -986,6 +991,129 @@ internal static class Cli
         return result.Passed ? 0 : 1;
     }
 
+    private static int RunPortableHeadlessDashboard(string[] args)
+    {
+        var portableRoot = ReadOption(args, "--portable");
+        var windowsReferenceRoot = ReadOption(args, "--windows-reference");
+        var outputRoot = ReadOption(args, "--output");
+        var boundsTolerance = double.TryParse(
+            ReadOption(args, "--bounds-tolerance"),
+            NumberStyles.Float,
+            CultureInfo.InvariantCulture,
+            out var parsedTolerance)
+                ? parsedTolerance
+                : 2.0d;
+        if (portableRoot is null || windowsReferenceRoot is null || outputRoot is null)
+        {
+            Console.Error.WriteLine("Missing required options: --portable <dir> --windows-reference <dir> --output <dir>");
+            return 2;
+        }
+
+        try
+        {
+            var dashboard = PortableHeadlessComparisonDashboard.Write(
+                Path.GetFullPath(portableRoot),
+                Path.GetFullPath(windowsReferenceRoot),
+                Path.GetFullPath(outputRoot),
+                boundsTolerance);
+            Console.WriteLine(
+                $"portable-headless-dashboard: {dashboard.Status} ({dashboard.Summary.PassedScenarioCount} passed, {dashboard.Summary.FailedScenarioCount} failed, {dashboard.Summary.ScenarioCount} total).");
+            Console.WriteLine($"portable-headless-comparison-dashboard.json: {Path.Combine(Path.GetFullPath(outputRoot), "portable-headless-comparison-dashboard.json")}");
+            Console.WriteLine($"portable-headless-comparison-dashboard.md: {Path.Combine(Path.GetFullPath(outputRoot), "portable-headless-comparison-dashboard.md")}");
+            return dashboard.Status == "passed" ? 0 : 1;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"portable-headless-dashboard failed: {ex.Message}");
+            return 1;
+        }
+    }
+
+    private static int RunMacOsWindowedHost(string[] args)
+    {
+        var artifacts = ReadOption(args, "--artifacts");
+        var output = ReadOption(args, "--output");
+        var scenarioName = ReadOption(args, "--scenario") ?? (artifacts is null ? "scenario" : Path.GetFileName(Path.GetFullPath(artifacts)));
+        var title = ReadOption(args, "--title") ?? $"WinUI3 macOS Windowed - {scenarioName}";
+        var launch = HasOption(args, "--launch");
+        if (artifacts is null || output is null)
+        {
+            Console.Error.WriteLine("Missing required options: --artifacts <dir> --output <dir>");
+            return 2;
+        }
+
+        try
+        {
+            var scaffold = MacOsWindowedHostScaffold.Write(new MacOsWindowedHostOptions(
+                ArtifactDirectory: Path.GetFullPath(artifacts),
+                OutputDirectory: Path.GetFullPath(output),
+                ScenarioName: scenarioName,
+                WindowTitle: title));
+            Console.WriteLine($"macos-windowed-host: {scaffold.Mode} {scaffold.CiPolicy}");
+            Console.WriteLine($"macos-windowed-host.json: {scaffold.MetadataPath}");
+            Console.WriteLine($"MacOsWindowedHost.swift: {scaffold.HostSourcePath}");
+            Console.WriteLine($"launch-macos-windowed.sh: {scaffold.LaunchScriptPath}");
+
+            if (launch)
+            {
+                if (!OperatingSystem.IsMacOS())
+                {
+                    Console.Error.WriteLine("macos-windowed-host --launch requires local macOS.");
+                    return 1;
+                }
+
+                var startInfo = new ProcessStartInfo(scaffold.LaunchScriptPath)
+                {
+                    WorkingDirectory = Path.GetDirectoryName(scaffold.LaunchScriptPath)!
+                };
+                Process.Start(startInfo);
+            }
+
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"macos-windowed-host failed: {ex.Message}");
+            return 1;
+        }
+    }
+
+    private static int RunMacOsAxAdapter(string[] args)
+    {
+        var automationPath = ReadOption(args, "--automation");
+        var output = ReadOption(args, "--output");
+        var scenarioName = ReadOption(args, "--scenario")
+            ?? (automationPath is null ? "scenario" : Path.GetFileName(Path.GetDirectoryName(Path.GetFullPath(automationPath)) ?? "scenario"));
+        if (automationPath is null || output is null)
+        {
+            Console.Error.WriteLine("Missing required options: --automation <automation-core.json> --output <dir>");
+            return 2;
+        }
+
+        try
+        {
+            var jsonOptions = new JsonSerializerOptions(JsonDefaults.Options);
+            jsonOptions.Converters.Add(new JsonStringEnumConverter());
+            using var automationStream = File.OpenRead(automationPath);
+            var automation = JsonSerializer.Deserialize<AutomationDocument>(automationStream, jsonOptions)
+                ?? throw new InvalidOperationException("Automation document did not deserialize.");
+            var scaffold = MacOsAxAdapterScaffold.Write(automation, new MacOsAxAdapterOptions(
+                OutputDirectory: Path.GetFullPath(output),
+                ScenarioName: scenarioName));
+
+            Console.WriteLine($"macos-ax-adapter: {scaffold.Mode} {scaffold.CiPolicy}");
+            Console.WriteLine($"macos-windowed-ax-adapter.json: {scaffold.MetadataPath}");
+            Console.WriteLine($"macos-ax-tree.json: {scaffold.AxTreePath}");
+            Console.WriteLine($"MacOsAxAdapter.swift: {scaffold.AdapterSourcePath}");
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"macos-ax-adapter failed: {ex.Message}");
+            return 1;
+        }
+    }
+
     private static int RunVisualCompare(string[] args)
     {
         var beforeRoot = ReadOption(args, "--before");
@@ -1198,6 +1326,9 @@ internal static class Cli
         Console.WriteLine("  native-reference-readiness [--check]");
         Console.WriteLine("  native-reference-integrity");
         Console.WriteLine("  visual-drift-dashboard [--check]");
+        Console.WriteLine("  portable-headless-dashboard --portable <dir> --windows-reference <dir> --output <dir> [--bounds-tolerance <px>]");
+        Console.WriteLine("  macos-windowed-host --artifacts <portable-scenario-artifact-dir> --output <dir> [--scenario <name>] [--title <title>] [--launch]");
+        Console.WriteLine("  macos-ax-adapter --automation <automation-core.json> --output <dir> [--scenario <name>]");
         Console.WriteLine("  visual-compare --before <dir> --after <dir> --output <dir>");
         Console.WriteLine("  visual-review --scenario <path> --reference <dir> [--evidence <component-evidence.json>] [--output <dir>]");
         Console.WriteLine("  visual-review-index [--output <dir>] [--check]");

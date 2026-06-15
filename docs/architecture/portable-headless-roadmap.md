@@ -48,12 +48,12 @@ runtime proves the custom provider.
 | 4 | Portable text layout MVP | `WinUITextLayout` guards NoWrap/Wrap/WrapWholeWords, line metrics, TextBlock desired height, and wrapped Skia text rendering |
 | 5 | `AutomationCore` MVP | `AutomationCore` guards semantic nodes, layout bounds, state, and Invoke/Value/Toggle/SelectionItem/Scroll pattern metadata |
 | 6 | Internal scenario driver | JSON scenarios run through `AutomationCore` actions/assertions without OS automation |
-| 7 | Skia offscreen renderer | Portable PNG screenshots and metadata |
-| 8 | Portable-headless CI lane | `ubuntu-latest` portable checks with artifact upload |
-| 9 | Windows native reference lane | `windows-latest` real WinUI/FlaUI/UIA3 artifacts |
-| 10 | Comparison dashboard | Portable output compared with native reference artifacts |
-| 11 | macOS windowed host | Local Mac windowed debugging without becoming default PR CI |
-| 12 | macOS AX adapter | `AutomationCore` mapped to NSAccessibility for manual/scheduled validation |
+| 7 | Skia offscreen renderer | Portable PNG screenshots and metadata sidecars are guarded |
+| 8 | Portable-headless CI lane | `ubuntu-latest` portable checks and PNG/metadata artifact upload are guarded |
+| 9 | Windows native reference lane | `windows-latest` native WinUI/FlaUI.UIA3 artifacts are guarded with explicit `windows-reference` lane metadata |
+| 10 | Comparison dashboard | JSON/Markdown dashboard compares portable scenario, automation, bounds, and visual evidence with Windows native reference artifacts |
+| 11 | macOS windowed host | Local/manual AppKit window scaffold displays Skia artifacts and logs internal-driver input without becoming default PR CI |
+| 12 | macOS AX adapter | `AutomationCore` maps to a local/manual NSAccessibility scaffold with role/action/value metadata and no default PR CI coupling |
 | 13 | Optional Windows custom-runtime UIA provider | UIA provider over this runtime, kept distinct from native reference |
 | 14 | Broader controls and states | Expanded support matrix and state coverage |
 | 15 | Release hardening | Versioned docs, samples, gates, and compatibility matrices |

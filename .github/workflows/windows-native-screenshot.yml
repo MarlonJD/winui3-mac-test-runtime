@@ -22,6 +22,11 @@ on:
 jobs:
   windows-reference:
     runs-on: windows-latest
+    env:
+      WINUI3_COMPAT_MODE: windows-reference
+      WINUI3_COMPAT_RUNTIME: native-winui
+      WINUI3_COMPAT_DRIVER: flaui-uia3
+      WINUI3_COMPAT_RENDERER: native-winui
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -390,6 +395,13 @@ jobs:
             return $targets
           }
 
+          function Add-WindowsReferenceLaneMetadata($metadata) {
+            $metadata | Add-Member -NotePropertyName lane -NotePropertyValue $env:WINUI3_COMPAT_MODE -Force
+            $metadata | Add-Member -NotePropertyName runtime -NotePropertyValue $env:WINUI3_COMPAT_RUNTIME -Force
+            $metadata | Add-Member -NotePropertyName driver -NotePropertyValue $env:WINUI3_COMPAT_DRIVER -Force
+            $metadata | Add-Member -NotePropertyName renderer -NotePropertyValue $env:WINUI3_COMPAT_RENDERER -Force
+          }
+
           foreach ($scenario in $scenarios) {
             $scenarioJson = Get-Content $scenario.Path -Raw | ConvertFrom-Json
             $viewport = "$($scenarioJson.viewport.width)x$($scenarioJson.viewport.height)"
@@ -440,16 +452,16 @@ jobs:
             if ($metadata.referenceSource -ne "native-winui") {
               throw "Windows reference provenance for $($scenario.Name) was '$($metadata.referenceSource)', expected native-winui."
             }
+            Add-WindowsReferenceLaneMetadata $metadata
             if (Test-RequiresNativeTargets $scenario.Path) {
               $targets = Assert-NativeReferenceTargets $scenario $targetBoundsOutput
               $metadata | Add-Member -NotePropertyName nativeReferenceTargetsPath -NotePropertyValue "native-reference-targets.json" -Force
-              $metadata | ConvertTo-Json -Depth 20 | Set-Content "$outDir/windows-reference.json"
             }
             elseif (Test-Path $targetBoundsOutput) {
               $targets = Assert-NativeReferenceTargets $scenario $targetBoundsOutput
               $metadata | Add-Member -NotePropertyName nativeReferenceTargetsPath -NotePropertyValue "native-reference-targets.json" -Force
-              $metadata | ConvertTo-Json -Depth 20 | Set-Content "$outDir/windows-reference.json"
             }
+            $metadata | ConvertTo-Json -Depth 20 | Set-Content "$outDir/windows-reference.json"
           }
 
       - name: Dump native WinUI launch diagnostics

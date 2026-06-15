@@ -55,7 +55,13 @@ Use this order for future phases:
 | 4 | text-layout-guarded | `WinUITextLayout` and `Phase4PortableTextLayoutTests` cover NoWrap, Wrap, WrapWholeWords, line metrics, TextBlock desired height, and wrapped Skia text rendering |
 | 5 | automation-core-guarded | `AutomationCore` and `Phase5AutomationCoreTests` cover semantic nodes, layout bounds, enabled/focus/offscreen state, and Invoke/Value/Toggle/SelectionItem/Scroll pattern metadata |
 | 6 | internal-scenario-driver-guarded | `InternalScenarioDriver` and `Phase6InternalScenarioDriverTests` cover JSON scenario parsing, AutomationCore-backed actions/assertions, state mutation, wait, and screenshot recording without OS automation |
-| 7-15 | planned | Implementation still needs to proceed phase by phase from `CODEX_PHASE_PLAN.md` |
+| 7 | skia-offscreen-metadata-guarded | `SkiaV2SnapshotRenderer` and `Phase7SkiaOffscreenRendererTests` cover portable PNG output and `*.metadata.json` sidecars with mode, lane, driver, renderer, viewport, scale, theme, platform, font profile, text measurement, and image integrity metadata |
+| 8 | portable-headless-ci-guarded | `.github/workflows/ci.yml` and `Phase8PortableHeadlessCiTests` cover the default `ubuntu-latest` portable-headless job, internal driver/skia-offscreen metadata, targeted portable tests, PNG/metadata artifact validation, and `portable-headless-artifacts` upload without hosted macOS CI |
+| 9 | windows-reference-lane-guarded | `.github/workflows/windows-native-screenshot.yml` and `Phase9WindowsReferenceLaneTests` cover the `windows-latest` native WinUI reference job, `windows-reference` lane metadata, `native-winui` runtime/renderer metadata, `flaui-uia3` driver metadata, native PNG/JSON references, and separate `windows-reference-screenshots` upload |
+| 10 | comparison-dashboard-guarded | `PortableHeadlessComparisonDashboard`, `portable-headless-dashboard`, and `Phase10ComparisonDashboardTests` cover JSON/Markdown reports for scenario result, automation node, bounds tolerance, and visual diff comparisons between `portable-headless` and `windows-reference` artifacts |
+| 11 | macos-windowed-host-guarded | `MacOsWindowedHostScaffold`, `macos-windowed-host`, and `MacOsWindowedHostTests` cover a local/manual AppKit window scaffold over Skia runtime artifacts, coordinate conversion, hit-test event logging, `macos-windowed` metadata, and no AX/Metal/default-PR-CI coupling |
+| 12 | macos-ax-adapter-guarded | `MacOsAxAdapterScaffold`, `macos-ax-adapter`, and `MacOsAxAdapterTests` cover optional/local `AutomationCore` to `NSAccessibilityElement` role/action/value mapping, `macos-ax-tree.json`, `MacOsAxAdapter.swift`, `macos-windowed-ax-adapter.json`, and no portable-headless/default-PR-CI coupling |
+| 13-15 | planned | Implementation still needs to proceed phase by phase from `CODEX_PHASE_PLAN.md` |
 
 ## Source Integrity Snapshot
 

@@ -29,11 +29,11 @@ Linux/Windows CI ile aynı davranışı hedefler
 Görsel/manual debug için:
 
 ```sh
-winui3-compat-runner run \
-  --mode macos-windowed \
-  --driver internal \
-  --renderer skia-metal \
-  --project src/MyApp/MyApp.csproj
+winui3-mac-runner macos-windowed-host \
+  --artifacts artifacts/portable-headless/strict-scenario-sweep/login-light \
+  --output artifacts/macos-windowed/login-light \
+  --scenario login-light \
+  --launch
 ```
 
 Bu mod:
@@ -41,9 +41,11 @@ Bu mod:
 ```text
 NSApplication çalıştırır
 NSWindow açar
-Skia/Metal yüzeyine çizer
+Skia runtime PNG artifact'ını pencerede gösterir
 mouse/keyboard/scroll eventlerini alır
-hit-test ve input routing'i gerçek eventlerle dener
+tree.json üzerinden coordinate conversion ve hit-test event log'u üretir
+AX/NSAccessibility adapter değildir
+default PR CI değildir
 ```
 
 CI default değildir.
@@ -53,12 +55,10 @@ CI default değildir.
 Accessibility/automation bridge için:
 
 ```sh
-winui3-compat-runner run \
-  --mode macos-windowed-ax \
-  --driver ax \
-  --renderer skia-metal \
-  --project src/MyApp/MyApp.csproj \
-  --scenario tests/scenarios/login.json
+winui3-mac-runner macos-ax-adapter \
+  --automation artifacts/portable-headless/strict-scenario-sweep/login-light/automation-core.json \
+  --output artifacts/macos-windowed-ax/login-light \
+  --scenario login-light
 ```
 
 Bu mod:
@@ -68,9 +68,13 @@ AutomationCore -> NSAccessibility mapping
 AXPress -> Invoke
 AXValue -> ValuePattern
 AXSelected -> SelectionPattern
+macos-ax-tree.json ve MacOsAxAdapter.swift üretir
+portable-headless değildir
+default PR CI değildir
 ```
 
-Doğrular.
+Doğrular. `automation-core.json` yolu, scenario driver veya portable-headless
+artifact exportu tarafından üretilen AutomationCore dosyasını göstermelidir.
 
 ## 4. Local Linux — portable headless
 

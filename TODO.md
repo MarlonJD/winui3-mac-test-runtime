@@ -7,12 +7,10 @@ durable architecture and phase details live in `docs/plans/index.md`,
 
 ## Now
 
-1. Phase 7 Skia offscreen renderer hardening
-   - Produce portable PNG screenshots and renderer metadata from arranged trees.
-   - Keep screenshot generation independent of AppKit, Metal, AX, and hosted
-     macOS CI.
-   - Connect scenario screenshot requests to renderer artifacts without making
-     behavior assertions depend on pixels.
+1. Phase 13 optional Windows custom-runtime UIA provider
+   - Add a Windows-only provider lane for this custom runtime.
+   - Keep it separate from `windows-reference`, which remains real native WinUI.
+   - Do not treat it as the source of truth for native WinUI behavior.
 
 ## Next
 
@@ -25,7 +23,7 @@ durable architecture and phase details live in `docs/plans/index.md`,
    - Add fail-first direct Login `DataContext` bootstrap tests.
    - Implement the bootstrap without backend calls or credentials.
 
-4. Phase 8 portable-headless CI lane.
+4. Phase 14 broader controls and states.
 
 ## Done / Archived
 
@@ -56,3 +54,40 @@ or been superseded by a newer plan.
   JSON scenario parsing, portable action/assertion results, direct
   `AutomationCore` state mutation, wait/screenshot recording, and no OS-level UI
   automation dependency.
+- Phase 7 Skia offscreen renderer hardening:
+  `SkiaV2SnapshotRenderer` and `Phase7SkiaOffscreenRendererTests` now guard
+  portable PNG output plus `*.metadata.json` sidecars with mode, lane, driver,
+  renderer, viewport, scale, theme, platform, font profile, text measurement,
+  and image integrity metadata.
+- Phase 8 portable-headless CI lane:
+  `.github/workflows/ci.yml` and `Phase8PortableHeadlessCiTests` now guard a
+  default `ubuntu-latest` `portable-headless` job with internal driver,
+  Skia-offscreen renderer metadata, targeted portable tests, strict scenario
+  artifact generation, PNG/metadata contract validation, and
+  `portable-headless-artifacts` upload without hosted macOS CI.
+- Phase 9 Windows native reference lane:
+  `.github/workflows/windows-native-screenshot.yml` and
+  `Phase9WindowsReferenceLaneTests` now guard the `windows-latest`
+  `windows-reference` job as the native WinUI source of truth, with
+  `native-winui` runtime/renderer metadata, `flaui-uia3` driver metadata,
+  native reference PNG/JSON artifacts, and separate
+  `windows-reference-screenshots` upload.
+- Phase 10 comparison dashboard:
+  `PortableHeadlessComparisonDashboard`,
+  `portable-headless-dashboard`, and `Phase10ComparisonDashboardTests` now guard
+  JSON/Markdown evidence comparing `portable-headless` scenario results,
+  automation nodes, bounds tolerance, and visual diff metrics against
+  `windows-reference` native WinUI artifacts with actionable diagnostics.
+- Phase 11 macOS windowed host:
+  `MacOsWindowedHostScaffold`, `macos-windowed-host`, and
+  `MacOsWindowedHostTests` now guard a local/manual AppKit window scaffold that
+  displays Skia runtime artifacts, writes `macos-windowed-host.json`, logs
+  mouse/key/scroll events to `macos-windowed-events.jsonl`, performs coordinate
+  conversion and hit-test lookup against `tree.json`, and keeps AX/Metal out of
+  this phase and out of default PR CI.
+- Phase 12 macOS AX adapter:
+  `MacOsAxAdapterScaffold`, `macos-ax-adapter`, and `MacOsAxAdapterTests` now
+  guard an optional/local `AutomationCore` to `NSAccessibilityElement` scaffold,
+  role/action/value mapping for the MVP accessibility set, `macos-ax-tree.json`,
+  `MacOsAxAdapter.swift`, and `macos-windowed-ax-adapter.json` without making AX
+  part of portable-headless or default PR CI.

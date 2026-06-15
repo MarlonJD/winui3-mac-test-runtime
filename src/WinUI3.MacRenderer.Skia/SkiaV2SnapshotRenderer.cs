@@ -1,4 +1,6 @@
 using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Text.Json;
 using Microsoft.UI.Xaml;
 using SkiaSharp;
 using WinUI3.MacRuntime;
@@ -44,10 +46,12 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
         cancellationToken.ThrowIfCancellationRequested();
         using var image = SKImage.FromBitmap(bitmap);
         using var data = image.Encode(SKEncodedImageFormat.Png, quality: 100);
-        await using var stream = File.Create(path);
-        data.SaveTo(stream);
+        await using (var stream = File.Create(path))
+        {
+            data.SaveTo(stream);
+        }
 
-        return new SnapshotResult(
+        var result = new SnapshotResult(
             ArtifactSchemas.SkiaV2Snapshot,
             "skia-v2-png",
             path,
@@ -56,6 +60,39 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
             IsNonBlank: imageIntegrity.IsNonBlank,
             FontDiagnostics: fonts.Diagnostics,
             RuntimeImageIntegrity: imageIntegrity);
+        await WritePortableHeadlessMetadataAsync(result, options, fonts.Diagnostics, cancellationToken);
+        return result;
+    }
+
+    private static async Task WritePortableHeadlessMetadataAsync(
+        SnapshotResult result,
+        SnapshotRenderOptions? options,
+        SnapshotFontDiagnostics fontDiagnostics,
+        CancellationToken cancellationToken)
+    {
+        var metadataPath = Path.Combine(
+            Path.GetDirectoryName(result.FilePath)!,
+            Path.GetFileNameWithoutExtension(result.FilePath) + ".metadata.json");
+        var metadata = new PortableHeadlessScreenshotMetadata(
+            SchemaVersion: ArtifactSchemas.SkiaV2Snapshot,
+            Mode: "portable-headless",
+            Lane: "portable-headless",
+            Driver: "internal-automation-core",
+            Renderer: "skia-offscreen",
+            RendererVersion: options?.Renderer ?? "skia-v2",
+            Scenario: options?.ScenarioName,
+            Png: Path.GetFileName(result.FilePath),
+            Width: result.Width,
+            Height: result.Height,
+            ScaleFactor: options?.Scale ?? 1,
+            Theme: options?.Theme ?? "light",
+            TextMeasurementMode: "winui-portable-text-layout",
+            Platform: RuntimeInformation.OSDescription,
+            FontProfile: $"{fontDiagnostics.Text.ResolvedFamily};{fontDiagnostics.Symbol.ResolvedFamily}",
+            IsNonBlank: result.IsNonBlank,
+            RuntimeImageIntegrity: result.RuntimeImageIntegrity,
+            FontDiagnostics: fontDiagnostics);
+        await File.WriteAllTextAsync(metadataPath, JsonSerializer.Serialize(metadata, JsonDefaults.Options), cancellationToken);
     }
 
     private static void RenderNode(
@@ -1598,3 +1635,23 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
     }
 
 }
+
+internal sealed record PortableHeadlessScreenshotMetadata(
+    string SchemaVersion,
+    string Mode,
+    string Lane,
+    string Driver,
+    string Renderer,
+    string RendererVersion,
+    string? Scenario,
+    string Png,
+    int Width,
+    int Height,
+    double ScaleFactor,
+    string Theme,
+    string TextMeasurementMode,
+    string Platform,
+    string FontProfile,
+    bool IsNonBlank,
+    RuntimeImageIntegrity? RuntimeImageIntegrity,
+    SnapshotFontDiagnostics FontDiagnostics);
