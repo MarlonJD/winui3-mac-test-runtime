@@ -599,19 +599,19 @@ Acceptance:
 Purpose: define and validate the optional Windows reference side for the same
 scenario contract.
 
-- [ ] Add a Windows-only tool plan or implementation for
+- [x] Add a Windows-only tool plan or implementation for
   `tools/WindowsUiAutomationProbe`.
-- [ ] Use `FlaUI 5.0 + FlaUI.UIA3` to launch or attach to a native WinUI app,
+- [x] Use `FlaUI 5.0 + FlaUI.UIA3` to launch or attach to a native WinUI app,
   execute the same scenario automation where possible, and emit:
   - `native-automation.json`;
   - `windows-reference.png` when screenshot capture is requested;
   - `windows-reference.json` provenance;
   - failed action diagnostics.
-- [ ] Reuse `tools/WindowsWindowCapture` for client-area screenshots instead of
+- [x] Reuse `tools/WindowsWindowCapture` for client-area screenshots instead of
   rewriting capture code.
-- [ ] Add Windows-only tests or workflow checks that build the tool without
+- [x] Add Windows-only tests or workflow checks that build the tool without
   running it on macOS.
-- [ ] Do not run GitHub workflows during normal local implementation unless the
+- [x] Do not run GitHub workflows during normal local implementation unless the
   user explicitly asks.
 
 Acceptance:
@@ -620,6 +620,37 @@ Acceptance:
   scenarios.
 - The macOS runtime artifact adapter and native Windows probe speak the same
   scenario vocabulary.
+
+2026-06-15 Track D update:
+
+- Added Windows-only native reference probe project at
+  `tools/WindowsUiAutomationProbe/WindowsUiAutomationProbe.csproj`. macOS builds
+  compile a non-Windows runner that emits skipped diagnostics without launching
+  or attaching to `.exe`/`.msix`; Windows-host builds include `FlaUI.Core 5.0.0`
+  and `FlaUI.UIA3 5.0.0` for native UIA attach/launch execution.
+- Added shared native automation plan/report models under
+  `src/WinUI3.MacRunner/Automation/NativeWindowsAutomationPlan.cs`. The probe
+  consumes the same scenario `automation` entries used by direct macOS
+  ingestion and maps them into native UIA command kinds.
+- Supported native action mappings: `click` -> invoke, `focus` -> focus,
+  `typeText` -> value set, `selectItem` / `selectNavigation` -> selection or
+  invoke, `invokeAccelerator` -> planned keyboard accelerator command,
+  `waitForIdle` -> idle settle, and `assertAccessibilityState` -> recorded UIA
+  state assertion.
+- Unsupported or skipped native actions are reported explicitly:
+  `navigateFrame`, `assertProperty`, `openPopup`, `dismissPopup`, and
+  `invokeMenuItem`; keyboard accelerator injection is planned but skipped by the
+  first native executor until input injection semantics are validated.
+- Probe artifacts are separate from macOS runtime artifacts:
+  `native-automation.json` (`schemaVersion: 0.1`,
+  `referenceSource: native-windows-uia3-flaui`), `windows-reference.json`
+  (`referenceSource: native-winui`, either delegated
+  `WindowsWindowCapture` provenance or skipped capture provenance), and optional
+  `windows-reference.png` when scenario visual capture is requested.
+- Verified locally without native Windows execution:
+  `dotnet build tools/WindowsUiAutomationProbe/WindowsUiAutomationProbe.csproj`,
+  `dotnet test --project tests/WinUI3.MacRunner.Tests/WinUI3.MacRunner.Tests.csproj --filter "NativeWindowsAutomationPlan|AutomationParity"`,
+  and `dotnet build src/WinUI3.MacRunner/WinUI3.MacRunner.csproj`.
 
 ### Phase 8: Automation Parity Report
 
