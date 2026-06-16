@@ -603,7 +603,12 @@ public sealed class SkiaV2SnapshotRenderer : ISnapshotRenderer
 
     private static void DrawTextBlock(SKCanvas canvas, SKPaint paint, SKFont font, UiNode node, SkiaV2Theme theme)
     {
-        var text = ReadText(node) ?? node.Name ?? string.Empty;
+        var text = ReadText(node) ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return;
+        }
+
         var layout = node.Layout!;
         var x = (float)layout.X;
         var metrics = WinUITextMetrics.For(font);
